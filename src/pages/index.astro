@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import Button from '~/components/cta/Button.astro';
 import en from '~/i18n/en.json';
 
 const title = `${en.site.name} — ${en.site.tagline}`;
-const description = 'Coconut shell shisha charcoal briquettes from Semarang, Indonesia. Factory-direct, MOQ 18 tons (one 20ft container). Full export documentation and consistent burn specifications.';
+const description =
+  'Coconut shell shisha charcoal briquettes from Semarang, Indonesia. Factory-direct, MOQ 18 tons (one 20ft container). Full export documentation and consistent burn specifications.';
 ---
 <BaseLayout
   title={title}
@@ -12,47 +14,41 @@ const description = 'Coconut shell shisha charcoal briquettes from Semarang, Ind
   type="website"
   includeOrgSchema
 >
-  <section class="relative overflow-hidden bg-gradient-to-br from-brand via-brand to-slate-900 text-white">
-    <div class="mx-auto max-w-6xl px-4 py-20 md:py-28">
-      <p class="text-sm font-medium uppercase tracking-wide text-brand-gold">
+  <section class="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-dark to-neutral-900 text-white">
+    <div class="mx-auto max-w-7xl px-4 py-24 md:px-8 md:py-32">
+      <p class="text-sm font-medium uppercase tracking-wide text-brand-accent">
         {en.hero.eyebrow}
       </p>
-      <h1 class="mt-4 max-w-3xl text-4xl font-semibold leading-tight md:text-5xl">
+      <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
         {en.hero.title}
       </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-slate-100">
+      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-100">
         {en.hero.subtitle}
       </p>
       <div class="mt-8 flex flex-wrap items-center gap-3">
-        <a
-          href="/contact"
-          class="inline-flex items-center rounded-md bg-white px-5 py-3 text-sm font-semibold text-brand shadow-sm hover:bg-slate-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-        >
+        <Button href="/contact" variant="primary" size="lg">
           {en.cta.inquire}
-        </a>
-        <a
-          href="/products"
-          class="inline-flex items-center rounded-md border border-white/30 px-5 py-3 text-sm font-semibold text-white hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
-        >
+        </Button>
+        <Button href="/products" variant="secondary" size="lg">
           {en.cta.viewProducts}
-        </a>
+        </Button>
       </div>
     </div>
   </section>
 
-  <section aria-label="Trust signals" class="border-b border-slate-200 bg-slate-50">
-    <div class="mx-auto grid max-w-6xl gap-6 px-4 py-8 sm:grid-cols-3">
+  <section aria-label="Trust signals" class="border-b border-neutral-200 bg-neutral-50">
+    <div class="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-3 md:px-8">
       <div class="text-sm">
-        <p class="text-xs uppercase tracking-wide text-slate-500">{en.hero.trust.moqLabel}</p>
-        <p class="mt-1 font-semibold text-slate-900">{en.hero.trust.moqValue}</p>
+        <p class="text-xs uppercase tracking-wide text-neutral-500">{en.hero.trust.moqLabel}</p>
+        <p class="mt-1 font-semibold text-neutral-900">{en.hero.trust.moqValue}</p>
       </div>
       <div class="text-sm">
-        <p class="text-xs uppercase tracking-wide text-slate-500">{en.hero.trust.portLabel}</p>
-        <p class="mt-1 font-semibold text-slate-900">{en.hero.trust.portValue}</p>
+        <p class="text-xs uppercase tracking-wide text-neutral-500">{en.hero.trust.portLabel}</p>
+        <p class="mt-1 font-semibold text-neutral-900">{en.hero.trust.portValue}</p>
       </div>
       <div class="text-sm">
-        <p class="text-xs uppercase tracking-wide text-slate-500">{en.hero.trust.leadLabel}</p>
-        <p class="mt-1 font-semibold text-slate-900">{en.hero.trust.leadValue}</p>
+        <p class="text-xs uppercase tracking-wide text-neutral-500">{en.hero.trust.leadLabel}</p>
+        <p class="mt-1 font-semibold text-neutral-900">{en.hero.trust.leadValue}</p>
       </div>
     </div>
   </section>

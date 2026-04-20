@@ -23,10 +23,10 @@ const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
   data-event="whatsapp_click"
   data-source-component={floating ? 'floating' : 'inline'}
   class:list={[
-    'inline-flex items-center gap-2 rounded-md bg-green-600 font-medium text-white shadow-sm transition-colors hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-700',
+    'inline-flex items-center gap-2 rounded-md bg-success font-semibold text-white shadow-sm transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success active:scale-[0.98]',
     floating
-      ? 'fixed bottom-4 end-4 z-40 h-14 w-14 items-center justify-center rounded-full p-0 text-base shadow-lg md:h-auto md:w-auto md:gap-2 md:rounded-full md:px-5 md:py-3'
-      : 'px-4 py-2.5 text-sm',
+      ? 'fixed bottom-4 end-4 z-40 h-14 w-14 items-center justify-center rounded-full p-0 shadow-lg md:h-auto md:w-auto md:gap-2 md:rounded-full md:px-6 md:py-3'
+      : 'px-6 py-3 text-base',
   ]}
 >
   <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor">

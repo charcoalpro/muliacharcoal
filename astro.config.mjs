@@ -7,7 +7,9 @@ export default defineConfig({
   output: 'static',
   trailingSlash: 'never',
   integrations: [
-    sitemap(),
+    sitemap({
+      filter: (page) => !page.includes('/dev/'),
+    }),
     tailwind({ applyBaseStyles: true }),
   ],
   build: {

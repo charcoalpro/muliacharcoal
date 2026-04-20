@@ -1,5 +1,6 @@
 ---
 import en from '~/i18n/en.json';
+import Button from '~/components/cta/Button.astro';
 
 const links = [
   { href: '/products', label: en.nav.products },
@@ -14,9 +15,9 @@ const links = [
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<header class="border-b border-slate-200 bg-white">
-  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
-    <a href="/" class="flex items-center gap-2 text-brand" aria-label={en.site.name}>
+<header class="sticky top-0 z-30 border-b border-neutral-200 bg-white/95 backdrop-blur">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-8">
+    <a href="/" class="flex items-center gap-2 text-brand-primary" aria-label={en.site.name}>
       <span class="text-lg font-semibold">{en.site.name}</span>
     </a>
 
@@ -29,8 +30,8 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
               <a
                 href={link.href}
                 class:list={[
-                  'inline-block py-2 transition-colors hover:text-brand',
-                  isCurrent ? 'font-semibold text-brand' : 'text-slate-700',
+                  'inline-block py-2 transition-colors hover:text-brand-primary',
+                  isCurrent ? 'font-semibold text-brand-primary' : 'text-neutral-700',
                 ]}
                 aria-current={isCurrent ? 'page' : undefined}
               >
@@ -43,12 +44,11 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
     </nav>
 
     <div class="flex items-center gap-2">
-      <button
-        type="button"
-        aria-label={en.nav.languageSwitcher}
-        class="inline-flex items-center gap-1.5 rounded-md border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:border-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-70"
+      <Button
+        variant="secondary"
+        size="sm"
         disabled
-        title="More languages coming soon"
+        aria-label={en.nav.languageSwitcher}
       >
         <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.75">
           <circle cx="12" cy="12" r="9" />
@@ -57,7 +57,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
           <path d="M12 3a14 14 0 0 0 0 18" stroke-linecap="round" />
         </svg>
         <span>{en.nav.currentLanguage}</span>
-      </button>
+      </Button>
     </div>
   </div>
 </header>
