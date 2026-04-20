@@ -1,0 +1,46 @@
+---
+import en from '~/i18n/en.json';
+
+const year = new Date().getFullYear();
+---
+<footer class="border-t border-slate-200 bg-slate-50">
+  <div class="mx-auto max-w-6xl px-4 py-12">
+    <div class="grid gap-8 md:grid-cols-4">
+      <div>
+        <p class="font-semibold text-brand">{en.site.name}</p>
+        <p class="mt-2 text-sm text-slate-600">{en.footer.legalName}</p>
+        <p class="mt-1 text-sm text-slate-600">{en.footer.address}</p>
+      </div>
+
+      <nav aria-label={en.footer.resources}>
+        <h2 class="text-sm font-semibold text-slate-900">{en.footer.resources}</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/faq" class="text-slate-600 hover:text-brand">{en.footer.faq}</a></li>
+          <li><a href="/samples" class="text-slate-600 hover:text-brand">{en.footer.samples}</a></li>
+          <li><a href="/blog" class="text-slate-600 hover:text-brand">{en.footer.blog}</a></li>
+          <li><a href="/glossary" class="text-slate-600 hover:text-brand">{en.footer.glossary}</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label={en.footer.company}>
+        <h2 class="text-sm font-semibold text-slate-900">{en.footer.company}</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/about" class="text-slate-600 hover:text-brand">{en.footer.about}</a></li>
+          <li><a href="/contact" class="text-slate-600 hover:text-brand">{en.nav.contact}</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-label={en.footer.legal}>
+        <h2 class="text-sm font-semibold text-slate-900">{en.footer.legal}</h2>
+        <ul class="mt-3 space-y-2 text-sm">
+          <li><a href="/privacy" class="text-slate-600 hover:text-brand">{en.footer.privacy}</a></li>
+          <li><a href="/terms" class="text-slate-600 hover:text-brand">{en.footer.terms}</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <p class="mt-10 text-xs text-slate-500">
+      &copy; {year} {en.footer.legalName}. {en.footer.copyright}
+    </p>
+  </div>
+</footer>

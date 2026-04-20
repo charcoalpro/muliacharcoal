@@ -1,0 +1,61 @@
+---
+import en from '~/i18n/en.json';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  image?: string;
+  type?: 'website' | 'article' | 'product';
+  locale?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description,
+  path = Astro.url.pathname,
+  image = '/og-default.png',
+  type = 'website',
+  locale = 'en_US',
+  noIndex = false,
+} = Astro.props;
+
+const siteBase = (Astro.site?.toString() ?? 'https://muliacharcoal.com').replace(/\/$/, '');
+
+const normalizePath = (p: string) => {
+  if (p === '/' || p === '') return '';
+  return '/' + p.replace(/^\/+/, '').replace(/\/+$/, '');
+};
+
+const canonical = `${siteBase}${normalizePath(path)}` || siteBase;
+const ogImage = image.startsWith('http') ? image : `${siteBase}${image}`;
+
+const fullTitle = title.includes(en.site.name) ? title : `${title} | ${en.site.name}`;
+
+const languages: Array<{ code: string; path: string }> = [
+  { code: 'en', path },
+];
+---
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content={type} />
+<meta property="og:locale" content={locale} />
+<meta property="og:site_name" content={en.site.name} />
+<meta property="og:image" content={ogImage} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{languages.map((lang) => (
+  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />
+))}
+<link rel="alternate" hreflang="x-default" href={canonical} />

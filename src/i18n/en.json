@@ -1,0 +1,63 @@
+{
+  "site": {
+    "name": "Mulia Charcoal",
+    "tagline": "Coconut shell charcoal briquettes, factory-direct from Semarang"
+  },
+  "nav": {
+    "products": "Products",
+    "factory": "Factory",
+    "logistics": "Logistics",
+    "quality": "Quality",
+    "guide": "Buyer's Guide",
+    "markets": "Markets",
+    "packaging": "Packaging",
+    "contact": "Contact",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "languageSwitcher": "Change language",
+    "mainNav": "Main",
+    "currentLanguage": "EN"
+  },
+  "cta": {
+    "whatsapp": "WhatsApp us",
+    "whatsappAria": "Chat with us on WhatsApp",
+    "inquire": "Request a quote",
+    "requestSample": "Request a sample",
+    "viewProducts": "View products",
+    "backHome": "Back to home"
+  },
+  "hero": {
+    "eyebrow": "Factory-direct coconut shell charcoal",
+    "title": "Shisha charcoal briquettes for importers who run the numbers",
+    "subtitle": "18-ton container loads from our Semarang factory. Full export documentation, consistent burn specifications, and samples you can verify in the lab before you commit.",
+    "trust": {
+      "moqLabel": "Minimum order",
+      "moqValue": "18 tons (one 20ft container)",
+      "portLabel": "Port of loading",
+      "portValue": "FOB Semarang, Indonesia",
+      "leadLabel": "Production lead time",
+      "leadValue": "14–21 days"
+    }
+  },
+  "footer": {
+    "about": "About",
+    "legal": "Legal",
+    "privacy": "Privacy policy",
+    "terms": "Terms",
+    "resources": "Resources",
+    "faq": "FAQ",
+    "samples": "Samples",
+    "blog": "Blog",
+    "glossary": "Glossary",
+    "company": "Company",
+    "legalName": "PT Coco Reina Global Charcoal Indonesia",
+    "address": "Semarang, Central Java, Indonesia",
+    "copyright": "All rights reserved."
+  },
+  "notFound": {
+    "code": "404",
+    "title": "Page not found",
+    "description": "The page you were looking for doesn't exist, or it may have moved."
+  }
+}

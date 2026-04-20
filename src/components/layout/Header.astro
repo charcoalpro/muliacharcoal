@@ -1,0 +1,63 @@
+---
+import en from '~/i18n/en.json';
+
+const links = [
+  { href: '/products', label: en.nav.products },
+  { href: '/factory', label: en.nav.factory },
+  { href: '/logistics', label: en.nav.logistics },
+  { href: '/quality', label: en.nav.quality },
+  { href: '/guide', label: en.nav.guide },
+  { href: '/markets', label: en.nav.markets },
+  { href: '/packaging', label: en.nav.packaging },
+  { href: '/contact', label: en.nav.contact },
+];
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="border-b border-slate-200 bg-white">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-4">
+    <a href="/" class="flex items-center gap-2 text-brand" aria-label={en.site.name}>
+      <span class="text-lg font-semibold">{en.site.name}</span>
+    </a>
+
+    <nav aria-label={en.nav.mainNav} class="hidden lg:block">
+      <ul class="flex items-center gap-5 text-sm">
+        {links.map((link) => {
+          const isCurrent = pathname === link.href || pathname.startsWith(link.href + '/');
+          return (
+            <li>
+              <a
+                href={link.href}
+                class:list={[
+                  'inline-block py-2 transition-colors hover:text-brand',
+                  isCurrent ? 'font-semibold text-brand' : 'text-slate-700',
+                ]}
+                aria-current={isCurrent ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <button
+        type="button"
+        aria-label={en.nav.languageSwitcher}
+        class="inline-flex items-center gap-1.5 rounded-md border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-700 hover:border-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-70"
+        disabled
+        title="More languages coming soon"
+      >
+        <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.75">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M3 12h18" stroke-linecap="round" />
+          <path d="M12 3a14 14 0 0 1 0 18" stroke-linecap="round" />
+          <path d="M12 3a14 14 0 0 0 0 18" stroke-linecap="round" />
+        </svg>
+        <span>{en.nav.currentLanguage}</span>
+      </button>
+    </div>
+  </div>
+</header>

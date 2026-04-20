@@ -1,0 +1,38 @@
+---
+import en from '~/i18n/en.json';
+
+const siteBase = (Astro.site?.toString() ?? 'https://muliacharcoal.com').replace(/\/$/, '');
+
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteBase}/#organization`,
+      name: en.site.name,
+      legalName: en.footer.legalName,
+      url: siteBase,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteBase}/logo.png`,
+      },
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Semarang',
+        addressRegion: 'Central Java',
+        addressCountry: 'ID',
+      },
+      sameAs: [],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteBase}/#website`,
+      url: siteBase,
+      name: en.site.name,
+      publisher: { '@id': `${siteBase}/#organization` },
+      inLanguage: 'en',
+    },
+  ],
+};
+---
+<script type="application/ld+json" set:html={JSON.stringify(graph)} />
