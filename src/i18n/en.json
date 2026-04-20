@@ -4,6 +4,7 @@
     "tagline": "Coconut shell charcoal briquettes, factory-direct from Semarang"
   },
   "nav": {
+    "home": "Home",
     "products": "Products",
     "factory": "Factory",
     "logistics": "Logistics",
@@ -18,6 +19,13 @@
     "languageSwitcher": "Change language",
     "mainNav": "Main",
     "currentLanguage": "EN"
+  },
+  "breadcrumb": {
+    "label": "Breadcrumb"
+  },
+  "ctaBanner": {
+    "title": "Ready to discuss a container load?",
+    "subtitle": "Tell us your target specs, destination port, and timeline. We quote the same day in most time zones."
   },
   "cta": {
     "whatsapp": "WhatsApp us",

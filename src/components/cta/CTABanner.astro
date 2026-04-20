@@ -1,0 +1,113 @@
+---
+/**
+ * CTABanner — mid/end-of-page conversion prompt.
+ *
+ * Per DESIGN.md § CTA banner. Default primary CTA is a WhatsApp click-to-chat
+ * link built from src/lib/contact.ts; default secondary CTA is the inquiry
+ * form. Pass explicit `primaryCta` / `secondaryCta` to override.
+ */
+
+import en from '~/i18n/en.json';
+import Button from '~/components/cta/Button.astro';
+import { whatsappHref, WHATSAPP_DEFAULT_MESSAGE } from '~/lib/contact';
+
+interface CTA {
+  label: string;
+  href: string;
+  ariaLabel?: string;
+  target?: string;
+  rel?: string;
+}
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  primaryCta?: CTA;
+  secondaryCta?: CTA;
+  /** Optional WhatsApp pre-filled message; only used when primaryCta is omitted. */
+  whatsappMessage?: string;
+  variant?: 'dark' | 'light';
+  class?: string;
+}
+
+const {
+  title = en.ctaBanner.title,
+  subtitle = en.ctaBanner.subtitle,
+  primaryCta,
+  secondaryCta,
+  whatsappMessage = WHATSAPP_DEFAULT_MESSAGE,
+  variant = 'dark',
+  class: className,
+} = Astro.props;
+
+const resolvedPrimary: CTA = primaryCta ?? {
+  label: en.cta.whatsapp,
+  href: whatsappHref(whatsappMessage),
+  ariaLabel: en.cta.whatsappAria,
+  target: '_blank',
+  rel: 'noopener',
+};
+
+const resolvedSecondary: CTA | undefined = secondaryCta ?? {
+  label: en.cta.inquire,
+  href: '/contact',
+};
+
+const isDark = variant === 'dark';
+---
+<section
+  class:list={[
+    isDark
+      ? 'bg-brand-dark text-white'
+      : 'bg-neutral-50 text-neutral-900',
+    className,
+  ]}
+>
+  <div class="mx-auto flex max-w-5xl flex-col items-start gap-6 px-4 py-12 md:flex-row md:items-center md:justify-between md:px-8 md:py-16">
+    <div class="max-w-2xl">
+      <h2
+        class:list={[
+          'text-2xl font-bold md:text-3xl',
+          isDark ? 'text-white' : 'text-neutral-900',
+        ]}
+      >
+        {title}
+      </h2>
+      {subtitle && (
+        <p
+          class:list={[
+            'mt-3 text-base md:text-lg',
+            isDark ? 'text-neutral-200' : 'text-neutral-600',
+          ]}
+        >
+          {subtitle}
+        </p>
+      )}
+    </div>
+    <div class="flex flex-wrap items-center gap-3">
+      <Button
+        href={resolvedPrimary.href}
+        variant="primary"
+        size="lg"
+        aria-label={resolvedPrimary.ariaLabel}
+        target={resolvedPrimary.target}
+        rel={resolvedPrimary.rel}
+      >
+        {resolvedPrimary.label}
+      </Button>
+      {resolvedSecondary && (
+        <Button
+          href={resolvedSecondary.href}
+          variant={isDark ? 'ghost' : 'secondary'}
+          size="lg"
+          class={isDark ? 'text-white hover:bg-white/10' : undefined}
+          aria-label={resolvedSecondary.ariaLabel}
+          target={resolvedSecondary.target}
+          rel={resolvedSecondary.rel}
+        >
+          {resolvedSecondary.label}
+        </Button>
+      )}
+    </div>
+  </div>
+</section>

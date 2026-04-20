@@ -1,5 +1,6 @@
 ---
 import en from '~/i18n/en.json';
+import { WHATSAPP_PHONE, WHATSAPP_DEFAULT_MESSAGE, whatsappHref } from '~/lib/contact';
 
 interface Props {
   phone?: string;
@@ -8,12 +9,16 @@ interface Props {
 }
 
 const {
-  phone = '6281234567890',
-  message = 'Hello, I am interested in your coconut charcoal briquettes.',
+  phone = WHATSAPP_PHONE,
+  message = WHATSAPP_DEFAULT_MESSAGE,
   floating = false,
 } = Astro.props;
 
-const href = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+// Use helper when defaults apply; otherwise build manually to honor overrides.
+const href =
+  phone === WHATSAPP_PHONE
+    ? whatsappHref(message)
+    : `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
 ---
 <a
   href={href}

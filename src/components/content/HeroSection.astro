@@ -1,0 +1,134 @@
+---
+/**
+ * HeroSection — page-level hero primitive.
+ *
+ * Per DESIGN.md § Hero. One H1 per page — the `title` prop renders as <h1>,
+ * so do not place a second <h1> on the same page. Use `variant="dark"` for
+ * the homepage gradient (brand-dark → neutral-900) and light hero on interior
+ * pages. CTAs are optional; pass at least one primaryCta on conversion pages.
+ */
+
+import Button from '~/components/cta/Button.astro';
+
+interface CTA {
+  label: string;
+  href: string;
+  ariaLabel?: string;
+  target?: string;
+  rel?: string;
+  dataEvent?: string;
+  dataSourceComponent?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  title: string;
+  subtitle?: string;
+  primaryCta?: CTA;
+  secondaryCta?: CTA;
+  variant?: 'dark' | 'light';
+  align?: 'start' | 'center';
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  primaryCta,
+  secondaryCta,
+  variant = 'light',
+  align = 'start',
+  class: className,
+} = Astro.props;
+
+const isDark = variant === 'dark';
+const isCenter = align === 'center';
+---
+<section
+  class:list={[
+    'relative',
+    isDark
+      ? 'bg-gradient-to-br from-brand-dark via-brand-dark to-neutral-900 text-white'
+      : 'bg-white text-neutral-900',
+    className,
+  ]}
+>
+  <div
+    class:list={[
+      'mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24',
+      isCenter && 'text-center',
+    ]}
+  >
+    <div
+      class:list={[
+        'max-w-3xl',
+        isCenter && 'mx-auto',
+      ]}
+    >
+      {eyebrow && (
+        <p
+          class:list={[
+            'text-sm font-medium uppercase tracking-wide',
+            isDark ? 'text-brand-accent' : 'text-brand-accent',
+          ]}
+        >
+          {eyebrow}
+        </p>
+      )}
+      <h1
+        class:list={[
+          'mt-3 text-3xl font-bold md:text-4xl lg:text-5xl',
+          isDark ? 'text-white' : 'text-neutral-900',
+        ]}
+      >
+        {title}
+      </h1>
+      {subtitle && (
+        <p
+          class:list={[
+            'mt-5 text-lg md:text-xl',
+            isDark ? 'text-neutral-200' : 'text-neutral-600',
+          ]}
+        >
+          {subtitle}
+        </p>
+      )}
+      {(primaryCta || secondaryCta) && (
+        <div
+          class:list={[
+            'mt-8 flex flex-wrap items-center gap-3',
+            isCenter && 'justify-center',
+          ]}
+        >
+          {primaryCta && (
+            <Button
+              href={primaryCta.href}
+              variant="primary"
+              size="lg"
+              aria-label={primaryCta.ariaLabel}
+              target={primaryCta.target}
+              rel={primaryCta.rel}
+            >
+              {primaryCta.label}
+            </Button>
+          )}
+          {secondaryCta && (
+            <Button
+              href={secondaryCta.href}
+              variant={isDark ? 'ghost' : 'secondary'}
+              size="lg"
+              class={isDark ? 'text-white hover:bg-white/10' : undefined}
+              aria-label={secondaryCta.ariaLabel}
+              target={secondaryCta.target}
+              rel={secondaryCta.rel}
+            >
+              {secondaryCta.label}
+            </Button>
+          )}
+        </div>
+      )}
+      <slot />
+    </div>
+  </div>
+</section>

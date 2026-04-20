@@ -1,0 +1,81 @@
+---
+/**
+ * Breadcrumbs — visible trail + BreadcrumbList JSON-LD from a single source.
+ *
+ * Per DESIGN.md § Breadcrumbs. Use on every page deeper than one level.
+ * The current page is the last item in `items` and must omit `href` — it
+ * renders as a span with aria-current="page".
+ *
+ * Home is auto-prepended unless `includeHome={false}`. Pass `includeHome={false}`
+ * when the root of the trail is not the site home (rare).
+ */
+
+import en from '~/i18n/en.json';
+import JsonLd from '~/components/seo/JsonLd.astro';
+
+interface Item {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Item[];
+  includeHome?: boolean;
+  class?: string;
+}
+
+const { items, includeHome = true, class: className } = Astro.props;
+
+const trail: Item[] = includeHome
+  ? [{ label: en.nav.home, href: '/' }, ...items]
+  : items;
+
+// Absolute URLs for schema — Astro.site is set in astro.config.mjs.
+const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : '';
+const absolute = (href?: string) =>
+  href ? (href.startsWith('http') ? href : `${siteOrigin}${href}`) : undefined;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: trail.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.label,
+    ...(absolute(item.href) ? { item: absolute(item.href) } : {}),
+  })),
+};
+---
+<nav
+  aria-label={en.breadcrumb.label}
+  class:list={['text-sm text-neutral-600', className]}
+>
+  <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+    {trail.map((item, index) => {
+      const isLast = index === trail.length - 1;
+      return (
+        <li class="flex items-center gap-2">
+          {isLast || !item.href ? (
+            <span
+              class="font-medium text-neutral-900"
+              aria-current={isLast ? 'page' : undefined}
+            >
+              {item.label}
+            </span>
+          ) : (
+            <a
+              href={item.href}
+              class="rounded-sm transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+            >
+              {item.label}
+            </a>
+          )}
+          {!isLast && (
+            <span aria-hidden="true" class="text-neutral-400 select-none">/</span>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+<JsonLd data={schema} />

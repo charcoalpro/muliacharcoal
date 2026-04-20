@@ -2,6 +2,9 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Button from '~/components/cta/Button.astro';
 import Logo from '~/components/layout/Logo.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
 
 const variants = ['primary', 'secondary', 'ghost', 'danger'] as const;
 const sizes = ['sm', 'md', 'lg'] as const;
@@ -129,6 +132,90 @@ const typeScale = [
         <div class="flex flex-wrap items-center gap-3">
           <Button href="/" variant="primary">Link (renders &lt;a&gt;)</Button>
           <Button variant="primary" type="button">Button (renders &lt;button&gt;)</Button>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="breadcrumbs-heading" class="mb-16">
+      <h2 id="breadcrumbs-heading" class="text-2xl font-bold text-neutral-900">Breadcrumbs</h2>
+      <p class="mt-2 text-sm text-neutral-600">
+        Auto-prepends Home and auto-emits <code class="rounded bg-neutral-100 px-1 py-0.5 font-mono text-xs">BreadcrumbList</code> JSON-LD.
+        Last item has <code class="rounded bg-neutral-100 px-1 py-0.5 font-mono text-xs">aria-current="page"</code> and no link.
+      </p>
+      <div class="mt-6 space-y-4">
+        <div class="rounded-xl border border-neutral-200 bg-white p-6">
+          <p class="mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500">Two-level (Products &rsaquo; Cube 25mm)</p>
+          <Breadcrumbs
+            items={[
+              { label: 'Products', href: '/products' },
+              { label: 'Cube 25mm' },
+            ]}
+          />
+        </div>
+        <div class="rounded-xl border border-neutral-200 bg-white p-6">
+          <p class="mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500">Three-level (Products &rsaquo; Cubes &rsaquo; Cube 25mm)</p>
+          <Breadcrumbs
+            items={[
+              { label: 'Products', href: '/products' },
+              { label: 'Cubes', href: '/products/cubes' },
+              { label: 'Cube 25mm' },
+            ]}
+          />
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="hero-heading" class="mb-16">
+      <h2 id="hero-heading" class="text-2xl font-bold text-neutral-900">Hero section</h2>
+      <p class="mt-2 text-sm text-neutral-600">
+        Renders <code class="rounded bg-neutral-100 px-1 py-0.5 font-mono text-xs">&lt;h1&gt;</code> — one per page. Dark variant uses the
+        homepage gradient; light variant for interior pages.
+      </p>
+      <div class="mt-6 space-y-4">
+        <div class="overflow-hidden rounded-xl border border-dashed border-neutral-300">
+          <p class="bg-neutral-50 px-4 py-2 text-xs font-medium uppercase tracking-wide text-neutral-500">Dark variant, start-aligned</p>
+          <HeroSection
+            variant="dark"
+            eyebrow="Factory-direct coconut shell charcoal"
+            title="Shisha charcoal briquettes for importers who run the numbers"
+            subtitle="18-ton container loads from our Semarang factory. Full export documentation, consistent burn specifications, and samples you can verify in the lab before you commit."
+            primaryCta={{ label: 'WhatsApp us', href: '#', ariaLabel: 'Chat with us on WhatsApp' }}
+            secondaryCta={{ label: 'View products', href: '#' }}
+          />
+        </div>
+        <div class="overflow-hidden rounded-xl border border-dashed border-neutral-300">
+          <p class="bg-neutral-50 px-4 py-2 text-xs font-medium uppercase tracking-wide text-neutral-500">Light variant, center-aligned</p>
+          <HeroSection
+            variant="light"
+            align="center"
+            eyebrow="Buyer's guide"
+            title="How to choose a shisha charcoal factory"
+            subtitle="What importers verify before placing the first 20ft container order — audit, testing, and documentation checklist."
+            primaryCta={{ label: 'Request a sample', href: '#' }}
+          />
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="cta-banner-heading" class="mb-16">
+      <h2 id="cta-banner-heading" class="text-2xl font-bold text-neutral-900">CTA banner</h2>
+      <p class="mt-2 text-sm text-neutral-600">
+        Defaults to WhatsApp (primary) + inquiry form (secondary). WhatsApp link resolves through
+        <code class="rounded bg-neutral-100 px-1 py-0.5 font-mono text-xs">src/lib/contact.ts</code>.
+      </p>
+      <div class="mt-6 space-y-4">
+        <div class="overflow-hidden rounded-xl border border-dashed border-neutral-300">
+          <p class="bg-neutral-50 px-4 py-2 text-xs font-medium uppercase tracking-wide text-neutral-500">Dark variant, defaults</p>
+          <CTABanner />
+        </div>
+        <div class="overflow-hidden rounded-xl border border-dashed border-neutral-300">
+          <p class="bg-neutral-50 px-4 py-2 text-xs font-medium uppercase tracking-wide text-neutral-500">Light variant, custom copy</p>
+          <CTABanner
+            variant="light"
+            title="Need matching private label packaging?"
+            subtitle="OEM print runs from 500 master cartons. Your artwork on our briquettes, shipped under your brand."
+            secondaryCta={{ label: 'Packaging options', href: '/packaging' }}
+          />
         </div>
       </div>
     </section>
