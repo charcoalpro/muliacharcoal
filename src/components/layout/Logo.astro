@@ -1,0 +1,40 @@
+---
+/**
+ * Logo — SVG M-mark + wordmark placeholder. Replace the SVG inline
+ * with the real brand mark once finalized. Keep the outer structure
+ * so the swap is a one-file change.
+ */
+import en from '~/i18n/en.json';
+
+interface Props {
+  showWordmark?: boolean;
+  class?: string;
+}
+
+const { showWordmark = true, class: className } = Astro.props;
+---
+<span
+  class:list={['inline-flex items-center gap-2', className]}
+  aria-label={en.site.name}
+>
+  <svg
+    aria-hidden="true"
+    viewBox="0 0 64 64"
+    class="h-8 w-8 flex-none"
+    role="img"
+  >
+    <rect width="64" height="64" rx="12" fill="#0f3d2e" />
+    <text
+      x="32"
+      y="42"
+      font-family="system-ui, -apple-system, sans-serif"
+      font-size="32"
+      font-weight="700"
+      text-anchor="middle"
+      fill="#c9a24b"
+    >M</text>
+  </svg>
+  {showWordmark && (
+    <span class="text-lg font-semibold text-brand-primary">{en.site.name}</span>
+  )}
+</span>

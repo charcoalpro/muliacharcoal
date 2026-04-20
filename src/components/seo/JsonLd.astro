@@ -1,0 +1,15 @@
+---
+/**
+ * JsonLd — thin wrapper around <script type="application/ld+json">.
+ * Use this for every schema.org graph (Organization, Product, Article,
+ * BreadcrumbList, FAQPage, LocalBusiness). Serializes the data prop
+ * with JSON.stringify; do not pre-stringify before passing in.
+ */
+
+interface Props {
+  data: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { data } = Astro.props;
+---
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

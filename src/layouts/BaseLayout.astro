@@ -1,10 +1,20 @@
 ---
 import SEO from '~/components/seo/SEO.astro';
+import JsonLd from '~/components/seo/JsonLd.astro';
 import OrganizationSchema from '~/components/seo/OrganizationSchema.astro';
 import Header from '~/components/layout/Header.astro';
 import Footer from '~/components/layout/Footer.astro';
 import SkipLink from '~/components/layout/SkipLink.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+
+interface PreloadHint {
+  href: string;
+  as: 'image' | 'style' | 'script' | 'font';
+  type?: string;
+  crossorigin?: '' | 'anonymous' | 'use-credentials';
+  imagesrcset?: string;
+  imagesizes?: string;
+}
 
 interface Props {
   title: string;
@@ -16,6 +26,12 @@ interface Props {
   lang?: string;
   dir?: 'ltr' | 'rtl';
   includeOrgSchema?: boolean;
+  /** Resources to preload — use for the hero image and logo on pages where they matter for LCP. */
+  preload?: PreloadHint[];
+  /** URLs to prefetch — use for the primary next-page navigation target on each page. */
+  prefetch?: string[];
+  /** Page-specific JSON-LD schema. Pass an object (single graph) or array (multiple). */
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
 const {
@@ -28,6 +44,9 @@ const {
   lang = 'en',
   dir = 'ltr',
   includeOrgSchema = false,
+  preload = [],
+  prefetch = [],
+  schema,
 } = Astro.props;
 ---
 <!doctype html>
@@ -36,10 +55,26 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#0f3d2e" />
+    <meta name="format-detection" content="telephone=no" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
     <link rel="preconnect" href="https://api.web3forms.com" crossorigin />
+
+    {preload.map((hint) => (
+      <link
+        rel="preload"
+        href={hint.href}
+        as={hint.as}
+        type={hint.type}
+        crossorigin={hint.crossorigin}
+        imagesrcset={hint.imagesrcset}
+        imagesizes={hint.imagesizes}
+      />
+    ))}
+    {prefetch.map((href) => (
+      <link rel="prefetch" href={href} />
+    ))}
 
     <SEO
       title={title}
@@ -50,6 +85,7 @@ const {
       noIndex={noIndex}
     />
     {includeOrgSchema && <OrganizationSchema />}
+    {schema && <JsonLd data={schema} />}
   </head>
   <body class="flex min-h-full flex-col bg-white font-sans text-base leading-relaxed text-neutral-800">
     <SkipLink />

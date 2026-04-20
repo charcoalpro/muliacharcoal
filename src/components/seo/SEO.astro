@@ -15,7 +15,7 @@ const {
   title,
   description,
   path = Astro.url.pathname,
-  image = '/og-default.png',
+  image,
   type = 'website',
   locale = 'en_US',
   noIndex = false,
@@ -29,7 +29,9 @@ const normalizePath = (p: string) => {
 };
 
 const canonical = `${siteBase}${normalizePath(path)}` || siteBase;
-const ogImage = image.startsWith('http') ? image : `${siteBase}${image}`;
+const ogImage = image
+  ? (image.startsWith('http') ? image : `${siteBase}${image}`)
+  : null;
 
 const fullTitle = title.includes(en.site.name) ? title : `${title} | ${en.site.name}`;
 
@@ -40,7 +42,10 @@ const languages: Array<{ code: string; path: string }> = [
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
-{noIndex && <meta name="robots" content="noindex, nofollow" />}
+{noIndex
+  ? <meta name="robots" content="noindex, nofollow" />
+  : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+}
 
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
@@ -48,12 +53,12 @@ const languages: Array<{ code: string; path: string }> = [
 <meta property="og:type" content={type} />
 <meta property="og:locale" content={locale} />
 <meta property="og:site_name" content={en.site.name} />
-<meta property="og:image" content={ogImage} />
+{ogImage && <meta property="og:image" content={ogImage} />}
 
-<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
-<meta name="twitter:image" content={ogImage} />
+{ogImage && <meta name="twitter:image" content={ogImage} />}
 
 {languages.map((lang) => (
   <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />

@@ -1,9 +1,22 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Button from '~/components/cta/Button.astro';
+import Logo from '~/components/layout/Logo.astro';
 
 const variants = ['primary', 'secondary', 'ghost', 'danger'] as const;
 const sizes = ['sm', 'md', 'lg'] as const;
+
+const typeScale = [
+  { role: 'Display / Hero H1', cls: 'text-3xl font-bold md:text-4xl lg:text-5xl', sample: 'Shisha charcoal briquettes' },
+  { role: 'Page H1', cls: 'text-2xl font-bold md:text-3xl lg:text-4xl', sample: 'Products' },
+  { role: 'Section H2', cls: 'text-xl font-bold md:text-2xl lg:text-3xl', sample: 'Production process' },
+  { role: 'Subsection H3', cls: 'text-2xl font-semibold', sample: 'Cube 25mm' },
+  { role: 'Minor heading H4', cls: 'text-xl font-semibold', sample: 'Burn specifications' },
+  { role: 'Lead paragraph', cls: 'text-lg', sample: 'Factory-direct from Semarang, Indonesia.' },
+  { role: 'Body', cls: 'text-base', sample: 'Standard body copy for articles, specs, and long-form content.' },
+  { role: 'Caption / small', cls: 'text-sm text-neutral-600', sample: 'Last updated 2026-04-20' },
+  { role: 'Fine print', cls: 'text-xs text-neutral-500', sample: 'Prices in USD, FOB Semarang.' },
+];
 ---
 <BaseLayout
   title="Component gallery"
@@ -16,12 +29,30 @@ const sizes = ['sm', 'md', 'lg'] as const;
       <p class="text-sm font-medium uppercase tracking-wide text-brand-accent">Internal</p>
       <h1 class="mt-2 text-3xl font-bold text-neutral-900 md:text-4xl">Component gallery</h1>
       <p class="mt-4 max-w-2xl text-base text-neutral-600">
-        Visual QA for every design system primitive. Not indexed, not in the sitemap. When
-        a component changes, add every variant × size × state here first.
+        Visual QA for every design system primitive. Not indexed, filtered from the sitemap.
+        When a component changes, add every variant × size × state here first.
+      </p>
+      <p class="mt-3 max-w-2xl text-sm text-neutral-500">
+        Tip: press <kbd class="rounded border border-neutral-300 bg-neutral-50 px-1.5 py-0.5 font-mono text-xs">Tab</kbd>
+        to cycle through interactive elements and verify focus rings render on every one.
       </p>
     </header>
 
-    <section aria-labelledby="buttons-heading" class="space-y-12">
+    <section aria-labelledby="logo-heading" class="mb-16">
+      <h2 id="logo-heading" class="text-2xl font-bold text-neutral-900">Logo</h2>
+      <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <div class="rounded-xl border border-neutral-200 bg-white p-6">
+          <p class="mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500">With wordmark</p>
+          <Logo />
+        </div>
+        <div class="rounded-xl border border-neutral-200 bg-white p-6">
+          <p class="mb-3 text-xs font-medium uppercase tracking-wide text-neutral-500">Mark only</p>
+          <Logo showWordmark={false} />
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="buttons-heading" class="mb-16 space-y-12">
       <h2 id="buttons-heading" class="text-2xl font-bold text-neutral-900">Buttons</h2>
 
       <div>
@@ -50,6 +81,11 @@ const sizes = ['sm', 'md', 'lg'] as const;
             </tbody>
           </table>
         </div>
+        <p class="mt-3 text-sm text-neutral-500">
+          All buttons meet the 44×44px mobile touch target via <code class="rounded bg-neutral-100 px-1 py-0.5 font-mono text-xs">min-h-11</code>,
+          which relaxes at <code class="rounded bg-neutral-100 px-1 py-0.5 font-mono text-xs">md</code> so desktop dense UI can use the
+          smaller natural height.
+        </p>
       </div>
 
       <div>
@@ -97,9 +133,37 @@ const sizes = ['sm', 'md', 'lg'] as const;
       </div>
     </section>
 
-    <section aria-labelledby="colors-heading" class="mt-16 space-y-6">
+    <section aria-labelledby="type-heading" class="mb-16">
+      <h2 id="type-heading" class="text-2xl font-bold text-neutral-900">Typography scale</h2>
+      <p class="mt-2 text-sm text-neutral-600">
+        Per DESIGN.md § Typography. Reference the role name when composing pages; never use
+        arbitrary pixel sizes.
+      </p>
+      <div class="mt-6 overflow-hidden rounded-xl border border-neutral-200">
+        <table class="w-full">
+          <thead>
+            <tr class="bg-neutral-50 text-left text-sm font-medium text-neutral-800">
+              <th class="px-4 py-3 w-48">Role</th>
+              <th class="px-4 py-3">Sample</th>
+            </tr>
+          </thead>
+          <tbody>
+            {typeScale.map((row) => (
+              <tr class="border-t border-neutral-200">
+                <td class="px-4 py-4 align-top text-sm text-neutral-600">{row.role}</td>
+                <td class="px-4 py-4">
+                  <div class={row.cls}>{row.sample}</div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section aria-labelledby="colors-heading" class="mb-16">
       <h2 id="colors-heading" class="text-2xl font-bold text-neutral-900">Brand tokens</h2>
-      <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
         <div class="overflow-hidden rounded-xl border border-neutral-200">
           <div class="h-20 bg-brand-primary"></div>
           <div class="p-3 text-xs">
@@ -126,6 +190,40 @@ const sizes = ['sm', 'md', 'lg'] as const;
           <div class="p-3 text-xs">
             <div class="font-semibold text-neutral-900">brand-dark</div>
             <div class="text-neutral-600">#0a1f17</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="semantic-heading">
+      <h2 id="semantic-heading" class="text-2xl font-bold text-neutral-900">Semantic tokens</h2>
+      <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
+        <div class="overflow-hidden rounded-xl border border-neutral-200">
+          <div class="h-20 bg-success"></div>
+          <div class="p-3 text-xs">
+            <div class="font-semibold text-neutral-900">success</div>
+            <div class="text-neutral-600">#16a34a</div>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-xl border border-neutral-200">
+          <div class="h-20 bg-error"></div>
+          <div class="p-3 text-xs">
+            <div class="font-semibold text-neutral-900">error</div>
+            <div class="text-neutral-600">#dc2626</div>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-xl border border-neutral-200">
+          <div class="h-20 bg-warning"></div>
+          <div class="p-3 text-xs">
+            <div class="font-semibold text-neutral-900">warning</div>
+            <div class="text-neutral-600">#ea580c</div>
+          </div>
+        </div>
+        <div class="overflow-hidden rounded-xl border border-neutral-200">
+          <div class="h-20 bg-info"></div>
+          <div class="p-3 text-xs">
+            <div class="font-semibold text-neutral-900">info</div>
+            <div class="text-neutral-600">#2563eb</div>
           </div>
         </div>
       </div>
