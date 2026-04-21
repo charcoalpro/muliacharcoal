@@ -1,0 +1,92 @@
+---
+/**
+ * Prose — typography wrapper for long-form rendered Markdown.
+ *
+ * Applies DESIGN.md type scale to descendant tags so authors can write
+ * plain Markdown and get correct headings, line-height, link styles,
+ * and logical RTL list padding. Used by legal pages, blog articles,
+ * and any `<Content />` rendered from a content collection.
+ *
+ * Styles are global but namespaced under `.prose-mulia`, so they only
+ * apply inside this wrapper.
+ */
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+<div class:list={['prose-mulia', className]}>
+  <slot />
+</div>
+
+<style is:global>
+  .prose-mulia {
+    @apply text-base leading-relaxed text-neutral-800;
+    max-width: 65ch;
+  }
+
+  /* Vertical rhythm between direct children. */
+  .prose-mulia > * + * {
+    margin-top: 1.25em;
+  }
+
+  .prose-mulia h2 {
+    @apply mt-12 mb-3 scroll-mt-24 text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl;
+  }
+
+  .prose-mulia h3 {
+    @apply mt-10 mb-2 scroll-mt-24 text-2xl font-semibold text-neutral-900;
+  }
+
+  .prose-mulia h4 {
+    @apply mt-8 mb-2 text-xl font-semibold text-neutral-900;
+  }
+
+  .prose-mulia p {
+    @apply leading-relaxed;
+  }
+
+  .prose-mulia ul,
+  .prose-mulia ol {
+    @apply space-y-2 ps-6;
+  }
+
+  .prose-mulia ul {
+    @apply list-disc;
+  }
+
+  .prose-mulia ol {
+    @apply list-decimal;
+  }
+
+  .prose-mulia li {
+    @apply leading-relaxed;
+  }
+
+  .prose-mulia li > ul,
+  .prose-mulia li > ol {
+    margin-top: 0.5rem;
+  }
+
+  .prose-mulia strong {
+    @apply font-semibold text-neutral-900;
+  }
+
+  .prose-mulia a {
+    @apply rounded-sm text-brand-primary underline underline-offset-2 transition-colors hover:text-brand-primary-hover hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary;
+  }
+
+  .prose-mulia code {
+    @apply rounded bg-neutral-100 px-1 py-0.5 font-mono text-sm text-neutral-800;
+  }
+
+  .prose-mulia hr {
+    @apply my-10 border-neutral-200;
+  }
+
+  .prose-mulia blockquote {
+    @apply border-s-4 border-neutral-200 ps-4 italic text-neutral-600;
+  }
+</style>
