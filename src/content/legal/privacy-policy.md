@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-description: "How PT Coco Reina Global Charcoal Indonesia collects, uses, and protects your personal data on muliacharcoal.com. Last updated 21 April 2026."
+description: "How {{legalName}} collects, uses, and protects your personal data on {{domain}}. Last updated 21 April 2026."
 lastUpdated: 2026-04-21
 datePublished: 2026-04-21
 ---
@@ -22,10 +22,10 @@ The following definitions shall have the same meaning regardless of whether they
 For the purposes of this Privacy Policy:
 
 - **You** mean the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.
-- **Company** (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to PT Coco Reina Global Charcoal Indonesia, Jl. M.Unus KM 1.5, village Soroyudan Magelang, Central Java Indonesia.
+- **Company** (referred to as either "the Company", "We", "Us" or "Our" in this Agreement) refers to {{legalName}}, {{addressFull}}.
 - **Affiliate** means an entity that controls, is controlled by or is under common control with a party, where "control" means ownership of 50% or more of the shares, equity interest, or other securities entitled to vote for the election of directors or other managing authority.
 - **Account** means a unique account created for You to access our Service or parts of our Service.
-- **The website** refers to Coconut Charcoal Factory, accessible from https://muliacharcoal.com
+- **The website** refers to {{brand}}, accessible from {{siteUrl}}
 - **Service** refers to the Website.
 - **Country** refers to Indonesia
 - **Service Provider** means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service, or to assist the Company in analyzing how the Service is used.
@@ -184,5 +184,5 @@ You are advised to review this Privacy Policy periodically for any changes. Chan
 
 If you have any questions about this Privacy Policy, You can contact us:
 
-- By email: export@charcoal.pro
-- By phone number: +6285328727291
+- By email: {{email}}
+- By phone number: {{phoneDisplay}}
