@@ -31,14 +31,12 @@
   "hero": {
     "eyebrow": "Factory-direct coconut shell charcoal",
     "title": "Shisha charcoal briquettes for importers who run the numbers",
-    "subtitle": "18-ton container loads from our Semarang factory. Full export documentation, consistent burn specifications, and samples you can verify in the lab before you commit.",
+    "subtitleTemplate": "{{moqTons}}-ton container loads from our {{port}} factory. Full export documentation, consistent burn specifications, and samples you can verify in the lab before you commit.",
+    "descriptionTemplate": "Coconut shell shisha charcoal briquettes from {{port}}, {{country}}. Factory-direct, MOQ {{moqLabel}}. Full export documentation and consistent burn specifications.",
     "trust": {
       "moqLabel": "Minimum order",
-      "moqValue": "18 tons (one 20ft container)",
       "portLabel": "Port of loading",
-      "portValue": "FOB Semarang, Indonesia",
-      "leadLabel": "Production lead time",
-      "leadValue": "14–21 days"
+      "leadLabel": "Production lead time"
     }
   },
   "footer": {

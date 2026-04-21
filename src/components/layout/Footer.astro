@@ -3,6 +3,7 @@ import en from '~/i18n/en.json';
 import Logo from '~/components/layout/Logo.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
 import { company, mailto } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
 
 const year = new Date().getFullYear();
 
@@ -10,58 +11,18 @@ const year = new Date().getFullYear();
 const phoneHref = `tel:${company.phone.e164}`;
 const emailHref = mailto();
 
-/**
- * Minimal {{token}} interpolator for the footer description paragraphs.
- * Keeps the translation strings copy-editable while binding every value
- * to /src/config/company.ts (no hardcoded facts in JSON).
- */
-function fill(template: string, tokens: Record<string, string | number>): string {
-  return template.replace(/\{\{(\w+)\}\}/g, (_, key) =>
-    tokens[key] !== undefined ? String(tokens[key]) : `{{${key}}}`,
-  );
-}
+// Canonical token dictionary. Every {{name}} placeholder in the footer
+// copy binds through this map back to /src/config/company.ts so facts
+// never live in i18n JSON.
+const tokens = companyTokens(company);
 
-// Build the executive list: directors joined by ", ", followed by each
-// non-director prefixed with their role ("charcoal expert Greg Ryabtsev").
-const directors = company.people.executives.filter((e) =>
-  e.role.toLowerCase().includes('director'),
-);
-const experts = company.people.executives.filter(
-  (e) => !e.role.toLowerCase().includes('director'),
-);
-const directorNames = directors.map((d) => d.name).join(', ');
-const expertPhrases = experts
-  .map((e) => `${e.role.toLowerCase().split('/')[0].trim()} ${e.name}`)
-  .join(', ');
-const executivesList = [directorNames, expertPhrases]
-  .filter(Boolean)
-  .join(', and ');
-
-const logoTagline = fill(en.footer.logoTaglineTemplate, {
-  iso9001Short: company.certifications.iso9001.shortName,
-});
-const descriptionLabel = fill(en.footer.description.labelTemplate, {
-  legalName: company.legalName,
-});
-const p2 = fill(en.footer.description.p2Template, {
-  year: company.foundingYear,
-  nib: company.registration.nib,
-  taxId: company.registration.taxId,
-  street: company.address.street,
-  city: company.address.city,
-  region: company.address.region,
-  country: company.address.country,
-  capacity: company.production.capacityTonsPerDay,
-});
-const p3 = fill(en.footer.description.p3Template, { executives: executivesList });
-const p4 = fill(en.footer.description.p4Template, {
-  isoStandard: company.certifications.iso9001.standard,
-  auditors: company.certifications.iso9001.auditors.join(' & '),
-  unNumber: company.certifications.imdg.unNumber,
-  unClass: company.certifications.imdg.class,
-});
-const p1Prefix = fill(en.footer.description.p1Prefix, { legalName: company.legalName });
+const logoTagline = fill(en.footer.logoTaglineTemplate, tokens);
+const descriptionLabel = fill(en.footer.description.labelTemplate, tokens);
+const p1Prefix = fill(en.footer.description.p1Prefix, tokens);
 const p1Suffix = en.footer.description.p1Suffix;
+const p2 = fill(en.footer.description.p2Template, tokens);
+const p3 = fill(en.footer.description.p3Template, tokens);
+const p4 = fill(en.footer.description.p4Template, tokens);
 
 const linkCls =
   'rounded-sm text-neutral-600 transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary';

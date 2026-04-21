@@ -5,9 +5,16 @@ import Logo from '~/components/layout/Logo.astro';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
 
 const variants = ['primary', 'secondary', 'ghost', 'danger'] as const;
 const sizes = ['sm', 'md', 'lg'] as const;
+
+const tokens = companyTokens(company);
+const heroSubtitle = fill(en.hero.subtitleTemplate, tokens);
+const guideSubtitle = `What importers verify before placing the first ${company.commercial.moq.containerType} container order — audit, testing, and documentation checklist.`;
 
 const typeScale = [
   { role: 'Display / Hero H1', cls: 'text-3xl font-bold md:text-4xl lg:text-5xl', sample: 'Shisha charcoal briquettes' },
@@ -15,10 +22,10 @@ const typeScale = [
   { role: 'Section H2', cls: 'text-xl font-bold md:text-2xl lg:text-3xl', sample: 'Production process' },
   { role: 'Subsection H3', cls: 'text-2xl font-semibold', sample: 'Cube 25mm' },
   { role: 'Minor heading H4', cls: 'text-xl font-semibold', sample: 'Burn specifications' },
-  { role: 'Lead paragraph', cls: 'text-lg', sample: 'Factory-direct from Semarang, Indonesia.' },
+  { role: 'Lead paragraph', cls: 'text-lg', sample: `Factory-direct from ${company.commercial.portOfLoading.name}, ${company.address.country}.` },
   { role: 'Body', cls: 'text-base', sample: 'Standard body copy for articles, specs, and long-form content.' },
   { role: 'Caption / small', cls: 'text-sm text-neutral-600', sample: 'Last updated 2026-04-20' },
-  { role: 'Fine print', cls: 'text-xs text-neutral-500', sample: 'Prices in USD, FOB Semarang.' },
+  { role: 'Fine print', cls: 'text-xs text-neutral-500', sample: `Prices in ${company.commercial.currency}, ${company.commercial.portOfLoading.label}.` },
 ];
 ---
 <BaseLayout
@@ -176,11 +183,11 @@ const typeScale = [
           <p class="bg-neutral-50 px-4 py-2 text-xs font-medium uppercase tracking-wide text-neutral-500">Dark variant, start-aligned</p>
           <HeroSection
             variant="dark"
-            eyebrow="Factory-direct coconut shell charcoal"
-            title="Shisha charcoal briquettes for importers who run the numbers"
-            subtitle="18-ton container loads from our Semarang factory. Full export documentation, consistent burn specifications, and samples you can verify in the lab before you commit."
-            primaryCta={{ label: 'WhatsApp us', href: '#', ariaLabel: 'Chat with us on WhatsApp' }}
-            secondaryCta={{ label: 'View products', href: '#' }}
+            eyebrow={en.hero.eyebrow}
+            title={en.hero.title}
+            subtitle={heroSubtitle}
+            primaryCta={{ label: en.cta.whatsapp, href: '#', ariaLabel: en.cta.whatsappAria }}
+            secondaryCta={{ label: en.cta.viewProducts, href: '#' }}
           />
         </div>
         <div class="overflow-hidden rounded-xl border border-dashed border-neutral-300">
@@ -190,7 +197,7 @@ const typeScale = [
             align="center"
             eyebrow="Buyer's guide"
             title="How to choose a shisha charcoal factory"
-            subtitle="What importers verify before placing the first 20ft container order — audit, testing, and documentation checklist."
+            subtitle={guideSubtitle}
             primaryCta={{ label: 'Request a sample', href: '#' }}
           />
         </div>
