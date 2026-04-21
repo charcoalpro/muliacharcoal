@@ -11,7 +11,7 @@ const data = {
       '@type': 'Organization',
       '@id': `${siteBase}/#organization`,
       name: en.site.name,
-      legalName: en.footer.legalName,
+      legalName: en.footer.address.companyName,
       url: siteBase,
       logo: {
         '@type': 'ImageObject',
@@ -19,10 +19,14 @@ const data = {
       },
       address: {
         '@type': 'PostalAddress',
-        addressLocality: 'Semarang',
+        streetAddress: `${en.footer.address.street}, Mertoyudan`,
+        addressLocality: 'Magelang',
         addressRegion: 'Central Java',
+        postalCode: '56172',
         addressCountry: 'ID',
       },
+      email: en.footer.email,
+      telephone: en.footer.phone,
       sameAs: [],
     },
     {

@@ -1,46 +1,133 @@
 ---
 import en from '~/i18n/en.json';
+import Logo from '~/components/layout/Logo.astro';
+import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
 
 const year = new Date().getFullYear();
+
+// Strip non-digits (keep leading +) for the tel: scheme.
+const phoneHref = 'tel:' + en.footer.phone.replace(/[^\d+]/g, '');
+const emailHref = 'mailto:' + en.footer.email;
+const googleMapsUrl = 'https://maps.app.goo.gl/SAcfhq4ypCud6HqQA';
+
+const linkCls =
+  'rounded-sm text-neutral-600 transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary';
+const listLinkCls = linkCls + ' inline-block min-h-11 py-2.5 md:min-h-0';
+
+// TODO(jobs): create /jobs page before launching the jobs section.
+const companyLinks = [
+  { href: '/about', label: en.footer.links.about },
+  { href: '/contact', label: en.footer.links.contact },
+  { href: '/glossary', label: en.footer.links.glossary },
+  { href: '/jobs', label: en.footer.links.jobs },
+];
+
+const operationsLinks = [
+  { href: '/products', label: en.footer.links.products },
+  { href: '/logistics', label: en.footer.links.logistics },
+  { href: '/samples', label: en.footer.links.samples },
+  { href: '/quality', label: en.footer.links.quality },
+  { href: '/quality/certifications', label: en.footer.links.certificates },
+];
 ---
 <footer class="border-t border-neutral-200 bg-neutral-50">
-  <div class="mx-auto max-w-7xl px-4 py-12 md:px-8">
-    <div class="grid gap-8 md:grid-cols-4">
+  <div class="mx-auto max-w-7xl px-4 py-12 md:px-8 md:py-16">
+    <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
       <div>
-        <p class="font-semibold text-brand-primary">{en.site.name}</p>
-        <p class="mt-2 text-sm text-neutral-600">{en.footer.legalName}</p>
-        <p class="mt-1 text-sm text-neutral-600">{en.footer.address}</p>
+        <Logo />
+        <p class="mt-4 text-sm font-medium text-neutral-800">{en.footer.logoTagline1}</p>
+        <p class="mt-1 text-sm text-neutral-600">{en.footer.logoTagline2}</p>
       </div>
 
-      <nav aria-label={en.footer.resources}>
-        <h2 class="text-sm font-semibold text-neutral-900">{en.footer.resources}</h2>
-        <ul class="mt-3 space-y-2 text-sm">
-          <li><a href="/faq" class="text-neutral-600 hover:text-brand-primary">{en.footer.faq}</a></li>
-          <li><a href="/samples" class="text-neutral-600 hover:text-brand-primary">{en.footer.samples}</a></li>
-          <li><a href="/blog" class="text-neutral-600 hover:text-brand-primary">{en.footer.blog}</a></li>
-          <li><a href="/glossary" class="text-neutral-600 hover:text-brand-primary">{en.footer.glossary}</a></li>
+      <div class="space-y-4 text-sm">
+        <div>
+          <h2 class="text-sm font-semibold text-neutral-900">{en.footer.addressHeading}</h2>
+          <address class="mt-2 not-italic text-neutral-600">
+            <p class="font-medium text-neutral-800">{en.footer.address.companyName}</p>
+            <p>{en.footer.address.street}</p>
+            <p>{en.footer.address.city}</p>
+            <p>{en.footer.address.country}</p>
+          </address>
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener"
+            data-event="outbound_click"
+            class:list={[linkCls, 'mt-2 inline-flex items-center gap-1']}
+          >
+            <span>{en.footer.googleMaps}</span>
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+
+        <dl class="space-y-1">
+          <div class="flex gap-2">
+            <dt class="text-neutral-500">{en.footer.emailLabel}:</dt>
+            <dd><a href={emailHref} class={linkCls}>{en.footer.email}</a></dd>
+          </div>
+          <div class="flex gap-2">
+            <dt class="text-neutral-500">{en.footer.phoneLabel}:</dt>
+            <dd><a href={phoneHref} class={linkCls}>{en.footer.phone}</a></dd>
+          </div>
+        </dl>
+
+        <div>
+          <h2 class="text-sm font-semibold text-neutral-900">{en.footer.hoursHeading}</h2>
+          <p class="mt-2 text-neutral-600">{en.footer.hoursWeekdays}</p>
+          <p class="text-neutral-600">{en.footer.hoursSunday}</p>
+        </div>
+
+        <OnlineIndicator label={en.footer.online} class="pt-1" />
+      </div>
+
+      <nav aria-label={en.footer.companyHeading}>
+        <h2 class="text-sm font-semibold text-neutral-900">{en.footer.companyHeading}</h2>
+        <ul class="mt-3 flex flex-col text-sm md:space-y-1">
+          {companyLinks.map((link) => (
+            <li><a href={link.href} class={listLinkCls}>{link.label}</a></li>
+          ))}
         </ul>
       </nav>
 
-      <nav aria-label={en.footer.company}>
-        <h2 class="text-sm font-semibold text-neutral-900">{en.footer.company}</h2>
-        <ul class="mt-3 space-y-2 text-sm">
-          <li><a href="/about" class="text-neutral-600 hover:text-brand-primary">{en.footer.about}</a></li>
-          <li><a href="/contact" class="text-neutral-600 hover:text-brand-primary">{en.nav.contact}</a></li>
-        </ul>
-      </nav>
-
-      <nav aria-label={en.footer.legal}>
-        <h2 class="text-sm font-semibold text-neutral-900">{en.footer.legal}</h2>
-        <ul class="mt-3 space-y-2 text-sm">
-          <li><a href="/privacy" class="text-neutral-600 hover:text-brand-primary">{en.footer.privacy}</a></li>
-          <li><a href="/terms" class="text-neutral-600 hover:text-brand-primary">{en.footer.terms}</a></li>
+      <nav aria-label={en.footer.operationsHeading}>
+        <h2 class="text-sm font-semibold text-neutral-900">{en.footer.operationsHeading}</h2>
+        <ul class="mt-3 flex flex-col text-sm md:space-y-1">
+          {operationsLinks.map((link) => (
+            <li><a href={link.href} class={listLinkCls}>{link.label}</a></li>
+          ))}
         </ul>
       </nav>
     </div>
 
-    <p class="mt-10 text-xs text-neutral-500">
-      &copy; {year} {en.footer.legalName}. {en.footer.copyright}
+    <div class="mt-12 border-t border-neutral-200 pt-8">
+      <nav aria-label={en.footer.legalHeading}>
+        <ul class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-600">
+          <li><a href="/privacy" class={linkCls}>{en.footer.legal.privacy}</a></li>
+          <li aria-hidden="true" class="text-neutral-400">·</li>
+          <li><a href="/terms" class={linkCls}>{en.footer.legal.terms}</a></li>
+          <li aria-hidden="true" class="text-neutral-400">·</li>
+          <li><a href="/cookies" class={linkCls}>{en.footer.legal.cookies}</a></li>
+        </ul>
+      </nav>
+      <p class="mt-3 text-xs">
+        <a href="/llm.txt" class={linkCls}>{en.footer.llmTxt}</a>
+      </p>
+    </div>
+
+    <section aria-labelledby="company-description-heading" class="mt-8 space-y-3 text-xs leading-relaxed text-neutral-500">
+      <h2 id="company-description-heading" class="sr-only">{en.footer.description.label}</h2>
+      <p>
+        {en.footer.description.p1Prefix}<strong class="font-semibold text-neutral-700">{en.footer.description.p1Brand}</strong>{en.footer.description.p1Suffix}
+      </p>
+      <p>{en.footer.description.p2}</p>
+      <p>{en.footer.description.p3}</p>
+      <p>{en.footer.description.p4}</p>
+    </section>
+
+    <p class="mt-8 border-t border-neutral-200 pt-6 text-xs text-neutral-500">
+      &copy; {year} {en.footer.address.companyName}. {en.footer.copyright}
     </p>
   </div>
 </footer>

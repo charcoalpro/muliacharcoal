@@ -1,23 +1,20 @@
 ---
 import en from '~/i18n/en.json';
-import Button from '~/components/cta/Button.astro';
 import Logo from '~/components/layout/Logo.astro';
+import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
 
+// "Price" routes to /products per product-pricing decision (TODO: dedicated /pricing page later).
 const links = [
-  { href: '/products', label: en.nav.products },
-  { href: '/factory', label: en.nav.factory },
-  { href: '/logistics', label: en.nav.logistics },
-  { href: '/quality', label: en.nav.quality },
-  { href: '/guide', label: en.nav.guide },
-  { href: '/markets', label: en.nav.markets },
-  { href: '/packaging', label: en.nav.packaging },
+  { href: '/about', label: en.nav.about },
   { href: '/contact', label: en.nav.contact },
+  { href: '/products', label: en.nav.price },
 ];
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 <header class="sticky top-0 z-30 border-b border-neutral-200 bg-white/95 backdrop-blur">
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-8">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8 md:py-4">
     <a
       href="/"
       class="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
@@ -27,7 +24,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
     </a>
 
     <nav aria-label={en.nav.mainNav} class="hidden lg:block">
-      <ul class="flex items-center gap-5 text-sm">
+      <ul class="flex items-center gap-8 text-sm">
         {links.map((link) => {
           const isCurrent = pathname === link.href || pathname.startsWith(link.href + '/');
           return (
@@ -35,7 +32,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
               <a
                 href={link.href}
                 class:list={[
-                  'inline-block py-2 transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm',
+                  'inline-block rounded-sm py-2 transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary',
                   isCurrent ? 'font-semibold text-brand-primary' : 'text-neutral-700',
                 ]}
                 aria-current={isCurrent ? 'page' : undefined}
@@ -48,21 +45,11 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
       </ul>
     </nav>
 
-    <div class="flex items-center gap-2">
-      <Button
-        variant="secondary"
-        size="sm"
-        disabled
-        aria-label={en.nav.languageSwitcher}
-      >
-        <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.75">
-          <circle cx="12" cy="12" r="9" />
-          <path d="M3 12h18" stroke-linecap="round" />
-          <path d="M12 3a14 14 0 0 1 0 18" stroke-linecap="round" />
-          <path d="M12 3a14 14 0 0 0 0 18" stroke-linecap="round" />
-        </svg>
-        <span>{en.nav.currentLanguage}</span>
-      </Button>
+    <div class="flex items-center gap-3">
+      <div class="hidden items-center gap-3 lg:flex">
+        <OnlineIndicator label={en.footer.online} hideLabel />
+        <WhatsAppButton />
+      </div>
 
       <details class="group relative lg:hidden">
         <summary
@@ -76,30 +63,33 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
             <path d="M6 6l12 12M6 18L18 6" stroke-linecap="round" />
           </svg>
         </summary>
-        <nav
-          aria-label={en.nav.mainNav}
-          class="absolute end-0 top-[calc(100%+0.5rem)] w-64 rounded-xl border border-neutral-200 bg-white shadow-lg"
-        >
-          <ul class="flex flex-col p-2 text-base">
-            {links.map((link) => {
-              const isCurrent = pathname === link.href || pathname.startsWith(link.href + '/');
-              return (
-                <li>
-                  <a
-                    href={link.href}
-                    class:list={[
-                      'flex min-h-11 items-center rounded-md px-4 py-2.5 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-primary',
-                      isCurrent ? 'font-semibold text-brand-primary' : 'text-neutral-800',
-                    ]}
-                    aria-current={isCurrent ? 'page' : undefined}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
+        <div class="absolute end-0 top-[calc(100%+0.5rem)] w-72 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg">
+          <nav aria-label={en.nav.mainNav}>
+            <ul class="flex flex-col p-2 text-base">
+              {links.map((link) => {
+                const isCurrent = pathname === link.href || pathname.startsWith(link.href + '/');
+                return (
+                  <li>
+                    <a
+                      href={link.href}
+                      class:list={[
+                        'flex min-h-11 items-center rounded-md px-4 py-2.5 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-primary',
+                        isCurrent ? 'font-semibold text-brand-primary' : 'text-neutral-800',
+                      ]}
+                      aria-current={isCurrent ? 'page' : undefined}
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+          <div class="flex items-center justify-between gap-3 border-t border-neutral-200 bg-neutral-50 p-3">
+            <OnlineIndicator label={en.footer.online} />
+            <WhatsAppButton />
+          </div>
+        </div>
       </details>
     </div>
   </div>

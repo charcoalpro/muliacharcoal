@@ -1,0 +1,31 @@
+---
+/**
+ * OnlineIndicator — pulsating green dot + label.
+ *
+ * Used next to WhatsApp CTAs in Header and Footer. CSS-only animation
+ * (Tailwind `motion-safe:animate-ping`) respects prefers-reduced-motion.
+ *
+ * Per decision: the dot is always rendered. The label copy reflects that
+ * we're on WhatsApp (not a live presence signal), so it never lies.
+ * Pass `hideLabel` to render the dot alone with the label as sr-only text.
+ */
+
+interface Props {
+  label: string;
+  hideLabel?: boolean;
+  class?: string;
+}
+
+const { label, hideLabel = false, class: className } = Astro.props;
+---
+<span class:list={['inline-flex items-center gap-2', className]}>
+  <span class="relative inline-flex h-2.5 w-2.5" aria-hidden="true">
+    <span
+      class="absolute inline-flex h-full w-full rounded-full bg-success opacity-75 motion-safe:animate-ping"
+    ></span>
+    <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-success"></span>
+  </span>
+  <span class:list={[hideLabel ? 'sr-only' : 'text-sm text-neutral-600']}>
+    {label}
+  </span>
+</span>
