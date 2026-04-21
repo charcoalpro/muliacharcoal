@@ -1,8 +1,13 @@
 ---
 import JsonLd from './JsonLd.astro';
-import en from '~/i18n/en.json';
+import { company } from '~/config/company';
 
-const siteBase = (Astro.site?.toString() ?? 'https://muliacharcoal.com').replace(/\/$/, '');
+const siteBase = (Astro.site?.toString() ?? company.siteUrl).replace(/\/$/, '');
+
+// schema.org `sameAs` expects only live URLs — drop nulls from social profiles.
+const sameAs = Object.values(company.social).filter(
+  (url): url is string => typeof url === 'string' && url.length > 0,
+);
 
 const data = {
   '@context': 'https://schema.org',
@@ -10,30 +15,31 @@ const data = {
     {
       '@type': 'Organization',
       '@id': `${siteBase}/#organization`,
-      name: en.site.name,
-      legalName: en.footer.address.companyName,
+      name: company.brand,
+      legalName: company.legalName,
       url: siteBase,
+      foundingDate: String(company.foundingYear),
       logo: {
         '@type': 'ImageObject',
         url: `${siteBase}/logo.png`,
       },
       address: {
         '@type': 'PostalAddress',
-        streetAddress: `${en.footer.address.street}, Mertoyudan`,
-        addressLocality: 'Magelang',
-        addressRegion: 'Central Java',
-        postalCode: '56172',
-        addressCountry: 'ID',
+        streetAddress: `${company.address.street}, ${company.address.district}`,
+        addressLocality: company.address.city,
+        addressRegion: company.address.region,
+        postalCode: company.address.postalCode,
+        addressCountry: company.address.countryCode,
       },
-      email: en.footer.email,
-      telephone: en.footer.phone,
-      sameAs: [],
+      email: company.email,
+      telephone: company.phone.display,
+      sameAs,
     },
     {
       '@type': 'WebSite',
       '@id': `${siteBase}/#website`,
       url: siteBase,
-      name: en.site.name,
+      name: company.brand,
       publisher: { '@id': `${siteBase}/#organization` },
       inLanguage: 'en',
     },

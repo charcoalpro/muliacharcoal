@@ -4,7 +4,7 @@
  * with the real brand mark once finalized. Keep the outer structure
  * so the swap is a one-file change.
  */
-import en from '~/i18n/en.json';
+import { company } from '~/config/company';
 
 interface Props {
   showWordmark?: boolean;
@@ -15,7 +15,7 @@ const { showWordmark = true, class: className } = Astro.props;
 ---
 <span
   class:list={['inline-flex items-center gap-2', className]}
-  aria-label={en.site.name}
+  aria-label={company.brand}
 >
   <svg
     aria-hidden="true"
@@ -35,6 +35,6 @@ const { showWordmark = true, class: className } = Astro.props;
     >M</text>
   </svg>
   {showWordmark && (
-    <span class="text-lg font-semibold text-brand-primary">{en.site.name}</span>
+    <span class="text-lg font-semibold text-brand-primary">{company.brand}</span>
   )}
 </span>

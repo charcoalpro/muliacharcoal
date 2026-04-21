@@ -4,6 +4,7 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import Prose from '~/components/content/Prose.astro';
 import en from '~/i18n/en.json';
+import { company } from '~/config/company';
 
 const entry = await getEntry('legal', 'privacy-policy');
 if (!entry) {
@@ -14,7 +15,7 @@ const { Content, headings } = await render(entry);
 const { title, description, lastUpdated, datePublished } = entry.data;
 
 const path = '/privacy-policy';
-const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://muliacharcoal.com';
+const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : company.siteUrl;
 const absoluteUrl = `${siteOrigin}${path}`;
 
 const isoModified = lastUpdated.toISOString().split('T')[0];
@@ -44,7 +45,7 @@ const schema = {
 };
 ---
 <BaseLayout
-  title={`${title} — ${en.site.name}`}
+  title={`${title} — ${company.brand}`}
   description={description}
   path={path}
   includeOrgSchema
