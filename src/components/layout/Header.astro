@@ -3,6 +3,7 @@ import en from '~/i18n/en.json';
 import Logo from '~/components/layout/Logo.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
+import { company } from '~/config/company';
 
 // "Price" routes to /products per product-pricing decision (TODO: dedicated /pricing page later).
 const links = [
@@ -18,7 +19,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
     <a
       href="/"
       class="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
-      aria-label={en.site.name}
+      aria-label={company.brand}
     >
       <Logo />
     </a>

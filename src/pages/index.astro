@@ -2,8 +2,9 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Button from '~/components/cta/Button.astro';
 import en from '~/i18n/en.json';
+import { company } from '~/config/company';
 
-const title = `${en.site.name} — ${en.site.tagline}`;
+const title = `${company.brand} — ${company.tagline}`;
 const description =
   'Coconut shell shisha charcoal briquettes from Semarang, Indonesia. Factory-direct, MOQ 18 tons (one 20ft container). Full export documentation and consistent burn specifications.';
 ---

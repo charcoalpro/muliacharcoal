@@ -3,13 +3,13 @@
  * CTABanner — mid/end-of-page conversion prompt.
  *
  * Per DESIGN.md § CTA banner. Default primary CTA is a WhatsApp click-to-chat
- * link built from src/lib/contact.ts; default secondary CTA is the inquiry
+ * link built from /src/config/company.ts; default secondary CTA is the inquiry
  * form. Pass explicit `primaryCta` / `secondaryCta` to override.
  */
 
 import en from '~/i18n/en.json';
 import Button from '~/components/cta/Button.astro';
-import { whatsappHref, WHATSAPP_DEFAULT_MESSAGE } from '~/lib/contact';
+import { company, waLink } from '~/config/company';
 
 interface CTA {
   label: string;
@@ -35,14 +35,14 @@ const {
   subtitle = en.ctaBanner.subtitle,
   primaryCta,
   secondaryCta,
-  whatsappMessage = WHATSAPP_DEFAULT_MESSAGE,
+  whatsappMessage = company.whatsapp.defaultMessage,
   variant = 'dark',
   class: className,
 } = Astro.props;
 
 const resolvedPrimary: CTA = primaryCta ?? {
   label: en.cta.whatsapp,
-  href: whatsappHref(whatsappMessage),
+  href: waLink(whatsappMessage),
   ariaLabel: en.cta.whatsappAria,
   target: '_blank',
   rel: 'noopener',

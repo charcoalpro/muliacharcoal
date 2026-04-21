@@ -1,5 +1,5 @@
 ---
-import en from '~/i18n/en.json';
+import { company } from '~/config/company';
 
 interface Props {
   title: string;
@@ -21,7 +21,7 @@ const {
   noIndex = false,
 } = Astro.props;
 
-const siteBase = (Astro.site?.toString() ?? 'https://muliacharcoal.com').replace(/\/$/, '');
+const siteBase = (Astro.site?.toString() ?? company.siteUrl).replace(/\/$/, '');
 
 const normalizePath = (p: string) => {
   if (p === '/' || p === '') return '';
@@ -33,7 +33,7 @@ const ogImage = image
   ? (image.startsWith('http') ? image : `${siteBase}${image}`)
   : null;
 
-const fullTitle = title.includes(en.site.name) ? title : `${title} | ${en.site.name}`;
+const fullTitle = title.includes(company.brand) ? title : `${title} | ${company.brand}`;
 
 const languages: Array<{ code: string; path: string }> = [
   { code: 'en', path },
@@ -52,7 +52,7 @@ const languages: Array<{ code: string; path: string }> = [
 <meta property="og:url" content={canonical} />
 <meta property="og:type" content={type} />
 <meta property="og:locale" content={locale} />
-<meta property="og:site_name" content={en.site.name} />
+<meta property="og:site_name" content={company.brand} />
 {ogImage && <meta property="og:image" content={ogImage} />}
 
 <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />

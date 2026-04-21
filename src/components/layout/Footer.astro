@@ -2,13 +2,66 @@
 import en from '~/i18n/en.json';
 import Logo from '~/components/layout/Logo.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
+import { company, mailto } from '~/config/company';
 
 const year = new Date().getFullYear();
 
-// Strip non-digits (keep leading +) for the tel: scheme.
-const phoneHref = 'tel:' + en.footer.phone.replace(/[^\d+]/g, '');
-const emailHref = 'mailto:' + en.footer.email;
-const googleMapsUrl = 'https://maps.app.goo.gl/SAcfhq4ypCud6HqQA';
+// tel: expects E.164 with no spaces; mailto() is the shared helper.
+const phoneHref = `tel:${company.phone.e164}`;
+const emailHref = mailto();
+
+/**
+ * Minimal {{token}} interpolator for the footer description paragraphs.
+ * Keeps the translation strings copy-editable while binding every value
+ * to /src/config/company.ts (no hardcoded facts in JSON).
+ */
+function fill(template: string, tokens: Record<string, string | number>): string {
+  return template.replace(/\{\{(\w+)\}\}/g, (_, key) =>
+    tokens[key] !== undefined ? String(tokens[key]) : `{{${key}}}`,
+  );
+}
+
+// Build the executive list: directors joined by ", ", followed by each
+// non-director prefixed with their role ("charcoal expert Greg Ryabtsev").
+const directors = company.people.executives.filter((e) =>
+  e.role.toLowerCase().includes('director'),
+);
+const experts = company.people.executives.filter(
+  (e) => !e.role.toLowerCase().includes('director'),
+);
+const directorNames = directors.map((d) => d.name).join(', ');
+const expertPhrases = experts
+  .map((e) => `${e.role.toLowerCase().split('/')[0].trim()} ${e.name}`)
+  .join(', ');
+const executivesList = [directorNames, expertPhrases]
+  .filter(Boolean)
+  .join(', and ');
+
+const logoTagline = fill(en.footer.logoTaglineTemplate, {
+  iso9001Short: company.certifications.iso9001.shortName,
+});
+const descriptionLabel = fill(en.footer.description.labelTemplate, {
+  legalName: company.legalName,
+});
+const p2 = fill(en.footer.description.p2Template, {
+  year: company.foundingYear,
+  nib: company.registration.nib,
+  taxId: company.registration.taxId,
+  street: company.address.street,
+  city: company.address.city,
+  region: company.address.region,
+  country: company.address.country,
+  capacity: company.production.capacityTonsPerDay,
+});
+const p3 = fill(en.footer.description.p3Template, { executives: executivesList });
+const p4 = fill(en.footer.description.p4Template, {
+  isoStandard: company.certifications.iso9001.standard,
+  auditors: company.certifications.iso9001.auditors.join(' & '),
+  unNumber: company.certifications.imdg.unNumber,
+  unClass: company.certifications.imdg.class,
+});
+const p1Prefix = fill(en.footer.description.p1Prefix, { legalName: company.legalName });
+const p1Suffix = en.footer.description.p1Suffix;
 
 const linkCls =
   'rounded-sm text-neutral-600 transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary';
@@ -35,21 +88,21 @@ const operationsLinks = [
     <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
       <div>
         <Logo />
-        <p class="mt-4 text-sm font-medium text-neutral-800">{en.footer.logoTagline1}</p>
-        <p class="mt-1 text-sm text-neutral-600">{en.footer.logoTagline2}</p>
+        <p class="mt-4 text-sm font-medium text-neutral-800">{company.legalName}</p>
+        <p class="mt-1 text-sm text-neutral-600">{logoTagline}</p>
       </div>
 
       <div class="space-y-4 text-sm">
         <div>
           <h2 class="text-sm font-semibold text-neutral-900">{en.footer.addressHeading}</h2>
           <address class="mt-2 not-italic text-neutral-600">
-            <p class="font-medium text-neutral-800">{en.footer.address.companyName}</p>
-            <p>{en.footer.address.street}</p>
-            <p>{en.footer.address.city}</p>
-            <p>{en.footer.address.country}</p>
+            <p class="font-medium text-neutral-800">{company.legalName}</p>
+            <p>{company.address.street}</p>
+            <p>{company.address.district}, {company.address.city} {company.address.postalCode}</p>
+            <p>{company.address.region}, {company.address.country}</p>
           </address>
           <a
-            href={googleMapsUrl}
+            href={company.googleMapsUrl}
             target="_blank"
             rel="noopener"
             data-event="outbound_click"
@@ -65,18 +118,18 @@ const operationsLinks = [
         <dl class="space-y-1">
           <div class="flex gap-2">
             <dt class="text-neutral-500">{en.footer.emailLabel}:</dt>
-            <dd><a href={emailHref} class={linkCls}>{en.footer.email}</a></dd>
+            <dd><a href={emailHref} class={linkCls}>{company.email}</a></dd>
           </div>
           <div class="flex gap-2">
             <dt class="text-neutral-500">{en.footer.phoneLabel}:</dt>
-            <dd><a href={phoneHref} class={linkCls}>{en.footer.phone}</a></dd>
+            <dd><a href={phoneHref} class={linkCls}>{company.phone.display}</a></dd>
           </div>
         </dl>
 
         <div>
           <h2 class="text-sm font-semibold text-neutral-900">{en.footer.hoursHeading}</h2>
-          <p class="mt-2 text-neutral-600">{en.footer.hoursWeekdays}</p>
-          <p class="text-neutral-600">{en.footer.hoursSunday}</p>
+          <p class="mt-2 text-neutral-600">{company.hours.weekdays}</p>
+          <p class="text-neutral-600">{en.footer.hoursSundayClosed}</p>
         </div>
 
         <OnlineIndicator label={en.footer.online} class="pt-1" />
@@ -117,17 +170,17 @@ const operationsLinks = [
     </div>
 
     <section aria-labelledby="company-description-heading" class="mt-8 space-y-3 text-xs leading-relaxed text-neutral-500">
-      <h2 id="company-description-heading" class="sr-only">{en.footer.description.label}</h2>
+      <h2 id="company-description-heading" class="sr-only">{descriptionLabel}</h2>
       <p>
-        {en.footer.description.p1Prefix}<strong class="font-semibold text-neutral-700">{en.footer.description.p1Brand}</strong>{en.footer.description.p1Suffix}
+        {p1Prefix}<strong class="font-semibold text-neutral-700">{company.domain}</strong>{p1Suffix}
       </p>
-      <p>{en.footer.description.p2}</p>
-      <p>{en.footer.description.p3}</p>
-      <p>{en.footer.description.p4}</p>
+      <p>{p2}</p>
+      <p>{p3}</p>
+      <p>{p4}</p>
     </section>
 
     <p class="mt-8 border-t border-neutral-200 pt-6 text-xs text-neutral-500">
-      &copy; {year} {en.footer.address.companyName}. {en.footer.copyright}
+      &copy; {year} {company.legalName}. {en.footer.copyright}
     </p>
   </div>
 </footer>
