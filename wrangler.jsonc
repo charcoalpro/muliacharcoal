@@ -1,0 +1,25 @@
+{
+  // Cloudflare Workers with Static Assets deployment config.
+  //
+  // This is a pure-static Astro site (`output: "static"` in astro.config.ts),
+  // so no Worker script exists — we only upload the pre-built `./dist`
+  // directory as assets. Cloudflare's CI runs `wrangler versions upload`
+  // which reads this file to find where the assets live.
+  //
+  // `_headers` and `_redirects` inside `./dist` (copied from `./public` at
+  // build time) keep working in Workers Static Assets mode — the syntax is
+  // identical to classic Pages.
+  //
+  // If deploy fails with "project not found" or "name mismatch", the
+  // `name` below must match the Worker name shown in the Cloudflare
+  // dashboard. Update it here; every other consumer of the site name
+  // lives in `/src/config/company.ts`.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "muliacharcoal",
+  "compatibility_date": "2026-04-22",
+  "assets": {
+    "directory": "./dist",
+    // Serve `dist/404.html` for any unmatched path. Astro built it.
+    "not_found_handling": "404-page"
+  }
+}
