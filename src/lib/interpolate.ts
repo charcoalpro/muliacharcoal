@@ -85,11 +85,18 @@ export function companyTokens(company: Company): Tokens {
     city: company.address.city,
     region: company.address.region,
     country: company.address.country,
+    postalCode: company.address.postalCode,
     addressFull,
     // Contact
     email: company.email,
     phoneDisplay: company.phone.display,
     phoneE164: company.phone.e164,
+    // WhatsApp `e164Digits` — the raw number (no "+", no separators)
+    // required by `wa.me/<digits>` URLs. Use this when the link should
+    // open a plain chat with no prefilled marketing text (e.g. legal
+    // pages); use `waLink()` from `~/config/company` when a prefilled
+    // subject is appropriate.
+    whatsappDigits: company.whatsapp.e164Digits,
     // Commercial — label tokens derive from structured fields via the
     // helpers exported by `~/config/company`. Never cache a label back
     // into the config; drift-proofing is the whole point.
@@ -109,6 +116,11 @@ export function companyTokens(company: Company): Tokens {
     unClass: company.certifications.imdg.class,
     imdgClassDescription: company.certifications.imdg.classDescription,
     imdgLabel: imdgLabel(),
+    // Legal / contract terms
+    governingLaw: company.legal.governingLaw,
+    arbitrationInstitution: company.legal.arbitration.institution,
+    arbitrationInstitutionShort: company.legal.arbitration.institutionShort,
+    arbitrationSeat: company.legal.arbitration.seat,
     // People
     executives: executivesList,
   };
