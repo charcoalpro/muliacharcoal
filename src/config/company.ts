@@ -29,6 +29,29 @@ export const company = {
   foundingYear: 2018,
 
   // -----------------------------------------------------------------
+  // Brand design tokens
+  //
+  // Visual identity values. Tailwind utility colors (brand-primary,
+  // brand-primary-hover, brand-accent, brand-dark) derive from these
+  // via tailwind.config.ts. The same values feed inline SVG fills
+  // (Logo, favicon), the <meta name="theme-color"> hint, and the dev
+  // swatch page. Change a value here and every surface updates on
+  // the next build.
+  // -----------------------------------------------------------------
+  brandAssets: {
+    colors: {
+      // Deep forest green — primary CTAs, links, logo mark background.
+      primary: '#0f3d2e',
+      // Pressed / hover state for `primary`.
+      primaryHover: '#0a2a1f',
+      // Muted gold — accent text, premium signals, logo letterform.
+      accent: '#c9a24b',
+      // Near-black green — hero backgrounds, footer.
+      dark: '#0a1f17',
+    },
+  },
+
+  // -----------------------------------------------------------------
   // Web presence
   // -----------------------------------------------------------------
   domain: 'muliacharcoal.com',
@@ -69,7 +92,7 @@ export const company = {
   // -----------------------------------------------------------------
   // Contact channels
   // -----------------------------------------------------------------
-  email: 'export@charcoal.pro',
+  email: 'export@muliacharcoal.com',
 
   // Primary phone. `display` is the pretty form for humans;
   // `e164` is what the `tel:` scheme expects.
@@ -117,6 +140,13 @@ export const company = {
 
   // -----------------------------------------------------------------
   // Commercial terms (for buyers)
+  //
+  // Fields are the structured source; human-readable strings derive
+  // from them via the helpers at the bottom of this file
+  // (`moqLabel()`, `portOfLoadingLabel()`, `leadTimeLabel()`). Never
+  // add a pre-baked label field here — the derived form cannot drift
+  // from the numbers only when there is no denormalised copy to
+  // forget to update.
   // -----------------------------------------------------------------
   commercial: {
     // Minimum Order Quantity.
@@ -124,7 +154,6 @@ export const company = {
       tons: 18,
       containers: 1,
       containerType: '20ft',
-      label: '18 tons (one 20ft container)',
     },
     // Port of loading for all FOB shipments.
     portOfLoading: {
@@ -132,13 +161,11 @@ export const company = {
       country: 'Indonesia',
       unLocode: 'IDSRG',
       incoterm: 'FOB',
-      label: 'FOB Semarang, Indonesia',
     },
     // Production lead time from deposit to ready-to-ship.
     leadTime: {
       minDays: 14,
       maxDays: 21,
-      label: '14–21 days',
     },
     // Default quote currency (USD). German market page may show EUR.
     currency: 'USD',
@@ -197,11 +224,14 @@ export const company = {
       shortName: 'ISO 9001',
       auditors: ['Carsurin', 'Backjorindo'],
     },
-    // IMDG Code classification for coconut charcoal at sea.
+    // IMDG Code classification for coconut charcoal at sea. Human-
+    // readable label derived via `imdgLabel()` helper below.
     imdg: {
       unNumber: 'UN 1361',
       class: '4.2',
-      label: 'IMDG Code UN 1361 Class 4.2 (spontaneous combustion)',
+      // Description of what IMDG Class 4.2 means; part of the
+      // structured data, not a cached sentence.
+      classDescription: 'spontaneous combustion',
     },
     // Additional compliance evidence we issue with every shipment.
     other: [
@@ -293,6 +323,54 @@ export function mailto(subject?: string): string {
  */
 export function yearsInBusiness(now: Date = new Date()): number {
   return now.getFullYear() - company.foundingYear;
+}
+
+// -----------------------------------------------------------------------
+// Label derivations
+//
+// Human-readable strings computed from structured fields above. Never
+// cache these back into the config object — the whole point is that
+// changing a number (e.g. `moq.tons`) automatically reflows every
+// rendered label.
+// -----------------------------------------------------------------------
+
+/**
+ * "18 tons (one 20ft container)" — MOQ as a single phrase.
+ *
+ * Singular containers read as "one" per export-trade convention;
+ * plural containers read as a numeral.
+ */
+export function moqLabel(): string {
+  const { tons, containers, containerType } = company.commercial.moq;
+  const count = containers === 1 ? 'one' : String(containers);
+  const plural = containers === 1 ? '' : 's';
+  return `${tons} tons (${count} ${containerType} container${plural})`;
+}
+
+/**
+ * "FOB Semarang, Indonesia" — port of loading with Incoterm prefix.
+ */
+export function portOfLoadingLabel(): string {
+  const { incoterm, name, country } = company.commercial.portOfLoading;
+  return `${incoterm} ${name}, ${country}`;
+}
+
+/**
+ * "14–21 days" — lead-time range using an en-dash (U+2013), matching
+ * Indonesian export-trade convention.
+ */
+export function leadTimeLabel(): string {
+  const { minDays, maxDays } = company.commercial.leadTime;
+  return `${minDays}\u2013${maxDays} days`;
+}
+
+/**
+ * "IMDG Code UN 1361 Class 4.2 (spontaneous combustion)" — maritime
+ * dangerous-goods classification phrased for buyers.
+ */
+export function imdgLabel(): string {
+  const { unNumber, class: unClass, classDescription } = company.certifications.imdg;
+  return `IMDG Code ${unNumber} Class ${unClass} (${classDescription})`;
 }
 
 // =======================================================================

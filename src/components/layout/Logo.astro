@@ -3,6 +3,9 @@
  * Logo — SVG M-mark + wordmark placeholder. Replace the SVG inline
  * with the real brand mark once finalized. Keep the outer structure
  * so the swap is a one-file change.
+ *
+ * Colors bind to `company.brandAssets.colors` so the logo mark, the
+ * favicon, and Tailwind utilities all track the same source values.
  */
 import { company } from '~/config/company';
 
@@ -12,6 +15,7 @@ interface Props {
 }
 
 const { showWordmark = true, class: className } = Astro.props;
+const brand = company.brandAssets.colors;
 ---
 <span
   class:list={['inline-flex items-center gap-2', className]}
@@ -23,7 +27,7 @@ const { showWordmark = true, class: className } = Astro.props;
     class="h-8 w-8 flex-none"
     role="img"
   >
-    <rect width="64" height="64" rx="12" fill="#0f3d2e" />
+    <rect width="64" height="64" rx="12" fill={brand.primary} />
     <text
       x="32"
       y="42"
@@ -31,7 +35,7 @@ const { showWordmark = true, class: className } = Astro.props;
       font-size="32"
       font-weight="700"
       text-anchor="middle"
-      fill="#c9a24b"
+      fill={brand.accent}
     >M</text>
   </svg>
   {showWordmark && (

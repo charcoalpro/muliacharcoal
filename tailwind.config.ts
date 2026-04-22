@@ -1,16 +1,21 @@
+import type { Config } from 'tailwindcss';
 import colors from 'tailwindcss/colors';
+import { company } from './src/config/company';
 
-/** @type {import('tailwindcss').Config} */
+// Brand utility colors derive from the single source of truth in
+// `/src/config/company.ts`. Edit the hex values there, never here.
+const brand = company.brandAssets.colors;
+
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,ts,tsx}'],
   theme: {
     extend: {
       colors: {
         brand: {
-          primary: '#0f3d2e',
-          'primary-hover': '#0a2a1f',
-          accent: '#c9a24b',
-          dark: '#0a1f17',
+          primary: brand.primary,
+          'primary-hover': brand.primaryHover,
+          accent: brand.accent,
+          dark: brand.dark,
         },
         neutral: colors.slate,
         success: '#16a34a',
@@ -35,4 +40,4 @@ export default {
     },
   },
   plugins: [],
-};
+} satisfies Config;
