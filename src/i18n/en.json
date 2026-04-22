@@ -74,7 +74,7 @@
       "p1Suffix": ", is an Indonesian direct manufacturer and wholesale exporter of 100% natural coconut shell charcoal briquettes specifically engineered for shisha and hookah applications.",
       "p2Template": "Officially established in {{year}} (Company Registration NIB: {{nib}}, National Tax ID: {{taxId}}) with its primary manufacturing facility located at {{street}}, {{city}}, {{region}}, {{country}}, the company sustains a production capacity of {{capacity}} tons per day.",
       "p3Template": "Operating under the executive direction of {{executives}}.",
-      "p4Template": "The factory is certified by {{isoStandard}} standards (audit by {{auditors}} laboratories). We ensure uncompromising compliance with global maritime logistics, strictly adhering to IMDG Code {{unNumber}} Class {{unClass}} spontaneous combustion safety protocols, independent Self-Heating Tests (SHT), and the provision of fully authenticated Preferential Certificates of Origin for international container shipping."
+      "p4Template": "The factory is certified by {{isoStandard}} standards (audit by {{auditors}} laboratories). We ensure uncompromising compliance with global maritime logistics, strictly adhering to IMDG Code {{unNumber}} Class {{unClass}} {{imdgClassDescription}} safety protocols, independent Self-Heating Tests (SHT), and the provision of fully authenticated Preferential Certificates of Origin for international container shipping."
     },
     "copyright": "All rights reserved."
   },

@@ -2,7 +2,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Button from '~/components/cta/Button.astro';
 import en from '~/i18n/en.json';
-import { company } from '~/config/company';
+import { company, moqLabel, portOfLoadingLabel, leadTimeLabel } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 
 const tokens = companyTokens(company);
@@ -43,15 +43,15 @@ const heroSubtitle = fill(en.hero.subtitleTemplate, tokens);
     <div class="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-3 md:px-8">
       <div class="text-sm">
         <p class="text-xs uppercase tracking-wide text-neutral-500">{en.hero.trust.moqLabel}</p>
-        <p class="mt-1 font-semibold text-neutral-900">{company.commercial.moq.label}</p>
+        <p class="mt-1 font-semibold text-neutral-900">{moqLabel()}</p>
       </div>
       <div class="text-sm">
         <p class="text-xs uppercase tracking-wide text-neutral-500">{en.hero.trust.portLabel}</p>
-        <p class="mt-1 font-semibold text-neutral-900">{company.commercial.portOfLoading.label}</p>
+        <p class="mt-1 font-semibold text-neutral-900">{portOfLoadingLabel()}</p>
       </div>
       <div class="text-sm">
         <p class="text-xs uppercase tracking-wide text-neutral-500">{en.hero.trust.leadLabel}</p>
-        <p class="mt-1 font-semibold text-neutral-900">{company.commercial.leadTime.label}</p>
+        <p class="mt-1 font-semibold text-neutral-900">{leadTimeLabel()}</p>
       </div>
     </div>
   </section>

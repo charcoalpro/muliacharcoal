@@ -6,6 +6,7 @@ import Header from '~/components/layout/Header.astro';
 import Footer from '~/components/layout/Footer.astro';
 import SkipLink from '~/components/layout/SkipLink.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+import { company } from '~/config/company';
 
 interface PreloadHint {
   href: string;
@@ -54,7 +55,7 @@ const {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0f3d2e" />
+    <meta name="theme-color" content={company.brandAssets.colors.primary} />
     <meta name="format-detection" content="telephone=no" />
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

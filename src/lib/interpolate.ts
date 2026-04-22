@@ -13,7 +13,16 @@
  * and prose but never the fact values themselves.
  */
 
-import type { Company } from '~/config/company';
+// Relative path, not the `~/` alias: `astro.config.ts` loads this module
+// to register the remark plugin, and Vite's SSR loader does not resolve
+// tsconfig path aliases when evaluating the config file itself.
+import {
+  imdgLabel,
+  leadTimeLabel,
+  moqLabel,
+  portOfLoadingLabel,
+  type Company,
+} from '../config/company';
 
 export type TokenValue = string | number;
 export type Tokens = Record<string, TokenValue>;
@@ -81,13 +90,15 @@ export function companyTokens(company: Company): Tokens {
     email: company.email,
     phoneDisplay: company.phone.display,
     phoneE164: company.phone.e164,
-    // Commercial
+    // Commercial — label tokens derive from structured fields via the
+    // helpers exported by `~/config/company`. Never cache a label back
+    // into the config; drift-proofing is the whole point.
     moqTons: company.commercial.moq.tons,
-    moqLabel: company.commercial.moq.label,
+    moqLabel: moqLabel(),
     containerType: company.commercial.moq.containerType,
     port: company.commercial.portOfLoading.name,
-    portLabel: company.commercial.portOfLoading.label,
-    leadTimeLabel: company.commercial.leadTime.label,
+    portLabel: portOfLoadingLabel(),
+    leadTimeLabel: leadTimeLabel(),
     // Production
     capacity: company.production.capacityTonsPerDay,
     // Certifications
@@ -96,6 +107,8 @@ export function companyTokens(company: Company): Tokens {
     auditors: company.certifications.iso9001.auditors.join(' & '),
     unNumber: company.certifications.imdg.unNumber,
     unClass: company.certifications.imdg.class,
+    imdgClassDescription: company.certifications.imdg.classDescription,
+    imdgLabel: imdgLabel(),
     // People
     executives: executivesList,
   };

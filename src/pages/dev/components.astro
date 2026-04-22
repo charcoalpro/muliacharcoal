@@ -6,7 +6,7 @@ import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import en from '~/i18n/en.json';
-import { company } from '~/config/company';
+import { company, portOfLoadingLabel } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 
 const variants = ['primary', 'secondary', 'ghost', 'danger'] as const;
@@ -25,7 +25,7 @@ const typeScale = [
   { role: 'Lead paragraph', cls: 'text-lg', sample: `Factory-direct from ${company.commercial.portOfLoading.name}, ${company.address.country}.` },
   { role: 'Body', cls: 'text-base', sample: 'Standard body copy for articles, specs, and long-form content.' },
   { role: 'Caption / small', cls: 'text-sm text-neutral-600', sample: 'Last updated 2026-04-20' },
-  { role: 'Fine print', cls: 'text-xs text-neutral-500', sample: `Prices in ${company.commercial.currency}, ${company.commercial.portOfLoading.label}.` },
+  { role: 'Fine print', cls: 'text-xs text-neutral-500', sample: `Prices in ${company.commercial.currency}, ${portOfLoadingLabel()}.` },
 ];
 ---
 <BaseLayout
@@ -258,34 +258,20 @@ const typeScale = [
     <section aria-labelledby="colors-heading" class="mb-16">
       <h2 id="colors-heading" class="text-2xl font-bold text-neutral-900">Brand tokens</h2>
       <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4">
-        <div class="overflow-hidden rounded-xl border border-neutral-200">
-          <div class="h-20 bg-brand-primary"></div>
-          <div class="p-3 text-xs">
-            <div class="font-semibold text-neutral-900">brand-primary</div>
-            <div class="text-neutral-600">#0f3d2e</div>
+        {[
+          { name: 'brand-primary', swatchCls: 'bg-brand-primary', hex: company.brandAssets.colors.primary },
+          { name: 'brand-primary-hover', swatchCls: 'bg-brand-primary-hover', hex: company.brandAssets.colors.primaryHover },
+          { name: 'brand-accent', swatchCls: 'bg-brand-accent', hex: company.brandAssets.colors.accent },
+          { name: 'brand-dark', swatchCls: 'bg-brand-dark', hex: company.brandAssets.colors.dark },
+        ].map((token) => (
+          <div class="overflow-hidden rounded-xl border border-neutral-200">
+            <div class:list={['h-20', token.swatchCls]}></div>
+            <div class="p-3 text-xs">
+              <div class="font-semibold text-neutral-900">{token.name}</div>
+              <div class="text-neutral-600">{token.hex}</div>
+            </div>
           </div>
-        </div>
-        <div class="overflow-hidden rounded-xl border border-neutral-200">
-          <div class="h-20 bg-brand-primary-hover"></div>
-          <div class="p-3 text-xs">
-            <div class="font-semibold text-neutral-900">brand-primary-hover</div>
-            <div class="text-neutral-600">#0a2a1f</div>
-          </div>
-        </div>
-        <div class="overflow-hidden rounded-xl border border-neutral-200">
-          <div class="h-20 bg-brand-accent"></div>
-          <div class="p-3 text-xs">
-            <div class="font-semibold text-neutral-900">brand-accent</div>
-            <div class="text-neutral-600">#c9a24b</div>
-          </div>
-        </div>
-        <div class="overflow-hidden rounded-xl border border-neutral-200">
-          <div class="h-20 bg-brand-dark"></div>
-          <div class="p-3 text-xs">
-            <div class="font-semibold text-neutral-900">brand-dark</div>
-            <div class="text-neutral-600">#0a1f17</div>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
 
