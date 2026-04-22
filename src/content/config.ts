@@ -12,8 +12,10 @@ import { glob } from 'astro/loaders';
 const legal = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/legal' }),
   schema: z.object({
-    title: z.string(),
-    description: z.string(),
+    title: z.string().min(1),
+    // Meta-description cap: keeps SERP snippets from being truncated and
+    // forces authors to write a tight summary rather than a paragraph.
+    description: z.string().min(1).max(155),
     lastUpdated: z.coerce.date(),
     datePublished: z.coerce.date().optional(),
   }),
