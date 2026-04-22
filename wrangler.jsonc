@@ -19,6 +19,15 @@
   "compatibility_date": "2026-04-22",
   "assets": {
     "directory": "./dist",
+    // Strip the trailing slash on asset routes so `/terms` serves
+    // directly from `dist/terms/index.html` with no redirect. Matches
+    // `astro.config.ts` → `trailingSlash: 'never'` and the canonical
+    // tag Astro emits on every page (`<link rel="canonical" href=".../terms">`).
+    //
+    // Without this, Workers Static Assets defaults to appending the
+    // slash (`/terms` → 307 → `/terms/`), which splits Google's index
+    // from the canonical URL.
+    "html_handling": "drop-trailing-slash",
     // Serve `dist/404.html` for any unmatched path. Astro built it.
     "not_found_handling": "404-page"
   }
