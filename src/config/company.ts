@@ -241,6 +241,26 @@ export const company = {
   },
 
   // -----------------------------------------------------------------
+  // Legal / contract terms
+  //
+  // Drives the Terms & Conditions page (§ Governing Law & Disputes)
+  // and any future contract template. Keeps jurisdiction and
+  // arbitration facts in one place so a single change propagates
+  // everywhere they are cited.
+  // -----------------------------------------------------------------
+  legal: {
+    // Controlling law for all buyer/seller agreements.
+    governingLaw: 'Republic of Indonesia',
+    // Arbitration forum used when good-faith negotiation fails.
+    arbitration: {
+      institution: 'Indonesian National Board of Arbitration',
+      // Short Indonesian acronym, commonly used in legal text.
+      institutionShort: 'BANI',
+      seat: 'Jakarta, Indonesia',
+    },
+  },
+
+  // -----------------------------------------------------------------
   // Banking
   //
   // Not surfaced publicly. Used on proforma invoices generated off-site
