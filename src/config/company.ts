@@ -290,13 +290,12 @@ export const company = {
   ],
 
   // -----------------------------------------------------------------
-  // B2B profile — consumed by Analytics.astro as GA4 custom
-  // dimensions for buyer-journey segmentation.
+  // Web analytics. Both values are public — they appear verbatim in
+  // the rendered HTML — so they live in source rather than env vars.
   // -----------------------------------------------------------------
-  b2bProfile: {
-    businessType: 'charcoal_manufacturer',
-    productTypes: ['shisha_charcoal', 'coconut_charcoal'],
-    exportReady: true,
+  analytics: {
+    gaId: 'G-CLNNLB616W',
+    gscVerification: 'fKfTQ-h0XVRjQNoEERZWqchNnUs_6H48amhkgsDPGBA',
   },
 } as const;
 
