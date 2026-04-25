@@ -288,6 +288,16 @@ export const company = {
     'Germany',
     'Russia / CIS',
   ],
+
+  // -----------------------------------------------------------------
+  // B2B profile — consumed by Analytics.astro as GA4 custom
+  // dimensions for buyer-journey segmentation.
+  // -----------------------------------------------------------------
+  b2bProfile: {
+    businessType: 'charcoal_manufacturer',
+    productTypes: ['shisha_charcoal', 'coconut_charcoal'],
+    exportReady: true,
+  },
 } as const;
 
 // =======================================================================
