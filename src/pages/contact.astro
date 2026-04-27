@@ -1,0 +1,673 @@
+---
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ImagePlaceholder from '~/components/ImagePlaceholder.astro';
+import TrustBadge from '~/components/contact/TrustBadge.astro';
+import TeamCard from '~/components/contact/TeamCard.astro';
+import ChannelCard from '~/components/contact/ChannelCard.astro';
+import HotelCard from '~/components/contact/HotelCard.astro';
+import MapEmbed from '~/components/contact/MapEmbed.astro';
+import InquiryForm from '~/components/contact/InquiryForm.astro';
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import {
+  company,
+  waLinkFor,
+  mailto,
+  yearsInBusiness,
+} from '~/config/company';
+import { localBusinessSchema } from '~/lib/schema/localBusiness';
+
+const t = en.contact;
+
+// ---------------------------------------------------------------------------
+// Block 1 — Hero CTAs
+// ---------------------------------------------------------------------------
+const heroWaHref = waLinkFor('heroCta');
+const heroEmailHref = mailto('Wholesale inquiry');
+
+// ---------------------------------------------------------------------------
+// Block 2 — Trust strip data (only render badges with verified facts)
+// ---------------------------------------------------------------------------
+const years = yearsInBusiness();
+const trustItems = [
+  {
+    iconText: '★',
+    label: t.trust.exportingSinceTemplate.replace('{{year}}', String(company.foundingYear)),
+    value: fill(t.trust.yearsLabelTemplate, { years: String(years) }),
+  },
+  {
+    iconText: '§',
+    label: t.trust.legalLabel,
+    value: company.legalName,
+  },
+  {
+    iconText: 'N',
+    label: t.trust.nibLabel,
+    value: company.registration.nib,
+  },
+  {
+    iconText: 'T',
+    label: t.trust.npwpLabel,
+    value: company.registration.taxId,
+  },
+  {
+    iconText: '✓',
+    label: t.trust.isoLabel,
+    value: `Audited by ${company.certifications.iso9001.auditors.join(' & ')}`,
+  },
+  {
+    iconText: '⚓',
+    label: t.trust.imdgLabel,
+    value: company.certifications.imdg.classDescription,
+  },
+  {
+    iconText: '◉',
+    label: t.trust.directorLabel,
+    value: company.people.owner.name,
+  },
+];
+
+// ---------------------------------------------------------------------------
+// Block 5 — Channels (only render those with real handles set)
+// ---------------------------------------------------------------------------
+const phoneE164 = company.phone.e164;
+const phoneDisplay = company.phone.display;
+const baseChannels: Array<{ channel: string; handle: string; href: string; iconText?: string; ctaLabel?: string }> = [
+  {
+    channel: 'WhatsApp chat',
+    handle: phoneDisplay,
+    href: waLinkFor('salesGeneral'),
+    iconText: '💬',
+  },
+  {
+    channel: 'WhatsApp voice call',
+    handle: phoneDisplay,
+    href: waLinkFor('salesGeneral'),
+    iconText: '📞',
+  },
+  {
+    channel: 'WhatsApp video call',
+    handle: phoneDisplay,
+    href: waLinkFor('videoCallRequest'),
+    iconText: '🎥',
+  },
+  {
+    channel: 'Direct phone call',
+    handle: phoneDisplay,
+    href: `tel:${phoneE164}`,
+    iconText: '☎',
+  },
+  {
+    channel: 'SMS',
+    handle: phoneDisplay,
+    href: `sms:${phoneE164}`,
+    iconText: '✉',
+  },
+  {
+    channel: 'Email',
+    handle: company.email,
+    href: mailto('Wholesale inquiry'),
+    iconText: '@',
+  },
+  {
+    channel: 'Inquiry form',
+    handle: t.channels.anchorButton,
+    href: '#inquiry',
+    iconText: '📝',
+    ctaLabel: t.channels.anchorButton,
+  },
+];
+
+const c = company.channels;
+const optionalChannels: Array<{ channel: string; handle: string; href: string; iconText?: string }> = [];
+if (c.zoom?.schedulingUrl) {
+  optionalChannels.push({
+    channel: 'Zoom / Google Meet',
+    handle: t.channels.videoMeetingLabel,
+    href: c.zoom.schedulingUrl,
+    iconText: '🎦',
+  });
+}
+if (c.wechat?.id) {
+  optionalChannels.push({
+    channel: 'WeChat',
+    handle: c.wechat.id,
+    href: `weixin://dl/chat?${c.wechat.id}`,
+    iconText: '微',
+  });
+}
+if (c.telegram?.url) {
+  optionalChannels.push({
+    channel: 'Telegram',
+    handle: c.telegram.handle,
+    href: c.telegram.url,
+    iconText: 'T',
+  });
+}
+if (c.messenger?.url) {
+  optionalChannels.push({
+    channel: 'Messenger',
+    handle: c.messenger.handle,
+    href: c.messenger.url,
+    iconText: 'M',
+  });
+}
+if (c.botim) {
+  optionalChannels.push({
+    channel: 'Botim',
+    handle: c.botim,
+    href: `tel:${c.botim}`,
+    iconText: 'B',
+  });
+}
+if (c.max) {
+  optionalChannels.push({
+    channel: 'Max',
+    handle: c.max,
+    href: `https://max.ru/${c.max}`,
+    iconText: 'X',
+  });
+}
+if (c.line) {
+  optionalChannels.push({
+    channel: 'Line',
+    handle: c.line,
+    href: `https://line.me/ti/p/~${c.line}`,
+    iconText: 'L',
+  });
+}
+if (c.viber) {
+  optionalChannels.push({
+    channel: 'Viber',
+    handle: c.viber,
+    href: `viber://chat?number=${encodeURIComponent(c.viber)}`,
+    iconText: 'V',
+  });
+}
+const channels = [...baseChannels, ...optionalChannels];
+
+// ---------------------------------------------------------------------------
+// Block 7 — Address fragments
+// ---------------------------------------------------------------------------
+const addr = company.address;
+const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${addr.latitude},${addr.longitude}`;
+
+// ---------------------------------------------------------------------------
+// Block 8 — Lebaran callout
+// ---------------------------------------------------------------------------
+const lebaran = company.lebaranShutdown;
+const lebaranBody = fill(t.hours.lebaranBodyTemplate, {
+  from: lebaran.from,
+  to: lebaran.to,
+  cutoff: lebaran.orderCutoff,
+});
+
+// ---------------------------------------------------------------------------
+// Block 10 — Hotels split by tier
+// ---------------------------------------------------------------------------
+const fiveStar = company.hotels.filter((h) => h.stars === 5);
+const fourStar = company.hotels.filter((h) => h.stars === 4);
+const threeStar = company.hotels.filter((h) => h.stars === 3);
+
+// ---------------------------------------------------------------------------
+// Block 11 — Banking (public mode)
+// ---------------------------------------------------------------------------
+const isBankPublic = company.payment.mode === 'public';
+const bank = company.bank;
+const piHref = waLinkFor('piRequest');
+const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
+  director: company.people.owner.name,
+});
+---
+<BaseLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  path="/contact"
+  type="website"
+  includeOrgSchema={true}
+  schema={localBusinessSchema}
+>
+  <!-- Breadcrumbs (also emits BreadcrumbList JSON-LD) -->
+  <div class="border-b border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-4 py-4 md:px-8">
+      <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+    </div>
+  </div>
+
+  <!-- Block 1 — Hero -->
+  <HeroSection
+    title={t.hero.title}
+    subtitle={t.hero.subtitle}
+    primaryCta={{
+      label: t.hero.ctaWhatsapp,
+      href: heroWaHref,
+      ariaLabel: t.hero.ctaWhatsappAria,
+      target: '_blank',
+      rel: 'noopener noreferrer',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'hero',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaEmail,
+      href: heroEmailHref,
+      ariaLabel: t.hero.ctaEmailAria,
+    }}
+  >
+    <p class="mt-6 text-sm text-neutral-600">{t.hero.microcopy}</p>
+  </HeroSection>
+
+  <!-- Block 2 — Trust strip -->
+  <section aria-labelledby="trust-heading" class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-4 py-6 md:px-8">
+      <h2 id="trust-heading" class="sr-only">{t.trust.heading}</h2>
+      <ul class="-mx-1 flex snap-x gap-3 overflow-x-auto px-1 pb-2">
+        {trustItems.map((item) => (
+          <li class="snap-start">
+            <TrustBadge label={item.label} value={item.value} iconText={item.iconText} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Block 3 — WhatsApp primary -->
+  <section aria-labelledby="whatsapp-heading" class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <div class="grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-6">
+          <h2 id="whatsapp-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+            {t.whatsappPrimary.heading}
+          </h2>
+          <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.whatsappPrimary.lead}</p>
+          <h3 class="mt-8 text-base font-semibold text-neutral-900">
+            {t.whatsappPrimary.includeHeading}
+          </h3>
+          <ul class="mt-3 space-y-2 text-sm text-neutral-700">
+            {t.whatsappPrimary.includeItems.map((item) => (
+              <li class="flex gap-2">
+                <span aria-hidden="true" class="text-brand-primary">•</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <p class="mt-6 text-sm text-neutral-600">{t.whatsappPrimary.voiceVideoNote}</p>
+        </div>
+        <div class="grid gap-4 lg:col-span-6 sm:grid-cols-2">
+          {[company.whatsapp.sales, company.whatsapp.director].map((person, idx) => {
+            const presetKey = idx === 0 ? 'salesGeneral' : 'directorIntro';
+            const waHref = waLinkFor(presetKey, person.e164Digits);
+            const heading = idx === 0 ? t.whatsappPrimary.salesCardHeading : t.whatsappPrimary.directorCardHeading;
+            return (
+              <article class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6">
+                <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">{heading}</p>
+                <h3 class="mt-2 text-lg font-semibold text-neutral-900">{person.name}</h3>
+                <p class="text-sm text-neutral-600">{person.role}</p>
+                <a
+                  href={`tel:${person.e164Digits.startsWith('+') ? person.e164Digits : '+' + person.e164Digits}`}
+                  class="mt-4 text-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
+                >
+                  {person.display}
+                </a>
+                <div class="mt-auto flex flex-wrap gap-2 pt-4">
+                  <a
+                    href={waHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    data-event="whatsapp_click"
+                    data-source-component="whatsapp-primary"
+                    class="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
+                  >
+                    {t.whatsappPrimary.buttonOpenWhatsapp}
+                    <span class="sr-only">{t.newTabSr}</span>
+                  </a>
+                  <a
+                    href={`tel:${person.e164Digits.startsWith('+') ? person.e164Digits : '+' + person.e164Digits}`}
+                    class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+                  >
+                    {t.whatsappPrimary.buttonCall}
+                  </a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 4 — Sales team -->
+  <section aria-labelledby="team-heading" class="bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2 id="team-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+        {t.team.heading}
+      </h2>
+      <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.team.lead}</p>
+      <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {company.team.map((member) => <TeamCard member={member} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 5 — All contact channels -->
+  <section aria-labelledby="channels-heading" class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2 id="channels-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+        {t.channels.heading}
+      </h2>
+      <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.channels.lead}</p>
+      <ul class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        {channels.map((ch) => (
+          <li class="h-full">
+            <ChannelCard
+              channel={ch.channel}
+              handle={ch.handle}
+              href={ch.href}
+              iconText={ch.iconText}
+              ctaLabel={ch.ctaLabel}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Block 6 — Inquiry form -->
+  <section id="inquiry" aria-labelledby="form-heading" class="bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2 id="form-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+        {t.form.heading}
+      </h2>
+      <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.form.lead}</p>
+      <div class="mt-10">
+        <InquiryForm />
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 7 — Find us -->
+  <section aria-labelledby="findus-heading" class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2 id="findus-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+        {t.findUs.heading}
+      </h2>
+      <p class="mt-4 max-w-prose text-lg text-neutral-700">
+        {fill(t.findUs.leadTemplate, { addressShort: addr.short })}
+      </p>
+
+      <div class="mt-10 grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <h3 class="text-base font-semibold text-neutral-900">{t.findUs.addressHeading}</h3>
+          <address class="mt-3 not-italic text-neutral-700">
+            <span class="block font-semibold text-neutral-900">{company.legalName}</span>
+            <span class="block">{addr.street}</span>
+            <span class="block">{addr.district}</span>
+            <span class="block">{addr.city}, {addr.region} {addr.postalCode}</span>
+            <span class="block">{addr.country}</span>
+            <span class="mt-3 block">
+              <span class="text-sm font-medium text-neutral-700">{t.findUs.phoneLabel}: </span>
+              <a
+                href={`tel:${company.phone.e164}`}
+                class="text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
+              >
+                {company.phone.display}
+              </a>
+            </span>
+            <span class="block">
+              <span class="text-sm font-medium text-neutral-700">{t.findUs.emailLabel}: </span>
+              <a
+                href={mailto()}
+                class="text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
+              >
+                {company.email}
+              </a>
+            </span>
+            <span class="mt-3 block">
+              <span class="text-sm font-medium text-neutral-700">{t.findUs.hoursHeading}: </span>
+              <span>{company.hours.weekdays}, {t.hours.sun.toLowerCase()} {t.hours.closed.toLowerCase()}</span>
+            </span>
+          </address>
+          <a
+            href={directionsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t.findUs.directionsAria}
+            class="mt-5 inline-flex items-center justify-center rounded-md bg-brand-primary px-5 py-3 text-sm font-semibold text-white hover:bg-brand-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+          >
+            {t.findUs.directionsButton}
+            <span class="sr-only">{t.newTabSr}</span>
+          </a>
+        </div>
+
+        <div class="lg:col-span-7">
+          <h3 class="text-base font-semibold text-neutral-900">{t.findUs.hubsHeading}</h3>
+          <div class="mt-3 overflow-x-auto rounded-xl border border-neutral-200">
+            <table class="w-full text-sm">
+              <thead class="bg-neutral-50 text-left">
+                <tr>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.from}</th>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.distance}</th>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.byCar}</th>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.byTrainCar}</th>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.notes}</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-neutral-200">
+                {company.travelHubs.map((hub) => (
+                  <tr>
+                    <td class="px-4 py-3 font-medium text-neutral-900">{hub.from}</td>
+                    <td class="px-4 py-3 text-neutral-700">{hub.distanceKm} km</td>
+                    <td class="px-4 py-3 text-neutral-700">{hub.byCar}</td>
+                    <td class="px-4 py-3 text-neutral-700">{hub.byTrainCar ?? '—'}</td>
+                    <td class="px-4 py-3 text-neutral-600">{hub.notes ?? ''}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-3 text-sm text-neutral-600">{t.findUs.hubsNote}</p>
+        </div>
+      </div>
+
+      <h3 class="mt-12 text-base font-semibold text-neutral-900">{t.findUs.photosHeading}</h3>
+      <div class="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <ImagePlaceholder label={t.findUs.photoMainGate} ratio="3/2" caption="Main gate" />
+        <ImagePlaceholder label={t.findUs.photoProductionFloor} ratio="3/2" caption="Production floor" />
+        <ImagePlaceholder label={t.findUs.photoQualityControl} ratio="3/2" caption="Quality control" />
+        <ImagePlaceholder label={t.findUs.photoLoadingBay} ratio="3/2" caption="Loading bay" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 8 — Hours & holidays -->
+  <section aria-labelledby="hours-heading" class="bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2 id="hours-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+        {t.hours.heading}
+      </h2>
+      <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.hours.lead}</p>
+
+      <div class="mt-10 grid gap-10 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <h3 class="text-base font-semibold text-neutral-900">{t.hours.weeklyHeading}</h3>
+          <div class="mt-3 overflow-hidden rounded-xl border border-neutral-200">
+            <table class="w-full text-sm">
+              <thead class="bg-white text-left">
+                <tr>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableDay}</th>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableHours}</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-neutral-200 bg-white">
+                <tr>
+                  <td class="px-4 py-3 font-medium text-neutral-900">{t.hours.monSat}</td>
+                  <td class="px-4 py-3 text-neutral-700">08:00 – 16:00</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-3 font-medium text-neutral-900">{t.hours.sun}</td>
+                  <td class="px-4 py-3 text-neutral-700">{t.hours.closed}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="lg:col-span-7">
+          <h3 class="text-base font-semibold text-neutral-900">{t.hours.holidaysHeading}</h3>
+          <div class="mt-3 overflow-x-auto rounded-xl border border-neutral-200">
+            <table class="w-full text-sm">
+              <thead class="bg-white text-left">
+                <tr>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableDate}</th>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableDayName}</th>
+                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableHolidayName}</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-neutral-200 bg-white">
+                {company.holidays2026.map((h) => (
+                  <tr>
+                    <td class="px-4 py-3 font-medium text-neutral-900">{h.date}</td>
+                    <td class="px-4 py-3 text-neutral-700">{h.day}</td>
+                    <td class="px-4 py-3 text-neutral-700">{h.name}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div role="note" class="mt-8 rounded-xl border-l-4 border-warning bg-warning/10 p-5">
+        <p class="text-sm font-semibold text-neutral-900">{t.hours.lebaranHeading}</p>
+        <p class="mt-1 text-sm text-neutral-800">{lebaranBody}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Block 9 — Map -->
+  <section aria-labelledby="map-heading" class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2 id="map-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+        {t.map.heading}
+      </h2>
+      <div class="mt-6">
+        <MapEmbed
+          latitude={addr.latitude}
+          longitude={addr.longitude}
+          title={t.map.iframeTitle}
+        />
+      </div>
+      <p class="mt-3 text-sm text-neutral-600">
+        {fill(t.map.captionTemplate, { addressShort: addr.short })}{' '}
+        <a
+          href={company.googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
+        >
+          {t.map.openInGoogleMaps}
+          <span class="sr-only">{t.newTabSr}</span>
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Block 10 — Hotels -->
+  <section aria-labelledby="hotels-heading" class="bg-neutral-50">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2 id="hotels-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+        {t.hotels.heading}
+      </h2>
+      <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.hotels.lead}</p>
+
+      {[
+        { tier: fiveStar, heading: t.hotels.fiveStarHeading },
+        { tier: fourStar, heading: t.hotels.fourStarHeading },
+        { tier: threeStar, heading: t.hotels.threeStarHeading },
+      ].filter((g) => g.tier.length > 0).map((g) => (
+        <div class="mt-10">
+          <h3 class="text-base font-semibold text-neutral-900">{g.heading}</h3>
+          <ul class="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {g.tier.map((h) => (
+              <li class="h-full"><HotelCard hotel={h} /></li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Block 11 — Banking (public) -->
+  <section aria-labelledby="payment-heading" class="bg-white">
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2 id="payment-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+        {t.payment.heading}
+      </h2>
+
+      <div role="alert" class="mt-6 rounded-xl border-l-4 border-error bg-error/10 p-5">
+        <p class="font-semibold text-neutral-900">⚠ {t.payment.warningHeading}</p>
+        <p class="mt-2 text-sm text-neutral-800">{paymentWarningBody}</p>
+      </div>
+
+      <div class="mt-8 grid gap-8 lg:grid-cols-12">
+        <div class="lg:col-span-5">
+          <h3 class="text-base font-semibold text-neutral-900">{t.payment.termsHeading}</h3>
+          <ul class="mt-3 space-y-2 text-sm text-neutral-700">
+            {company.payment.terms.map((term) => (
+              <li class="flex gap-2"><span aria-hidden="true" class="text-brand-primary">•</span><span>{term}</span></li>
+            ))}
+          </ul>
+          <h3 class="mt-6 text-base font-semibold text-neutral-900">{t.payment.currenciesHeading}</h3>
+          <p class="mt-2 text-sm text-neutral-700">{company.payment.currencies.join(', ')}</p>
+          <p class="mt-4 text-sm text-neutral-700">
+            <span class="font-medium text-neutral-700">{t.payment.bankCountryLabel}: </span>
+            {company.payment.bankCountry}
+          </p>
+        </div>
+
+        {isBankPublic && (
+          <div class="lg:col-span-7">
+            <div class="overflow-x-auto rounded-xl border border-neutral-200">
+              <table class="w-full text-sm">
+                <thead class="bg-neutral-50 text-left">
+                  <tr>
+                    <th class="px-4 py-3 font-semibold text-neutral-700">{t.payment.tableField}</th>
+                    <th class="px-4 py-3 font-semibold text-neutral-700">{t.payment.tableValue}</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-neutral-200 bg-white">
+                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.beneficiary}</td><td class="px-4 py-3 text-neutral-700">{bank.accountName}</td></tr>
+                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.bankName}</td><td class="px-4 py-3 text-neutral-700">{bank.bankName}</td></tr>
+                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.bankAddress}</td><td class="px-4 py-3 text-neutral-700">{bank.bankAddress}</td></tr>
+                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.branch}</td><td class="px-4 py-3 text-neutral-700">{bank.branch}</td></tr>
+                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.accountNumber}</td><td class="px-4 py-3 text-neutral-700">{bank.accountNumber}</td></tr>
+                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.swift}</td><td class="px-4 py-3 text-neutral-700">{bank.swiftCode}</td></tr>
+                  {bank.iban && (
+                    <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.iban}</td><td class="px-4 py-3 text-neutral-700">{bank.iban}</td></tr>
+                  )}
+                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.currency}</td><td class="px-4 py-3 text-neutral-700">{bank.currency}</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="mt-3 text-sm text-neutral-600">
+              {fill(t.payment.lastVerifiedTemplate, { date: bank.lastVerified })}
+            </p>
+            <a
+              href={piHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t.payment.piButtonAria}
+              data-event="whatsapp_click"
+              data-source-component="payment-pi"
+              class="mt-5 inline-flex items-center justify-center gap-2 rounded-md bg-success px-6 py-3 text-base font-semibold text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
+            >
+              {t.payment.piButton}
+              <span class="sr-only">{t.newTabSr}</span>
+            </a>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

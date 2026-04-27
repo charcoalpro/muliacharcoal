@@ -1,0 +1,56 @@
+---
+/**
+ * TrustBadge — single trust signal in the Contact-page Block 2 strip.
+ *
+ * Renders an icon + a stacked label/value pair. When `href` is set the
+ * whole badge is a link (used for verifiable certifications and
+ * Alibaba Gold profiles); otherwise it is a non-interactive `<div>`.
+ */
+
+import en from '~/i18n/en.json';
+
+interface Props {
+  /** Top-line short label (e.g. "ISO 9001"). */
+  label: string;
+  /** Optional second-line value (e.g. "Certified since 2022"). */
+  value?: string;
+  /** Optional verifiable URL — when set, the badge becomes an external link. */
+  href?: string;
+  /** Optional one-letter / short string used as a glyph in the icon slot. */
+  iconText?: string;
+  class?: string;
+}
+
+const { label, value, href, iconText, class: className } = Astro.props;
+const isLink = Boolean(href);
+const Tag = isLink ? 'a' : 'div';
+---
+<Tag
+  href={href}
+  target={isLink ? '_blank' : undefined}
+  rel={isLink ? 'noopener noreferrer' : undefined}
+  class:list={[
+    'flex shrink-0 items-center gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-3',
+    isLink &&
+      'transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary',
+    className,
+  ]}
+>
+  <span
+    aria-hidden="true"
+    class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-brand-primary/10 text-sm font-semibold text-brand-primary"
+  >
+    {iconText ?? '✓'}
+  </span>
+  <span class="flex flex-col leading-tight">
+    <span class="text-xs font-medium uppercase tracking-wide text-neutral-500">
+      {label}
+    </span>
+    {value && (
+      <span class="text-sm font-semibold text-neutral-900">{value}</span>
+    )}
+  </span>
+  {isLink && (
+    <span class="sr-only">{en.contact.newTabSr}</span>
+  )}
+</Tag>

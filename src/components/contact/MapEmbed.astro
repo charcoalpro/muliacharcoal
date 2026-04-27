@@ -1,0 +1,33 @@
+---
+/**
+ * MapEmbed — lazy-loaded Google Maps iframe used on /contact (Block 9).
+ *
+ * Per CLAUDE.md, iframes are avoided by default; this is the explicit
+ * exception for the factory map. Loads lazily and ships zero JS.
+ */
+
+interface Props {
+  latitude: number;
+  longitude: number;
+  title: string;
+  /** Pixel zoom level, 1–20. Higher zooms in. */
+  zoom?: number;
+  class?: string;
+}
+
+const { latitude, longitude, title, zoom = 15, class: className = '' } = Astro.props;
+
+// Google Maps lite "?output=embed" URL — works without an API key.
+// `q={lat},{lng}` drops a pin; `z={zoom}` sets the zoom level.
+const src = `https://www.google.com/maps?q=${latitude},${longitude}&z=${zoom}&output=embed`;
+---
+<div class:list={['overflow-hidden rounded-xl border border-neutral-200', className]}>
+  <iframe
+    src={src}
+    title={title}
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"
+    allowfullscreen={false}
+    class="block aspect-video w-full border-0"
+  ></iframe>
+</div>

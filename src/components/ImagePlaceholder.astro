@@ -1,0 +1,46 @@
+---
+/**
+ * ImagePlaceholder — typed placeholder rendered as a styled <div>.
+ *
+ * Used wherever a real photo is not yet available. Renders with
+ * `role="img"` + `aria-label` so screen readers receive a meaningful
+ * description, and never references an external image CDN. Replace
+ * with Astro's <Image /> when a real asset is added.
+ */
+
+type Ratio = 'square' | '16/9' | '4/3' | '3/2';
+
+interface Props {
+  /** Becomes `aria-label`; describe what the real photo would show. */
+  label: string;
+  /** Optional visible caption rendered below the placeholder. */
+  caption?: string;
+  /** Aspect ratio. Defaults to 16/9. */
+  ratio?: Ratio;
+  class?: string;
+}
+
+const { label, caption, ratio = '16/9', class: className = '' } = Astro.props;
+
+const ratioClass: Record<Ratio, string> = {
+  'square': 'aspect-square',
+  '16/9': 'aspect-video',
+  '4/3': 'aspect-[4/3]',
+  '3/2': 'aspect-[3/2]',
+};
+---
+<figure class:list={['flex flex-col', className]}>
+  <div
+    role="img"
+    aria-label={label}
+    class:list={[
+      'grid place-items-center rounded-xl border border-neutral-200 bg-neutral-100 px-4 text-center text-sm text-neutral-500',
+      ratioClass[ratio],
+    ]}
+  >
+    <span class="line-clamp-3">{label}</span>
+  </div>
+  {caption && (
+    <figcaption class="mt-2 text-sm text-neutral-600">{caption}</figcaption>
+  )}
+</figure>

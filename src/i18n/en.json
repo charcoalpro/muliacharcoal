@@ -82,5 +82,198 @@
     "code": "404",
     "title": "Page not found",
     "description": "The page you were looking for doesn't exist, or it may have moved."
+  },
+  "contact": {
+    "meta": {
+      "title": "Contact PT Coco Reina Global Charcoal Indonesia — Coconut Shisha Charcoal Factory",
+      "description": "Contact our coconut shell charcoal briquette factory in Semarang, Indonesia. WhatsApp, phone, email, WeChat, Telegram, video call. Sales team, factory address, bank details, holidays."
+    },
+    "breadcrumb": "Contact",
+    "hero": {
+      "title": "Contact our coconut charcoal factory",
+      "subtitle": "Ready to order premium coconut shisha charcoal? Message us on WhatsApp for the fastest response, or use any channel below.",
+      "ctaWhatsapp": "WhatsApp us now",
+      "ctaWhatsappAria": "Open WhatsApp chat with the factory (opens in new tab)",
+      "ctaEmail": "Email sales",
+      "ctaEmailAria": "Open a new email to the sales team",
+      "microcopy": "Typical WhatsApp response time: under 2 hours during business days (GMT+7)."
+    },
+    "trust": {
+      "heading": "Why buyers trust this factory",
+      "exportingSinceTemplate": "Exporting since {{year}}",
+      "yearsLabelTemplate": "{{years}} years in operation",
+      "legalLabel": "Legal entity",
+      "nibLabel": "NIB",
+      "npwpLabel": "NPWP",
+      "isoLabel": "ISO 9001:2015",
+      "imdgLabel": "IMDG UN 1361 / 4.2",
+      "directorLabel": "Director"
+    },
+    "whatsappPrimary": {
+      "heading": "Message the factory directly on WhatsApp",
+      "lead": "WhatsApp is our primary channel for international buyers. Message us 24/7; we respond within 2 hours during business days (Mon–Sat, 08:00–16:00 GMT+7).",
+      "includeHeading": "What to include in your first message",
+      "includeItems": [
+        "Product type (cube, hexagonal, finger, dome, flat)",
+        "Target volume (kg per month, or containers per shipment)",
+        "Destination country and port",
+        "Packaging preference (master box, inner box, white-label)"
+      ],
+      "salesCardHeading": "Sales team",
+      "directorCardHeading": "Director",
+      "voiceVideoNote": "Prefer voice or video? We do WhatsApp voice and video calls by appointment — request a slot in your first message.",
+      "buttonOpenWhatsapp": "Open WhatsApp",
+      "buttonCall": "Call",
+      "buttonAriaCallTemplate": "Call {{name}} on {{phone}}"
+    },
+    "team": {
+      "heading": "Meet the sales team",
+      "lead": "Our export desk is staffed by a small team that handles wholesale inquiries from quote to bill of lading. Each member speaks at least English plus one other language relevant to our buyer markets.",
+      "languagesLabel": "Languages",
+      "buttonWhatsapp": "WhatsApp",
+      "buttonCall": "Call",
+      "buttonEmail": "Email",
+      "photoOfTemplate": "Photo of {{name}}"
+    },
+    "channels": {
+      "heading": "All contact channels",
+      "lead": "Reach us on whichever channel is most convenient. We monitor every channel during business hours; outside business hours, WhatsApp messages are checked first.",
+      "openIn": "Open in {{channel}}",
+      "anchorButton": "Use the inquiry form below",
+      "videoMeetingSubject": "Schedule a video meeting",
+      "videoMeetingLabel": "By appointment via Zoom or Google Meet"
+    },
+    "form": {
+      "heading": "Send a wholesale inquiry",
+      "lead": "Fill out this form for a written quote, MOQ details, and a Proforma Invoice. We reply within one business day. For faster response, message us on WhatsApp.",
+      "sidebarHeading": "Need a faster response?",
+      "sidebarLead": "WhatsApp typically responds in under 2 hours during business days. Use the inquiry form when you need a written quote on file or want to attach a Letter of Intent.",
+      "sidebarCtaWhatsapp": "WhatsApp the sales desk",
+      "fields": {
+        "fullName": "Full name",
+        "company": "Company name",
+        "country": "Country",
+        "countryPlaceholder": "Select your country",
+        "whatsapp": "WhatsApp number",
+        "whatsappHint": "International format starting with +",
+        "email": "Email",
+        "products": "Product type",
+        "productsHint": "Select all that apply",
+        "volume": "Expected purchasing volume",
+        "volumePlaceholder": "Select volume",
+        "packing": "Preferred packing",
+        "packingPlaceholder": "e.g. 1kg inner box × 10 / master carton",
+        "destinationPort": "Destination port",
+        "destinationPortPlaceholder": "e.g. Jeddah, Hamburg, New York",
+        "additional": "Additional information",
+        "additionalPlaceholder": "Letter of Intent details, certifications required, target landed price, etc.",
+        "attachment": "Attachment (PDF, JPG, PNG, ≤ 5 MB)",
+        "consent": "I have read and accept the",
+        "consentLink": "privacy policy",
+        "honeypot": "Leave this field empty"
+      },
+      "errors": {
+        "required": "This field is required.",
+        "fullNameLength": "Full name must be 2–80 characters.",
+        "companyLength": "Company name must be 2–120 characters.",
+        "countryRequired": "Please select your country.",
+        "whatsappFormat": "Use international format starting with +, e.g. +1 555 0100.",
+        "emailFormat": "Please enter a valid email address.",
+        "productsMin": "Please select at least one product type.",
+        "volumeRequired": "Please select an estimated volume.",
+        "consentRequired": "Please accept the privacy policy to continue.",
+        "fileSize": "File must be 5 MB or smaller.",
+        "fileType": "File must be PDF, JPG, or PNG.",
+        "submitFailed": "We could not submit your inquiry. Please try again or message us on WhatsApp."
+      },
+      "submit": "Send inquiry",
+      "submitting": "Sending…",
+      "successHeading": "Inquiry received",
+      "successBodyTemplate": "Thank you. Your reference number is {{ref}}. We will reply within one business day at {{email}}. For an urgent response, message us on WhatsApp.",
+      "successWhatsapp": "Continue on WhatsApp"
+    },
+    "findUs": {
+      "heading": "Visit our factory in Semarang",
+      "leadTemplate": "Our factory is at {{addressShort}}. We welcome buyer audits and pre-shipment inspections by appointment.",
+      "addressHeading": "Factory address",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "hoursHeading": "Hours",
+      "directionsButton": "Get directions",
+      "directionsAria": "Open driving directions in Google Maps (opens in new tab)",
+      "hubsHeading": "Getting here from major hubs",
+      "hubsTable": {
+        "from": "From",
+        "distance": "Distance",
+        "byCar": "By car",
+        "byTrainCar": "By train + car",
+        "notes": "Notes"
+      },
+      "hubsNote": "Free airport pickup from Semarang (SRG) and Yogyakarta (YIA) for confirmed buyer visits. Request in advance via WhatsApp.",
+      "photosHeading": "Factory photos",
+      "photoMainGate": "Main gate of the factory in Semarang",
+      "photoProductionFloor": "Coconut charcoal briquette production floor",
+      "photoQualityControl": "Quality control bench checking briquette specs",
+      "photoLoadingBay": "Loading bay with 20ft container ready for export"
+    },
+    "hours": {
+      "heading": "Business hours and 2026 holidays",
+      "lead": "Our factory operates Monday–Saturday, 08:00–16:00 GMT+7 (WIB). We pause production on Indonesian public holidays and during Idul Fitri (Lebaran).",
+      "weeklyHeading": "Weekly hours",
+      "tableDay": "Day",
+      "tableHours": "Hours (GMT+7 / WIB)",
+      "monSat": "Mon–Sat",
+      "sun": "Sun",
+      "closed": "Closed",
+      "holidaysHeading": "2026 public holidays",
+      "tableDate": "Date",
+      "tableDayName": "Day",
+      "tableHolidayName": "Holiday",
+      "lebaranHeading": "Lebaran (Idul Fitri) shutdown",
+      "lebaranBodyTemplate": "No production or shipment tracking from {{from}} through {{to}}. Place orders before {{cutoff}} to ship before the break."
+    },
+    "map": {
+      "heading": "Factory location map",
+      "iframeTitle": "Map showing PT Coco Reina Global Charcoal Indonesia factory in Semarang",
+      "openInGoogleMaps": "Open in Google Maps",
+      "captionTemplate": "{{addressShort}} — exact pin pending GPS confirmation."
+    },
+    "hotels": {
+      "heading": "Where to stay during your visit",
+      "lead": "We recommend the following hotels for buyer visits to our Semarang factory, with approximate driving times.",
+      "fiveStarHeading": "5★ — Premium",
+      "fourStarHeading": "4★ — Business",
+      "threeStarHeading": "3★ — Value",
+      "distanceLabel": "Distance",
+      "driveLabel": "Drive time",
+      "kmTemplate": "{{km}} km",
+      "minTemplate": "{{min}} min",
+      "websiteButton": "Hotel website",
+      "mapsButton": "View on map"
+    },
+    "payment": {
+      "heading": "Factory bank details",
+      "warningHeading": "Verify before wiring funds",
+      "warningBodyTemplate": "Always confirm these bank details by phone or video call with our director ({{director}}) before any transfer. We will never ask you to send funds to a personal account or to an account name that differs from the one shown here. If anything looks different, stop and message us on WhatsApp.",
+      "termsHeading": "Accepted payment terms",
+      "currenciesHeading": "Accepted currencies",
+      "bankCountryLabel": "Bank country",
+      "tableField": "Field",
+      "tableValue": "Value",
+      "fields": {
+        "beneficiary": "Beneficiary name",
+        "bankName": "Bank name",
+        "bankAddress": "Bank address",
+        "branch": "Branch",
+        "accountNumber": "Account number",
+        "swift": "SWIFT / BIC",
+        "iban": "IBAN",
+        "currency": "Currency"
+      },
+      "lastVerifiedTemplate": "Last verified by phone with the director on {{date}}.",
+      "piButton": "Request a Proforma Invoice on WhatsApp",
+      "piButtonAria": "Open WhatsApp to request a Proforma Invoice (opens in new tab)"
+    },
+    "newTabSr": "(opens in new tab)"
   }
 }

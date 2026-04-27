@@ -69,21 +69,25 @@ export const company = {
 
   // -----------------------------------------------------------------
   // Factory / mailing address
+  //
+  // City + region confirmed (Semarang, Central Java). Street, district,
+  // postal code, and exact lat/lng pending confirmation — see the
+  // pre-launch checklist at the bottom of this file. Lat/lng currently
+  // resolve to central Semarang so the Contact-page map renders.
   // -----------------------------------------------------------------
   address: {
-    street: 'Jl. Mayor Unus KM 1.5',
-    district: 'Mertoyudan',
-    city: 'Magelang',
+    street: 'TODO_PLACEHOLDER_FACTORY_STREET',
+    district: 'TODO_PLACEHOLDER_DISTRICT',
+    city: 'Semarang',
     region: 'Central Java',
-    postalCode: '56172',
+    postalCode: 'TODO_PLACEHOLDER_POSTAL_CODE',
     country: 'Indonesia',
     countryCode: 'ID',
-    // Short one-liner for breadcrumbs, meta descriptions, etc.
-    short: 'Magelang, Central Java, Indonesia',
-    // Geographic coordinates for LocalBusiness schema.
-    // TODO: confirm exact lat/lng from the factory GPS.
-    latitude: -7.5389,
-    longitude: 110.2192,
+    short: 'Semarang, Central Java, Indonesia',
+    // Central Semarang fallback so the embedded map renders — replace
+    // with exact factory GPS before launch.
+    latitude: -6.9667,
+    longitude: 110.4167,
   },
 
   // Google Maps share link used on the Contact page and in the footer.
@@ -109,11 +113,50 @@ export const company = {
   ],
 
   // WhatsApp click-to-chat. `e164Digits` is the number with no "+" and no
-  // separators — this is what wa.me URLs require.
+  // separators — this is what wa.me URLs require. The top-level number is
+  // the primary one used by the floating site-wide WhatsApp button. The
+  // `sales` and `director` sub-objects are used by the Contact page for
+  // separate outreach paths.
   whatsapp: {
     e164Digits: '6282128768545', // TODO: confirm the production number before launch
     defaultMessage:
       'Hello, I am interested in your coconut charcoal briquettes.',
+
+    // Director — Wilson Gosalim (owner + director). The site's primary
+    // line currently rings the director; if a dedicated sales line is
+    // commissioned, replace `sales.e164Digits` and `sales.display` and
+    // optionally split the director onto a new number.
+    director: {
+      name: 'Wilson Gosalim',
+      role: 'Director',
+      e164Digits: '6282128768545',
+      display: '+62 821 287 68 545',
+    },
+
+    // Sales — TODO_PLACEHOLDER until a dedicated sales rep is confirmed.
+    sales: {
+      name: 'TODO_PLACEHOLDER_SALES_REP',
+      role: 'Sales Manager',
+      e164Digits: '6280000000001',
+      display: '+62 800 0000 0001',
+    },
+
+    // Pre-filled message bodies keyed by CTA context. Use waLinkFor()
+    // to build URLs from these — never duplicate the strings inline.
+    presetMessages: {
+      heroCta:
+        'Hello PT Coco Reina — I would like to request a wholesale quote for coconut shisha charcoal briquettes. Could you share your price list and MOQ details?',
+      salesGeneral:
+        'Hello, I am a wholesale buyer interested in your coconut shisha charcoal briquettes. Please share specifications, pricing, and lead time.',
+      directorIntro:
+        'Hello Mr. Gosalim — I would like to discuss a wholesale order of coconut shisha charcoal directly with you.',
+      videoCallRequest:
+        'Hello, I would like to schedule a WhatsApp video call to see your factory and discuss a wholesale order. What times work for you in GMT+7?',
+      piRequest:
+        'Hello, I would like to request a Proforma Invoice for coconut shisha charcoal briquettes. Please share your bank details and payment terms after KYC.',
+      sampleRequest:
+        'Hello, I would like to request a paid sample of your coconut shisha charcoal briquettes shipped to my address. Please confirm sample fee and shipping cost.',
+    },
   },
 
   // -----------------------------------------------------------------
@@ -261,19 +304,304 @@ export const company = {
   },
 
   // -----------------------------------------------------------------
+  // Sales team — Contact page Block 4.
+  //
+  // Each entry renders as a TeamCard with WhatsApp / phone / email
+  // buttons. Photos are rendered as <ImagePlaceholder> for v1 — no
+  // real photos required. Replace TODO_PLACEHOLDER entries with real
+  // staff before launch (or trim the array to live members only).
+  // -----------------------------------------------------------------
+  team: [
+    {
+      name: 'Wilson Gosalim',
+      role: 'Director',
+      languages: ['English', 'Bahasa Indonesia'],
+      photo: '/team/wilson-gosalim.jpg', // TODO: real photo asset
+      email: 'wilson@muliacharcoal.com', // TODO: confirm direct email
+      phoneE164: '+6282128768545',
+      phoneDisplay: '+62 821 287 68 545',
+      whatsappE164Digits: '6282128768545',
+      whatsappPreset:
+        'Hello Mr. Gosalim — I am a wholesale buyer interested in your coconut shisha charcoal. Could we discuss specifications and pricing?',
+    },
+    {
+      name: 'TODO_PLACEHOLDER_SALES_MANAGER',
+      role: 'Sales Manager',
+      languages: ['English', 'Mandarin', 'Bahasa Indonesia'],
+      photo: '/team/sales-manager.jpg', // TODO: real photo asset
+      email: 'sales@muliacharcoal.com', // TODO: confirm
+      phoneE164: '+6280000000002',
+      phoneDisplay: '+62 800 0000 0002',
+      whatsappE164Digits: '6280000000002',
+      whatsappPreset:
+        'Hello, I am interested in placing a wholesale order for coconut shisha charcoal. Please share your latest price list and MOQ.',
+    },
+    {
+      name: 'TODO_PLACEHOLDER_EXPORT_COORDINATOR',
+      role: 'Export Coordinator',
+      languages: ['English', 'Bahasa Indonesia', 'Arabic'],
+      photo: '/team/export-coordinator.jpg', // TODO: real photo asset
+      email: 'export.ops@muliacharcoal.com', // TODO: confirm
+      phoneE164: '+6280000000003',
+      phoneDisplay: '+62 800 0000 0003',
+      whatsappE164Digits: '6280000000003',
+      whatsappPreset:
+        'Hello, I have a question about export documentation and shipping for your coconut shisha charcoal. Could you assist?',
+    },
+  ],
+
+  // -----------------------------------------------------------------
+  // Alternate contact channels — Contact page Block 5.
+  //
+  // Each card renders only when its handle is set. v1 seeds every
+  // channel with TODO_PLACEHOLDER values per the agreed rollout
+  // strategy; channels with no real handle should be set to `null`
+  // before launch so their cards are hidden.
+  // -----------------------------------------------------------------
+  channels: {
+    wechat: {
+      id: 'TODO_PLACEHOLDER_WECHAT_ID',
+      qrImage: null, // path under /public when a QR PNG is added
+    },
+    telegram: {
+      handle: '@TODO_PLACEHOLDER_TG',
+      url: 'https://t.me/TODO_PLACEHOLDER_TG',
+    },
+    messenger: {
+      handle: 'TODO_PLACEHOLDER_FB',
+      url: 'https://m.me/TODO_PLACEHOLDER_FB',
+    },
+    botim: '+6280000000010', // TODO: confirm Botim number (E.164)
+    max: 'TODO_PLACEHOLDER_MAX_HANDLE',
+    line: 'TODO_PLACEHOLDER_LINE_ID',
+    viber: '+6280000000011', // TODO: confirm Viber number (E.164)
+    zoom: {
+      schedulingUrl: 'TODO_PLACEHOLDER_ZOOM_SCHEDULING_URL',
+    },
+    // Subject line for the "Schedule a video meeting" mailto fallback.
+    videoCallEmailSubject: 'Schedule a video meeting',
+  },
+
+  // -----------------------------------------------------------------
+  // Indonesian 2026 public holidays — Contact page Block 8.
+  //
+  // Source: anticipated SKB 3 Menteri 2026. Flagged as TODO until the
+  // official decree is published and confirmed.
+  // -----------------------------------------------------------------
+  holidays2026: [
+    { date: '2026-01-01', day: 'Thursday',  name: "New Year's Day" },
+    { date: '2026-01-29', day: 'Thursday',  name: 'Isra Mi’raj' },
+    { date: '2026-02-17', day: 'Tuesday',   name: 'Chinese New Year (Imlek)' },
+    { date: '2026-03-19', day: 'Thursday',  name: 'Hindu Day of Silence (Nyepi)' },
+    { date: '2026-03-21', day: 'Saturday',  name: 'Idul Fitri (day 1)' },
+    { date: '2026-03-22', day: 'Sunday',    name: 'Idul Fitri (day 2)' },
+    { date: '2026-04-03', day: 'Friday',    name: 'Good Friday' },
+    { date: '2026-05-01', day: 'Friday',    name: 'Labour Day' },
+    { date: '2026-05-14', day: 'Thursday',  name: 'Ascension Day' },
+    { date: '2026-05-27', day: 'Wednesday', name: 'Idul Adha' },
+    { date: '2026-05-31', day: 'Sunday',    name: 'Vesak Day (Waisak)' },
+    { date: '2026-06-01', day: 'Monday',    name: 'Pancasila Day' },
+    { date: '2026-06-17', day: 'Wednesday', name: 'Islamic New Year' },
+    { date: '2026-08-17', day: 'Monday',    name: 'Independence Day' },
+    { date: '2026-08-26', day: 'Wednesday', name: "Prophet's Birthday" },
+    { date: '2026-12-25', day: 'Friday',    name: 'Christmas Day' },
+  ],
+
+  // -----------------------------------------------------------------
+  // Lebaran (Idul Fitri) factory shutdown — Contact page Block 8.
+  // Dates approximate until confirmed by management.
+  // -----------------------------------------------------------------
+  lebaranShutdown: {
+    from: '2026-03-21', // TODO: confirm exact 2026 Lebaran start
+    to: '2026-03-27', // TODO: confirm exact 2026 Lebaran end
+    orderCutoff: '2026-03-15', // TODO: confirm order cutoff for pre-Lebaran shipping
+  },
+
+  // -----------------------------------------------------------------
+  // Recommended hotels for buyer visits — Contact page Block 10.
+  //
+  // Tiered by star rating. Block 10 hides any tier with zero entries.
+  // All entries are TODO_PLACEHOLDER for v1 — replace with real
+  // recommendations before launch.
+  // -----------------------------------------------------------------
+  hotels: [
+    {
+      name: 'TODO_PLACEHOLDER_GRAND_HOTEL_SEMARANG',
+      stars: 5,
+      distanceKm: 8,
+      driveTimeMinutes: 20,
+      description:
+        'Premium five-star hotel near downtown Semarang with executive lounge and airport shuttle.',
+      website: 'https://example.com/grand-hotel-semarang', // TODO
+      mapsUrl: 'https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_5_STAR_A', // TODO
+    },
+    {
+      name: 'TODO_PLACEHOLDER_LUXE_TOWER_SEMARANG',
+      stars: 5,
+      distanceKm: 10,
+      driveTimeMinutes: 25,
+      description:
+        'Five-star city tower with rooftop dining and conference facilities suitable for buyer meetings.',
+      website: 'https://example.com/luxe-tower-semarang', // TODO
+      mapsUrl: 'https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_5_STAR_B', // TODO
+    },
+    {
+      name: 'TODO_PLACEHOLDER_BUSINESS_HOTEL_SEMARANG',
+      stars: 4,
+      distanceKm: 6,
+      driveTimeMinutes: 15,
+      description:
+        'Four-star business hotel with reliable Wi-Fi, English-speaking staff, and walkable cafés.',
+      website: 'https://example.com/business-hotel-semarang', // TODO
+      mapsUrl: 'https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_4_STAR_A', // TODO
+    },
+    {
+      name: 'TODO_PLACEHOLDER_CITY_INN_SEMARANG',
+      stars: 4,
+      distanceKm: 9,
+      driveTimeMinutes: 22,
+      description:
+        'Four-star inn with on-site restaurant and complimentary breakfast — popular with returning buyers.',
+      website: 'https://example.com/city-inn-semarang', // TODO
+      mapsUrl: 'https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_4_STAR_B', // TODO
+    },
+    {
+      name: 'TODO_PLACEHOLDER_BUDGET_LODGE_SEMARANG',
+      stars: 3,
+      distanceKm: 5,
+      driveTimeMinutes: 12,
+      description:
+        'Three-star lodge close to the factory — clean rooms, basic amenities, friendly staff.',
+      website: 'https://example.com/budget-lodge-semarang', // TODO
+      mapsUrl: 'https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_3_STAR_A', // TODO
+    },
+    {
+      name: 'TODO_PLACEHOLDER_VALUE_INN_SEMARANG',
+      stars: 3,
+      distanceKm: 7,
+      driveTimeMinutes: 18,
+      description:
+        'Three-star value inn with secure parking, suitable for short pre-shipment inspection trips.',
+      website: 'https://example.com/value-inn-semarang', // TODO
+      mapsUrl: 'https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_3_STAR_B', // TODO
+    },
+  ],
+
+  // -----------------------------------------------------------------
+  // Travel hubs — Contact page Block 7.2.
+  //
+  // Distances and drive times are approximate; confirm with logistics
+  // before launch.
+  // -----------------------------------------------------------------
+  travelHubs: [
+    {
+      from: 'Jakarta',
+      distanceKm: 450,
+      byCar: 'approx. 7 hours',
+      byTrainCar: 'approx. 5h train + 30min car',
+      notes: 'Argo Bromo Anggrek and Argo Sindoro express trains daily.',
+    },
+    {
+      from: 'Yogyakarta',
+      distanceKm: 130,
+      byCar: 'approx. 3 hours',
+      byTrainCar: 'approx. 2h train + 30min car',
+      notes: 'Frequent Joglosemarkerto train service.',
+    },
+    {
+      from: 'Surabaya',
+      distanceKm: 350,
+      byCar: 'approx. 6 hours',
+      byTrainCar: 'approx. 4h train + 30min car',
+      notes: 'Argo Bromo Anggrek westbound.',
+    },
+    {
+      from: 'Semarang city centre',
+      distanceKm: 8,
+      byCar: 'approx. 20 minutes',
+      notes: 'Standard taxi or ride-hail.',
+    },
+    {
+      from: 'Semarang Ahmad Yani Airport (SRG)',
+      distanceKm: 12,
+      byCar: 'approx. 30 minutes',
+      notes:
+        'Free buyer pickup available — request in advance via WhatsApp.',
+    },
+    {
+      from: 'Yogyakarta Adisutjipto Airport (YIA)',
+      distanceKm: 140,
+      byCar: 'approx. 3 hours',
+      byTrainCar: 'approx. 2h train + 30min car',
+      notes:
+        'Free buyer pickup available — request in advance via WhatsApp.',
+    },
+  ],
+
+  // -----------------------------------------------------------------
+  // Inquiry form — Contact page Block 6.
+  //
+  // The form posts to Web3Forms (https://api.web3forms.com/submit).
+  // The access key is public per Web3Forms documentation but must be
+  // set before the form will accept submissions in production.
+  // -----------------------------------------------------------------
+  form: {
+    web3formsEndpoint: 'https://api.web3forms.com/submit',
+    web3formsKey: 'TODO_PLACEHOLDER_WEB3FORMS_ACCESS_KEY',
+    captcha: {
+      // 'web3forms-builtin' uses Web3Forms' own honeypot + light spam
+      // filtering (default and lowest-friction). 'hcaptcha' adds an
+      // hCaptcha widget. 'none' disables captcha (honeypot only).
+      provider: 'web3forms-builtin' as 'web3forms-builtin' | 'hcaptcha' | 'none',
+      hcaptchaSiteKey: 'TODO_PLACEHOLDER_HCAPTCHA_SITE_KEY',
+    },
+    // Subject line included in the email Web3Forms sends to the
+    // notification address.
+    subject: 'New wholesale inquiry — muliacharcoal.com',
+    // Volume options shown in the "Expected purchasing volume" select.
+    volumeOptions: [
+      '1 × 20ft container (approx. 18 tons)',
+      '2 × 20ft containers (approx. 36 tons)',
+      '1 × 40ft container (approx. 26 tons)',
+      'Monthly contract (recurring)',
+      'Trial / sample only',
+    ],
+  },
+
+  // -----------------------------------------------------------------
+  // Payment — Contact page Block 11.
+  //
+  // mode: 'public' renders the bank table with a fraud-warning callout.
+  // mode: 'gated' hides bank details and shows a "Request Proforma
+  // Invoice" CTA instead. Per current decision, mode is 'public'.
+  // -----------------------------------------------------------------
+  payment: {
+    mode: 'public' as 'public' | 'gated',
+    terms: ['T/T 30/70 (30% deposit, 70% against B/L copy)', 'L/C at sight'],
+    currencies: ['USD'],
+    bankCountry: 'Indonesia',
+  },
+
+  // -----------------------------------------------------------------
   // Banking
   //
-  // Not surfaced publicly. Used on proforma invoices generated off-site
-  // and in the private /admin CMS views. Kept here so only one file
-  // needs to change when banking details are updated.
+  // Public on /contact when payment.mode === 'public'. Always excluded
+  // from JSON-LD and meta tags. Treat every value below as part of the
+  // pre-launch verification checklist — wiring instructions sent with
+  // a fake bank are a fraud vector.
   // -----------------------------------------------------------------
   bank: {
     accountName: 'PT Coco Reina Global Charcoal Indonesia',
-    bankName: '', // TODO: confirm bank name (e.g. Bank Mandiri, BCA)
-    branch: '', // TODO: confirm branch
-    accountNumber: '', // TODO: confirm USD account number
-    swiftCode: '', // TODO: confirm SWIFT / BIC
+    bankName: 'TODO_PLACEHOLDER_BANK_NAME', // e.g. Bank Mandiri (Persero) Tbk
+    branch: 'TODO_PLACEHOLDER_BRANCH',
+    bankAddress: 'TODO_PLACEHOLDER_BANK_ADDRESS',
+    accountNumber: 'TODO_PLACEHOLDER_ACCOUNT_NUMBER',
+    swiftCode: 'TODO_PLACEHOLDER_SWIFT',
+    iban: null as string | null,
     currency: 'USD',
+    // ISO date — refresh whenever the director re-confirms the details
+    // by phone/video call.
+    lastVerified: '2026-04-25',
   },
 
   // -----------------------------------------------------------------
@@ -402,6 +730,35 @@ export function imdgLabel(): string {
   return `IMDG Code ${unNumber} Class ${unClass} (${classDescription})`;
 }
 
+/**
+ * Build a WhatsApp click-to-chat URL using a preset message keyed by
+ * context. Pass an explicit `e164Digits` to target a specific staff
+ * member's number; otherwise the primary site number is used.
+ *
+ * @example
+ *   <a href={waLinkFor('heroCta')}>WhatsApp us</a>
+ *   <a href={waLinkFor('directorIntro', company.whatsapp.director.e164Digits)}>…</a>
+ */
+export function waLinkFor(
+  presetKey: keyof typeof company.whatsapp.presetMessages,
+  e164Digits: string = company.whatsapp.e164Digits,
+): string {
+  const text = company.whatsapp.presetMessages[presetKey];
+  return `https://wa.me/${e164Digits}?text=${encodeURIComponent(text)}`;
+}
+
+/**
+ * "08:00–16:00 (GMT+7)" — derived business-hours range used by Block 8
+ * weekly-hours table. Returns the same time string for every working
+ * day; days with `closed: true` should render "Closed" instead.
+ */
+export function businessHoursRange(): string {
+  // Derived from the human-readable summary string in `company.hours.weekdays`.
+  // Kept simple here because hours are uniform across working days; if hours
+  // diverge per day in the future, replace with a structured per-day map.
+  return '08:00–16:00 (GMT+7)';
+}
+
 // =======================================================================
 // Types
 // =======================================================================
@@ -410,3 +767,44 @@ export type Company = typeof company;
 export type Executive = (typeof company.people.executives)[number];
 export type SocialPlatform = keyof typeof company.social;
 export type PriorityMarket = (typeof company.priorityMarkets)[number];
+export type TeamMember = (typeof company.team)[number];
+export type Hotel = (typeof company.hotels)[number];
+export type TravelHub = (typeof company.travelHubs)[number];
+export type Holiday = (typeof company.holidays2026)[number];
+export type WhatsappPresetKey = keyof typeof company.whatsapp.presetMessages;
+
+// =======================================================================
+// Pre-launch replacement checklist
+// =======================================================================
+//
+// Every TODO_PLACEHOLDER value below MUST be replaced before this site is
+// deployed to production. Search the file for "TODO_PLACEHOLDER" to locate
+// each one. The Contact page renders all of these publicly; shipping with
+// placeholders is a trust- and fraud-risk.
+//
+//  [ ] address.street, address.district, address.postalCode
+//  [ ] address.latitude / address.longitude (replace Semarang central
+//      fallback with exact factory GPS)
+//  [ ] whatsapp.sales.* (or remove the sales sub-object if Wilson handles
+//      all WhatsApp inquiries)
+//  [ ] team[1] (Sales Manager) and team[2] (Export Coordinator) — fill in
+//      real names, roles, languages, photos, contact details, OR remove
+//      the entries until real staff are confirmed
+//  [ ] channels.wechat.id, channels.telegram, channels.messenger,
+//      channels.botim, channels.max, channels.line, channels.viber,
+//      channels.zoom.schedulingUrl — set to null/undefined any channel
+//      that is not used so its card does not render
+//  [ ] holidays2026 — re-verify against the official 2026 SKB 3 Menteri
+//      decree once published
+//  [ ] lebaranShutdown.from / .to / .orderCutoff — confirm with management
+//  [ ] hotels — replace all TODO_PLACEHOLDER entries with real local
+//      recommendations OR set hotels: [] to hide Block 10
+//  [ ] travelHubs distance / drive-time figures — confirm with logistics
+//  [ ] form.web3formsKey — paste the public Web3Forms access key
+//  [ ] form.captcha.hcaptchaSiteKey — only required if provider switched
+//      to 'hcaptcha'
+//  [ ] bank.bankName / branch / bankAddress / accountNumber / swiftCode —
+//      verify by phone/video call with the director, then update
+//      bank.lastVerified to today's ISO date
+//
+// =======================================================================
