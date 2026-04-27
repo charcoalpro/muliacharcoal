@@ -3,7 +3,7 @@
     "home": "Home",
     "about": "About",
     "contact": "Contact",
-    "price": "Price",
+    "products": "Products",
     "skipToContent": "Skip to content",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
@@ -275,5 +275,220 @@
       "piButtonAria": "Open WhatsApp to request a Proforma Invoice (opens in new tab)"
     },
     "newTabSr": "(opens in new tab)"
+  },
+  "about": {
+    "meta": {
+      "titleTemplate": "About {{legalName}} — coconut shisha charcoal factory",
+      "descriptionTemplate": "About {{legalName}}: legal registration, factory team, production capacity, certifications, banking and supply chain. Wholesale shisha charcoal from {{port}}, {{country}}."
+    },
+    "breadcrumb": "About",
+    "hero": {
+      "title": "About our charcoal factory",
+      "subtitleTemplate": "About {{legalName}} — company, team, history and legal information.",
+      "pillSinceTemplate": "Manufacturing only shisha charcoal since {{year}}",
+      "pillIsoTemplate": "ISO 9001:2015 certified, audited by {{auditors}}",
+      "pillIsoWithPatentsTemplate": "ISO 9001:2015 certified, {{patents}} patents registered, audited by {{auditors}}",
+      "pillPalmTreesTemplate": "Manages {{count}}+ palm trees in {{region}}",
+      "pillShippingTemplate": "Approved direct shipping with {{lines}}"
+    },
+    "block2": {
+      "imageAlt": "Factory workers at the Semarang briquetting facility",
+      "imageCaption": "Photo: factory team on the production floor (placeholder).",
+      "whoWeAre": {
+        "heading": "Who we are",
+        "body": "We are an Indonesian manufacturer and wholesale exporter of coconut shell charcoal briquettes for shisha and hookah. Our specialism is narrow on purpose: low-ash, low-moisture briquettes pressed from 100% coconut shell charcoal. We do not produce BBQ charcoal, activated carbon, or wood/lump charcoal — every line in the factory is tuned for shisha specifications."
+      },
+      "legal": {
+        "heading": "Legal registration",
+        "bodyTemplate": "{{legalName}} is a registered Indonesian company (NIB {{nib}}, NPWP {{taxId}}). The factory operates under {{isoStandard}}, audited by {{auditors}}. Every commercial invoice and bank receipt is issued under the registered company name only.",
+        "linkLabel": "View certificates",
+        "linkHref": "/quality/certifications"
+      },
+      "production": {
+        "heading": "Factory & production",
+        "stats": {
+          "factoryArea": "Factory floor area",
+          "factoryAreaUnit": "{{value}} m²",
+          "capacityPerDay": "Daily production",
+          "capacityPerDayUnit": "{{value}} tons / day",
+          "lines": "Production lines",
+          "ovens": "Carbonization ovens",
+          "binder": "Briquette binder",
+          "binderValue": "Food-grade tapioca starch",
+          "rawMaterial": "Raw material",
+          "ovenCycle": "Oven cycle",
+          "ovenCycleUnit": "{{hours}} hours per batch",
+          "monthlyCapacity": "Monthly capacity",
+          "monthlyCapacityUnit": "{{value}} tons / month"
+        },
+        "pendingValue": "Confirmed before launch",
+        "addressLine": "{{city}}, {{region}}, {{country}}"
+      },
+      "certifications": {
+        "heading": "Certifications & compliance",
+        "bodyTemplate": "Every shipment travels with {{imdgLabel}} documentation, an independent Self-Heating Test (SHT), and a Preferential Certificate of Origin. Our quality system is audited by {{auditors}} laboratories.",
+        "patentsTemplate": "We hold {{count}} patented manufacturing technologies for charcoal briquetting.",
+        "halalConfirmed": "The factory and product line are halal-certified."
+      },
+      "supplyChain": {
+        "heading": "Our supply chain",
+        "bodyVillagesTemplate": "We source raw coconut shells from {{villages}} partner villages in {{region}}, covering {{trees}}+ palm trees. This network secures year-round raw-material availability and consistent ash and moisture across every container.",
+        "bodyTreesTemplate": "We source raw coconut shells from partner villages in {{region}}, covering {{trees}}+ palm trees. This network secures year-round raw-material availability and consistent ash and moisture across every container.",
+        "bodyRegionOnly": "We source raw coconut shells from a network of partner villages in {{region}}, securing year-round raw-material availability and consistent ash and moisture across every container.",
+        "carbonizationTemplate": "Upstream carbonization is handled at our own plant in {{city}}, {{region}}."
+      },
+      "shipping": {
+        "heading": "Direct shipping",
+        "bodyLinesTemplate": "Booked direct with {{lines}} from the {{portLabel}}. No freight middleman, no double-handling, no surprise demurrage.",
+        "bodyNoLines": "All FOB shipments load from the {{portLabel}}.",
+        "linkLabel": "Shipping & logistics overview",
+        "linkHref": "/logistics"
+      }
+    },
+    "block3": {
+      "heading": "Factory legal information",
+      "table": {
+        "label": "Field",
+        "value": "Value",
+        "rows": {
+          "companyName": "Company name",
+          "factoryAddress": "Factory address",
+          "googleMaps": "Google Maps",
+          "owner": "Factory owner",
+          "established": "Established",
+          "nib": "NIB (business ID)",
+          "npwp": "Tax ID (NPWP)",
+          "production": "Production",
+          "palmTrees": "Palm trees under operation",
+          "oem": "OEM / private label",
+          "shippingLines": "Direct shipping lines",
+          "certifications": "Certifications"
+        }
+      },
+      "tableValues": {
+        "googleMapsLink": "Open in Google Maps",
+        "productionTemplate": "{{lines}} lines, {{ovens}} carbonization ovens",
+        "palmTreesTemplate": "{{count}}+ ({{villages}} villages, {{region}})",
+        "palmTreesNoVillagesTemplate": "{{count}}+ ({{region}})",
+        "oemYes": "Yes — available for private-label orders",
+        "shippingLinesJoin": ", "
+      },
+      "docs": {
+        "heading": "Registration documents",
+        "nibAltTemplate": "{{legalName}} NIB business registration scan (placeholder)",
+        "npwpAltTemplate": "{{legalName}} NPWP tax registration card (placeholder)",
+        "nibCaption": "Scan of NIB business registration document.",
+        "npwpCaption": "Photo of NPWP Indonesian tax registration card."
+      },
+      "social": {
+        "heading": "Social presence",
+        "labels": {
+          "youtube": "YouTube",
+          "linkedin": "LinkedIn",
+          "instagram": "Instagram",
+          "twitter": "X (Twitter)",
+          "facebook": "Facebook",
+          "googleBusiness": "Google Business"
+        }
+      },
+      "virtualTour": {
+        "heading": "See the factory with your own eyes",
+        "subtitle": "Take a virtual 360° tour of the production facility from anywhere in the world.",
+        "button": "Factory virtual tour",
+        "buttonAria": "Open the factory virtual tour"
+      }
+    },
+    "block4": {
+      "heading": "Bank & payment details",
+      "table": {
+        "label": "Field",
+        "value": "Value",
+        "rows": {
+          "bankName": "Bank name",
+          "accountName": "Account name",
+          "accountNumber": "Account number",
+          "swift": "SWIFT / BIC",
+          "branch": "Branch",
+          "bankAddress": "Bank address"
+        }
+      },
+      "trust": {
+        "heading": "Payment terms",
+        "bodyTemplate": "All payments are accepted exclusively by bank transfer to the company account under the name {{legalName}}. Accepted currencies: {{currencies}}. We never accept payments to personal accounts and never accept funds under any other beneficiary name.",
+        "bodyCryptoSuffix": " We also accept USDT (TRON TRC-20 network).",
+        "lastVerifiedTemplate": "Last verified by phone with the director on {{date}}."
+      },
+      "photos": {
+        "heading": "Office and factory photos",
+        "office1Alt": "Company office reception (placeholder)",
+        "office2Alt": "Company office meeting room (placeholder)",
+        "office3Alt": "Company office workspace (placeholder)",
+        "factory1Alt": "Coconut charcoal briquette production line in Semarang (placeholder)",
+        "factory2Alt": "Carbonization ovens at the charcoal factory (placeholder)",
+        "factory3Alt": "Packaging area at the shisha charcoal factory (placeholder)"
+      }
+    },
+    "block5": {
+      "heading": "Our team",
+      "lead": "The people who manufacture, audit, and ship every container that leaves Semarang.",
+      "owner": {
+        "bioFallback": "Owner and director of the factory. Direct biography to be confirmed.",
+        "photoAltTemplate": "{{name}}, owner and director of {{legalName}} (placeholder)"
+      },
+      "photoAltTemplate": "{{name}}, {{role}} at {{legalName}} (placeholder)",
+      "groupPhotoAlt": "Group photo of all factory workers and staff at the Semarang facility (placeholder)",
+      "groupPhotoCaption": "Group photo of the production and operations team (placeholder).",
+      "labels": {
+        "email": "Email",
+        "phone": "Phone",
+        "linkedin": "LinkedIn"
+      },
+      "linkedinAriaTemplate": "{{name}} on LinkedIn"
+    },
+    "block6": {
+      "heading": "A message from our factory owner",
+      "videoAltTemplate": "Video message from {{owner}}, owner and director of {{legalName}}",
+      "videoLabel": "YouTube video — coming soon",
+      "transcriptHeading": "Transcript / summary",
+      "transcriptPlaceholder": "Hello — my name is Wilson Gosalim. Thank you for visiting our website. The full transcript of the factory introduction video will be published here once the recording is complete. In the meantime, you are welcome to schedule a live WhatsApp video tour of the factory or visit us in person in Semarang. Every container we ship carries the same compliance documentation: ISO 9001 audit, IMDG UN 1361 paperwork, an independent Self-Heating Test, and a Preferential Certificate of Origin. We look forward to working with you.",
+      "readMore": "Read more",
+      "readLess": "Show less"
+    },
+    "block7": {
+      "heading": "Our brands & export markets",
+      "intro": "We manufacture shisha charcoal under our clients' private labels (OEM). Containers from this factory currently ship to:",
+      "marketsFallback": "Country list to be confirmed before launch.",
+      "photos": {
+        "heading": "Private-label brand examples",
+        "altTemplate": "Shisha charcoal private-label brand box {{n}} (placeholder)"
+      },
+      "portNoticeTemplate": "All orders load and ship from the {{portLabel}}.",
+      "ctaPrimary": "Shipping & logistics overview",
+      "ctaPrimaryHref": "/logistics",
+      "ctaSecondary": "Importing to the USA",
+      "ctaSecondaryHref": "/logistics/import-to-usa"
+    },
+    "block8": {
+      "heading": "Our mission & vision",
+      "mission": {
+        "heading": "Mission",
+        "body": "Mission statement to be confirmed."
+      },
+      "vision": {
+        "heading": "Vision",
+        "body": "Vision statement to be confirmed."
+      }
+    },
+    "block9": {
+      "heading": "What our clients say",
+      "google": {
+        "heading": "Google Business reviews",
+        "subtitle": "Reviews widget will appear here once the Google Business profile is verified."
+      },
+      "trustpilot": {
+        "heading": "Trustpilot reviews",
+        "subtitle": "Trustpilot widget will appear here once the company profile is published."
+      }
+    }
   }
 }

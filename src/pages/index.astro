@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
-import Button from '~/components/cta/Button.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
 import en from '~/i18n/en.json';
 import { company, moqLabel, portOfLoadingLabel, leadTimeLabel } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
@@ -17,27 +17,24 @@ const heroSubtitle = fill(en.hero.subtitleTemplate, tokens);
   type="website"
   includeOrgSchema
 >
-  <section class="relative overflow-hidden bg-gradient-to-br from-brand-dark via-brand-dark to-neutral-900 text-white">
-    <div class="mx-auto max-w-7xl px-4 py-24 md:px-8 md:py-32">
-      <p class="text-sm font-medium uppercase tracking-wide text-brand-accent">
-        {en.hero.eyebrow}
-      </p>
-      <h1 class="mt-4 max-w-3xl text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">
-        {en.hero.title}
-      </h1>
-      <p class="mt-6 max-w-2xl text-lg leading-relaxed text-neutral-100">
-        {heroSubtitle}
-      </p>
-      <div class="mt-8 flex flex-wrap items-center gap-3">
-        <Button href="/contact" variant="primary" size="lg">
-          {en.cta.inquire}
-        </Button>
-        <Button href="/products" variant="secondary" size="lg">
-          {en.cta.viewProducts}
-        </Button>
-      </div>
-    </div>
-  </section>
+  <HeroSection
+    eyebrow={en.hero.eyebrow}
+    title={en.hero.title}
+    subtitle={heroSubtitle}
+    variant="dark"
+    align="start"
+    primaryCta={{
+      label: en.cta.inquire,
+      href: '/contact',
+      dataEvent: 'inquiry_cta_click',
+      dataSourceComponent: 'home-hero',
+    }}
+    secondaryCta={{
+      label: en.cta.viewProducts,
+      href: '/products',
+      dataSourceComponent: 'home-hero',
+    }}
+  />
 
   <section aria-label="Trust signals" class="border-b border-neutral-200 bg-neutral-50">
     <div class="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-3 md:px-8">

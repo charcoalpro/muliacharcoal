@@ -109,6 +109,8 @@ const isCenter = align === 'center';
               aria-label={primaryCta.ariaLabel}
               target={primaryCta.target}
               rel={primaryCta.rel}
+              data-event={primaryCta.dataEvent}
+              data-source-component={primaryCta.dataSourceComponent}
             >
               {primaryCta.label}
             </Button>
@@ -122,6 +124,8 @@ const isCenter = align === 'center';
               aria-label={secondaryCta.ariaLabel}
               target={secondaryCta.target}
               rel={secondaryCta.rel}
+              data-event={secondaryCta.dataEvent}
+              data-source-component={secondaryCta.dataSourceComponent}
             >
               {secondaryCta.label}
             </Button>

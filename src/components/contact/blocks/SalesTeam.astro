@@ -1,0 +1,25 @@
+---
+/**
+ * Contact Block 4 — sales team grid built from `getContactTeam()`.
+ * Skips persons whose `name` still starts with `TODO_PLACEHOLDER`.
+ */
+import en from '~/i18n/en.json';
+import { getContactTeam } from '~/config/company';
+import TeamCard from '~/components/people/TeamCard.astro';
+
+const t = en.contact.team;
+const members = getContactTeam().filter(
+  (m) => !m.name.startsWith('TODO_PLACEHOLDER'),
+);
+---
+<section aria-labelledby="team-heading" class="bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <h2 id="team-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+      {t.heading}
+    </h2>
+    <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.lead}</p>
+    <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {members.map((member) => <TeamCard member={member} variant="sales" />)}
+    </div>
+  </div>
+</section>

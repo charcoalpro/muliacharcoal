@@ -1,0 +1,58 @@
+---
+/**
+ * BankDetailsTable — public bank wiring details for /contact and /about.
+ *
+ * The table renders raw `company.bank.*` values without per-field gating
+ * (per product decision: bank info is public). Whoever populates
+ * `company.bank` is responsible for keeping placeholder strings out of
+ * the deployment build — see the pre-launch checklist at the bottom of
+ * `src/config/company.ts`.
+ *
+ * Banking data is intentionally NEVER included in JSON-LD or meta tags
+ * (advertising wiring instructions in metadata is a fraud vector and
+ * yields no SEO value).
+ */
+
+import DataTable from '~/components/content/DataTable.astro';
+import { company } from '~/config/company';
+
+interface RowLabels {
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+  swift: string;
+  branch: string;
+  bankAddress: string;
+  iban?: string;
+  currency?: string;
+}
+
+interface Props {
+  /** Column headers (typically `[t.field, t.value]`). */
+  headers: [string, string];
+  /** Per-row label translations. */
+  labels: RowLabels;
+  /** Optional class on the wrapping `<DataTable>`. */
+  class?: string;
+}
+
+const { headers, labels, class: className } = Astro.props;
+const b = company.bank;
+
+interface Row { label: string; values: [string]; }
+const rows: Row[] = [
+  { label: labels.bankName, values: [b.bankName] },
+  { label: labels.accountName, values: [b.accountName] },
+  { label: labels.accountNumber, values: [b.accountNumber] },
+  { label: labels.swift, values: [b.swiftCode] },
+  { label: labels.branch, values: [b.branch] },
+  { label: labels.bankAddress, values: [b.bankAddress] },
+];
+if (b.iban && labels.iban) {
+  rows.push({ label: labels.iban, values: [b.iban] });
+}
+if (labels.currency) {
+  rows.push({ label: labels.currency, values: [b.currency] });
+}
+---
+<DataTable headers={headers} rows={rows} striped class={className} />

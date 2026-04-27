@@ -1,0 +1,20 @@
+---
+/**
+ * About Block 8 — Mission & Vision pair of ColorBlocks.
+ */
+import en from '~/i18n/en.json';
+import ColorBlock from '~/components/about/ColorBlock.astro';
+
+const t = en.about.block8;
+---
+<section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+  <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
+  <div class="mt-8 grid gap-6 lg:grid-cols-2">
+    <ColorBlock type="commitment" heading={t.mission.heading}>
+      <p class="italic">{t.mission.body}</p>
+    </ColorBlock>
+    <ColorBlock type="identity" heading={t.vision.heading}>
+      <p class="italic">{t.vision.body}</p>
+    </ColorBlock>
+  </div>
+</section>

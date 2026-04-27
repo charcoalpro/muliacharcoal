@@ -1,0 +1,37 @@
+---
+/**
+ * ExternalLink — wraps `<TextLink>` with the standard external-link
+ * treatment: `target="_blank" rel="noopener noreferrer"` and a visually
+ * hidden "(opens in new tab)" affordance for screen readers.
+ *
+ * Use for every link that points off-site (social profiles, Google Maps,
+ * partner pages). For internal links, use `<TextLink>` directly.
+ */
+import en from '~/i18n/en.json';
+import TextLink from '~/components/content/TextLink.astro';
+
+interface Props {
+  href: string;
+  class?: string;
+  'data-event'?: string;
+  'data-source-component'?: string;
+  'aria-label'?: string;
+}
+
+const {
+  href,
+  class: className,
+  'data-event': dataEvent,
+  'data-source-component': dataSourceComponent,
+  'aria-label': ariaLabel,
+} = Astro.props;
+---
+<TextLink
+  href={href}
+  class={className}
+  data-event={dataEvent}
+  data-source-component={dataSourceComponent}
+  aria-label={ariaLabel}
+  target="_blank"
+  rel="noopener noreferrer"
+><slot /><span class="sr-only"> {en.contact.newTabSr}</span></TextLink>

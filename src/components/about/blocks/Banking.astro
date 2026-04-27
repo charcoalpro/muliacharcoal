@@ -1,0 +1,63 @@
+---
+/**
+ * About Block 4 — Bank details + payment trust block + photo grid.
+ *
+ * Bank table is always public per product decision. The trust block
+ * names the legal entity and accepted currencies; an optional crypto
+ * suffix is appended when `payment.acceptsCrypto` is true.
+ */
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company } from '~/config/company';
+import ColorBlock from '~/components/about/ColorBlock.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import BankDetailsTable from '~/components/payment/BankDetailsTable.astro';
+
+const t = en.about.block4;
+const co = company;
+
+const paymentBodyBase = fill(t.trust.bodyTemplate, {
+  legalName: co.legalName,
+  currencies: co.payment.currencies.join(', '),
+});
+const paymentTrustBody =
+  paymentBodyBase + (co.payment.acceptsCrypto ? t.trust.bodyCryptoSuffix : '');
+const paymentLastVerified = fill(t.trust.lastVerifiedTemplate, {
+  date: co.bank.lastVerified,
+});
+---
+<section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+  <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
+
+  <BankDetailsTable
+    class="mt-8"
+    headers={[t.table.label, t.table.value]}
+    labels={{
+      bankName: t.table.rows.bankName,
+      accountName: t.table.rows.accountName,
+      accountNumber: t.table.rows.accountNumber,
+      swift: t.table.rows.swift,
+      branch: t.table.rows.branch,
+      bankAddress: t.table.rows.bankAddress,
+    }}
+  />
+
+  <div class="mt-6">
+    <ColorBlock type="trust" heading={t.trust.heading}>
+      <p>{paymentTrustBody}</p>
+      <p class="mt-2 text-sm text-neutral-700">{paymentLastVerified}</p>
+    </ColorBlock>
+  </div>
+
+  <div class="mt-12">
+    <h3 class="text-lg font-semibold text-neutral-900">{t.photos.heading}</h3>
+    <div class="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <ImagePlaceholder label={t.photos.office1Alt} ratio="3/2" />
+      <ImagePlaceholder label={t.photos.office2Alt} ratio="3/2" />
+      <ImagePlaceholder label={t.photos.office3Alt} ratio="3/2" />
+      <ImagePlaceholder label={t.photos.factory1Alt} ratio="3/2" />
+      <ImagePlaceholder label={t.photos.factory2Alt} ratio="3/2" />
+      <ImagePlaceholder label={t.photos.factory3Alt} ratio="3/2" />
+    </div>
+  </div>
+</section>

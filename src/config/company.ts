@@ -19,6 +19,59 @@
  * in place for a publicly rendered field.
  */
 
+// =======================================================================
+// People — types
+// =======================================================================
+
+/**
+ * Tags that drive where a `Person` row surfaces on the site. A single
+ * person can carry multiple tags (e.g. owner + executive + contact-team).
+ * Renderers filter `company.people` by tag using the helper getters
+ * (`getOwner`, `getExecutives`, `getOperations`, `getContactTeam`,
+ * `getDirector`, `getSales`).
+ */
+export type DisplayTag =
+  | 'owner'
+  | 'executive'
+  | 'operations'
+  | 'contact-team'
+  | 'whatsapp-director'
+  | 'whatsapp-sales';
+
+/** Phone (landline / mobile) — NOT WhatsApp. Use `whatsapp` for that. */
+export interface PhoneNumber {
+  display: string;
+  e164: string;
+}
+
+/**
+ * WhatsApp routing for a Person. `e164Digits` is the bare digit form
+ * required by `wa.me/<digits>` URLs (no `+`, no separators). `preset`
+ * is the default click-to-chat message body for this person.
+ */
+export interface WhatsappContact {
+  e164Digits: string;
+  display: string;
+  preset?: string;
+}
+
+/**
+ * A named individual the site references — staff, owner, consultant.
+ * Single source of truth for every team / executive / operations entry.
+ */
+export interface Person {
+  name: string;
+  role: string;
+  bio?: string | null;
+  email?: string | null;
+  phone?: PhoneNumber | null;
+  whatsapp?: WhatsappContact | null;
+  linkedin?: string | null;
+  photo?: string | null;
+  languages?: string[];
+  displayIn: DisplayTag[];
+}
+
 export const company = {
   // -----------------------------------------------------------------
   // Identity
@@ -114,32 +167,15 @@ export const company = {
 
   // WhatsApp click-to-chat. `e164Digits` is the number with no "+" and no
   // separators — this is what wa.me URLs require. The top-level number is
-  // the primary one used by the floating site-wide WhatsApp button. The
-  // `sales` and `director` sub-objects are used by the Contact page for
-  // separate outreach paths.
+  // the primary one used by the floating site-wide WhatsApp button.
+  //
+  // Per-person WhatsApp routing (the former `director` / `sales` sub-objects)
+  // now lives on `people[]` entries tagged with `displayIn: ['whatsapp-director']`
+  // or `'whatsapp-sales'`. Reach those persons via `getDirector()` / `getSales()`.
   whatsapp: {
     e164Digits: '6282128768545', // TODO: confirm the production number before launch
     defaultMessage:
       'Hello, I am interested in your coconut charcoal briquettes.',
-
-    // Director — Wilson Gosalim (owner + director). The site's primary
-    // line currently rings the director; if a dedicated sales line is
-    // commissioned, replace `sales.e164Digits` and `sales.display` and
-    // optionally split the director onto a new number.
-    director: {
-      name: 'Wilson Gosalim',
-      role: 'Director',
-      e164Digits: '6282128768545',
-      display: '+62 821 287 68 545',
-    },
-
-    // Sales — TODO_PLACEHOLDER until a dedicated sales rep is confirmed.
-    sales: {
-      name: 'TODO_PLACEHOLDER_SALES_REP',
-      role: 'Sales Manager',
-      e164Digits: '6280000000001',
-      display: '+62 800 0000 0001',
-    },
 
     // Pre-filled message bodies keyed by CTA context. Use waLinkFor()
     // to build URLs from these — never duplicate the strings inline.
@@ -176,9 +212,12 @@ export const company = {
   // can enumerate the list without worrying about missing keys.
   // -----------------------------------------------------------------
   social: {
-    facebook: null, // TODO: add Facebook page URL
-    instagram: null, // TODO: add Instagram profile URL
-    linkedin: null, // TODO: add LinkedIn company page URL
+    facebook: null as string | null, // TODO: add Facebook page URL
+    instagram: null as string | null, // TODO: add Instagram profile URL
+    linkedin: null as string | null, // TODO: add LinkedIn company page URL
+    youtube: null as string | null, // TODO: add YouTube channel URL
+    twitter: null as string | null, // TODO: add Twitter/X profile URL
+    googleBusiness: null as string | null, // TODO: add Google Business profile URL
   },
 
   // -----------------------------------------------------------------
@@ -214,6 +253,15 @@ export const company = {
     currency: 'USD',
     // Acceptable payment terms — TODO: confirm with finance.
     paymentTerms: '30% T/T deposit, 70% against B/L copy',
+    // Whether private-label / OEM production is offered to wholesale buyers.
+    oemAvailable: true,
+    // Shipping lines we are approved to book directly with from the Port of
+    // Semarang. Empty until logistics confirms; the About page hides the
+    // related claims while this list is empty.
+    shippingLines: [] as string[], // TODO: confirm; e.g. ['MSC', 'Maersk', 'CMA CGM']
+    // Countries we have shipped to (drives the About page tag cloud and any
+    // future /markets index). Empty until commercial confirms.
+    exportMarkets: [] as string[], // TODO: confirm full destination list
   },
 
   // -----------------------------------------------------------------
@@ -234,28 +282,179 @@ export const company = {
     },
     // Primary raw material.
     rawMaterial: 'Coconut shell charcoal (sourced from Java and Sumatra)',
+    // Floor area of the main briquetting / packing facility, in square
+    // metres. `0` while pending confirmation — the About page hides the
+    // claim until a real number is set.
+    factoryAreaSqm: 0, // TODO: confirm factory area (e.g. 6000)
+    // Number of palm trees we have access to across our partner sourcing
+    // villages. `0` while pending confirmation.
+    palmTreesCount: 0, // TODO: confirm partner palm-tree count
+    // Number of partner villages supplying coconut-shell raw material.
+    sourcingVillages: 0, // TODO: confirm partner village count
+    // Region where the partner villages and (optional) carbonization plant
+    // are located. Empty placeholder until confirmed.
+    sourcingRegion: 'TODO_PLACEHOLDER_SOURCING_REGION',
+    // Optional carbonization plant operated upstream of the briquetting
+    // factory. Set to null when there is no separate plant.
+    carbonizationPlant: null as { city: string; region: string } | null, // TODO: confirm or leave null
   },
 
   // -----------------------------------------------------------------
-  // People
+  // People — single source of truth for every named individual on the site.
+  //
+  // Each entry has a `displayIn` array of tags that drive which surface(s)
+  // render the person:
+  //
+  //   'owner'              — registered company owner; surfaces in /about
+  //                          Block 5 owner card and Organization JSON-LD
+  //                          founder. Exactly one person should carry this.
+  //   'executive'          — director / consultant; surfaces in the Footer
+  //                          "executives" sentence and About-page schema.
+  //   'operations'         — operations head / manager; surfaces in /about
+  //                          Block 5 operations grid.
+  //   'contact-team'       — sales / export-desk member; surfaces in the
+  //                          /contact Block 4 team grid.
+  //   'whatsapp-director'  — the person reachable via the director-intro
+  //                          WhatsApp preset; LocalBusiness contactPoint.
+  //   'whatsapp-sales'     — the person reachable via the sales-general
+  //                          WhatsApp preset.
+  //
+  // A single Person can wear multiple tags — Wilson Gosalim is owner +
+  // executive + contact-team + whatsapp-director, all with one row.
+  //
+  // Use `getOwner()`, `getExecutives()`, `getOperations()`, `getContactTeam()`,
+  // `getDirector()`, `getSales()` (defined below) instead of filtering
+  // `people` by hand. Cards whose `name` starts with `TODO_PLACEHOLDER`
+  // must be skipped at render time so placeholder strings never ship.
   // -----------------------------------------------------------------
-  people: {
-    // Registered owner of the company.
-    owner: {
+  people: [
+    // Wilson Gosalim — owner, director, primary WhatsApp contact, and
+    // a member of the customer-facing sales team.
+    {
       name: 'Wilson Gosalim',
-      role: 'Owner',
+      role: 'Owner & Director',
+      bio: null as string | null, // TODO: confirm short bio
+      email: 'wilson@muliacharcoal.com' as string | null, // TODO: confirm direct email
+      phone: {
+        display: '+62 821 287 68 545',
+        e164: '+6282128768545',
+      } as { display: string; e164: string } | null,
+      whatsapp: {
+        e164Digits: '6282128768545',
+        display: '+62 821 287 68 545',
+        preset:
+          'Hello Mr. Gosalim — I am a wholesale buyer interested in your coconut shisha charcoal. Could we discuss specifications and pricing?',
+      } as { e164Digits: string; display: string; preset?: string } | null,
+      linkedin: null as string | null,
+      photo: '/team/wilson-gosalim.jpg' as string | null, // TODO: real asset
+      languages: ['English', 'Bahasa Indonesia'],
+      displayIn: ['owner', 'executive', 'contact-team', 'whatsapp-director'] as DisplayTag[],
     },
-    // Executive / director team shown on /about and in About schema.
-    executives: [
-      { name: 'Wilson Gosalim', role: 'Director' },
-      { name: 'Henry Gosalim', role: 'Director' },
-      { name: 'Gatot Wibowo', role: 'Director' },
-      {
-        name: 'Greg Ryabtsev',
-        role: 'Charcoal Expert / Consultant',
-      },
-    ],
-  },
+
+    // Sales Manager placeholder — fills the dedicated WhatsApp-sales
+    // route until a real rep is hired. Until `name` is real the card is
+    // hidden, but the WhatsApp number routes calls to the placeholder
+    // line so the channel itself stays plumbed.
+    {
+      name: 'TODO_PLACEHOLDER_SALES_MANAGER',
+      role: 'Sales Manager',
+      email: 'sales@muliacharcoal.com' as string | null,
+      phone: {
+        display: '+62 800 0000 0002',
+        e164: '+6280000000002',
+      } as { display: string; e164: string } | null,
+      whatsapp: {
+        e164Digits: '6280000000002',
+        display: '+62 800 0000 0002',
+        preset:
+          'Hello, I am interested in placing a wholesale order for coconut shisha charcoal. Please share your latest price list and MOQ.',
+      } as { e164Digits: string; display: string; preset?: string } | null,
+      photo: '/team/sales-manager.jpg' as string | null,
+      languages: ['English', 'Mandarin', 'Bahasa Indonesia'],
+      displayIn: ['contact-team', 'whatsapp-sales'] as DisplayTag[],
+    },
+
+    // Export Coordinator placeholder.
+    {
+      name: 'TODO_PLACEHOLDER_EXPORT_COORDINATOR',
+      role: 'Export Coordinator',
+      email: 'export.ops@muliacharcoal.com' as string | null,
+      phone: {
+        display: '+62 800 0000 0003',
+        e164: '+6280000000003',
+      } as { display: string; e164: string } | null,
+      whatsapp: {
+        e164Digits: '6280000000003',
+        display: '+62 800 0000 0003',
+        preset:
+          'Hello, I have a question about export documentation and shipping for your coconut shisha charcoal. Could you assist?',
+      } as { e164Digits: string; display: string; preset?: string } | null,
+      photo: '/team/export-coordinator.jpg' as string | null,
+      languages: ['English', 'Bahasa Indonesia', 'Arabic'],
+      displayIn: ['contact-team'] as DisplayTag[],
+    },
+
+    // Other directors and the consultant — executive-only entries.
+    { name: 'Henry Gosalim', role: 'Director', displayIn: ['executive'] as DisplayTag[] },
+    { name: 'Gatot Wibowo', role: 'Director', displayIn: ['executive'] as DisplayTag[] },
+    {
+      name: 'Greg Ryabtsev',
+      role: 'Charcoal Expert / Consultant',
+      displayIn: ['executive'] as DisplayTag[],
+    },
+
+    // Operations roster — seven heads-of-department, all placeholder
+    // until management confirms. Each row is hidden until `name` is real.
+    {
+      name: 'TODO_PLACEHOLDER_OPS_DIRECTOR',
+      role: 'Operational Director',
+      email: null as string | null,
+      phone: null as { display: string; e164: string } | null,
+      displayIn: ['operations'] as DisplayTag[],
+    },
+    {
+      name: 'TODO_PLACEHOLDER_QC_MANAGER',
+      role: 'Quality Control Manager',
+      email: null as string | null,
+      phone: null as { display: string; e164: string } | null,
+      displayIn: ['operations'] as DisplayTag[],
+    },
+    {
+      name: 'TODO_PLACEHOLDER_HEAD_FINANCE',
+      role: 'Head of Finance',
+      email: null as string | null,
+      phone: null as { display: string; e164: string } | null,
+      displayIn: ['operations'] as DisplayTag[],
+    },
+    {
+      name: 'TODO_PLACEHOLDER_HEAD_WAREHOUSE',
+      role: 'Head of Warehouse',
+      email: null as string | null,
+      phone: null as { display: string; e164: string } | null,
+      displayIn: ['operations'] as DisplayTag[],
+    },
+    {
+      name: 'TODO_PLACEHOLDER_HEAD_PACKAGING',
+      role: 'Head of Packaging',
+      email: null as string | null,
+      phone: null as { display: string; e164: string } | null,
+      displayIn: ['operations'] as DisplayTag[],
+    },
+    {
+      name: 'TODO_PLACEHOLDER_HEAD_CRUSHER',
+      role: 'Head of Crusher Operations',
+      email: null as string | null,
+      phone: null as { display: string; e164: string } | null,
+      displayIn: ['operations'] as DisplayTag[],
+    },
+    {
+      name: 'TODO_PLACEHOLDER_HEAD_LOGISTICS',
+      role: 'Head of Logistics',
+      email: null as string | null,
+      phone: null as { display: string; e164: string } | null,
+      displayIn: ['operations'] as DisplayTag[],
+    },
+  ] as Person[],
 
   // -----------------------------------------------------------------
   // Certifications and compliance
@@ -281,6 +480,11 @@ export const company = {
       'Self-Heating Test (SHT)',
       'Preferential Certificate of Origin',
     ],
+    // Patented manufacturing technologies. Empty until confirmed.
+    patents: [] as Array<{ id: string; title: string }>,
+    // Halal certification (LPPOM-MUI or equivalent). Set to a populated
+    // object once the certificate is issued; leave null otherwise.
+    halal: null as { certified: boolean; body?: string } | null,
   },
 
   // -----------------------------------------------------------------
@@ -302,53 +506,6 @@ export const company = {
       seat: 'Jakarta, Indonesia',
     },
   },
-
-  // -----------------------------------------------------------------
-  // Sales team — Contact page Block 4.
-  //
-  // Each entry renders as a TeamCard with WhatsApp / phone / email
-  // buttons. Photos are rendered as <ImagePlaceholder> for v1 — no
-  // real photos required. Replace TODO_PLACEHOLDER entries with real
-  // staff before launch (or trim the array to live members only).
-  // -----------------------------------------------------------------
-  team: [
-    {
-      name: 'Wilson Gosalim',
-      role: 'Director',
-      languages: ['English', 'Bahasa Indonesia'],
-      photo: '/team/wilson-gosalim.jpg', // TODO: real photo asset
-      email: 'wilson@muliacharcoal.com', // TODO: confirm direct email
-      phoneE164: '+6282128768545',
-      phoneDisplay: '+62 821 287 68 545',
-      whatsappE164Digits: '6282128768545',
-      whatsappPreset:
-        'Hello Mr. Gosalim — I am a wholesale buyer interested in your coconut shisha charcoal. Could we discuss specifications and pricing?',
-    },
-    {
-      name: 'TODO_PLACEHOLDER_SALES_MANAGER',
-      role: 'Sales Manager',
-      languages: ['English', 'Mandarin', 'Bahasa Indonesia'],
-      photo: '/team/sales-manager.jpg', // TODO: real photo asset
-      email: 'sales@muliacharcoal.com', // TODO: confirm
-      phoneE164: '+6280000000002',
-      phoneDisplay: '+62 800 0000 0002',
-      whatsappE164Digits: '6280000000002',
-      whatsappPreset:
-        'Hello, I am interested in placing a wholesale order for coconut shisha charcoal. Please share your latest price list and MOQ.',
-    },
-    {
-      name: 'TODO_PLACEHOLDER_EXPORT_COORDINATOR',
-      role: 'Export Coordinator',
-      languages: ['English', 'Bahasa Indonesia', 'Arabic'],
-      photo: '/team/export-coordinator.jpg', // TODO: real photo asset
-      email: 'export.ops@muliacharcoal.com', // TODO: confirm
-      phoneE164: '+6280000000003',
-      phoneDisplay: '+62 800 0000 0003',
-      whatsappE164Digits: '6280000000003',
-      whatsappPreset:
-        'Hello, I have a question about export documentation and shipping for your coconut shisha charcoal. Could you assist?',
-    },
-  ],
 
   // -----------------------------------------------------------------
   // Alternate contact channels — Contact page Block 5.
@@ -580,6 +737,9 @@ export const company = {
     terms: ['T/T 30/70 (30% deposit, 70% against B/L copy)', 'L/C at sight'],
     currencies: ['USD'],
     bankCountry: 'Indonesia',
+    // Whether we accept stablecoin payments (e.g. USDT TRC-20). The /about
+    // payment notice only mentions crypto when this flag is true.
+    acceptsCrypto: false,
   },
 
   // -----------------------------------------------------------------
@@ -737,14 +897,87 @@ export function imdgLabel(): string {
  *
  * @example
  *   <a href={waLinkFor('heroCta')}>WhatsApp us</a>
- *   <a href={waLinkFor('directorIntro', company.whatsapp.director.e164Digits)}>…</a>
+ *   <a href={waLinkFor('directorIntro', getDirector()?.whatsapp?.e164Digits)}>…</a>
  */
 export function waLinkFor(
   presetKey: keyof typeof company.whatsapp.presetMessages,
-  e164Digits: string = company.whatsapp.e164Digits,
+  e164Digits: string | undefined = company.whatsapp.e164Digits,
 ): string {
   const text = company.whatsapp.presetMessages[presetKey];
-  return `https://wa.me/${e164Digits}?text=${encodeURIComponent(text)}`;
+  const digits = e164Digits ?? company.whatsapp.e164Digits;
+  return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
+}
+
+// =======================================================================
+// People — helper accessors
+//
+// Renderers should read people via these helpers, not by filtering
+// `company.people` inline. A single source of "what does each tag mean"
+// keeps drift impossible.
+// =======================================================================
+
+/** Filter the people roster by `displayIn` tag. */
+export function getByDisplayTag(tag: DisplayTag): Person[] {
+  return company.people.filter((p) => p.displayIn.includes(tag));
+}
+
+/** First person tagged with `tag`, or `undefined` if none exists. */
+export function getOneByDisplayTag(tag: DisplayTag): Person | undefined {
+  return company.people.find((p) => p.displayIn.includes(tag));
+}
+
+/** Registered owner. Exactly one person should carry the `'owner'` tag. */
+export function getOwner(): Person | undefined {
+  return getOneByDisplayTag('owner');
+}
+
+/** Director / consultant entries shown in the Footer + About Organization graph. */
+export function getExecutives(): Person[] {
+  return getByDisplayTag('executive');
+}
+
+/** Operations heads-of-department shown in /about Block 5. */
+export function getOperations(): Person[] {
+  return getByDisplayTag('operations');
+}
+
+/** Sales / export-desk members shown in /contact Block 4. */
+export function getContactTeam(): Person[] {
+  return getByDisplayTag('contact-team');
+}
+
+/** Person reachable via the director-intro WhatsApp preset. */
+export function getDirector(): Person | undefined {
+  return getOneByDisplayTag('whatsapp-director');
+}
+
+/** Person reachable via the sales-general WhatsApp preset. */
+export function getSales(): Person | undefined {
+  return getOneByDisplayTag('whatsapp-sales');
+}
+
+/**
+ * Predicate: is this value a confirmed company fact (vs a placeholder)?
+ *
+ * Pages should gate render of any badge, sentence, or table row whose
+ * underlying field is still a TODO. Returns `false` for `null`, empty
+ * strings, the numeric sentinel `0`, empty arrays, and any string that
+ * starts with `TODO_PLACEHOLDER`. Returns `true` otherwise.
+ *
+ * @example
+ *   {hasFact(company.production.palmTreesCount) && <Badge ... />}
+ */
+export function hasFact(value: unknown): boolean {
+  if (value === null || value === undefined) return false;
+  if (typeof value === 'string') {
+    if (value.length === 0) return false;
+    if (value.startsWith('TODO_PLACEHOLDER')) return false;
+    return true;
+  }
+  if (typeof value === 'number') return value !== 0;
+  if (Array.isArray(value)) return value.length > 0;
+  if (typeof value === 'object') return Object.keys(value as object).length > 0;
+  return Boolean(value);
 }
 
 /**
@@ -764,14 +997,14 @@ export function businessHoursRange(): string {
 // =======================================================================
 
 export type Company = typeof company;
-export type Executive = (typeof company.people.executives)[number];
 export type SocialPlatform = keyof typeof company.social;
 export type PriorityMarket = (typeof company.priorityMarkets)[number];
-export type TeamMember = (typeof company.team)[number];
 export type Hotel = (typeof company.hotels)[number];
 export type TravelHub = (typeof company.travelHubs)[number];
 export type Holiday = (typeof company.holidays2026)[number];
 export type WhatsappPresetKey = keyof typeof company.whatsapp.presetMessages;
+// Person, DisplayTag, PhoneNumber, WhatsappContact are declared above the
+// `company` const so that `people` can be cast `as Person[]` inline.
 
 // =======================================================================
 // Pre-launch replacement checklist
@@ -806,5 +1039,26 @@ export type WhatsappPresetKey = keyof typeof company.whatsapp.presetMessages;
 //  [ ] bank.bankName / branch / bankAddress / accountNumber / swiftCode —
 //      verify by phone/video call with the director, then update
 //      bank.lastVerified to today's ISO date
+//  [ ] production.factoryAreaSqm — confirm sqm of the briquetting facility
+//  [ ] production.palmTreesCount / sourcingVillages / sourcingRegion —
+//      confirm partner-network size and region for the /about supply-chain
+//      block
+//  [ ] production.carbonizationPlant — set to { city, region } if there
+//      is a separate upstream plant; leave null otherwise
+//  [ ] commercial.shippingLines — confirm direct-booking carrier list
+//  [ ] commercial.exportMarkets — confirm full list of destination
+//      countries (drives /about Block 7 tag cloud)
+//  [ ] certifications.patents — append { id, title } entries for any
+//      patented technology
+//  [ ] certifications.halal — populate when LPPOM-MUI certificate issues
+//  [ ] social.youtube / twitter / googleBusiness — paste profile URLs as
+//      they go live
+//  [ ] people.owner.email / phone / linkedin / bio — confirm with the
+//      director; bio under 280 characters
+//  [ ] people.operations[*] — replace TODO_PLACEHOLDER names and contact
+//      details for the seven operations roles, OR delete the rows for
+//      positions that do not exist
+//  [ ] payment.acceptsCrypto — set to true only if finance approves USDT
+//      stablecoin payments
 //
 // =======================================================================

@@ -1,0 +1,126 @@
+---
+/**
+ * ColorBlock — left-border card with a category pill, a heading, and slot copy.
+ *
+ * Used on the /about page to break a long page of factual prose into
+ * scannable, visually-differentiated chunks. Each `type` maps to a fixed
+ * combination of border colour, background tint, pill colour, and emoji
+ * marker — picked from the project's narrow brand + neutral + semantic
+ * palette (no slate / blue / teal / purple imports). The heading and
+ * body inside the slot are NEVER coloured; visual separation comes from
+ * the border, the background tint, and the pill.
+ *
+ * Adjacency rule: the page must avoid placing two ColorBlocks of the
+ * same `type` next to each other. The `trust` type is reserved for
+ * payment / fraud notices and may appear at most twice on a page.
+ */
+
+interface Props {
+  type:
+    | 'identity'
+    | 'legal'
+    | 'production'
+    | 'certification'
+    | 'supply-chain'
+    | 'shipping'
+    | 'trust'
+    | 'commitment';
+  heading: string;
+}
+
+const { type, heading } = Astro.props;
+
+interface Style {
+  border: string;
+  bg: string;
+  pill: string;
+  icon: string;
+  label: string;
+  aria: string;
+}
+
+const STYLES: Record<Props['type'], Style> = {
+  'identity': {
+    border: 'border-brand-primary',
+    bg: 'bg-brand-primary/5',
+    pill: 'bg-brand-primary',
+    icon: '🏢',
+    label: 'Company',
+    aria: 'Company information',
+  },
+  'legal': {
+    border: 'border-neutral-700',
+    bg: 'bg-neutral-100',
+    pill: 'bg-neutral-700',
+    icon: '⚖️',
+    label: 'Legal',
+    aria: 'Legal information',
+  },
+  'production': {
+    border: 'border-neutral-500',
+    bg: 'bg-neutral-50',
+    pill: 'bg-neutral-500',
+    icon: '🏭',
+    label: 'Production',
+    aria: 'Production information',
+  },
+  'certification': {
+    border: 'border-success',
+    bg: 'bg-success/10',
+    pill: 'bg-success',
+    icon: '✅',
+    label: 'Certified',
+    aria: 'Certification information',
+  },
+  'supply-chain': {
+    border: 'border-brand-accent',
+    bg: 'bg-brand-accent/10',
+    pill: 'bg-brand-accent',
+    icon: '🌴',
+    label: 'Sourcing',
+    aria: 'Supply chain information',
+  },
+  'shipping': {
+    border: 'border-info',
+    bg: 'bg-info/10',
+    pill: 'bg-info',
+    icon: '🚢',
+    label: 'Shipping',
+    aria: 'Shipping information',
+  },
+  'trust': {
+    border: 'border-warning',
+    bg: 'bg-warning/10',
+    pill: 'bg-warning',
+    icon: '⚠️',
+    label: 'Important',
+    aria: 'Important notice',
+  },
+  'commitment': {
+    border: 'border-brand-dark',
+    bg: 'bg-brand-dark/5',
+    pill: 'bg-brand-dark',
+    icon: '🎯',
+    label: 'Commitment',
+    aria: 'Mission and values',
+  },
+};
+
+const s = STYLES[type];
+---
+<div class:list={['rounded-r-lg border-s-4 p-6', s.border, s.bg]}>
+  <span
+    class:list={[
+      'mb-3 inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-white',
+      s.pill,
+    ]}
+    aria-label={s.aria}
+  >
+    <span aria-hidden="true">{s.icon}</span>
+    <span class="hidden sm:inline">{s.label}</span>
+  </span>
+  <h3 class="mb-2 text-lg font-semibold text-neutral-900">{heading}</h3>
+  <div class="text-base leading-relaxed text-neutral-800">
+    <slot />
+  </div>
+</div>

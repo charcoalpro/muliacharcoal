@@ -5,6 +5,7 @@
 
 import en from '~/i18n/en.json';
 import { fill } from '~/lib/interpolate';
+import Button from '~/components/cta/Button.astro';
 import type { Hotel } from '~/config/company';
 
 interface Props {
@@ -38,24 +39,26 @@ const drive = fill(t.minTemplate, { min: String(hotel.driveTimeMinutes) });
   <p class="mt-3 text-sm text-neutral-600">{hotel.description}</p>
   <div class="mt-auto pt-5 flex flex-wrap gap-2">
     {hotel.website && (
-      <a
+      <Button
         href={hotel.website}
+        variant="secondary"
+        size="sm"
         target="_blank"
         rel="noopener noreferrer"
-        class="inline-flex flex-1 items-center justify-center rounded-md border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+        class="flex-1"
       >
-        {t.websiteButton}
-        <span class="sr-only">{en.contact.newTabSr}</span>
-      </a>
+        {t.websiteButton}<span class="sr-only"> {en.contact.newTabSr}</span>
+      </Button>
     )}
-    <a
+    <Button
       href={hotel.mapsUrl}
+      variant="secondary"
+      size="sm"
       target="_blank"
       rel="noopener noreferrer"
-      class="inline-flex flex-1 items-center justify-center rounded-md border border-neutral-300 px-4 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+      class="flex-1"
     >
-      {t.mapsButton}
-      <span class="sr-only">{en.contact.newTabSr}</span>
-    </a>
+      {t.mapsButton}<span class="sr-only"> {en.contact.newTabSr}</span>
+    </Button>
   </div>
 </article>

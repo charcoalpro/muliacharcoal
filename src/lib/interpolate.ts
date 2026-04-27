@@ -13,15 +13,25 @@
  * and prose but never the fact values themselves.
  */
 
-// Relative path, not the `~/` alias: `astro.config.ts` loads this module
-// to register the remark plugin, and Vite's SSR loader does not resolve
-// tsconfig path aliases when evaluating the config file itself.
+// IMPORTANT: this import path MUST stay relative (`../config/company`),
+// not the `~/config/company` alias used everywhere else in the codebase.
+//
+// Reason: `astro.config.ts` imports this module to register the remark
+// plugin (`remarkCompanyTokens`). Vite's SSR loader evaluates `astro.config.ts`
+// BEFORE the tsconfig path-alias resolver is wired up, so any `~/...`
+// import here would crash the build with `Failed to resolve import "~/..."`.
+//
+// Do NOT "fix" this to match the rest of the codebase — `astro build`
+// will fail on the first attempt. If a future Astro / Vite version
+// resolves aliases for the config-file load path, this comment can go
+// and the import can switch to `~/`. Until then, keep it relative.
 import {
   imdgLabel,
   leadTimeLabel,
   moqLabel,
   portOfLoadingLabel,
   type Company,
+  type Person,
 } from '../config/company';
 
 export type TokenValue = string | number;
@@ -45,10 +55,13 @@ export function fill(template: string, tokens: Tokens): string {
  * so the token vocabulary stays stable across files.
  */
 export function companyTokens(company: Company): Tokens {
-  const directors = company.people.executives.filter((e) =>
+  const executives: Person[] = company.people.filter((p) =>
+    p.displayIn.includes('executive'),
+  );
+  const directors = executives.filter((e) =>
     e.role.toLowerCase().includes('director'),
   );
-  const experts = company.people.executives.filter(
+  const experts = executives.filter(
     (e) => !e.role.toLowerCase().includes('director'),
   );
   const directorNames = directors.map((d) => d.name).join(', ');

@@ -1,0 +1,211 @@
+---
+/**
+ * About Block 3 — Factory legal information.
+ *
+ * Composed of four sub-blocks:
+ *   3A — Legal-info DataTable (with conditional rows for confirmed facts)
+ *   3B — NIB / NPWP document scan placeholders
+ *   3C — Social-presence pills (only renders when at least one URL is set)
+ *   3D — Virtual tour CTA banner
+ */
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company, getOwner, hasFact, imdgLabel } from '~/config/company';
+import DataTable from '~/components/content/DataTable.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import Button from '~/components/cta/Button.astro';
+
+const t = en.about.block3;
+const co = company;
+
+const hasPalmTrees = hasFact(co.production.palmTreesCount);
+const hasVillages = hasFact(co.production.sourcingVillages);
+const hasSourcingRegion = hasFact(co.production.sourcingRegion);
+const hasShippingLines = hasFact(co.commercial.shippingLines);
+const hasHalal =
+  co.certifications.halal !== null && co.certifications.halal.certified;
+
+const ownerName = getOwner()?.name ?? co.legalName;
+
+// Production cell — "{n} lines, {n} ovens"
+const productionTableValue = fill(t.tableValues.productionTemplate, {
+  lines: String(co.production.lines),
+  ovens: String(co.production.ovens.count),
+});
+
+// Palm-trees cell — three template variants depending on which facts are confirmed
+const palmTreesTableValue = (() => {
+  if (!hasPalmTrees) return null;
+  if (hasVillages && hasSourcingRegion) {
+    return fill(t.tableValues.palmTreesTemplate, {
+      count: String(co.production.palmTreesCount),
+      villages: String(co.production.sourcingVillages),
+      region: co.production.sourcingRegion,
+    });
+  }
+  if (hasSourcingRegion) {
+    return fill(t.tableValues.palmTreesNoVillagesTemplate, {
+      count: String(co.production.palmTreesCount),
+      region: co.production.sourcingRegion,
+    });
+  }
+  return `${co.production.palmTreesCount}+`;
+})();
+
+// Certifications cell — joined list of confirmed certifications
+const certificationsCellParts: string[] = [
+  co.certifications.iso9001.standard,
+  imdgLabel(),
+];
+if (hasHalal) certificationsCellParts.push('Halal certified');
+const certificationsCellValue = certificationsCellParts.join(' · ');
+
+// Address — drop placeholder fragments before joining
+const factoryAddressJoined = [
+  co.address.street,
+  co.address.district,
+  co.address.city,
+  co.address.region,
+  co.address.postalCode,
+  co.address.country,
+]
+  .filter((p): p is string => Boolean(p) && !p.startsWith('TODO_PLACEHOLDER'))
+  .join(', ');
+
+// Document-scan alts
+const nibAlt = fill(t.docs.nibAltTemplate, { legalName: co.legalName });
+const npwpAlt = fill(t.docs.npwpAltTemplate, { legalName: co.legalName });
+
+// Build the legal-info table rows
+const legalRows: Array<{
+  label: string;
+  values: Array<
+    | string
+    | null
+    | { kind: 'text'; text: string; class?: string }
+    | { kind: 'link'; text: string; href: string; external?: boolean; dataEvent?: string; class?: string }
+  >;
+}> = [
+  { label: t.table.rows.companyName, values: [co.legalName] },
+];
+if (factoryAddressJoined) {
+  legalRows.push({ label: t.table.rows.factoryAddress, values: [factoryAddressJoined] });
+}
+legalRows.push({
+  label: t.table.rows.googleMaps,
+  values: [{
+    kind: 'link',
+    text: `${t.tableValues.googleMapsLink} →`,
+    href: co.googleMapsUrl,
+    external: true,
+    dataEvent: 'outbound_click',
+  }],
+});
+legalRows.push({ label: t.table.rows.owner, values: [ownerName] });
+legalRows.push({ label: t.table.rows.established, values: [String(co.foundingYear)] });
+legalRows.push({ label: t.table.rows.nib, values: [co.registration.nib] });
+legalRows.push({ label: t.table.rows.npwp, values: [co.registration.taxId] });
+legalRows.push({ label: t.table.rows.production, values: [productionTableValue] });
+if (palmTreesTableValue) {
+  legalRows.push({ label: t.table.rows.palmTrees, values: [palmTreesTableValue] });
+}
+if (co.commercial.oemAvailable) {
+  legalRows.push({ label: t.table.rows.oem, values: [t.tableValues.oemYes] });
+}
+if (hasShippingLines) {
+  legalRows.push({
+    label: t.table.rows.shippingLines,
+    values: [co.commercial.shippingLines.join(t.tableValues.shippingLinesJoin)],
+  });
+}
+legalRows.push({ label: t.table.rows.certifications, values: [certificationsCellValue] });
+
+// Social-presence pills — one per non-null entry
+const sl = t.social.labels;
+const socialPills: Array<{ key: string; href: string; label: string }> = [];
+if (co.social.youtube)
+  socialPills.push({ key: 'youtube', href: co.social.youtube, label: sl.youtube });
+if (co.social.linkedin)
+  socialPills.push({ key: 'linkedin', href: co.social.linkedin, label: sl.linkedin });
+if (co.social.instagram)
+  socialPills.push({ key: 'instagram', href: co.social.instagram, label: sl.instagram });
+if (co.social.twitter)
+  socialPills.push({ key: 'twitter', href: co.social.twitter, label: sl.twitter });
+if (co.social.facebook)
+  socialPills.push({ key: 'facebook', href: co.social.facebook, label: sl.facebook });
+if (co.social.googleBusiness)
+  socialPills.push({
+    key: 'googleBusiness',
+    href: co.social.googleBusiness,
+    label: sl.googleBusiness,
+  });
+const hasAnySocial = socialPills.length > 0;
+
+const newTabSr = en.contact.newTabSr;
+---
+<section class="bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">
+      {t.heading}
+    </h2>
+
+    <!-- 3A — Legal table -->
+    <DataTable
+      class="mt-8"
+      striped
+      headers={[t.table.label, t.table.value]}
+      rows={legalRows}
+    />
+
+    <!-- 3B — Document scans -->
+    <div class="mt-12">
+      <h3 class="text-lg font-semibold text-neutral-900">{t.docs.heading}</h3>
+      <div class="mt-4 grid gap-6 md:grid-cols-2">
+        <ImagePlaceholder label={nibAlt} caption={t.docs.nibCaption} ratio="3/2" />
+        <ImagePlaceholder label={npwpAlt} caption={t.docs.npwpCaption} ratio="3/2" />
+      </div>
+    </div>
+
+    <!-- 3C — Social presence (only if any social URL is set) -->
+    {hasAnySocial && (
+      <div class="mt-12">
+        <h3 class="text-lg font-semibold text-neutral-900">{t.social.heading}</h3>
+        <ul class="mt-4 flex flex-wrap gap-2">
+          {socialPills.map((pill) => (
+            <li>
+              <a
+                href={pill.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                data-event="outbound_click"
+                data-source-component="about-social"
+                class="inline-flex min-h-11 items-center gap-2 rounded-full border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+              >
+                <span>{pill.label}</span>
+                <span class="sr-only"> {newTabSr}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <!-- 3D — Virtual tour CTA -->
+    <div class="mt-12 rounded-xl border border-brand-accent bg-brand-accent/10 p-6 md:flex md:items-center md:justify-between md:gap-6 md:p-8">
+      <div class="max-w-2xl">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.virtualTour.heading}</h3>
+        <p class="mt-2 text-neutral-700">{t.virtualTour.subtitle}</p>
+      </div>
+      <div class="mt-4 md:mt-0">
+        <Button
+          href="/factory/virtual-tour"
+          variant="primary"
+          size="md"
+          aria-label={t.virtualTour.buttonAria}
+        >
+          {t.virtualTour.button} →
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

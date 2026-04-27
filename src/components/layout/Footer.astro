@@ -2,6 +2,7 @@
 import en from '~/i18n/en.json';
 import Logo from '~/components/layout/Logo.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
 import { company, mailto } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 
@@ -62,18 +63,16 @@ const operationsLinks = [
             <p>{company.address.district}, {company.address.city} {company.address.postalCode}</p>
             <p>{company.address.region}, {company.address.country}</p>
           </address>
-          <a
+          <ExternalLink
             href={company.googleMapsUrl}
-            target="_blank"
-            rel="noopener"
+            class="mt-2 inline-flex items-center gap-1"
             data-event="outbound_click"
-            class:list={[linkCls, 'mt-2 inline-flex items-center gap-1']}
           >
             <span>{en.footer.googleMaps}</span>
             <svg aria-hidden="true" viewBox="0 0 24 24" class="h-3.5 w-3.5" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M7 17L17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round" />
             </svg>
-          </a>
+          </ExternalLink>
         </div>
 
         <dl class="space-y-1">
@@ -118,11 +117,11 @@ const operationsLinks = [
     <div class="mt-12 border-t border-neutral-200 pt-8">
       <nav aria-label={en.footer.legalHeading}>
         <ul class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-600">
-          <li><a href="/privacy-policy" class={linkCls}>{en.footer.legal.privacy}</a></li>
+          <li><a href="/legal/privacy-policy" class={linkCls}>{en.footer.legal.privacy}</a></li>
           <li aria-hidden="true" class="text-neutral-400">·</li>
-          <li><a href="/terms" class={linkCls}>{en.footer.legal.terms}</a></li>
+          <li><a href="/legal/terms" class={linkCls}>{en.footer.legal.terms}</a></li>
           <li aria-hidden="true" class="text-neutral-400">·</li>
-          <li><a href="/cookies" class={linkCls}>{en.footer.legal.cookies}</a></li>
+          <li><a href="/legal/cookies" class={linkCls}>{en.footer.legal.cookies}</a></li>
         </ul>
       </nav>
       <p class="mt-3 text-xs">

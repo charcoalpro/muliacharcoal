@@ -1,27 +1,30 @@
 ---
-import { getEntry, render } from 'astro:content';
+/**
+ * /legal/[slug] — single dynamic route covering privacy-policy, terms,
+ * and cookies. Replaces the three previously near-identical page files.
+ *
+ * Each entry in the `legal` content collection (`src/content/legal/*.md`)
+ * generates one static page at `/legal/<slug>`.
+ */
+
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import Prose from '~/components/content/Prose.astro';
 import en from '~/i18n/en.json';
 import { company } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
+import { legalPageSchema } from '~/lib/schema/legalPage';
 
-/**
- * Terms & Conditions — renders the Markdown entry at
- * `src/content/legal/terms.md`. Body tokens are substituted by the
- * remark plugin in `astro.config.ts`; the frontmatter `description`
- * is filled manually below because remark only visits Markdown AST.
- *
- * Mirror of `privacy-policy.astro` (same collection, same layout
- * contract). Per DESIGN.md § legal-pages, the page omits CTABanner
- * and uses `max-w-3xl` to match Privacy's reading measure.
- */
-
-const entry = await getEntry('legal', 'terms');
-if (!entry) {
-  throw new Error('Missing content entry: legal/terms');
+export async function getStaticPaths() {
+  const entries = await getCollection('legal');
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
 }
+
+const { entry } = Astro.props;
 const { Content, headings } = await render(entry);
 
 const { title, lastUpdated, datePublished } = entry.data;
@@ -30,14 +33,9 @@ const { title, lastUpdated, datePublished } = entry.data;
 // description explicitly before passing it to SEO meta tags.
 const description = fill(entry.data.description, companyTokens(company));
 
-const path = '/terms';
-const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : company.siteUrl;
-const absoluteUrl = `${siteOrigin}${path}`;
+const path = `/legal/${entry.id}`;
 
 const isoModified = lastUpdated.toISOString().split('T')[0];
-// Terms has no separate `datePublished` in frontmatter today — fall
-// back to `lastUpdated` so the WebPage schema emits both dates
-// without lying about first publication.
 const isoPublished = (datePublished ?? lastUpdated).toISOString().split('T')[0];
 const lastUpdatedFormatted = lastUpdated.toLocaleDateString('en-GB', {
   day: 'numeric',
@@ -48,20 +46,13 @@ const lastUpdatedFormatted = lastUpdated.toLocaleDateString('en-GB', {
 // Top-level sections only: H2s from the body. H3/H4 stay out of the TOC.
 const tocItems = headings.filter((h) => h.depth === 2);
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  '@id': `${absoluteUrl}#webpage`,
-  url: absoluteUrl,
-  name: title,
+const schema = legalPageSchema({
+  path,
+  title,
   description,
-  inLanguage: 'en',
   dateModified: isoModified,
   datePublished: isoPublished,
-  isPartOf: { '@id': `${siteOrigin}/#website` },
-  about: { '@id': `${siteOrigin}/#organization` },
-  publisher: { '@id': `${siteOrigin}/#organization` },
-};
+});
 ---
 <BaseLayout
   title={`${title} — ${company.brand}`}
