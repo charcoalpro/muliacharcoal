@@ -1,0 +1,70 @@
+---
+/**
+ * Contact Block 5 — alternate-channel grid.
+ * Builds the channel list from `company.channels.*` plus the standard
+ * WhatsApp / phone / email entries; skips channels with no real handle.
+ */
+import en from '~/i18n/en.json';
+import { company, mailto, waLinkFor } from '~/config/company';
+import ChannelCard from '~/components/contact/ChannelCard.astro';
+
+const t = en.contact;
+const phoneE164 = company.phone.e164;
+const phoneDisplay = company.phone.display;
+
+const baseChannels: Array<{
+  channel: string;
+  handle: string;
+  href: string;
+  iconText?: string;
+  ctaLabel?: string;
+}> = [
+  { channel: 'WhatsApp chat', handle: phoneDisplay, href: waLinkFor('salesGeneral'), iconText: '💬' },
+  { channel: 'WhatsApp voice call', handle: phoneDisplay, href: waLinkFor('salesGeneral'), iconText: '📞' },
+  { channel: 'WhatsApp video call', handle: phoneDisplay, href: waLinkFor('videoCallRequest'), iconText: '🎥' },
+  { channel: 'Direct phone call', handle: phoneDisplay, href: `tel:${phoneE164}`, iconText: '☎' },
+  { channel: 'SMS', handle: phoneDisplay, href: `sms:${phoneE164}`, iconText: '✉' },
+  { channel: 'Email', handle: company.email, href: mailto('Wholesale inquiry'), iconText: '@' },
+  {
+    channel: 'Inquiry form',
+    handle: t.channels.anchorButton,
+    href: '#inquiry',
+    iconText: '📝',
+    ctaLabel: t.channels.anchorButton,
+  },
+];
+
+const c = company.channels;
+const optionalChannels: typeof baseChannels = [];
+if (c.zoom?.schedulingUrl) optionalChannels.push({ channel: 'Zoom / Google Meet', handle: t.channels.videoMeetingLabel, href: c.zoom.schedulingUrl, iconText: '🎦' });
+if (c.wechat?.id) optionalChannels.push({ channel: 'WeChat', handle: c.wechat.id, href: `weixin://dl/chat?${c.wechat.id}`, iconText: '微' });
+if (c.telegram?.url) optionalChannels.push({ channel: 'Telegram', handle: c.telegram.handle, href: c.telegram.url, iconText: 'T' });
+if (c.messenger?.url) optionalChannels.push({ channel: 'Messenger', handle: c.messenger.handle, href: c.messenger.url, iconText: 'M' });
+if (c.botim) optionalChannels.push({ channel: 'Botim', handle: c.botim, href: `tel:${c.botim}`, iconText: 'B' });
+if (c.max) optionalChannels.push({ channel: 'Max', handle: c.max, href: `https://max.ru/${c.max}`, iconText: 'X' });
+if (c.line) optionalChannels.push({ channel: 'Line', handle: c.line, href: `https://line.me/ti/p/~${c.line}`, iconText: 'L' });
+if (c.viber) optionalChannels.push({ channel: 'Viber', handle: c.viber, href: `viber://chat?number=${encodeURIComponent(c.viber)}`, iconText: 'V' });
+
+const channels = [...baseChannels, ...optionalChannels];
+---
+<section aria-labelledby="channels-heading" class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <h2 id="channels-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+      {t.channels.heading}
+    </h2>
+    <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.channels.lead}</p>
+    <ul class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {channels.map((ch) => (
+        <li class="h-full">
+          <ChannelCard
+            channel={ch.channel}
+            handle={ch.handle}
+            href={ch.href}
+            iconText={ch.iconText}
+            ctaLabel={ch.ctaLabel}
+          />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

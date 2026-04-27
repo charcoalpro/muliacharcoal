@@ -19,6 +19,10 @@ interface Props {
   'aria-label'?: string;
   class?: string;
   id?: string;
+  /** Analytics event name forwarded as `data-event` (see CLAUDE.md events). */
+  'data-event'?: string;
+  /** Source component identifier forwarded as `data-source-component`. */
+  'data-source-component'?: string;
 }
 
 const {
@@ -32,6 +36,8 @@ const {
   'aria-label': ariaLabel,
   class: className,
   id,
+  'data-event': dataEvent,
+  'data-source-component': dataSourceComponent,
 } = Astro.props;
 
 const base =
@@ -70,6 +76,8 @@ const externalRel =
     aria-disabled={disabled ? 'true' : undefined}
     id={id}
     class={classes}
+    data-event={dataEvent}
+    data-source-component={dataSourceComponent}
   >
     <slot />
   </a>
@@ -80,6 +88,8 @@ const externalRel =
     aria-label={ariaLabel}
     id={id}
     class={classes}
+    data-event={dataEvent}
+    data-source-component={dataSourceComponent}
   >
     <slot />
   </button>

@@ -1,0 +1,39 @@
+---
+/**
+ * Contact Block 10 — hotels split by star tier. Tiers with zero entries
+ * are hidden so the section never renders an empty group heading.
+ */
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+import HotelCard from '~/components/contact/HotelCard.astro';
+
+const t = en.contact.hotels;
+const fiveStar = company.hotels.filter((h) => h.stars === 5);
+const fourStar = company.hotels.filter((h) => h.stars === 4);
+const threeStar = company.hotels.filter((h) => h.stars === 3);
+
+const tiers = [
+  { tier: fiveStar, heading: t.fiveStarHeading },
+  { tier: fourStar, heading: t.fourStarHeading },
+  { tier: threeStar, heading: t.threeStarHeading },
+].filter((g) => g.tier.length > 0);
+---
+<section aria-labelledby="hotels-heading" class="bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <h2 id="hotels-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+      {t.heading}
+    </h2>
+    <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.lead}</p>
+
+    {tiers.map((g) => (
+      <div class="mt-10">
+        <h3 class="text-base font-semibold text-neutral-900">{g.heading}</h3>
+        <ul class="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {g.tier.map((h) => (
+            <li class="h-full"><HotelCard hotel={h} /></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>

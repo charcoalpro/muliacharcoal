@@ -1,49 +1,19 @@
 ---
+/**
+ * OrganizationSchema — emits the sitewide Organization + WebSite graph.
+ *
+ * Pulls the canonical Organization node from `src/lib/schema/organization.ts`
+ * so the same fields populate the homepage, About page, and LocalBusiness
+ * `sameAs` filter. The About page passes its own richer Organization node
+ * via `BaseLayout.schema={...}` and sets `includeOrgSchema={false}` to
+ * avoid emitting two Organization graphs on one page.
+ */
 import JsonLd from './JsonLd.astro';
-import { company } from '~/config/company';
-
-const siteBase = (Astro.site?.toString() ?? company.siteUrl).replace(/\/$/, '');
-
-// schema.org `sameAs` expects only live URLs — drop nulls from social profiles.
-const sameAs = Object.values(company.social).filter(
-  (url): url is string => typeof url === 'string' && url.length > 0,
-);
+import { buildOrganization, buildWebSite } from '~/lib/schema/organization';
 
 const data = {
   '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${siteBase}/#organization`,
-      name: company.brand,
-      legalName: company.legalName,
-      url: siteBase,
-      foundingDate: String(company.foundingYear),
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteBase}/logo.png`,
-      },
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: `${company.address.street}, ${company.address.district}`,
-        addressLocality: company.address.city,
-        addressRegion: company.address.region,
-        postalCode: company.address.postalCode,
-        addressCountry: company.address.countryCode,
-      },
-      email: company.email,
-      telephone: company.phone.display,
-      sameAs,
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${siteBase}/#website`,
-      url: siteBase,
-      name: company.brand,
-      publisher: { '@id': `${siteBase}/#organization` },
-      inLanguage: 'en',
-    },
-  ],
+  '@graph': [buildOrganization({ mode: 'slim' }), buildWebSite()],
 };
 ---
 <JsonLd data={data} />

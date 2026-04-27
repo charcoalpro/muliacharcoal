@@ -1,0 +1,131 @@
+---
+/**
+ * DataTable — opinionated 2+ column table primitive.
+ *
+ * Replaces the hand-rolled `<table class="..."><thead>...` blocks across
+ * /contact and /about. The two-column "label / value" form is the
+ * default; pass an arbitrary `headers[]` and matching `rows[][]` shape
+ * for wider tables.
+ *
+ * Each row's first cell is rendered as a row-header `<th scope="row">`
+ * (semantic + screen-reader friendly). Other cells are plain `<td>`s.
+ *
+ * Cell content can be either a plain string OR a typed cell object.
+ * The supported cell shapes:
+ *   - `string` — bare text (most common)
+ *   - `{ kind: 'text', text, class? }` — text with class additions
+ *   - `{ kind: 'link', text, href, external?, dataEvent?, class? }`
+ *     — renders a link inside the cell. When `external` is true, the
+ *     link gets `target="_blank" rel="noopener noreferrer"` plus a
+ *     visually hidden "(opens in new tab)" affordance.
+ *   - `null` — skip the cell entirely.
+ *
+ * The component does not contain any text strings — i18n stays at the
+ * call site so this primitive remains language-agnostic.
+ */
+
+import en from '~/i18n/en.json';
+
+interface TextCell {
+  kind?: 'text';
+  text: string;
+  class?: string;
+}
+
+interface LinkCell {
+  kind: 'link';
+  text: string;
+  href: string;
+  external?: boolean;
+  dataEvent?: string;
+  class?: string;
+}
+
+type Cell = TextCell | LinkCell;
+
+interface Row {
+  /** First-column "row header" cell; rendered as `<th scope="row">`. */
+  label: string;
+  /** Remaining columns. `text` is plain string; pass `null` to skip. */
+  values: Array<Cell | string | null>;
+}
+
+interface Props {
+  /** Column headers. The number of headers determines the table width. */
+  headers: string[];
+  /** Body rows. Each row's `values.length` should be `headers.length - 1`. */
+  rows: Row[];
+  /** Optional wrapper class additions (e.g. `mt-8`). */
+  class?: string;
+  /**
+   * Set true for the striped (even:bg-neutral-50) treatment used in
+   * /about; default false uses divide-y rows like the /contact tables.
+   */
+  striped?: boolean;
+}
+
+const { headers, rows, class: className, striped = false } = Astro.props;
+
+const tableCls = 'w-full text-left text-sm';
+const thCls =
+  'border-b border-neutral-200 bg-neutral-50 px-4 py-3 font-semibold text-neutral-900';
+const tdLabelCls = striped
+  ? 'border-b border-neutral-200 px-4 py-3 font-medium text-neutral-700'
+  : 'px-4 py-3 font-medium text-neutral-900';
+const tdValueCls = striped
+  ? 'border-b border-neutral-200 px-4 py-3 text-neutral-800'
+  : 'px-4 py-3 text-neutral-700';
+
+const trCls = striped ? '' : '';
+
+const linkCls =
+  'rounded-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary';
+
+const newTabSr = en.contact.newTabSr;
+
+function normalizeCell(value: Cell | string | null): Cell | null {
+  if (value === null) return null;
+  if (typeof value === 'string') return { kind: 'text', text: value };
+  return value;
+}
+---
+<div class:list={['overflow-x-auto rounded-xl border border-neutral-200 bg-white', className]}>
+  <table class={tableCls}>
+    <thead>
+      <tr>
+        {headers.map((h) => (
+          <th class={thCls} scope="col">{h}</th>
+        ))}
+      </tr>
+    </thead>
+    <tbody class:list={[striped ? '' : 'divide-y divide-neutral-200']}>
+      {rows.map((row) => (
+        <tr class={trCls}>
+          <th class={tdLabelCls} scope="row">{row.label}</th>
+          {row.values.map((value) => {
+            const cell = normalizeCell(value);
+            if (cell === null) return null;
+            if (cell.kind === 'link') {
+              return (
+                <td class:list={[tdValueCls, cell.class]}>
+                  <a
+                    href={cell.href}
+                    class={linkCls}
+                    data-event={cell.dataEvent}
+                    target={cell.external ? '_blank' : undefined}
+                    rel={cell.external ? 'noopener noreferrer' : undefined}
+                  >{cell.text}{cell.external && (
+                    <span class="sr-only"> {newTabSr}</span>
+                  )}</a>
+                </td>
+              );
+            }
+            return (
+              <td class:list={[tdValueCls, cell.class]}>{cell.text}</td>
+            );
+          })}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

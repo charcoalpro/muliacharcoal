@@ -1,0 +1,67 @@
+---
+/**
+ * About Block 5 — Owner card + operations roster + group photo.
+ *
+ * Skips operations entries whose name still starts with `TODO_PLACEHOLDER`.
+ * The owner card uses a `bio` fallback string when `owner.bio` is null.
+ */
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company, getOperations, getOwner } from '~/config/company';
+import TeamCard from '~/components/people/TeamCard.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+
+const t = en.about.block5;
+const co = company;
+
+const owner = getOwner();
+const ownerName = owner?.name ?? co.legalName;
+const ownerPhotoAlt = fill(t.owner.photoAltTemplate, {
+  name: ownerName,
+  legalName: co.legalName,
+});
+const ownerBio = owner?.bio ?? t.owner.bioFallback;
+
+const operationsCards = getOperations()
+  .filter((m) => !m.name.startsWith('TODO_PLACEHOLDER'))
+  .map((m) => ({
+    member: m,
+    photoAlt: fill(t.photoAltTemplate, {
+      name: m.name,
+      role: m.role,
+      legalName: co.legalName,
+    }),
+  }));
+---
+<section class="bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
+    <p class="mt-3 max-w-2xl text-neutral-600">{t.lead}</p>
+
+    <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {owner && (
+        <TeamCard
+          member={owner}
+          variant="about"
+          bio={ownerBio}
+          photoAlt={ownerPhotoAlt}
+        />
+      )}
+      {operationsCards.map((card) => (
+        <TeamCard
+          member={card.member}
+          variant="about"
+          photoAlt={card.photoAlt}
+        />
+      ))}
+    </div>
+
+    <div class="mt-12">
+      <ImagePlaceholder
+        label={t.groupPhotoAlt}
+        caption={t.groupPhotoCaption}
+        ratio="3/2"
+      />
+    </div>
+  </div>
+</section>

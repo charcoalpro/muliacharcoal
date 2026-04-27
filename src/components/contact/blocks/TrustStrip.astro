@@ -1,0 +1,51 @@
+---
+/**
+ * Contact Block 2 — horizontal trust-strip of TrustBadge pills.
+ * Self-contained: builds the badge list from `company.*` and en.contact.trust.
+ */
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company, getOwner, yearsInBusiness } from '~/config/company';
+import TrustBadge from '~/components/contact/TrustBadge.astro';
+
+const t = en.contact.trust;
+const years = yearsInBusiness();
+
+const trustItems = [
+  {
+    iconText: '★',
+    label: t.exportingSinceTemplate.replace('{{year}}', String(company.foundingYear)),
+    value: fill(t.yearsLabelTemplate, { years: String(years) }),
+  },
+  { iconText: '§', label: t.legalLabel, value: company.legalName },
+  { iconText: 'N', label: t.nibLabel, value: company.registration.nib },
+  { iconText: 'T', label: t.npwpLabel, value: company.registration.taxId },
+  {
+    iconText: '✓',
+    label: t.isoLabel,
+    value: `Audited by ${company.certifications.iso9001.auditors.join(' & ')}`,
+  },
+  {
+    iconText: '⚓',
+    label: t.imdgLabel,
+    value: company.certifications.imdg.classDescription,
+  },
+  {
+    iconText: '◉',
+    label: t.directorLabel,
+    value: getOwner()?.name ?? company.legalName,
+  },
+];
+---
+<section aria-labelledby="trust-heading" class="border-y border-neutral-200 bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-4 py-6 md:px-8">
+    <h2 id="trust-heading" class="sr-only">{t.heading}</h2>
+    <ul class="-mx-1 flex snap-x gap-3 overflow-x-auto px-1 pb-2">
+      {trustItems.map((item) => (
+        <li class="snap-start">
+          <TrustBadge label={item.label} value={item.value} iconText={item.iconText} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,119 @@
+---
+/**
+ * About Block 6 — Owner video placeholder + transcript with read-more toggle.
+ *
+ * The video is a styled `<div role="img">` placeholder pending the real
+ * YouTube embed; the transcript section uses a small vanilla-JS toggle
+ * (no IDs — runs against `[data-transcript-toggle]` on the page).
+ */
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company, getOwner } from '~/config/company';
+
+const t = en.about.block6;
+const co = company;
+
+const owner = getOwner();
+const ownerName = owner?.name ?? co.legalName;
+const videoAlt = fill(t.videoAltTemplate, {
+  owner: ownerName,
+  legalName: co.legalName,
+});
+---
+<section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+  <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
+
+  <div class="mt-8 grid gap-8 lg:grid-cols-2">
+    <!--
+      TODO: replace with the real YouTube embed when the video is recorded.
+      Reference markup:
+      <iframe
+        class="aspect-video w-full rounded-xl"
+        src="https://www.youtube.com/embed/{video_id}"
+        title={videoAlt}
+        loading="lazy"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    -->
+    <div
+      role="img"
+      aria-label={videoAlt}
+      class="grid aspect-video w-full place-items-center rounded-xl border border-neutral-200 bg-neutral-100 p-6 text-center text-neutral-500"
+    >
+      <div class="flex flex-col items-center gap-3">
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          class="h-14 w-14 text-neutral-400"
+          fill="currentColor"
+        >
+          <path d="M8 5v14l11-7z" />
+        </svg>
+        <span class="text-sm">{t.videoLabel}</span>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="text-lg font-semibold text-neutral-900">{t.transcriptHeading}</h3>
+      <div class="relative mt-3">
+        <div
+          data-transcript
+          class="relative max-h-80 overflow-hidden text-neutral-700 transition-[max-height] duration-300"
+        >
+          <p class="leading-relaxed">{t.transcriptPlaceholder}</p>
+        </div>
+        <div
+          data-transcript-fade
+          class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent"
+          aria-hidden="true"
+        ></div>
+      </div>
+      <button
+        type="button"
+        data-transcript-toggle
+        data-text-collapsed={`▼ ${t.readMore}`}
+        data-text-expanded={`▲ ${t.readLess}`}
+        aria-expanded="false"
+        class="mt-4 inline-flex min-h-11 items-center gap-2 rounded-md border border-neutral-300 bg-white px-4 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+      >
+        ▼ {t.readMore}
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  /**
+   * Transcript toggle. Vanilla JS, no IDs — multiple instances supported
+   * via data attributes. Total bundle impact ~0.4 KB gzipped.
+   */
+  document.querySelectorAll('[data-transcript-toggle]').forEach((btn) => {
+    const button = btn as HTMLButtonElement;
+    const wrapper = button
+      .closest('section')
+      ?.querySelector('[data-transcript]') as HTMLElement | null;
+    const fade = button
+      .closest('section')
+      ?.querySelector('[data-transcript-fade]') as HTMLElement | null;
+    if (!wrapper) return;
+
+    const collapsed = button.dataset.textCollapsed ?? 'Read more';
+    const expanded = button.dataset.textExpanded ?? 'Show less';
+
+    button.addEventListener('click', () => {
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', String(!isOpen));
+      button.textContent = isOpen ? collapsed : expanded;
+      if (isOpen) {
+        wrapper.classList.add('max-h-80');
+        wrapper.classList.remove('max-h-none');
+        if (fade) fade.removeAttribute('hidden');
+      } else {
+        wrapper.classList.remove('max-h-80');
+        wrapper.classList.add('max-h-none');
+        if (fade) fade.setAttribute('hidden', '');
+      }
+    });
+  });
+</script>

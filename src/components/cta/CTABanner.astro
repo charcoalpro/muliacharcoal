@@ -17,6 +17,8 @@ interface CTA {
   ariaLabel?: string;
   target?: string;
   rel?: string;
+  dataEvent?: string;
+  dataSourceComponent?: string;
 }
 
 interface Props {
@@ -46,6 +48,8 @@ const resolvedPrimary: CTA = primaryCta ?? {
   ariaLabel: en.cta.whatsappAria,
   target: '_blank',
   rel: 'noopener',
+  dataEvent: 'whatsapp_click',
+  dataSourceComponent: 'cta-banner',
 };
 
 const resolvedSecondary: CTA | undefined = secondaryCta ?? {
@@ -92,6 +96,8 @@ const isDark = variant === 'dark';
         aria-label={resolvedPrimary.ariaLabel}
         target={resolvedPrimary.target}
         rel={resolvedPrimary.rel}
+        data-event={resolvedPrimary.dataEvent}
+        data-source-component={resolvedPrimary.dataSourceComponent}
       >
         {resolvedPrimary.label}
       </Button>
@@ -104,6 +110,8 @@ const isDark = variant === 'dark';
           aria-label={resolvedSecondary.ariaLabel}
           target={resolvedSecondary.target}
           rel={resolvedSecondary.rel}
+          data-event={resolvedSecondary.dataEvent}
+          data-source-component={resolvedSecondary.dataSourceComponent}
         >
           {resolvedSecondary.label}
         </Button>

@@ -9,9 +9,8 @@
  * vector and offers no SEO value.
  */
 
-import { company } from '~/config/company';
-
-const siteOrigin = (company.siteUrl ?? '').replace(/\/$/, '');
+import { company, getDirector } from '~/config/company';
+import { getSameAs, siteOrigin } from '~/lib/schema/organization';
 
 interface OpeningHoursSpec {
   '@type': 'OpeningHoursSpecification';
@@ -38,6 +37,13 @@ const openingHoursSpecification: OpeningHoursSpec[] = [
 
 const availableLanguages = ['en', 'id', 'zh', 'ar'];
 
+const directorWa = getDirector()?.whatsapp;
+const directorPhoneE164 = directorWa
+  ? directorWa.e164Digits.startsWith('+')
+    ? directorWa.e164Digits
+    : `+${directorWa.e164Digits}`
+  : company.phone.e164;
+
 const contactPoints = [
   {
     '@type': 'ContactPoint',
@@ -50,18 +56,14 @@ const contactPoints = [
   {
     '@type': 'ContactPoint',
     contactType: 'customer support',
-    telephone: company.whatsapp.director.e164Digits.startsWith('+')
-      ? company.whatsapp.director.e164Digits
-      : `+${company.whatsapp.director.e164Digits}`,
+    telephone: directorPhoneE164,
     email: company.email,
     availableLanguage: ['en', 'id'],
     areaServed: 'Worldwide',
   },
 ];
 
-const sameAs = Object.values(company.social).filter(
-  (url): url is string => typeof url === 'string' && url.length > 0,
-);
+const sameAs = getSameAs();
 
 export const localBusinessSchema = {
   '@context': 'https://schema.org',

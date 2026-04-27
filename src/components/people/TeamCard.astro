@@ -1,0 +1,167 @@
+---
+/**
+ * TeamCard — single people-roster card. Unified consumer of `Person`.
+ *
+ * Two variants share the same head (photo + name + role):
+ *
+ *   `sales` (default for /contact):
+ *     - Languages list (if `member.languages` is non-empty)
+ *     - Phone / Email rows
+ *     - Action button row at the bottom: WhatsApp / Call / Email
+ *
+ *   `about`:
+ *     - Optional bio paragraph
+ *     - Phone / Email / LinkedIn rows
+ *     - No action button row (informational only)
+ *
+ * The `bio` and `photoAlt` props let the caller override the values that
+ * would otherwise come straight from `member` (e.g. when a placeholder
+ * fallback is needed because `member.bio` is null).
+ */
+
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import TextLink from '~/components/content/TextLink.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import type { Person } from '~/config/company';
+
+interface Props {
+  member: Person;
+  variant?: 'sales' | 'about';
+  /** Override `member.bio`; useful for owner cards with a fallback string. */
+  bio?: string | null;
+  /** Override the photo `aria-label`. Defaults to a name-based template. */
+  photoAlt?: string;
+}
+
+const { member, variant = 'sales', bio: bioOverride, photoAlt } = Astro.props;
+
+const tSales = en.contact.team;
+const tAbout = en.about.block5.labels;
+
+// Photo alt: caller override > member.role-aware default
+const photoLabel =
+  photoAlt ?? fill(tSales.photoOfTemplate, { name: member.name });
+
+// ---- Sales-variant action data ----
+const wa = member.whatsapp ?? null;
+const waHref = wa
+  ? `https://wa.me/${wa.e164Digits}?text=${encodeURIComponent(wa.preset ?? '')}`
+  : null;
+const telHref = member.phone ? `tel:${member.phone.e164}` : null;
+const mailHref = member.email ? `mailto:${member.email}` : null;
+const phoneDisplay = member.phone?.display ?? '';
+const languages = member.languages ?? [];
+
+// ---- About-variant body data ----
+const aboutBio = bioOverride !== undefined ? bioOverride : member.bio;
+const hasContact = Boolean(member.email || member.phone || member.linkedin);
+
+const isSales = variant === 'sales';
+---
+<article class="flex h-full flex-col rounded-xl border border-neutral-200 bg-white p-6">
+  <ImagePlaceholder label={photoLabel} ratio="square" class="mb-4" />
+  <h3 class="text-xl font-semibold text-neutral-900">{member.name}</h3>
+  <p class="mt-1 text-sm text-neutral-600">{member.role}</p>
+
+  {!isSales && aboutBio && (
+    <p class="mt-3 text-sm leading-relaxed text-neutral-700">{aboutBio}</p>
+  )}
+
+  {isSales && languages.length > 0 && (
+    <p class="mt-3 text-sm text-neutral-600">
+      <span class="font-medium text-neutral-700">{tSales.languagesLabel}:</span>{' '}
+      {languages.join(', ')}
+    </p>
+  )}
+
+  {isSales ? (
+    <dl class="mt-4 space-y-1 text-sm">
+      {telHref && (
+        <div class="flex flex-wrap gap-x-2">
+          <dt class="font-medium text-neutral-700">Phone:</dt>
+          <dd>
+            <TextLink href={telHref}>{phoneDisplay}</TextLink>
+          </dd>
+        </div>
+      )}
+      {mailHref && member.email && (
+        <div class="flex flex-wrap gap-x-2">
+          <dt class="font-medium text-neutral-700">Email:</dt>
+          <dd>
+            <TextLink href={mailHref} class="break-all">{member.email}</TextLink>
+          </dd>
+        </div>
+      )}
+    </dl>
+  ) : (
+    hasContact && (
+      <dl class="mt-4 space-y-1 text-sm">
+        {member.email && (
+          <div class="flex flex-wrap gap-x-2">
+            <dt class="font-medium text-neutral-700">{tAbout.email}:</dt>
+            <dd>
+              <TextLink href={`mailto:${member.email}`} class="break-all">
+                {member.email}
+              </TextLink>
+            </dd>
+          </div>
+        )}
+        {member.phone && (
+          <div class="flex flex-wrap gap-x-2">
+            <dt class="font-medium text-neutral-700">{tAbout.phone}:</dt>
+            <dd>
+              <TextLink href={`tel:${member.phone.e164}`}>
+                {member.phone.display}
+              </TextLink>
+            </dd>
+          </div>
+        )}
+        {member.linkedin && (
+          <div class="flex flex-wrap gap-x-2">
+            <dt class="font-medium text-neutral-700">{tAbout.linkedin}:</dt>
+            <dd>
+              <ExternalLink href={member.linkedin}>{tAbout.linkedin}</ExternalLink>
+            </dd>
+          </div>
+        )}
+      </dl>
+    )
+  )}
+
+  {isSales && (
+    <div class="mt-auto pt-5 flex flex-wrap gap-2">
+      {waHref && (
+        <a
+          href={waHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-event="whatsapp_click"
+          data-source-component="team-card"
+          class="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
+        >
+          {tSales.buttonWhatsapp}
+          <span class="sr-only"> {en.contact.newTabSr}</span>
+        </a>
+      )}
+      {telHref && (
+        <a
+          href={telHref}
+          class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+          aria-label={fill(en.contact.whatsappPrimary.buttonAriaCallTemplate, { name: member.name, phone: phoneDisplay })}
+        >
+          {tSales.buttonCall}
+        </a>
+      )}
+      {mailHref && (
+        <a
+          href={mailHref}
+          class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+        >
+          {tSales.buttonEmail}
+        </a>
+      )}
+    </div>
+  )}
+</article>

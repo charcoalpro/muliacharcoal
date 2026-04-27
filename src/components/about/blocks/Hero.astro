@@ -1,0 +1,70 @@
+---
+/**
+ * About Block 1 — Hero with conditional trust pills.
+ *
+ * Pills 1 and 2 always render (founding year + ISO/auditors). Pills 3
+ * (palm-tree network) and 4 (shipping lines) only render when their
+ * backing facts are confirmed.
+ */
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company, hasFact } from '~/config/company';
+import HeroSection from '~/components/content/HeroSection.astro';
+
+const t = en.about;
+const co = company;
+
+const hasPalmTrees = hasFact(co.production.palmTreesCount);
+const hasSourcingRegion = hasFact(co.production.sourcingRegion);
+const hasShippingLines = hasFact(co.commercial.shippingLines);
+const hasPatents = hasFact(co.certifications.patents);
+const auditorsList = co.certifications.iso9001.auditors.join(' & ');
+
+const heroPills: Array<{ icon: string; text: string }> = [
+  {
+    icon: '🏭',
+    text: fill(t.hero.pillSinceTemplate, { year: String(co.foundingYear) }),
+  },
+  {
+    icon: '✅',
+    text: hasPatents
+      ? fill(t.hero.pillIsoWithPatentsTemplate, {
+          patents: String(co.certifications.patents.length),
+          auditors: auditorsList,
+        })
+      : fill(t.hero.pillIsoTemplate, { auditors: auditorsList }),
+  },
+];
+if (hasPalmTrees && hasSourcingRegion) {
+  heroPills.push({
+    icon: '🌴',
+    text: fill(t.hero.pillPalmTreesTemplate, {
+      count: String(co.production.palmTreesCount),
+      region: co.production.sourcingRegion,
+    }),
+  });
+}
+if (hasShippingLines) {
+  heroPills.push({
+    icon: '🚢',
+    text: fill(t.hero.pillShippingTemplate, {
+      lines: co.commercial.shippingLines.join(', '),
+    }),
+  });
+}
+---
+<HeroSection
+  title={t.hero.title}
+  subtitle={fill(t.hero.subtitleTemplate, { legalName: co.legalName })}
+  variant="dark"
+  align="start"
+>
+  <ul class="mt-8 flex flex-wrap gap-2">
+    {heroPills.map((pill) => (
+      <li class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-neutral-100">
+        <span aria-hidden="true">{pill.icon}</span>
+        <span>{pill.text}</span>
+      </li>
+    ))}
+  </ul>
+</HeroSection>

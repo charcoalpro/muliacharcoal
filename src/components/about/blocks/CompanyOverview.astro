@@ -1,0 +1,172 @@
+---
+/**
+ * About Block 2 — Company overview: image + 6 stacked ColorBlocks.
+ *
+ * Self-assembles the body copy for each ColorBlock (legal, production
+ * stats, certifications, supply chain, shipping). The supply-chain block
+ * is omitted entirely when none of the upstream sourcing facts are
+ * confirmed; the certifications block conditionally renders patents and
+ * halal sentences based on the same facts.
+ */
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company, hasFact, imdgLabel, portOfLoadingLabel } from '~/config/company';
+import ColorBlock from '~/components/about/ColorBlock.astro';
+import StatItem from '~/components/about/StatItem.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import TextLink from '~/components/content/TextLink.astro';
+
+const t = en.about.block2;
+const co = company;
+
+const hasFactoryArea = hasFact(co.production.factoryAreaSqm);
+const hasPalmTrees = hasFact(co.production.palmTreesCount);
+const hasVillages = hasFact(co.production.sourcingVillages);
+const hasSourcingRegion = hasFact(co.production.sourcingRegion);
+const hasCarbonization = co.production.carbonizationPlant !== null;
+const hasShippingLines = hasFact(co.commercial.shippingLines);
+const hasPatents = hasFact(co.certifications.patents);
+const hasHalal =
+  co.certifications.halal !== null && co.certifications.halal.certified;
+
+const auditorsList = co.certifications.iso9001.auditors.join(' & ');
+
+// Block 2B — legal body
+const legalBody = fill(t.legal.bodyTemplate, {
+  legalName: co.legalName,
+  nib: co.registration.nib,
+  taxId: co.registration.taxId,
+  isoStandard: co.certifications.iso9001.standard,
+  auditors: auditorsList,
+});
+
+// Block 2C — production stats
+const ps = t.production.stats;
+const pendingValue = t.production.pendingValue;
+
+const factoryAreaValue = hasFactoryArea
+  ? fill(ps.factoryAreaUnit, { value: String(co.production.factoryAreaSqm) })
+  : pendingValue;
+const dailyCapValue = fill(ps.capacityPerDayUnit, {
+  value: String(co.production.capacityTonsPerDay),
+});
+const monthlyCapValue = fill(ps.monthlyCapacityUnit, {
+  value: String(co.production.capacityTonsPerMonth),
+});
+const ovenCycleValue = fill(ps.ovenCycleUnit, {
+  hours: String(co.production.ovens.cycleHours),
+});
+const productionAddress = fill(t.production.addressLine, {
+  city: co.address.city,
+  region: co.address.region,
+  country: co.address.country,
+});
+
+// Block 2D — certifications body
+const certBody = fill(t.certifications.bodyTemplate, {
+  imdgLabel: imdgLabel(),
+  auditors: auditorsList,
+});
+const certPatentsExtra = hasPatents
+  ? fill(t.certifications.patentsTemplate, {
+      count: String(co.certifications.patents.length),
+    })
+  : null;
+
+// Block 2E — supply chain body (pick most informative template)
+let supplyChainBody: string | null = null;
+if (hasVillages && hasPalmTrees && hasSourcingRegion) {
+  supplyChainBody = fill(t.supplyChain.bodyVillagesTemplate, {
+    villages: String(co.production.sourcingVillages),
+    region: co.production.sourcingRegion,
+    trees: String(co.production.palmTreesCount),
+  });
+} else if (hasPalmTrees && hasSourcingRegion) {
+  supplyChainBody = fill(t.supplyChain.bodyTreesTemplate, {
+    region: co.production.sourcingRegion,
+    trees: String(co.production.palmTreesCount),
+  });
+} else if (hasSourcingRegion) {
+  supplyChainBody = fill(t.supplyChain.bodyRegionOnly, {
+    region: co.production.sourcingRegion,
+  });
+}
+const carbonizationLine =
+  hasCarbonization && co.production.carbonizationPlant
+    ? fill(t.supplyChain.carbonizationTemplate, {
+        city: co.production.carbonizationPlant.city,
+        region: co.production.carbonizationPlant.region,
+      })
+    : null;
+const showSupplyChain = supplyChainBody !== null || carbonizationLine !== null;
+
+// Block 2F — shipping body
+const shippingBody = hasShippingLines
+  ? fill(t.shipping.bodyLinesTemplate, {
+      lines: co.commercial.shippingLines.join(', '),
+      portLabel: portOfLoadingLabel(),
+    })
+  : fill(t.shipping.bodyNoLines, { portLabel: portOfLoadingLabel() });
+---
+<section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+  <div class="grid gap-8 lg:grid-cols-2">
+    <ImagePlaceholder
+      label={t.imageAlt}
+      caption={t.imageCaption}
+      ratio="4/3"
+    />
+
+    <div class="space-y-4">
+      <ColorBlock type="identity" heading={t.whoWeAre.heading}>
+        <p>{t.whoWeAre.body}</p>
+      </ColorBlock>
+
+      <ColorBlock type="legal" heading={t.legal.heading}>
+        <p>{legalBody}</p>
+        <p class="mt-3">
+          <TextLink href={t.legal.linkHref}>
+            {t.legal.linkLabel} →
+          </TextLink>
+        </p>
+      </ColorBlock>
+
+      <ColorBlock type="production" heading={t.production.heading}>
+        <dl class="grid grid-cols-2 gap-4">
+          <StatItem label={ps.factoryArea} value={factoryAreaValue} />
+          <StatItem label={ps.capacityPerDay} value={dailyCapValue} />
+          <StatItem label={ps.monthlyCapacity} value={monthlyCapValue} />
+          <StatItem label={ps.lines} value={String(co.production.lines)} />
+          <StatItem label={ps.ovens} value={String(co.production.ovens.count)} />
+          <StatItem label={ps.ovenCycle} value={ovenCycleValue} />
+          <StatItem label={ps.binder} value={ps.binderValue} />
+          <StatItem label={ps.rawMaterial} value={co.production.rawMaterial} />
+        </dl>
+        <address class="mt-4 not-italic text-sm text-neutral-600">
+          {productionAddress}
+        </address>
+      </ColorBlock>
+
+      <ColorBlock type="certification" heading={t.certifications.heading}>
+        <p>{certBody}</p>
+        {certPatentsExtra && <p class="mt-3">{certPatentsExtra}</p>}
+        {hasHalal && <p class="mt-3">{t.certifications.halalConfirmed}</p>}
+      </ColorBlock>
+
+      {showSupplyChain && (
+        <ColorBlock type="supply-chain" heading={t.supplyChain.heading}>
+          {supplyChainBody && <p>{supplyChainBody}</p>}
+          {carbonizationLine && <p class="mt-3">{carbonizationLine}</p>}
+        </ColorBlock>
+      )}
+
+      <ColorBlock type="shipping" heading={t.shipping.heading}>
+        <p>{shippingBody}</p>
+        <p class="mt-3">
+          <TextLink href={t.shipping.linkHref}>
+            {t.shipping.linkLabel} →
+          </TextLink>
+        </p>
+      </ColorBlock>
+    </div>
+  </div>
+</section>

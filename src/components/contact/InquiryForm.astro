@@ -12,38 +12,22 @@
 
 import en from '~/i18n/en.json';
 import { company, waLinkFor } from '~/config/company';
+import { inquiryCountries } from '~/lib/data/countries';
+import { inquiryProductOptions } from '~/lib/data/productOptions';
+import {
+  ATTACHMENT_MAX_BYTES,
+  ATTACHMENT_MIME_TYPES,
+  EMAIL_REGEX,
+  WHATSAPP_E164_REGEX,
+} from '~/lib/forms/inquiryValidation';
 
 const t = en.contact.form;
 const f = t.fields;
 const errs = t.errors;
 const honeypotName = 'website_url'; // intentionally bait-like
 
-// Compact, B2B-relevant subset of countries — wholesale charcoal buyers
-// rarely sit outside this list. "Other" lets long-tail markets self-identify.
-const countries = [
-  'United States', 'United Kingdom', 'Saudi Arabia', 'United Arab Emirates',
-  'Germany', 'Russia', 'Kazakhstan', 'Turkey', 'France', 'Spain',
-  'Italy', 'Netherlands', 'Belgium', 'Poland', 'Czech Republic',
-  'Greece', 'Portugal', 'Sweden', 'Denmark', 'Norway',
-  'Switzerland', 'Austria', 'Ireland', 'Romania', 'Hungary',
-  'Egypt', 'Jordan', 'Lebanon', 'Kuwait', 'Qatar',
-  'Bahrain', 'Oman', 'Iraq', 'Israel', 'Morocco',
-  'Tunisia', 'Algeria', 'South Africa', 'Nigeria', 'Kenya',
-  'Australia', 'New Zealand', 'Canada', 'Mexico', 'Brazil',
-  'Argentina', 'Chile', 'India', 'Pakistan', 'Bangladesh',
-  'China', 'Hong Kong', 'Taiwan', 'Japan', 'South Korea',
-  'Singapore', 'Malaysia', 'Thailand', 'Vietnam', 'Philippines',
-  'Other',
-];
-
-const productOptions = [
-  { id: 'cube', label: 'Cube' },
-  { id: 'hexagonal', label: 'Hexagonal' },
-  { id: 'finger', label: 'Finger' },
-  { id: 'dome', label: 'Dome' },
-  { id: 'flat', label: 'Flat' },
-  { id: 'custom', label: 'Custom shape / private label' },
-];
+const countries = inquiryCountries;
+const productOptions = inquiryProductOptions;
 
 const sidebarWaHref = waLinkFor('salesGeneral');
 
@@ -288,7 +272,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
         <span>
           {f.consent}{' '}
           <a
-            href="/privacy-policy"
+            href="/legal/privacy-policy"
             class="text-brand-primary underline hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
           >
             {f.consentLink}
@@ -353,6 +337,10 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
   successBodyTemplate: t.successBodyTemplate,
   successWaLabel: t.successWhatsapp,
   successWaHref: sidebarWaHref,
+  whatsappPattern: WHATSAPP_E164_REGEX.source,
+  emailPattern: EMAIL_REGEX.source,
+  attachmentMaxBytes: ATTACHMENT_MAX_BYTES,
+  attachmentMimeTypes: ATTACHMENT_MIME_TYPES,
 }}>
 (() => {
   const form = document.getElementById('inquiry-form');
@@ -393,13 +381,15 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
     else setError('ih-country-err', '');
 
     const wa = form.whatsapp.value.trim();
+    const waRe = new RegExp(whatsappPattern);
     if (!wa) { setError('ih-whatsapp-err', errs.required); ok = false; }
-    else if (!/^\+\d{6,20}$/.test(wa.replace(/[\s-]/g, ''))) { setError('ih-whatsapp-err', errs.whatsappFormat); ok = false; }
+    else if (!waRe.test(wa.replace(/[\s-]/g, ''))) { setError('ih-whatsapp-err', errs.whatsappFormat); ok = false; }
     else setError('ih-whatsapp-err', '');
 
     const email = form.email.value.trim();
+    const emailRe = new RegExp(emailPattern);
     if (!email) { setError('ih-email-err', errs.required); ok = false; }
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError('ih-email-err', errs.emailFormat); ok = false; }
+    else if (!emailRe.test(email)) { setError('ih-email-err', errs.emailFormat); ok = false; }
     else setError('ih-email-err', '');
 
     const products = form.querySelectorAll('input[name="products[]"]:checked');
@@ -411,8 +401,8 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
 
     const file = form.attachment.files[0];
     if (file) {
-      if (file.size > 5 * 1024 * 1024) { setError('ih-attachment-err', errs.fileSize); ok = false; }
-      else if (!['application/pdf', 'image/jpeg', 'image/png'].includes(file.type)) { setError('ih-attachment-err', errs.fileType); ok = false; }
+      if (file.size > attachmentMaxBytes) { setError('ih-attachment-err', errs.fileSize); ok = false; }
+      else if (!attachmentMimeTypes.includes(file.type)) { setError('ih-attachment-err', errs.fileType); ok = false; }
       else setError('ih-attachment-err', '');
     } else {
       setError('ih-attachment-err', '');

@@ -1,0 +1,48 @@
+---
+/**
+ * TextLink — inline brand-coloured underlined link.
+ *
+ * Replaces the hand-rolled `class="text-brand-primary hover:underline …"`
+ * string repeated on every `<a>` across the codebase. Use in body copy,
+ * tables, lists — anywhere the link needs to read as text, not a button.
+ *
+ * For external links, prefer `<ExternalLink>` which adds the standard
+ * `target="_blank" rel="noopener noreferrer"` + sr-only "(opens in new tab)"
+ * affordance.
+ */
+interface Props {
+  href: string;
+  /** Tailwind class additions (e.g. `break-all`, `mt-2`). */
+  class?: string;
+  /** Forwarded as `data-event` for analytics tagging. */
+  'data-event'?: string;
+  /** Forwarded as `data-source-component` for analytics tagging. */
+  'data-source-component'?: string;
+  'aria-label'?: string;
+  /** Forward `target` only when explicitly needed (use ExternalLink instead for external). */
+  target?: string;
+  rel?: string;
+}
+
+const {
+  href,
+  class: className,
+  'data-event': dataEvent,
+  'data-source-component': dataSourceComponent,
+  'aria-label': ariaLabel,
+  target,
+  rel,
+} = Astro.props;
+
+const baseCls =
+  'rounded-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary';
+---
+<a
+  href={href}
+  class:list={[baseCls, className]}
+  data-event={dataEvent}
+  data-source-component={dataSourceComponent}
+  aria-label={ariaLabel}
+  target={target}
+  rel={rel}
+><slot /></a>

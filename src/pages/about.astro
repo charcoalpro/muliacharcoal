@@ -1,0 +1,67 @@
+---
+/**
+ * /about — company, team, history, legal, banking, supply chain.
+ *
+ * Risk-mitigation page for B2B buyers evaluating wire transfers to an
+ * Indonesian factory. Establishes E-E-A-T and is GEO-friendly: every
+ * heading is followed by a definition-style answer, every claim cites
+ * a structured fact from /src/config/company.ts.
+ *
+ * This file is purely composition — every block lives in its own
+ * component under `src/components/about/blocks/` and assembles its own
+ * data from `company` + `en.about.*`. Add or reorder blocks here only.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import Hero from '~/components/about/blocks/Hero.astro';
+import CompanyOverview from '~/components/about/blocks/CompanyOverview.astro';
+import LegalInformation from '~/components/about/blocks/LegalInformation.astro';
+import Banking from '~/components/about/blocks/Banking.astro';
+import Team from '~/components/about/blocks/Team.astro';
+import OwnerVideo from '~/components/about/blocks/OwnerVideo.astro';
+import Brands from '~/components/about/blocks/Brands.astro';
+import MissionVision from '~/components/about/blocks/MissionVision.astro';
+import Reviews from '~/components/about/blocks/Reviews.astro';
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company } from '~/config/company';
+import { aboutPageSchema } from '~/lib/schema/aboutPage';
+
+const t = en.about;
+
+const metaTokens = {
+  legalName: company.legalName,
+  port: company.commercial.portOfLoading.name,
+  country: company.commercial.portOfLoading.country,
+};
+const pageTitle = fill(t.meta.titleTemplate, metaTokens);
+const pageDescription = fill(t.meta.descriptionTemplate, metaTokens);
+const aboutSchema = aboutPageSchema({ pageTitle, pageDescription });
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/about"
+  type="website"
+  includeOrgSchema={false}
+  schema={aboutSchema}
+  prefetch={['/contact']}
+>
+  <!-- Breadcrumbs -->
+  <div class="mx-auto max-w-7xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <Hero />
+  <CompanyOverview />
+  <LegalInformation />
+  <Banking />
+  <Team />
+  <OwnerVideo />
+  <Brands />
+  <MissionVision />
+  <Reviews />
+
+  <CTABanner />
+</BaseLayout>

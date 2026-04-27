@@ -1,0 +1,20 @@
+---
+/**
+ * StatItem — single label/value pair inside the /about Block 2C stats grid.
+ *
+ * Renders `<dt>` (small, muted) above `<dd>` (semibold, neutral-900). The
+ * parent must be a `<dl>` with `grid` display so each pair lines up
+ * cleanly across columns.
+ */
+
+interface Props {
+  label: string;
+  value: string;
+}
+
+const { label, value } = Astro.props;
+---
+<div>
+  <dt class="text-xs uppercase tracking-wide text-neutral-500">{label}</dt>
+  <dd class="mt-1 text-base font-semibold text-neutral-900">{value}</dd>
+</div>
