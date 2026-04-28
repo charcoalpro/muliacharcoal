@@ -1,13 +1,13 @@
 ---
 /**
- * Logo — SVG M-mark + wordmark placeholder. Replace the SVG inline
- * with the real brand mark once finalized. Keep the outer structure
- * so the swap is a one-file change.
+ * Logo — SVG M-mark + wordmark placeholder. The mark geometry is built
+ * by `logoSvgInner()` so the `<Logo>` component, the favicon route, and
+ * any future Open Graph image all stay in lockstep on colors and shape.
  *
- * Colors bind to `company.brandAssets.colors` so the logo mark, the
- * favicon, and Tailwind utilities all track the same source values.
+ * Replace `logoSvgInner()` once the real brand mark is finalised.
  */
 import { company } from '~/config/company';
+import { logoSvgInner } from '~/lib/branding';
 
 interface Props {
   showWordmark?: boolean;
@@ -15,7 +15,8 @@ interface Props {
 }
 
 const { showWordmark = true, class: className } = Astro.props;
-const brand = company.brandAssets.colors;
+
+const inner = logoSvgInner();
 ---
 <span
   class:list={['inline-flex items-center gap-2', className]}
@@ -26,18 +27,8 @@ const brand = company.brandAssets.colors;
     viewBox="0 0 64 64"
     class="h-8 w-8 flex-none"
     role="img"
-  >
-    <rect width="64" height="64" rx="12" fill={brand.primary} />
-    <text
-      x="32"
-      y="42"
-      font-family="system-ui, -apple-system, sans-serif"
-      font-size="32"
-      font-weight="700"
-      text-anchor="middle"
-      fill={brand.accent}
-    >M</text>
-  </svg>
+    set:html={inner}
+  ></svg>
   {showWordmark && (
     <span class="text-lg font-semibold text-brand-primary">{company.brand}</span>
   )}

@@ -1,0 +1,38 @@
+---
+/**
+ * BankTable — /contact Block 11 wire-instruction table.
+ *
+ * Renders only when `company.payment.mode === 'public'`. Shows beneficiary,
+ * bank name, address, branch, account number, SWIFT, optional IBAN, and
+ * currency. Bank details are NEVER included in JSON-LD (fraud-vector).
+ */
+
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+
+const t = en.contact.payment;
+const f = t.fields;
+const bank = company.bank;
+---
+<div class="overflow-x-auto rounded-xl border border-neutral-200">
+  <table class="w-full text-sm">
+    <thead class="bg-neutral-50 text-left">
+      <tr>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.tableField}</th>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.tableValue}</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-neutral-200 bg-white">
+      <tr><td class="px-4 py-3 font-medium text-neutral-900">{f.beneficiary}</td><td class="px-4 py-3 text-neutral-700">{bank.accountName}</td></tr>
+      <tr><td class="px-4 py-3 font-medium text-neutral-900">{f.bankName}</td><td class="px-4 py-3 text-neutral-700">{bank.bankName}</td></tr>
+      <tr><td class="px-4 py-3 font-medium text-neutral-900">{f.bankAddress}</td><td class="px-4 py-3 text-neutral-700">{bank.bankAddress}</td></tr>
+      <tr><td class="px-4 py-3 font-medium text-neutral-900">{f.branch}</td><td class="px-4 py-3 text-neutral-700">{bank.branch}</td></tr>
+      <tr><td class="px-4 py-3 font-medium text-neutral-900">{f.accountNumber}</td><td class="px-4 py-3 text-neutral-700">{bank.accountNumber}</td></tr>
+      <tr><td class="px-4 py-3 font-medium text-neutral-900">{f.swift}</td><td class="px-4 py-3 text-neutral-700">{bank.swiftCode}</td></tr>
+      {bank.iban && (
+        <tr><td class="px-4 py-3 font-medium text-neutral-900">{f.iban}</td><td class="px-4 py-3 text-neutral-700">{bank.iban}</td></tr>
+      )}
+      <tr><td class="px-4 py-3 font-medium text-neutral-900">{f.currency}</td><td class="px-4 py-3 text-neutral-700">{bank.currency}</td></tr>
+    </tbody>
+  </table>
+</div>

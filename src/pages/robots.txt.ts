@@ -21,7 +21,7 @@ import { company } from '~/config/company';
 
 export const GET: APIRoute = () => {
   const body = [
-    '# Mulia Charcoal — SEO + GEO friendly robots policy.',
+    `# ${company.brand} — SEO + GEO friendly robots policy.`,
     '#',
     '# All crawlers are allowed full access. AI/LLM agents explicitly',
     '# welcomed (covered by the wildcard rule below, listed here for',

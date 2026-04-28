@@ -1,0 +1,32 @@
+---
+/**
+ * HolidaysTable — /contact Block 8 Indonesian public-holidays table.
+ * Reads rows from `company.holidays2026`. Update the year reference in
+ * `company.ts` (and the i18n heading) on January each year.
+ */
+
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+
+const t = en.contact.hours;
+---
+<div class="overflow-x-auto rounded-xl border border-neutral-200">
+  <table class="w-full text-sm">
+    <thead class="bg-white text-left">
+      <tr>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.tableDate}</th>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.tableDayName}</th>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.tableHolidayName}</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-neutral-200 bg-white">
+      {company.holidays2026.map((h) => (
+        <tr>
+          <td class="px-4 py-3 font-medium text-neutral-900">{h.date}</td>
+          <td class="px-4 py-3 text-neutral-700">{h.day}</td>
+          <td class="px-4 py-3 text-neutral-700">{h.name}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

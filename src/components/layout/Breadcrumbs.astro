@@ -12,6 +12,7 @@
 
 import en from '~/i18n/en.json';
 import JsonLd from '~/components/seo/JsonLd.astro';
+import { absoluteUrl } from '~/lib/url';
 
 interface Item {
   label: string;
@@ -30,11 +31,6 @@ const trail: Item[] = includeHome
   ? [{ label: en.nav.home, href: '/' }, ...items]
   : items;
 
-// Absolute URLs for schema — Astro.site is set in astro.config.mjs.
-const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : '';
-const absolute = (href?: string) =>
-  href ? (href.startsWith('http') ? href : `${siteOrigin}${href}`) : undefined;
-
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -42,7 +38,7 @@ const schema = {
     '@type': 'ListItem',
     position: index + 1,
     name: item.label,
-    ...(absolute(item.href) ? { item: absolute(item.href) } : {}),
+    ...(item.href ? { item: absoluteUrl(item.href, Astro.site) } : {}),
   })),
 };
 ---

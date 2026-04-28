@@ -9,8 +9,12 @@ import ChannelCard from '~/components/contact/ChannelCard.astro';
 import HotelCard from '~/components/contact/HotelCard.astro';
 import MapEmbed from '~/components/contact/MapEmbed.astro';
 import InquiryForm from '~/components/contact/InquiryForm.astro';
+import PrimaryWhatsAppCard from '~/components/contact/PrimaryWhatsAppCard.astro';
+import HubsTable from '~/components/contact/HubsTable.astro';
+import HolidaysTable from '~/components/contact/HolidaysTable.astro';
+import BankTable from '~/components/contact/BankTable.astro';
 import en from '~/i18n/en.json';
-import { fill } from '~/lib/interpolate';
+import { fill, companyTokens } from '~/lib/interpolate';
 import {
   company,
   waLinkFor,
@@ -18,18 +22,26 @@ import {
   yearsInBusiness,
 } from '~/config/company';
 import { localBusinessSchema } from '~/lib/schema/localBusiness';
+import { buildContactChannels } from '~/lib/contact/channels';
 
 const t = en.contact;
+const tokens = companyTokens(company);
 
-// ---------------------------------------------------------------------------
+// Page meta — i18n templates carry {{tokens}}; fill at consumption time so
+// company facts stay bound to /src/config/company.ts.
+const metaTitle = fill(t.meta.titleTemplate, tokens);
+const metaDescription = fill(t.meta.descriptionTemplate, tokens);
+const findUsHeading = fill(t.findUs.headingTemplate, tokens);
+const findUsHubsNote = fill(t.findUs.hubsNoteTemplate, tokens);
+const findUsPhotoMainGate = fill(t.findUs.photoMainGateTemplate, tokens);
+const mapIframeTitle = fill(t.map.iframeTitleTemplate, tokens);
+const hotelsLead = fill(t.hotels.leadTemplate, tokens);
+
 // Block 1 — Hero CTAs
-// ---------------------------------------------------------------------------
 const heroWaHref = waLinkFor('heroCta');
 const heroEmailHref = mailto('Wholesale inquiry');
 
-// ---------------------------------------------------------------------------
 // Block 2 — Trust strip data (only render badges with verified facts)
-// ---------------------------------------------------------------------------
 const years = yearsInBusiness();
 const trustItems = [
   {
@@ -37,21 +49,9 @@ const trustItems = [
     label: t.trust.exportingSinceTemplate.replace('{{year}}', String(company.foundingYear)),
     value: fill(t.trust.yearsLabelTemplate, { years: String(years) }),
   },
-  {
-    iconText: '§',
-    label: t.trust.legalLabel,
-    value: company.legalName,
-  },
-  {
-    iconText: 'N',
-    label: t.trust.nibLabel,
-    value: company.registration.nib,
-  },
-  {
-    iconText: 'T',
-    label: t.trust.npwpLabel,
-    value: company.registration.taxId,
-  },
+  { iconText: '§', label: t.trust.legalLabel, value: company.legalName },
+  { iconText: 'N', label: t.trust.nibLabel, value: company.registration.nib },
+  { iconText: 'T', label: t.trust.npwpLabel, value: company.registration.taxId },
   {
     iconText: '✓',
     label: t.trust.isoLabel,
@@ -62,141 +62,23 @@ const trustItems = [
     label: t.trust.imdgLabel,
     value: company.certifications.imdg.classDescription,
   },
-  {
-    iconText: '◉',
-    label: t.trust.directorLabel,
-    value: company.people.owner.name,
-  },
+  { iconText: '◉', label: t.trust.directorLabel, value: company.people.owner.name },
 ];
 
-// ---------------------------------------------------------------------------
-// Block 5 — Channels (only render those with real handles set)
-// ---------------------------------------------------------------------------
-const phoneE164 = company.phone.e164;
-const phoneDisplay = company.phone.display;
-const baseChannels: Array<{ channel: string; handle: string; href: string; iconText?: string; ctaLabel?: string }> = [
-  {
-    channel: 'WhatsApp chat',
-    handle: phoneDisplay,
-    href: waLinkFor('salesGeneral'),
-    iconText: '💬',
-  },
-  {
-    channel: 'WhatsApp voice call',
-    handle: phoneDisplay,
-    href: waLinkFor('salesGeneral'),
-    iconText: '📞',
-  },
-  {
-    channel: 'WhatsApp video call',
-    handle: phoneDisplay,
-    href: waLinkFor('videoCallRequest'),
-    iconText: '🎥',
-  },
-  {
-    channel: 'Direct phone call',
-    handle: phoneDisplay,
-    href: `tel:${phoneE164}`,
-    iconText: '☎',
-  },
-  {
-    channel: 'SMS',
-    handle: phoneDisplay,
-    href: `sms:${phoneE164}`,
-    iconText: '✉',
-  },
-  {
-    channel: 'Email',
-    handle: company.email,
-    href: mailto('Wholesale inquiry'),
-    iconText: '@',
-  },
-  {
-    channel: 'Inquiry form',
-    handle: t.channels.anchorButton,
-    href: '#inquiry',
-    iconText: '📝',
-    ctaLabel: t.channels.anchorButton,
-  },
+// Block 3 — Two leadership WhatsApp cards (sales + director)
+const leadershipCards = [
+  { person: company.whatsapp.sales, heading: t.whatsappPrimary.salesCardHeading, preset: 'salesGeneral' as const },
+  { person: company.whatsapp.director, heading: t.whatsappPrimary.directorCardHeading, preset: 'directorIntro' as const },
 ];
 
-const c = company.channels;
-const optionalChannels: Array<{ channel: string; handle: string; href: string; iconText?: string }> = [];
-if (c.zoom?.schedulingUrl) {
-  optionalChannels.push({
-    channel: 'Zoom / Google Meet',
-    handle: t.channels.videoMeetingLabel,
-    href: c.zoom.schedulingUrl,
-    iconText: '🎦',
-  });
-}
-if (c.wechat?.id) {
-  optionalChannels.push({
-    channel: 'WeChat',
-    handle: c.wechat.id,
-    href: `weixin://dl/chat?${c.wechat.id}`,
-    iconText: '微',
-  });
-}
-if (c.telegram?.url) {
-  optionalChannels.push({
-    channel: 'Telegram',
-    handle: c.telegram.handle,
-    href: c.telegram.url,
-    iconText: 'T',
-  });
-}
-if (c.messenger?.url) {
-  optionalChannels.push({
-    channel: 'Messenger',
-    handle: c.messenger.handle,
-    href: c.messenger.url,
-    iconText: 'M',
-  });
-}
-if (c.botim) {
-  optionalChannels.push({
-    channel: 'Botim',
-    handle: c.botim,
-    href: `tel:${c.botim}`,
-    iconText: 'B',
-  });
-}
-if (c.max) {
-  optionalChannels.push({
-    channel: 'Max',
-    handle: c.max,
-    href: `https://max.ru/${c.max}`,
-    iconText: 'X',
-  });
-}
-if (c.line) {
-  optionalChannels.push({
-    channel: 'Line',
-    handle: c.line,
-    href: `https://line.me/ti/p/~${c.line}`,
-    iconText: 'L',
-  });
-}
-if (c.viber) {
-  optionalChannels.push({
-    channel: 'Viber',
-    handle: c.viber,
-    href: `viber://chat?number=${encodeURIComponent(c.viber)}`,
-    iconText: 'V',
-  });
-}
-const channels = [...baseChannels, ...optionalChannels];
+// Block 5 — All contact channels
+const channels = buildContactChannels();
 
-// ---------------------------------------------------------------------------
 // Block 7 — Address fragments
-// ---------------------------------------------------------------------------
 const addr = company.address;
 const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${addr.latitude},${addr.longitude}`;
 
-// ---------------------------------------------------------------------------
 // Block 8 — Lebaran callout
-// ---------------------------------------------------------------------------
 const lebaran = company.lebaranShutdown;
 const lebaranBody = fill(t.hours.lebaranBodyTemplate, {
   from: lebaran.from,
@@ -204,26 +86,23 @@ const lebaranBody = fill(t.hours.lebaranBodyTemplate, {
   cutoff: lebaran.orderCutoff,
 });
 
-// ---------------------------------------------------------------------------
 // Block 10 — Hotels split by tier
-// ---------------------------------------------------------------------------
-const fiveStar = company.hotels.filter((h) => h.stars === 5);
-const fourStar = company.hotels.filter((h) => h.stars === 4);
-const threeStar = company.hotels.filter((h) => h.stars === 3);
+const hotelTiers = [
+  { tier: company.hotels.filter((h) => h.stars === 5), heading: t.hotels.fiveStarHeading },
+  { tier: company.hotels.filter((h) => h.stars === 4), heading: t.hotels.fourStarHeading },
+  { tier: company.hotels.filter((h) => h.stars === 3), heading: t.hotels.threeStarHeading },
+].filter((g) => g.tier.length > 0);
 
-// ---------------------------------------------------------------------------
 // Block 11 — Banking (public mode)
-// ---------------------------------------------------------------------------
 const isBankPublic = company.payment.mode === 'public';
-const bank = company.bank;
 const piHref = waLinkFor('piRequest');
 const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
   director: company.people.owner.name,
 });
 ---
 <BaseLayout
-  title={t.meta.title}
-  description={t.meta.description}
+  title={metaTitle}
+  description={metaDescription}
   path="/contact"
   type="website"
   includeOrgSchema={true}
@@ -295,43 +174,13 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
           <p class="mt-6 text-sm text-neutral-600">{t.whatsappPrimary.voiceVideoNote}</p>
         </div>
         <div class="grid gap-4 lg:col-span-6 sm:grid-cols-2">
-          {[company.whatsapp.sales, company.whatsapp.director].map((person, idx) => {
-            const presetKey = idx === 0 ? 'salesGeneral' : 'directorIntro';
-            const waHref = waLinkFor(presetKey, person.e164Digits);
-            const heading = idx === 0 ? t.whatsappPrimary.salesCardHeading : t.whatsappPrimary.directorCardHeading;
-            return (
-              <article class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6">
-                <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">{heading}</p>
-                <h3 class="mt-2 text-lg font-semibold text-neutral-900">{person.name}</h3>
-                <p class="text-sm text-neutral-600">{person.role}</p>
-                <a
-                  href={`tel:${person.e164Digits.startsWith('+') ? person.e164Digits : '+' + person.e164Digits}`}
-                  class="mt-4 text-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
-                >
-                  {person.display}
-                </a>
-                <div class="mt-auto flex flex-wrap gap-2 pt-4">
-                  <a
-                    href={waHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-event="whatsapp_click"
-                    data-source-component="whatsapp-primary"
-                    class="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
-                  >
-                    {t.whatsappPrimary.buttonOpenWhatsapp}
-                    <span class="sr-only">{t.newTabSr}</span>
-                  </a>
-                  <a
-                    href={`tel:${person.e164Digits.startsWith('+') ? person.e164Digits : '+' + person.e164Digits}`}
-                    class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
-                  >
-                    {t.whatsappPrimary.buttonCall}
-                  </a>
-                </div>
-              </article>
-            );
-          })}
+          {leadershipCards.map(({ person, heading, preset }) => (
+            <PrimaryWhatsAppCard
+              heading={heading}
+              person={person}
+              whatsappMessage={company.whatsapp.presetMessages[preset]}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -390,7 +239,7 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
   <section aria-labelledby="findus-heading" class="bg-white">
     <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
       <h2 id="findus-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-        {t.findUs.heading}
+        {findUsHeading}
       </h2>
       <p class="mt-4 max-w-prose text-lg text-neutral-700">
         {fill(t.findUs.leadTemplate, { addressShort: addr.short })}
@@ -442,37 +291,16 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
 
         <div class="lg:col-span-7">
           <h3 class="text-base font-semibold text-neutral-900">{t.findUs.hubsHeading}</h3>
-          <div class="mt-3 overflow-x-auto rounded-xl border border-neutral-200">
-            <table class="w-full text-sm">
-              <thead class="bg-neutral-50 text-left">
-                <tr>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.from}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.distance}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.byCar}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.byTrainCar}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.notes}</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-neutral-200">
-                {company.travelHubs.map((hub) => (
-                  <tr>
-                    <td class="px-4 py-3 font-medium text-neutral-900">{hub.from}</td>
-                    <td class="px-4 py-3 text-neutral-700">{hub.distanceKm} km</td>
-                    <td class="px-4 py-3 text-neutral-700">{hub.byCar}</td>
-                    <td class="px-4 py-3 text-neutral-700">{hub.byTrainCar ?? '—'}</td>
-                    <td class="px-4 py-3 text-neutral-600">{hub.notes ?? ''}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div class="mt-3">
+            <HubsTable />
           </div>
-          <p class="mt-3 text-sm text-neutral-600">{t.findUs.hubsNote}</p>
+          <p class="mt-3 text-sm text-neutral-600">{findUsHubsNote}</p>
         </div>
       </div>
 
       <h3 class="mt-12 text-base font-semibold text-neutral-900">{t.findUs.photosHeading}</h3>
       <div class="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <ImagePlaceholder label={t.findUs.photoMainGate} ratio="3/2" caption="Main gate" />
+        <ImagePlaceholder label={findUsPhotoMainGate} ratio="3/2" caption="Main gate" />
         <ImagePlaceholder label={t.findUs.photoProductionFloor} ratio="3/2" caption="Production floor" />
         <ImagePlaceholder label={t.findUs.photoQualityControl} ratio="3/2" caption="Quality control" />
         <ImagePlaceholder label={t.findUs.photoLoadingBay} ratio="3/2" caption="Loading bay" />
@@ -515,25 +343,8 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
 
         <div class="lg:col-span-7">
           <h3 class="text-base font-semibold text-neutral-900">{t.hours.holidaysHeading}</h3>
-          <div class="mt-3 overflow-x-auto rounded-xl border border-neutral-200">
-            <table class="w-full text-sm">
-              <thead class="bg-white text-left">
-                <tr>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableDate}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableDayName}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableHolidayName}</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-neutral-200 bg-white">
-                {company.holidays2026.map((h) => (
-                  <tr>
-                    <td class="px-4 py-3 font-medium text-neutral-900">{h.date}</td>
-                    <td class="px-4 py-3 text-neutral-700">{h.day}</td>
-                    <td class="px-4 py-3 text-neutral-700">{h.name}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div class="mt-3">
+            <HolidaysTable />
           </div>
         </div>
       </div>
@@ -555,7 +366,7 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
         <MapEmbed
           latitude={addr.latitude}
           longitude={addr.longitude}
-          title={t.map.iframeTitle}
+          title={mapIframeTitle}
         />
       </div>
       <p class="mt-3 text-sm text-neutral-600">
@@ -579,13 +390,9 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
       <h2 id="hotels-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
         {t.hotels.heading}
       </h2>
-      <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.hotels.lead}</p>
+      <p class="mt-4 max-w-prose text-lg text-neutral-700">{hotelsLead}</p>
 
-      {[
-        { tier: fiveStar, heading: t.hotels.fiveStarHeading },
-        { tier: fourStar, heading: t.hotels.fourStarHeading },
-        { tier: threeStar, heading: t.hotels.threeStarHeading },
-      ].filter((g) => g.tier.length > 0).map((g) => (
+      {hotelTiers.map((g) => (
         <div class="mt-10">
           <h3 class="text-base font-semibold text-neutral-900">{g.heading}</h3>
           <ul class="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -628,30 +435,9 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
 
         {isBankPublic && (
           <div class="lg:col-span-7">
-            <div class="overflow-x-auto rounded-xl border border-neutral-200">
-              <table class="w-full text-sm">
-                <thead class="bg-neutral-50 text-left">
-                  <tr>
-                    <th class="px-4 py-3 font-semibold text-neutral-700">{t.payment.tableField}</th>
-                    <th class="px-4 py-3 font-semibold text-neutral-700">{t.payment.tableValue}</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-neutral-200 bg-white">
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.beneficiary}</td><td class="px-4 py-3 text-neutral-700">{bank.accountName}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.bankName}</td><td class="px-4 py-3 text-neutral-700">{bank.bankName}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.bankAddress}</td><td class="px-4 py-3 text-neutral-700">{bank.bankAddress}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.branch}</td><td class="px-4 py-3 text-neutral-700">{bank.branch}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.accountNumber}</td><td class="px-4 py-3 text-neutral-700">{bank.accountNumber}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.swift}</td><td class="px-4 py-3 text-neutral-700">{bank.swiftCode}</td></tr>
-                  {bank.iban && (
-                    <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.iban}</td><td class="px-4 py-3 text-neutral-700">{bank.iban}</td></tr>
-                  )}
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.currency}</td><td class="px-4 py-3 text-neutral-700">{bank.currency}</td></tr>
-                </tbody>
-              </table>
-            </div>
+            <BankTable />
             <p class="mt-3 text-sm text-neutral-600">
-              {fill(t.payment.lastVerifiedTemplate, { date: bank.lastVerified })}
+              {fill(t.payment.lastVerifiedTemplate, { date: company.bank.lastVerified })}
             </p>
             <a
               href={piHref}

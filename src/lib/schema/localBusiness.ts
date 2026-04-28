@@ -10,8 +10,10 @@
  */
 
 import { company } from '~/config/company';
+import { siteOrigin as resolveSiteOrigin } from '~/lib/url';
+import { socialSameAs } from '~/lib/schema/sameAs';
 
-const siteOrigin = (company.siteUrl ?? '').replace(/\/$/, '');
+const siteOrigin = resolveSiteOrigin();
 
 interface OpeningHoursSpec {
   '@type': 'OpeningHoursSpecification';
@@ -59,9 +61,7 @@ const contactPoints = [
   },
 ];
 
-const sameAs = Object.values(company.social).filter(
-  (url): url is string => typeof url === 'string' && url.length > 0,
-);
+const sameAs = socialSameAs();
 
 export const localBusinessSchema = {
   '@context': 'https://schema.org',

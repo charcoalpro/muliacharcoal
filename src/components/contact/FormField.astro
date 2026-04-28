@@ -1,0 +1,37 @@
+---
+/**
+ * FormField — chrome wrapper for an InquiryForm field.
+ *
+ * Renders the label, optional required-mark, optional hint paragraph, and
+ * the empty error placeholder. The actual <input>/<select>/<textarea>
+ * is provided as the default slot so author markup keeps full control of
+ * input attributes (type, autocomplete, minlength, etc.).
+ *
+ * Conventions:
+ *  - The slotted control's `id` matches the `id` prop.
+ *  - The error <p> id is `${id}-err`; the slotted control should
+ *    `aria-describedby={id-err}` (and optionally a `${id}-hint`).
+ */
+
+interface Props {
+  id: string;
+  label: string;
+  required?: boolean;
+  hint?: string;
+  /** Tailwind grid-span utility for placement (e.g. `md:col-span-2`). */
+  span?: string;
+}
+
+const { id, label, required = false, hint, span } = Astro.props;
+const errId = `${id}-err`;
+const hintId = hint ? `${id}-hint` : undefined;
+---
+<div class={span}>
+  <label for={id} class="block text-sm font-medium text-neutral-800">
+    {label}
+    {required && <span aria-hidden="true" class="text-error"> *</span>}
+  </label>
+  <slot />
+  {hint && <p id={hintId} class="mt-1 text-xs text-neutral-500">{hint}</p>}
+  <p id={errId} class="mt-1 text-sm text-error hidden"></p>
+</div>

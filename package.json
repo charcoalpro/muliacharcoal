@@ -8,7 +8,9 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:facts": "node scripts/check-no-hardcoded-facts.mjs",
+    "check": "npm run check:facts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",

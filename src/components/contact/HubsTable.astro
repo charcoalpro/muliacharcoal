@@ -1,0 +1,35 @@
+---
+/**
+ * HubsTable — /contact Block 7 "Getting here from major hubs" table.
+ * Reads its rows from `company.travelHubs`.
+ */
+
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+
+const t = en.contact.findUs.hubsTable;
+---
+<div class="overflow-x-auto rounded-xl border border-neutral-200">
+  <table class="w-full text-sm">
+    <thead class="bg-neutral-50 text-left">
+      <tr>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.from}</th>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.distance}</th>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.byCar}</th>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.byTrainCar}</th>
+        <th class="px-4 py-3 font-semibold text-neutral-700">{t.notes}</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-neutral-200">
+      {company.travelHubs.map((hub) => (
+        <tr>
+          <td class="px-4 py-3 font-medium text-neutral-900">{hub.from}</td>
+          <td class="px-4 py-3 text-neutral-700">{hub.distanceKm} km</td>
+          <td class="px-4 py-3 text-neutral-700">{hub.byCar}</td>
+          <td class="px-4 py-3 text-neutral-700">{hub.byTrainCar ?? '—'}</td>
+          <td class="px-4 py-3 text-neutral-600">{hub.notes ?? ''}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,59 @@
+---
+/**
+ * Analytics — head-injected loaders for GA4 + Meta Pixel and the page-load
+ * hook that installs the delegated click handler from `~/lib/analytics.ts`.
+ *
+ * GA4 and Pixel only load in production builds. The setup script that wires
+ * up scroll/engagement and the `data-event` click delegate runs on every
+ * environment (it's a no-op when the trackers haven't loaded).
+ */
+import { company } from '~/config/company';
+
+const { gaId, gscVerification, pixelId } = company.analytics;
+const isProd = import.meta.env.PROD;
+const hasPixel = isProd && typeof pixelId === 'string' && pixelId.length > 0;
+---
+<meta name="google-site-verification" content={gscVerification} />
+
+{isProd && (
+  <>
+    <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${gaId}`}></script>
+    <script is:inline define:vars={{ gaId }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', gaId);
+    </script>
+  </>
+)}
+
+{hasPixel && (
+  <>
+    <script is:inline define:vars={{ pixelId }}>
+      !function(f,b,e,v,n,t,s){
+        if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+          n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)
+      }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', pixelId);
+      fbq('track', 'PageView');
+    </script>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src={`https://www.facebook.com/tr?id=${pixelId}&ev=PageView&noscript=1`}
+        alt=""
+      />
+    </noscript>
+  </>
+)}
+
+<script>
+  import { setupAnalytics } from '~/lib/analytics';
+  setupAnalytics();
+</script>
