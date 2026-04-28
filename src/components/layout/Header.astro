@@ -4,13 +4,10 @@ import Logo from '~/components/layout/Logo.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
 import { company } from '~/config/company';
+import { headerLinks, pickLive } from '~/config/navigation';
 
-// "Price" routes to /products per product-pricing decision (TODO: dedicated /pricing page later).
-const links = [
-  { href: '/about', label: en.nav.about },
-  { href: '/contact', label: en.nav.contact },
-  { href: '/products', label: en.nav.price },
-];
+// Only show links whose target page is live today — see `~/config/navigation`.
+const links = pickLive(headerLinks);
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---

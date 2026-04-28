@@ -618,12 +618,17 @@ export const company = {
   ],
 
   // -----------------------------------------------------------------
-  // Web analytics. Both values are public — they appear verbatim in
+  // Web analytics. All values are public — they appear verbatim in
   // the rendered HTML — so they live in source rather than env vars.
+  //
+  // `pixelId` is the Meta (Facebook) Pixel ID; set to `null` until a Pixel
+  // is provisioned. When non-null, the loader script and fbq tracker fire
+  // alongside GA4 for every event dispatched through `lib/analytics.ts`.
   // -----------------------------------------------------------------
   analytics: {
     gaId: 'G-CLNNLB616W',
     gscVerification: 'fKfTQ-h0XVRjQNoEERZWqchNnUs_6H48amhkgsDPGBA',
+    pixelId: null as string | null,
   },
 } as const;
 
@@ -634,17 +639,24 @@ export const company = {
 /**
  * Build a WhatsApp click-to-chat URL (wa.me).
  *
- * @param text Optional message body to pre-fill in the chat. Defaults to
- *             `company.whatsapp.defaultMessage`. The value is URI-encoded
- *             into the `text` query parameter.
- * @returns    An `https://wa.me/<digits>?text=...` URL safe for `href`.
+ * @param text         Optional message body to pre-fill in the chat. Defaults
+ *                     to `company.whatsapp.defaultMessage`. URI-encoded into
+ *                     the `text` query parameter.
+ * @param e164Digits   Optional override for the destination number. Pass the
+ *                     raw E.164 digits (no "+", no separators). Defaults to
+ *                     the primary site number `company.whatsapp.e164Digits`.
+ * @returns            An `https://wa.me/<digits>?text=...` URL safe for `href`.
  *
  * @example
  *   <a href={waLink()}>Chat on WhatsApp</a>
  *   <a href={waLink('Quote request for 22x50mm hexagonal cubes')}>…</a>
+ *   <a href={waLink(member.preset, member.e164Digits)}>…</a>
  */
-export function waLink(text: string = company.whatsapp.defaultMessage): string {
-  return `https://wa.me/${company.whatsapp.e164Digits}?text=${encodeURIComponent(text)}`;
+export function waLink(
+  text: string = company.whatsapp.defaultMessage,
+  e164Digits: string = company.whatsapp.e164Digits,
+): string {
+  return `https://wa.me/${e164Digits}?text=${encodeURIComponent(text)}`;
 }
 
 /**
@@ -743,8 +755,7 @@ export function waLinkFor(
   presetKey: keyof typeof company.whatsapp.presetMessages,
   e164Digits: string = company.whatsapp.e164Digits,
 ): string {
-  const text = company.whatsapp.presetMessages[presetKey];
-  return `https://wa.me/${e164Digits}?text=${encodeURIComponent(text)}`;
+  return waLink(company.whatsapp.presetMessages[presetKey], e164Digits);
 }
 
 /**

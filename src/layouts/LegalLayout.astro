@@ -1,0 +1,102 @@
+---
+/**
+ * LegalLayout — shared chrome for the legal Markdown collection.
+ *
+ * Each legal page (`/privacy-policy`, `/terms`, `/cookies`) renders a content
+ * collection entry. They differ only in the slug, so this layout pulls the
+ * entry from `Astro.props` and handles SEO, breadcrumbs, the auto-generated
+ * Table of Contents, the `<Prose>` wrapper, and the WebPage JSON-LD.
+ *
+ * Pages stay tiny: import the layout, pass the entry, render `<Content />`.
+ */
+
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import Prose from '~/components/content/Prose.astro';
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { webPageSchema } from '~/lib/schema/webPage';
+
+interface Props {
+  entry: CollectionEntry<'legal'>;
+  /** Site-relative path of this page (e.g. `/privacy-policy`). */
+  path: string;
+}
+
+const { entry, path } = Astro.props;
+const { Content, headings } = await render(entry);
+
+const { title, lastUpdated, datePublished } = entry.data;
+
+// Frontmatter description may reference {{tokens}}. The remark plugin only
+// touches the Markdown body, so fill the description explicitly before
+// passing it to SEO meta tags.
+const description = fill(entry.data.description, companyTokens(company));
+
+const isoModified = lastUpdated.toISOString().split('T')[0];
+const lastUpdatedFormatted = lastUpdated.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+// Top-level sections only: H2s from the body. H3/H4 stay out of the TOC.
+const tocItems = headings.filter((h) => h.depth === 2);
+
+const schema = webPageSchema({
+  path,
+  name: title,
+  description,
+  lastUpdated,
+  datePublished,
+});
+---
+<BaseLayout
+  title={`${title} — ${company.brand}`}
+  description={description}
+  path={path}
+  includeOrgSchema
+  schema={schema}
+>
+  <article class="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
+    <Breadcrumbs items={[{ label: title }]} class="mb-8" />
+
+    <header>
+      <h1 class="text-2xl font-bold text-neutral-900 md:text-3xl lg:text-4xl">
+        {title}
+      </h1>
+      <p class="mt-3 text-sm text-neutral-500">
+        {en.legal.lastUpdatedLabel}: <time datetime={isoModified}>{lastUpdatedFormatted}</time>
+      </p>
+    </header>
+
+    {tocItems.length > 0 && (
+      <nav
+        aria-label={en.legal.tocHeading}
+        class="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-5"
+      >
+        <p class="text-xs font-semibold uppercase tracking-wide text-neutral-600">
+          {en.legal.tocHeading}
+        </p>
+        <ol class="mt-3 space-y-1.5 text-sm">
+          {tocItems.map((h, i) => (
+            <li>
+              <a
+                href={`#${h.slug}`}
+                class="inline-block rounded-sm py-0.5 text-brand-primary underline underline-offset-2 transition-colors hover:text-brand-primary-hover hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+              >
+                {i + 1}. {h.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+
+    <Prose class="mt-12">
+      <Content />
+    </Prose>
+  </article>
+</BaseLayout>

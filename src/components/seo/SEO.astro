@@ -1,5 +1,12 @@
 ---
 import { company } from '~/config/company';
+import { absoluteUrl } from '~/lib/url';
+import {
+  locales,
+  defaultLocale,
+  stripLocalePrefix,
+  withLocalePrefix,
+} from '~/i18n/locales';
 
 interface Props {
   title: string;
@@ -7,6 +14,7 @@ interface Props {
   path?: string;
   image?: string;
   type?: 'website' | 'article' | 'product';
+  /** Override Open Graph locale (defaults to the default locale's `ogLocale`). */
   locale?: string;
   noIndex?: boolean;
 }
@@ -17,27 +25,20 @@ const {
   path = Astro.url.pathname,
   image,
   type = 'website',
-  locale = 'en_US',
+  locale = defaultLocale.ogLocale,
   noIndex = false,
 } = Astro.props;
 
-const siteBase = (Astro.site?.toString() ?? company.siteUrl).replace(/\/$/, '');
-
-const normalizePath = (p: string) => {
-  if (p === '/' || p === '') return '';
-  return '/' + p.replace(/^\/+/, '').replace(/\/+$/, '');
-};
-
-const canonical = `${siteBase}${normalizePath(path)}` || siteBase;
-const ogImage = image
-  ? (image.startsWith('http') ? image : `${siteBase}${image}`)
-  : null;
+const canonical = absoluteUrl(path, Astro.site);
+const ogImage = image ? absoluteUrl(image, Astro.site) : null;
 
 const fullTitle = title.includes(company.brand) ? title : `${title} | ${company.brand}`;
 
-const languages: Array<{ code: string; path: string }> = [
-  { code: 'en', path },
-];
+// Hreflang alternates — one per shipped locale + an `x-default` pointing at
+// the default-locale URL. `stripLocalePrefix` first to recover the locale-
+// agnostic path, then prepend each locale's prefix to build the alternate.
+const basePath = stripLocalePrefix(path);
+const defaultLocaleUrl = absoluteUrl(withLocalePrefix(basePath, defaultLocale), Astro.site);
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
@@ -60,7 +61,11 @@ const languages: Array<{ code: string; path: string }> = [
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-{languages.map((lang) => (
-  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />
+{locales.map((l) => (
+  <link
+    rel="alternate"
+    hreflang={l.code}
+    href={absoluteUrl(withLocalePrefix(basePath, l), Astro.site)}
+  />
 ))}
-<link rel="alternate" hreflang="x-default" href={canonical} />
+<link rel="alternate" hreflang="x-default" href={defaultLocaleUrl} />

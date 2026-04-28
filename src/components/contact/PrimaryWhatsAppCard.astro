@@ -1,0 +1,63 @@
+---
+/**
+ * PrimaryWhatsAppCard — single person card in /contact Block 3
+ * (sales / director side-by-side on desktop).
+ *
+ * Distinct from `<TeamCard>` — this is a slimmer "name + role + phone +
+ * Open WhatsApp + Call" tile used for the two leadership entries at the
+ * top of Block 3, while `<TeamCard>` is the fuller bio card used for the
+ * Block 4 grid.
+ */
+
+import en from '~/i18n/en.json';
+import { waLink } from '~/config/company';
+
+interface Person {
+  name: string;
+  role: string;
+  display: string;
+  e164Digits: string;
+}
+
+interface Props {
+  heading: string;
+  person: Person;
+  /** Preset key from `company.whatsapp.presetMessages` — passed through `waLink`. */
+  whatsappMessage: string;
+}
+
+const { heading, person, whatsappMessage } = Astro.props;
+const t = en.contact.whatsappPrimary;
+const telHref = `tel:${person.e164Digits.startsWith('+') ? person.e164Digits : '+' + person.e164Digits}`;
+const waHref = waLink(whatsappMessage, person.e164Digits);
+---
+<article class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6">
+  <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">{heading}</p>
+  <h3 class="mt-2 text-lg font-semibold text-neutral-900">{person.name}</h3>
+  <p class="text-sm text-neutral-600">{person.role}</p>
+  <a
+    href={telHref}
+    class="mt-4 text-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
+  >
+    {person.display}
+  </a>
+  <div class="mt-auto flex flex-wrap gap-2 pt-4">
+    <a
+      href={waHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-event="whatsapp_click"
+      data-source-component="whatsapp-primary"
+      class="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
+    >
+      {t.buttonOpenWhatsapp}
+      <span class="sr-only">{en.contact.newTabSr}</span>
+    </a>
+    <a
+      href={telHref}
+      class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+    >
+      {t.buttonCall}
+    </a>
+  </div>
+</article>

@@ -6,7 +6,7 @@
 import ImagePlaceholder from '~/components/ImagePlaceholder.astro';
 import en from '~/i18n/en.json';
 import { fill } from '~/lib/interpolate';
-import type { TeamMember } from '~/config/company';
+import { waLink, type TeamMember } from '~/config/company';
 
 interface Props {
   member: TeamMember;
@@ -17,7 +17,7 @@ const { member } = Astro.props;
 const t = en.contact.team;
 const photoLabel = fill(t.photoOfTemplate, { name: member.name });
 
-const waHref = `https://wa.me/${member.whatsappE164Digits}?text=${encodeURIComponent(member.whatsappPreset)}`;
+const waHref = waLink(member.whatsappPreset, member.whatsappE164Digits);
 const telHref = `tel:${member.phoneE164}`;
 const mailHref = `mailto:${member.email}`;
 ---
@@ -68,7 +68,7 @@ const mailHref = `mailto:${member.email}`;
     <a
       href={telHref}
       class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
-      aria-label={fill(t.languagesLabel === 'Languages' ? en.contact.whatsappPrimary.buttonAriaCallTemplate : t.buttonCall, { name: member.name, phone: member.phoneDisplay })}
+      aria-label={fill(en.contact.whatsappPrimary.buttonAriaCallTemplate, { name: member.name, phone: member.phoneDisplay })}
     >
       {t.buttonCall}
     </a>
