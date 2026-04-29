@@ -85,8 +85,8 @@
   },
   "contact": {
     "meta": {
-      "title": "Contact PT Coco Reina Global Charcoal Indonesia — Coconut Shisha Charcoal Factory",
-      "description": "Contact our coconut shell charcoal briquette factory in Semarang, Indonesia. WhatsApp, phone, email, WeChat, Telegram, video call. Sales team, factory address, bank details, holidays."
+      "titleTemplate": "Contact {{legalName}} — Coconut Shisha Charcoal Factory",
+      "descriptionTemplate": "Contact our coconut shell charcoal briquette factory in {{city}}, {{country}}. WhatsApp, phone, email, WeChat, Telegram, video call. Sales team, factory address, bank details, holidays."
     },
     "breadcrumb": "Contact",
     "hero": {
@@ -170,7 +170,30 @@
         "attachment": "Attachment (PDF, JPG, PNG, ≤ 5 MB)",
         "consent": "I have read and accept the",
         "consentLink": "privacy policy",
-        "honeypot": "Leave this field empty"
+        "honeypot": "Leave this field empty",
+        "productOptions": [
+          { "id": "cube", "label": "Cube" },
+          { "id": "hexagonal", "label": "Hexagonal" },
+          { "id": "finger", "label": "Finger" },
+          { "id": "dome", "label": "Dome" },
+          { "id": "flat", "label": "Flat" },
+          { "id": "custom", "label": "Custom shape / private label" }
+        ],
+        "countries": [
+          "United States", "United Kingdom", "Saudi Arabia", "United Arab Emirates",
+          "Germany", "Russia", "Kazakhstan", "Turkey", "France", "Spain",
+          "Italy", "Netherlands", "Belgium", "Poland", "Czech Republic",
+          "Greece", "Portugal", "Sweden", "Denmark", "Norway",
+          "Switzerland", "Austria", "Ireland", "Romania", "Hungary",
+          "Egypt", "Jordan", "Lebanon", "Kuwait", "Qatar",
+          "Bahrain", "Oman", "Iraq", "Israel", "Morocco",
+          "Tunisia", "Algeria", "South Africa", "Nigeria", "Kenya",
+          "Australia", "New Zealand", "Canada", "Mexico", "Brazil",
+          "Argentina", "Chile", "India", "Pakistan", "Bangladesh",
+          "China", "Hong Kong", "Taiwan", "Japan", "South Korea",
+          "Singapore", "Malaysia", "Thailand", "Vietnam", "Philippines",
+          "Other"
+        ]
       },
       "errors": {
         "required": "This field is required.",
@@ -193,7 +216,7 @@
       "successWhatsapp": "Continue on WhatsApp"
     },
     "findUs": {
-      "heading": "Visit our factory in Semarang",
+      "headingTemplate": "Visit our factory in {{city}}",
       "leadTemplate": "Our factory is at {{addressShort}}. We welcome buyer audits and pre-shipment inspections by appointment.",
       "addressHeading": "Factory address",
       "phoneLabel": "Phone",
@@ -209,9 +232,9 @@
         "byTrainCar": "By train + car",
         "notes": "Notes"
       },
-      "hubsNote": "Free airport pickup from Semarang (SRG) and Yogyakarta (YIA) for confirmed buyer visits. Request in advance via WhatsApp.",
+      "hubsNoteTemplate": "Free airport pickup from {{city}} (SRG) and Yogyakarta (YIA) for confirmed buyer visits. Request in advance via WhatsApp.",
       "photosHeading": "Factory photos",
-      "photoMainGate": "Main gate of the factory in Semarang",
+      "photoMainGateTemplate": "Main gate of the factory in {{city}}",
       "photoProductionFloor": "Coconut charcoal briquette production floor",
       "photoQualityControl": "Quality control bench checking briquette specs",
       "photoLoadingBay": "Loading bay with 20ft container ready for export"
@@ -234,13 +257,13 @@
     },
     "map": {
       "heading": "Factory location map",
-      "iframeTitle": "Map showing PT Coco Reina Global Charcoal Indonesia factory in Semarang",
+      "iframeTitleTemplate": "Map showing {{legalName}} factory in {{city}}",
       "openInGoogleMaps": "Open in Google Maps",
       "captionTemplate": "{{addressShort}} — exact pin pending GPS confirmation."
     },
     "hotels": {
       "heading": "Where to stay during your visit",
-      "lead": "We recommend the following hotels for buyer visits to our Semarang factory, with approximate driving times.",
+      "leadTemplate": "We recommend the following hotels for buyer visits to our {{city}} factory, with approximate driving times.",
       "fiveStarHeading": "5★ — Premium",
       "fourStarHeading": "4★ — Business",
       "threeStarHeading": "3★ — Value",

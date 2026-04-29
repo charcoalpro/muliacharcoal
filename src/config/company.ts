@@ -548,6 +548,10 @@ export const company = {
   form: {
     web3formsEndpoint: 'https://api.web3forms.com/submit',
     web3formsKey: 'TODO_PLACEHOLDER_WEB3FORMS_ACCESS_KEY',
+    // Honeypot input name. Bots fill any visible-named field; humans never
+    // see this. Rotate the value periodically to dodge spam-bot lists that
+    // memorise common honeypot field names.
+    honeypotFieldName: 'website_url',
     captcha: {
       // 'web3forms-builtin' uses Web3Forms' own honeypot + light spam
       // filtering (default and lowest-friction). 'hcaptcha' adds an
@@ -618,12 +622,33 @@ export const company = {
   ],
 
   // -----------------------------------------------------------------
+  // Active language versions of the site.
+  //
+  // Drives hreflang emission (see src/components/seo/SEO.astro) and the
+  // language switcher. Add a new entry only when its translated content
+  // is ready to ship — listing a language here promises Google that the
+  // URL exists. `pathPrefix` is the URL prefix: '' for the default
+  // (English at the root), '/ar' for Arabic, etc. Rollout order follows
+  // `priorityMarkets` above.
+  // -----------------------------------------------------------------
+  activeLanguages: [
+    { code: 'en', pathPrefix: '' },
+    // { code: 'ar', pathPrefix: '/ar' },  // RTL — needs dir="rtl"
+    // { code: 'de', pathPrefix: '/de' },
+    // { code: 'ru', pathPrefix: '/ru' },
+    // { code: 'he', pathPrefix: '/he' },  // RTL — needs dir="rtl"
+  ],
+
+  // -----------------------------------------------------------------
   // Web analytics. Both values are public — they appear verbatim in
   // the rendered HTML — so they live in source rather than env vars.
   // -----------------------------------------------------------------
   analytics: {
     gaId: 'G-CLNNLB616W',
     gscVerification: 'fKfTQ-h0XVRjQNoEERZWqchNnUs_6H48amhkgsDPGBA',
+    // Meta (Facebook) Pixel ID. While the value is the TODO placeholder
+    // the Pixel script is not shipped (see Analytics.astro gate).
+    metaPixelId: 'TODO_PLACEHOLDER_META_PIXEL_ID',
   },
 } as const;
 

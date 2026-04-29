@@ -1,0 +1,46 @@
+---
+/**
+ * HotelsBlock — Contact page Block 10.
+ *
+ * Renders recommended hotels grouped by star tier. Self-contained.
+ */
+
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company } from '~/config/company';
+import HotelCard from '~/components/contact/HotelCard.astro';
+
+const t = en.contact;
+const tokens = {
+  legalName: company.legalName,
+  city: company.address.city,
+  country: company.address.country,
+};
+
+const fiveStar = company.hotels.filter((h) => h.stars === 5);
+const fourStar = company.hotels.filter((h) => h.stars === 4);
+const threeStar = company.hotels.filter((h) => h.stars === 3);
+---
+<section aria-labelledby="hotels-heading" class="bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <h2 id="hotels-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+      {t.hotels.heading}
+    </h2>
+    <p class="mt-4 max-w-prose text-lg text-neutral-700">{fill(t.hotels.leadTemplate, tokens)}</p>
+
+    {[
+      { tier: fiveStar, heading: t.hotels.fiveStarHeading },
+      { tier: fourStar, heading: t.hotels.fourStarHeading },
+      { tier: threeStar, heading: t.hotels.threeStarHeading },
+    ].filter((g) => g.tier.length > 0).map((g) => (
+      <div class="mt-10">
+        <h3 class="text-base font-semibold text-neutral-900">{g.heading}</h3>
+        <ul class="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {g.tier.map((h) => (
+            <li class="h-full"><HotelCard hotel={h} /></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>

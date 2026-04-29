@@ -1,3 +1,13 @@
+# Cloudflare Pages custom headers.
+# Lines starting with `#` are comments per Cloudflare Pages syntax.
+#
+# Note on Content-Security-Policy `style-src 'self' 'unsafe-inline'`:
+# Astro inlines critical CSS into every HTML document via
+# `build.inlineStylesheets: 'auto'` in `astro.config.ts`. Tightening
+# `style-src` to remove `'unsafe-inline'` will block first-paint styles
+# and break LCP on every page. Either keep `'unsafe-inline'` here, or
+# disable inline-stylesheet emission in Astro first.
+
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin

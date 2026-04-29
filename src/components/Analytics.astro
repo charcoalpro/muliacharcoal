@@ -1,8 +1,9 @@
 ---
 import { company } from '~/config/company';
 
-const { gaId, gscVerification } = company.analytics;
+const { gaId, gscVerification, metaPixelId } = company.analytics;
 const isProd = import.meta.env.PROD;
+const pixelEnabled = Boolean(metaPixelId) && !metaPixelId.startsWith('TODO_');
 ---
 <meta name="google-site-verification" content={gscVerification} />
 
@@ -16,4 +17,19 @@ const isProd = import.meta.env.PROD;
       gtag('config', gaId);
     </script>
   </>
+)}
+
+{isProd && pixelEnabled && (
+  <script is:inline define:vars={{ metaPixelId }}>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', metaPixelId);
+    fbq('track', 'PageView');
+  </script>
 )}

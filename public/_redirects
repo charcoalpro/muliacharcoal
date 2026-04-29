@@ -1,0 +1,16 @@
+# Cloudflare Pages redirects file.
+# Format: <source>  <destination>  [<status>]
+#   - Status defaults to 301 (permanent) if omitted.
+#   - Lines starting with `#` are comments.
+# https://developers.cloudflare.com/pages/configuration/redirects/
+#
+# Future categories (add entries below as the site grows):
+#   1. Legacy URLs            — redirect old paths kept for inbound link equity
+#   2. Language fallbacks     — `/<lang>/missing-page` → `/missing-page`
+#   3. Marketing aliases      — short campaign URLs → canonical product pages
+#   4. Trailing-slash cleanup — handled by `trailingSlash: 'never'` in
+#                                astro.config.ts; only override here for exceptions
+#
+# Keep redirect chains to a maximum of one hop for SEO. Always 301
+# (permanent) for legacy URLs; 302 (temporary) only for short-lived
+# campaigns.

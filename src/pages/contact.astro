@@ -2,13 +2,15 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
-import ImagePlaceholder from '~/components/ImagePlaceholder.astro';
 import TrustBadge from '~/components/contact/TrustBadge.astro';
 import TeamCard from '~/components/contact/TeamCard.astro';
 import ChannelCard from '~/components/contact/ChannelCard.astro';
-import HotelCard from '~/components/contact/HotelCard.astro';
-import MapEmbed from '~/components/contact/MapEmbed.astro';
 import InquiryForm from '~/components/contact/InquiryForm.astro';
+import FindUsBlock from '~/components/contact/FindUsBlock.astro';
+import HoursBlock from '~/components/contact/HoursBlock.astro';
+import MapBlock from '~/components/contact/MapBlock.astro';
+import HotelsBlock from '~/components/contact/HotelsBlock.astro';
+import PaymentBlock from '~/components/contact/PaymentBlock.astro';
 import en from '~/i18n/en.json';
 import { fill } from '~/lib/interpolate';
 import {
@@ -20,6 +22,15 @@ import {
 import { localBusinessSchema } from '~/lib/schema/localBusiness';
 
 const t = en.contact;
+
+// Token dictionary for `fill()` substitutions on this page. Keep in sync with
+// the {{tokens}} that appear in `t.*Template` strings used here. Per-block
+// templates resolve their own tokens inside the extracted block components.
+const tokens = {
+  legalName: company.legalName,
+  city: company.address.city,
+  country: company.address.country,
+};
 
 // ---------------------------------------------------------------------------
 // Block 1 — Hero CTAs
@@ -187,43 +198,10 @@ if (c.viber) {
   });
 }
 const channels = [...baseChannels, ...optionalChannels];
-
-// ---------------------------------------------------------------------------
-// Block 7 — Address fragments
-// ---------------------------------------------------------------------------
-const addr = company.address;
-const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${addr.latitude},${addr.longitude}`;
-
-// ---------------------------------------------------------------------------
-// Block 8 — Lebaran callout
-// ---------------------------------------------------------------------------
-const lebaran = company.lebaranShutdown;
-const lebaranBody = fill(t.hours.lebaranBodyTemplate, {
-  from: lebaran.from,
-  to: lebaran.to,
-  cutoff: lebaran.orderCutoff,
-});
-
-// ---------------------------------------------------------------------------
-// Block 10 — Hotels split by tier
-// ---------------------------------------------------------------------------
-const fiveStar = company.hotels.filter((h) => h.stars === 5);
-const fourStar = company.hotels.filter((h) => h.stars === 4);
-const threeStar = company.hotels.filter((h) => h.stars === 3);
-
-// ---------------------------------------------------------------------------
-// Block 11 — Banking (public mode)
-// ---------------------------------------------------------------------------
-const isBankPublic = company.payment.mode === 'public';
-const bank = company.bank;
-const piHref = waLinkFor('piRequest');
-const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
-  director: company.people.owner.name,
-});
 ---
 <BaseLayout
-  title={t.meta.title}
-  description={t.meta.description}
+  title={fill(t.meta.titleTemplate, tokens)}
+  description={fill(t.meta.descriptionTemplate, tokens)}
   path="/contact"
   type="website"
   includeOrgSchema={true}
@@ -387,287 +365,17 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
   </section>
 
   <!-- Block 7 — Find us -->
-  <section aria-labelledby="findus-heading" class="bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-      <h2 id="findus-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-        {t.findUs.heading}
-      </h2>
-      <p class="mt-4 max-w-prose text-lg text-neutral-700">
-        {fill(t.findUs.leadTemplate, { addressShort: addr.short })}
-      </p>
-
-      <div class="mt-10 grid gap-10 lg:grid-cols-12">
-        <div class="lg:col-span-5">
-          <h3 class="text-base font-semibold text-neutral-900">{t.findUs.addressHeading}</h3>
-          <address class="mt-3 not-italic text-neutral-700">
-            <span class="block font-semibold text-neutral-900">{company.legalName}</span>
-            <span class="block">{addr.street}</span>
-            <span class="block">{addr.district}</span>
-            <span class="block">{addr.city}, {addr.region} {addr.postalCode}</span>
-            <span class="block">{addr.country}</span>
-            <span class="mt-3 block">
-              <span class="text-sm font-medium text-neutral-700">{t.findUs.phoneLabel}: </span>
-              <a
-                href={`tel:${company.phone.e164}`}
-                class="text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
-              >
-                {company.phone.display}
-              </a>
-            </span>
-            <span class="block">
-              <span class="text-sm font-medium text-neutral-700">{t.findUs.emailLabel}: </span>
-              <a
-                href={mailto()}
-                class="text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
-              >
-                {company.email}
-              </a>
-            </span>
-            <span class="mt-3 block">
-              <span class="text-sm font-medium text-neutral-700">{t.findUs.hoursHeading}: </span>
-              <span>{company.hours.weekdays}, {t.hours.sun.toLowerCase()} {t.hours.closed.toLowerCase()}</span>
-            </span>
-          </address>
-          <a
-            href={directionsHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t.findUs.directionsAria}
-            class="mt-5 inline-flex items-center justify-center rounded-md bg-brand-primary px-5 py-3 text-sm font-semibold text-white hover:bg-brand-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
-          >
-            {t.findUs.directionsButton}
-            <span class="sr-only">{t.newTabSr}</span>
-          </a>
-        </div>
-
-        <div class="lg:col-span-7">
-          <h3 class="text-base font-semibold text-neutral-900">{t.findUs.hubsHeading}</h3>
-          <div class="mt-3 overflow-x-auto rounded-xl border border-neutral-200">
-            <table class="w-full text-sm">
-              <thead class="bg-neutral-50 text-left">
-                <tr>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.from}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.distance}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.byCar}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.byTrainCar}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.findUs.hubsTable.notes}</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-neutral-200">
-                {company.travelHubs.map((hub) => (
-                  <tr>
-                    <td class="px-4 py-3 font-medium text-neutral-900">{hub.from}</td>
-                    <td class="px-4 py-3 text-neutral-700">{hub.distanceKm} km</td>
-                    <td class="px-4 py-3 text-neutral-700">{hub.byCar}</td>
-                    <td class="px-4 py-3 text-neutral-700">{hub.byTrainCar ?? '—'}</td>
-                    <td class="px-4 py-3 text-neutral-600">{hub.notes ?? ''}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p class="mt-3 text-sm text-neutral-600">{t.findUs.hubsNote}</p>
-        </div>
-      </div>
-
-      <h3 class="mt-12 text-base font-semibold text-neutral-900">{t.findUs.photosHeading}</h3>
-      <div class="mt-4 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <ImagePlaceholder label={t.findUs.photoMainGate} ratio="3/2" caption="Main gate" />
-        <ImagePlaceholder label={t.findUs.photoProductionFloor} ratio="3/2" caption="Production floor" />
-        <ImagePlaceholder label={t.findUs.photoQualityControl} ratio="3/2" caption="Quality control" />
-        <ImagePlaceholder label={t.findUs.photoLoadingBay} ratio="3/2" caption="Loading bay" />
-      </div>
-    </div>
-  </section>
+  <FindUsBlock />
 
   <!-- Block 8 — Hours & holidays -->
-  <section aria-labelledby="hours-heading" class="bg-neutral-50">
-    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-      <h2 id="hours-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-        {t.hours.heading}
-      </h2>
-      <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.hours.lead}</p>
-
-      <div class="mt-10 grid gap-10 lg:grid-cols-12">
-        <div class="lg:col-span-5">
-          <h3 class="text-base font-semibold text-neutral-900">{t.hours.weeklyHeading}</h3>
-          <div class="mt-3 overflow-hidden rounded-xl border border-neutral-200">
-            <table class="w-full text-sm">
-              <thead class="bg-white text-left">
-                <tr>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableDay}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableHours}</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-neutral-200 bg-white">
-                <tr>
-                  <td class="px-4 py-3 font-medium text-neutral-900">{t.hours.monSat}</td>
-                  <td class="px-4 py-3 text-neutral-700">08:00 – 16:00</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-3 font-medium text-neutral-900">{t.hours.sun}</td>
-                  <td class="px-4 py-3 text-neutral-700">{t.hours.closed}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="lg:col-span-7">
-          <h3 class="text-base font-semibold text-neutral-900">{t.hours.holidaysHeading}</h3>
-          <div class="mt-3 overflow-x-auto rounded-xl border border-neutral-200">
-            <table class="w-full text-sm">
-              <thead class="bg-white text-left">
-                <tr>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableDate}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableDayName}</th>
-                  <th class="px-4 py-3 font-semibold text-neutral-700">{t.hours.tableHolidayName}</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-neutral-200 bg-white">
-                {company.holidays2026.map((h) => (
-                  <tr>
-                    <td class="px-4 py-3 font-medium text-neutral-900">{h.date}</td>
-                    <td class="px-4 py-3 text-neutral-700">{h.day}</td>
-                    <td class="px-4 py-3 text-neutral-700">{h.name}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <div role="note" class="mt-8 rounded-xl border-l-4 border-warning bg-warning/10 p-5">
-        <p class="text-sm font-semibold text-neutral-900">{t.hours.lebaranHeading}</p>
-        <p class="mt-1 text-sm text-neutral-800">{lebaranBody}</p>
-      </div>
-    </div>
-  </section>
+  <HoursBlock />
 
   <!-- Block 9 — Map -->
-  <section aria-labelledby="map-heading" class="bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-      <h2 id="map-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-        {t.map.heading}
-      </h2>
-      <div class="mt-6">
-        <MapEmbed
-          latitude={addr.latitude}
-          longitude={addr.longitude}
-          title={t.map.iframeTitle}
-        />
-      </div>
-      <p class="mt-3 text-sm text-neutral-600">
-        {fill(t.map.captionTemplate, { addressShort: addr.short })}{' '}
-        <a
-          href={company.googleMapsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
-        >
-          {t.map.openInGoogleMaps}
-          <span class="sr-only">{t.newTabSr}</span>
-        </a>
-      </p>
-    </div>
-  </section>
+  <MapBlock />
 
   <!-- Block 10 — Hotels -->
-  <section aria-labelledby="hotels-heading" class="bg-neutral-50">
-    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-      <h2 id="hotels-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-        {t.hotels.heading}
-      </h2>
-      <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.hotels.lead}</p>
-
-      {[
-        { tier: fiveStar, heading: t.hotels.fiveStarHeading },
-        { tier: fourStar, heading: t.hotels.fourStarHeading },
-        { tier: threeStar, heading: t.hotels.threeStarHeading },
-      ].filter((g) => g.tier.length > 0).map((g) => (
-        <div class="mt-10">
-          <h3 class="text-base font-semibold text-neutral-900">{g.heading}</h3>
-          <ul class="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {g.tier.map((h) => (
-              <li class="h-full"><HotelCard hotel={h} /></li>
-            ))}
-          </ul>
-        </div>
-      ))}
-    </div>
-  </section>
+  <HotelsBlock />
 
   <!-- Block 11 — Banking (public) -->
-  <section aria-labelledby="payment-heading" class="bg-white">
-    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-      <h2 id="payment-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-        {t.payment.heading}
-      </h2>
-
-      <div role="alert" class="mt-6 rounded-xl border-l-4 border-error bg-error/10 p-5">
-        <p class="font-semibold text-neutral-900">⚠ {t.payment.warningHeading}</p>
-        <p class="mt-2 text-sm text-neutral-800">{paymentWarningBody}</p>
-      </div>
-
-      <div class="mt-8 grid gap-8 lg:grid-cols-12">
-        <div class="lg:col-span-5">
-          <h3 class="text-base font-semibold text-neutral-900">{t.payment.termsHeading}</h3>
-          <ul class="mt-3 space-y-2 text-sm text-neutral-700">
-            {company.payment.terms.map((term) => (
-              <li class="flex gap-2"><span aria-hidden="true" class="text-brand-primary">•</span><span>{term}</span></li>
-            ))}
-          </ul>
-          <h3 class="mt-6 text-base font-semibold text-neutral-900">{t.payment.currenciesHeading}</h3>
-          <p class="mt-2 text-sm text-neutral-700">{company.payment.currencies.join(', ')}</p>
-          <p class="mt-4 text-sm text-neutral-700">
-            <span class="font-medium text-neutral-700">{t.payment.bankCountryLabel}: </span>
-            {company.payment.bankCountry}
-          </p>
-        </div>
-
-        {isBankPublic && (
-          <div class="lg:col-span-7">
-            <div class="overflow-x-auto rounded-xl border border-neutral-200">
-              <table class="w-full text-sm">
-                <thead class="bg-neutral-50 text-left">
-                  <tr>
-                    <th class="px-4 py-3 font-semibold text-neutral-700">{t.payment.tableField}</th>
-                    <th class="px-4 py-3 font-semibold text-neutral-700">{t.payment.tableValue}</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-neutral-200 bg-white">
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.beneficiary}</td><td class="px-4 py-3 text-neutral-700">{bank.accountName}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.bankName}</td><td class="px-4 py-3 text-neutral-700">{bank.bankName}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.bankAddress}</td><td class="px-4 py-3 text-neutral-700">{bank.bankAddress}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.branch}</td><td class="px-4 py-3 text-neutral-700">{bank.branch}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.accountNumber}</td><td class="px-4 py-3 text-neutral-700">{bank.accountNumber}</td></tr>
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.swift}</td><td class="px-4 py-3 text-neutral-700">{bank.swiftCode}</td></tr>
-                  {bank.iban && (
-                    <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.iban}</td><td class="px-4 py-3 text-neutral-700">{bank.iban}</td></tr>
-                  )}
-                  <tr><td class="px-4 py-3 font-medium text-neutral-900">{t.payment.fields.currency}</td><td class="px-4 py-3 text-neutral-700">{bank.currency}</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="mt-3 text-sm text-neutral-600">
-              {fill(t.payment.lastVerifiedTemplate, { date: bank.lastVerified })}
-            </p>
-            <a
-              href={piHref}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={t.payment.piButtonAria}
-              data-event="whatsapp_click"
-              data-source-component="payment-pi"
-              class="mt-5 inline-flex items-center justify-center gap-2 rounded-md bg-success px-6 py-3 text-base font-semibold text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
-            >
-              {t.payment.piButton}
-              <span class="sr-only">{t.newTabSr}</span>
-            </a>
-          </div>
-        )}
-      </div>
-    </div>
-  </section>
+  <PaymentBlock />
 </BaseLayout>

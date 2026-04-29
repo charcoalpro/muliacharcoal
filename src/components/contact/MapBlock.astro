@@ -1,0 +1,47 @@
+---
+/**
+ * MapBlock — Contact page Block 9.
+ *
+ * Embeds a Google Maps view of the factory plus a caption with an
+ * "open in Google Maps" link. Self-contained.
+ */
+
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company } from '~/config/company';
+import MapEmbed from '~/components/contact/MapEmbed.astro';
+
+const t = en.contact;
+const addr = company.address;
+const tokens = {
+  legalName: company.legalName,
+  city: company.address.city,
+  country: company.address.country,
+};
+---
+<section aria-labelledby="map-heading" class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <h2 id="map-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
+      {t.map.heading}
+    </h2>
+    <div class="mt-6">
+      <MapEmbed
+        latitude={addr.latitude}
+        longitude={addr.longitude}
+        title={fill(t.map.iframeTitleTemplate, tokens)}
+      />
+    </div>
+    <p class="mt-3 text-sm text-neutral-600">
+      {fill(t.map.captionTemplate, { addressShort: addr.short })}{' '}
+      <a
+        href={company.googleMapsUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
+      >
+        {t.map.openInGoogleMaps}
+        <span class="sr-only">{t.newTabSr}</span>
+      </a>
+    </p>
+  </div>
+</section>

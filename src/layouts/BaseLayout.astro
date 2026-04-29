@@ -99,5 +99,11 @@ const {
     </main>
     <Footer />
     <WhatsAppButton floating />
+    <script>
+      // One click-delegate wires every [data-event] surface (WhatsApp CTAs,
+      // outbound links, language switcher, etc.) to the central track()
+      // helper. See src/lib/analytics.ts for the supported events.
+      import '~/lib/event-delegation.client.ts';
+    </script>
   </body>
 </html>

@@ -35,9 +35,22 @@ const ogImage = image
 
 const fullTitle = title.includes(company.brand) ? title : `${title} | ${company.brand}`;
 
-const languages: Array<{ code: string; path: string }> = [
-  { code: 'en', path },
-];
+// Strip any active language prefix from the current path so we can
+// re-prepend each active language's prefix for hreflang. Lets pages
+// pass either the neutral path ("/contact") or a localized one
+// ("/ar/contact") and still get correct alternate URLs for every
+// active language.
+const normalizedPath = normalizePath(path);
+const stripPrefix = company.activeLanguages.reduce<string>((acc, lang) => {
+  if (lang.pathPrefix && (normalizedPath === lang.pathPrefix || normalizedPath.startsWith(lang.pathPrefix + '/'))) {
+    return normalizedPath.slice(lang.pathPrefix.length);
+  }
+  return acc;
+}, normalizedPath);
+const neutralPath = stripPrefix || '';
+
+const defaultLang = company.activeLanguages.find((l) => l.pathPrefix === '') ?? company.activeLanguages[0];
+const xDefaultHref = `${siteBase}${defaultLang.pathPrefix}${neutralPath}` || siteBase;
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
@@ -60,7 +73,7 @@ const languages: Array<{ code: string; path: string }> = [
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-{languages.map((lang) => (
-  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />
+{company.activeLanguages.map((lang) => (
+  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${lang.pathPrefix}${neutralPath}` || siteBase} />
 ))}
-<link rel="alternate" hreflang="x-default" href={canonical} />
+<link rel="alternate" hreflang="x-default" href={xDefaultHref} />
