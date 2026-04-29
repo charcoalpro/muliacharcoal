@@ -34,6 +34,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) => !page.includes('/dev/'),
+      customPages: [`${company.siteUrl}/llm.html`],
     }),
     tailwind({ applyBaseStyles: true }),
   ],
