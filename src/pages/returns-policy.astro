@@ -1,0 +1,100 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import Prose from '~/components/content/Prose.astro';
+import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+
+const entry = await getEntry('legal', 'returns-policy');
+if (!entry) {
+  throw new Error('Missing content entry: legal/returns-policy');
+}
+const { Content, headings } = await render(entry);
+
+const { title, lastUpdated, datePublished } = entry.data;
+const description = fill(entry.data.description, companyTokens(company));
+
+const path = '/returns-policy';
+const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : company.siteUrl;
+const absoluteUrl = `${siteOrigin}${path}`;
+
+const isoModified = lastUpdated.toISOString().split('T')[0];
+const isoPublished = (datePublished ?? lastUpdated).toISOString().split('T')[0];
+const lastUpdatedFormatted = lastUpdated.toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const tocItems = headings.filter((h) => h.depth === 2);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': `${absoluteUrl}#webpage`,
+  url: absoluteUrl,
+  name: title,
+  description,
+  inLanguage: 'en',
+  dateModified: isoModified,
+  datePublished: isoPublished,
+  isPartOf: { '@id': `${siteOrigin}/#website` },
+  about: { '@id': `${siteOrigin}/#organization` },
+  publisher: { '@id': `${siteOrigin}/#organization` },
+};
+---
+<BaseLayout
+  title={`${title} — ${company.brand}`}
+  description={description}
+  path={path}
+  includeOrgSchema
+  schema={schema}
+>
+  <article class="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
+    <Breadcrumbs items={[{ label: title }]} class="mb-8" />
+
+    <header>
+      <h1 class="text-2xl font-bold text-neutral-900 md:text-3xl lg:text-4xl">
+        {title}
+      </h1>
+      <p class="mt-3 text-sm text-neutral-500">
+        {en.legal.lastUpdatedLabel}: <time datetime={isoModified}>{lastUpdatedFormatted}</time>
+      </p>
+    </header>
+
+    {tocItems.length > 0 && (
+      <nav
+        aria-label={en.legal.tocHeading}
+        class="mt-8 rounded-xl border border-neutral-200 bg-neutral-50 p-5"
+      >
+        <p class="text-xs font-semibold uppercase tracking-wide text-neutral-600">
+          {en.legal.tocHeading}
+        </p>
+        <ol class="mt-3 space-y-1.5 text-sm">
+          {tocItems.map((h, i) => (
+            <li>
+              <a
+                href={`#${h.slug}`}
+                class="inline-block rounded-sm py-0.5 text-brand-primary underline underline-offset-2 transition-colors hover:text-brand-primary-hover hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+              >
+                {i + 1}. {h.text}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+    )}
+
+    <Prose class="mt-12">
+      <Content />
+    </Prose>
+
+    <aside class="mt-12 flex flex-col items-start gap-4 border-t border-neutral-200 pt-8">
+      <p class="text-base text-neutral-800">{en.legal.returnsClosingPrompt}</p>
+      <WhatsAppButton />
+    </aside>
+  </article>
+</BaseLayout>

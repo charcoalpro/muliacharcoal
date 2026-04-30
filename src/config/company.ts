@@ -304,6 +304,58 @@ export const company = {
   },
 
   // -----------------------------------------------------------------
+  // Returns and quality claims terms
+  //
+  // Drives /returns-policy. Buyers and their insurance/customs counter-
+  // parties read these numbers to decide whether to issue a PI; every
+  // window, sampling rate, ash range, and lab requirement on the page
+  // is rendered from this block. Update a value here and the policy
+  // page reflects the change on the next build.
+  // -----------------------------------------------------------------
+  claims: {
+    // Visible damage / short-shipment must be reported within this many
+    // business days of container arrival at destination port.
+    damageBusinessDays: 5,
+    // Quality and quantity claims must be filed within this many days
+    // of goods receipt. After this window, goods are deemed accepted.
+    qualityDays: 7,
+    // Sampling protocol for any disputed lot.
+    sampling: {
+      // Random sample drawn across the full container, not from a
+      // single pallet. Percentage of total consignment by weight.
+      minimumPercentByWeight: 0.1,
+      // ASTM standard reference cited on the policy page for moisture
+      // determination. The whole standard name is rendered verbatim.
+      moistureStandardReference: 'ASTM D1762-84 (2021) §7.2',
+    },
+    // Maximum guaranteed moisture as percent by weight at time of loading.
+    moisture: {
+      maxPercent: 8,
+    },
+    // Tolerance for natural agricultural variation around any stated
+    // specification. Coconut shells are a natural input, not a synthetic
+    // material; small lot-to-lot drift is expected.
+    naturalVariationPercent: 5,
+    // Guaranteed ash-content ranges by product tier (percent by weight).
+    // Names map to the SKU tiers buyers see on /products. Both bounds
+    // are inclusive.
+    ashTiers: [
+      { name: 'Platinum',      minPercent: 1.4, maxPercent: 1.9 },
+      { name: 'Super Premium', minPercent: 1.6, maxPercent: 2.2 },
+      { name: 'Premium',       minPercent: 1.6, maxPercent: 2.5 },
+    ],
+    // Accredited testing-laboratory requirement. Any lab the buyer
+    // engages for a disputed test must hold this accreditation, so
+    // results are mutually admissible.
+    lab: {
+      accreditor: 'KAN',
+      accreditorFull: 'Komite Akreditasi Nasional',
+      standard: 'ISO/IEC 17025',
+      country: 'Indonesia',
+    },
+  },
+
+  // -----------------------------------------------------------------
   // Sales team — Contact page Block 4.
   //
   // Each entry renders as a TeamCard with WhatsApp / phone / email

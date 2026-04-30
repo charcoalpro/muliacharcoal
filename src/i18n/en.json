@@ -14,7 +14,8 @@
   },
   "legal": {
     "lastUpdatedLabel": "Last updated",
-    "tocHeading": "On this page"
+    "tocHeading": "On this page",
+    "returnsClosingPrompt": "Questions before you order? Talk to us on WhatsApp."
   },
   "ctaBanner": {
     "title": "Ready to discuss a container load?",
@@ -65,6 +66,7 @@
     "legal": {
       "privacy": "Privacy policy",
       "terms": "Terms & Conditions",
+      "returns": "Returns & claims",
       "cookies": "Cookies policy"
     },
     "llmTxt": "llm.txt",

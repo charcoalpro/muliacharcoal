@@ -121,6 +121,30 @@ export function companyTokens(company: Company): Tokens {
     arbitrationInstitution: company.legal.arbitration.institution,
     arbitrationInstitutionShort: company.legal.arbitration.institutionShort,
     arbitrationSeat: company.legal.arbitration.seat,
+    // Returns and quality claims — drives /returns-policy prose. Every
+    // window, sampling rate, lab accreditation, and tolerance reference
+    // in the policy body resolves through one of these tokens.
+    damageBusinessDays: company.claims.damageBusinessDays,
+    qualityDays: company.claims.qualityDays,
+    samplingPercent: company.claims.sampling.minimumPercentByWeight,
+    moistureStandard: company.claims.sampling.moistureStandardReference,
+    moistureMaxPercent: company.claims.moisture.maxPercent,
+    naturalVariationPercent: company.claims.naturalVariationPercent,
+    labAccreditor: company.claims.lab.accreditor,
+    labAccreditorFull: company.claims.lab.accreditorFull,
+    labStandard: company.claims.lab.standard,
+    labCountry: company.claims.lab.country,
+    // Ash-content tiers — positional tokens so the /returns-policy
+    // Markdown table can render every cell from config without
+    // hardcoding a single percentage. Order tracks
+    // `company.claims.ashTiers[0..2]`. If that array is reordered,
+    // these bindings move with it.
+    ashTier1Name: company.claims.ashTiers[0].name,
+    ashTier1Range: `${company.claims.ashTiers[0].minPercent} – ${company.claims.ashTiers[0].maxPercent}`,
+    ashTier2Name: company.claims.ashTiers[1].name,
+    ashTier2Range: `${company.claims.ashTiers[1].minPercent} – ${company.claims.ashTiers[1].maxPercent}`,
+    ashTier3Name: company.claims.ashTiers[2].name,
+    ashTier3Range: `${company.claims.ashTiers[2].minPercent} – ${company.claims.ashTiers[2].maxPercent}`,
     // People
     executives: executivesList,
   };
