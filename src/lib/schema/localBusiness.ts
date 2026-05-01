@@ -9,34 +9,29 @@
  * vector and offers no SEO value.
  */
 
-import { company } from '~/config/company';
+import { company, e164Plus } from '~/config/company';
 
 const siteOrigin = (company.siteUrl ?? '').replace(/\/$/, '');
 
 interface OpeningHoursSpec {
   '@type': 'OpeningHoursSpecification';
-  dayOfWeek: string[];
+  dayOfWeek: readonly string[];
   opens: string;
   closes: string;
 }
 
+// Derived from `company.hours` so changing the working week or shift
+// times flows through automatically. If hours diverge per day in the
+// future, expand `company.hours` to a per-day map and emit one spec
+// per group here.
 const openingHoursSpecification: OpeningHoursSpec[] = [
   {
     '@type': 'OpeningHoursSpecification',
-    dayOfWeek: [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-    ],
-    opens: '08:00',
-    closes: '16:00',
+    dayOfWeek: company.hours.daysOpen,
+    opens: company.hours.open,
+    closes: company.hours.close,
   },
 ];
-
-const availableLanguages = ['en', 'id', 'zh', 'ar'];
 
 const contactPoints = [
   {
@@ -44,15 +39,13 @@ const contactPoints = [
     contactType: 'sales',
     telephone: company.phone.e164,
     email: company.email,
-    availableLanguage: availableLanguages,
+    availableLanguage: company.languages.spoken,
     areaServed: 'Worldwide',
   },
   {
     '@type': 'ContactPoint',
     contactType: 'customer support',
-    telephone: company.whatsapp.director.e164Digits.startsWith('+')
-      ? company.whatsapp.director.e164Digits
-      : `+${company.whatsapp.director.e164Digits}`,
+    telephone: e164Plus(company.whatsapp.director.e164Digits),
     email: company.email,
     availableLanguage: ['en', 'id'],
     areaServed: 'Worldwide',

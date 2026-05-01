@@ -18,6 +18,10 @@ interface PreloadHint {
   imagesizes?: string;
 }
 
+// Locales that need right-to-left layout. Add codes here as RTL
+// translations (Arabic, Hebrew, …) launch.
+const RTL_LOCALES = new Set(['ar', 'he', 'fa', 'ur']);
+
 interface Props {
   title: string;
   description: string;
@@ -34,6 +38,12 @@ interface Props {
   prefetch?: string[];
   /** Page-specific JSON-LD schema. Pass an object (single graph) or array (multiple). */
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
+  /** Render the GA4 / Meta Pixel snippet. Default true; set false on dev / utility pages. */
+  includeAnalytics?: boolean;
+  /** Render the floating WhatsApp button. Default true; set false on print / embed pages. */
+  includeWhatsAppButton?: boolean;
+  /** Render Header + Footer + SkipLink. Set false for chrome-free utility renders. */
+  includeChrome?: boolean;
 }
 
 const {
@@ -44,11 +54,16 @@ const {
   type = 'website',
   noIndex = false,
   lang = 'en',
-  dir = 'ltr',
+  // Default `dir` from the lang code so RTL locales just work without
+  // every page having to remember to set it.
+  dir = (RTL_LOCALES.has(lang) ? 'rtl' : 'ltr'),
   includeOrgSchema = false,
   preload = [],
   prefetch = [],
   schema,
+  includeAnalytics = true,
+  includeWhatsAppButton = true,
+  includeChrome = true,
 } = Astro.props;
 ---
 <!doctype html>
@@ -61,7 +76,7 @@ const {
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <Analytics />
+    {includeAnalytics && <Analytics />}
 
     <link rel="preconnect" href="https://api.web3forms.com" crossorigin />
 
@@ -92,12 +107,12 @@ const {
     {schema && <JsonLd data={schema} />}
   </head>
   <body class="flex min-h-full flex-col bg-white font-sans text-base leading-relaxed text-neutral-800">
-    <SkipLink />
-    <Header />
+    {includeChrome && <SkipLink />}
+    {includeChrome && <Header />}
     <main id="main" tabindex="-1" class="flex-1 focus:outline-none">
       <slot />
     </main>
-    <Footer />
-    <WhatsAppButton floating />
+    {includeChrome && <Footer />}
+    {includeWhatsAppButton && <WhatsAppButton floating />}
   </body>
 </html>

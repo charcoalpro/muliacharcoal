@@ -68,7 +68,7 @@ const mailHref = `mailto:${member.email}`;
     <a
       href={telHref}
       class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
-      aria-label={fill(t.languagesLabel === 'Languages' ? en.contact.whatsappPrimary.buttonAriaCallTemplate : t.buttonCall, { name: member.name, phone: member.phoneDisplay })}
+      aria-label={fill(en.contact.whatsappPrimary.buttonAriaCallTemplate, { name: member.name, phone: member.phoneDisplay })}
     >
       {t.buttonCall}
     </a>

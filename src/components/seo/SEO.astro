@@ -35,9 +35,19 @@ const ogImage = image
 
 const fullTitle = title.includes(company.brand) ? title : `${title} | ${company.brand}`;
 
-const languages: Array<{ code: string; path: string }> = [
-  { code: 'en', path },
-];
+// One <link rel="alternate" hreflang="…"> per active site locale.
+// English versions live at the root (`/about`); other languages are
+// URL-prefixed (`/ar/about`, `/de/about`, …) per CLAUDE.md.
+const localizedPath = (locale: string, basePath: string): string => {
+  if (locale === company.languages.defaultLocale) return basePath;
+  const clean = basePath.replace(/^\/+/, '').replace(/\/+$/, '');
+  return clean ? `/${locale}/${clean}` : `/${locale}`;
+};
+
+const languages = company.languages.siteLocales.map((code) => ({
+  code,
+  path: localizedPath(code, path),
+}));
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />

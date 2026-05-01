@@ -9,217 +9,47 @@ import ChannelCard from '~/components/contact/ChannelCard.astro';
 import HotelCard from '~/components/contact/HotelCard.astro';
 import MapEmbed from '~/components/contact/MapEmbed.astro';
 import InquiryForm from '~/components/contact/InquiryForm.astro';
+import WhatsAppPersonCard from '~/components/contact/WhatsAppPersonCard.astro';
 import en from '~/i18n/en.json';
 import { fill } from '~/lib/interpolate';
-import {
-  company,
-  waLinkFor,
-  mailto,
-  yearsInBusiness,
-} from '~/config/company';
+import { company, waLinkFor, mailto, e164Plus, weeklyHoursLabel, businessHoursRange } from '~/config/company';
 import { localBusinessSchema } from '~/lib/schema/localBusiness';
+import {
+  buildTrustItems,
+  buildContactChannels,
+  buildLebaranBody,
+  groupHotelsByTier,
+  buildPaymentWarningBody,
+} from '~/lib/contact';
 
 const t = en.contact;
 
-// ---------------------------------------------------------------------------
 // Block 1 — Hero CTAs
-// ---------------------------------------------------------------------------
 const heroWaHref = waLinkFor('heroCta');
 const heroEmailHref = mailto('Wholesale inquiry');
 
-// ---------------------------------------------------------------------------
-// Block 2 — Trust strip data (only render badges with verified facts)
-// ---------------------------------------------------------------------------
-const years = yearsInBusiness();
-const trustItems = [
-  {
-    iconText: '★',
-    label: t.trust.exportingSinceTemplate.replace('{{year}}', String(company.foundingYear)),
-    value: fill(t.trust.yearsLabelTemplate, { years: String(years) }),
-  },
-  {
-    iconText: '§',
-    label: t.trust.legalLabel,
-    value: company.legalName,
-  },
-  {
-    iconText: 'N',
-    label: t.trust.nibLabel,
-    value: company.registration.nib,
-  },
-  {
-    iconText: 'T',
-    label: t.trust.npwpLabel,
-    value: company.registration.taxId,
-  },
-  {
-    iconText: '✓',
-    label: t.trust.isoLabel,
-    value: `Audited by ${company.certifications.iso9001.auditors.join(' & ')}`,
-  },
-  {
-    iconText: '⚓',
-    label: t.trust.imdgLabel,
-    value: company.certifications.imdg.classDescription,
-  },
-  {
-    iconText: '◉',
-    label: t.trust.directorLabel,
-    value: company.people.owner.name,
-  },
-];
+// Block 2 / 5 / 8 / 10 / 11 — derived data (see src/lib/contact.ts)
+const trustItems = buildTrustItems(t);
+const channels = buildContactChannels(t);
+const lebaranBody = buildLebaranBody(t);
+const hotelTiers = groupHotelsByTier(company.hotels);
+const paymentWarningBody = buildPaymentWarningBody(t);
 
-// ---------------------------------------------------------------------------
-// Block 5 — Channels (only render those with real handles set)
-// ---------------------------------------------------------------------------
-const phoneE164 = company.phone.e164;
-const phoneDisplay = company.phone.display;
-const baseChannels: Array<{ channel: string; handle: string; href: string; iconText?: string; ctaLabel?: string }> = [
-  {
-    channel: 'WhatsApp chat',
-    handle: phoneDisplay,
-    href: waLinkFor('salesGeneral'),
-    iconText: '💬',
-  },
-  {
-    channel: 'WhatsApp voice call',
-    handle: phoneDisplay,
-    href: waLinkFor('salesGeneral'),
-    iconText: '📞',
-  },
-  {
-    channel: 'WhatsApp video call',
-    handle: phoneDisplay,
-    href: waLinkFor('videoCallRequest'),
-    iconText: '🎥',
-  },
-  {
-    channel: 'Direct phone call',
-    handle: phoneDisplay,
-    href: `tel:${phoneE164}`,
-    iconText: '☎',
-  },
-  {
-    channel: 'SMS',
-    handle: phoneDisplay,
-    href: `sms:${phoneE164}`,
-    iconText: '✉',
-  },
-  {
-    channel: 'Email',
-    handle: company.email,
-    href: mailto('Wholesale inquiry'),
-    iconText: '@',
-  },
-  {
-    channel: 'Inquiry form',
-    handle: t.channels.anchorButton,
-    href: '#inquiry',
-    iconText: '📝',
-    ctaLabel: t.channels.anchorButton,
-  },
-];
-
-const c = company.channels;
-const optionalChannels: Array<{ channel: string; handle: string; href: string; iconText?: string }> = [];
-if (c.zoom?.schedulingUrl) {
-  optionalChannels.push({
-    channel: 'Zoom / Google Meet',
-    handle: t.channels.videoMeetingLabel,
-    href: c.zoom.schedulingUrl,
-    iconText: '🎦',
-  });
-}
-if (c.wechat?.id) {
-  optionalChannels.push({
-    channel: 'WeChat',
-    handle: c.wechat.id,
-    href: `weixin://dl/chat?${c.wechat.id}`,
-    iconText: '微',
-  });
-}
-if (c.telegram?.url) {
-  optionalChannels.push({
-    channel: 'Telegram',
-    handle: c.telegram.handle,
-    href: c.telegram.url,
-    iconText: 'T',
-  });
-}
-if (c.messenger?.url) {
-  optionalChannels.push({
-    channel: 'Messenger',
-    handle: c.messenger.handle,
-    href: c.messenger.url,
-    iconText: 'M',
-  });
-}
-if (c.botim) {
-  optionalChannels.push({
-    channel: 'Botim',
-    handle: c.botim,
-    href: `tel:${c.botim}`,
-    iconText: 'B',
-  });
-}
-if (c.max) {
-  optionalChannels.push({
-    channel: 'Max',
-    handle: c.max,
-    href: `https://max.ru/${c.max}`,
-    iconText: 'X',
-  });
-}
-if (c.line) {
-  optionalChannels.push({
-    channel: 'Line',
-    handle: c.line,
-    href: `https://line.me/ti/p/~${c.line}`,
-    iconText: 'L',
-  });
-}
-if (c.viber) {
-  optionalChannels.push({
-    channel: 'Viber',
-    handle: c.viber,
-    href: `viber://chat?number=${encodeURIComponent(c.viber)}`,
-    iconText: 'V',
-  });
-}
-const channels = [...baseChannels, ...optionalChannels];
-
-// ---------------------------------------------------------------------------
 // Block 7 — Address fragments
-// ---------------------------------------------------------------------------
 const addr = company.address;
 const directionsHref = `https://www.google.com/maps/dir/?api=1&destination=${addr.latitude},${addr.longitude}`;
 
-// ---------------------------------------------------------------------------
-// Block 8 — Lebaran callout
-// ---------------------------------------------------------------------------
-const lebaran = company.lebaranShutdown;
-const lebaranBody = fill(t.hours.lebaranBodyTemplate, {
-  from: lebaran.from,
-  to: lebaran.to,
-  cutoff: lebaran.orderCutoff,
-});
-
-// ---------------------------------------------------------------------------
-// Block 10 — Hotels split by tier
-// ---------------------------------------------------------------------------
-const fiveStar = company.hotels.filter((h) => h.stars === 5);
-const fourStar = company.hotels.filter((h) => h.stars === 4);
-const threeStar = company.hotels.filter((h) => h.stars === 3);
-
-// ---------------------------------------------------------------------------
 // Block 11 — Banking (public mode)
-// ---------------------------------------------------------------------------
 const isBankPublic = company.payment.mode === 'public';
 const bank = company.bank;
 const piHref = waLinkFor('piRequest');
-const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
-  director: company.people.owner.name,
-});
+
+// Tier-heading lookup for Block 10 (data lives in i18n; structure in lib).
+const hotelTierHeadings: Record<number, string> = {
+  5: t.hotels.fiveStarHeading,
+  4: t.hotels.fourStarHeading,
+  3: t.hotels.threeStarHeading,
+};
 ---
 <BaseLayout
   title={t.meta.title}
@@ -295,43 +125,16 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
           <p class="mt-6 text-sm text-neutral-600">{t.whatsappPrimary.voiceVideoNote}</p>
         </div>
         <div class="grid gap-4 lg:col-span-6 sm:grid-cols-2">
-          {[company.whatsapp.sales, company.whatsapp.director].map((person, idx) => {
-            const presetKey = idx === 0 ? 'salesGeneral' : 'directorIntro';
-            const waHref = waLinkFor(presetKey, person.e164Digits);
-            const heading = idx === 0 ? t.whatsappPrimary.salesCardHeading : t.whatsappPrimary.directorCardHeading;
-            return (
-              <article class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6">
-                <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">{heading}</p>
-                <h3 class="mt-2 text-lg font-semibold text-neutral-900">{person.name}</h3>
-                <p class="text-sm text-neutral-600">{person.role}</p>
-                <a
-                  href={`tel:${person.e164Digits.startsWith('+') ? person.e164Digits : '+' + person.e164Digits}`}
-                  class="mt-4 text-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary rounded-sm"
-                >
-                  {person.display}
-                </a>
-                <div class="mt-auto flex flex-wrap gap-2 pt-4">
-                  <a
-                    href={waHref}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    data-event="whatsapp_click"
-                    data-source-component="whatsapp-primary"
-                    class="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
-                  >
-                    {t.whatsappPrimary.buttonOpenWhatsapp}
-                    <span class="sr-only">{t.newTabSr}</span>
-                  </a>
-                  <a
-                    href={`tel:${person.e164Digits.startsWith('+') ? person.e164Digits : '+' + person.e164Digits}`}
-                    class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
-                  >
-                    {t.whatsappPrimary.buttonCall}
-                  </a>
-                </div>
-              </article>
-            );
-          })}
+          <WhatsAppPersonCard
+            heading={t.whatsappPrimary.salesCardHeading}
+            person={company.whatsapp.sales}
+            presetKey="salesGeneral"
+          />
+          <WhatsAppPersonCard
+            heading={t.whatsappPrimary.directorCardHeading}
+            person={company.whatsapp.director}
+            presetKey="directorIntro"
+          />
         </div>
       </div>
     </div>
@@ -425,7 +228,7 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
             </span>
             <span class="mt-3 block">
               <span class="text-sm font-medium text-neutral-700">{t.findUs.hoursHeading}: </span>
-              <span>{company.hours.weekdays}, {t.hours.sun.toLowerCase()} {t.hours.closed.toLowerCase()}</span>
+              <span>{weeklyHoursLabel()}, {t.hours.sun.toLowerCase()} {t.hours.closed.toLowerCase()}</span>
             </span>
           </address>
           <a
@@ -502,7 +305,7 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
               <tbody class="divide-y divide-neutral-200 bg-white">
                 <tr>
                   <td class="px-4 py-3 font-medium text-neutral-900">{t.hours.monSat}</td>
-                  <td class="px-4 py-3 text-neutral-700">08:00 – 16:00</td>
+                  <td class="px-4 py-3 text-neutral-700">{businessHoursRange()}</td>
                 </tr>
                 <tr>
                   <td class="px-4 py-3 font-medium text-neutral-900">{t.hours.sun}</td>
@@ -581,15 +384,11 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
       </h2>
       <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.hotels.lead}</p>
 
-      {[
-        { tier: fiveStar, heading: t.hotels.fiveStarHeading },
-        { tier: fourStar, heading: t.hotels.fourStarHeading },
-        { tier: threeStar, heading: t.hotels.threeStarHeading },
-      ].filter((g) => g.tier.length > 0).map((g) => (
+      {hotelTiers.map((tier) => (
         <div class="mt-10">
-          <h3 class="text-base font-semibold text-neutral-900">{g.heading}</h3>
+          <h3 class="text-base font-semibold text-neutral-900">{hotelTierHeadings[tier.stars]}</h3>
           <ul class="mt-4 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {g.tier.map((h) => (
+            {tier.hotels.map((h) => (
               <li class="h-full"><HotelCard hotel={h} /></li>
             ))}
           </ul>

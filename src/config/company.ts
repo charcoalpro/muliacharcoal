@@ -161,11 +161,36 @@ export const company = {
 
   // -----------------------------------------------------------------
   // Working hours
+  //
+  // Structured fields are the source. Display strings ("Monday –
+  // Saturday 08:00–16:00 (GMT+7)", "08:00–16:00 (GMT+7)") derive via
+  // `weeklyHoursLabel()` and `businessHoursRange()` at the bottom of
+  // this file. Schema.org `openingHoursSpecification` derives from
+  // `daysOpen` + `open` + `close` in `lib/schema/localBusiness.ts`.
   // -----------------------------------------------------------------
   hours: {
     timezone: 'Asia/Jakarta', // GMT+7, no DST
-    weekdays: 'Monday – Saturday 08:00 – 16:00 (GMT+7)',
-    sunday: 'Closed',
+    utcOffsetLabel: 'GMT+7',
+    open: '08:00',
+    close: '16:00',
+    daysOpen: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    daysClosed: ['Sunday'],
+  },
+
+  // -----------------------------------------------------------------
+  // Languages
+  //
+  // `spoken` is the set of buyer-facing languages our sales desk can
+  // converse in — used for Schema.org LocalBusiness `availableLanguage`.
+  // `siteLocales` is the set of language versions of the website itself
+  // (used to generate hreflang tags). Only the locales whose translation
+  // file exists in `src/i18n/` should appear here; CLAUDE.md launches
+  // English-only and adds the rest incrementally.
+  // -----------------------------------------------------------------
+  languages: {
+    spoken: ['en', 'id', 'zh', 'ar'],
+    siteLocales: ['en'],
+    defaultLocale: 'en',
   },
 
   // -----------------------------------------------------------------
@@ -566,6 +591,36 @@ export const company = {
       'Monthly contract (recurring)',
       'Trial / sample only',
     ],
+    // Compact, B2B-relevant subset of countries — wholesale charcoal
+    // buyers rarely sit outside this list. "Other" lets long-tail
+    // markets self-identify on the inquiry form.
+    countries: [
+      'United States', 'United Kingdom', 'Saudi Arabia', 'United Arab Emirates',
+      'Germany', 'Russia', 'Kazakhstan', 'Turkey', 'France', 'Spain',
+      'Italy', 'Netherlands', 'Belgium', 'Poland', 'Czech Republic',
+      'Greece', 'Portugal', 'Sweden', 'Denmark', 'Norway',
+      'Switzerland', 'Austria', 'Ireland', 'Romania', 'Hungary',
+      'Egypt', 'Jordan', 'Lebanon', 'Kuwait', 'Qatar',
+      'Bahrain', 'Oman', 'Iraq', 'Israel', 'Morocco',
+      'Tunisia', 'Algeria', 'South Africa', 'Nigeria', 'Kenya',
+      'Australia', 'New Zealand', 'Canada', 'Mexico', 'Brazil',
+      'Argentina', 'Chile', 'India', 'Pakistan', 'Bangladesh',
+      'China', 'Hong Kong', 'Taiwan', 'Japan', 'South Korea',
+      'Singapore', 'Malaysia', 'Thailand', 'Vietnam', 'Philippines',
+      'Other',
+    ],
+    // Product types shown as the "Product type" checkbox group.
+    // `id` is the value submitted to Web3Forms; `label` is the visible
+    // label (English; will become a translation key once non-EN
+    // locales launch).
+    productOptions: [
+      { id: 'cube',       label: 'Cube' },
+      { id: 'hexagonal',  label: 'Hexagonal' },
+      { id: 'finger',     label: 'Finger' },
+      { id: 'dome',       label: 'Dome' },
+      { id: 'flat',       label: 'Flat' },
+      { id: 'custom',     label: 'Custom shape / private label' },
+    ],
   },
 
   // -----------------------------------------------------------------
@@ -748,15 +803,45 @@ export function waLinkFor(
 }
 
 /**
- * "08:00–16:00 (GMT+7)" — derived business-hours range used by Block 8
- * weekly-hours table. Returns the same time string for every working
- * day; days with `closed: true` should render "Closed" instead.
+ * "08:00–16:00 (GMT+7)" — derived business-hours range used by the
+ * Contact-page Block 8 weekly-hours table.
+ *
+ * Hours are uniform across working days; if they ever diverge per day,
+ * replace `company.hours.open/close` with a per-day map and update
+ * this helper to take a day argument.
  */
 export function businessHoursRange(): string {
-  // Derived from the human-readable summary string in `company.hours.weekdays`.
-  // Kept simple here because hours are uniform across working days; if hours
-  // diverge per day in the future, replace with a structured per-day map.
-  return '08:00–16:00 (GMT+7)';
+  const { open, close, utcOffsetLabel } = company.hours;
+  return `${open}–${close} (${utcOffsetLabel})`;
+}
+
+/**
+ * "Monday–Saturday 08:00–16:00 (GMT+7)" — full weekly-hours label
+ * used in the Footer and the Contact "Find us" address block. Built
+ * from `daysOpen[0]` + last `daysOpen[-1]` so changing the working
+ * week (e.g. dropping Saturday) propagates without a string edit.
+ */
+export function weeklyHoursLabel(): string {
+  const { daysOpen } = company.hours;
+  if (daysOpen.length === 0) return businessHoursRange();
+  const first = daysOpen[0];
+  const last = daysOpen[daysOpen.length - 1];
+  const range = first === last ? first : `${first}–${last}`;
+  return `${range} ${businessHoursRange()}`;
+}
+
+/**
+ * Normalize an E.164 number to always begin with `+`. Some entries in
+ * `company.whatsapp.*` are stored as raw digits (the form `wa.me`
+ * URLs require) but `tel:` and Schema.org `ContactPoint.telephone`
+ * expect the `+` prefix.
+ *
+ * @example
+ *   e164Plus('6282128768545')  // '+6282128768545'
+ *   e164Plus('+6282128768545') // '+6282128768545'
+ */
+export function e164Plus(digits: string): string {
+  return digits.startsWith('+') ? digits : `+${digits}`;
 }
 
 // =======================================================================

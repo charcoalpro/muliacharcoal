@@ -4,13 +4,7 @@ import Logo from '~/components/layout/Logo.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
 import { company } from '~/config/company';
-
-// "Price" routes to /products per product-pricing decision (TODO: dedicated /pricing page later).
-const links = [
-  { href: '/about', label: en.nav.about },
-  { href: '/contact', label: en.nav.contact },
-  { href: '/products', label: en.nav.price },
-];
+import { headerLinks as links } from '~/config/navigation';
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---

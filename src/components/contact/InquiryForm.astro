@@ -18,32 +18,10 @@ const f = t.fields;
 const errs = t.errors;
 const honeypotName = 'website_url'; // intentionally bait-like
 
-// Compact, B2B-relevant subset of countries — wholesale charcoal buyers
-// rarely sit outside this list. "Other" lets long-tail markets self-identify.
-const countries = [
-  'United States', 'United Kingdom', 'Saudi Arabia', 'United Arab Emirates',
-  'Germany', 'Russia', 'Kazakhstan', 'Turkey', 'France', 'Spain',
-  'Italy', 'Netherlands', 'Belgium', 'Poland', 'Czech Republic',
-  'Greece', 'Portugal', 'Sweden', 'Denmark', 'Norway',
-  'Switzerland', 'Austria', 'Ireland', 'Romania', 'Hungary',
-  'Egypt', 'Jordan', 'Lebanon', 'Kuwait', 'Qatar',
-  'Bahrain', 'Oman', 'Iraq', 'Israel', 'Morocco',
-  'Tunisia', 'Algeria', 'South Africa', 'Nigeria', 'Kenya',
-  'Australia', 'New Zealand', 'Canada', 'Mexico', 'Brazil',
-  'Argentina', 'Chile', 'India', 'Pakistan', 'Bangladesh',
-  'China', 'Hong Kong', 'Taiwan', 'Japan', 'South Korea',
-  'Singapore', 'Malaysia', 'Thailand', 'Vietnam', 'Philippines',
-  'Other',
-];
-
-const productOptions = [
-  { id: 'cube', label: 'Cube' },
-  { id: 'hexagonal', label: 'Hexagonal' },
-  { id: 'finger', label: 'Finger' },
-  { id: 'dome', label: 'Dome' },
-  { id: 'flat', label: 'Flat' },
-  { id: 'custom', label: 'Custom shape / private label' },
-];
+// Country and product-type lists live in `~/config/company.ts`
+// (CLAUDE.md § "Things to Never Do"); the form just renders them.
+const countries = company.form.countries;
+const productOptions = company.form.productOptions;
 
 const sidebarWaHref = waLinkFor('salesGeneral');
 
