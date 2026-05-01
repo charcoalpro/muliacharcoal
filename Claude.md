@@ -92,6 +92,7 @@ The site follows a pillar-and-cluster structure. Every new piece of content must
 - Samples: `/samples`
 - Contact  `/contact`
 - About: `/about`
+- Careers: `/careers` (with JobPosting schema)
 - Legal: `/privacy`, `/terms`
 - Author: about author
   `/glossary`
@@ -240,6 +241,7 @@ Every event below must fire on both Google Analytics 4 and Meta Pixel.
 - `engaged_time` — fired once per page after 60 seconds of active time
 - `language_switch` — fired when user changes language; parameters: `from_language`, `to_language`
 - `outbound_click` — fired on any outbound link click (for documentation and certification PDF clicks)
+- `careers_apply_click` — fired on click of either "Apply by Email" button on `/careers`; parameters: `role` (one of `head_of_production`, `sales_manager`)
 
 ## Folder Structure
 
