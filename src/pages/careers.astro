@@ -1,0 +1,163 @@
+---
+/**
+ * /careers — "Work With Us" supporting page.
+ *
+ * Lists the currently open roles and routes applications via mailto:
+ * to the careers inbox. Email-only by design — no form, no backend.
+ *
+ * Architecture notes:
+ * - Email address comes from /src/config/company.ts (`careersEmail`).
+ *   Never hardcode it here, in the i18n JSON, or in the JSON-LD.
+ * - Two JobPosting graphs are emitted via /src/lib/schema/jobPosting.ts.
+ *   description / responsibilities / qualifications / baseSalary are
+ *   intentionally absent from the schema until the owner approves copy.
+ * - Role responsibility/requirement bullets in en.json are TODO
+ *   placeholders. They render so the page layout is verifiable, but
+ *   must be filled with real bullets before the page goes public.
+ * - One inline analytics handler (≤20 lines) fires `careers_apply_click`
+ *   to GA4. mailto: navigation is not intercepted.
+ */
+
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import Button from '~/components/cta/Button.astro';
+import en from '~/i18n/en.json';
+import { fill } from '~/lib/interpolate';
+import { company, careersMailto } from '~/config/company';
+import { jobPostingSchemas } from '~/lib/schema/jobPosting';
+
+const t = en.careers;
+
+// Roles displayed on the page. The order here drives the visible order
+// in the grid; the JSON-LD order matches via /src/lib/schema/jobPosting.
+const roles = [
+  {
+    id: 'head_of_production',
+    title: t.roles.headOfProduction.title,
+    responsibilities: t.roles.headOfProduction.responsibilities,
+    requirements: t.roles.headOfProduction.requirements,
+  },
+  {
+    id: 'sales_manager',
+    title: t.roles.salesManager.title,
+    responsibilities: t.roles.salesManager.responsibilities,
+    requirements: t.roles.salesManager.requirements,
+  },
+] as const;
+---
+<BaseLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  path="/careers"
+  type="website"
+  includeOrgSchema={true}
+  schema={jobPostingSchemas}
+>
+  <div class="mx-auto max-w-7xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection title={t.hero.title} subtitle={t.hero.subtitle} />
+
+  <section
+    aria-labelledby="careers-apply-heading"
+    class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24"
+  >
+    <div class="max-w-prose">
+      <h2
+        id="careers-apply-heading"
+        class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl"
+      >
+        {t.apply.heading}
+      </h2>
+      <p class="mt-4 leading-relaxed text-neutral-700">
+        {t.apply.bodyBeforeEmail}<a
+          href={careersMailto()}
+          class="font-medium text-brand-primary underline underline-offset-2 hover:text-brand-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+        >{company.careersEmail}</a>{t.apply.bodyAfterEmail}
+      </p>
+      {/* TODO: add an expected-response-time line here once the owner
+          confirms a target SLA (e.g. "We reply within 5 business days"). */}
+    </div>
+  </section>
+
+  <section
+    aria-labelledby="careers-positions-heading"
+    class="border-t border-neutral-200 bg-neutral-50"
+  >
+    <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+      <h2
+        id="careers-positions-heading"
+        class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl"
+      >
+        {t.openPositions.heading}
+      </h2>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {roles.map((role) => (
+          <article class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6 transition-shadow hover:shadow-md">
+            <h3 class="text-xl font-semibold text-neutral-900">{role.title}</h3>
+
+            <dl class="mt-3 space-y-1 text-sm text-neutral-600">
+              <div class="flex flex-wrap gap-x-2">
+                <dt class="font-medium text-neutral-700">{t.openPositions.locationLabel}:</dt>
+                <dd>{t.openPositions.locationValue}</dd>
+              </div>
+              <div class="flex flex-wrap gap-x-2">
+                <dt class="font-medium text-neutral-700">{t.openPositions.employmentLabel}:</dt>
+                <dd>{t.openPositions.employmentValue}</dd>
+              </div>
+            </dl>
+
+            <div class="mt-5">
+              <h4 class="text-sm font-semibold text-neutral-900">{t.openPositions.responsibilitiesHeading}</h4>
+              {/* TODO(careers-copy): replace placeholder bullets in
+                  /src/i18n/en.json once the hiring manager signs off. */}
+              <ul class="mt-2 list-disc space-y-1 ps-5 text-sm text-neutral-700">
+                {role.responsibilities.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+
+            <div class="mt-5">
+              <h4 class="text-sm font-semibold text-neutral-900">{t.openPositions.requirementsHeading}</h4>
+              <ul class="mt-2 list-disc space-y-1 ps-5 text-sm text-neutral-700">
+                {role.requirements.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+
+            <div class="mt-6 pt-2">
+              <Button
+                variant="primary"
+                size="md"
+                href={careersMailto(`Application: ${role.title}`)}
+                aria-label={fill(t.applyAriaTemplate, { role: role.title })}
+                data-event="careers_apply_click"
+                data-role={role.id}
+              >
+                {t.applyButton}
+              </Button>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {/* Inline analytics handler — fires `careers_apply_click` on click of
+      either Apply button. Kept inline (no bundled JS) per careers brief
+      and CLAUDE.md performance rules. The mailto: navigation continues
+      uninterrupted; we only push the event. */}
+  <script is:inline>
+    document.querySelectorAll('[data-event="careers_apply_click"]').forEach((el) => {
+      el.addEventListener('click', () => {
+        var role = el.getAttribute('data-role') || '';
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'careers_apply_click', { role: role });
+        } else if (window.dataLayer && typeof window.dataLayer.push === 'function') {
+          window.dataLayer.push({ event: 'careers_apply_click', role: role });
+        }
+      });
+    });
+  </script>
+</BaseLayout>

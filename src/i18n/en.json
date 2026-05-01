@@ -54,7 +54,7 @@
       "about": "About",
       "contact": "Contact",
       "glossary": "Glossary",
-      "jobs": "Jobs",
+      "careers": "Careers",
       "products": "Products",
       "logistics": "Logistics",
       "samples": "Samples",
@@ -275,5 +275,61 @@
       "piButtonAria": "Open WhatsApp to request a Proforma Invoice (opens in new tab)"
     },
     "newTabSr": "(opens in new tab)"
+  },
+  "careers": {
+    "_todo": "TODO: translate to id when Bahasa Indonesia ships",
+    "meta": {
+      "title": "Careers at Mulia Charcoal | Work With Us in Semarang",
+      "description": "Join our coconut shisha charcoal factory in Semarang. We are hiring for production and sales roles. Apply by email."
+    },
+    "breadcrumb": "Careers",
+    "hero": {
+      "title": "Work With Us",
+      "subtitle": "PT Coco Reina is a coconut shell charcoal briquette factory in Semarang, Central Java, hiring locally for our export operation."
+    },
+    "apply": {
+      "heading": "How to Apply",
+      "bodyBeforeEmail": "Send your CV and a brief cover note to ",
+      "bodyAfterEmail": ". Put the role title in the subject line so we can route your application to the right hiring manager."
+    },
+    "openPositions": {
+      "heading": "Open Positions",
+      "locationLabel": "Location",
+      "locationValue": "Semarang, Central Java, Indonesia",
+      "employmentLabel": "Employment",
+      "employmentValue": "Full-time, on-site",
+      "responsibilitiesHeading": "Responsibilities",
+      "requirementsHeading": "Requirements"
+    },
+    "roles": {
+      "headOfProduction": {
+        "title": "Head of Production — Shisha Charcoal",
+        "responsibilities": [
+          "TODO: replace with real responsibility — owner to provide",
+          "TODO: replace with real responsibility — owner to provide",
+          "TODO: replace with real responsibility — owner to provide"
+        ],
+        "requirements": [
+          "TODO: replace with real requirement — owner to provide",
+          "TODO: replace with real requirement — owner to provide",
+          "TODO: replace with real requirement — owner to provide"
+        ]
+      },
+      "salesManager": {
+        "title": "Sales Manager (Arabic-speaking)",
+        "responsibilities": [
+          "TODO: replace with real responsibility — owner to provide",
+          "TODO: replace with real responsibility — owner to provide",
+          "TODO: replace with real responsibility — owner to provide"
+        ],
+        "requirements": [
+          "TODO: replace with real requirement — owner to provide",
+          "TODO: replace with real requirement — owner to provide",
+          "TODO: replace with real requirement — owner to provide"
+        ]
+      }
+    },
+    "applyButton": "Apply by Email",
+    "applyAriaTemplate": "Apply by email for {{role}}"
   }
 }

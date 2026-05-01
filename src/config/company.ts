@@ -98,6 +98,12 @@ export const company = {
   // -----------------------------------------------------------------
   email: 'export@muliacharcoal.com',
 
+  // Careers / hiring inbox. All applications go here; never used as a
+  // generic support address. Surfaced on /careers and in JobPosting
+  // JSON-LD. Keep separate from `email` so HR routing stays independent
+  // of the wholesale-sales inbox.
+  careersEmail: 'career@muliacharcoal.com',
+
   // Primary phone. `display` is the pretty form for humans;
   // `e164` is what the `tel:` scheme expects.
   phone: {
@@ -663,6 +669,20 @@ export function waLink(text: string = company.whatsapp.defaultMessage): string {
 export function mailto(subject?: string): string {
   if (!subject) return `mailto:${company.email}`;
   return `mailto:${company.email}?subject=${encodeURIComponent(subject)}`;
+}
+
+/**
+ * Build a `mailto:` URL for the careers / hiring inbox. Mirrors `mailto()`
+ * but targets `company.careersEmail`. Used by /careers role-application
+ * CTAs so the email-encoding rule lives in one place.
+ *
+ * @example
+ *   <a href={careersMailto()}>Apply by email</a>
+ *   <a href={careersMailto('Application: Head of Production')}>…</a>
+ */
+export function careersMailto(subject?: string): string {
+  if (!subject) return `mailto:${company.careersEmail}`;
+  return `mailto:${company.careersEmail}?subject=${encodeURIComponent(subject)}`;
 }
 
 /**
