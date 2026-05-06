@@ -30,28 +30,54 @@
  *   - The script is tiny and self-contained — `sharp` is already a
  *     project dependency for Astro's image pipeline.
  *
- * NOTE: Values below are duplicated from src/config/company.ts
- * because that file is TypeScript and this script runs as plain mjs.
- * Update both places together if brand colors or strings change.
+ * Brand strings and colors are read at runtime from
+ * `src/config/company.ts` (parsed as text, not imported, since this
+ * script is plain `.mjs` and the config is `.ts`). That keeps the
+ * canonical-fact rule from CLAUDE.md honored — no company values
+ * are duplicated in this file.
  */
 
 import sharp from 'sharp';
-import { mkdir } from 'node:fs/promises';
+import { mkdir, readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, '..');
 const publicDir = resolve(projectRoot, 'public');
+const companyTsPath = resolve(projectRoot, 'src/config/company.ts');
 
-// ---- Brand tokens (mirror of src/config/company.ts) -------------------
+// ---- Read brand tokens from src/config/company.ts (canonical source) --
+const companyTs = await readFile(companyTsPath, 'utf8');
+
+/**
+ * Extract a single-quoted string property from company.ts. Matches the
+ * first occurrence of `<key>: '<value>'` on its own indented line. The
+ * first-occurrence rule disambiguates the top-level `brand: '...'`
+ * scalar from the nested `brandAssets:` object key with the same name.
+ */
+function readStringProp(key) {
+  const re = new RegExp(`^\\s*${key}:\\s*'([^']+)'`, 'm');
+  const m = companyTs.match(re);
+  if (!m) throw new Error(`Could not parse '${key}' from company.ts`);
+  return m[1];
+}
+
+/** Extract a hex color value from the brandAssets.colors block. */
+function readColorProp(key) {
+  const re = new RegExp(`${key}:\\s*'(#[0-9a-fA-F]{3,8})'`);
+  const m = companyTs.match(re);
+  if (!m) throw new Error(`Could not parse color '${key}' from company.ts`);
+  return m[1];
+}
+
 const brand = {
-  name: 'Mulia Charcoal',
-  tagline: 'Coconut shell charcoal briquettes, factory-direct from Semarang',
+  name: readStringProp('brand'),
+  tagline: readStringProp('tagline'),
   colors: {
-    primary: '#0f3d2e',
-    accent: '#c9a24b',
-    dark: '#0a1f17',
+    primary: readColorProp('primary'),
+    accent: readColorProp('accent'),
+    dark: readColorProp('dark'),
   },
 };
 
