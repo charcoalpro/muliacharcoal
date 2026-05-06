@@ -55,7 +55,9 @@ const trustItems = [
   {
     iconText: '✓',
     label: t.trust.isoLabel,
-    value: `Audited by ${company.certifications.iso9001.auditors.join(' & ')}`,
+    value: fill(t.trust.auditedByTemplate, {
+      auditors: company.certifications.iso9001.auditors.join(' & '),
+    }),
   },
   {
     iconText: '⚓',
@@ -74,45 +76,46 @@ const trustItems = [
 // ---------------------------------------------------------------------------
 const phoneE164 = company.phone.e164;
 const phoneDisplay = company.phone.display;
+const channelLabels = t.channels.labels;
 const baseChannels: Array<{ channel: string; handle: string; href: string; iconText?: string; ctaLabel?: string }> = [
   {
-    channel: 'WhatsApp chat',
+    channel: channelLabels.whatsappChat,
     handle: phoneDisplay,
     href: waLinkFor('salesGeneral'),
     iconText: '💬',
   },
   {
-    channel: 'WhatsApp voice call',
+    channel: channelLabels.whatsappVoice,
     handle: phoneDisplay,
     href: waLinkFor('salesGeneral'),
     iconText: '📞',
   },
   {
-    channel: 'WhatsApp video call',
+    channel: channelLabels.whatsappVideo,
     handle: phoneDisplay,
     href: waLinkFor('videoCallRequest'),
     iconText: '🎥',
   },
   {
-    channel: 'Direct phone call',
+    channel: channelLabels.directPhone,
     handle: phoneDisplay,
     href: `tel:${phoneE164}`,
     iconText: '☎',
   },
   {
-    channel: 'SMS',
+    channel: channelLabels.sms,
     handle: phoneDisplay,
     href: `sms:${phoneE164}`,
     iconText: '✉',
   },
   {
-    channel: 'Email',
+    channel: channelLabels.email,
     handle: company.email,
     href: mailto('Wholesale inquiry'),
     iconText: '@',
   },
   {
-    channel: 'Inquiry form',
+    channel: channelLabels.inquiryForm,
     handle: t.channels.anchorButton,
     href: '#inquiry',
     iconText: '📝',
@@ -124,7 +127,7 @@ const c = company.channels;
 const optionalChannels: Array<{ channel: string; handle: string; href: string; iconText?: string }> = [];
 if (c.zoom?.schedulingUrl) {
   optionalChannels.push({
-    channel: 'Zoom / Google Meet',
+    channel: channelLabels.videoMeeting,
     handle: t.channels.videoMeetingLabel,
     href: c.zoom.schedulingUrl,
     iconText: '🎦',

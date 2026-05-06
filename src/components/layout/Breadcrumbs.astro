@@ -10,7 +10,7 @@
  * when the root of the trail is not the site home (rare).
  */
 
-import en from '~/i18n/en.json';
+import { useT, defaultLang, type LangCode } from '~/i18n';
 import JsonLd from '~/components/seo/JsonLd.astro';
 
 interface Item {
@@ -22,12 +22,15 @@ interface Props {
   items: Item[];
   includeHome?: boolean;
   class?: string;
+  lang?: LangCode | string;
 }
 
-const { items, includeHome = true, class: className } = Astro.props;
+const { items, includeHome = true, class: className, lang = defaultLang } = Astro.props;
+
+const t = useT(lang);
 
 const trail: Item[] = includeHome
-  ? [{ label: en.nav.home, href: '/' }, ...items]
+  ? [{ label: t.nav.home, href: '/' }, ...items]
   : items;
 
 // Absolute URLs for schema — Astro.site is set in astro.config.mjs.
@@ -47,7 +50,7 @@ const schema = {
 };
 ---
 <nav
-  aria-label={en.breadcrumb.label}
+  aria-label={t.breadcrumb.label}
   class:list={['text-sm text-neutral-600', className]}
 >
   <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">

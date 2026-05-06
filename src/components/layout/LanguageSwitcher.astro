@@ -1,0 +1,89 @@
+---
+/**
+ * LanguageSwitcher — dropdown to change locale.
+ *
+ * Renders only when 2+ locales are registered in `src/i18n/languages.ts`.
+ * With one locale (English-only at launch), this component returns nothing.
+ *
+ * Pattern matches the header mobile menu (`<details>` element) so no JS
+ * framework is needed and the menu degrades gracefully without script.
+ */
+
+import {
+  languages,
+  defaultLang,
+  getLanguage,
+  pathWithLang,
+  pathWithoutLang,
+  type LangCode,
+} from '~/i18n/languages';
+import { useT } from '~/i18n';
+
+interface Props {
+  lang?: LangCode | string;
+  /** "menu" places the panel anchored to the right (header desktop usage),
+   *  "inline" places it anchored to the left (mobile menu / footer usage). */
+  variant?: 'menu' | 'inline';
+  class?: string;
+}
+
+const { lang = defaultLang, variant = 'menu', class: className } = Astro.props;
+
+const t = useT(lang);
+const current = getLanguage(lang);
+
+const path = Astro.url.pathname;
+const logicalPath = pathWithoutLang(path);
+
+const showSwitcher = languages.length > 1;
+
+const panelAnchor = variant === 'menu' ? 'end-0' : 'start-0';
+---
+{showSwitcher && (
+  <details class:list={['group relative', className]}>
+    <summary
+      class="inline-flex h-11 cursor-pointer list-none items-center gap-1.5 rounded-md border border-neutral-300 px-3 text-sm text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary [&::-webkit-details-marker]:hidden"
+      aria-label={t.nav.changeLanguage}
+    >
+      <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="9" stroke-linecap="round" />
+        <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" stroke-linecap="round" />
+      </svg>
+      <span class="font-medium">{current.code.toUpperCase()}</span>
+      <svg aria-hidden="true" viewBox="0 0 24 24" class="h-3.5 w-3.5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </summary>
+    <div
+      class:list={[
+        'absolute top-[calc(100%+0.5rem)] w-48 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg',
+        panelAnchor,
+      ]}
+    >
+      <ul class="flex flex-col p-2 text-sm">
+        {languages.map((l) => {
+          const isCurrent = l.code === current.code;
+          const href = pathWithLang(logicalPath, l.code);
+          return (
+            <li>
+              <a
+                href={href}
+                hreflang={l.code}
+                lang={l.code}
+                dir={l.dir}
+                class:list={[
+                  'flex min-h-11 items-center justify-between rounded-md px-3 py-2 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-primary',
+                  isCurrent ? 'font-semibold text-brand-primary' : 'text-neutral-800',
+                ]}
+                aria-current={isCurrent ? 'true' : undefined}
+              >
+                <span>{l.endonym}</span>
+                <span class="text-xs uppercase tracking-wide text-neutral-500">{l.code}</span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </details>
+)}

@@ -7,7 +7,9 @@
     "skipToContent": "Skip to content",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "mainNav": "Main"
+    "mainNav": "Main",
+    "changeLanguage": "Change language",
+    "currentLanguageLabel": "Current language"
   },
   "breadcrumb": {
     "label": "Breadcrumb"
@@ -107,7 +109,8 @@
       "npwpLabel": "NPWP",
       "isoLabel": "ISO 9001:2015",
       "imdgLabel": "IMDG UN 1361 / 4.2",
-      "directorLabel": "Director"
+      "directorLabel": "Director",
+      "auditedByTemplate": "Audited by {{auditors}}"
     },
     "whatsappPrimary": {
       "heading": "Message the factory directly on WhatsApp",
@@ -141,7 +144,17 @@
       "openIn": "Open in {{channel}}",
       "anchorButton": "Use the inquiry form below",
       "videoMeetingSubject": "Schedule a video meeting",
-      "videoMeetingLabel": "By appointment via Zoom or Google Meet"
+      "videoMeetingLabel": "By appointment via Zoom or Google Meet",
+      "labels": {
+        "whatsappChat": "WhatsApp chat",
+        "whatsappVoice": "WhatsApp voice call",
+        "whatsappVideo": "WhatsApp video call",
+        "directPhone": "Direct phone call",
+        "sms": "SMS",
+        "email": "Email",
+        "inquiryForm": "Inquiry form",
+        "videoMeeting": "Zoom / Google Meet"
+      }
     },
     "form": {
       "heading": "Send a wholesale inquiry",

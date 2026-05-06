@@ -1,18 +1,29 @@
 ---
-import en from '~/i18n/en.json';
+import { useT, defaultLang, type LangCode } from '~/i18n';
+import { pathWithoutLang } from '~/i18n/languages';
 import Logo from '~/components/layout/Logo.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
+import LanguageSwitcher from '~/components/layout/LanguageSwitcher.astro';
 import { company } from '~/config/company';
+
+interface Props {
+  lang?: LangCode | string;
+}
+
+const { lang = defaultLang } = Astro.props;
+const t = useT(lang);
 
 // "Price" routes to /products per product-pricing decision (TODO: dedicated /pricing page later).
 const links = [
-  { href: '/about', label: en.nav.about },
-  { href: '/contact', label: en.nav.contact },
-  { href: '/products', label: en.nav.price },
+  { href: '/about', label: t.nav.about },
+  { href: '/contact', label: t.nav.contact },
+  { href: '/products', label: t.nav.price },
 ];
 
-const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const rawPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+// Strip locale prefix so active-link comparisons work for any language.
+const pathname = pathWithoutLang(rawPath);
 ---
 <header class="sticky top-0 z-30 border-b border-neutral-200 bg-white/95 backdrop-blur">
   <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3 md:px-8 md:py-4">
@@ -24,7 +35,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
       <Logo />
     </a>
 
-    <nav aria-label={en.nav.mainNav} class="hidden lg:block">
+    <nav aria-label={t.nav.mainNav} class="hidden lg:block">
       <ul class="flex items-center gap-8 text-sm">
         {links.map((link) => {
           const isCurrent = pathname === link.href || pathname.startsWith(link.href + '/');
@@ -48,14 +59,15 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 
     <div class="flex items-center gap-3">
       <div class="hidden items-center gap-3 lg:flex">
-        <OnlineIndicator label={en.footer.online} hideLabel />
+        <LanguageSwitcher lang={lang} variant="menu" />
+        <OnlineIndicator label={t.footer.online} hideLabel />
         <WhatsAppButton />
       </div>
 
       <details class="group relative lg:hidden">
         <summary
           class="inline-flex h-11 w-11 cursor-pointer list-none items-center justify-center rounded-md border border-neutral-300 text-neutral-800 transition-colors hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary [&::-webkit-details-marker]:hidden"
-          aria-label={en.nav.openMenu}
+          aria-label={t.nav.openMenu}
         >
           <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 group-open:hidden" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" />
@@ -64,8 +76,8 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
             <path d="M6 6l12 12M6 18L18 6" stroke-linecap="round" />
           </svg>
         </summary>
-        <div class="absolute end-0 top-[calc(100%+0.5rem)] w-72 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg">
-          <nav aria-label={en.nav.mainNav}>
+        <div class="absolute end-0 top-[calc(100%+0.5rem)] w-72 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-lg transition-all duration-150">
+          <nav aria-label={t.nav.mainNav}>
             <ul class="flex flex-col p-2 text-base">
               {links.map((link) => {
                 const isCurrent = pathname === link.href || pathname.startsWith(link.href + '/');
@@ -86,9 +98,12 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
               })}
             </ul>
           </nav>
-          <div class="flex items-center justify-between gap-3 border-t border-neutral-200 bg-neutral-50 p-3">
-            <OnlineIndicator label={en.footer.online} />
-            <WhatsAppButton />
+          <div class="flex flex-wrap items-center justify-between gap-3 border-t border-neutral-200 bg-neutral-50 p-3">
+            <OnlineIndicator label={t.footer.online} />
+            <div class="flex items-center gap-2">
+              <LanguageSwitcher lang={lang} variant="inline" />
+              <WhatsAppButton />
+            </div>
           </div>
         </div>
       </details>

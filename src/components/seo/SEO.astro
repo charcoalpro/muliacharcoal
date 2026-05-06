@@ -1,5 +1,13 @@
 ---
 import { company } from '~/config/company';
+import {
+  languages,
+  defaultLang,
+  getLanguage,
+  pathWithLang,
+  pathWithoutLang,
+  type LangCode,
+} from '~/i18n/languages';
 
 interface Props {
   title: string;
@@ -7,7 +15,7 @@ interface Props {
   path?: string;
   image?: string;
   type?: 'website' | 'article' | 'product';
-  locale?: string;
+  lang?: LangCode | string;
   noIndex?: boolean;
 }
 
@@ -17,7 +25,7 @@ const {
   path = Astro.url.pathname,
   image,
   type = 'website',
-  locale = 'en_US',
+  lang = defaultLang,
   noIndex = false,
 } = Astro.props;
 
@@ -28,6 +36,10 @@ const normalizePath = (p: string) => {
   return '/' + p.replace(/^\/+/, '').replace(/\/+$/, '');
 };
 
+// Path stripped of any language prefix — the canonical "logical" path
+// each locale maps onto. We rebuild per-locale URLs from this.
+const logicalPath = pathWithoutLang(path);
+
 const canonical = `${siteBase}${normalizePath(path)}` || siteBase;
 const ogImage = image
   ? (image.startsWith('http') ? image : `${siteBase}${image}`)
@@ -35,9 +47,12 @@ const ogImage = image
 
 const fullTitle = title.includes(company.brand) ? title : `${title} | ${company.brand}`;
 
-const languages: Array<{ code: string; path: string }> = [
-  { code: 'en', path },
-];
+const ogLocale = getLanguage(lang).ogLocale;
+
+// hreflang URLs for every configured locale plus an x-default that points
+// to the default-language version. Adding a locale to the registry
+// automatically adds it here.
+const xDefaultHref = `${siteBase}${normalizePath(pathWithLang(logicalPath, defaultLang))}` || siteBase;
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
@@ -51,7 +66,7 @@ const languages: Array<{ code: string; path: string }> = [
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:type" content={type} />
-<meta property="og:locale" content={locale} />
+<meta property="og:locale" content={ogLocale} />
 <meta property="og:site_name" content={company.brand} />
 {ogImage && <meta property="og:image" content={ogImage} />}
 
@@ -60,7 +75,8 @@ const languages: Array<{ code: string; path: string }> = [
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-{languages.map((lang) => (
-  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />
-))}
-<link rel="alternate" hreflang="x-default" href={canonical} />
+{languages.map((l) => {
+  const href = `${siteBase}${normalizePath(pathWithLang(logicalPath, l.code))}` || siteBase;
+  return <link rel="alternate" hreflang={l.code} href={href} />;
+})}
+<link rel="alternate" hreflang="x-default" href={xDefaultHref} />
