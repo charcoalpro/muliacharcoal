@@ -25,7 +25,7 @@ export function organizationSchema() {
         foundingDate: String(company.foundingYear),
         logo: {
           '@type': 'ImageObject',
-          url: `${origin}/logo.png`,
+          url: `${origin}${company.brandAssets.images.logo}`,
         },
         address: {
           '@type': 'PostalAddress',

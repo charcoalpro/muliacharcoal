@@ -1,0 +1,88 @@
+---
+/**
+ * ResponsiveImage — the single image entrypoint for content pages.
+ *
+ * Wraps Astro's `<Picture />` so every page on the site emits the
+ * same modern format chain (AVIF → WebP → JPG fallback) at the same
+ * width breakpoints, with the same loading rules. Centralising this
+ * prevents per-page drift on Core Web Vitals: every consumer that
+ * uses this component is guaranteed correct lazy-loading, async
+ * decoding, explicit width/height (so no CLS), and an LCP-friendly
+ * preload hint when `priority` is set.
+ *
+ * Source assets live under `src/assets/images/...` and are imported
+ * statically — Sharp processes them at build time. Output filenames
+ * are content-hashed under `/_astro/` and served with the immutable
+ * 1-year cache rule from `public/_headers`.
+ *
+ * Usage:
+ *   ---
+ *   import heroImg from '~/assets/images/products/cube-25mm/hero.jpg';
+ *   import ResponsiveImage from '~/components/media/ResponsiveImage.astro';
+ *   ---
+ *   <ResponsiveImage
+ *     src={heroImg}
+ *     alt="25mm cube coconut shell charcoal briquette, top view"
+ *     priority
+ *     sizes="(min-width: 1024px) 50vw, 100vw"
+ *   />
+ *
+ * Defaults match the photo-upload plan:
+ *   widths    [400, 800, 1200, 1600]   — covers mobile through desktop hero
+ *   formats   ['avif', 'webp']         — Astro auto-emits a fallback in the
+ *                                        source format (jpg/png) inside <picture>
+ *   loading   "lazy" unless priority   — only the LCP element should eager-load
+ *   decoding  "async" unless priority  — keep the main thread free
+ *   fetchpriority "high" when priority — signals LCP candidate to the browser
+ */
+
+import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  /** Imported asset from `src/assets/images/...`. */
+  src: ImageMetadata;
+  /** Required. Decorative images must pass `alt=""` explicitly. */
+  alt: string;
+  /**
+   * Set true ONLY on the page's LCP element (typically one hero per
+   * page). Switches off lazy-loading and adds `fetchpriority="high"`.
+   */
+  priority?: boolean;
+  /**
+   * `sizes` attribute. Default targets a full-width hero. Override
+   * for grids/cards: e.g. `(min-width: 1024px) 25vw, 50vw`.
+   */
+  sizes?: string;
+  /** Optional class list passed through to the rendered <img>. */
+  class?: string;
+  /** Override the default width breakpoints in unusual cases (rare). */
+  widths?: number[];
+}
+
+const {
+  src,
+  alt,
+  priority = false,
+  sizes = '(min-width: 1024px) 1200px, 100vw',
+  class: className,
+  widths = [400, 800, 1200, 1600],
+} = Astro.props;
+
+// Cap the requested widths at the source's intrinsic width so we
+// don't ask Sharp to upscale, which would only inflate file size
+// without improving fidelity.
+const safeWidths = widths.filter((w) => w <= src.width);
+const effectiveWidths = safeWidths.length > 0 ? safeWidths : [src.width];
+---
+<Picture
+  src={src}
+  alt={alt}
+  widths={effectiveWidths}
+  sizes={sizes}
+  formats={['avif', 'webp']}
+  loading={priority ? 'eager' : 'lazy'}
+  decoding={priority ? 'sync' : 'async'}
+  fetchpriority={priority ? 'high' : 'auto'}
+  class={className}
+/>

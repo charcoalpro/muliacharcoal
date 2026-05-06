@@ -49,6 +49,22 @@ export const company = {
       // Near-black green — hero backgrounds, footer.
       dark: '#0a1f17',
     },
+    // Site-wide brand image paths used by JSON-LD emitters and the
+    // og:image fallback. These are *string URL paths* (not Astro asset
+    // imports) because schema.org requires stable, hash-free URLs and
+    // because the og fallback must work for crawlers that don't run
+    // the build pipeline. Drop the actual files in `/public/` at
+    // exactly these paths; per-page heroes, product gallery shots, and
+    // article images go through Astro's `<Image />` pipeline from
+    // `src/assets/images/...` per the photo-upload plan.
+    //
+    // Required source dimensions before launch:
+    //   logo       — 512x512 PNG, transparent background, ≤ 10 KB
+    //   ogDefault  — 1200x630 JPG (q≈85), brand mark + tagline, < 100 KB
+    images: {
+      logo: '/logo.png',
+      ogDefault: '/og-default.jpg',
+    },
   },
 
   // -----------------------------------------------------------------
@@ -817,5 +833,9 @@ export type WhatsappPresetKey = keyof typeof company.whatsapp.presetMessages;
 //  [ ] bank.bankName / branch / bankAddress / accountNumber / swiftCode —
 //      verify by phone/video call with the director, then update
 //      bank.lastVerified to today's ISO date
+//  [ ] /public/logo.png — 512x512 PNG transparent (Organization /
+//      LocalBusiness schema logo). Path locked via brandAssets.images.logo.
+//  [ ] /public/og-default.jpg — 1200x630 JPG (≤ 100 KB) site-wide og:image
+//      fallback. Path locked via brandAssets.images.ogDefault.
 //
 // =======================================================================
