@@ -1,5 +1,6 @@
 ---
 import { company } from '~/config/company';
+import { activeLanguages, defaultLanguage } from '~/config/site';
 
 interface Props {
   title: string;
@@ -15,9 +16,9 @@ const {
   title,
   description,
   path = Astro.url.pathname,
-  image,
+  image = company.brandAssets.ogImage,
   type = 'website',
-  locale = 'en_US',
+  locale = defaultLanguage.locale,
   noIndex = false,
 } = Astro.props;
 
@@ -35,9 +36,31 @@ const ogImage = image
 
 const fullTitle = title.includes(company.brand) ? title : `${title} | ${company.brand}`;
 
-const languages: Array<{ code: string; path: string }> = [
-  { code: 'en', path },
-];
+// Dev-only length guard. CLAUDE.md § SEO Requirements caps title at 60
+// chars and meta description at 160 chars to avoid SERP truncation. We
+// warn during `astro dev` instead of failing the build so authors see
+// the issue without breaking iteration.
+if (import.meta.env.DEV) {
+  if (fullTitle.length > 60) {
+    console.warn(
+      `[SEO] Title exceeds 60 chars (${fullTitle.length}) on ${canonical}: "${fullTitle}"`,
+    );
+  }
+  if (description.length > 160) {
+    console.warn(
+      `[SEO] Description exceeds 160 chars (${description.length}) on ${canonical}: "${description}"`,
+    );
+  }
+}
+
+// Build a hreflang entry per currently active site language. `path` is
+// the language-agnostic path (e.g. "/contact") — each language's
+// pathPrefix is prepended to produce the localized URL.
+const normalizedPath = normalizePath(path);
+const hreflangs = activeLanguages.map((lang) => ({
+  code: lang.code,
+  href: `${siteBase}${lang.pathPrefix}${normalizedPath}`,
+}));
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
@@ -60,7 +83,7 @@ const languages: Array<{ code: string; path: string }> = [
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-{languages.map((lang) => (
-  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />
+{hreflangs.map((lang) => (
+  <link rel="alternate" hreflang={lang.code} href={lang.href} />
 ))}
 <link rel="alternate" hreflang="x-default" href={canonical} />

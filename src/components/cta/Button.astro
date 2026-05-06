@@ -53,9 +53,7 @@ const sizes: Record<Size, string> = {
   lg: 'px-8 py-4 text-lg',
 };
 
-const classes = [base, variants[variant], sizes[size], className]
-  .filter(Boolean)
-  .join(' ');
+const classes = [base, variants[variant], sizes[size], className];
 
 const isLink = Boolean(href);
 const externalRel =
@@ -69,7 +67,7 @@ const externalRel =
     aria-label={ariaLabel}
     aria-disabled={disabled ? 'true' : undefined}
     id={id}
-    class={classes}
+    class:list={classes}
   >
     <slot />
   </a>
@@ -79,7 +77,7 @@ const externalRel =
     disabled={disabled}
     aria-label={ariaLabel}
     id={id}
-    class={classes}
+    class:list={classes}
   >
     <slot />
   </button>

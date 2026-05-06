@@ -25,7 +25,7 @@ const t = en.contact;
 // Block 1 — Hero CTAs
 // ---------------------------------------------------------------------------
 const heroWaHref = waLinkFor('heroCta');
-const heroEmailHref = mailto('Wholesale inquiry');
+const heroEmailHref = mailto(t.mailtoSubject);
 
 // ---------------------------------------------------------------------------
 // Block 2 — Trust strip data (only render badges with verified facts)
@@ -34,7 +34,7 @@ const years = yearsInBusiness();
 const trustItems = [
   {
     iconText: '★',
-    label: t.trust.exportingSinceTemplate.replace('{{year}}', String(company.foundingYear)),
+    label: fill(t.trust.exportingSinceTemplate, { year: String(company.foundingYear) }),
     value: fill(t.trust.yearsLabelTemplate, { years: String(years) }),
   },
   {
@@ -71,48 +71,53 @@ const trustItems = [
 
 // ---------------------------------------------------------------------------
 // Block 5 — Channels (only render those with real handles set)
+//
+// `key` indexes into t.channels.labels.* for the displayed channel name so
+// the data array stays language-agnostic; ChannelCard receives the resolved
+// label via the `channel` prop.
 // ---------------------------------------------------------------------------
 const phoneE164 = company.phone.e164;
 const phoneDisplay = company.phone.display;
-const baseChannels: Array<{ channel: string; handle: string; href: string; iconText?: string; ctaLabel?: string }> = [
+const channelLabels = t.channels.labels;
+const baseChannels: Array<{ key: keyof typeof channelLabels; handle: string; href: string; iconText?: string; ctaLabel?: string }> = [
   {
-    channel: 'WhatsApp chat',
+    key: 'whatsappChat',
     handle: phoneDisplay,
     href: waLinkFor('salesGeneral'),
     iconText: '💬',
   },
   {
-    channel: 'WhatsApp voice call',
+    key: 'whatsappVoice',
     handle: phoneDisplay,
     href: waLinkFor('salesGeneral'),
     iconText: '📞',
   },
   {
-    channel: 'WhatsApp video call',
+    key: 'whatsappVideo',
     handle: phoneDisplay,
     href: waLinkFor('videoCallRequest'),
     iconText: '🎥',
   },
   {
-    channel: 'Direct phone call',
+    key: 'phone',
     handle: phoneDisplay,
     href: `tel:${phoneE164}`,
     iconText: '☎',
   },
   {
-    channel: 'SMS',
+    key: 'sms',
     handle: phoneDisplay,
     href: `sms:${phoneE164}`,
     iconText: '✉',
   },
   {
-    channel: 'Email',
+    key: 'email',
     handle: company.email,
-    href: mailto('Wholesale inquiry'),
+    href: mailto(t.mailtoSubject),
     iconText: '@',
   },
   {
-    channel: 'Inquiry form',
+    key: 'form',
     handle: t.channels.anchorButton,
     href: '#inquiry',
     iconText: '📝',
@@ -121,10 +126,10 @@ const baseChannels: Array<{ channel: string; handle: string; href: string; iconT
 ];
 
 const c = company.channels;
-const optionalChannels: Array<{ channel: string; handle: string; href: string; iconText?: string }> = [];
+const optionalChannels: Array<{ key: keyof typeof channelLabels; handle: string; href: string; iconText?: string }> = [];
 if (c.zoom?.schedulingUrl) {
   optionalChannels.push({
-    channel: 'Zoom / Google Meet',
+    key: 'videoMeeting',
     handle: t.channels.videoMeetingLabel,
     href: c.zoom.schedulingUrl,
     iconText: '🎦',
@@ -132,7 +137,7 @@ if (c.zoom?.schedulingUrl) {
 }
 if (c.wechat?.id) {
   optionalChannels.push({
-    channel: 'WeChat',
+    key: 'wechat',
     handle: c.wechat.id,
     href: `weixin://dl/chat?${c.wechat.id}`,
     iconText: '微',
@@ -140,7 +145,7 @@ if (c.wechat?.id) {
 }
 if (c.telegram?.url) {
   optionalChannels.push({
-    channel: 'Telegram',
+    key: 'telegram',
     handle: c.telegram.handle,
     href: c.telegram.url,
     iconText: 'T',
@@ -148,7 +153,7 @@ if (c.telegram?.url) {
 }
 if (c.messenger?.url) {
   optionalChannels.push({
-    channel: 'Messenger',
+    key: 'messenger',
     handle: c.messenger.handle,
     href: c.messenger.url,
     iconText: 'M',
@@ -156,7 +161,7 @@ if (c.messenger?.url) {
 }
 if (c.botim) {
   optionalChannels.push({
-    channel: 'Botim',
+    key: 'botim',
     handle: c.botim,
     href: `tel:${c.botim}`,
     iconText: 'B',
@@ -164,7 +169,7 @@ if (c.botim) {
 }
 if (c.max) {
   optionalChannels.push({
-    channel: 'Max',
+    key: 'max',
     handle: c.max,
     href: `https://max.ru/${c.max}`,
     iconText: 'X',
@@ -172,7 +177,7 @@ if (c.max) {
 }
 if (c.line) {
   optionalChannels.push({
-    channel: 'Line',
+    key: 'line',
     handle: c.line,
     href: `https://line.me/ti/p/~${c.line}`,
     iconText: 'L',
@@ -180,7 +185,7 @@ if (c.line) {
 }
 if (c.viber) {
   optionalChannels.push({
-    channel: 'Viber',
+    key: 'viber',
     handle: c.viber,
     href: `viber://chat?number=${encodeURIComponent(c.viber)}`,
     iconText: 'V',
@@ -226,7 +231,6 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
   description={t.meta.description}
   path="/contact"
   type="website"
-  includeOrgSchema={true}
   schema={localBusinessSchema}
 >
   <!-- Breadcrumbs (also emits BreadcrumbList JSON-LD) -->
@@ -361,11 +365,11 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
         {channels.map((ch) => (
           <li class="h-full">
             <ChannelCard
-              channel={ch.channel}
+              channel={channelLabels[ch.key]}
               handle={ch.handle}
               href={ch.href}
               iconText={ch.iconText}
-              ctaLabel={ch.ctaLabel}
+              ctaLabel={'ctaLabel' in ch ? ch.ctaLabel : undefined}
             />
           </li>
         ))}

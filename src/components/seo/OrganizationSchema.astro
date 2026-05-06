@@ -1,6 +1,7 @@
 ---
 import JsonLd from './JsonLd.astro';
 import { company } from '~/config/company';
+import { defaultLanguage } from '~/config/site';
 
 const siteBase = (Astro.site?.toString() ?? company.siteUrl).replace(/\/$/, '');
 
@@ -41,7 +42,7 @@ const data = {
       url: siteBase,
       name: company.brand,
       publisher: { '@id': `${siteBase}/#organization` },
-      inLanguage: 'en',
+      inLanguage: defaultLanguage.code,
     },
   ],
 };

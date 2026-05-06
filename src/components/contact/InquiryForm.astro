@@ -12,38 +12,19 @@
 
 import en from '~/i18n/en.json';
 import { company, waLinkFor } from '~/config/company';
+import { inquiryFormCountries } from '~/config/countries';
 
 const t = en.contact.form;
 const f = t.fields;
 const errs = t.errors;
 const honeypotName = 'website_url'; // intentionally bait-like
 
-// Compact, B2B-relevant subset of countries — wholesale charcoal buyers
-// rarely sit outside this list. "Other" lets long-tail markets self-identify.
-const countries = [
-  'United States', 'United Kingdom', 'Saudi Arabia', 'United Arab Emirates',
-  'Germany', 'Russia', 'Kazakhstan', 'Turkey', 'France', 'Spain',
-  'Italy', 'Netherlands', 'Belgium', 'Poland', 'Czech Republic',
-  'Greece', 'Portugal', 'Sweden', 'Denmark', 'Norway',
-  'Switzerland', 'Austria', 'Ireland', 'Romania', 'Hungary',
-  'Egypt', 'Jordan', 'Lebanon', 'Kuwait', 'Qatar',
-  'Bahrain', 'Oman', 'Iraq', 'Israel', 'Morocco',
-  'Tunisia', 'Algeria', 'South Africa', 'Nigeria', 'Kenya',
-  'Australia', 'New Zealand', 'Canada', 'Mexico', 'Brazil',
-  'Argentina', 'Chile', 'India', 'Pakistan', 'Bangladesh',
-  'China', 'Hong Kong', 'Taiwan', 'Japan', 'South Korea',
-  'Singapore', 'Malaysia', 'Thailand', 'Vietnam', 'Philippines',
-  'Other',
-];
-
-const productOptions = [
-  { id: 'cube', label: 'Cube' },
-  { id: 'hexagonal', label: 'Hexagonal' },
-  { id: 'finger', label: 'Finger' },
-  { id: 'dome', label: 'Dome' },
-  { id: 'flat', label: 'Flat' },
-  { id: 'custom', label: 'Custom shape / private label' },
-];
+// Country list lives in `~/config/countries.ts`; product-shape labels
+// live under `t.fields.productOptions.*` in the i18n file. Both are
+// pulled here so the markup stays a thin renderer.
+const productOptions = (
+  ['cube', 'hexagonal', 'finger', 'dome', 'flat', 'custom'] as const
+).map((id) => ({ id, label: f.productOptions[id] }));
 
 const sidebarWaHref = waLinkFor('salesGeneral');
 
@@ -56,7 +37,6 @@ const inputClass =
   'w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary aria-[invalid=true]:border-error';
 const labelClass = 'block text-sm font-medium text-neutral-800';
 const errClass = 'mt-1 text-sm text-error';
-const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
 ---
 <div class="grid gap-10 lg:grid-cols-12">
   <div class="lg:col-span-8">
@@ -96,7 +76,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
       <div class="grid gap-6 md:grid-cols-2">
         <div>
           <label for="ih-fullname" class={labelClass}>
-            {f.fullName}<Fragment set:html={reqMark} />
+            {f.fullName}<span aria-hidden="true" class="text-error"> *</span>
           </label>
           <input
             id="ih-fullname"
@@ -114,7 +94,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
 
         <div>
           <label for="ih-company" class={labelClass}>
-            {f.company}<Fragment set:html={reqMark} />
+            {f.company}<span aria-hidden="true" class="text-error"> *</span>
           </label>
           <input
             id="ih-company"
@@ -132,7 +112,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
 
         <div>
           <label for="ih-country" class={labelClass}>
-            {f.country}<Fragment set:html={reqMark} />
+            {f.country}<span aria-hidden="true" class="text-error"> *</span>
           </label>
           <select
             id="ih-country"
@@ -142,14 +122,14 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
             class={`${inputClass} mt-1`}
           >
             <option value="">{f.countryPlaceholder}</option>
-            {countries.map((c) => <option value={c}>{c}</option>)}
+            {inquiryFormCountries.map((c) => <option value={c.label}>{c.label}</option>)}
           </select>
           <p id="ih-country-err" class={`${errClass} hidden`}></p>
         </div>
 
         <div>
           <label for="ih-whatsapp" class={labelClass}>
-            {f.whatsapp}<Fragment set:html={reqMark} />
+            {f.whatsapp}<span aria-hidden="true" class="text-error"> *</span>
           </label>
           <input
             id="ih-whatsapp"
@@ -170,7 +150,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
 
         <div class="md:col-span-2">
           <label for="ih-email" class={labelClass}>
-            {f.email}<Fragment set:html={reqMark} />
+            {f.email}<span aria-hidden="true" class="text-error"> *</span>
           </label>
           <input
             id="ih-email"
@@ -187,7 +167,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
 
       <fieldset aria-describedby="ih-products-hint ih-products-err">
         <legend class={labelClass}>
-          {f.products}<Fragment set:html={reqMark} />
+          {f.products}<span aria-hidden="true" class="text-error"> *</span>
         </legend>
         <p id="ih-products-hint" class="mt-1 text-xs text-neutral-500">
           {f.productsHint}
@@ -211,7 +191,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
       <div class="grid gap-6 md:grid-cols-2">
         <div>
           <label for="ih-volume" class={labelClass}>
-            {f.volume}<Fragment set:html={reqMark} />
+            {f.volume}<span aria-hidden="true" class="text-error"> *</span>
           </label>
           <select
             id="ih-volume"

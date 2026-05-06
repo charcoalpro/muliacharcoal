@@ -14,11 +14,7 @@ const {
   floating = false,
 } = Astro.props;
 
-// Use the helper when defaults apply; otherwise build manually to honor overrides.
-const href =
-  phone === company.whatsapp.e164Digits
-    ? waLink(message)
-    : `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+const href = waLink(message, phone);
 ---
 <a
   href={href}

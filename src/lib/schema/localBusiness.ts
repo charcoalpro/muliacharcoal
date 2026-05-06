@@ -36,7 +36,7 @@ const openingHoursSpecification: OpeningHoursSpec[] = [
   },
 ];
 
-const availableLanguages = ['en', 'id', 'zh', 'ar'];
+const availableLanguages = company.spokenLanguages;
 
 const contactPoints = [
   {

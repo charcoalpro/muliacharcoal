@@ -49,6 +49,12 @@ export const company = {
       // Near-black green — hero backgrounds, footer.
       dark: '#0a1f17',
     },
+    // Default Open Graph / Twitter Card image used when a page does not
+    // pass its own. Path is relative to the deployed origin so the SEO
+    // component can build an absolute URL. Drop a 1200x630 image with
+    // brand + tagline at this location; keep the file under 200 KB.
+    // TODO_PLACEHOLDER: add /public/og-default.png before launch.
+    ogImage: '/og-default.png',
   },
 
   // -----------------------------------------------------------------
@@ -158,6 +164,16 @@ export const company = {
         'Hello, I would like to request a paid sample of your coconut shisha charcoal briquettes shipped to my address. Please confirm sample fee and shipping cost.',
     },
   },
+
+  // -----------------------------------------------------------------
+  // Languages the sales team can communicate in.
+  //
+  // ISO 639-1 codes. Drives `availableLanguage` on the LocalBusiness
+  // ContactPoints emitted by `~/lib/schema/localBusiness.ts`. NOT the
+  // list of language versions the site is published in — that lives in
+  // `~/config/site.ts` (siteLanguages).
+  // -----------------------------------------------------------------
+  spokenLanguages: ['en', 'id', 'zh', 'ar'],
 
   // -----------------------------------------------------------------
   // Working hours
@@ -634,17 +650,24 @@ export const company = {
 /**
  * Build a WhatsApp click-to-chat URL (wa.me).
  *
- * @param text Optional message body to pre-fill in the chat. Defaults to
- *             `company.whatsapp.defaultMessage`. The value is URI-encoded
- *             into the `text` query parameter.
- * @returns    An `https://wa.me/<digits>?text=...` URL safe for `href`.
+ * @param text       Optional message body to pre-fill in the chat. Defaults
+ *                   to `company.whatsapp.defaultMessage`. URI-encoded into
+ *                   the `text` query parameter.
+ * @param e164Digits Optional override for the destination number (no "+",
+ *                   no separators — what `wa.me/<digits>` requires).
+ *                   Defaults to the primary site number.
+ * @returns          An `https://wa.me/<digits>?text=...` URL safe for `href`.
  *
  * @example
  *   <a href={waLink()}>Chat on WhatsApp</a>
  *   <a href={waLink('Quote request for 22x50mm hexagonal cubes')}>…</a>
+ *   <a href={waLink(message, company.whatsapp.director.e164Digits)}>…</a>
  */
-export function waLink(text: string = company.whatsapp.defaultMessage): string {
-  return `https://wa.me/${company.whatsapp.e164Digits}?text=${encodeURIComponent(text)}`;
+export function waLink(
+  text: string = company.whatsapp.defaultMessage,
+  e164Digits: string = company.whatsapp.e164Digits,
+): string {
+  return `https://wa.me/${e164Digits}?text=${encodeURIComponent(text)}`;
 }
 
 /**

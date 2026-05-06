@@ -141,7 +141,24 @@
       "openIn": "Open in {{channel}}",
       "anchorButton": "Use the inquiry form below",
       "videoMeetingSubject": "Schedule a video meeting",
-      "videoMeetingLabel": "By appointment via Zoom or Google Meet"
+      "videoMeetingLabel": "By appointment via Zoom or Google Meet",
+      "labels": {
+        "whatsappChat": "WhatsApp chat",
+        "whatsappVoice": "WhatsApp voice call",
+        "whatsappVideo": "WhatsApp video call",
+        "phone": "Direct phone call",
+        "sms": "SMS",
+        "email": "Email",
+        "form": "Inquiry form",
+        "videoMeeting": "Zoom / Google Meet",
+        "wechat": "WeChat",
+        "telegram": "Telegram",
+        "messenger": "Messenger",
+        "botim": "Botim",
+        "max": "Max",
+        "line": "Line",
+        "viber": "Viber"
+      }
     },
     "form": {
       "heading": "Send a wholesale inquiry",
@@ -159,6 +176,14 @@
         "email": "Email",
         "products": "Product type",
         "productsHint": "Select all that apply",
+        "productOptions": {
+          "cube": "Cube",
+          "hexagonal": "Hexagonal",
+          "finger": "Finger",
+          "dome": "Dome",
+          "flat": "Flat",
+          "custom": "Custom shape / private label"
+        },
         "volume": "Expected purchasing volume",
         "volumePlaceholder": "Select volume",
         "packing": "Preferred packing",
@@ -274,6 +299,7 @@
       "piButton": "Request a Proforma Invoice on WhatsApp",
       "piButtonAria": "Open WhatsApp to request a Proforma Invoice (opens in new tab)"
     },
-    "newTabSr": "(opens in new tab)"
+    "newTabSr": "(opens in new tab)",
+    "mailtoSubject": "Wholesale inquiry"
   }
 }
