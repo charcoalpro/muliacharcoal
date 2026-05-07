@@ -497,21 +497,23 @@
       "descriptionTemplate": "Wholesale coconut shell shisha charcoal briquettes from {{port}}, {{country}}. {{iso9001Short}} certified, IMDG {{unNumber}} compliant. MOQ {{moqLabel}}, lead time {{leadTimeLabel}}. Request free samples or message us on WhatsApp."
     },
     "hero": {
-      "eyebrow": "Factory-direct since {{year}}",
-      "title": "Coconut shisha charcoal briquettes for serious importers",
-      "subtitleTemplate": "Container loads of {{moqTons}} tons FOB {{port}}. {{iso9001Short}} certified, IMDG {{unNumber}} compliant, {{capacity}} tons per month from a four-line factory in Central Java.",
+      "eyebrow": "Coconut shell charcoal briquette factory · {{city}}, {{country}} · since {{year}}",
+      "h1": "Natural coconut charcoal briquettes for shisha, by the container.",
+      "sub": "{{brand}} ships {{capacityMonth}}-tons-per-month from our {{city}} factory under {{iso9001Short}} and {{unNumber}} — MOQ {{moqTons}} tons / 20-ft container.",
+      "online": "We are online now",
+      "ctaWhatsapp": "Chat on WhatsApp",
+      "ctaSamples": "Request Free Samples",
+      "imageAlt": "Workers in branded uniforms loading a 20-ft container at the {{brand}} coconut charcoal factory in {{city}}, {{country}}, with the company sign visible on the factory exterior.",
       "trust": {
-        "un1361Label": "IMDG",
-        "un1361Value": "{{unNumber}} Class {{unClass}}",
+        "un1361Label": "Compliance",
+        "un1361Value": "{{unNumber}} compliant",
+        "un1361Tooltip": "{{imdgLabel}} — international maritime dangerous-goods classification for self-heating substances; we file the declaration with every shipment.",
         "isoLabel": "Quality",
-        "isoValue": "{{iso9001Short}} certified",
+        "isoValue": "{{iso9001Short}}:2015",
         "capacityLabel": "Capacity",
-        "capacityValue": "{{capacity}} tons / month since {{year}}"
+        "capacityValue": "{{capacityMonth}} t/month · since {{year}}"
       },
-      "ctaWhatsapp": "WhatsApp the factory",
-      "ctaSamples": "Request free samples",
-      "onlineLabel": "We are online now",
-      "emailLabelTemplate": "Email: {{email}}"
+      "waPrefill": "Hello Mulia Charcoal — please share your USD price list, MOQ details, and current lead time for coconut shisha charcoal briquettes."
     },
     "trustStrip": {
       "eyebrow": "What buyers verify before placing orders",

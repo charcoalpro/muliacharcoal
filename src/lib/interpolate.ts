@@ -121,6 +121,7 @@ export function companyTokens(company: Company): Tokens {
     leadTimeLabel: leadTimeLabel(),
     // Production
     capacity: company.production.capacityTonsPerDay,
+    capacityMonth: company.production.capacityTonsPerMonth,
     ovenCount: company.production.ovens.count,
     timezone: company.hours.timezone.replace('Asia/Jakarta', 'GMT+7'),
     // Certifications
