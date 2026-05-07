@@ -192,6 +192,22 @@ export const company = {
         'Hello, I would like to request a Proforma Invoice for coconut shisha charcoal briquettes. Please share your bank details and payment terms after KYC.',
       sampleRequest:
         'Hello, I would like to request a paid sample of your coconut shisha charcoal briquettes shipped to my address. Please confirm sample fee and shipping cost.',
+      // Homepage CTA contexts — each maps 1:1 to an analytics event in
+      // CLAUDE.md § Conversion Tracking, consumed by WhatsAppButton.
+      samplesHero:
+        'Hello Mulia Charcoal — please send free samples of your coconut shisha charcoal so I can verify the burn specs in our lab before placing a wholesale order.',
+      samplesProducts:
+        'Hello Mulia Charcoal — I would like free samples of the {{product}} coconut shisha charcoal to evaluate before placing a wholesale order.',
+      quoteSpecs:
+        'Hello Mulia Charcoal — please send your latest USD price list FOB Semarang for the Premium, Super Premium, and Platinum grades, including MOQ and lead time.',
+      factoryAbout:
+        'Hello Mulia Charcoal — I would like more information about your factory: capacity, certifications, and a virtual tour. Could you share documents and a video call slot?',
+      oemLayout:
+        'Hello Mulia Charcoal — please share your OEM packaging layouts and master-box / inner-box dimensions so I can plan our private-label order.',
+      oemDesigner:
+        'Hello Mulia Charcoal — I would like to discuss a private-label / OEM brand with your designer. We have artwork and target SKUs ready to share.',
+      contactDirect:
+        'Hello Mulia Charcoal — I am evaluating a wholesale order from {{country}}. Could we start a direct conversation about specs, price, and shipping?',
     },
   },
 
@@ -784,6 +800,10 @@ export const company = {
   analytics: {
     gaId: 'G-CLNNLB616W',
     gscVerification: 'fKfTQ-h0XVRjQNoEERZWqchNnUs_6H48amhkgsDPGBA',
+    // Meta (Facebook) Pixel ID. The Pixel base code in Analytics.astro only
+    // initialises when this is a real numeric ID — TODO_PLACEHOLDER ships
+    // an inert Pixel branch (the dual-dispatch helper still no-ops safely).
+    pixelId: 'TODO_PLACEHOLDER' as string,
   },
 } as const;
 

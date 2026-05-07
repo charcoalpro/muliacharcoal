@@ -1,0 +1,62 @@
+---
+/**
+ * SpecsTable — semantic specification table for the homepage Specifications
+ * block and pillar-page spec sheets.
+ *
+ * Renders a real `<table>` with `<caption>`, scoped column headers, and
+ * row headers in the first column. Mobile horizontal scroll is acceptable
+ * for tables this dense; we still keep the cell text readable at 360px.
+ */
+
+interface Column {
+  key: string;
+  label: string;
+  /** Optional unit shown after the column label (e.g. '%', '°C'). */
+  unit?: string;
+}
+
+interface Props {
+  columns: Column[];
+  /** First-column row header is the row's `name`; remaining cells are keyed by column. */
+  rows: Array<{ name: string } & Record<string, string | number>>;
+  caption?: string;
+  /** Optional id for `aria-describedby` from a section heading. */
+  id?: string;
+  class?: string;
+}
+
+const { columns, rows, caption, id, class: className } = Astro.props;
+---
+<div class:list={['overflow-x-auto', className]}>
+  <table id={id} class="w-full min-w-[36rem] border-collapse text-sm md:text-base">
+    {caption && (
+      <caption class="caption-top pb-3 text-start text-sm text-neutral-600">
+        {caption}
+      </caption>
+    )}
+    <thead>
+      <tr class="border-b-2 border-brand-primary text-start">
+        <th scope="col" class="px-3 py-3 text-start font-semibold text-neutral-900">
+          {/* Row-header column: empty header per ARIA tables convention. */}
+        </th>
+        {columns.map((col) => (
+          <th scope="col" class="px-3 py-3 text-start font-semibold text-neutral-900">
+            {col.label}{col.unit ? <span class="ms-1 text-neutral-500">({col.unit})</span> : null}
+          </th>
+        ))}
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((row, i) => (
+        <tr class:list={[i % 2 === 1 && 'bg-neutral-50', 'border-b border-neutral-200']}>
+          <th scope="row" class="px-3 py-3 text-start font-semibold text-neutral-900">
+            {row.name}
+          </th>
+          {columns.map((col) => (
+            <td class="px-3 py-3 text-neutral-700">{row[col.key]}</td>
+          ))}
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>

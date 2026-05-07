@@ -1,0 +1,80 @@
+---
+/**
+ * MapsLite — click-to-load Google Maps embed.
+ *
+ * Default state: a styled placeholder that opens Google Maps in a new
+ * tab on click (zero third-party requests on first paint). When users
+ * opt to reveal the inline map, an iframe replaces the placeholder.
+ *
+ * Accessible noscript fallback is the static "Open in Google Maps" link.
+ */
+
+import { company } from '~/config/company';
+
+interface Props {
+  label?: string;
+  /** Override default lat/lng from company config. */
+  latitude?: number;
+  longitude?: number;
+  /** Address summary shown beneath the map. */
+  addressLine?: string;
+  class?: string;
+}
+
+const {
+  label = 'View factory location on the map',
+  latitude = company.address.latitude,
+  longitude = company.address.longitude,
+  addressLine = company.address.short,
+  class: className,
+} = Astro.props;
+
+const mapsHref = company.googleMapsUrl;
+const embedSrc = `https://www.google.com/maps?q=${latitude},${longitude}&z=14&output=embed`;
+---
+<div class:list={['flex flex-col gap-3', className]}>
+  <button
+    type="button"
+    data-mapslite-trigger
+    data-embed-src={embedSrc}
+    aria-label={label}
+    class="group relative grid aspect-[16/10] w-full place-items-center overflow-hidden rounded-xl border border-neutral-200 bg-gradient-to-br from-neutral-100 via-neutral-100 to-neutral-200 text-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+  >
+    <span class="flex flex-col items-center gap-2 text-center">
+      <svg viewBox="0 0 24 24" class="h-12 w-12 text-brand-primary" fill="currentColor" aria-hidden="true">
+        <path d="M12 2a8 8 0 0 0-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 0 0-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+      </svg>
+      <span class="text-sm font-semibold text-neutral-700">{label}</span>
+      <span class="text-xs text-neutral-500">{addressLine}</span>
+    </span>
+  </button>
+
+  <noscript>
+    <p class="text-sm">
+      <a
+        href={mapsHref}
+        target="_blank"
+        rel="noopener"
+        class="font-semibold text-brand-primary underline"
+      >
+        Open factory location in Google Maps
+      </a>
+    </p>
+  </noscript>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('[data-mapslite-trigger]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const src = btn.dataset.embedSrc;
+      if (!src) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = src;
+      iframe.title = btn.getAttribute('aria-label') ?? 'Map';
+      iframe.loading = 'lazy';
+      iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      iframe.className = 'aspect-[16/10] w-full rounded-xl border border-neutral-200';
+      btn.replaceWith(iframe);
+    });
+  });
+</script>

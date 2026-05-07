@@ -1,0 +1,82 @@
+---
+/**
+ * ProductCard — single product shape preview.
+ *
+ * Composes Card + ImagePlaceholder + a "Request samples" WhatsApp CTA.
+ * Used on the homepage Products grid; the future `/products` pillar
+ * will reuse the same component.
+ */
+
+import Card from '~/components/content/Card.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+
+interface Props {
+  name: string;
+  /** Path of the shape category page (e.g. '/products/cubes'). */
+  href: string;
+  sizes: string[];
+  description: string;
+  /** Public image path; falls back to ImagePlaceholder when missing. */
+  image?: string;
+  /** Pre-fill text fragment for the WhatsApp message. */
+  messageContext?: string;
+  /** Analytics source identifier on the title link. */
+  dataSourceComponent?: string;
+}
+
+const {
+  name,
+  href,
+  sizes,
+  description,
+  image,
+  messageContext = `samples for ${name}`,
+  dataSourceComponent = 'product-card',
+} = Astro.props;
+---
+<Card padding="p-5" class="h-full">
+  <Fragment slot="media">
+    {image ? (
+      <img
+        src={image}
+        alt={`${name} shisha charcoal briquette`}
+        loading="lazy"
+        decoding="async"
+        width="640"
+        height="360"
+        class="aspect-video w-full object-cover bg-neutral-100"
+      />
+    ) : (
+      <ImagePlaceholder label={`${name} briquette photo`} ratio="16/9" />
+    )}
+  </Fragment>
+
+  <h3 class="text-lg font-semibold text-neutral-900">
+    <a
+      href={href}
+      class="hover:text-brand-primary focus-visible:outline-none focus-visible:underline"
+      data-source-component={dataSourceComponent}
+    >
+      {name}
+    </a>
+  </h3>
+  <p class="mt-2 text-sm leading-relaxed text-neutral-600">{description}</p>
+
+  <ul class="mt-4 flex flex-wrap gap-2">
+    {sizes.map((size) => (
+      <li class="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 text-xs font-medium text-neutral-700">
+        {size}
+      </li>
+    ))}
+  </ul>
+
+  <Fragment slot="footer">
+    <WhatsAppButton
+      context="samplesProducts"
+      messageContext={messageContext}
+      size="sm"
+      appearance="solid"
+    />
+  </Fragment>
+</Card>

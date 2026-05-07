@@ -490,5 +490,221 @@
         "subtitle": "Trustpilot widget will appear here once the company profile is published."
       }
     }
+  },
+  "home": {
+    "meta": {
+      "titleTemplate": "{{brand}} — Coconut Shisha Charcoal Factory in {{city}}, Indonesia",
+      "descriptionTemplate": "Wholesale coconut shell shisha charcoal briquettes from {{port}}, {{country}}. {{iso9001Short}} certified, IMDG {{unNumber}} compliant. MOQ {{moqLabel}}, lead time {{leadTimeLabel}}. Request free samples or message us on WhatsApp."
+    },
+    "hero": {
+      "eyebrow": "Factory-direct since {{year}}",
+      "title": "Coconut shisha charcoal briquettes for serious importers",
+      "subtitleTemplate": "Container loads of {{moqTons}} tons FOB {{port}}. {{iso9001Short}} certified, IMDG {{unNumber}} compliant, {{capacity}} tons per month from a four-line factory in Central Java.",
+      "trust": {
+        "un1361Label": "IMDG",
+        "un1361Value": "{{unNumber}} Class {{unClass}}",
+        "isoLabel": "Quality",
+        "isoValue": "{{iso9001Short}} certified",
+        "capacityLabel": "Capacity",
+        "capacityValue": "{{capacity}} tons / month since {{year}}"
+      },
+      "ctaWhatsapp": "WhatsApp the factory",
+      "ctaSamples": "Request free samples",
+      "onlineLabel": "We are online now",
+      "emailLabelTemplate": "Email: {{email}}"
+    },
+    "trustStrip": {
+      "eyebrow": "What buyers verify before placing orders",
+      "items": {
+        "reach": {
+          "label": "Compliance",
+          "value": "REACH-aligned, IMDG {{unNumber}} Class {{unClass}}"
+        },
+        "audits": {
+          "label": "Audits",
+          "value": "Independent labs: Carsurin & Beckjorindo"
+        },
+        "shipping": {
+          "label": "Shipping lines",
+          "value": "Maersk, MSC, CMA CGM"
+        },
+        "languages": {
+          "label": "Languages spoken",
+          "value": "English, Mandarin, Arabic, Bahasa Indonesia"
+        },
+        "countries": {
+          "label": "Countries served",
+          "value": "Worldwide — priority: USA, UK, Saudi Arabia, Germany, Russia / CIS"
+        }
+      }
+    },
+    "products": {
+      "eyebrow": "Six shapes, one factory",
+      "title": "Briquette shapes for every shisha format",
+      "subtitle": "Cube, stix, hexagonal, dome, flat and lotus profiles — each cut from the same coconut shell formulation. Mix shapes within a single 20ft container.",
+      "ctaSamples": "Request free samples of any shape",
+      "items": {
+        "cube": {
+          "name": "Cube",
+          "description": "The reference shisha format. 22, 25 and 26 mm cuts ship globally; uniform edges and no first-light cracking."
+        },
+        "stix": {
+          "name": "Stix / Finger",
+          "description": "Slim 10×10×100 mm fingers for kaloud and HMD heat-management devices. Long burn at low surface temperature."
+        },
+        "hexagonal": {
+          "name": "Hexagonal",
+          "description": "Six-sided 22×50 mm briquettes with centre hole — preferred by retail tobacco brands for shelf appeal and even ignition."
+        },
+        "dome": {
+          "name": "D-Shape / Dome",
+          "description": "Hemisphere briquettes shaped to seat flush against ceramic and silicone shisha bowls."
+        },
+        "flat": {
+          "name": "Flat / Slab",
+          "description": "Flat slab cut for kaloud, foil and large-bowl applications. Maximum heat-management surface."
+        },
+        "lotus": {
+          "name": "Lotus / Cloud",
+          "description": "Decorative profile briquettes for premium shisha lounges. Same coconut shell formulation, distinctive shape."
+        }
+      }
+    },
+    "specs": {
+      "eyebrow": "Three grades, transparent specs",
+      "title": "Choose by burn time, ash and surface temperature",
+      "subtitle": "Buyers pick a grade by retail price point and shisha-lounge expectations. All three grades meet IMDG {{unNumber}} Class {{unClass}} for sea freight.",
+      "ctaQuote": "Get a USD price list",
+      "columns": {
+        "ash": "Ash",
+        "moisture": "Moisture",
+        "fixedCarbon": "Fixed carbon",
+        "burnTime": "Burn time",
+        "burnTemp": "Burn temp"
+      },
+      "grades": {
+        "premium": {
+          "name": "Premium",
+          "notes": "Entry-level wholesale grade for value SKUs and large-volume retail."
+        },
+        "super-premium": {
+          "name": "Super Premium",
+          "notes": "Mid-tier specification for established shisha brands and lounge supply."
+        },
+        "platinum": {
+          "name": "Platinum",
+          "notes": "Top-tier specification for premium private-label and hotel/lounge accounts."
+        }
+      },
+      "caption": "Typical factory targets per grade. Lab certificate of analysis (COA) issued per shipment."
+    },
+    "about": {
+      "eyebrow": "Our factory",
+      "title": "A four-line briquetting factory in Central Java",
+      "intro": "Mulia Charcoal is the export brand of {{legalName}}, founded in {{year}}. The factory operates four briquetting lines and {{ovenCount}} carbonization ovens in Semarang, with direct port access at {{port}}.",
+      "dataLabels": {
+        "founded": "Founded",
+        "capacity": "Monthly capacity",
+        "lines": "Production lines",
+        "moq": "MOQ",
+        "port": "Port of loading",
+        "leadTime": "Lead time",
+        "iso": "Quality system",
+        "imdg": "Sea-freight class",
+        "nib": "Indonesian NIB",
+        "npwp": "Tax ID (NPWP)"
+      },
+      "videoTitle": "Factory walkthrough — briquetting, drying and packing",
+      "docsHeading": "Factory documents (issued with every shipment)",
+      "docs": {
+        "nib": "Business registration (NIB)",
+        "npwp": "Tax registration (NPWP)",
+        "factoryAudit": "Independent factory audit report",
+        "coa": "Certificate of analysis (COA)",
+        "iso9001": "{{isoStandard}} certificate"
+      },
+      "ctaInfo": "Get more information about our factory"
+    },
+    "oem": {
+      "eyebrow": "Private label / OEM",
+      "title": "Build your own brand from our factory",
+      "subtitle": "We hold the briquetting capacity and the certifications; you bring the artwork. Master-box, inner-box and individual cube wraps are all available.",
+      "cards": {
+        "layout": {
+          "heading": "Layouts and box sizes",
+          "body": "Master carton, inner box, plastic and additional packaging — get the dimensional layouts and dieline templates so your designer can plate up."
+        },
+        "designer": {
+          "heading": "Talk to our designer",
+          "body": "Send us your brand assets and we'll send back proofs of how the artwork lays up on every SKU."
+        }
+      },
+      "ctaLayout": "Get layouts and sizes",
+      "ctaDesigner": "Discuss your brand with our designer"
+    },
+    "gallery": {
+      "eyebrow": "Inside the factory",
+      "title": "Photos and videos from the floor",
+      "factoryHeading": "Factory floor",
+      "containerHeading": "Container loading",
+      "videoHeading": "Container-loading walkthrough"
+    },
+    "contact": {
+      "eyebrow": "Talk to us",
+      "title": "Start a wholesale conversation",
+      "subtitle": "WhatsApp is fastest — typical response under 2 hours during {{timezone}} business days. The form below routes to the same export desk.",
+      "formHeading": "Send a wholesale inquiry",
+      "mapHeading": "Factory location",
+      "whatsappHeading": "Or message us directly",
+      "fields": {
+        "name": "Full name",
+        "email": "Business email",
+        "country": "Destination country",
+        "countryPlaceholder": "Select destination",
+        "whatsapp": "WhatsApp number (optional)",
+        "message": "Message",
+        "messagePlaceholder": "Tell us your target volume, destination port and timeline.",
+        "submit": "Send inquiry",
+        "submitting": "Sending…"
+      },
+      "errors": {
+        "name": "Please enter your full name.",
+        "email": "Please enter a valid business email address.",
+        "country": "Please select a destination country.",
+        "whatsapp": "Use international format starting with + (e.g. +1 555 123 4567).",
+        "message": "Please share a few details about your inquiry.",
+        "generic": "We could not send your inquiry. Please try WhatsApp instead."
+      },
+      "success": "Thanks — your inquiry is in. We will reply within one business day. For faster response, message us on WhatsApp."
+    },
+    "faq": {
+      "heading": "Buyer FAQ",
+      "items": [
+        {
+          "q": "What is your minimum order quantity?",
+          "a": "{{moqLabel}} FOB {{port}}. We do not split containers, but you can mix shapes and grades within a single 20ft container."
+        },
+        {
+          "q": "How long is production lead time?",
+          "a": "{{leadTimeLabel}} from receipt of the 30% T/T deposit. We schedule the booking with the shipping line in parallel so the container is ready on the agreed laycan."
+        },
+        {
+          "q": "Which shipping lines do you load with?",
+          "a": "Maersk, MSC and CMA CGM out of {{port}}. We file IMDG {{unNumber}} Class {{unClass}} declarations and provide the Self-Heating Test report with every booking."
+        },
+        {
+          "q": "Can you private-label our brand?",
+          "a": "Yes. We offer master-box, inner-box and individual cube-wrap printing. Your designer works directly with our packaging lead; minimum private-label order is one 20ft container."
+        },
+        {
+          "q": "What payment terms do you accept?",
+          "a": "T/T 30/70 (30% deposit, 70% against B/L copy), or L/C at sight. Wire details are released only after KYC. We invoice in USD."
+        },
+        {
+          "q": "Do you ship paid samples?",
+          "a": "Yes. Samples ship by air courier; sample fee and freight are quoted by destination. Lab-grade samples include a batch COA so you can verify the burn specs before placing the wholesale order."
+        }
+      ]
+    }
   }
 }
