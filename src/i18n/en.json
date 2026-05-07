@@ -795,6 +795,12 @@
         "submit": "Send inquiry"
       }
     },
+    "cta": {
+      "headline": "Ready to load your first container? Sample 1 kg ships free.",
+      "subTemplate": "Production from {{leadTimeDays}} days, Tanjung Emas ({{city}}) loading.",
+      "ctaLabel": "Request samples + price",
+      "waPrefill": "Hello Mulia Charcoal — please send a free 1 kg sample and your latest USD price list FOB Semarang for coconut shisha charcoal briquettes."
+    },
     "faq": {
       "heading": "Buyer FAQ",
       "items": [

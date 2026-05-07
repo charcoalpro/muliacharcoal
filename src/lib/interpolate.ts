@@ -135,6 +135,9 @@ export function companyTokens(company: Company): Tokens {
     // Lead time variants
     newBrandLeadTime: company.commercial.leadTime.newBrandDays,
     repeatBrandLeadTime: company.commercial.leadTime.repeatBrandDays,
+    // Lower-bound lead time used by the homepage CTA banner sub-headline
+    // ("Production from {{leadTimeDays}} days").
+    leadTimeDays: company.commercial.leadTime.repeatBrandDays,
     // Packaging — formatted size lists for use in i18n templates.
     innerPlasticSizes: company.packaging.innerPlastic.sizesGrams
       .map((g) => (g >= 1000 ? `${g / 1000} kg` : `${g} g`))
