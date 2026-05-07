@@ -9,9 +9,14 @@
  * `<script type="application/ld+json">`.
  *
  * FAQ copy lives in `en.home.faq.items` so it can be translated.
+ * Tokens (e.g. `{{moqLabel}}`, `{{port}}`) are interpolated against
+ * the company config before the graph is emitted, so the schema text
+ * is the same string a buyer reads on the page.
  */
 
 import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
 import { buildOrganization, buildWebSite } from '~/lib/schema/organization';
 import { localBusinessSchema } from '~/lib/schema/localBusiness';
 import { productItemListSchema } from '~/lib/schema/itemList';
@@ -20,8 +25,11 @@ import { breadcrumbListSchema } from '~/lib/schema/breadcrumbList';
 import { productShapes } from '~/config/products';
 
 export function buildHomepageGraph() {
-  const homeFaqItems = (en as { home?: { faq?: { items?: { q: string; a: string }[] } } })
-    ?.home?.faq?.items ?? [];
+  const tokens = companyTokens(company);
+  const homeFaqItems = en.home.faq.items.map((item) => ({
+    q: fill(item.q, tokens),
+    a: fill(item.a, tokens),
+  }));
 
   return {
     '@context': 'https://schema.org',

@@ -1,0 +1,51 @@
+---
+/**
+ * Products — six-shape grid driven by `src/config/products.ts`.
+ *
+ * Each card uses the i18n product name + description so wording can be
+ * tuned per locale without touching the structured data, which still
+ * pulls the canonical English form for ItemList JSON-LD.
+ */
+
+import en from '~/i18n/en.json';
+import SectionHeading from '~/components/content/SectionHeading.astro';
+import ProductCard from '~/components/product/ProductCard.astro';
+import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+import { productShapes } from '~/config/products';
+
+const t = en.home.products;
+---
+<section aria-labelledby="home-products-title" class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <SectionHeading
+      eyebrow={t.eyebrow}
+      title={t.title}
+      subtitle={t.subtitle}
+      id="home-products-title"
+    />
+
+    <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {productShapes.map((shape) => (
+        <li class="h-full">
+          <ProductCard
+            name={t.items[shape.key]?.name ?? shape.name}
+            description={t.items[shape.key]?.description ?? shape.description}
+            sizes={shape.sizes}
+            href={shape.href}
+            messageContext={`free samples of the ${shape.name} shisha charcoal`}
+            dataSourceComponent={`product-card-${shape.slug}`}
+          />
+        </li>
+      ))}
+    </ul>
+
+    <div class="mt-10 flex justify-start">
+      <WhatsAppButton
+        context="samplesProducts"
+        size="lg"
+        messageContext="free samples of multiple shapes"
+        label={t.ctaSamples}
+      />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,108 @@
+---
+/**
+ * About Us — homepage condensed factory snapshot.
+ *
+ * Data table of the headline facts (capacity, lines, MOQ, port, lead
+ * time, ISO, IMDG, NIB, NPWP), a YouTube factory walkthrough placeholder
+ * (real ID drops in via i18n config later), and a thumbnail grid linking
+ * to the five factory legal documents we issue with every shipment.
+ *
+ * Deeper history and personnel detail live on the dedicated /about page;
+ * this block is a 30-second skim with one clear CTA.
+ */
+
+import en from '~/i18n/en.json';
+import { company, hasFact, moqLabel, portOfLoadingLabel, leadTimeLabel, imdgLabel } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import SectionHeading from '~/components/content/SectionHeading.astro';
+import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+
+const t = en.home.about;
+const tokens = companyTokens(company);
+const intro = fill(t.intro, tokens);
+const isoCertLabel = fill(t.docs.iso9001, tokens);
+
+const facts: { label: string; value: string }[] = [
+  { label: t.dataLabels.founded, value: String(company.foundingYear) },
+  { label: t.dataLabels.capacity, value: `${company.production.capacityTonsPerMonth} tons` },
+  { label: t.dataLabels.lines, value: String(company.production.lines) },
+  { label: t.dataLabels.moq, value: moqLabel() },
+  { label: t.dataLabels.port, value: portOfLoadingLabel() },
+  { label: t.dataLabels.leadTime, value: leadTimeLabel() },
+  { label: t.dataLabels.iso, value: company.certifications.iso9001.standard },
+  { label: t.dataLabels.imdg, value: imdgLabel() },
+  { label: t.dataLabels.nib, value: company.registration.nib },
+  { label: t.dataLabels.npwp, value: company.registration.taxId },
+];
+
+const docs: { key: string; label: string }[] = [
+  { key: 'nib', label: t.docs.nib },
+  { key: 'npwp', label: t.docs.npwp },
+  { key: 'factoryAudit', label: t.docs.factoryAudit },
+  { key: 'coa', label: t.docs.coa },
+  { key: 'iso9001', label: isoCertLabel },
+];
+---
+<section aria-labelledby="home-about-title" class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <SectionHeading
+      eyebrow={t.eyebrow}
+      title={t.title}
+      id="home-about-title"
+    />
+    <p class="mt-5 max-w-3xl text-base leading-relaxed text-neutral-700 md:text-lg">
+      {intro}
+    </p>
+
+    <div class="mt-12 grid gap-10 lg:grid-cols-2">
+      <dl class="grid grid-cols-2 gap-x-6 gap-y-5">
+        {facts.filter((f) => hasFact(f.value)).map((f) => (
+          <div>
+            <dt class="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+              {f.label}
+            </dt>
+            <dd class="mt-1 text-sm font-semibold text-neutral-900">{f.value}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div>
+        <ImagePlaceholder
+          label={t.videoTitle}
+          ratio="16/9"
+        />
+        <p class="mt-3 text-xs text-neutral-500">
+          {t.videoTitle}
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-12">
+      <h3 class="text-lg font-semibold text-neutral-900">{t.docsHeading}</h3>
+      <ul class="mt-4 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        {docs.map((doc) => (
+          <li>
+            <ImagePlaceholder label={doc.label} ratio="3/2" />
+            <p class="mt-2 text-xs font-medium text-neutral-700">{doc.label}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="mt-10 flex flex-wrap items-center gap-3">
+      <WhatsAppButton
+        context="factoryAbout"
+        size="lg"
+        messageContext="more information about your factory"
+        label={t.ctaInfo}
+      />
+      <a
+        href="/about"
+        class="text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+      >
+        Read the full factory profile →
+      </a>
+    </div>
+  </div>
+</section>

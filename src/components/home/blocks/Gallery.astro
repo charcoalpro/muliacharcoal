@@ -1,0 +1,81 @@
+---
+/**
+ * Photo Gallery — six factory photos, three container-loading photos,
+ * two vertical YouTube videos.
+ *
+ * All photo slots use ImagePlaceholder until real assets land per
+ * `src/assets/placeholders/MANIFEST.md`. YouTube IDs are placeholders
+ * (`dQw4w9WgXcQ`) — replace with the real IDs for the loading
+ * walkthrough clips and the page will swap to real video on click.
+ */
+
+import en from '~/i18n/en.json';
+import SectionHeading from '~/components/content/SectionHeading.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import YouTubeLite from '~/components/content/YouTubeLite.astro';
+
+const t = en.home.gallery;
+
+const factoryPhotos = [
+  'Briquetting line — extrusion press in operation',
+  'Carbonization oven — coconut shells loading',
+  'Drying tunnel — exit point with QC station',
+  'Cube cutting and trimming line',
+  'Inner-box packing line with QC operator',
+  'Master-box stacking and palletising area',
+];
+
+const containerPhotos = [
+  '20ft container — palletised stuffing',
+  '20ft container — final inspection before sealing',
+  '20ft container — sealed and ready for trucking',
+];
+
+// TODO: replace with the real YouTube video IDs for the container-loading walkthrough.
+const verticalVideos = [
+  { id: 'TODO_PLACEHOLDER_VIDEO_1', title: 'Container loading — full walkthrough' },
+  { id: 'TODO_PLACEHOLDER_VIDEO_2', title: 'Container loading — palletised stuffing detail' },
+];
+---
+<section aria-labelledby="home-gallery-title" class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <SectionHeading
+      eyebrow={t.eyebrow}
+      title={t.title}
+      id="home-gallery-title"
+    />
+
+    <h3 class="mt-10 text-base font-semibold text-neutral-900">{t.factoryHeading}</h3>
+    <ul class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {factoryPhotos.map((label) => (
+        <li>
+          <ImagePlaceholder label={label} ratio="4/3" />
+        </li>
+      ))}
+    </ul>
+
+    <h3 class="mt-12 text-base font-semibold text-neutral-900">{t.containerHeading}</h3>
+    <ul class="mt-4 grid gap-4 md:grid-cols-3">
+      {containerPhotos.map((label) => (
+        <li>
+          <ImagePlaceholder label={label} ratio="4/3" />
+        </li>
+      ))}
+    </ul>
+
+    <h3 class="mt-12 text-base font-semibold text-neutral-900">{t.videoHeading}</h3>
+    <ul class="mt-4 grid gap-6 md:grid-cols-2">
+      {verticalVideos.map((video) => (
+        <li>
+          <YouTubeLite
+            videoId={video.id}
+            title={video.title}
+            aspect="9/16"
+            dataSourceComponent="gallery-vertical"
+          />
+          <p class="mt-2 text-center text-xs text-neutral-500">{video.title}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
