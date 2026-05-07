@@ -508,6 +508,10 @@ export const company = {
     // Halal certification (LPPOM-MUI or equivalent). Set to a populated
     // object once the certificate is issued; leave null otherwise.
     halal: null as { certified: boolean; body?: string } | null,
+    // ISO date of the most recent independent certification batch test
+    // by Carsurin / Beckjorindo. Surfaces in the homepage Specifications
+    // section "Last verified" stamp. Refresh on every recertification.
+    specsLastVerified: '2026-04-25', // TODO: confirm with QC director
   },
 
   // -----------------------------------------------------------------

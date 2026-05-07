@@ -591,32 +591,46 @@
       }
     },
     "specs": {
-      "eyebrow": "Three grades, transparent specs",
-      "title": "Choose by burn time, ash and surface temperature",
-      "subtitle": "Buyers pick a grade by retail price point and shisha-lounge expectations. All three grades meet IMDG {{unNumber}} Class {{unClass}} for sea freight.",
-      "ctaQuote": "Get a USD price list",
-      "columns": {
-        "ash": "Ash",
+      "eyebrow": "Decision-stage specifications",
+      "h2": "Three quality grades, batch-tested, ready for 18-ton FCL.",
+      "intro": "All three grades are 100% natural coconut shell charcoal — no chemicals, no fillers — produced under {{isoStandard}} and IMDG {{unNumber}} transport classification. Per-batch certificates of analysis are issued by {{auditors}} independent labs.",
+      "h2LinkLabel": "Read the specifications guide",
+      "propertyHeader": "Property",
+      "cardEyebrow": "Grade",
+      "properties": {
+        "ash": "Ash content",
         "moisture": "Moisture",
         "fixedCarbon": "Fixed carbon",
         "burnTime": "Burn time",
-        "burnTemp": "Burn temp"
+        "burnTemp": "Burn temp",
+        "calorieValue": "Calorific value",
+        "dropTest": "Drop test"
       },
-      "grades": {
-        "premium": {
-          "name": "Premium",
-          "notes": "Entry-level wholesale grade for value SKUs and large-volume retail."
-        },
-        "super-premium": {
-          "name": "Super Premium",
-          "notes": "Mid-tier specification for established shisha brands and lounge supply."
-        },
-        "platinum": {
-          "name": "Platinum",
-          "notes": "Top-tier specification for premium private-label and hotel/lounge accounts."
-        }
-      },
-      "caption": "Typical factory targets per grade. Lab certificate of analysis (COA) issued per shipment."
+      "caption": "Factory targets per grade. Lab certificate of analysis (COA) issued per shipment.",
+      "lastVerifiedTemplate": "Last verified: {{specsLastVerified}}",
+      "coaLinkLabel": "See the certificate of analysis",
+      "coaLinkHref": "/quality/coa-sample.pdf",
+      "gradePickerLegend": "Choose the grade you want a price for",
+      "gradePickerHelp": "Pick a grade — the CTA below pre-fills the WhatsApp message accordingly.",
+      "ctaLabelTemplate": "Get price for {{grade}}",
+      "ctaMessageTemplate": "Hello Mulia Charcoal — please share your USD price list FOB {{port}} for {{grade}} grade coconut shisha charcoal, including MOQ and current lead time.",
+      "glossary": {
+        "heading": "How to read these numbers",
+        "items": [
+          {
+            "q": "What is ash content?",
+            "a": "Ash content is the percentage of mineral residue left after combustion. Lower ash means a cleaner burn, less debris on the bowl and less odour; coconut shell briquettes typically run 1.6%-2.8% by mass. Detail at /quality/specifications-explained#ash."
+          },
+          {
+            "q": "Why does fixed carbon matter?",
+            "a": "Fixed carbon is the share of pure carbon left after volatile matter and moisture have burned off. Higher fixed carbon means a longer, hotter burn at lower ash. Our Platinum grade hits ≥ 82% fixed carbon."
+          },
+          {
+            "q": "How long does Platinum grade burn?",
+            "a": "Platinum grade burns 2.5+ hours per cube on a standard shisha bowl at a peak surface temperature near 680 °C. Premium and Super Premium burn 2+ hours per cube."
+          }
+        ]
+      }
     },
     "about": {
       "eyebrow": "Our factory",

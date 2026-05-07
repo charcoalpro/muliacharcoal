@@ -1,64 +1,98 @@
 /**
  * Quality grades — three-tier specification ladder we publish to buyers.
  *
- * Numeric values are factory-confirmed targets, not single-batch lab
- * results. Grade-specific copy lives in `en.home.specs.grades.<key>` so
- * marketing tone can vary by language without touching the numbers.
+ * Each property is a `SpecValue`: a `display` string is what buyers see
+ * in the table; `min`, `max` and `unit` are the structured numbers the
+ * grade Product schema feeds into `additionalProperty`.
  *
  * Update a value here only when QC re-runs the certification batch and
  * the operations director signs off; the SpecsTable on the homepage and
  * `/quality/specifications-explained` both read from this file.
  */
 
+export interface SpecValue {
+  /** Display text shown in the table / card (e.g. "2.5-2.8%", "≥ 75%"). */
+  display: string;
+  /** Numeric lower bound when applicable. */
+  min?: number;
+  /** Numeric upper bound when applicable. */
+  max?: number;
+  /** Unit symbol or word (e.g. "%", "°C", "hours", "kcal/kg", "drops"). */
+  unit?: string;
+}
+
 export interface Grade {
-  /** Key for i18n lookup and stable id. */
+  /** Key for i18n lookup, JSON-LD `@id`, and stable URL anchors. */
   key: 'premium' | 'super-premium' | 'platinum';
   /** Display name (English). */
   name: string;
-  /** Ash residue (% by mass) after burn. Lower is better. */
-  ashPct: number;
-  /** Moisture content (% by mass) at packing. Lower is better. */
-  moisturePct: number;
-  /** Fixed carbon content (% by mass). Higher is better. */
-  fixedCarbonPct: number;
-  /** Average burn time per cube on a standard shisha bowl, in minutes. */
-  burnTimeMinutes: number;
-  /** Surface burn temperature at peak, in °C. */
-  burnTempC: number;
+  /** Short paragraph used by JSON-LD `description`. */
+  description: string;
+  ash: SpecValue;
+  moisture: SpecValue;
+  fixedCarbon: SpecValue;
+  burnTime: SpecValue;
+  burnTemp: SpecValue;
+  calorieValue: SpecValue;
+  dropTest: SpecValue;
 }
 
 /**
- * TODO: confirm exact numbers with the operations director.
- * The placeholder values below are conservative claims that match
- * widely-published coconut shell shisha charcoal specifications and
- * keep the page renderable until QC confirms.
+ * The seven properties listed for every grade, in published order.
+ * Keep this list in sync with the table column logic in
+ * `~/components/content/SpecsTable.astro` and the FAQ glossary in
+ * `~/i18n/en.json` (home.specs.glossary).
  */
+export const gradePropertyKeys = [
+  'ash',
+  'moisture',
+  'fixedCarbon',
+  'burnTime',
+  'burnTemp',
+  'calorieValue',
+  'dropTest',
+] as const;
+
+export type GradePropertyKey = (typeof gradePropertyKeys)[number];
+
 export const grades: Grade[] = [
   {
     key: 'premium',
     name: 'Premium',
-    ashPct: 2.5,
-    moisturePct: 5,
-    fixedCarbonPct: 75,
-    burnTimeMinutes: 60,
-    burnTempC: 700,
+    description:
+      'Entry-level wholesale grade for value SKUs and large-volume retail. ≥ 75% fixed carbon, 2.5-2.8% ash.',
+    ash: { display: '2.5-2.8%', min: 2.5, max: 2.8, unit: '%' },
+    moisture: { display: '≤ 6%', max: 6, unit: '%' },
+    fixedCarbon: { display: '≥ 75%', min: 75, unit: '%' },
+    burnTime: { display: '2+ hours', min: 2, unit: 'hours' },
+    burnTemp: { display: '600 °C', min: 600, max: 600, unit: '°C' },
+    calorieValue: { display: '≥ 7000 kcal/kg', min: 7000, unit: 'kcal/kg' },
+    dropTest: { display: '3+', min: 3, unit: 'drops' },
   },
   {
     key: 'super-premium',
     name: 'Super Premium',
-    ashPct: 1.5,
-    moisturePct: 4,
-    fixedCarbonPct: 80,
-    burnTimeMinutes: 75,
-    burnTempC: 750,
+    description:
+      'Mid-tier specification for established shisha brands and lounge supply. ≥ 80% fixed carbon, 2.0-2.5% ash.',
+    ash: { display: '2.0-2.5%', min: 2.0, max: 2.5, unit: '%' },
+    moisture: { display: '≤ 6%', max: 6, unit: '%' },
+    fixedCarbon: { display: '≥ 80%', min: 80, unit: '%' },
+    burnTime: { display: '2+ hours', min: 2, unit: 'hours' },
+    burnTemp: { display: '650 °C', min: 650, max: 650, unit: '°C' },
+    calorieValue: { display: '≥ 7300 kcal/kg', min: 7300, unit: 'kcal/kg' },
+    dropTest: { display: '3+', min: 3, unit: 'drops' },
   },
   {
     key: 'platinum',
     name: 'Platinum',
-    ashPct: 1.0,
-    moisturePct: 3,
-    fixedCarbonPct: 85,
-    burnTimeMinutes: 90,
-    burnTempC: 800,
+    description:
+      'Top-tier specification for premium private-label and hotel/lounge accounts. ≥ 82% fixed carbon, 1.6-2.0% ash.',
+    ash: { display: '1.6-2.0%', min: 1.6, max: 2.0, unit: '%' },
+    moisture: { display: '≤ 6%', max: 6, unit: '%' },
+    fixedCarbon: { display: '≥ 82%', min: 82, unit: '%' },
+    burnTime: { display: '2.5+ hours', min: 2.5, unit: 'hours' },
+    burnTemp: { display: '680 °C', min: 680, max: 680, unit: '°C' },
+    calorieValue: { display: '≥ 7500 kcal/kg', min: 7500, unit: 'kcal/kg' },
+    dropTest: { display: '3+', min: 3, unit: 'drops' },
   },
 ];

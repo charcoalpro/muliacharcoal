@@ -3,15 +3,17 @@
  *
  * Returns one `@graph` document containing every schema node the
  * homepage needs: Organization, WebSite, LocalBusiness, ItemList of
- * the six product shapes, FAQPage with 6–8 buyer-facing Q&A pairs,
- * and a one-item BreadcrumbList. Pass the result to `BaseLayout`'s
- * `schema` prop — it serialises the whole graph as a single
+ * the six product shapes, three Grade Product variants, FAQPage with
+ * the buyer FAQ + the specs glossary entries, and a one-item
+ * BreadcrumbList. Pass the result to `BaseLayout`'s `schema` prop —
+ * it serialises the whole graph as a single
  * `<script type="application/ld+json">`.
  *
- * FAQ copy lives in `en.home.faq.items` so it can be translated.
- * Tokens (e.g. `{{moqLabel}}`, `{{port}}`) are interpolated against
- * the company config before the graph is emitted, so the schema text
- * is the same string a buyer reads on the page.
+ * FAQ copy lives in `en.home.faq.items` (general buyer FAQ) and
+ * `en.home.specs.glossary.items` (specs glossary). Tokens
+ * (e.g. `{{moqLabel}}`, `{{port}}`) are interpolated against the
+ * company config before the graph is emitted, so the schema text is
+ * the same string a buyer reads on the page.
  */
 
 import en from '~/i18n/en.json';
@@ -20,13 +22,20 @@ import { fill, companyTokens } from '~/lib/interpolate';
 import { buildOrganization, buildWebSite } from '~/lib/schema/organization';
 import { localBusinessSchema } from '~/lib/schema/localBusiness';
 import { productItemListSchema } from '~/lib/schema/itemList';
+import { gradeProductsSchema } from '~/lib/schema/grades';
 import { faqPageSchema } from '~/lib/schema/faqPage';
 import { breadcrumbListSchema } from '~/lib/schema/breadcrumbList';
 import { productShapes } from '~/config/products';
 
 export function buildHomepageGraph() {
   const tokens = companyTokens(company);
-  const homeFaqItems = en.home.faq.items.map((item) => ({
+
+  const baseFaq = en.home.faq.items.map((item) => ({
+    q: fill(item.q, tokens),
+    a: fill(item.a, tokens),
+  }));
+
+  const glossaryFaq = (en.home.specs.glossary?.items ?? []).map((item) => ({
     q: fill(item.q, tokens),
     a: fill(item.a, tokens),
   }));
@@ -55,7 +64,8 @@ export function buildHomepageGraph() {
           sizes: p.sizes,
         })),
       ),
-      faqPageSchema(homeFaqItems),
+      ...gradeProductsSchema(),
+      faqPageSchema([...baseFaq, ...glossaryFaq]),
       breadcrumbListSchema([{ name: 'Home', path: '/' }]),
     ],
   };

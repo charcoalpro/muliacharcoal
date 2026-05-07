@@ -135,6 +135,7 @@ export function companyTokens(company: Company): Tokens {
     unClass: company.certifications.imdg.class,
     imdgClassDescription: company.certifications.imdg.classDescription,
     imdgLabel: imdgLabel(),
+    specsLastVerified: company.certifications.specsLastVerified,
     // Legal / contract terms
     governingLaw: company.legal.governingLaw,
     arbitrationInstitution: company.legal.arbitration.institution,
