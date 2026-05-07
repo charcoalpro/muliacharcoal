@@ -119,6 +119,9 @@ export function companyTokens(company: Company): Tokens {
     port: company.commercial.portOfLoading.name,
     portLabel: portOfLoadingLabel(),
     leadTimeLabel: leadTimeLabel(),
+    shippingLines: company.commercial.shippingLines.join(' · '),
+    salesLanguages: company.commercial.salesLanguages.join(' · '),
+    countriesExportedCount: company.commercial.countriesExportedCount,
     // Production
     capacity: company.production.capacityTonsPerDay,
     capacityMonth: company.production.capacityTonsPerMonth,

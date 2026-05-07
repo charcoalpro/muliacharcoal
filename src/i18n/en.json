@@ -516,27 +516,31 @@
       "waPrefill": "Hello Mulia Charcoal — please share your USD price list, MOQ details, and current lead time for coconut shisha charcoal briquettes."
     },
     "trustStrip": {
-      "eyebrow": "What buyers verify before placing orders",
+      "aria": "Proof signals from REACH compliance to shipping partners",
       "items": {
         "reach": {
-          "label": "Compliance",
-          "value": "REACH-aligned, IMDG {{unNumber}} Class {{unClass}}"
+          "label": "REACH compliant",
+          "definition": "What is REACH? — REACH is the EU's Registration, Evaluation, Authorisation and Restriction of Chemicals regulation; we declare REACH compliance for all coconut-shell binders and starches used in production."
         },
         "audits": {
-          "label": "Audits",
-          "value": "Independent labs: Carsurin & Beckjorindo"
+          "labelTemplate": "Audited by {{auditors}}",
+          "definition": "Carsurin and Beckjorindo are independent Indonesian testing laboratories accredited under ISO/IEC 17025. They run our quarterly burn, ash, moisture and fixed-carbon tests and issue the COA we ship with every container.",
+          "learnMore": "View certifications"
         },
         "shipping": {
-          "label": "Shipping lines",
-          "value": "Maersk, MSC, CMA CGM"
+          "labelTemplate": "Loading partners: {{shippingLines}}",
+          "definition": "We are approved to book FCL containers directly with Maersk, MSC and CMA CGM out of {{port}}. Bookings file IMDG {{unNumber}} Class {{unClass}} declarations and ship with the Self-Heating Test report.",
+          "learnMore": "Logistics overview"
         },
         "languages": {
-          "label": "Languages spoken",
-          "value": "English, Mandarin, Arabic, Bahasa Indonesia"
+          "labelTemplate": "Languages spoken: {{salesLanguages}}",
+          "definition": "Our export desk handles wholesale inquiries in {{salesLanguages}}. Reply on WhatsApp in your preferred language; the team routes the conversation internally to a native speaker."
         },
         "countries": {
-          "label": "Countries served",
-          "value": "Worldwide — priority: USA, UK, Saudi Arabia, Germany, Russia / CIS"
+          "labelTemplate": "{{countriesExportedCount}}+ countries exported",
+          "fallbackLabel": "Worldwide export network",
+          "definition": "We have shipped 20-ft and 40-ft containers of coconut shisha charcoal to wholesale buyers across the EU, GCC, North America, the CIS region, and South-East Asia.",
+          "learnMore": "Countries served"
         }
       }
     },

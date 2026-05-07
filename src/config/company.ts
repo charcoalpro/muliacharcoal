@@ -272,12 +272,19 @@ export const company = {
     // Whether private-label / OEM production is offered to wholesale buyers.
     oemAvailable: true,
     // Shipping lines we are approved to book directly with from the Port of
-    // Semarang. Empty until logistics confirms; the About page hides the
-    // related claims while this list is empty.
-    shippingLines: [] as string[], // TODO: confirm; e.g. ['MSC', 'Maersk', 'CMA CGM']
+    // Semarang. Surfaces in the homepage Trust Strip "Loading partners"
+    // badge and the About page logistics block.
+    shippingLines: ['Maersk', 'MSC', 'CMA CGM'] as string[],
     // Countries we have shipped to (drives the About page tag cloud and any
     // future /markets index). Empty until commercial confirms.
     exportMarkets: [] as string[], // TODO: confirm full destination list
+    // Languages the export desk operates in. Surfaces in the Trust Strip.
+    // Use ISO 639-1 uppercase codes (EN, AR, RU, DE, TR, ZH, ID, ...).
+    salesLanguages: ['EN', 'AR', 'RU', 'DE', 'TR'] as string[],
+    // Total number of countries we have shipped to (lifetime). Drives the
+    // Trust Strip "{n}+ countries exported" badge. `0` hides the number
+    // and falls back to a neutral worldwide-exports label.
+    countriesExportedCount: 0, // TODO: confirm lifetime export country count
   },
 
   // -----------------------------------------------------------------
