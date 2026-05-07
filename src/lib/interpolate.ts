@@ -130,6 +130,8 @@ export function companyTokens(company: Company): Tokens {
     facilityArea: company.production.factoryAreaSqm,
     headcount: company.production.headcount,
     timezone: company.hours.timezone.replace('Asia/Jakarta', 'GMT+7'),
+    officeHours: company.hours.short,
+    responseHours: company.hours.responseHours,
     // Lead time variants
     newBrandLeadTime: company.commercial.leadTime.newBrandDays,
     repeatBrandLeadTime: company.commercial.leadTime.repeatBrandDays,

@@ -754,31 +754,46 @@
     },
     "contact": {
       "eyebrow": "Talk to us",
-      "title": "Start a wholesale conversation",
-      "subtitle": "WhatsApp is fastest — typical response under 2 hours during {{timezone}} business days. The form below routes to the same export desk.",
-      "formHeading": "Send a wholesale inquiry",
+      "h2": "Talk to us about your container.",
+      "introTemplate": "We answer enquiries within {{responseHours}} hours, in {{salesLanguages}} — by WhatsApp, email, or this form. Office hours: {{officeHours}} Asia/Jakarta ({{timezone}}).",
+      "formHeading": "Wholesale inquiry",
       "mapHeading": "Factory location",
-      "whatsappHeading": "Or message us directly",
+      "whatsappHeading": "Or chat now",
+      "whatsappCta": "Chat on WhatsApp now",
+      "directHeading": "Direct contact",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "addressLabel": "Address",
+      "linksFaqLabel": "Read our FAQ",
+      "linksLogisticsLabel": "Logistics & shipping details",
+      "successHeading": "Thanks — your inquiry is in",
+      "successBody": "We will reply within {{responseHours}} business hours. For faster response, message us on WhatsApp.",
       "fields": {
         "name": "Full name",
+        "company": "Company",
         "email": "Business email",
         "country": "Destination country",
         "countryPlaceholder": "Select destination",
-        "whatsapp": "WhatsApp number (optional)",
+        "whatsapp": "WhatsApp / phone (optional)",
+        "containers": "Container quantity",
+        "containerOptions": {
+          "20ft": "1 × 20-ft FCL",
+          "40ft": "1 × 40-ft FCL",
+          "multi": "2+ containers",
+          "unsure": "Not sure yet"
+        },
+        "grade": "Grade interest",
+        "gradeOptions": {
+          "premium": "Premium",
+          "super-premium": "Super Premium",
+          "platinum": "Platinum",
+          "mixed": "Mixed"
+        },
         "message": "Message",
         "messagePlaceholder": "Tell us your target volume, destination port and timeline.",
-        "submit": "Send inquiry",
-        "submitting": "Sending…"
-      },
-      "errors": {
-        "name": "Please enter your full name.",
-        "email": "Please enter a valid business email address.",
-        "country": "Please select a destination country.",
-        "whatsapp": "Use international format starting with + (e.g. +1 555 123 4567).",
-        "message": "Please share a few details about your inquiry.",
-        "generic": "We could not send your inquiry. Please try WhatsApp instead."
-      },
-      "success": "Thanks — your inquiry is in. We will reply within one business day. For faster response, message us on WhatsApp."
+        "privacyConsentTemplate": "I agree that {{brand}} may contact me about my inquiry and store my details under their privacy policy.",
+        "submit": "Send inquiry"
+      }
     },
     "faq": {
       "heading": "Buyer FAQ",

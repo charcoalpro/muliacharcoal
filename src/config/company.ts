@@ -218,6 +218,12 @@ export const company = {
     timezone: 'Asia/Jakarta', // GMT+7, no DST
     weekdays: 'Monday – Saturday 08:00 – 16:00 (GMT+7)',
     sunday: 'Closed',
+    // Compact label used in the homepage Contact opener (e.g.
+    // "Mon–Sat 08:00–16:00").
+    short: 'Mon–Sat 08:00–16:00',
+    // Typical first-response time on WhatsApp / email during business
+    // hours, in hours. Surfaces in the Contact section opener.
+    responseHours: 2,
   },
 
   // -----------------------------------------------------------------
