@@ -79,7 +79,7 @@ export const company = {
   legalName: 'PT Coco Reina Global Charcoal Indonesia',
   brand: 'Mulia Charcoal',
   tagline: 'Coconut shell charcoal briquettes, factory-direct from Semarang',
-  foundingYear: 2018,
+  foundingYear: 2015,
 
   // -----------------------------------------------------------------
   // Brand design tokens
@@ -256,19 +256,33 @@ export const company = {
     // Port of loading for all FOB shipments.
     portOfLoading: {
       name: 'Semarang',
+      // Full port name (Tanjung Emas is the harbour at the city of
+      // Semarang). Surfaces in the homepage About data table.
+      fullName: 'Tanjung Emas',
       country: 'Indonesia',
       unLocode: 'IDSRG',
       incoterm: 'FOB',
+      // Alternate ports we can ship from when a buyer requests it
+      // (typical use case: 40-ft consolidated to Jakarta for combined
+      // shipments). `condition` describes when the alternate applies.
+      alternates: [
+        { name: 'Tanjung Priok', city: 'Jakarta', condition: 'on request' },
+      ] as Array<{ name: string; city: string; condition: string }>,
     },
     // Production lead time from deposit to ready-to-ship.
     leadTime: {
       minDays: 14,
       maxDays: 21,
+      // Brand-onboarding takes the upper end of the range (artwork,
+      // dieline approval, master-box proof). Repeat orders run the
+      // lower end. Surfaces in the homepage About data table.
+      newBrandDays: 21,
+      repeatBrandDays: 14,
     },
     // Default quote currency (USD). German market page may show EUR.
     currency: 'USD',
-    // Acceptable payment terms — TODO: confirm with finance.
-    paymentTerms: '30% T/T deposit, 70% against B/L copy',
+    // Acceptable payment terms — surfaces in the homepage About data table.
+    paymentTerms: '50% T/T advance, 50% T/T 3 days before loading',
     // Whether private-label / OEM production is offered to wholesale buyers.
     oemAvailable: true,
     // Shipping lines we are approved to book directly with from the Port of
@@ -292,9 +306,14 @@ export const company = {
   // -----------------------------------------------------------------
   production: {
     // Daily throughput at full utilization.
-    capacityTonsPerDay: 12,
-    // ~25 working days × 12 t/day.
-    capacityTonsPerMonth: 300,
+    capacityTonsPerDay: 14,
+    // Monthly capacity — published headline figure. ~350 / 25 working
+    // days = ~14 t/day at full utilisation.
+    capacityTonsPerMonth: 350,
+    // Total factory headcount (operations + admin + sales). Surfaces in
+    // the homepage About data table when set; rendering gates on
+    // hasFact() so a 0 value hides the row.
+    headcount: 0, // TODO: confirm full-time + contract headcount
     // Number of briquetting / extrusion lines installed.
     lines: 4, // TODO: confirm active line count
     // Oven / kiln details for carbonization + drying.
@@ -803,6 +822,92 @@ export const company = {
     'Germany',
     'Russia / CIS',
   ],
+
+  // -----------------------------------------------------------------
+  // Factory tour video — surfaced on the homepage About section as a
+  // YouTubeLite embed and as a VideoObject schema node in the
+  // homepage @graph. The lite embed renders a poster image until
+  // clicked; the iframe is only mounted on user interaction so the
+  // page LCP and JS budget are unaffected.
+  // -----------------------------------------------------------------
+  factoryTourVideo: {
+    youtubeId: 'TODO_PLACEHOLDER_VIDEO_ID', // TODO: paste real YouTube video ID
+    name: 'Tour of Mulia Charcoal factory in Semarang, Indonesia (3 minutes)',
+    description:
+      'Three-minute walkthrough of the Mulia Charcoal coconut shell briquetting factory in Semarang, Central Java — carbonization ovens, briquetting lines, drying tunnel, QC station and packing.',
+    durationISO: 'PT3M', // ISO 8601 — 3 minutes
+    uploadDate: 'TODO_PLACEHOLDER_DATE', // ISO 8601 (e.g. '2026-04-25')
+  },
+
+  // -----------------------------------------------------------------
+  // Page governance — Author / Reviewer / Fact Checker for E-E-A-T.
+  //
+  // Each entry surfaces visibly above the fold of the homepage About
+  // section AND maps to Schema.org `creator` / `reviewedBy` / `editor`
+  // when an Article-style schema node is added to the @graph. Keep the
+  // names in sync with the corresponding `people` roster entries
+  // wherever possible.
+  // -----------------------------------------------------------------
+  governance: {
+    author: {
+      name: 'Wilson Gosalim',
+      role: 'Owner & Director',
+      lastReviewed: '2026-04-25',
+    },
+    reviewer: {
+      name: 'Greg Ryabtsev',
+      role: 'Charcoal Expert / Consultant',
+      lastReviewed: '2026-04-25',
+    },
+    factChecker: {
+      name: 'TODO_PLACEHOLDER_QC_LEAD',
+      role: 'Quality Control Manager',
+      lastReviewed: '2026-04-25',
+    },
+  },
+
+  // -----------------------------------------------------------------
+  // Legal documents the factory issues with every shipment. Surfaces
+  // in the homepage About section as a 5-card row.
+  //
+  // Each entry's `href` is the public path to the PDF under
+  // `/public/legal/` (or `/public/quality/` for the COA). PDFs that
+  // are not yet uploaded will 404 — add the file at the matching
+  // path to make the link resolve. `dated` is the ISO date stamped on
+  // the document; refresh on every renewal.
+  // -----------------------------------------------------------------
+  legalDocuments: [
+    {
+      key: 'nib',
+      title: 'Business registration (NIB)',
+      href: '/legal/nib.pdf',
+      dated: 'TODO_PLACEHOLDER_NIB_DATE',
+    },
+    {
+      key: 'npwp',
+      title: 'Tax registration (NPWP)',
+      href: '/legal/npwp.pdf',
+      dated: 'TODO_PLACEHOLDER_NPWP_DATE',
+    },
+    {
+      key: 'factory-audit',
+      title: 'Factory Audit (Beckjorindo)',
+      href: '/legal/factory-audit.pdf',
+      dated: 'TODO_PLACEHOLDER_AUDIT_DATE',
+    },
+    {
+      key: 'coa-sample',
+      title: 'Sample Certificate of Analysis',
+      href: '/quality/coa-sample.pdf',
+      dated: 'TODO_PLACEHOLDER_COA_DATE',
+    },
+    {
+      key: 'iso-9001',
+      title: 'ISO 9001:2015 certificate',
+      href: '/legal/iso-9001.pdf',
+      dated: 'TODO_PLACEHOLDER_ISO_DATE',
+    },
+  ] as Array<{ key: string; title: string; href: string; dated: string }>,
 
   // -----------------------------------------------------------------
   // Web analytics. Both values are public — they appear verbatim in

@@ -25,6 +25,7 @@ import { productItemListSchema } from '~/lib/schema/itemList';
 import { gradeProductsSchema } from '~/lib/schema/grades';
 import { faqPageSchema } from '~/lib/schema/faqPage';
 import { breadcrumbListSchema } from '~/lib/schema/breadcrumbList';
+import { videoObjectSchema } from '~/lib/schema/videoObject';
 import { productShapes } from '~/config/products';
 
 export function buildHomepageGraph() {
@@ -67,6 +68,10 @@ export function buildHomepageGraph() {
       ...gradeProductsSchema(),
       faqPageSchema([...baseFaq, ...glossaryFaq]),
       breadcrumbListSchema([{ name: 'Home', path: '/' }]),
-    ],
+      // Append the factory-tour VideoObject only when the YouTube ID
+      // and upload date are real — `videoObjectSchema` returns null
+      // otherwise. The .filter(Boolean) below drops the null.
+      videoObjectSchema(company.factoryTourVideo),
+    ].filter(Boolean) as Array<Record<string, unknown>>,
   };
 }

@@ -634,28 +634,61 @@
     },
     "about": {
       "eyebrow": "Our factory",
-      "title": "A four-line briquetting factory in Central Java",
-      "intro": "Mulia Charcoal is the export brand of {{legalName}}, founded in {{year}}. The factory operates four briquetting lines and {{ovenCount}} carbonization ovens in Semarang, with direct port access at {{port}}.",
-      "dataLabels": {
-        "founded": "Founded",
-        "capacity": "Monthly capacity",
-        "lines": "Production lines",
-        "moq": "MOQ",
-        "port": "Port of loading",
-        "leadTime": "Lead time",
-        "iso": "Quality system",
-        "imdg": "Sea-freight class",
-        "nib": "Indonesian NIB",
-        "npwp": "Tax ID (NPWP)"
+      "h2": "{{legalName}} — a {{year}}-founded {{city}} factory.",
+      "h2LinkLabel": "Read the full factory profile",
+      "introWithFacility": "{{legalName}} ({{brand}}) is an Indonesian-registered manufacturer (NIB {{nib}}, NPWP {{taxId}}) of coconut shell charcoal briquettes for shisha and hookah, operating a {{facilityArea}}-square-metre facility in {{city}}, {{region}} since {{year}}, with a production capacity of {{capacityMonth}} metric tons per month.",
+      "intro": "{{legalName}} ({{brand}}) is an Indonesian-registered manufacturer (NIB {{nib}}, NPWP {{taxId}}) of coconut shell charcoal briquettes for shisha and hookah, based in {{city}}, {{region}} since {{year}}, with a production capacity of {{capacityMonth}} metric tons per month.",
+      "governance": {
+        "heading": "Page authorship",
+        "authorRole": "Author",
+        "reviewerRole": "Reviewer",
+        "factCheckerRole": "Fact checker",
+        "lastReviewedTemplate": "Last reviewed {{date}}"
       },
-      "videoTitle": "Factory walkthrough — briquetting, drying and packing",
-      "docsHeading": "Factory documents (issued with every shipment)",
+      "dataTable": {
+        "heading": "Factory at a glance",
+        "headers": ["Detail", "Value"],
+        "founded": "Founded",
+        "facility": "Facility",
+        "facilityValue": "{{city}}, {{region}}, {{country}}",
+        "capacity": "Capacity",
+        "capacityValue": "{{capacityMonth}} tons / month",
+        "workforce": "Workforce",
+        "lines": "Production lines",
+        "leadTime": "Lead time",
+        "leadTimeValue": "{{newBrandLeadTime}} days for new brand · {{repeatBrandLeadTime}} days for repeat",
+        "port": "Port of loading",
+        "portValue": "Tanjung Emas ({{city}}), Tanjung Priok (Jakarta) on request",
+        "payment": "Payment",
+        "moq": "MOQ",
+        "moqValue": "{{moqLabel}} · 20-ft FCL only",
+        "languages": "Languages spoken"
+      },
+      "video": {
+        "heading": "Inside the factory",
+        "title": "Tour of {{brand}} factory in {{city}}, {{country}} (3 minutes)",
+        "captionTemplate": "Three-minute walkthrough — carbonization ovens, briquetting lines, drying tunnel and packing."
+      },
       "docs": {
-        "nib": "Business registration (NIB)",
-        "npwp": "Tax registration (NPWP)",
-        "factoryAudit": "Independent factory audit report",
-        "coa": "Certificate of analysis (COA)",
-        "iso9001": "{{isoStandard}} certificate"
+        "heading": "Documents we issue with every shipment",
+        "viewLabel": "View PDF",
+        "items": {
+          "nib": {
+            "title": "Business registration (NIB {{nib}})"
+          },
+          "npwp": {
+            "title": "Tax registration (NPWP {{taxId}})"
+          },
+          "factory-audit": {
+            "title": "Factory Audit (Beckjorindo)"
+          },
+          "coa-sample": {
+            "title": "Sample Certificate of Analysis"
+          },
+          "iso-9001": {
+            "title": "{{isoStandard}} certificate"
+          }
+        }
       },
       "ctaInfo": "Get more information about our factory"
     },

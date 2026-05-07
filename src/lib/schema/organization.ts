@@ -76,6 +76,13 @@ export function buildOrganization({ mode = 'slim' }: BuildOptions = {}) {
     address: buildPostalAddress(),
     email: company.email,
     telephone: company.phone.display,
+    // Surface the headcount when ops has confirmed it; gated on
+    // hasFact() so a 0 placeholder never ships.
+    ...(hasFact(company.production.headcount)
+      ? { numberOfEmployees: company.production.headcount }
+      : {}),
+    // VAT identifier — Indonesia uses NPWP for VAT registration.
+    ...(hasFact(company.registration.taxId) ? { vatID: company.registration.taxId } : {}),
     ...(sameAs.length ? { sameAs } : {}),
   };
 

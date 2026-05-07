@@ -1,0 +1,74 @@
+---
+/**
+ * DocumentCard — small card surfacing a downloadable document.
+ *
+ * Renders an inline SVG document icon (no external file → zero extra
+ * HTTP request), the document title, an optional dated stamp, and a
+ * "View PDF" link. The whole card is the link target so the touch
+ * area stays large.
+ *
+ * The link fires `data-event` (default `legal_doc_open`) via the
+ * sitewide `[data-event]` dispatcher; pass `dataKey` to identify the
+ * document in the analytics payload (e.g. "nib", "iso-9001").
+ *
+ * Mobile horizontal scroll-snap + alignment classes are applied by the
+ * parent grid; this component only describes itself.
+ */
+
+interface Props {
+  title: string;
+  href: string;
+  /** ISO date stamped on the document (or any short caption). */
+  dated?: string;
+  /** Optional file size hint (e.g. "1.2 MB"). */
+  fileSize?: string;
+  /** Localised "View PDF" link copy. */
+  viewLabel?: string;
+  /** Stable identifier surfaced as `data-source-component`. */
+  dataKey: string;
+  class?: string;
+}
+
+const {
+  title,
+  href,
+  dated,
+  fileSize,
+  viewLabel = 'View PDF',
+  dataKey,
+  class: className,
+} = Astro.props;
+---
+<a
+  href={href}
+  download
+  target="_blank"
+  rel="noopener"
+  data-event="legal_doc_open"
+  data-source-component={`legal-doc-${dataKey}`}
+  class:list={[
+    'group flex h-full snap-center scroll-mx-4 flex-col gap-3 rounded-2xl border border-neutral-200 bg-white p-5 transition-colors hover:border-brand-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2',
+    className,
+  ]}
+>
+  <span aria-hidden="true" class="grid h-12 w-12 place-items-center rounded-md bg-brand-primary/10 text-brand-primary">
+    <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/>
+      <path d="M14 3v5h5"/>
+      <path d="M9 13h6M9 17h4"/>
+    </svg>
+  </span>
+
+  <div class="flex-1">
+    <h3 class="text-sm font-semibold leading-tight text-neutral-900">{title}</h3>
+    {dated && (
+      <p class="mt-1 text-xs text-neutral-500">{dated}</p>
+    )}
+  </div>
+
+  <span class="inline-flex items-center gap-1 text-sm font-semibold text-brand-primary group-hover:underline">
+    {viewLabel}
+    <span aria-hidden="true">↓</span>
+    {fileSize && <span class="text-xs font-normal text-neutral-500">({fileSize})</span>}
+  </span>
+</a>
