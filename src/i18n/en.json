@@ -545,34 +545,48 @@
       }
     },
     "products": {
-      "eyebrow": "Six shapes, one factory",
-      "title": "Briquette shapes for every shisha format",
-      "subtitle": "Cube, stix, hexagonal, dome, flat and lotus profiles — each cut from the same coconut shell formulation. Mix shapes within a single 20ft container.",
-      "ctaSamples": "Request free samples of any shape",
+      "eyebrow": "Six shapes",
+      "h2": "Six coconut-shell shapes for shisha and hookah, custom-sized to your brand.",
+      "intro": "Each shape is pressed from 100% coconut shell carbon and food-grade tapioca starch, then cured for 18–24 hours; we cut sizes to your specification and pack them in your branded box.",
+      "h2LinkLabel": "Browse all products",
+      "addToInquiry": "Add to inquiry",
+      "addedToInquiry": "Added to inquiry",
+      "moreDetails": "More details",
+      "sizesHeading": "Sizes",
+      "sizesToggleLabel": "View sizes",
+      "pcsPerKgLabel": "pcs/kg",
+      "ctaSamples": "Get free samples",
+      "ctaSamplesSubtext": "Tick the shapes you want and we will send a paid sample kit with batch COA. WhatsApp opens on click.",
       "items": {
         "cube": {
           "name": "Cube",
-          "description": "The reference shisha format. 22, 25 and 26 mm cuts ship globally; uniform edges and no first-light cracking."
+          "description": "The reference shisha format. Five edge sizes from 22 to 28 mm; uniform edges and no first-light cracking.",
+          "imageAlt": "Mulia Charcoal coconut shell cube briquettes (25×25 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
         },
         "stix": {
           "name": "Stix / Finger",
-          "description": "Slim 10×10×100 mm fingers for kaloud and HMD heat-management devices. Long burn at low surface temperature."
+          "description": "Slim finger briquettes for kaloud and HMD-style heat-management devices. Long burn at low surface temperature.",
+          "imageAlt": "Mulia Charcoal coconut shell stix / finger briquettes (20×50 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
         },
         "hexagonal": {
           "name": "Hexagonal",
-          "description": "Six-sided 22×50 mm briquettes with centre hole — preferred by retail tobacco brands for shelf appeal and even ignition."
+          "description": "Six-sided briquettes with a centre hole — preferred by retail tobacco brands for shelf appeal and even ignition.",
+          "imageAlt": "Mulia Charcoal coconut shell hexagonal briquettes (20×50 mm) with centre hole, photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
         },
         "dome": {
-          "name": "D-Shape / Dome",
-          "description": "Hemisphere briquettes shaped to seat flush against ceramic and silicone shisha bowls."
+          "name": "D-shape / Dome",
+          "description": "Hemisphere briquettes shaped to seat flush against ceramic and silicone shisha bowls.",
+          "imageAlt": "Mulia Charcoal coconut shell dome / D-shape briquettes (25 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
         },
         "flat": {
           "name": "Flat / Slab",
-          "description": "Flat slab cut for kaloud, foil and large-bowl applications. Maximum heat-management surface."
+          "description": "Flat slab cut for kaloud, foil and large-bowl applications. Maximum heat-management surface area.",
+          "imageAlt": "Mulia Charcoal coconut shell flat slab briquettes (25×25×17 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
         },
         "lotus": {
           "name": "Lotus / Cloud",
-          "description": "Decorative profile briquettes for premium shisha lounges. Same coconut shell formulation, distinctive shape."
+          "description": "Decorative profile briquettes for premium shisha lounges. Same coconut shell formulation, distinctive shape.",
+          "imageAlt": "Mulia Charcoal coconut shell lotus / cloud briquette (3-piece set), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
         }
       }
     },
