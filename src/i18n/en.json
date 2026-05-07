@@ -694,20 +694,55 @@
     },
     "oem": {
       "eyebrow": "Private label / OEM",
-      "title": "Build your own brand from our factory",
-      "subtitle": "We hold the briquetting capacity and the certifications; you bring the artwork. Master-box, inner-box and individual cube wraps are all available.",
-      "cards": {
-        "layout": {
-          "heading": "Layouts and box sizes",
-          "body": "Master carton, inner box, plastic and additional packaging — get the dimensional layouts and dieline templates so your designer can plate up."
+      "h2": "OEM and private-label packaging from your design files.",
+      "h2LinkLabel": "Browse all packaging options",
+      "intro": "We print 1 kg inner boxes (full-colour, {{innerBoxGsm}} gsm), inner plastic with your logo, and {{masterBoxSizes}} master boxes (single- or double-wall) — from your {{acceptedArtworkFormats}} artwork, with a packaging proof inside {{proofTimeDays}} working days.",
+      "tiersHeading": "Choose your packaging package",
+      "tiers": {
+        "full": {
+          "name": "Full packaging",
+          "summary": "Inner plastic + inner box + master box. Retail-ready out of the container.",
+          "imageAlt": "Mulia Charcoal full packaging tier — printed inner plastic pouch, full-colour 1 kg inner box and 20 kg master carton, photographed at the Semarang factory."
         },
-        "designer": {
-          "heading": "Talk to our designer",
-          "body": "Send us your brand assets and we'll send back proofs of how the artwork lays up on every SKU."
+        "standard": {
+          "name": "Standard packaging",
+          "summary": "Inner plastic + inner box. The most common SKU for retail and lounge accounts.",
+          "imageAlt": "Mulia Charcoal standard packaging tier — printed inner plastic pouch and full-colour 1 kg inner box, photographed at the Semarang factory."
+        },
+        "minimal": {
+          "name": "Pouch in master",
+          "summary": "Inner plastic + master box. Wholesale bulk for distributors who repack locally.",
+          "imageAlt": "Mulia Charcoal minimal packaging tier — printed inner plastic pouches inside a 10 kg master carton, photographed at the Semarang factory."
         }
       },
-      "ctaLayout": "Get layouts and sizes",
-      "ctaDesigner": "Discuss your brand with our designer"
+      "sizes": {
+        "heading": "Sizes available",
+        "innerPlasticLabel": "Inner plastic",
+        "innerPlasticValue": "{{innerPlasticSizes}}",
+        "innerBoxLabel": "Inner box",
+        "innerBoxValue": "{{innerBoxSizes}} (full-colour, {{innerBoxGsm}} gsm)",
+        "masterBoxLabel": "Master box",
+        "masterBoxValue": "{{masterBoxSizes}} (single- or double-wall)"
+      },
+      "ctaLayout": "Get layout and sizes",
+      "ctaDesigner": "Discuss your brand with our designer",
+      "faq": {
+        "heading": "Common questions about OEM",
+        "items": [
+          {
+            "q": "Do you accept AI/PDF artwork?",
+            "a": "Yes. Send us print-ready Adobe Illustrator (.ai) or PDF files at the dieline dimensions we share. We accept CMYK at 300 dpi with bleed; if you have InDesign or Photoshop sources we can usually open those too."
+          },
+          {
+            "q": "What is the print proof time?",
+            "a": "We turn around a packaging proof within {{proofTimeDays}} working days of receiving final artwork. The proof is a physical printed sample on the actual board stock; you sign it off before the production run."
+          },
+          {
+            "q": "Minimum order to start a private label?",
+            "a": "{{moqLabel}} FOB {{port}}. The 18-ton minimum is a single 20-ft FCL — you can mix shapes and grades inside one container, but we do not split containers across buyers."
+          }
+        ]
+      }
     },
     "gallery": {
       "eyebrow": "Inside the factory",

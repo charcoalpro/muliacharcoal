@@ -133,6 +133,20 @@ export function companyTokens(company: Company): Tokens {
     // Lead time variants
     newBrandLeadTime: company.commercial.leadTime.newBrandDays,
     repeatBrandLeadTime: company.commercial.leadTime.repeatBrandDays,
+    // Packaging — formatted size lists for use in i18n templates.
+    innerPlasticSizes: company.packaging.innerPlastic.sizesGrams
+      .map((g) => (g >= 1000 ? `${g / 1000} kg` : `${g} g`))
+      .join(' / '),
+    innerBoxSizes: company.packaging.innerBox.sizesGrams
+      .map((g) => (g >= 1000 ? `${g / 1000} kg` : `${g} g`))
+      .join(' / '),
+    innerBoxGsm: company.packaging.innerBox.gsm,
+    masterBoxSizes: company.packaging.masterBox.sizesKg
+      .map((kg) => `${kg} kg`)
+      .join(' or '),
+    masterBoxWallOptions: company.packaging.masterBox.wallOptions.join('- or '),
+    acceptedArtworkFormats: company.packaging.acceptedArtworkFormats.join(' / '),
+    proofTimeDays: company.packaging.proofTimeDays,
     // Certifications
     iso9001Short: company.certifications.iso9001.shortName,
     isoStandard: company.certifications.iso9001.standard,

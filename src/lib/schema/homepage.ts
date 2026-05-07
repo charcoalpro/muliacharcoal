@@ -41,6 +41,11 @@ export function buildHomepageGraph() {
     a: fill(item.a, tokens),
   }));
 
+  const oemFaq = (en.home.oem.faq?.items ?? []).map((item) => ({
+    q: fill(item.q, tokens),
+    a: fill(item.a, tokens),
+  }));
+
   return {
     '@context': 'https://schema.org',
     '@graph': [
@@ -66,7 +71,7 @@ export function buildHomepageGraph() {
         })),
       ),
       ...gradeProductsSchema(),
-      faqPageSchema([...baseFaq, ...glossaryFaq]),
+      faqPageSchema([...baseFaq, ...glossaryFaq, ...oemFaq]),
       breadcrumbListSchema([{ name: 'Home', path: '/' }]),
       // Append the factory-tour VideoObject only when the YouTube ID
       // and upload date are real — `videoObjectSchema` returns null

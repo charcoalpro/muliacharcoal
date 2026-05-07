@@ -824,6 +824,56 @@ export const company = {
   ],
 
   // -----------------------------------------------------------------
+  // OEM / private-label packaging facts. Surfaces on the homepage
+  // OEM Packaging section AND on the future /packaging pillar page.
+  //
+  // Sizes are stored in grams (inner plastic + inner box) and kg
+  // (master box) so component code can format the unit suffix
+  // consistently. `tiers` lists the published packaging packages we
+  // sell — the homepage cards iterate this array.
+  // -----------------------------------------------------------------
+  packaging: {
+    innerPlastic: {
+      // Net charcoal mass per inner plastic pouch, in grams.
+      sizesGrams: [250, 500, 1000],
+      notes: 'Printed inner plastic film; your logo + lot code per buyer requirements.',
+    },
+    innerBox: {
+      sizesGrams: [250, 500, 1000, 2000, 3000, 5000],
+      // Default board thickness for the inner box.
+      gsm: 230,
+      notes: 'Full-colour CMYK printing on 230 gsm board; matte or gloss finish.',
+    },
+    masterBox: {
+      // Master / shipper carton sizes, in kilograms gross.
+      sizesKg: [10, 20],
+      wallOptions: ['single', 'double'] as Array<'single' | 'double'>,
+      notes: 'Single- or double-wall corrugated; printed or kraft.',
+    },
+    // Accepted source artwork formats from the buyer's designer.
+    acceptedArtworkFormats: ['AI', 'PDF'] as string[],
+    // Working days from artwork receipt to physical print proof on the
+    // factory floor. Surfaces in the homepage opener sentence.
+    proofTimeDays: 7,
+    // Three published packaging tiers. Each tier maps to a card on the
+    // homepage; `contents` is the human-readable list of components.
+    tiers: [
+      {
+        key: 'full',
+        contents: ['Inner plastic', 'Inner box', 'Master box'],
+      },
+      {
+        key: 'standard',
+        contents: ['Inner plastic', 'Inner box'],
+      },
+      {
+        key: 'minimal',
+        contents: ['Inner plastic', 'Master box'],
+      },
+    ] as Array<{ key: string; contents: string[] }>,
+  },
+
+  // -----------------------------------------------------------------
   // Factory tour video — surfaced on the homepage About section as a
   // YouTubeLite embed and as a VideoObject schema node in the
   // homepage @graph. The lite embed renders a poster image until
