@@ -745,11 +745,12 @@
       }
     },
     "gallery": {
-      "eyebrow": "Inside the factory",
-      "title": "Photos and videos from the floor",
-      "factoryHeading": "Factory floor",
-      "containerHeading": "Container loading",
-      "videoHeading": "Container-loading walkthrough"
+      "eyebrow": "Visual proof",
+      "h2": "Inside our {{city}} factory and container loading.",
+      "h2LinkLabel": "All factory photos",
+      "introTemplate": "These are photographs and short vertical videos of our actual production floor in {{city}} and our 20-ft container loading process — taken {{galleryLastUpdated}}. Click any image to view it full-size.",
+      "lightboxCloseLabel": "Close image",
+      "videoBadge": "Video"
     },
     "contact": {
       "eyebrow": "Talk to us",

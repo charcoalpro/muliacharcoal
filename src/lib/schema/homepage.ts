@@ -26,7 +26,15 @@ import { gradeProductsSchema } from '~/lib/schema/grades';
 import { faqPageSchema } from '~/lib/schema/faqPage';
 import { breadcrumbListSchema } from '~/lib/schema/breadcrumbList';
 import { videoObjectSchema } from '~/lib/schema/videoObject';
+import { imageGallerySchema, imageObjectSchema } from '~/lib/schema/imageObject';
 import { productShapes } from '~/config/products';
+import {
+  galleryPhotos,
+  galleryVideos,
+  galleryLastUpdated,
+  hasAssets as hasGalleryAssets,
+} from '~/config/gallery';
+import { siteOrigin } from '~/lib/schema/organization';
 
 export function buildHomepageGraph() {
   const tokens = companyTokens(company);
@@ -76,7 +84,55 @@ export function buildHomepageGraph() {
       // Append the factory-tour VideoObject only when the YouTube ID
       // and upload date are real — `videoObjectSchema` returns null
       // otherwise. The .filter(Boolean) below drops the null.
-      videoObjectSchema(company.factoryTourVideo),
+      videoObjectSchema({ ...company.factoryTourVideo, id: 'factory-tour' }),
+      // Gallery schema — only emit ImageObject + ImageGallery when
+      // `hasGalleryAssets` is flipped true (i.e. real photos have
+      // landed at /public/gallery/). Until then, we never advertise
+      // broken contentUrls to search engines.
+      ...(hasGalleryAssets
+        ? [
+            ...galleryPhotos.map((p) =>
+              imageObjectSchema({
+                id: p.id,
+                name: p.caption,
+                description: p.alt,
+                contentUrl: p.contentPath,
+                thumbnailUrl: p.thumbnailPath,
+                datePublished: p.datePublished,
+              }),
+            ),
+            ...galleryVideos
+              .map((v) =>
+                videoObjectSchema({
+                  id: v.id,
+                  youtubeId: v.youtubeId,
+                  name: v.title,
+                  description: v.description,
+                  durationISO: v.durationISO,
+                  uploadDate: v.uploadDate,
+                  thumbnailUrl: v.posterPath,
+                }),
+              )
+              .filter(Boolean),
+            imageGallerySchema({
+              id: 'home-gallery',
+              name: 'Mulia Charcoal factory and container-loading gallery',
+              description: `Photographs and short vertical videos taken on the production floor and loading bay of the Mulia Charcoal coconut shell briquetting factory in Semarang, Central Java — refreshed ${galleryLastUpdated}.`,
+              url: `${siteOrigin}/#home-gallery-section`,
+              images: galleryPhotos.map((p) => ({
+                id: p.id,
+                name: p.caption,
+                description: p.alt,
+                contentUrl: p.contentPath,
+                thumbnailUrl: p.thumbnailPath,
+                datePublished: p.datePublished,
+              })),
+              videoRefs: galleryVideos
+                .filter((v) => v.youtubeId.indexOf('TODO_PLACEHOLDER') === -1)
+                .map((v) => `${siteOrigin}/#video-${v.id}`),
+            }),
+          ]
+        : []),
     ].filter(Boolean) as Array<Record<string, unknown>>,
   };
 }

@@ -1,5 +1,5 @@
 /**
- * VideoObject schema builder for the homepage factory tour video.
+ * VideoObject schema builder.
  *
  * Returns null when the source video isn't real yet (the YouTube ID is
  * still TODO_PLACEHOLDER) so we never ship a VideoObject node that
@@ -8,28 +8,42 @@
  *
  * `duration` follows ISO 8601 (e.g. "PT3M" for 3 minutes); `uploadDate`
  * follows ISO 8601 date format ("YYYY-MM-DD").
+ *
+ * Pass a unique `id` (kebab-case) so multiple VideoObject nodes on the
+ * same page get distinct `@id` values: `${siteOrigin}/#video-${id}`.
  */
 
 import { hasFact } from '~/config/company';
 import { siteOrigin } from '~/lib/schema/organization';
 
-interface VideoInput {
+export interface VideoObjectInput {
+  /** Stable kebab-case id; defaults to 'factory-tour'. */
+  id?: string;
   youtubeId: string;
   name: string;
   description: string;
   durationISO: string;
   uploadDate: string;
+  /** Optional poster path; falls back to YouTube auto-thumbnail. */
+  thumbnailUrl?: string;
 }
 
-export function videoObjectSchema(input: VideoInput) {
+export function videoObjectSchema(input: VideoObjectInput) {
   if (!hasFact(input.youtubeId) || !hasFact(input.uploadDate)) return null;
+  const id = input.id ?? 'factory-tour';
+
+  const thumbnail = input.thumbnailUrl
+    ? input.thumbnailUrl.startsWith('http')
+      ? input.thumbnailUrl
+      : `${siteOrigin}${input.thumbnailUrl.startsWith('/') ? input.thumbnailUrl : `/${input.thumbnailUrl}`}`
+    : `https://i.ytimg.com/vi/${input.youtubeId}/hqdefault.jpg`;
 
   return {
-    '@type': 'VideoObject',
-    '@id': `${siteOrigin}/#video-factory-tour`,
+    '@type': 'VideoObject' as const,
+    '@id': `${siteOrigin}/#video-${id}`,
     name: input.name,
     description: input.description,
-    thumbnailUrl: `https://i.ytimg.com/vi/${input.youtubeId}/hqdefault.jpg`,
+    thumbnailUrl: thumbnail,
     uploadDate: input.uploadDate,
     contentUrl: `https://www.youtube.com/watch?v=${input.youtubeId}`,
     embedUrl: `https://www.youtube-nocookie.com/embed/${input.youtubeId}`,

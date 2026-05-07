@@ -1,0 +1,185 @@
+---
+/**
+ * Gallery — homepage proof-at-depth section.
+ *
+ * 9 photos (6 factory + 3 container loading, 4:3) plus 2 vertical
+ * YouTube videos (9:16) in one masonry-ish grid. Vertical videos
+ * span 2 grid rows so they appear taller than 4:3 photos in the
+ * same column.
+ *
+ * Lightbox is CSS-only via `:target` — no JavaScript framework. Each
+ * thumbnail is wrapped in `<a href="#lb-{id}">`; the matching
+ * `<div id="lb-{id}" role="dialog" aria-modal="true">` is hidden by
+ * default and revealed by the `target:` Tailwind modifier when its
+ * id matches the URL hash. The close link `<a href="#home-gallery">`
+ * scrolls the page back to the section anchor and dismisses the
+ * lightbox.
+ *
+ * Until `gallery.hasAssets` is flipped true (i.e. real photos land
+ * at /public/gallery/<id>.avif), tile thumbnails fall back to
+ * `<ImagePlaceholder>` and the schema `ImageGallery` / `ImageObject`
+ * nodes are skipped from the homepage @graph (handled in
+ * `~/lib/schema/homepage.ts`).
+ *
+ * Analytics: each tile fires `gallery_image_open` (photos) or
+ * `gallery_video_play` (videos) via the sitewide [data-event]
+ * dispatcher.
+ */
+
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import {
+  galleryItems,
+  galleryLastUpdated,
+  hasAssets,
+  type GalleryPhoto,
+  type GalleryVideo,
+} from '~/config/gallery';
+import SectionHeading from '~/components/content/SectionHeading.astro';
+import YouTubeLite from '~/components/content/YouTubeLite.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+
+const t = en.home.gallery;
+const tokens = companyTokens(company);
+
+const h2 = fill(t.h2, tokens);
+const intro = fill(t.introTemplate, { ...tokens, galleryLastUpdated });
+
+function isVideo(item: GalleryPhoto | GalleryVideo): item is GalleryVideo {
+  return item.type === 'video';
+}
+
+const sectionId = 'home-gallery-section';
+---
+<section
+  id={sectionId}
+  aria-labelledby="home-gallery-h2"
+  class="bg-white"
+>
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <SectionHeading
+      eyebrow={t.eyebrow}
+      title={h2}
+      subtitle={intro}
+      id="home-gallery-h2"
+    />
+    <p class="mt-3">
+      <a
+        href="/factory#gallery"
+        class="text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        data-source-component="gallery-h2-link"
+      >
+        {t.h2LinkLabel} <span aria-hidden="true">→</span>
+      </a>
+    </p>
+
+    {/*
+      Masonry-ish grid. Photos render at 4:3 in a 1×1 cell; vertical
+      videos span 2 rows so they appear taller. `grid-flow-dense`
+      packs items efficiently.
+    */}
+    <ul
+      class="mt-10 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+      style="grid-auto-flow: dense;"
+      role="list"
+    >
+      {galleryItems.map((item, index) => (
+        <li class:list={[isVideo(item) && 'sm:row-span-2']}>
+          {isVideo(item) ? (
+            <div class="h-full">
+              <YouTubeLite
+                videoId={item.youtubeId}
+                title={item.title}
+                aspect="9/16"
+                posterSrc={item.posterPath}
+                dataEvent="gallery_video_play"
+                dataSourceComponent={`gallery-video-${item.id}`}
+              />
+              <p class="mt-2 text-xs text-neutral-500">{t.videoBadge} · {item.title}</p>
+            </div>
+          ) : (
+            <a
+              href={`#lb-${item.id}`}
+              data-event="gallery_image_open"
+              data-source-component={`gallery-image-${item.id}`}
+              class="group relative block overflow-hidden rounded-xl border border-neutral-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+            >
+              {hasAssets ? (
+                <picture>
+                  <source srcset={item.contentPath} type="image/avif" />
+                  <source srcset={item.contentPath.replace(/\.avif$/, '.webp')} type="image/webp" />
+                  <img
+                    src={item.contentPath.replace(/\.avif$/, '.jpg')}
+                    alt={item.alt}
+                    loading="lazy"
+                    decoding="async"
+                    width="800"
+                    height="600"
+                    class="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  />
+                </picture>
+              ) : (
+                <ImagePlaceholder label={item.alt} ratio="4/3" />
+              )}
+              <span class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent p-3 text-xs text-white opacity-0 transition-opacity group-hover:opacity-100">
+                {item.caption}
+              </span>
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  {/*
+    CSS-only :target lightbox. One <div role="dialog"> per photo,
+    hidden by default; the `target:flex` Tailwind modifier reveals it
+    when the URL hash matches its id. Click the dim background or the
+    × button to dismiss (both <a href="#home-gallery-section">).
+
+    The dialog markup lives outside the .grid <ul> so it overlays the
+    full viewport. Each lightbox carries its own image; the inner
+    <img> uses src directly because the lightbox content ships only
+    when the user opts in (the bytes still preload, but only one
+    image is fully visible at a time).
+  */}
+  {hasAssets && galleryItems.filter((i) => !isVideo(i)).map((item) => {
+    const photo = item as GalleryPhoto;
+    return (
+      <div
+        id={`lb-${photo.id}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={photo.caption}
+        class="hidden target:fixed target:inset-0 target:z-50 target:flex target:items-center target:justify-center target:bg-black/90 target:p-4"
+      >
+        <a
+          href={`#${sectionId}`}
+          aria-label={t.lightboxCloseLabel}
+          class="absolute inset-0"
+          tabindex="-1"
+        ></a>
+        <a
+          href={`#${sectionId}`}
+          aria-label={t.lightboxCloseLabel}
+          class="absolute end-4 top-4 z-10 inline-flex h-11 w-11 items-center justify-center rounded-full bg-white/15 text-white hover:bg-white/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+        >
+          <span aria-hidden="true" class="text-2xl">×</span>
+        </a>
+        <figure class="relative max-h-[90vh] max-w-5xl">
+          <img
+            src={photo.contentPath.replace(/\.avif$/, '.jpg')}
+            alt={photo.alt}
+            class="max-h-[80vh] w-auto max-w-full rounded-lg object-contain"
+            loading="lazy"
+            decoding="async"
+          />
+          <figcaption class="mt-3 text-center text-sm text-white/80">
+            {photo.caption} · {photo.datePublished}
+          </figcaption>
+        </figure>
+      </div>
+    );
+  })}
+</section>
