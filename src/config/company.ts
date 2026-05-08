@@ -512,7 +512,7 @@ export const company = {
       standard: 'ISO 9001:2015',
       // Short form used for badges / taglines ("ISO 9001 Certified…").
       shortName: 'ISO 9001',
-      auditors: ['Carsurin', 'Backjorindo'],
+      auditors: ['Carsurin', 'Beckjorindo'],
     },
     // IMDG Code classification for coconut charcoal at sea. Human-
     // readable label derived via `imdgLabel()` helper below.
