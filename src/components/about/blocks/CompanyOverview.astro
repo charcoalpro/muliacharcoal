@@ -8,7 +8,8 @@
  * confirmed; the certifications block conditionally renders patents and
  * halal sentences based on the same facts.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company, hasFact, imdgLabel, portOfLoadingLabel } from '~/config/company';
 import ColorBlock from '~/components/about/ColorBlock.astro';

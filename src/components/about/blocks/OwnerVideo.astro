@@ -6,7 +6,8 @@
  * YouTube embed; the transcript section uses a small vanilla-JS toggle
  * (no IDs — runs against `[data-transcript-toggle]` on the page).
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company, getOwner } from '~/config/company';
 

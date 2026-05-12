@@ -1,0 +1,84 @@
+---
+/**
+ * /products/[slug] — single SKU page, generated from the `products`
+ * content collection.
+ *
+ * Reference implementation for the pillar/cluster expansion. Each new SKU
+ * is a Markdown/MDX file under `src/content/products/`; this template
+ * handles the rendering, SEO, breadcrumbs, and Product JSON-LD.
+ */
+
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import Prose from '~/components/content/Prose.astro';
+import { getLocale } from '~/i18n';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { buildProductSchema } from '~/lib/schema/product';
+
+const en = getLocale();
+
+export async function getStaticPaths() {
+  const entries = await getCollection('products', (e) => !e.data.draft);
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const data = entry.data;
+
+// Frontmatter description may reference {{tokens}}; remark only touches body.
+const description = fill(data.description, companyTokens(company));
+const path = `/products/${entry.id}`;
+const isoPublished = data.datePublished.toISOString().split('T')[0];
+const isoModified = (data.dateModified ?? data.datePublished).toISOString().split('T')[0];
+
+const schema = buildProductSchema({
+  slug: entry.id,
+  title: data.title,
+  description,
+  shape: data.shape,
+  size: data.size,
+  datePublished: isoPublished,
+  dateModified: isoModified,
+  massGramsPerPiece: data.massGramsPerPiece,
+  burnTimeMinutes: data.burnTimeMinutes,
+  ashContentPercent: data.ashContentPercent,
+  moistureContentPercent: data.moistureContentPercent,
+  calorificValueKcalKg: data.calorificValueKcalKg,
+  heroImage: data.heroImage,
+});
+---
+<BaseLayout
+  title={data.title}
+  description={description}
+  path={path}
+  type="product"
+  includeOrgSchema
+  schema={schema}
+>
+  <article class="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
+    <Breadcrumbs
+      items={[
+        { label: en.nav.products ?? 'Products', href: '/products' },
+        { label: data.title },
+      ]}
+      class="mb-8"
+    />
+
+    <header>
+      <h1 class="text-2xl font-bold text-neutral-900 md:text-3xl lg:text-4xl">
+        {data.title}
+      </h1>
+      <p class="mt-3 text-base text-neutral-600">{description}</p>
+    </header>
+
+    <Prose class="mt-10">
+      <Content />
+    </Prose>
+  </article>
+</BaseLayout>

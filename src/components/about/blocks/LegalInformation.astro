@@ -8,7 +8,8 @@
  *   3C — Social-presence pills (only renders when at least one URL is set)
  *   3D — Virtual tour CTA banner
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company, getOwner, hasFact, imdgLabel } from '~/config/company';
 import DataTable from '~/components/content/DataTable.astro';

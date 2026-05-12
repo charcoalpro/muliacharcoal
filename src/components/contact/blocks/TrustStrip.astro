@@ -3,7 +3,8 @@
  * Contact Block 2 — horizontal trust-strip of TrustBadge pills.
  * Self-contained: builds the badge list from `company.*` and en.contact.trust.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company, getOwner, yearsInBusiness } from '~/config/company';
 import TrustBadge from '~/components/contact/TrustBadge.astro';

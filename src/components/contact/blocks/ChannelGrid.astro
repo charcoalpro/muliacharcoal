@@ -4,7 +4,8 @@
  * Builds the channel list from `company.channels.*` plus the standard
  * WhatsApp / phone / email entries; skips channels with no real handle.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { company, mailto, waLinkFor } from '~/config/company';
 import ChannelCard from '~/components/contact/ChannelCard.astro';
 

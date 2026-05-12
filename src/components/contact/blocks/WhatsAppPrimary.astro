@@ -3,8 +3,10 @@
  * Contact Block 3 — primary WhatsApp section with sales / director cards.
  * Sales and director persons come from `getSales()` / `getDirector()`.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { getDirector, getSales, waLinkFor } from '~/config/company';
+import { toE164 } from '~/lib/format';
 import TextLink from '~/components/content/TextLink.astro';
 
 const t = en.contact;
@@ -39,7 +41,7 @@ const cards = [
           if (!person || !person.whatsapp) return null;
           const wa = person.whatsapp;
           const waHref = waLinkFor(presetKey, wa.e164Digits);
-          const telDigits = wa.e164Digits.startsWith('+') ? wa.e164Digits : '+' + wa.e164Digits;
+          const telDigits = toE164(wa.e164Digits);
           return (
             <article class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6">
               <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">{heading}</p>

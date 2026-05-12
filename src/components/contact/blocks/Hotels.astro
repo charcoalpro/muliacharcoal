@@ -3,7 +3,8 @@
  * Contact Block 10 — hotels split by star tier. Tiers with zero entries
  * are hidden so the section never renders an empty group heading.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { company } from '~/config/company';
 import HotelCard from '~/components/contact/HotelCard.astro';
 

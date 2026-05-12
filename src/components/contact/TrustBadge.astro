@@ -7,7 +7,8 @@
  * Alibaba Gold profiles); otherwise it is a non-interactive `<div>`.
  */
 
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 
 interface Props {
   /** Top-line short label (e.g. "ISO 9001"). */

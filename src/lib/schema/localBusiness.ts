@@ -11,6 +11,7 @@
 
 import { company, getDirector } from '~/config/company';
 import { getSameAs, siteOrigin } from '~/lib/schema/organization';
+import { toE164 } from '~/lib/format';
 
 interface OpeningHoursSpec {
   '@type': 'OpeningHoursSpecification';
@@ -39,10 +40,8 @@ const availableLanguages = ['en', 'id', 'zh', 'ar'];
 
 const directorWa = getDirector()?.whatsapp;
 const directorPhoneE164 = directorWa
-  ? directorWa.e164Digits.startsWith('+')
-    ? directorWa.e164Digits
-    : `+${directorWa.e164Digits}`
-  : company.phone.e164;
+  ? toE164(directorWa.e164Digits)
+  : toE164(company.phone.e164);
 
 const contactPoints = [
   {

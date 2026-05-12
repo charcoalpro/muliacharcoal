@@ -2,7 +2,8 @@
 /**
  * Contact Block 7 — factory address, travel hubs, and photos.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company, mailto } from '~/config/company';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';

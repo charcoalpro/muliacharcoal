@@ -6,12 +6,13 @@
  * names the legal entity and accepted currencies; an optional crypto
  * suffix is appended when `payment.acceptsCrypto` is true.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company } from '~/config/company';
 import ColorBlock from '~/components/about/ColorBlock.astro';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
-import BankDetailsTable from '~/components/payment/BankDetailsTable.astro';
+import BankDetailsTable from '~/components/content/BankDetailsTable.astro';
 
 const t = en.about.block4;
 const co = company;

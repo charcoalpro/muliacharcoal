@@ -75,7 +75,7 @@ export function buildOrganization({ mode = 'slim' }: BuildOptions = {}) {
     },
     address: buildPostalAddress(),
     email: company.email,
-    telephone: company.phone.display,
+    telephone: company.phone.e164,
     ...(sameAs.length ? { sameAs } : {}),
   };
 

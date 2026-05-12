@@ -3,9 +3,10 @@
  * Contact Block 4 — sales team grid built from `getContactTeam()`.
  * Skips persons whose `name` still starts with `TODO_PLACEHOLDER`.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { getContactTeam } from '~/config/company';
-import TeamCard from '~/components/people/TeamCard.astro';
+import TeamCard from '~/components/content/TeamCard.astro';
 
 const t = en.contact.team;
 const members = getContactTeam().filter(

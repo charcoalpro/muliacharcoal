@@ -2,7 +2,8 @@
 /**
  * Contact Block 8 — weekly hours, 2026 holidays, Lebaran callout.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company } from '~/config/company';
 import DataTable from '~/components/content/DataTable.astro';

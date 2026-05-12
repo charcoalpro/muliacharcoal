@@ -10,7 +10,8 @@
  * when the root of the trail is not the site home (rare).
  */
 
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import JsonLd from '~/components/seo/JsonLd.astro';
 
 interface Item {

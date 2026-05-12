@@ -4,7 +4,8 @@
  * Markets tag cloud falls back to a placeholder note when the
  * `commercial.exportMarkets` array is still empty.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company, hasFact, portOfLoadingLabel } from '~/config/company';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';

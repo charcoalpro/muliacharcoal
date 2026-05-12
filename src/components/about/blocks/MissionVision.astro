@@ -2,7 +2,8 @@
 /**
  * About Block 8 — Mission & Vision pair of ColorBlocks.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import ColorBlock from '~/components/about/ColorBlock.astro';
 
 const t = en.about.block8;

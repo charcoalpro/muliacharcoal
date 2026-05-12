@@ -1,5 +1,12 @@
 ---
 import { company } from '~/config/company';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  getActiveLocales,
+  localizePath,
+  type LocaleCode,
+} from '~/i18n/locales';
 
 interface Props {
   title: string;
@@ -7,7 +14,8 @@ interface Props {
   path?: string;
   image?: string;
   type?: 'website' | 'article' | 'product';
-  locale?: string;
+  /** Locale of the current page. Drives `og:locale` and the hreflang loop. */
+  lang?: LocaleCode;
   noIndex?: boolean;
 }
 
@@ -17,7 +25,7 @@ const {
   path = Astro.url.pathname,
   image,
   type = 'website',
-  locale = 'en_US',
+  lang = DEFAULT_LOCALE,
   noIndex = false,
 } = Astro.props;
 
@@ -35,9 +43,13 @@ const ogImage = image
 
 const fullTitle = title.includes(company.brand) ? title : `${title} | ${company.brand}`;
 
-const languages: Array<{ code: string; path: string }> = [
-  { code: 'en', path },
-];
+// hreflang: emit one alternate per active locale, plus x-default pointing at
+// the English canonical. The English path is used as the source path for
+// every locale because translated pages live at the same logical path
+// under their language prefix (e.g. /de/about).
+const englishPath = normalizePath(path);
+const activeLocales = getActiveLocales();
+const ogLocale = LOCALES[lang].ogLocale;
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
@@ -51,7 +63,7 @@ const languages: Array<{ code: string; path: string }> = [
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:type" content={type} />
-<meta property="og:locale" content={locale} />
+<meta property="og:locale" content={ogLocale} />
 <meta property="og:site_name" content={company.brand} />
 {ogImage && <meta property="og:image" content={ogImage} />}
 
@@ -60,7 +72,11 @@ const languages: Array<{ code: string; path: string }> = [
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-{languages.map((lang) => (
-  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />
+{activeLocales.map((locale) => (
+  <link
+    rel="alternate"
+    hreflang={locale.bcp47}
+    href={`${siteBase}${localizePath(englishPath, locale.code)}`}
+  />
 ))}
-<link rel="alternate" hreflang="x-default" href={canonical} />
+<link rel="alternate" hreflang="x-default" href={`${siteBase}${englishPath}`} />

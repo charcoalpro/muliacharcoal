@@ -4,10 +4,11 @@
  * and Proforma Invoice CTA. Banking details are always public per
  * product decision; the BankDetailsTable component owns the table markup.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company, getOwner, waLinkFor } from '~/config/company';
-import BankDetailsTable from '~/components/payment/BankDetailsTable.astro';
+import BankDetailsTable from '~/components/content/BankDetailsTable.astro';
 
 const t = en.contact;
 const isBankPublic = company.payment.mode === 'public';

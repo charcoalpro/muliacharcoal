@@ -10,16 +10,15 @@
  * intentionally small to stay under the 20 KB site budget.
  */
 
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { company, waLinkFor } from '~/config/company';
 import { inquiryCountries } from '~/lib/data/countries';
 import { inquiryProductOptions } from '~/lib/data/productOptions';
 import {
-  ATTACHMENT_MAX_BYTES,
-  ATTACHMENT_MIME_TYPES,
-  EMAIL_REGEX,
-  WHATSAPP_E164_REGEX,
-} from '~/lib/forms/inquiryValidation';
+  serializeInquiryConfig,
+  type InquiryFormConfig,
+} from '~/lib/forms/inquiryClient';
 
 const t = en.contact.form;
 const f = t.fields;
@@ -35,6 +34,17 @@ const useHCaptcha =
   company.form.captcha.provider === 'hcaptcha' &&
   company.form.captcha.hcaptchaSiteKey &&
   !company.form.captcha.hcaptchaSiteKey.startsWith('TODO_');
+
+const inquiryConfig: InquiryFormConfig = {
+  errs,
+  honeypotName,
+  endpoint: company.form.web3formsEndpoint,
+  successHeading: t.successHeading,
+  successBodyTemplate: t.successBodyTemplate,
+  successWaLabel: t.successWhatsapp,
+  successWaHref: sidebarWaHref,
+  newTabSr: en.contact.newTabSr,
+};
 
 const inputClass =
   'w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary aria-[invalid=true]:border-error';
@@ -52,6 +62,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
       enctype="multipart/form-data"
       novalidate
       data-web3forms-key={company.form.web3formsKey}
+      data-inquiry-config={serializeInquiryConfig(inquiryConfig)}
     >
       <input type="hidden" name="access_key" value={company.form.web3formsKey} />
       <input type="hidden" name="subject" value={company.form.subject} />
@@ -329,150 +340,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 )}
 
-<script is:inline define:vars={{
-  errs,
-  honeypotName,
-  endpoint: company.form.web3formsEndpoint,
-  successHeading: t.successHeading,
-  successBodyTemplate: t.successBodyTemplate,
-  successWaLabel: t.successWhatsapp,
-  successWaHref: sidebarWaHref,
-  whatsappPattern: WHATSAPP_E164_REGEX.source,
-  emailPattern: EMAIL_REGEX.source,
-  attachmentMaxBytes: ATTACHMENT_MAX_BYTES,
-  attachmentMimeTypes: ATTACHMENT_MIME_TYPES,
-}}>
-(() => {
-  const form = document.getElementById('inquiry-form');
-  if (!form) return;
-  const successPanel = document.getElementById('inquiry-success');
-  const errorPanel = document.getElementById('inquiry-status-error');
-  const submitBtn = document.getElementById('ih-submit');
-  const submitLabel = submitBtn.querySelector('[data-submit-label]');
-  const submittingLabel = submitBtn.querySelector('[data-submitting-label]');
-
-  const setError = (id, msg) => {
-    const el = document.getElementById(id);
-    const input = document.getElementById(id.replace(/-err$/, ''));
-    if (msg) {
-      el.textContent = msg;
-      el.classList.remove('hidden');
-      if (input) input.setAttribute('aria-invalid', 'true');
-    } else {
-      el.classList.add('hidden');
-      el.textContent = '';
-      if (input) input.removeAttribute('aria-invalid');
-    }
-  };
-
-  const validate = () => {
-    let ok = true;
-    const fullName = form.full_name.value.trim();
-    if (!fullName) { setError('ih-fullname-err', errs.required); ok = false; }
-    else if (fullName.length < 2 || fullName.length > 80) { setError('ih-fullname-err', errs.fullNameLength); ok = false; }
-    else setError('ih-fullname-err', '');
-
-    const companyName = form.company_name.value.trim();
-    if (!companyName) { setError('ih-company-err', errs.required); ok = false; }
-    else if (companyName.length < 2 || companyName.length > 120) { setError('ih-company-err', errs.companyLength); ok = false; }
-    else setError('ih-company-err', '');
-
-    if (!form.country.value) { setError('ih-country-err', errs.countryRequired); ok = false; }
-    else setError('ih-country-err', '');
-
-    const wa = form.whatsapp.value.trim();
-    const waRe = new RegExp(whatsappPattern);
-    if (!wa) { setError('ih-whatsapp-err', errs.required); ok = false; }
-    else if (!waRe.test(wa.replace(/[\s-]/g, ''))) { setError('ih-whatsapp-err', errs.whatsappFormat); ok = false; }
-    else setError('ih-whatsapp-err', '');
-
-    const email = form.email.value.trim();
-    const emailRe = new RegExp(emailPattern);
-    if (!email) { setError('ih-email-err', errs.required); ok = false; }
-    else if (!emailRe.test(email)) { setError('ih-email-err', errs.emailFormat); ok = false; }
-    else setError('ih-email-err', '');
-
-    const products = form.querySelectorAll('input[name="products[]"]:checked');
-    if (products.length === 0) { setError('ih-products-err', errs.productsMin); ok = false; }
-    else setError('ih-products-err', '');
-
-    if (!form.volume.value) { setError('ih-volume-err', errs.volumeRequired); ok = false; }
-    else setError('ih-volume-err', '');
-
-    const file = form.attachment.files[0];
-    if (file) {
-      if (file.size > attachmentMaxBytes) { setError('ih-attachment-err', errs.fileSize); ok = false; }
-      else if (!attachmentMimeTypes.includes(file.type)) { setError('ih-attachment-err', errs.fileType); ok = false; }
-      else setError('ih-attachment-err', '');
-    } else {
-      setError('ih-attachment-err', '');
-    }
-
-    if (!form.consent.checked) { setError('ih-consent-err', errs.consentRequired); ok = false; }
-    else setError('ih-consent-err', '');
-
-    return ok;
-  };
-
-  // Inline blur validation for fast feedback.
-  ['ih-fullname','ih-company','ih-country','ih-whatsapp','ih-email','ih-volume'].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('blur', validate);
-  });
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    errorPanel.classList.add('hidden');
-    if (!validate()) {
-      const firstErr = form.querySelector('[aria-invalid="true"]');
-      if (firstErr) firstErr.focus();
-      return;
-    }
-
-    // Honeypot — silently drop if filled.
-    const trap = form.elements[honeypotName];
-    if (trap && trap.value) {
-      successPanel.classList.remove('hidden');
-      successPanel.innerHTML = '<p class="text-success">Thank you.</p>';
-      form.classList.add('hidden');
-      return;
-    }
-
-    const data = new FormData(form);
-    submitBtn.disabled = true;
-    submitLabel.classList.add('hidden');
-    submittingLabel.classList.remove('hidden');
-
-    try {
-      const res = await fetch(endpoint, { method: 'POST', body: data });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || (json && json.success === false)) throw new Error(json.message || 'submit_failed');
-
-      const ref = 'INQ-' + Date.now().toString(36).toUpperCase();
-      const email = form.email.value.trim();
-      const body = successBodyTemplate.replace('{{ref}}', ref).replace('{{email}}', email);
-      successPanel.innerHTML =
-        '<h3 class="text-xl font-semibold text-neutral-900">' + successHeading + '</h3>' +
-        '<p class="mt-2 text-sm text-neutral-700">' + body + '</p>' +
-        '<a href="' + successWaHref + '" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white">' + successWaLabel + '</a>';
-      successPanel.classList.remove('hidden');
-      form.classList.add('hidden');
-      successPanel.focus?.();
-      if (window.dataLayer) {
-        window.dataLayer.push({
-          event: 'inquiry_submit',
-          product_category: Array.from(form.querySelectorAll('input[name="products[]"]:checked')).map(i => i.value).join(','),
-          estimated_quantity_tons: form.volume.value,
-          destination_country: form.country.value,
-        });
-      }
-    } catch (err) {
-      errorPanel.textContent = errs.submitFailed;
-      errorPanel.classList.remove('hidden');
-      submitBtn.disabled = false;
-      submitLabel.classList.remove('hidden');
-      submittingLabel.classList.add('hidden');
-    }
-  });
-})();
+<script>
+  import { initInquiryForm } from '~/lib/forms/inquiryClient';
+  initInquiryForm();
 </script>

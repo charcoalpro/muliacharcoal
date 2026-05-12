@@ -3,7 +3,8 @@
  * HotelCard — single hotel recommendation in Block 10.
  */
 
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import Button from '~/components/cta/Button.astro';
 import type { Hotel } from '~/config/company';

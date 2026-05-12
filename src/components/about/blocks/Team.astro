@@ -5,10 +5,11 @@
  * Skips operations entries whose name still starts with `TODO_PLACEHOLDER`.
  * The owner card uses a `bio` fallback string when `owner.bio` is null.
  */
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { fill } from '~/lib/interpolate';
 import { company, getOperations, getOwner } from '~/config/company';
-import TeamCard from '~/components/people/TeamCard.astro';
+import TeamCard from '~/components/content/TeamCard.astro';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 
 const t = en.about.block5;

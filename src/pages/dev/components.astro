@@ -5,7 +5,8 @@ import Logo from '~/components/layout/Logo.astro';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
-import en from '~/i18n/en.json';
+import { getLocale } from '~/i18n';
+const en = getLocale();
 import { company, portOfLoadingLabel } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 
