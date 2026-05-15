@@ -1,0 +1,149 @@
+---
+/**
+ * TrustStrip — proof bar between Hero and Products.
+ *
+ * Five trust items in a single row: REACH compliance, lab audits,
+ * shipping-line partners, sales-team languages, and the count of
+ * destination countries. Each item carries a one-sentence GEO Q&A
+ * popover (native `<details>`, zero JavaScript) so the strip
+ * doubles as extractable content for AI summaries while staying
+ * lightweight on the page.
+ *
+ * Layout:
+ *   - lg+: 5 columns
+ *   - md: 3 columns + wrap
+ *   - <md: horizontal scroll-snap; each tile is ~75 vw at 360 px
+ *
+ * All five values come from `~/config/company.ts`. The countries-
+ * exported badge falls back to a neutral worldwide-exports label
+ * while `commercial.countriesExportedCount` is still 0 (TODO).
+ */
+
+import en from '~/i18n/en.json';
+import { company, hasFact } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import TrustItem from '~/components/content/TrustItem.astro';
+
+const t = en.home.trustStrip;
+const tokens = companyTokens(company);
+
+const reachLabel = t.items.reach.label;
+const reachDefinition = t.items.reach.definition;
+
+const auditsLabel = fill(t.items.audits.labelTemplate, {
+  auditors: company.certifications.iso9001.auditors.join(' & '),
+});
+const auditsDefinition = fill(t.items.audits.definition, tokens);
+
+const shippingLabel = fill(t.items.shipping.labelTemplate, tokens);
+const shippingDefinition = fill(t.items.shipping.definition, tokens);
+
+const languagesLabel = fill(t.items.languages.labelTemplate, tokens);
+const languagesDefinition = fill(t.items.languages.definition, tokens);
+
+const countriesShown = hasFact(company.commercial.countriesExportedCount);
+const countriesLabel = countriesShown
+  ? fill(t.items.countries.labelTemplate, tokens)
+  : t.items.countries.fallbackLabel;
+const countriesDefinition = fill(t.items.countries.definition, tokens);
+---
+<section
+  aria-label={t.aria}
+  class="border-y border-neutral-200 bg-neutral-50"
+>
+  <div class="mx-auto max-w-7xl px-4 py-8 md:px-8">
+    <ul
+      class="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 md:grid md:grid-cols-3 md:overflow-visible md:pb-0 lg:grid-cols-5"
+      role="list"
+    >
+      <li class="w-[75vw] flex-shrink-0 md:w-auto">
+        <TrustItem
+          itemKey="reach"
+          label={reachLabel}
+          definition={reachDefinition}
+        >
+          <Fragment slot="icon">
+            <img
+              src="/logos/reach.svg"
+              width="40"
+              height="40"
+              alt="REACH"
+              loading="lazy"
+              decoding="async"
+              class="h-10 w-10"
+            />
+          </Fragment>
+        </TrustItem>
+      </li>
+
+      <li class="w-[75vw] flex-shrink-0 md:w-auto">
+        <TrustItem
+          itemKey="audits"
+          label={auditsLabel}
+          definition={auditsDefinition}
+          href="/quality/certifications"
+          learnMoreLabel={t.items.audits.learnMore}
+        >
+          <Fragment slot="icon">
+            <span class="flex flex-wrap items-center justify-center gap-2">
+              <img src="/logos/carsurin.svg" width="80" height="30" alt="Carsurin" loading="lazy" decoding="async" class="h-7" />
+              <img src="/logos/beckjorindo.svg" width="100" height="30" alt="Beckjorindo" loading="lazy" decoding="async" class="h-7" />
+            </span>
+          </Fragment>
+        </TrustItem>
+      </li>
+
+      <li class="w-[75vw] flex-shrink-0 md:w-auto md:col-span-1 lg:col-span-1">
+        <TrustItem
+          itemKey="shipping"
+          label={shippingLabel}
+          definition={shippingDefinition}
+          href="/logistics"
+          learnMoreLabel={t.items.shipping.learnMore}
+        >
+          <Fragment slot="icon">
+            <span class="flex flex-wrap items-center justify-center gap-2">
+              <img src="/logos/maersk.svg" width="74" height="30" alt="Maersk" loading="lazy" decoding="async" class="h-7" />
+              <img src="/logos/msc.svg" width="48" height="30" alt="MSC" loading="lazy" decoding="async" class="h-7" />
+              <img src="/logos/cmacgm.svg" width="80" height="30" alt="CMA CGM" loading="lazy" decoding="async" class="h-7" />
+            </span>
+          </Fragment>
+        </TrustItem>
+      </li>
+
+      <li class="w-[75vw] flex-shrink-0 md:w-auto">
+        <TrustItem
+          itemKey="languages"
+          label={languagesLabel}
+          definition={languagesDefinition}
+        >
+          <Fragment slot="icon">
+            <svg viewBox="0 0 40 40" class="h-10 w-10 text-brand-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="20" cy="20" r="14"/>
+              <path d="M6 20h28M20 6c4 4 6 9 6 14s-2 10-6 14M20 6c-4 4-6 9-6 14s2 10 6 14"/>
+            </svg>
+          </Fragment>
+        </TrustItem>
+      </li>
+
+      <li class="w-[75vw] flex-shrink-0 md:w-auto">
+        <TrustItem
+          itemKey="countries"
+          label={countriesLabel}
+          definition={countriesDefinition}
+          href="/factory#countries-served"
+          learnMoreLabel={t.items.countries.learnMore}
+        >
+          <Fragment slot="icon">
+            <svg viewBox="0 0 40 40" class="h-10 w-10 text-brand-primary" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="20" cy="20" r="14"/>
+              <path d="M14 12c2 4 2 12 0 16M26 12c-2 4-2 12 0 16M6 20h28"/>
+              <circle cx="14" cy="14" r="1.5" fill="currentColor"/>
+              <circle cx="27" cy="22" r="1.5" fill="currentColor"/>
+            </svg>
+          </Fragment>
+        </TrustItem>
+      </li>
+    </ul>
+  </div>
+</section>

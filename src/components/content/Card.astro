@@ -1,0 +1,45 @@
+---
+/**
+ * Card — generic content card. Default uses a hairline border (no
+ * shadow, per DESIGN.md). Slots: `media` (top), default (body),
+ * `footer` (bottom).
+ */
+
+interface Props {
+  as?: 'div' | 'article' | 'li';
+  /** Tailwind padding utilities. */
+  padding?: string;
+  /** Render the hairline border. */
+  border?: boolean;
+  class?: string;
+}
+
+const {
+  as: Tag = 'div',
+  padding = 'p-6',
+  border = true,
+  class: className,
+} = Astro.props;
+---
+<Tag
+  class:list={[
+    'flex flex-col rounded-2xl bg-white',
+    border && 'border border-neutral-200',
+    padding,
+    className,
+  ]}
+>
+  {Astro.slots.has('media') && (
+    <div class="-mx-6 -mt-6 mb-4 overflow-hidden rounded-t-2xl">
+      <slot name="media" />
+    </div>
+  )}
+  <div class="flex-1">
+    <slot />
+  </div>
+  {Astro.slots.has('footer') && (
+    <div class="mt-6 pt-4 border-t border-neutral-100">
+      <slot name="footer" />
+    </div>
+  )}
+</Tag>

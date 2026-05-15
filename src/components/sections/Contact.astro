@@ -1,0 +1,155 @@
+---
+/**
+ * Contact — homepage bottom-of-page conversion section.
+ *
+ * Three independent contact paths so the buyer's preference is
+ * honoured: a structured Web3Forms POST form (left column on lg+),
+ * a click-to-load Google Maps embed + WhatsApp big button + direct
+ * phone/email/address (right column on lg+).
+ *
+ * Anchor `id="contact"` so other CTAs across the page deep-link here
+ * with `/#contact?intent=…`. The page-level success block at the
+ * end of this section uses Tailwind's `target:` modifier to surface
+ * a thank-you state when the user is redirected back from
+ * Web3Forms with `#contact-success` in the URL.
+ *
+ * Component reuse: <ContactForm>, <MapsLite>, <Button>.
+ */
+
+import en from '~/i18n/en.json';
+import { company, mailto } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import SectionHeading from '~/components/content/SectionHeading.astro';
+import ContactForm from '~/components/contact/ContactForm.astro';
+import MapsLite from '~/components/contact/MapsLite.astro';
+import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+
+const t = en.home.contact;
+const tokens = companyTokens(company);
+const intro = fill(t.introTemplate, tokens);
+const successBody = fill(t.successBody, tokens);
+
+const addressLines = [
+  company.address.street,
+  company.address.district,
+  `${company.address.city}, ${company.address.region} ${company.address.postalCode}`,
+  company.address.country,
+];
+---
+<section
+  id="contact"
+  aria-labelledby="home-contact-h2"
+  class="bg-neutral-50"
+>
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <SectionHeading
+      eyebrow={t.eyebrow}
+      title={t.h2}
+      subtitle={intro}
+      id="home-contact-h2"
+    />
+
+    {/*
+      Page-level success state — visible only when the URL has
+      #contact-success (i.e. Web3Forms redirected the user back here
+      after a successful submission). Zero JS via target: modifier.
+    */}
+    <div
+      id="contact-success"
+      role="status"
+      class="mt-8 hidden rounded-xl border border-success bg-success/5 p-6 target:block"
+    >
+      <h3 class="text-lg font-semibold text-neutral-900">{t.successHeading}</h3>
+      <p class="mt-2 text-base text-neutral-700">{successBody}</p>
+    </div>
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-12">
+      {/* Left: form */}
+      <div>
+        <h3 class="text-lg font-semibold text-neutral-900">{t.formHeading}</h3>
+        <div class="mt-4">
+          <ContactForm />
+        </div>
+      </div>
+
+      {/* Right: map + WhatsApp + address. */}
+      <div class="flex flex-col gap-8">
+        <div>
+          <h3 class="text-lg font-semibold text-neutral-900">{t.mapHeading}</h3>
+          <div class="mt-4">
+            <MapsLite />
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-neutral-900">{t.whatsappHeading}</h3>
+          <div class="mt-4">
+            <WhatsAppButton
+              context="contact"
+              size="lg"
+              messageContext="a wholesale order from my country"
+              label={t.whatsappCta}
+            />
+          </div>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-semibold text-neutral-900">{t.directHeading}</h3>
+          <dl class="mt-4 grid gap-3 text-sm">
+            <div class="grid grid-cols-[max-content_1fr] gap-x-4">
+              <dt class="font-semibold text-neutral-700">{t.phoneLabel}</dt>
+              <dd>
+                <a
+                  href={`tel:${company.phone.e164}`}
+                  class="text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  data-source-component="contact-direct-phone"
+                >
+                  {company.phone.display}
+                </a>
+              </dd>
+            </div>
+            <div class="grid grid-cols-[max-content_1fr] gap-x-4">
+              <dt class="font-semibold text-neutral-700">{t.emailLabel}</dt>
+              <dd>
+                <a
+                  href={mailto()}
+                  class="text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  data-source-component="contact-direct-email"
+                >
+                  {company.email}
+                </a>
+              </dd>
+            </div>
+            <div class="grid grid-cols-[max-content_1fr] gap-x-4">
+              <dt class="font-semibold text-neutral-700">{t.addressLabel}</dt>
+              <dd>
+                <address class="not-italic text-neutral-700">
+                  {addressLines.filter((line) => line && !line.startsWith('TODO_PLACEHOLDER')).map((line) => (
+                    <span class="block">{line}</span>
+                  ))}
+                </address>
+              </dd>
+            </div>
+          </dl>
+
+          <p class="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-sm">
+            <a
+              href="/faq"
+              class="font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+              data-source-component="contact-link-faq"
+            >
+              {t.linksFaqLabel} <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href="/logistics"
+              class="font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+              data-source-component="contact-link-logistics"
+            >
+              {t.linksLogisticsLabel} <span aria-hidden="true">→</span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

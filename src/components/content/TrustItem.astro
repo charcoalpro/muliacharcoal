@@ -1,0 +1,73 @@
+---
+/**
+ * TrustItem — single proof tile in the homepage Trust Strip.
+ *
+ * Layout: icon (slot) on top, label text on bottom (≤ 2 lines).
+ * A native `<details>/<summary>` carries the GEO/E-E-A-T popover
+ * definition — zero JavaScript, keyboard accessible (Enter expands).
+ *
+ * When `href` is set, the popover body includes a "Learn more →" link
+ * to the destination page; the click fires the `trust_item_click`
+ * analytics event via the sitewide [data-event] dispatcher.
+ */
+
+interface Props {
+  /** Stable identifier; surfaces as `data-source-component`. */
+  itemKey: string;
+  /** ≤ 2-line caption shown beneath the icon. */
+  label: string;
+  /** Single-sentence Q&A definition surfaced in the popover. */
+  definition: string;
+  /** Optional destination URL — link inside the popover, not the tile itself. */
+  href?: string;
+  /** "Learn more" link copy when `href` is set. */
+  learnMoreLabel?: string;
+  class?: string;
+}
+
+const {
+  itemKey,
+  label,
+  definition,
+  href,
+  learnMoreLabel = 'Learn more',
+  class: className,
+} = Astro.props;
+---
+<details
+  class:list={[
+    'group h-full snap-center scroll-mx-4 rounded-xl border border-neutral-200 bg-white transition-colors hover:border-brand-primary/40',
+    className,
+  ]}
+>
+  <summary
+    class="flex h-full cursor-pointer list-none flex-col items-center gap-3 px-4 py-5 text-center marker:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+    aria-label={label}
+  >
+    <span class="flex min-h-[36px] items-center justify-center text-neutral-700">
+      <slot name="icon" />
+    </span>
+    <span class="text-sm font-semibold leading-tight text-neutral-800">
+      {label}
+    </span>
+    <span aria-hidden="true" class="mt-auto inline-flex items-center gap-1 text-xs text-neutral-500 group-open:hidden">
+      <svg viewBox="0 0 16 16" class="h-3 w-3" fill="currentColor" aria-hidden="true">
+        <path d="M8 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 1.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zM7.25 8a.75.75 0 0 1 1.5 0v2.5a.75.75 0 0 1-1.5 0V8z"/>
+      </svg>
+      What is this?
+    </span>
+  </summary>
+  <div class="border-t border-neutral-100 px-4 py-4 text-start text-sm leading-relaxed text-neutral-700">
+    <p>{definition}</p>
+    {href && (
+      <a
+        href={href}
+        data-event="trust_item_click"
+        data-source-component={`trust-item-${itemKey}`}
+        class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+      >
+        {learnMoreLabel} <span aria-hidden="true">→</span>
+      </a>
+    )}
+  </div>
+</details>

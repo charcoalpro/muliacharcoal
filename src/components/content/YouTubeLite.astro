@@ -1,0 +1,100 @@
+---
+/**
+ * YouTubeLite — click-to-load YouTube embed.
+ *
+ * Renders a poster image + play button. The iframe is only inserted on
+ * click, so the page ships zero YouTube JS or third-party requests on
+ * first paint. Modeled on the existing `OwnerVideo` pattern.
+ *
+ * Aspect: '16/9' for landscape (default), '9/16' for vertical phone-shot
+ * videos (e.g. container loading). Vertical videos are width-capped so
+ * they don't dominate the layout on desktop.
+ *
+ * Analytics: a click fires `data-event` (default `gallery_video_play`)
+ * via the sitewide `[data-event]` listener in Analytics.astro; no
+ * additional dispatch needed here.
+ */
+
+interface Props {
+  videoId: string;
+  /** Used for the iframe `title` and the play-button `aria-label`. */
+  title: string;
+  aspect?: '16/9' | '9/16';
+  /** Override the YouTube auto-thumbnail. */
+  posterSrc?: string;
+  posterAlt?: string;
+  dataEvent?: string;
+  dataSourceComponent?: string;
+  class?: string;
+}
+
+const {
+  videoId,
+  title,
+  aspect = '16/9',
+  posterSrc,
+  posterAlt,
+  dataEvent = 'gallery_video_play',
+  dataSourceComponent = 'youtube-lite',
+  class: className,
+} = Astro.props;
+
+const aspectClass = aspect === '9/16' ? 'aspect-[9/16] mx-auto max-w-[360px]' : 'aspect-video';
+const poster = posterSrc ?? `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+const altText = posterAlt ?? `${title} — video poster`;
+---
+<div
+  class:list={[
+    'relative w-full overflow-hidden rounded-xl border border-neutral-200 bg-neutral-100',
+    aspectClass,
+    className,
+  ]}
+>
+  <button
+    type="button"
+    data-yt-id={videoId}
+    data-yt-title={title}
+    data-event={dataEvent}
+    data-source-component={dataSourceComponent}
+    aria-label={`Play video: ${title}`}
+    class="group absolute inset-0 flex h-full w-full items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+  >
+    <img
+      src={poster}
+      alt={altText}
+      loading="lazy"
+      decoding="async"
+      class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+    />
+    <span aria-hidden="true" class="relative z-10 grid h-16 w-16 place-items-center rounded-full bg-black/60 ring-1 ring-white/20 transition group-hover:bg-black/80">
+      <svg viewBox="0 0 24 24" class="h-8 w-8 translate-x-[2px] text-white" fill="currentColor">
+        <path d="M8 5v14l11-7z" />
+      </svg>
+    </span>
+  </button>
+</div>
+
+<script>
+  /**
+   * Replace each YouTubeLite poster button with a real iframe on click.
+   * One inline script handles every instance on the page (~0.4 KB gz).
+   */
+  document.querySelectorAll<HTMLButtonElement>('[data-yt-id]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.ytId;
+      const title = btn.dataset.ytTitle ?? 'Video';
+      if (!id) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`;
+      iframe.title = title;
+      iframe.allow =
+        'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.loading = 'lazy';
+      iframe.className = 'absolute inset-0 h-full w-full border-0';
+
+      btn.replaceWith(iframe);
+    });
+  });
+</script>

@@ -2,7 +2,7 @@
   "legalName": "PT Coco Reina Global Charcoal Indonesia",
   "brand": "Mulia Charcoal",
   "tagline": "Coconut shell charcoal briquettes, factory-direct from Semarang",
-  "foundingYear": 2018,
+  "foundingYear": 2015,
 
   "brandAssets": {
     "colors": {
@@ -54,14 +54,23 @@
       "directorIntro": "Hello Mr. Gosalim — I would like to discuss a wholesale order of coconut shisha charcoal directly with you.",
       "videoCallRequest": "Hello, I would like to schedule a WhatsApp video call to see your factory and discuss a wholesale order. What times work for you in GMT+7?",
       "piRequest": "Hello, I would like to request a Proforma Invoice for coconut shisha charcoal briquettes. Please share your bank details and payment terms after KYC.",
-      "sampleRequest": "Hello, I would like to request a paid sample of your coconut shisha charcoal briquettes shipped to my address. Please confirm sample fee and shipping cost."
+      "sampleRequest": "Hello, I would like to request a paid sample of your coconut shisha charcoal briquettes shipped to my address. Please confirm sample fee and shipping cost.",
+      "samplesHero": "Hello Mulia Charcoal — please send free samples of your coconut shisha charcoal so I can verify the burn specs in our lab before placing a wholesale order.",
+      "samplesProducts": "Hello Mulia Charcoal — I would like free samples of the {{product}} coconut shisha charcoal to evaluate before placing a wholesale order.",
+      "quoteSpecs": "Hello Mulia Charcoal — please send your latest USD price list FOB Semarang for the Premium, Super Premium, and Platinum grades, including MOQ and lead time.",
+      "factoryAbout": "Hello Mulia Charcoal — I would like more information about your factory: capacity, certifications, and a virtual tour. Could you share documents and a video call slot?",
+      "oemLayout": "Hello Mulia Charcoal — please share your OEM packaging layouts and master-box / inner-box dimensions so I can plan our private-label order.",
+      "oemDesigner": "Hello Mulia Charcoal — I would like to discuss a private-label / OEM brand with your designer. We have artwork and target SKUs ready to share.",
+      "contactDirect": "Hello Mulia Charcoal — I am evaluating a wholesale order from {{country}}. Could we start a direct conversation about specs, price, and shipping?"
     }
   },
 
   "hours": {
     "timezone": "Asia/Jakarta",
     "weekdays": "Monday – Saturday 08:00 – 16:00 (GMT+7)",
-    "sunday": "Closed"
+    "sunday": "Closed",
+    "short": "Mon–Sat 08:00–16:00",
+    "responseHours": 2
   },
 
   "social": {
@@ -81,24 +90,33 @@
     },
     "portOfLoading": {
       "name": "Semarang",
+      "fullName": "Tanjung Emas",
       "country": "Indonesia",
       "unLocode": "IDSRG",
-      "incoterm": "FOB"
+      "incoterm": "FOB",
+      "alternates": [
+        { "name": "Tanjung Priok", "city": "Jakarta", "condition": "on request" }
+      ]
     },
     "leadTime": {
       "minDays": 14,
-      "maxDays": 21
+      "maxDays": 21,
+      "newBrandDays": 21,
+      "repeatBrandDays": 14
     },
     "currency": "USD",
-    "paymentTerms": "30% T/T deposit, 70% against B/L copy",
+    "paymentTerms": "50% T/T advance, 50% T/T 3 days before loading",
     "oemAvailable": true,
-    "shippingLines": [],
-    "exportMarkets": []
+    "shippingLines": ["Maersk", "MSC", "CMA CGM"],
+    "exportMarkets": [],
+    "salesLanguages": ["EN", "AR", "RU", "DE", "TR"],
+    "countriesExportedCount": 0
   },
 
   "production": {
-    "capacityTonsPerDay": 12,
-    "capacityTonsPerMonth": 300,
+    "capacityTonsPerDay": 14,
+    "capacityTonsPerMonth": 350,
+    "headcount": 0,
     "lines": 4,
     "ovens": {
       "count": 8,
@@ -117,7 +135,7 @@
     "iso9001": {
       "standard": "ISO 9001:2015",
       "shortName": "ISO 9001",
-      "auditors": ["Carsurin", "Backjorindo"]
+      "auditors": ["Carsurin", "Beckjorindo"]
     },
     "imdg": {
       "unNumber": "UN 1361",
@@ -129,7 +147,8 @@
       "Preferential Certificate of Origin"
     ],
     "patents": [],
-    "halal": null
+    "halal": null,
+    "specsLastVerified": "2026-04-25"
   },
 
   "legal": {
@@ -215,8 +234,67 @@
     "Russia / CIS"
   ],
 
+  "packaging": {
+    "innerPlastic": {
+      "sizesGrams": [250, 500, 1000],
+      "notes": "Printed inner plastic film; your logo + lot code per buyer requirements."
+    },
+    "innerBox": {
+      "sizesGrams": [250, 500, 1000, 2000, 3000, 5000],
+      "gsm": 230,
+      "notes": "Full-colour CMYK printing on 230 gsm board; matte or gloss finish."
+    },
+    "masterBox": {
+      "sizesKg": [10, 20],
+      "wallOptions": ["single", "double"],
+      "notes": "Single- or double-wall corrugated; printed or kraft."
+    },
+    "acceptedArtworkFormats": ["AI", "PDF"],
+    "proofTimeDays": 7,
+    "tiers": [
+      { "key": "full", "contents": ["Inner plastic", "Inner box", "Master box"] },
+      { "key": "standard", "contents": ["Inner plastic", "Inner box"] },
+      { "key": "minimal", "contents": ["Inner plastic", "Master box"] }
+    ]
+  },
+
+  "factoryTourVideo": {
+    "youtubeId": "TODO_PLACEHOLDER_VIDEO_ID",
+    "name": "Tour of Mulia Charcoal factory in Semarang, Indonesia (3 minutes)",
+    "description": "Three-minute walkthrough of the Mulia Charcoal coconut shell briquetting factory in Semarang, Central Java — carbonization ovens, briquetting lines, drying tunnel, QC station and packing.",
+    "durationISO": "PT3M",
+    "uploadDate": "TODO_PLACEHOLDER_DATE"
+  },
+
+  "governance": {
+    "author": {
+      "name": "Wilson Gosalim",
+      "role": "Owner & Director",
+      "lastReviewed": "2026-04-25"
+    },
+    "reviewer": {
+      "name": "Greg Ryabtsev",
+      "role": "Charcoal Expert / Consultant",
+      "lastReviewed": "2026-04-25"
+    },
+    "factChecker": {
+      "name": "TODO_PLACEHOLDER_QC_LEAD",
+      "role": "Quality Control Manager",
+      "lastReviewed": "2026-04-25"
+    }
+  },
+
+  "legalDocuments": [
+    { "key": "nib", "title": "Business registration (NIB)", "href": "/legal/nib.pdf", "dated": "TODO_PLACEHOLDER_NIB_DATE" },
+    { "key": "npwp", "title": "Tax registration (NPWP)", "href": "/legal/npwp.pdf", "dated": "TODO_PLACEHOLDER_NPWP_DATE" },
+    { "key": "factory-audit", "title": "Factory Audit (Beckjorindo)", "href": "/legal/factory-audit.pdf", "dated": "TODO_PLACEHOLDER_AUDIT_DATE" },
+    { "key": "coa-sample", "title": "Sample Certificate of Analysis", "href": "/quality/coa-sample.pdf", "dated": "TODO_PLACEHOLDER_COA_DATE" },
+    { "key": "iso-9001", "title": "ISO 9001:2015 certificate", "href": "/legal/iso-9001.pdf", "dated": "TODO_PLACEHOLDER_ISO_DATE" }
+  ],
+
   "analytics": {
     "gaId": "G-CLNNLB616W",
-    "gscVerification": "fKfTQ-h0XVRjQNoEERZWqchNnUs_6H48amhkgsDPGBA"
+    "gscVerification": "fKfTQ-h0XVRjQNoEERZWqchNnUs_6H48amhkgsDPGBA",
+    "pixelId": "TODO_PLACEHOLDER"
   }
 }

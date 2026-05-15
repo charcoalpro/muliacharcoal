@@ -1,41 +1,166 @@
 ---
+/**
+ * WhatsAppButton — single source of truth for every WhatsApp click-to-chat
+ * CTA on this site.
+ *
+ * - `context` drives the analytics event (mapped 1:1 to CLAUDE.md
+ *   § Conversion Tracking) and the default pre-fill message.
+ * - `appearance` switches between the solid in-flow button, the
+ *   floating mobile FAB, and a lighter inline link style.
+ * - Color is always WhatsApp brand green (#25D366) per spec.
+ *
+ * The legacy `floating` prop is kept as an alias for `appearance: 'fab'`
+ * so existing usages (BaseLayout) keep working.
+ */
+
 import en from '~/i18n/en.json';
 import { company, waLink } from '~/config/company';
 
+type Context =
+  | 'hero'
+  | 'specs'
+  | 'oem'
+  | 'contact'
+  | 'fab'
+  | 'samplesHero'
+  | 'samplesProducts'
+  | 'factoryAbout'
+  | 'oemLayout'
+  | 'oemDesigner';
+
+type Size = 'sm' | 'md' | 'lg';
+type Appearance = 'solid' | 'fab' | 'inline';
+
 interface Props {
+  /** WhatsApp E.164 digits (no '+'). Defaults to the primary site number. */
   phone?: string;
+  /** Override the pre-fill message body entirely. */
   message?: string;
+  /** Substring inserted into the default pre-fill template. */
+  messageContext?: string;
+  /** Override the visible button label. Defaults to `en.cta.whatsapp`. */
+  label?: string;
+  /** Drives both data-event and default pre-fill. */
+  context?: Context;
+  size?: Size;
+  appearance?: Appearance;
+  /** Legacy alias for `appearance: 'fab'`. */
   floating?: boolean;
+  class?: string;
 }
 
 const {
   phone = company.whatsapp.e164Digits,
-  message = company.whatsapp.defaultMessage,
+  message,
+  messageContext,
+  label,
+  context,
+  size: sizeProp,
+  appearance: appearanceProp,
   floating = false,
+  class: className,
 } = Astro.props;
 
-// Use the helper when defaults apply; otherwise build manually to honor overrides.
+/** Map a WhatsAppButton context → analytics event name(s). */
+const contextEventMap: Record<Context, string> = {
+  hero: 'whatsapp_click_hero',
+  specs: 'whatsapp_click_specs',
+  oem: 'whatsapp_click_oem',
+  contact: 'whatsapp_click_contact',
+  fab: 'whatsapp_click_fab',
+  samplesHero: 'samples_request_click_hero,whatsapp_click_hero',
+  samplesProducts: 'samples_request_click_products',
+  factoryAbout: 'factory_info_click_about',
+  oemLayout: 'oem_layout_click',
+  oemDesigner: 'oem_designer_click',
+};
+
+/** Map a context → preset message key in company.whatsapp.presetMessages. */
+const contextPresetMap: Record<Context, keyof typeof company.whatsapp.presetMessages> = {
+  hero: 'heroCta',
+  specs: 'quoteSpecs',
+  oem: 'oemLayout',
+  contact: 'salesGeneral',
+  fab: 'salesGeneral',
+  samplesHero: 'samplesHero',
+  samplesProducts: 'samplesProducts',
+  factoryAbout: 'factoryAbout',
+  oemLayout: 'oemLayout',
+  oemDesigner: 'oemDesigner',
+};
+
+const appearance: Appearance = appearanceProp ?? (floating ? 'fab' : 'solid');
+const size: Size = sizeProp ?? (appearance === 'fab' ? 'md' : appearance === 'inline' ? 'sm' : 'md');
+
+// If no explicit context, infer from appearance ('fab' → 'fab', otherwise undefined).
+const resolvedContext: Context | undefined = context ?? (appearance === 'fab' ? 'fab' : undefined);
+
+// Resolve event name. Falls back to the legacy generic event.
+const eventName = resolvedContext
+  ? contextEventMap[resolvedContext]
+  : 'whatsapp_click';
+const sourceComponent = resolvedContext ?? (appearance === 'fab' ? 'fab' : 'inline');
+
+// Resolve pre-fill text. Priority: explicit message > messageContext interpolation > preset.
+const presetKey = resolvedContext ? contextPresetMap[resolvedContext] : 'salesGeneral';
+const presetTemplate = company.whatsapp.presetMessages[presetKey];
+const interpolated = messageContext
+  ? `Hi ${company.brand}, I'm interested in ${messageContext}.`
+  : presetTemplate;
+const text = message ?? interpolated;
+
+// Build href: prefer waLink helper when number matches the primary site number.
 const href =
   phone === company.whatsapp.e164Digits
-    ? waLink(message)
-    : `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+    ? waLink(text)
+    : `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
+
+const sizeClass: Record<Size, string> = {
+  sm: 'min-h-11 px-4 py-2 text-sm',
+  md: 'min-h-12 px-6 py-3 text-base',
+  lg: 'min-h-14 px-8 py-4 text-lg',
+};
+
+const visibleLabel = label ?? en.cta.whatsapp;
 ---
-<a
-  href={href}
-  target="_blank"
-  rel="noopener"
-  aria-label={en.cta.whatsappAria}
-  data-event="whatsapp_click"
-  data-source-component={floating ? 'floating' : 'inline'}
-  class:list={[
-    'inline-flex items-center gap-2 rounded-md bg-success font-semibold text-white shadow-sm transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success active:scale-[0.98]',
-    floating
-      ? 'fixed bottom-4 end-4 z-40 h-14 w-14 items-center justify-center rounded-full p-0 shadow-lg md:h-auto md:w-auto md:gap-2 md:rounded-full md:px-6 md:py-3'
-      : 'px-6 py-3 text-base',
-  ]}
->
-  <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5" fill="currentColor">
-    <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.95L2 22l4.25-1.7a9.9 9.9 0 0 0 5.79 1.56h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.76 14.11c-.24.68-1.4 1.29-1.95 1.33-.52.04-1.16.21-3.92-.82-3.3-1.23-5.39-4.57-5.55-4.79-.16-.21-1.29-1.71-1.29-3.27 0-1.56.81-2.32 1.1-2.64.28-.32.61-.4.81-.4.2 0 .4.01.57.02.18.01.43-.07.67.51.24.59.81 2.03.88 2.18.07.15.12.32.02.52-.1.2-.15.32-.3.49-.15.18-.32.39-.46.53-.15.15-.31.31-.13.61.18.29.79 1.3 1.7 2.11 1.17 1.04 2.16 1.36 2.46 1.51.29.15.46.13.63-.08.17-.21.73-.85.93-1.14.2-.29.4-.24.67-.15.27.1 1.72.81 2.01.96.29.15.49.22.56.35.07.12.07.73-.17 1.42z" />
-  </svg>
-  <span class:list={[floating && 'sr-only md:not-sr-only']}>{en.cta.whatsapp}</span>
-</a>
+{appearance === 'fab' ? (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener"
+    aria-label={en.cta.whatsappAria}
+    data-event={eventName}
+    data-source-component={sourceComponent}
+    class:list={[
+      'fixed bottom-4 end-4 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-[filter] hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#25D366] active:scale-[0.98] md:h-auto md:w-auto md:gap-2 md:rounded-full md:px-6 md:py-3',
+      className,
+    ]}
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor">
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.95L2 22l4.25-1.7a9.9 9.9 0 0 0 5.79 1.56h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.76 14.11c-.24.68-1.4 1.29-1.95 1.33-.52.04-1.16.21-3.92-.82-3.3-1.23-5.39-4.57-5.55-4.79-.16-.21-1.29-1.71-1.29-3.27 0-1.56.81-2.32 1.1-2.64.28-.32.61-.4.81-.4.2 0 .4.01.57.02.18.01.43-.07.67.51.24.59.81 2.03.88 2.18.07.15.12.32.02.52-.1.2-.15.32-.3.49-.15.18-.32.39-.46.53-.15.15-.31.31-.13.61.18.29.79 1.3 1.7 2.11 1.17 1.04 2.16 1.36 2.46 1.51.29.15.46.13.63-.08.17-.21.73-.85.93-1.14.2-.29.4-.24.67-.15.27.1 1.72.81 2.01.96.29.15.49.22.56.35.07.12.07.73-.17 1.42z" />
+    </svg>
+    <span class="sr-only md:not-sr-only">{visibleLabel}</span>
+  </a>
+) : (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener"
+    aria-label={en.cta.whatsappAria}
+    data-event={eventName}
+    data-source-component={sourceComponent}
+    class:list={[
+      'inline-flex items-center justify-center gap-2 rounded-md font-semibold text-white transition-[filter] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 active:scale-[0.98]',
+      appearance === 'inline'
+        ? 'bg-transparent text-[#128C7E] underline-offset-4 hover:underline focus-visible:ring-[#25D366]'
+        : 'bg-[#25D366] hover:brightness-95 focus-visible:ring-[#25D366]',
+      appearance !== 'inline' && sizeClass[size],
+      className,
+    ]}
+  >
+    <svg aria-hidden="true" viewBox="0 0 24 24" class:list={[size === 'lg' ? 'h-6 w-6' : 'h-5 w-5']} fill="currentColor">
+      <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 2.1.55 4.15 1.6 5.95L2 22l4.25-1.7a9.9 9.9 0 0 0 5.79 1.56h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2zm5.76 14.11c-.24.68-1.4 1.29-1.95 1.33-.52.04-1.16.21-3.92-.82-3.3-1.23-5.39-4.57-5.55-4.79-.16-.21-1.29-1.71-1.29-3.27 0-1.56.81-2.32 1.1-2.64.28-.32.61-.4.81-.4.2 0 .4.01.57.02.18.01.43-.07.67.51.24.59.81 2.03.88 2.18.07.15.12.32.02.52-.1.2-.15.32-.3.49-.15.18-.32.39-.46.53-.15.15-.31.31-.13.61.18.29.79 1.3 1.7 2.11 1.17 1.04 2.16 1.36 2.46 1.51.29.15.46.13.63-.08.17-.21.73-.85.93-1.14.2-.29.4-.24.67-.15.27.1 1.72.81 2.01.96.29.15.49.22.56.35.07.12.07.73-.17 1.42z" />
+    </svg>
+    <span>{visibleLabel}</span>
+  </a>
+)}

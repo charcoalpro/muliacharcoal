@@ -490,5 +490,345 @@
         "subtitle": "Trustpilot widget will appear here once the company profile is published."
       }
     }
+  },
+  "home": {
+    "meta": {
+      "titleTemplate": "{{brand}} — Coconut Shisha Charcoal Factory in {{city}}, Indonesia",
+      "descriptionTemplate": "Wholesale coconut shell shisha charcoal briquettes from {{port}}, {{country}}. {{iso9001Short}} certified, IMDG {{unNumber}} compliant. MOQ {{moqLabel}}, lead time {{leadTimeLabel}}. Request free samples or message us on WhatsApp."
+    },
+    "hero": {
+      "eyebrow": "Coconut shell charcoal briquette factory · {{city}}, {{country}} · since {{year}}",
+      "h1": "Natural coconut charcoal briquettes for shisha, by the container.",
+      "sub": "{{brand}} ships {{capacityMonth}}-tons-per-month from our {{city}} factory under {{iso9001Short}} and {{unNumber}} — MOQ {{moqTons}} tons / 20-ft container.",
+      "online": "We are online now",
+      "ctaWhatsapp": "Chat on WhatsApp",
+      "ctaSamples": "Request Free Samples",
+      "imageAlt": "Workers in branded uniforms loading a 20-ft container at the {{brand}} coconut charcoal factory in {{city}}, {{country}}, with the company sign visible on the factory exterior.",
+      "trust": {
+        "un1361Label": "Compliance",
+        "un1361Value": "{{unNumber}} compliant",
+        "un1361Tooltip": "{{imdgLabel}} — international maritime dangerous-goods classification for self-heating substances; we file the declaration with every shipment.",
+        "isoLabel": "Quality",
+        "isoValue": "{{iso9001Short}}:2015",
+        "capacityLabel": "Capacity",
+        "capacityValue": "{{capacityMonth}} t/month · since {{year}}"
+      },
+      "waPrefill": "Hello Mulia Charcoal — please share your USD price list, MOQ details, and current lead time for coconut shisha charcoal briquettes."
+    },
+    "trustStrip": {
+      "aria": "Proof signals from REACH compliance to shipping partners",
+      "items": {
+        "reach": {
+          "label": "REACH compliant",
+          "definition": "What is REACH? — REACH is the EU's Registration, Evaluation, Authorisation and Restriction of Chemicals regulation; we declare REACH compliance for all coconut-shell binders and starches used in production."
+        },
+        "audits": {
+          "labelTemplate": "Audited by {{auditors}}",
+          "definition": "Carsurin and Beckjorindo are independent Indonesian testing laboratories accredited under ISO/IEC 17025. They run our quarterly burn, ash, moisture and fixed-carbon tests and issue the COA we ship with every container.",
+          "learnMore": "View certifications"
+        },
+        "shipping": {
+          "labelTemplate": "Loading partners: {{shippingLines}}",
+          "definition": "We are approved to book FCL containers directly with Maersk, MSC and CMA CGM out of {{port}}. Bookings file IMDG {{unNumber}} Class {{unClass}} declarations and ship with the Self-Heating Test report.",
+          "learnMore": "Logistics overview"
+        },
+        "languages": {
+          "labelTemplate": "Languages spoken: {{salesLanguages}}",
+          "definition": "Our export desk handles wholesale inquiries in {{salesLanguages}}. Reply on WhatsApp in your preferred language; the team routes the conversation internally to a native speaker."
+        },
+        "countries": {
+          "labelTemplate": "{{countriesExportedCount}}+ countries exported",
+          "fallbackLabel": "Worldwide export network",
+          "definition": "We have shipped 20-ft and 40-ft containers of coconut shisha charcoal to wholesale buyers across the EU, GCC, North America, the CIS region, and South-East Asia.",
+          "learnMore": "Countries served"
+        }
+      }
+    },
+    "products": {
+      "eyebrow": "Six shapes",
+      "h2": "Six coconut-shell shapes for shisha and hookah, custom-sized to your brand.",
+      "intro": "Each shape is pressed from 100% coconut shell carbon and food-grade tapioca starch, then cured for 18–24 hours; we cut sizes to your specification and pack them in your branded box.",
+      "h2LinkLabel": "Browse all products",
+      "addToInquiry": "Add to inquiry",
+      "addedToInquiry": "Added to inquiry",
+      "moreDetails": "More details",
+      "sizesHeading": "Sizes",
+      "sizesToggleLabel": "View sizes",
+      "pcsPerKgLabel": "pcs/kg",
+      "ctaSamples": "Get free samples",
+      "ctaSamplesSubtext": "Tick the shapes you want and we will send a paid sample kit with batch COA. WhatsApp opens on click.",
+      "items": {
+        "cube": {
+          "name": "Cube",
+          "description": "The reference shisha format. Five edge sizes from 22 to 28 mm; uniform edges and no first-light cracking.",
+          "imageAlt": "Mulia Charcoal coconut shell cube briquettes (25×25 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        },
+        "stix": {
+          "name": "Stix / Finger",
+          "description": "Slim finger briquettes for kaloud and HMD-style heat-management devices. Long burn at low surface temperature.",
+          "imageAlt": "Mulia Charcoal coconut shell stix / finger briquettes (20×50 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        },
+        "hexagonal": {
+          "name": "Hexagonal",
+          "description": "Six-sided briquettes with a centre hole — preferred by retail tobacco brands for shelf appeal and even ignition.",
+          "imageAlt": "Mulia Charcoal coconut shell hexagonal briquettes (20×50 mm) with centre hole, photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        },
+        "dome": {
+          "name": "D-shape / Dome",
+          "description": "Hemisphere briquettes shaped to seat flush against ceramic and silicone shisha bowls.",
+          "imageAlt": "Mulia Charcoal coconut shell dome / D-shape briquettes (25 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        },
+        "flat": {
+          "name": "Flat / Slab",
+          "description": "Flat slab cut for kaloud, foil and large-bowl applications. Maximum heat-management surface area.",
+          "imageAlt": "Mulia Charcoal coconut shell flat slab briquettes (25×25×17 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        },
+        "lotus": {
+          "name": "Lotus / Cloud",
+          "description": "Decorative profile briquettes for premium shisha lounges. Same coconut shell formulation, distinctive shape.",
+          "imageAlt": "Mulia Charcoal coconut shell lotus / cloud briquette (3-piece set), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        }
+      }
+    },
+    "specs": {
+      "eyebrow": "Decision-stage specifications",
+      "h2": "Three quality grades, batch-tested, ready for 18-ton FCL.",
+      "intro": "All three grades are 100% natural coconut shell charcoal — no chemicals, no fillers — produced under {{isoStandard}} and IMDG {{unNumber}} transport classification. Per-batch certificates of analysis are issued by {{auditors}} independent labs.",
+      "h2LinkLabel": "Read the specifications guide",
+      "propertyHeader": "Property",
+      "cardEyebrow": "Grade",
+      "properties": {
+        "ash": "Ash content",
+        "moisture": "Moisture",
+        "fixedCarbon": "Fixed carbon",
+        "burnTime": "Burn time",
+        "burnTemp": "Burn temp",
+        "calorieValue": "Calorific value",
+        "dropTest": "Drop test"
+      },
+      "caption": "Factory targets per grade. Lab certificate of analysis (COA) issued per shipment.",
+      "lastVerifiedTemplate": "Last verified: {{specsLastVerified}}",
+      "coaLinkLabel": "See the certificate of analysis",
+      "coaLinkHref": "/quality/coa-sample.pdf",
+      "gradePickerLegend": "Choose the grade you want a price for",
+      "gradePickerHelp": "Pick a grade — the CTA below pre-fills the WhatsApp message accordingly.",
+      "ctaLabelTemplate": "Get price for {{grade}}",
+      "ctaMessageTemplate": "Hello Mulia Charcoal — please share your USD price list FOB {{port}} for {{grade}} grade coconut shisha charcoal, including MOQ and current lead time.",
+      "glossary": {
+        "heading": "How to read these numbers",
+        "items": [
+          {
+            "q": "What is ash content?",
+            "a": "Ash content is the percentage of mineral residue left after combustion. Lower ash means a cleaner burn, less debris on the bowl and less odour; coconut shell briquettes typically run 1.6%-2.8% by mass. Detail at /quality/specifications-explained#ash."
+          },
+          {
+            "q": "Why does fixed carbon matter?",
+            "a": "Fixed carbon is the share of pure carbon left after volatile matter and moisture have burned off. Higher fixed carbon means a longer, hotter burn at lower ash. Our Platinum grade hits ≥ 82% fixed carbon."
+          },
+          {
+            "q": "How long does Platinum grade burn?",
+            "a": "Platinum grade burns 2.5+ hours per cube on a standard shisha bowl at a peak surface temperature near 680 °C. Premium and Super Premium burn 2+ hours per cube."
+          }
+        ]
+      }
+    },
+    "about": {
+      "eyebrow": "Our factory",
+      "h2": "{{legalName}} — a {{year}}-founded {{city}} factory.",
+      "h2LinkLabel": "Read the full factory profile",
+      "introWithFacility": "{{legalName}} ({{brand}}) is an Indonesian-registered manufacturer (NIB {{nib}}, NPWP {{taxId}}) of coconut shell charcoal briquettes for shisha and hookah, operating a {{facilityArea}}-square-metre facility in {{city}}, {{region}} since {{year}}, with a production capacity of {{capacityMonth}} metric tons per month.",
+      "intro": "{{legalName}} ({{brand}}) is an Indonesian-registered manufacturer (NIB {{nib}}, NPWP {{taxId}}) of coconut shell charcoal briquettes for shisha and hookah, based in {{city}}, {{region}} since {{year}}, with a production capacity of {{capacityMonth}} metric tons per month.",
+      "governance": {
+        "heading": "Page authorship",
+        "authorRole": "Author",
+        "reviewerRole": "Reviewer",
+        "factCheckerRole": "Fact checker",
+        "lastReviewedTemplate": "Last reviewed {{date}}"
+      },
+      "dataTable": {
+        "heading": "Factory at a glance",
+        "headers": ["Detail", "Value"],
+        "founded": "Founded",
+        "facility": "Facility",
+        "facilityValue": "{{city}}, {{region}}, {{country}}",
+        "capacity": "Capacity",
+        "capacityValue": "{{capacityMonth}} tons / month",
+        "workforce": "Workforce",
+        "lines": "Production lines",
+        "leadTime": "Lead time",
+        "leadTimeValue": "{{newBrandLeadTime}} days for new brand · {{repeatBrandLeadTime}} days for repeat",
+        "port": "Port of loading",
+        "portValue": "Tanjung Emas ({{city}}), Tanjung Priok (Jakarta) on request",
+        "payment": "Payment",
+        "moq": "MOQ",
+        "moqValue": "{{moqLabel}} · 20-ft FCL only",
+        "languages": "Languages spoken"
+      },
+      "video": {
+        "heading": "Inside the factory",
+        "title": "Tour of {{brand}} factory in {{city}}, {{country}} (3 minutes)",
+        "captionTemplate": "Three-minute walkthrough — carbonization ovens, briquetting lines, drying tunnel and packing."
+      },
+      "docs": {
+        "heading": "Documents we issue with every shipment",
+        "viewLabel": "View PDF",
+        "items": {
+          "nib": {
+            "title": "Business registration (NIB {{nib}})"
+          },
+          "npwp": {
+            "title": "Tax registration (NPWP {{taxId}})"
+          },
+          "factory-audit": {
+            "title": "Factory Audit (Beckjorindo)"
+          },
+          "coa-sample": {
+            "title": "Sample Certificate of Analysis"
+          },
+          "iso-9001": {
+            "title": "{{isoStandard}} certificate"
+          }
+        }
+      },
+      "ctaInfo": "Get more information about our factory"
+    },
+    "oem": {
+      "eyebrow": "Private label / OEM",
+      "h2": "OEM and private-label packaging from your design files.",
+      "h2LinkLabel": "Browse all packaging options",
+      "intro": "We print 1 kg inner boxes (full-colour, {{innerBoxGsm}} gsm), inner plastic with your logo, and {{masterBoxSizes}} master boxes (single- or double-wall) — from your {{acceptedArtworkFormats}} artwork, with a packaging proof inside {{proofTimeDays}} working days.",
+      "tiersHeading": "Choose your packaging package",
+      "tiers": {
+        "full": {
+          "name": "Full packaging",
+          "summary": "Inner plastic + inner box + master box. Retail-ready out of the container.",
+          "imageAlt": "Mulia Charcoal full packaging tier — printed inner plastic pouch, full-colour 1 kg inner box and 20 kg master carton, photographed at the Semarang factory."
+        },
+        "standard": {
+          "name": "Standard packaging",
+          "summary": "Inner plastic + inner box. The most common SKU for retail and lounge accounts.",
+          "imageAlt": "Mulia Charcoal standard packaging tier — printed inner plastic pouch and full-colour 1 kg inner box, photographed at the Semarang factory."
+        },
+        "minimal": {
+          "name": "Pouch in master",
+          "summary": "Inner plastic + master box. Wholesale bulk for distributors who repack locally.",
+          "imageAlt": "Mulia Charcoal minimal packaging tier — printed inner plastic pouches inside a 10 kg master carton, photographed at the Semarang factory."
+        }
+      },
+      "sizes": {
+        "heading": "Sizes available",
+        "innerPlasticLabel": "Inner plastic",
+        "innerPlasticValue": "{{innerPlasticSizes}}",
+        "innerBoxLabel": "Inner box",
+        "innerBoxValue": "{{innerBoxSizes}} (full-colour, {{innerBoxGsm}} gsm)",
+        "masterBoxLabel": "Master box",
+        "masterBoxValue": "{{masterBoxSizes}} (single- or double-wall)"
+      },
+      "ctaLayout": "Get layout and sizes",
+      "ctaDesigner": "Discuss your brand with our designer",
+      "faq": {
+        "heading": "Common questions about OEM",
+        "items": [
+          {
+            "q": "Do you accept AI/PDF artwork?",
+            "a": "Yes. Send us print-ready Adobe Illustrator (.ai) or PDF files at the dieline dimensions we share. We accept CMYK at 300 dpi with bleed; if you have InDesign or Photoshop sources we can usually open those too."
+          },
+          {
+            "q": "What is the print proof time?",
+            "a": "We turn around a packaging proof within {{proofTimeDays}} working days of receiving final artwork. The proof is a physical printed sample on the actual board stock; you sign it off before the production run."
+          },
+          {
+            "q": "Minimum order to start a private label?",
+            "a": "{{moqLabel}} FOB {{port}}. The 18-ton minimum is a single 20-ft FCL — you can mix shapes and grades inside one container, but we do not split containers across buyers."
+          }
+        ]
+      }
+    },
+    "gallery": {
+      "eyebrow": "Visual proof",
+      "h2": "Inside our {{city}} factory and container loading.",
+      "h2LinkLabel": "All factory photos",
+      "introTemplate": "These are photographs and short vertical videos of our actual production floor in {{city}} and our 20-ft container loading process — taken {{galleryLastUpdated}}. Click any image to view it full-size.",
+      "lightboxCloseLabel": "Close image",
+      "videoBadge": "Video"
+    },
+    "contact": {
+      "eyebrow": "Talk to us",
+      "h2": "Talk to us about your container.",
+      "introTemplate": "We answer enquiries within {{responseHours}} hours, in {{salesLanguages}} — by WhatsApp, email, or this form. Office hours: {{officeHours}} Asia/Jakarta ({{timezone}}).",
+      "formHeading": "Wholesale inquiry",
+      "mapHeading": "Factory location",
+      "whatsappHeading": "Or chat now",
+      "whatsappCta": "Chat on WhatsApp now",
+      "directHeading": "Direct contact",
+      "phoneLabel": "Phone",
+      "emailLabel": "Email",
+      "addressLabel": "Address",
+      "linksFaqLabel": "Read our FAQ",
+      "linksLogisticsLabel": "Logistics & shipping details",
+      "successHeading": "Thanks — your inquiry is in",
+      "successBody": "We will reply within {{responseHours}} business hours. For faster response, message us on WhatsApp.",
+      "fields": {
+        "name": "Full name",
+        "company": "Company",
+        "email": "Business email",
+        "country": "Destination country",
+        "countryPlaceholder": "Select destination",
+        "whatsapp": "WhatsApp / phone (optional)",
+        "containers": "Container quantity",
+        "containerOptions": {
+          "20ft": "1 × 20-ft FCL",
+          "40ft": "1 × 40-ft FCL",
+          "multi": "2+ containers",
+          "unsure": "Not sure yet"
+        },
+        "grade": "Grade interest",
+        "gradeOptions": {
+          "premium": "Premium",
+          "super-premium": "Super Premium",
+          "platinum": "Platinum",
+          "mixed": "Mixed"
+        },
+        "message": "Message",
+        "messagePlaceholder": "Tell us your target volume, destination port and timeline.",
+        "privacyConsentTemplate": "I agree that {{brand}} may contact me about my inquiry and store my details under their privacy policy.",
+        "submit": "Send inquiry"
+      }
+    },
+    "cta": {
+      "headline": "Ready to load your first container? Sample 1 kg ships free.",
+      "subTemplate": "Production from {{leadTimeDays}} days, Tanjung Emas ({{city}}) loading.",
+      "ctaLabel": "Request samples + price",
+      "waPrefill": "Hello Mulia Charcoal — please send a free 1 kg sample and your latest USD price list FOB Semarang for coconut shisha charcoal briquettes."
+    },
+    "faq": {
+      "heading": "Buyer FAQ",
+      "items": [
+        {
+          "q": "What is your minimum order quantity?",
+          "a": "{{moqLabel}} FOB {{port}}. We do not split containers, but you can mix shapes and grades within a single 20ft container."
+        },
+        {
+          "q": "How long is production lead time?",
+          "a": "{{leadTimeLabel}} from receipt of the 30% T/T deposit. We schedule the booking with the shipping line in parallel so the container is ready on the agreed laycan."
+        },
+        {
+          "q": "Which shipping lines do you load with?",
+          "a": "Maersk, MSC and CMA CGM out of {{port}}. We file IMDG {{unNumber}} Class {{unClass}} declarations and provide the Self-Heating Test report with every booking."
+        },
+        {
+          "q": "Can you private-label our brand?",
+          "a": "Yes. We offer master-box, inner-box and individual cube-wrap printing. Your designer works directly with our packaging lead; minimum private-label order is one 20ft container."
+        },
+        {
+          "q": "What payment terms do you accept?",
+          "a": "T/T 30/70 (30% deposit, 70% against B/L copy), or L/C at sight. Wire details are released only after KYC. We invoice in USD."
+        },
+        {
+          "q": "Do you ship paid samples?",
+          "a": "Yes. Samples ship by air courier; sample fee and freight are quoted by destination. Lab-grade samples include a batch COA so you can verify the burn specs before placing the wholesale order."
+        }
+      ]
+    }
   }
 }

@@ -1,0 +1,149 @@
+---
+/**
+ * OEM Packaging — homepage decision-stage section for buyers who want
+ * to launch or extend a private label.
+ *
+ * Layout:
+ *   - H2 + sub-link to /packaging.
+ *   - Definition opener referencing print specs (full-colour, gsm),
+ *     accepted artwork formats and the print-proof turnaround.
+ *   - Three packaging tiers as <Card>s (Full / Standard / Pouch in
+ *     master). Each card carries an image slot, the tier name, and
+ *     the human-readable contents list (chips).
+ *   - "Sizes available" sub-block: dl of inner plastic / inner box /
+ *     master box with the actual size lists from `~/config/company.ts`.
+ *   - Two CTAs side-by-side on `md+`, stacked full-width on `<md`:
+ *     primary "Get layout and sizes" and ghost "Discuss your brand
+ *     with our designer". Each fires its own analytics event.
+ *   - FAQ block: three Q&A pairs surfaced via the existing FAQSection
+ *     and additionally appended to the homepage FAQPage @graph.
+ *
+ * Component reuse: <Card>, <Button>, <FAQSection>, <ImagePlaceholder>.
+ */
+
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import SectionHeading from '~/components/content/SectionHeading.astro';
+import Card from '~/components/content/Card.astro';
+import Button from '~/components/cta/Button.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+
+const t = en.home.oem;
+const tokens = companyTokens(company);
+
+const intro = fill(t.intro, tokens);
+
+const tiers = company.packaging.tiers.map((tier) => {
+  const tierCopy = t.tiers[tier.key as keyof typeof t.tiers];
+  return {
+    key: tier.key,
+    name: tierCopy?.name ?? tier.key,
+    summary: tierCopy?.summary ?? '',
+    imageAlt: tierCopy?.imageAlt ?? '',
+    contents: tier.contents,
+  };
+});
+
+const sizes = [
+  { label: t.sizes.innerPlasticLabel, value: fill(t.sizes.innerPlasticValue, tokens) },
+  { label: t.sizes.innerBoxLabel, value: fill(t.sizes.innerBoxValue, tokens) },
+  { label: t.sizes.masterBoxLabel, value: fill(t.sizes.masterBoxValue, tokens) },
+];
+
+const faqItems = (t.faq?.items ?? []).map((item) => ({
+  q: fill(item.q, tokens),
+  a: fill(item.a, tokens),
+}));
+---
+<section aria-labelledby="home-oem-h2" class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <SectionHeading
+      eyebrow={t.eyebrow}
+      title={t.h2}
+      subtitle={intro}
+      id="home-oem-h2"
+    />
+    <p class="mt-3">
+      <a
+        href="/packaging"
+        class="text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        data-source-component="oem-h2-link"
+      >
+        {t.h2LinkLabel} <span aria-hidden="true">→</span>
+      </a>
+    </p>
+
+    {/* Sub-block: 3-tier card grid. */}
+    <div class="mt-10">
+      <h3 class="text-base font-semibold text-neutral-900">{t.tiersHeading}</h3>
+      <ul class="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {tiers.map((tier) => (
+          <li class="h-full">
+            <Card padding="p-5" class="h-full">
+              <Fragment slot="media">
+                <ImagePlaceholder label={tier.imageAlt} ratio="4/3" />
+              </Fragment>
+
+              <h4 class="text-lg font-semibold text-neutral-900">{tier.name}</h4>
+              <p class="mt-2 text-sm leading-relaxed text-neutral-600">{tier.summary}</p>
+
+              <ul class="mt-4 flex flex-wrap gap-2">
+                {tier.contents.map((part) => (
+                  <li class="rounded-md border border-neutral-200 bg-neutral-50 px-2 py-1 text-xs font-medium text-neutral-700">
+                    {part}
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Sub-block: sizes available. */}
+    <div class="mt-10 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+      <h3 class="text-base font-semibold text-neutral-900">{t.sizes.heading}</h3>
+      <dl class="mt-4 grid gap-x-6 gap-y-3 sm:grid-cols-[max-content_1fr]">
+        {sizes.map((s) => (
+          <>
+            <dt class="text-sm font-semibold text-neutral-700">{s.label}</dt>
+            <dd class="text-sm text-neutral-800">{s.value}</dd>
+          </>
+        ))}
+      </dl>
+    </div>
+
+    {/* CTAs. */}
+    <div class="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+      <Button
+        href="/#contact?intent=oem_layout"
+        variant="primary"
+        size="lg"
+        class="w-full sm:w-auto"
+        data-event="oem_layout_click"
+        data-source-component="oem-cta-layout"
+      >
+        {t.ctaLayout}
+      </Button>
+      <Button
+        href="/#contact?intent=oem_designer"
+        variant="ghost"
+        size="lg"
+        class="w-full sm:w-auto"
+        data-event="oem_designer_click"
+        data-source-component="oem-cta-designer"
+      >
+        {t.ctaDesigner}
+      </Button>
+    </div>
+
+    {/* FAQ block — also appended to the homepage FAQPage @graph. */}
+    <FAQSection
+      heading={t.faq.heading}
+      items={faqItems}
+      class="mt-16"
+    />
+  </div>
+</section>
