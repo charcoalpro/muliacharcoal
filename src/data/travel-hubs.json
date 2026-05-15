@@ -1,0 +1,44 @@
+{
+  "travelHubs": [
+  {
+    "from": "Jakarta",
+    "distanceKm": 450,
+    "byCar": "approx. 7 hours",
+    "byTrainCar": "approx. 5h train + 30min car",
+    "notes": "Argo Bromo Anggrek and Argo Sindoro express trains daily."
+  },
+  {
+    "from": "Yogyakarta",
+    "distanceKm": 130,
+    "byCar": "approx. 3 hours",
+    "byTrainCar": "approx. 2h train + 30min car",
+    "notes": "Frequent Joglosemarkerto train service."
+  },
+  {
+    "from": "Surabaya",
+    "distanceKm": 350,
+    "byCar": "approx. 6 hours",
+    "byTrainCar": "approx. 4h train + 30min car",
+    "notes": "Argo Bromo Anggrek westbound."
+  },
+  {
+    "from": "Semarang city centre",
+    "distanceKm": 8,
+    "byCar": "approx. 20 minutes",
+    "notes": "Standard taxi or ride-hail."
+  },
+  {
+    "from": "Semarang Ahmad Yani Airport (SRG)",
+    "distanceKm": 12,
+    "byCar": "approx. 30 minutes",
+    "notes": "Free buyer pickup available — request in advance via WhatsApp."
+  },
+  {
+    "from": "Yogyakarta Adisutjipto Airport (YIA)",
+    "distanceKm": 140,
+    "byCar": "approx. 3 hours",
+    "byTrainCar": "approx. 2h train + 30min car",
+    "notes": "Free buyer pickup available — request in advance via WhatsApp."
+  }
+  ]
+}

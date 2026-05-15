@@ -1,0 +1,530 @@
+# Sveltia CMS configuration for Mulia Charcoal.
+#
+# Five file-style collections, each backed by a single JSON file under
+# /src/data/. Editing a field in this UI commits the corresponding JSON
+# change to the `main` branch; CI then rebuilds and deploys the site.
+#
+# Schema notes
+# ============
+# • Field order here determines display order in the form. Sveltia
+#   preserves existing JSON key order on save, so reordering keys in
+#   /src/data/*.json on disk does not happen unless an editor renames
+#   a field — keep the field order in sync with the JSON if you change
+#   either one.
+# • All top-level sections of company.json are modelled as `object`
+#   widgets with `collapsed: true` for a scannable form.
+# • TODO_PLACEHOLDER values render as plain strings in the input boxes;
+#   editors should replace them with real values, NOT leave them.
+# • Regex validation on E.164 phone fields and emails prevents the most
+#   common shape errors before the commit lands.
+
+backend:
+  name: github
+  repo: charcoalpro/muliacharcoal
+  branch: main
+  # No OAuth proxy. Editors authenticate via the "Sign in with Token"
+  # button on /admin/ using a fine-scoped GitHub Personal Access Token.
+  # https://sveltiacms.app/en/docs/backends/github#access-token
+  #
+  # If you ever onboard non-technical editors, deploy the official
+  # Cloudflare Worker OAuth proxy from https://github.com/sveltia/sveltia-cms-auth
+  # and add `base_url:` and `auth_endpoint: auth` lines here.
+
+# Image uploads (used for /admin photos like team headshots).
+media_folder: 'public/uploads'
+public_folder: '/uploads'
+
+# Commit message templates per action.
+backend_commit_messages:
+  create: 'content: create {{collection}} "{{slug}}"'
+  update: 'content: update {{collection}}'
+  delete: 'content: delete {{collection}} "{{slug}}"'
+  uploadMedia: 'content: upload {{path}}'
+  deleteMedia: 'content: delete {{path}}'
+
+# Editor preview disabled — the CMS preview pane cannot render Astro
+# pages, and seeing the form alone is faster.
+show_preview_links: false
+
+collections:
+  # ===================================================================
+  # 1. Company facts — single JSON, all top-level sections modelled as
+  #    nested `object` groups. This is where most edits will happen.
+  # ===================================================================
+  - name: company
+    label: 'Company facts'
+    description: 'Identity, contact, commercial terms, banking, certifications.'
+    files:
+      - name: company
+        label: 'Company facts'
+        file: 'src/data/company.json'
+        format: json
+        fields:
+          - { name: legalName, label: 'Legal name', widget: string }
+          - { name: brand, label: 'Brand', widget: string }
+          - { name: tagline, label: 'Tagline', widget: string }
+          - { name: foundingYear, label: 'Founding year', widget: number, value_type: int, min: 1900, max: 2100 }
+
+          - name: brandAssets
+            label: 'Brand assets'
+            widget: object
+            collapsed: true
+            fields:
+              - name: colors
+                label: 'Colors'
+                widget: object
+                fields:
+                  - { name: primary, label: 'Primary (hex)', widget: string, pattern: ['^#[0-9a-fA-F]{6}$', 'Use a 6-digit hex like #0f3d2e'] }
+                  - { name: primaryHover, label: 'Primary hover (hex)', widget: string, pattern: ['^#[0-9a-fA-F]{6}$', 'Use a 6-digit hex'] }
+                  - { name: accent, label: 'Accent (hex)', widget: string, pattern: ['^#[0-9a-fA-F]{6}$', 'Use a 6-digit hex'] }
+                  - { name: dark, label: 'Dark (hex)', widget: string, pattern: ['^#[0-9a-fA-F]{6}$', 'Use a 6-digit hex'] }
+
+          - { name: domain, label: 'Domain (no protocol)', widget: string }
+          - { name: siteUrl, label: 'Site URL (with https://)', widget: string, pattern: ['^https://', 'Must start with https://'] }
+
+          - name: registration
+            label: 'Indonesian business registration'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: nib, label: 'NIB (Nomor Induk Berusaha)', widget: string }
+              - { name: taxId, label: 'NPWP (tax ID)', widget: string }
+
+          - name: address
+            label: 'Factory address'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: street, label: 'Street', widget: string }
+              - { name: district, label: 'District', widget: string }
+              - { name: city, label: 'City', widget: string }
+              - { name: region, label: 'Region / Province', widget: string }
+              - { name: postalCode, label: 'Postal code', widget: string }
+              - { name: country, label: 'Country', widget: string }
+              - { name: countryCode, label: 'Country code (ISO 3166-1 alpha-2)', widget: string, pattern: ['^[A-Z]{2}$', 'Two uppercase letters'] }
+              - { name: short, label: 'Short address (for footer)', widget: string }
+              - { name: latitude, label: 'Latitude', widget: number, value_type: float, min: -90, max: 90 }
+              - { name: longitude, label: 'Longitude', widget: number, value_type: float, min: -180, max: 180 }
+
+          - { name: googleMapsUrl, label: 'Google Maps share URL', widget: string }
+          - { name: email, label: 'Primary email', widget: string, pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$', 'Must be a valid email'] }
+
+          - name: phone
+            label: 'Primary phone'
+            widget: object
+            fields:
+              - { name: display, label: 'Display form (with spaces)', widget: string }
+              - { name: e164, label: 'E.164 form (with +)', widget: string, pattern: ['^\+[1-9][0-9]{6,15}$', 'E.164: +CCNNN...NNN (8-16 digits)'] }
+
+          - name: phones
+            label: 'Additional phones'
+            widget: list
+            required: false
+            collapsed: true
+            summary: '{{fields.label}} — {{fields.display}}'
+            fields:
+              - { name: label, label: 'Label (e.g. Sales, Logistics)', widget: string }
+              - { name: display, label: 'Display form', widget: string }
+              - { name: e164, label: 'E.164 form', widget: string, pattern: ['^\+[1-9][0-9]{6,15}$', 'E.164 format required'] }
+
+          - name: whatsapp
+            label: 'WhatsApp'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: e164Digits, label: 'E.164 digits (no + or separators)', widget: string, pattern: ['^[1-9][0-9]{6,15}$', 'Digits only, no plus sign'] }
+              - { name: defaultMessage, label: 'Default message', widget: text }
+              - name: presetMessages
+                label: 'Preset messages (per CTA)'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: heroCta, label: 'Hero CTA', widget: text }
+                  - { name: salesGeneral, label: 'Sales general', widget: text }
+                  - { name: directorIntro, label: 'Director intro', widget: text }
+                  - { name: videoCallRequest, label: 'Video call request', widget: text }
+                  - { name: piRequest, label: 'Proforma invoice request', widget: text }
+                  - { name: sampleRequest, label: 'Sample request', widget: text }
+
+          - name: hours
+            label: 'Working hours'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: timezone, label: 'Timezone (IANA, e.g. Asia/Jakarta)', widget: string }
+              - { name: weekdays, label: 'Weekday hours (display)', widget: string }
+              - { name: sunday, label: 'Sunday status', widget: string }
+
+          - name: social
+            label: 'Social profiles (URLs)'
+            widget: object
+            collapsed: true
+            hint: 'Leave a field blank to hide that social icon site-wide.'
+            fields:
+              - { name: facebook, label: 'Facebook', widget: string, required: false }
+              - { name: instagram, label: 'Instagram', widget: string, required: false }
+              - { name: linkedin, label: 'LinkedIn', widget: string, required: false }
+              - { name: youtube, label: 'YouTube', widget: string, required: false }
+              - { name: twitter, label: 'Twitter / X', widget: string, required: false }
+              - { name: googleBusiness, label: 'Google Business profile', widget: string, required: false }
+
+          - name: commercial
+            label: 'Commercial terms'
+            widget: object
+            collapsed: true
+            fields:
+              - name: moq
+                label: 'Minimum order quantity'
+                widget: object
+                fields:
+                  - { name: tons, label: 'Tons', widget: number, value_type: int, min: 1, max: 1000 }
+                  - { name: containers, label: 'Container count', widget: number, value_type: int, min: 1, max: 100 }
+                  - { name: containerType, label: 'Container type', widget: select, options: ['20ft', '40ft', '40ft HC'] }
+              - name: portOfLoading
+                label: 'Port of loading'
+                widget: object
+                fields:
+                  - { name: name, label: 'Port name', widget: string }
+                  - { name: country, label: 'Country', widget: string }
+                  - { name: unLocode, label: 'UN/LOCODE (e.g. IDSRG)', widget: string, pattern: ['^[A-Z]{5}$', 'Five uppercase letters'] }
+                  - { name: incoterm, label: 'Incoterm', widget: select, options: ['FOB', 'CIF', 'CFR', 'EXW', 'DAP', 'DDP'] }
+              - name: leadTime
+                label: 'Lead time (days)'
+                widget: object
+                fields:
+                  - { name: minDays, label: 'Min', widget: number, value_type: int, min: 1, max: 365 }
+                  - { name: maxDays, label: 'Max', widget: number, value_type: int, min: 1, max: 365 }
+              - { name: currency, label: 'Quote currency', widget: select, options: ['USD', 'EUR', 'GBP'] }
+              - { name: paymentTerms, label: 'Payment terms (display string)', widget: string }
+              - { name: oemAvailable, label: 'OEM / private label available', widget: boolean, default: true }
+              - name: shippingLines
+                label: 'Shipping lines (direct booking)'
+                widget: list
+                required: false
+                field: { name: line, label: 'Carrier', widget: string }
+              - name: exportMarkets
+                label: 'Export markets (countries shipped to)'
+                widget: list
+                required: false
+                field: { name: country, label: 'Country', widget: string }
+
+          - name: production
+            label: 'Production'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: capacityTonsPerDay, label: 'Capacity (tons/day)', widget: number, value_type: int, min: 0, max: 1000 }
+              - { name: capacityTonsPerMonth, label: 'Capacity (tons/month)', widget: number, value_type: int, min: 0, max: 10000 }
+              - { name: lines, label: 'Briquetting lines', widget: number, value_type: int, min: 0, max: 50 }
+              - name: ovens
+                label: 'Ovens / kilns'
+                widget: object
+                fields:
+                  - { name: count, label: 'Oven count', widget: number, value_type: int, min: 0, max: 100 }
+                  - { name: capacityTonsPerBatch, label: 'Capacity per batch (tons)', widget: number, value_type: float, min: 0, max: 100 }
+                  - { name: cycleHours, label: 'Cycle hours', widget: number, value_type: int, min: 1, max: 168 }
+              - { name: rawMaterial, label: 'Raw material description', widget: string }
+              - { name: factoryAreaSqm, label: 'Factory area (sqm) — 0 hides claim', widget: number, value_type: int, min: 0, max: 100000 }
+              - { name: palmTreesCount, label: 'Partner palm trees — 0 hides claim', widget: number, value_type: int, min: 0, max: 10000000 }
+              - { name: sourcingVillages, label: 'Partner villages — 0 hides claim', widget: number, value_type: int, min: 0, max: 1000 }
+              - { name: sourcingRegion, label: 'Sourcing region', widget: string }
+              - name: carbonizationPlant
+                label: 'Upstream carbonization plant (optional)'
+                widget: object
+                required: false
+                fields:
+                  - { name: city, label: 'City', widget: string }
+                  - { name: region, label: 'Region', widget: string }
+
+          - name: certifications
+            label: 'Certifications & compliance'
+            widget: object
+            collapsed: true
+            fields:
+              - name: iso9001
+                label: 'ISO 9001'
+                widget: object
+                fields:
+                  - { name: standard, label: 'Standard (e.g. ISO 9001:2015)', widget: string }
+                  - { name: shortName, label: 'Short name', widget: string }
+                  - name: auditors
+                    label: 'Auditors'
+                    widget: list
+                    field: { name: name, label: 'Auditor name', widget: string }
+              - name: imdg
+                label: 'IMDG classification (UN 1361)'
+                widget: object
+                fields:
+                  - { name: unNumber, label: 'UN number', widget: string }
+                  - { name: class, label: 'Class', widget: string }
+                  - { name: classDescription, label: 'Class description', widget: string }
+              - name: other
+                label: 'Other compliance documents'
+                widget: list
+                field: { name: doc, label: 'Document name', widget: string }
+              - name: patents
+                label: 'Patents (optional)'
+                widget: list
+                required: false
+                fields:
+                  - { name: id, label: 'Patent ID', widget: string }
+                  - { name: title, label: 'Title', widget: string }
+              - name: halal
+                label: 'Halal certification (optional)'
+                widget: object
+                required: false
+                fields:
+                  - { name: certified, label: 'Certified', widget: boolean, default: false }
+                  - { name: body, label: 'Certifying body (e.g. LPPOM-MUI)', widget: string, required: false }
+
+          - name: legal
+            label: 'Legal / contract terms'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: governingLaw, label: 'Governing law', widget: string }
+              - name: arbitration
+                label: 'Arbitration'
+                widget: object
+                fields:
+                  - { name: institution, label: 'Institution', widget: string }
+                  - { name: institutionShort, label: 'Acronym', widget: string }
+                  - { name: seat, label: 'Seat / venue', widget: string }
+
+          - name: channels
+            label: 'Alternate contact channels'
+            widget: object
+            collapsed: true
+            hint: 'Replace TODO_PLACEHOLDER values OR set to null to hide a channel card.'
+            fields:
+              - name: wechat
+                label: 'WeChat'
+                widget: object
+                fields:
+                  - { name: id, label: 'WeChat ID', widget: string }
+                  - { name: qrImage, label: 'QR image path (optional)', widget: string, required: false }
+              - name: telegram
+                label: 'Telegram'
+                widget: object
+                fields:
+                  - { name: handle, label: 'Handle (@...)', widget: string }
+                  - { name: url, label: 'URL (https://t.me/...)', widget: string }
+              - name: messenger
+                label: 'Messenger'
+                widget: object
+                fields:
+                  - { name: handle, label: 'Handle', widget: string }
+                  - { name: url, label: 'URL (https://m.me/...)', widget: string }
+              - { name: botim, label: 'Botim (E.164)', widget: string }
+              - { name: max, label: 'Max handle', widget: string }
+              - { name: line, label: 'LINE ID', widget: string }
+              - { name: viber, label: 'Viber (E.164)', widget: string }
+              - name: zoom
+                label: 'Zoom'
+                widget: object
+                fields:
+                  - { name: schedulingUrl, label: 'Scheduling URL', widget: string }
+              - { name: videoCallEmailSubject, label: 'Video call email subject', widget: string }
+
+          - name: lebaranShutdown
+            label: 'Lebaran (Idul Fitri) shutdown'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: from, label: 'From (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+              - { name: to, label: 'To (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+              - { name: orderCutoff, label: 'Pre-Lebaran order cutoff (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+
+          - name: form
+            label: 'Inquiry form'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: web3formsEndpoint, label: 'Web3Forms endpoint', widget: string }
+              - { name: web3formsKey, label: 'Web3Forms access key (public)', widget: string }
+              - name: captcha
+                label: 'Captcha'
+                widget: object
+                fields:
+                  - { name: provider, label: 'Provider', widget: select, options: ['web3forms-builtin', 'hcaptcha', 'none'] }
+                  - { name: hcaptchaSiteKey, label: 'hCaptcha site key (if provider=hcaptcha)', widget: string }
+              - { name: subject, label: 'Notification subject', widget: string }
+              - name: volumeOptions
+                label: 'Volume select options'
+                widget: list
+                field: { name: option, label: 'Option', widget: string }
+
+          - name: payment
+            label: 'Payment'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: mode, label: 'Mode', widget: select, options: ['public', 'gated'], hint: 'public = show bank table; gated = hide and show "Request PI" CTA' }
+              - name: terms
+                label: 'Payment terms (list)'
+                widget: list
+                field: { name: term, label: 'Term', widget: string }
+              - name: currencies
+                label: 'Accepted currencies'
+                widget: list
+                field: { name: code, label: 'ISO code (e.g. USD)', widget: string }
+              - { name: bankCountry, label: 'Bank country', widget: string }
+              - { name: acceptsCrypto, label: 'Accepts stablecoin (USDT TRC-20)', widget: boolean, default: false }
+
+          - name: bank
+            label: 'Banking'
+            widget: object
+            collapsed: true
+            hint: 'These render publicly on /contact when payment.mode = public. VERIFY by phone/video before changing.'
+            fields:
+              - { name: accountName, label: 'Account name', widget: string }
+              - { name: bankName, label: 'Bank name', widget: string }
+              - { name: branch, label: 'Branch', widget: string }
+              - { name: bankAddress, label: 'Bank address', widget: string }
+              - { name: accountNumber, label: 'Account number', widget: string }
+              - { name: swiftCode, label: 'SWIFT code', widget: string }
+              - { name: iban, label: 'IBAN (optional)', widget: string, required: false }
+              - { name: currency, label: 'Currency', widget: string }
+              - { name: lastVerified, label: 'Last verified (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'], hint: 'Update every time you re-confirm bank details by phone/video call.' }
+
+          - name: priorityMarkets
+            label: 'Priority markets (ordered)'
+            widget: list
+            field: { name: country, label: 'Country', widget: string }
+
+          - name: analytics
+            label: 'Analytics (public IDs)'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: gaId, label: 'Google Analytics ID (G-...)', widget: string, pattern: ['^G-[A-Z0-9]+$', 'Format: G-XXXXXXXXX'] }
+              - { name: gscVerification, label: 'Google Search Console verification token', widget: string }
+
+  # ===================================================================
+  # 2. People — single JSON, ordered list. Drag to reorder.
+  # ===================================================================
+  - name: people
+    label: 'People'
+    description: 'Owners, directors, sales, operations heads. Order matters — owner first.'
+    files:
+      - name: people
+        label: 'People roster'
+        file: 'src/data/people.json'
+        format: json
+        fields:
+          - name: people
+            label: 'People (drag to reorder)'
+            widget: list
+            allow_add: true
+            collapsed: true
+            summary: '{{fields.name}} — {{fields.role}}'
+            fields:
+              - { name: name, label: 'Name', widget: string }
+              - { name: role, label: 'Role', widget: string }
+              - { name: bio, label: 'Bio (under 280 chars)', widget: text, required: false }
+              - { name: email, label: 'Email', widget: string, required: false, pattern: ['^[^@\s]+@[^@\s]+\.[^@\s]+$|^$', 'Valid email or blank'] }
+              - name: phone
+                label: 'Phone'
+                widget: object
+                required: false
+                fields:
+                  - { name: display, label: 'Display form', widget: string }
+                  - { name: e164, label: 'E.164 form', widget: string, pattern: ['^\+[1-9][0-9]{6,15}$', 'E.164 format'] }
+              - name: whatsapp
+                label: 'WhatsApp'
+                widget: object
+                required: false
+                fields:
+                  - { name: e164Digits, label: 'E.164 digits (no +)', widget: string, pattern: ['^[1-9][0-9]{6,15}$', 'Digits only'] }
+                  - { name: display, label: 'Display form', widget: string }
+                  - { name: preset, label: 'Preset message', widget: text, required: false }
+              - { name: linkedin, label: 'LinkedIn URL', widget: string, required: false }
+              - { name: photo, label: 'Photo path (e.g. /team/name.jpg)', widget: string, required: false }
+              - name: languages
+                label: 'Languages spoken'
+                widget: list
+                required: false
+                field: { name: lang, label: 'Language', widget: string }
+              - name: displayIn
+                label: 'Where this person appears (multi-select)'
+                widget: select
+                multiple: true
+                options:
+                  - { label: 'Owner (about page card + Organization JSON-LD founder)', value: 'owner' }
+                  - { label: 'Executive (footer + about schema)', value: 'executive' }
+                  - { label: 'Operations (about Block 5 grid)', value: 'operations' }
+                  - { label: 'Contact team (contact Block 4)', value: 'contact-team' }
+                  - { label: 'WhatsApp Director (director-intro preset target)', value: 'whatsapp-director' }
+                  - { label: 'WhatsApp Sales (sales preset target)', value: 'whatsapp-sales' }
+
+  # ===================================================================
+  # 3. Holidays — year-specific. Refresh annually.
+  # ===================================================================
+  - name: holidays
+    label: 'Public holidays'
+    description: 'Indonesian 2026 public holidays. Refresh annually against the SKB 3 Menteri decree.'
+    files:
+      - name: holidays
+        label: 'Holidays'
+        file: 'src/data/holidays.json'
+        format: json
+        fields:
+          - name: holidays
+            label: 'Holidays (chronological)'
+            widget: list
+            allow_add: true
+            summary: '{{fields.date}} — {{fields.name}}'
+            fields:
+              - { name: date, label: 'Date (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+              - { name: day, label: 'Day of week', widget: select, options: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] }
+              - { name: name, label: 'Holiday name', widget: string }
+
+  # ===================================================================
+  # 4. Hotels — recommended for buyer visits.
+  # ===================================================================
+  - name: hotels
+    label: 'Recommended hotels'
+    description: 'Hotels recommended to visiting buyers. Tiered by star rating.'
+    files:
+      - name: hotels
+        label: 'Hotels'
+        file: 'src/data/hotels.json'
+        format: json
+        fields:
+          - name: hotels
+            label: 'Hotels'
+            widget: list
+            allow_add: true
+            summary: '{{fields.name}} ({{fields.stars}}★)'
+            fields:
+              - { name: name, label: 'Hotel name', widget: string }
+              - { name: stars, label: 'Stars', widget: number, value_type: int, min: 1, max: 5 }
+              - { name: distanceKm, label: 'Distance from factory (km)', widget: number, value_type: float, min: 0, max: 1000 }
+              - { name: driveTimeMinutes, label: 'Drive time (minutes)', widget: number, value_type: int, min: 0, max: 1440 }
+              - { name: description, label: 'Description (1–2 sentences)', widget: text }
+              - { name: website, label: 'Website URL', widget: string }
+              - { name: mapsUrl, label: 'Google Maps URL', widget: string }
+
+  # ===================================================================
+  # 5. Travel hubs — distances from major cities and airports.
+  # ===================================================================
+  - name: travel-hubs
+    label: 'Travel hubs'
+    description: 'How buyers reach Semarang from major cities and airports.'
+    files:
+      - name: travel-hubs
+        label: 'Travel hubs'
+        file: 'src/data/travel-hubs.json'
+        format: json
+        fields:
+          - name: travelHubs
+            label: 'Travel hubs'
+            widget: list
+            allow_add: true
+            summary: '{{fields.from}} ({{fields.distanceKm}} km)'
+            fields:
+              - { name: from, label: 'From (city / airport name)', widget: string }
+              - { name: distanceKm, label: 'Distance (km)', widget: number, value_type: int, min: 0, max: 10000 }
+              - { name: byCar, label: 'By car (display string)', widget: string }
+              - { name: byTrainCar, label: 'By train + car (optional)', widget: string, required: false }
+              - { name: notes, label: 'Notes', widget: text }

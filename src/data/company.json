@@ -1,0 +1,222 @@
+{
+  "legalName": "PT Coco Reina Global Charcoal Indonesia",
+  "brand": "Mulia Charcoal",
+  "tagline": "Coconut shell charcoal briquettes, factory-direct from Semarang",
+  "foundingYear": 2018,
+
+  "brandAssets": {
+    "colors": {
+      "primary": "#0f3d2e",
+      "primaryHover": "#0a2a1f",
+      "accent": "#c9a24b",
+      "dark": "#0a1f17"
+    }
+  },
+
+  "domain": "muliacharcoal.com",
+  "siteUrl": "https://muliacharcoal.com",
+
+  "registration": {
+    "nib": "0220001680488",
+    "taxId": "94.608.951.3-524.000"
+  },
+
+  "address": {
+    "street": "TODO_PLACEHOLDER_FACTORY_STREET",
+    "district": "TODO_PLACEHOLDER_DISTRICT",
+    "city": "Semarang",
+    "region": "Central Java",
+    "postalCode": "TODO_PLACEHOLDER_POSTAL_CODE",
+    "country": "Indonesia",
+    "countryCode": "ID",
+    "short": "Semarang, Central Java, Indonesia",
+    "latitude": -6.9667,
+    "longitude": 110.4167
+  },
+
+  "googleMapsUrl": "https://maps.app.goo.gl/SAcfhq4ypCud6HqQA",
+
+  "email": "export@muliacharcoal.com",
+
+  "phone": {
+    "display": "+62 821 287 68 545",
+    "e164": "+6282128768545"
+  },
+
+  "phones": [],
+
+  "whatsapp": {
+    "e164Digits": "6282128768545",
+    "defaultMessage": "Hello, I am interested in your coconut charcoal briquettes.",
+    "presetMessages": {
+      "heroCta": "Hello PT Coco Reina — I would like to request a wholesale quote for coconut shisha charcoal briquettes. Could you share your price list and MOQ details?",
+      "salesGeneral": "Hello, I am a wholesale buyer interested in your coconut shisha charcoal briquettes. Please share specifications, pricing, and lead time.",
+      "directorIntro": "Hello Mr. Gosalim — I would like to discuss a wholesale order of coconut shisha charcoal directly with you.",
+      "videoCallRequest": "Hello, I would like to schedule a WhatsApp video call to see your factory and discuss a wholesale order. What times work for you in GMT+7?",
+      "piRequest": "Hello, I would like to request a Proforma Invoice for coconut shisha charcoal briquettes. Please share your bank details and payment terms after KYC.",
+      "sampleRequest": "Hello, I would like to request a paid sample of your coconut shisha charcoal briquettes shipped to my address. Please confirm sample fee and shipping cost."
+    }
+  },
+
+  "hours": {
+    "timezone": "Asia/Jakarta",
+    "weekdays": "Monday – Saturday 08:00 – 16:00 (GMT+7)",
+    "sunday": "Closed"
+  },
+
+  "social": {
+    "facebook": null,
+    "instagram": null,
+    "linkedin": null,
+    "youtube": null,
+    "twitter": null,
+    "googleBusiness": null
+  },
+
+  "commercial": {
+    "moq": {
+      "tons": 18,
+      "containers": 1,
+      "containerType": "20ft"
+    },
+    "portOfLoading": {
+      "name": "Semarang",
+      "country": "Indonesia",
+      "unLocode": "IDSRG",
+      "incoterm": "FOB"
+    },
+    "leadTime": {
+      "minDays": 14,
+      "maxDays": 21
+    },
+    "currency": "USD",
+    "paymentTerms": "30% T/T deposit, 70% against B/L copy",
+    "oemAvailable": true,
+    "shippingLines": [],
+    "exportMarkets": []
+  },
+
+  "production": {
+    "capacityTonsPerDay": 12,
+    "capacityTonsPerMonth": 300,
+    "lines": 4,
+    "ovens": {
+      "count": 8,
+      "capacityTonsPerBatch": 1.5,
+      "cycleHours": 24
+    },
+    "rawMaterial": "Coconut shell charcoal (sourced from Java and Sumatra)",
+    "factoryAreaSqm": 0,
+    "palmTreesCount": 0,
+    "sourcingVillages": 0,
+    "sourcingRegion": "TODO_PLACEHOLDER_SOURCING_REGION",
+    "carbonizationPlant": null
+  },
+
+  "certifications": {
+    "iso9001": {
+      "standard": "ISO 9001:2015",
+      "shortName": "ISO 9001",
+      "auditors": ["Carsurin", "Backjorindo"]
+    },
+    "imdg": {
+      "unNumber": "UN 1361",
+      "class": "4.2",
+      "classDescription": "spontaneous combustion"
+    },
+    "other": [
+      "Self-Heating Test (SHT)",
+      "Preferential Certificate of Origin"
+    ],
+    "patents": [],
+    "halal": null
+  },
+
+  "legal": {
+    "governingLaw": "Republic of Indonesia",
+    "arbitration": {
+      "institution": "Indonesian National Board of Arbitration",
+      "institutionShort": "BANI",
+      "seat": "Jakarta, Indonesia"
+    }
+  },
+
+  "channels": {
+    "wechat": {
+      "id": "TODO_PLACEHOLDER_WECHAT_ID",
+      "qrImage": null
+    },
+    "telegram": {
+      "handle": "@TODO_PLACEHOLDER_TG",
+      "url": "https://t.me/TODO_PLACEHOLDER_TG"
+    },
+    "messenger": {
+      "handle": "TODO_PLACEHOLDER_FB",
+      "url": "https://m.me/TODO_PLACEHOLDER_FB"
+    },
+    "botim": "+6280000000010",
+    "max": "TODO_PLACEHOLDER_MAX_HANDLE",
+    "line": "TODO_PLACEHOLDER_LINE_ID",
+    "viber": "+6280000000011",
+    "zoom": {
+      "schedulingUrl": "TODO_PLACEHOLDER_ZOOM_SCHEDULING_URL"
+    },
+    "videoCallEmailSubject": "Schedule a video meeting"
+  },
+
+  "lebaranShutdown": {
+    "from": "2026-03-21",
+    "to": "2026-03-27",
+    "orderCutoff": "2026-03-15"
+  },
+
+  "form": {
+    "web3formsEndpoint": "https://api.web3forms.com/submit",
+    "web3formsKey": "TODO_PLACEHOLDER_WEB3FORMS_ACCESS_KEY",
+    "captcha": {
+      "provider": "web3forms-builtin",
+      "hcaptchaSiteKey": "TODO_PLACEHOLDER_HCAPTCHA_SITE_KEY"
+    },
+    "subject": "New wholesale inquiry — muliacharcoal.com",
+    "volumeOptions": [
+      "1 × 20ft container (approx. 18 tons)",
+      "2 × 20ft containers (approx. 36 tons)",
+      "1 × 40ft container (approx. 26 tons)",
+      "Monthly contract (recurring)",
+      "Trial / sample only"
+    ]
+  },
+
+  "payment": {
+    "mode": "public",
+    "terms": ["T/T 30/70 (30% deposit, 70% against B/L copy)", "L/C at sight"],
+    "currencies": ["USD"],
+    "bankCountry": "Indonesia",
+    "acceptsCrypto": false
+  },
+
+  "bank": {
+    "accountName": "PT Coco Reina Global Charcoal Indonesia",
+    "bankName": "TODO_PLACEHOLDER_BANK_NAME",
+    "branch": "TODO_PLACEHOLDER_BRANCH",
+    "bankAddress": "TODO_PLACEHOLDER_BANK_ADDRESS",
+    "accountNumber": "TODO_PLACEHOLDER_ACCOUNT_NUMBER",
+    "swiftCode": "TODO_PLACEHOLDER_SWIFT",
+    "iban": null,
+    "currency": "USD",
+    "lastVerified": "2026-04-25"
+  },
+
+  "priorityMarkets": [
+    "USA",
+    "UK",
+    "Saudi Arabia",
+    "Germany",
+    "Russia / CIS"
+  ],
+
+  "analytics": {
+    "gaId": "G-CLNNLB616W",
+    "gscVerification": "fKfTQ-h0XVRjQNoEERZWqchNnUs_6H48amhkgsDPGBA"
+  }
+}

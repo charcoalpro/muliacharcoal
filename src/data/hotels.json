@@ -1,0 +1,58 @@
+{
+  "hotels": [
+  {
+    "name": "TODO_PLACEHOLDER_GRAND_HOTEL_SEMARANG",
+    "stars": 5,
+    "distanceKm": 8,
+    "driveTimeMinutes": 20,
+    "description": "Premium five-star hotel near downtown Semarang with executive lounge and airport shuttle.",
+    "website": "https://example.com/grand-hotel-semarang",
+    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_5_STAR_A"
+  },
+  {
+    "name": "TODO_PLACEHOLDER_LUXE_TOWER_SEMARANG",
+    "stars": 5,
+    "distanceKm": 10,
+    "driveTimeMinutes": 25,
+    "description": "Five-star city tower with rooftop dining and conference facilities suitable for buyer meetings.",
+    "website": "https://example.com/luxe-tower-semarang",
+    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_5_STAR_B"
+  },
+  {
+    "name": "TODO_PLACEHOLDER_BUSINESS_HOTEL_SEMARANG",
+    "stars": 4,
+    "distanceKm": 6,
+    "driveTimeMinutes": 15,
+    "description": "Four-star business hotel with reliable Wi-Fi, English-speaking staff, and walkable cafés.",
+    "website": "https://example.com/business-hotel-semarang",
+    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_4_STAR_A"
+  },
+  {
+    "name": "TODO_PLACEHOLDER_CITY_INN_SEMARANG",
+    "stars": 4,
+    "distanceKm": 9,
+    "driveTimeMinutes": 22,
+    "description": "Four-star inn with on-site restaurant and complimentary breakfast — popular with returning buyers.",
+    "website": "https://example.com/city-inn-semarang",
+    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_4_STAR_B"
+  },
+  {
+    "name": "TODO_PLACEHOLDER_BUDGET_LODGE_SEMARANG",
+    "stars": 3,
+    "distanceKm": 5,
+    "driveTimeMinutes": 12,
+    "description": "Three-star lodge close to the factory — clean rooms, basic amenities, friendly staff.",
+    "website": "https://example.com/budget-lodge-semarang",
+    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_3_STAR_A"
+  },
+  {
+    "name": "TODO_PLACEHOLDER_VALUE_INN_SEMARANG",
+    "stars": 3,
+    "distanceKm": 7,
+    "driveTimeMinutes": 18,
+    "description": "Three-star value inn with secure parking, suitable for short pre-shipment inspection trips.",
+    "website": "https://example.com/value-inn-semarang",
+    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_3_STAR_B"
+  }
+  ]
+}
