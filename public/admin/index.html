@@ -17,6 +17,11 @@
       Sveltia is API-compatible with Decap/Netlify CMS, so all standard
       widgets and the YAML schema work unchanged.
     -->
-    <script type="module" src="https://unpkg.com/@sveltia/cms@^0/dist/sveltia-cms.js"></script>
+    <!--
+      Do NOT add `type="module"` or `defer` to this tag. The Sveltia
+      bundle is a UMD/IIFE that self-mounts at execution time and the
+      docs warn that ES-module mode causes the page to render empty.
+    -->
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
   </body>
 </html>
