@@ -1,0 +1,196 @@
+---
+/**
+ * About — homepage E-E-A-T section.
+ *
+ * Composes four sub-blocks:
+ *   A. H2 + a 45-60 word definition opener referencing legal name,
+ *      brand, NIB, NPWP, facility area, city, region, founding year
+ *      and monthly capacity. Below, a small Author / Reviewer /
+ *      Fact-checker triple with each row's last-reviewed date so
+ *      readers (and AI extractors) see the page governance up front.
+ *      The opener gracefully drops the facility-area clause when the
+ *      number is still 0/TODO via `hasFact()`.
+ *   B. A 2-column "Detail / Value" data table built from
+ *      `~/components/content/DataTable.astro`. Every value reads from
+ *      `~/config/company.ts` — never hardcoded.
+ *   C. A YouTubeLite embed (poster image, lazy iframe on click) for
+ *      the factory walkthrough. The VideoObject schema node lives in
+ *      the homepage @graph and only ships once the YouTube ID and
+ *      upload date land in `company.factoryTourVideo`.
+ *   D. A 5-card row of legal documents (NIB / NPWP / Factory Audit /
+ *      Sample COA / ISO 9001 certificate). Mobile horizontal
+ *      scroll-snap; 5 cols on `lg`, 2 on `md`.
+ *
+ * Section CTA: <Button variant="primary"> "Get more information about
+ * our factory" → `/#contact?intent=factory_info`. Fires
+ * `factory_info_click_about` via the sitewide [data-event] dispatcher.
+ */
+
+import en from '~/i18n/en.json';
+import { company, hasFact, moqLabel } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import SectionHeading from '~/components/content/SectionHeading.astro';
+import DataTable from '~/components/content/DataTable.astro';
+import YouTubeLite from '~/components/content/YouTubeLite.astro';
+import DocumentCard from '~/components/content/DocumentCard.astro';
+import Button from '~/components/cta/Button.astro';
+
+const t = en.home.about;
+const tokens = companyTokens(company);
+
+const h2 = fill(t.h2, tokens);
+const intro = fill(
+  hasFact(company.production.factoryAreaSqm) ? t.introWithFacility : t.intro,
+  tokens,
+);
+const videoTitle = fill(t.video.title, tokens);
+const videoCaption = fill(t.video.captionTemplate, tokens);
+
+const governance = company.governance;
+
+interface DataRow { label: string; values: string[] }
+const dataRows: DataRow[] = [
+  { label: t.dataTable.founded, values: [String(company.foundingYear)] },
+  { label: t.dataTable.facility, values: [fill(t.dataTable.facilityValue, tokens)] },
+  { label: t.dataTable.capacity, values: [fill(t.dataTable.capacityValue, tokens)] },
+  ...(hasFact(company.production.headcount)
+    ? [{ label: t.dataTable.workforce, values: [String(company.production.headcount)] }]
+    : []),
+  { label: t.dataTable.lines, values: [String(company.production.lines)] },
+  { label: t.dataTable.leadTime, values: [fill(t.dataTable.leadTimeValue, tokens)] },
+  { label: t.dataTable.port, values: [fill(t.dataTable.portValue, tokens)] },
+  { label: t.dataTable.payment, values: [company.commercial.paymentTerms] },
+  { label: t.dataTable.moq, values: [fill(t.dataTable.moqValue, { ...tokens, moqLabel: moqLabel() })] },
+  { label: t.dataTable.languages, values: [company.commercial.salesLanguages.join(' · ')] },
+];
+
+const legalDocsByKey = Object.fromEntries(
+  company.legalDocuments.map((d) => [d.key, d]),
+);
+
+interface DocItem { key: string; title: string; href: string; dated?: string }
+const legalDocs: DocItem[] = (Object.keys(t.docs.items) as Array<keyof typeof t.docs.items>).map((key) => {
+  const data = legalDocsByKey[key as string];
+  const i = t.docs.items[key];
+  return {
+    key: key as string,
+    title: fill(i.title, tokens),
+    href: data?.href ?? '#',
+    dated: data?.dated,
+  };
+});
+---
+<section aria-labelledby="home-about-h2" class="bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <SectionHeading
+      eyebrow={t.eyebrow}
+      title={h2}
+      id="home-about-h2"
+    />
+    <p class="mt-3">
+      <a
+        href="/factory"
+        class="text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        data-source-component="about-h2-link"
+      >
+        {t.h2LinkLabel} <span aria-hidden="true">→</span>
+      </a>
+    </p>
+
+    {/* Two-column on lg+: text + table on the left, video on the right.
+        Stacks on <lg. */}
+    <div class="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-12">
+      <div class="flex flex-col gap-8">
+        {/* Sub-block A: definition opener + governance triple. */}
+        <div>
+          <p class="max-w-3xl text-base leading-relaxed text-neutral-700 md:text-lg">
+            {intro}
+          </p>
+
+          <section aria-label={t.governance.heading} class="mt-6 rounded-xl border border-neutral-200 bg-neutral-50 p-4">
+            <p class="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+              {t.governance.heading}
+            </p>
+            <dl class="mt-3 grid gap-3 sm:grid-cols-3">
+              <div>
+                <dt class="text-xs font-medium text-neutral-500">{t.governance.authorRole}</dt>
+                <dd class="text-sm font-semibold text-neutral-900">{governance.author.name}</dd>
+                <dd class="text-xs text-neutral-500">{fill(t.governance.lastReviewedTemplate, { date: governance.author.lastReviewed })}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-neutral-500">{t.governance.reviewerRole}</dt>
+                <dd class="text-sm font-semibold text-neutral-900">{governance.reviewer.name}</dd>
+                <dd class="text-xs text-neutral-500">{fill(t.governance.lastReviewedTemplate, { date: governance.reviewer.lastReviewed })}</dd>
+              </div>
+              <div>
+                <dt class="text-xs font-medium text-neutral-500">{t.governance.factCheckerRole}</dt>
+                <dd class="text-sm font-semibold text-neutral-900">
+                  {hasFact(governance.factChecker.name) ? governance.factChecker.name : '—'}
+                </dd>
+                <dd class="text-xs text-neutral-500">{fill(t.governance.lastReviewedTemplate, { date: governance.factChecker.lastReviewed })}</dd>
+              </div>
+            </dl>
+          </section>
+        </div>
+
+        {/* Sub-block B: 2-column key/value data table. */}
+        <div>
+          <h3 class="text-base font-semibold text-neutral-900">{t.dataTable.heading}</h3>
+          <DataTable
+            headers={t.dataTable.headers}
+            rows={dataRows}
+            class="mt-4"
+            striped={true}
+          />
+        </div>
+      </div>
+
+      {/* Sub-block C: YouTubeLite. */}
+      <div class="flex flex-col gap-3">
+        <h3 class="text-base font-semibold text-neutral-900">{t.video.heading}</h3>
+        <YouTubeLite
+          videoId={company.factoryTourVideo.youtubeId}
+          title={videoTitle}
+          aspect="16/9"
+          dataEvent="factory_video_play"
+          dataSourceComponent="about-factory-tour"
+        />
+        <p class="text-sm text-neutral-600">{videoCaption}</p>
+      </div>
+    </div>
+
+    {/* Sub-block D: legal documents row. */}
+    <div class="mt-12">
+      <h3 class="text-base font-semibold text-neutral-900">{t.docs.heading}</h3>
+      <ul
+        class="mt-4 flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2 md:grid md:grid-cols-2 md:overflow-visible md:pb-0 lg:grid-cols-5"
+        role="list"
+      >
+        {legalDocs.map((doc) => (
+          <li class="w-[75vw] flex-shrink-0 md:w-auto">
+            <DocumentCard
+              title={doc.title}
+              href={doc.href}
+              dated={hasFact(doc.dated) ? doc.dated : undefined}
+              viewLabel={t.docs.viewLabel}
+              dataKey={doc.key}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    {/* Section CTA. */}
+    <div class="mt-12">
+      <Button
+        href="/#contact?intent=factory_info"
+        variant="primary"
+        size="lg"
+        data-event="factory_info_click_about"
+        data-source-component="about-cta"
+      >
+        {t.ctaInfo}
+      </Button>
+    </div>
+  </div>
+</section>

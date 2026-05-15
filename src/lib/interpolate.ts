@@ -119,8 +119,39 @@ export function companyTokens(company: Company): Tokens {
     port: company.commercial.portOfLoading.name,
     portLabel: portOfLoadingLabel(),
     leadTimeLabel: leadTimeLabel(),
+    shippingLines: company.commercial.shippingLines.join(' · '),
+    salesLanguages: company.commercial.salesLanguages.join(' · '),
+    countriesExportedCount: company.commercial.countriesExportedCount,
     // Production
     capacity: company.production.capacityTonsPerDay,
+    capacityMonth: company.production.capacityTonsPerMonth,
+    productionLines: company.production.lines,
+    ovenCount: company.production.ovens.count,
+    facilityArea: company.production.factoryAreaSqm,
+    headcount: company.production.headcount,
+    timezone: company.hours.timezone.replace('Asia/Jakarta', 'GMT+7'),
+    officeHours: company.hours.short,
+    responseHours: company.hours.responseHours,
+    // Lead time variants
+    newBrandLeadTime: company.commercial.leadTime.newBrandDays,
+    repeatBrandLeadTime: company.commercial.leadTime.repeatBrandDays,
+    // Lower-bound lead time used by the homepage CTA banner sub-headline
+    // ("Production from {{leadTimeDays}} days").
+    leadTimeDays: company.commercial.leadTime.repeatBrandDays,
+    // Packaging — formatted size lists for use in i18n templates.
+    innerPlasticSizes: company.packaging.innerPlastic.sizesGrams
+      .map((g) => (g >= 1000 ? `${g / 1000} kg` : `${g} g`))
+      .join(' / '),
+    innerBoxSizes: company.packaging.innerBox.sizesGrams
+      .map((g) => (g >= 1000 ? `${g / 1000} kg` : `${g} g`))
+      .join(' / '),
+    innerBoxGsm: company.packaging.innerBox.gsm,
+    masterBoxSizes: company.packaging.masterBox.sizesKg
+      .map((kg) => `${kg} kg`)
+      .join(' or '),
+    masterBoxWallOptions: company.packaging.masterBox.wallOptions.join('- or '),
+    acceptedArtworkFormats: company.packaging.acceptedArtworkFormats.join(' / '),
+    proofTimeDays: company.packaging.proofTimeDays,
     // Certifications
     iso9001Short: company.certifications.iso9001.shortName,
     isoStandard: company.certifications.iso9001.standard,
@@ -129,6 +160,7 @@ export function companyTokens(company: Company): Tokens {
     unClass: company.certifications.imdg.class,
     imdgClassDescription: company.certifications.imdg.classDescription,
     imdgLabel: imdgLabel(),
+    specsLastVerified: company.certifications.specsLastVerified,
     // Legal / contract terms
     governingLaw: company.legal.governingLaw,
     arbitrationInstitution: company.legal.arbitration.institution,

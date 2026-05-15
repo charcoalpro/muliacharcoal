@@ -1,0 +1,182 @@
+---
+/**
+ * Hero — homepage above-the-fold block.
+ *
+ * 5-second clarity test: who, what, why credible, one click to start a
+ * conversation. Two CTAs only (WhatsApp primary, Samples secondary).
+ *
+ * Layout:
+ *   - lg+: 2-column grid; left = copy + CTAs; right = single eager
+ *     hero image (LCP element).
+ *   - <lg: single column; CTAs stack full-width at 360 px.
+ *   - Vertical padding 56 px mobile / 96 px desktop.
+ *
+ * Performance:
+ *   - The hero image is the LCP candidate. When the real photo lands at
+ *     `src/assets/home/hero-factory.jpg`, swap the placeholder block at
+ *     the bottom for the commented `<Image />` block — width/height are
+ *     fixed at 1600×900 to prevent CLS, and `loading="eager"
+ *     fetchpriority="high" decoding="sync"` ship the bytes first paint.
+ *   - No carousel, no autoplay video.
+ *
+ * Accessibility:
+ *   - The pulse animation is gated behind `motion-safe:` so users with
+ *     `prefers-reduced-motion: reduce` see a static dot.
+ *   - All three trust facts read from `~/config/company.ts` via
+ *     `companyTokens` — never hardcoded.
+ */
+
+import en from '~/i18n/en.json';
+import { company, waLink } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import Button from '~/components/cta/Button.astro';
+import TrustBadge from '~/components/contact/TrustBadge.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+
+// When the real factory photo lands, uncomment the Image block at the
+// bottom and the import below:
+// import { Image } from 'astro:assets';
+// import heroFactoryImage from '~/assets/home/hero-factory.jpg';
+
+const t = en.home.hero;
+const tokens = companyTokens(company);
+
+const eyebrow = fill(t.eyebrow, tokens);
+const sub = fill(t.sub, tokens);
+const imageAlt = fill(t.imageAlt, tokens);
+const un1361Tooltip = fill(t.trust.un1361Tooltip, tokens);
+const un1361Value = fill(t.trust.un1361Value, tokens);
+const isoValue = fill(t.trust.isoValue, tokens);
+const capacityValue = fill(t.trust.capacityValue, tokens);
+
+const waHref = waLink(t.waPrefill);
+const samplesHref = '/#contact?intent=samples';
+---
+<section
+  aria-labelledby="home-hero-h1"
+  class="relative isolate overflow-hidden bg-brand-dark text-white"
+>
+  <div
+    aria-hidden="true"
+    class="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-br from-brand-dark via-brand-primary/30 to-brand-dark"
+  ></div>
+
+  <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:px-8 md:py-20 lg:grid-cols-2 lg:gap-16 lg:py-24">
+    <div class="flex flex-col">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-accent">
+        {eyebrow}
+      </p>
+      <h1
+        id="home-hero-h1"
+        class="mt-3 text-[2.25rem] font-bold leading-tight md:text-4xl lg:text-5xl"
+      >
+        {t.h1}
+      </h1>
+      <p class="mt-5 max-w-2xl text-base leading-relaxed text-white/80 md:text-lg">
+        {sub}
+      </p>
+
+      <ul class="mt-8 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-3" role="list">
+        <li>
+          <TrustBadge
+            variant="dark"
+            label={t.trust.un1361Label}
+            value={un1361Value}
+            tooltip={un1361Tooltip}
+            iconText="UN"
+          />
+        </li>
+        <li>
+          <TrustBadge
+            variant="dark"
+            label={t.trust.isoLabel}
+            value={isoValue}
+            iconText="ISO"
+          />
+        </li>
+        <li>
+          <TrustBadge
+            variant="dark"
+            label={t.trust.capacityLabel}
+            value={capacityValue}
+            iconText="t"
+          />
+        </li>
+      </ul>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <Button
+          variant="whatsapp"
+          size="lg"
+          href={waHref}
+          target="_blank"
+          rel="noopener"
+          class="w-full sm:w-auto"
+          data-event="whatsapp_click_hero"
+          data-source-component="hero"
+          aria-label={t.ctaWhatsapp}
+        >
+          {t.ctaWhatsapp}
+        </Button>
+        <Button
+          variant="ghost"
+          size="lg"
+          href={samplesHref}
+          class="w-full text-white hover:bg-white/10 sm:w-auto"
+          data-event="samples_request_click_hero"
+          data-source-component="hero-samples"
+          aria-label={t.ctaSamples}
+        >
+          {t.ctaSamples}
+        </Button>
+      </div>
+
+      <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white/80">
+        <span class="inline-flex items-center gap-2">
+          <span class="relative inline-flex h-2.5 w-2.5" aria-hidden="true">
+            <span class="absolute inline-flex h-full w-full rounded-full bg-success opacity-75 motion-safe:animate-ping"></span>
+            <span class="relative inline-flex h-2.5 w-2.5 rounded-full bg-success"></span>
+          </span>
+          <span>{t.online}</span>
+        </span>
+        <a
+          href={`mailto:${company.email}`}
+          data-event="email_click_hero"
+          data-source-component="hero"
+          class="underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark"
+        >
+          {company.email}
+        </a>
+      </div>
+    </div>
+
+    <div class="relative">
+      {/*
+        TODO: when /src/assets/home/hero-factory.jpg lands, uncomment the
+        Image import at the top of this file and replace the
+        ImagePlaceholder below with:
+
+        <Image
+          src={heroFactoryImage}
+          alt={imageAlt}
+          width={1600}
+          height={900}
+          loading="eager"
+          fetchpriority="high"
+          decoding="sync"
+          formats={['avif', 'webp']}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          class="aspect-[16/9] w-full rounded-2xl object-cover shadow-2xl"
+        />
+
+        The placeholder below preserves the 16/9 aspect ratio so dropping
+        in the real Image causes zero CLS.
+      */}
+      <ImagePlaceholder
+        label={imageAlt}
+        ratio="16/9"
+        class="rounded-2xl"
+      />
+    </div>
+  </div>
+</section>

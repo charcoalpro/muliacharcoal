@@ -1,0 +1,56 @@
+---
+/**
+ * CTABanner — homepage last-conversion-attempt band before the footer.
+ *
+ * Single-CTA spec: one headline + one sub-headline + one button. No
+ * other clickable elements live inside this section, so a buyer who
+ * scrolled past every other section sees a clean choice with no
+ * decision fatigue.
+ *
+ * Layout:
+ *   - Full-width band, `bg-brand-primary text-white`, py-16.
+ *   - `<md`: stacked + center-aligned, CTA full-width.
+ *   - `md+`: text on the left, CTA on the right (flex row).
+ *
+ * Contrast: brand-primary #0f3d2e on white is 13.0:1 — well above the
+ * WCAG 2.2 AA 4.5:1 minimum.
+ */
+
+import en from '~/i18n/en.json';
+import { company, waLink } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import Button from '~/components/cta/Button.astro';
+
+const t = en.home.cta;
+const tokens = companyTokens(company);
+const sub = fill(t.subTemplate, tokens);
+const href = waLink(t.waPrefill);
+---
+<section
+  aria-labelledby="home-cta-h2"
+  class="bg-brand-primary text-white"
+>
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8">
+    <div class="flex flex-col items-center gap-6 text-center md:flex-row md:items-center md:justify-between md:gap-10 md:text-start">
+      <div class="max-w-3xl">
+        <h2 id="home-cta-h2" class="text-2xl font-bold md:text-3xl">
+          {t.headline}
+        </h2>
+        <p class="mt-3 text-base text-white/85 md:text-lg">{sub}</p>
+      </div>
+      <Button
+        variant="whatsapp"
+        size="lg"
+        href={href}
+        target="_blank"
+        rel="noopener"
+        class="w-full md:w-auto"
+        data-event="cta_banner_click"
+        data-source-component="cta-banner"
+        aria-label={t.ctaLabel}
+      >
+        {t.ctaLabel}
+      </Button>
+    </div>
+  </div>
+</section>

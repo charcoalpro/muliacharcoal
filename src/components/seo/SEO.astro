@@ -1,5 +1,12 @@
 ---
 import { company } from '~/config/company';
+import {
+  ACTIVE_LOCALES,
+  DEFAULT_LOCALE,
+  localeOgMap,
+  localePath,
+  type Locale,
+} from '~/config/i18n';
 
 interface Props {
   title: string;
@@ -7,7 +14,7 @@ interface Props {
   path?: string;
   image?: string;
   type?: 'website' | 'article' | 'product';
-  locale?: string;
+  locale?: Locale;
   noIndex?: boolean;
 }
 
@@ -17,7 +24,7 @@ const {
   path = Astro.url.pathname,
   image,
   type = 'website',
-  locale = 'en_US',
+  locale = DEFAULT_LOCALE,
   noIndex = false,
 } = Astro.props;
 
@@ -34,10 +41,7 @@ const ogImage = image
   : null;
 
 const fullTitle = title.includes(company.brand) ? title : `${title} | ${company.brand}`;
-
-const languages: Array<{ code: string; path: string }> = [
-  { code: 'en', path },
-];
+const ogLocale = localeOgMap[locale];
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
@@ -51,7 +55,7 @@ const languages: Array<{ code: string; path: string }> = [
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
 <meta property="og:type" content={type} />
-<meta property="og:locale" content={locale} />
+<meta property="og:locale" content={ogLocale} />
 <meta property="og:site_name" content={company.brand} />
 {ogImage && <meta property="og:image" content={ogImage} />}
 
@@ -60,7 +64,11 @@ const languages: Array<{ code: string; path: string }> = [
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-{languages.map((lang) => (
-  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />
+{ACTIVE_LOCALES.map((code) => (
+  <link
+    rel="alternate"
+    hreflang={code}
+    href={`${siteBase}${normalizePath(localePath(code, path))}`}
+  />
 ))}
 <link rel="alternate" hreflang="x-default" href={canonical} />

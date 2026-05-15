@@ -145,6 +145,13 @@ collections:
                   - { name: videoCallRequest, label: 'Video call request', widget: text }
                   - { name: piRequest, label: 'Proforma invoice request', widget: text }
                   - { name: sampleRequest, label: 'Sample request', widget: text }
+                  - { name: samplesHero, label: 'Samples — homepage Hero CTA', widget: text }
+                  - { name: samplesProducts, label: 'Samples — Products section CTA ({{product}} placeholder)', widget: text }
+                  - { name: quoteSpecs, label: 'Quote — Specifications section CTA', widget: text }
+                  - { name: factoryAbout, label: 'Factory info — About section CTA', widget: text }
+                  - { name: oemLayout, label: 'OEM — packaging layout CTA', widget: text }
+                  - { name: oemDesigner, label: 'OEM — designer chat CTA', widget: text }
+                  - { name: contactDirect, label: 'Contact — direct conversation CTA ({{country}} placeholder)', widget: text }
 
           - name: hours
             label: 'Working hours'
@@ -154,6 +161,8 @@ collections:
               - { name: timezone, label: 'Timezone (IANA, e.g. Asia/Jakarta)', widget: string }
               - { name: weekdays, label: 'Weekday hours (display)', widget: string }
               - { name: sunday, label: 'Sunday status', widget: string }
+              - { name: short, label: 'Short hours label (homepage Contact opener, e.g. "Mon–Sat 08:00–16:00")', widget: string }
+              - { name: responseHours, label: 'Typical first-response hours on WhatsApp/email during business hours', widget: number, value_type: int, min: 0, max: 168 }
 
           - name: social
             label: 'Social profiles (URLs)'
@@ -184,16 +193,27 @@ collections:
                 label: 'Port of loading'
                 widget: object
                 fields:
-                  - { name: name, label: 'Port name', widget: string }
+                  - { name: name, label: 'Port name (city)', widget: string }
+                  - { name: fullName, label: 'Full port / harbour name (e.g. Tanjung Emas)', widget: string }
                   - { name: country, label: 'Country', widget: string }
                   - { name: unLocode, label: 'UN/LOCODE (e.g. IDSRG)', widget: string, pattern: ['^[A-Z]{5}$', 'Five uppercase letters'] }
                   - { name: incoterm, label: 'Incoterm', widget: select, options: ['FOB', 'CIF', 'CFR', 'EXW', 'DAP', 'DDP'] }
+                  - name: alternates
+                    label: 'Alternate ports (on request)'
+                    widget: list
+                    required: false
+                    fields:
+                      - { name: name, label: 'Port name', widget: string }
+                      - { name: city, label: 'City', widget: string }
+                      - { name: condition, label: 'Condition (e.g. "on request")', widget: string }
               - name: leadTime
                 label: 'Lead time (days)'
                 widget: object
                 fields:
                   - { name: minDays, label: 'Min', widget: number, value_type: int, min: 1, max: 365 }
                   - { name: maxDays, label: 'Max', widget: number, value_type: int, min: 1, max: 365 }
+                  - { name: newBrandDays, label: 'New-brand onboarding (days, upper end)', widget: number, value_type: int, min: 1, max: 365 }
+                  - { name: repeatBrandDays, label: 'Repeat-order lead time (days, lower end)', widget: number, value_type: int, min: 1, max: 365 }
               - { name: currency, label: 'Quote currency', widget: select, options: ['USD', 'EUR', 'GBP'] }
               - { name: paymentTerms, label: 'Payment terms (display string)', widget: string }
               - { name: oemAvailable, label: 'OEM / private label available', widget: boolean, default: true }
@@ -207,6 +227,12 @@ collections:
                 widget: list
                 required: false
                 field: { name: country, label: 'Country', widget: string }
+              - name: salesLanguages
+                label: 'Sales-desk languages (ISO 639-1 uppercase, e.g. EN, AR, RU)'
+                widget: list
+                required: false
+                field: { name: code, label: 'Language code', widget: string, pattern: ['^[A-Z]{2}$', 'Two uppercase letters'] }
+              - { name: countriesExportedCount, label: 'Lifetime export-country count (0 hides the badge)', widget: number, value_type: int, min: 0, max: 250 }
 
           - name: production
             label: 'Production'
@@ -215,6 +241,7 @@ collections:
             fields:
               - { name: capacityTonsPerDay, label: 'Capacity (tons/day)', widget: number, value_type: int, min: 0, max: 1000 }
               - { name: capacityTonsPerMonth, label: 'Capacity (tons/month)', widget: number, value_type: int, min: 0, max: 10000 }
+              - { name: headcount, label: 'Total headcount (operations + admin + sales) — 0 hides row', widget: number, value_type: int, min: 0, max: 10000 }
               - { name: lines, label: 'Briquetting lines', widget: number, value_type: int, min: 0, max: 50 }
               - name: ovens
                 label: 'Ovens / kilns'
@@ -276,6 +303,7 @@ collections:
                 fields:
                   - { name: certified, label: 'Certified', widget: boolean, default: false }
                   - { name: body, label: 'Certifying body (e.g. LPPOM-MUI)', widget: string, required: false }
+              - { name: specsLastVerified, label: 'Specs last verified (YYYY-MM-DD) — refresh on every recertification', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
 
           - name: legal
             label: 'Legal / contract terms'
@@ -392,6 +420,108 @@ collections:
             widget: list
             field: { name: country, label: 'Country', widget: string }
 
+          - name: packaging
+            label: 'OEM / private-label packaging'
+            widget: object
+            collapsed: true
+            hint: 'Surfaces on the homepage OEM Packaging section and the future /packaging pillar.'
+            fields:
+              - name: innerPlastic
+                label: 'Inner plastic pouch'
+                widget: object
+                fields:
+                  - name: sizesGrams
+                    label: 'Sizes (grams of charcoal per pouch)'
+                    widget: list
+                    field: { name: g, label: 'Grams', widget: number, value_type: int, min: 1, max: 100000 }
+                  - { name: notes, label: 'Notes', widget: text }
+              - name: innerBox
+                label: 'Inner box'
+                widget: object
+                fields:
+                  - name: sizesGrams
+                    label: 'Sizes (grams per box)'
+                    widget: list
+                    field: { name: g, label: 'Grams', widget: number, value_type: int, min: 1, max: 100000 }
+                  - { name: gsm, label: 'Board GSM', widget: number, value_type: int, min: 100, max: 1000 }
+                  - { name: notes, label: 'Notes', widget: text }
+              - name: masterBox
+                label: 'Master / shipper carton'
+                widget: object
+                fields:
+                  - name: sizesKg
+                    label: 'Sizes (kilograms gross per master box)'
+                    widget: list
+                    field: { name: kg, label: 'Kg', widget: number, value_type: int, min: 1, max: 1000 }
+                  - name: wallOptions
+                    label: 'Wall options'
+                    widget: list
+                    field: { name: wall, label: 'Wall', widget: select, options: ['single', 'double'] }
+                  - { name: notes, label: 'Notes', widget: text }
+              - name: acceptedArtworkFormats
+                label: 'Accepted source artwork formats'
+                widget: list
+                field: { name: ext, label: 'Format (e.g. AI, PDF)', widget: string }
+              - { name: proofTimeDays, label: 'Working days from artwork to physical print proof', widget: number, value_type: int, min: 1, max: 90 }
+              - name: tiers
+                label: 'Published packaging tiers'
+                widget: list
+                fields:
+                  - { name: key, label: 'Key (slug, e.g. full / standard / minimal)', widget: string }
+                  - name: contents
+                    label: 'Contents (display list)'
+                    widget: list
+                    field: { name: item, label: 'Component', widget: string }
+
+          - name: factoryTourVideo
+            label: 'Factory tour video (homepage About section)'
+            widget: object
+            collapsed: true
+            fields:
+              - { name: youtubeId, label: 'YouTube video ID (the part after v=)', widget: string }
+              - { name: name, label: 'Video name (used in VideoObject schema)', widget: string }
+              - { name: description, label: 'Description', widget: text }
+              - { name: durationISO, label: 'Duration (ISO 8601, e.g. PT3M)', widget: string, pattern: ['^PT(\d+H)?(\d+M)?(\d+S)?$', 'ISO 8601 duration'] }
+              - { name: uploadDate, label: 'Upload date (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+
+          - name: governance
+            label: 'Page governance (E-E-A-T: author / reviewer / fact checker)'
+            widget: object
+            collapsed: true
+            hint: 'Each entry surfaces above the fold of the homepage About section AND maps to Schema.org creator / reviewedBy / editor.'
+            fields:
+              - name: author
+                label: 'Author'
+                widget: object
+                fields:
+                  - { name: name, label: 'Name', widget: string }
+                  - { name: role, label: 'Role', widget: string }
+                  - { name: lastReviewed, label: 'Last reviewed (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+              - name: reviewer
+                label: 'Reviewer'
+                widget: object
+                fields:
+                  - { name: name, label: 'Name', widget: string }
+                  - { name: role, label: 'Role', widget: string }
+                  - { name: lastReviewed, label: 'Last reviewed (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+              - name: factChecker
+                label: 'Fact checker'
+                widget: object
+                fields:
+                  - { name: name, label: 'Name', widget: string }
+                  - { name: role, label: 'Role', widget: string }
+                  - { name: lastReviewed, label: 'Last reviewed (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+
+          - name: legalDocuments
+            label: 'Legal documents (homepage About 5-card row)'
+            widget: list
+            hint: 'Each entry renders a card. PDFs live under /public/legal/ or /public/quality/ — entries with no file at the path 404 silently.'
+            fields:
+              - { name: key, label: 'Key (slug)', widget: string }
+              - { name: title, label: 'Title', widget: string }
+              - { name: href, label: 'Href (e.g. /legal/nib.pdf)', widget: string }
+              - { name: dated, label: 'Document date (YYYY-MM-DD)', widget: string }
+
           - name: analytics
             label: 'Analytics (public IDs)'
             widget: object
@@ -399,6 +529,7 @@ collections:
             fields:
               - { name: gaId, label: 'Google Analytics ID (G-...)', widget: string, pattern: ['^G-[A-Z0-9]+$', 'Format: G-XXXXXXXXX'] }
               - { name: gscVerification, label: 'Google Search Console verification token', widget: string }
+              - { name: pixelId, label: 'Meta Pixel ID (numeric; leave as TODO_PLACEHOLDER to keep Pixel SDK off)', widget: string }
 
   # ===================================================================
   # 2. People — single JSON, ordered list. Drag to reorder.

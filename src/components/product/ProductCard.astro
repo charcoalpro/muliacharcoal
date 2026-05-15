@@ -1,0 +1,118 @@
+---
+/**
+ * ProductCard — single shape preview tile.
+ *
+ * - 1:1 product photo on top (lazy + async, swap to <Image> from
+ *   astro:assets when real photography lands at /public/products/...).
+ * - H3 shape name.
+ * - Semantic `<dl>` of size + pcs/kg pairs. On `<md` viewports the
+ *   `<dl>` lives inside a `<details>` so the card stays compact at
+ *   360 px; on `md`+ a sibling `<dl>` is shown directly. The two
+ *   `<dl>` blocks carry the same content so crawlers always see the
+ *   sizes.
+ * - "Add to inquiry" toggle: a real `<input type="checkbox">` whose
+ *   value is the shape name; the surrounding section's `<form>`
+ *   reads checked values to build the WhatsApp pre-fill.
+ * - "More details →" link to /products/{slug}.
+ *
+ * Zero JS in this component. The form-level submit handler in
+ * Products.astro handles the wa.me redirect.
+ */
+
+import en from '~/i18n/en.json';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import type { ProductShape } from '~/config/products';
+
+interface Props {
+  shape: ProductShape;
+}
+
+const { shape } = Astro.props;
+const t = en.home.products;
+const i = t.items[shape.key];
+
+const name = i?.name ?? shape.name;
+const description = i?.description ?? shape.description;
+const imageAlt = i?.imageAlt ?? `${name} coconut shell briquette`;
+const detailsHref = shape.href;
+const checkboxId = `product-include-${shape.slug}`;
+---
+<article
+  class="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white"
+  data-product={shape.slug}
+>
+  <div class="overflow-hidden rounded-t-2xl">
+    <ImagePlaceholder label={imageAlt} ratio="square" />
+  </div>
+
+  <div class="flex flex-1 flex-col gap-4 p-5">
+    <div>
+      <h3 class="text-lg font-semibold text-neutral-900">{name}</h3>
+      <p class="mt-2 text-sm leading-relaxed text-neutral-600">{description}</p>
+    </div>
+
+    <div>
+      {/* Desktop: always-visible dl. */}
+      <dl class="hidden md:grid md:grid-cols-[max-content_1fr] md:gap-x-4 md:gap-y-1.5 md:text-sm">
+        {shape.sizes.map((size) => (
+          <>
+            <dt class="font-medium text-neutral-800">{size.label}</dt>
+            <dd class="text-neutral-600">
+              {size.pcsPerKg ? `≈ ${size.pcsPerKg} ${t.pcsPerKgLabel}` : '—'}
+            </dd>
+          </>
+        ))}
+      </dl>
+
+      {/* Mobile: collapsed inside <details>. */}
+      <details class="md:hidden">
+        <summary class="flex cursor-pointer list-none items-center justify-between rounded-md border border-neutral-200 px-3 py-2 text-sm font-medium text-brand-primary marker:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+          <span>{t.sizesToggleLabel} ({shape.sizes.length})</span>
+          <svg viewBox="0 0 16 16" class="h-4 w-4 transition-transform group-open:rotate-180" fill="currentColor" aria-hidden="true">
+            <path d="M3.78 5.78a.75.75 0 0 1 1.06 0L8 8.94l3.16-3.16a.75.75 0 1 1 1.06 1.06l-3.69 3.69a.75.75 0 0 1-1.06 0L3.78 6.84a.75.75 0 0 1 0-1.06z"/>
+          </svg>
+        </summary>
+        <dl class="mt-3 grid grid-cols-[max-content_1fr] gap-x-4 gap-y-1.5 text-sm">
+          {shape.sizes.map((size) => (
+            <>
+              <dt class="font-medium text-neutral-800">{size.label}</dt>
+              <dd class="text-neutral-600">
+                {size.pcsPerKg ? `≈ ${size.pcsPerKg} ${t.pcsPerKgLabel}` : '—'}
+              </dd>
+            </>
+          ))}
+        </dl>
+      </details>
+    </div>
+
+    <div class="mt-auto flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+      <label
+        for={checkboxId}
+        class="cursor-pointer"
+        data-event="product_card_click"
+        data-source-component={`product-card-${shape.slug}`}
+      >
+        <input
+          id={checkboxId}
+          type="checkbox"
+          name="shapes"
+          value={name}
+          class="peer sr-only"
+        />
+        <span class="inline-flex min-h-11 items-center gap-2 rounded-md border border-brand-primary px-3 py-2 text-sm font-semibold text-brand-primary transition-colors hover:bg-brand-primary/5 peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-brand-primary peer-focus-visible:ring-offset-2 peer-checked:hidden">
+          <span aria-hidden="true">+</span> {t.addToInquiry}
+        </span>
+        <span class="hidden min-h-11 items-center gap-2 rounded-md bg-brand-primary px-3 py-2 text-sm font-semibold text-white peer-checked:inline-flex">
+          <span aria-hidden="true">✓</span> {t.addedToInquiry}
+        </span>
+      </label>
+
+      <a
+        href={detailsHref}
+        class="inline-flex items-center gap-1 text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+      >
+        {t.moreDetails} <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</article>

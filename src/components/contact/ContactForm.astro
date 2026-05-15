@@ -1,0 +1,260 @@
+---
+/**
+ * ContactForm — homepage native-POST Web3Forms inquiry form.
+ *
+ * Submits as a standard `<form action method="POST">` — Web3Forms
+ * handles the storage and email; the user is redirected back to
+ * `/?contact=sent#contact-success` so the page-level success block
+ * (rendered via the `target:` Tailwind modifier) becomes visible.
+ *
+ * No JS framework, no fetch interception. A small inline script
+ * adds two non-essential enhancements:
+ *   1. Pre-fills the hidden `intent` input from `?intent=` in the URL
+ *      (so links like /#contact?intent=samples flow through to the
+ *      submitted record).
+ *   2. Fires `contact_form_field_focus` on each focused input via
+ *      gtag + fbq, so analytics surfaces which fields buyers engage
+ *      with first.
+ *
+ * Honeypot: a hidden checkbox `botcheck` Web3Forms recognises and
+ * silently drops on submit when ticked. The submit button itself
+ * carries `data-event="contact_form_submit"` for the sitewide
+ * dispatcher.
+ */
+
+import en from '~/i18n/en.json';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { inquiryCountries } from '~/lib/data/countries';
+
+const t = en.home.contact;
+const tokens = companyTokens(company);
+
+const formId = 'home-contact-form';
+const successHash = 'contact-success';
+const redirectUrl = `${company.siteUrl}/?contact=sent#${successHash}`;
+
+const containerOptions = [
+  { value: '20ft', label: t.fields.containerOptions['20ft'] },
+  { value: '40ft', label: t.fields.containerOptions['40ft'] },
+  { value: 'multi', label: t.fields.containerOptions.multi },
+  { value: 'unsure', label: t.fields.containerOptions.unsure },
+];
+
+const gradeOptions = [
+  { value: 'premium', label: t.fields.gradeOptions.premium },
+  { value: 'super-premium', label: t.fields.gradeOptions['super-premium'] },
+  { value: 'platinum', label: t.fields.gradeOptions.platinum },
+  { value: 'mixed', label: t.fields.gradeOptions.mixed },
+];
+
+const privacyConsent = fill(t.fields.privacyConsentTemplate, tokens);
+---
+<form
+  id={formId}
+  action={company.form.web3formsEndpoint}
+  method="POST"
+  data-contact-form
+  class="grid gap-5"
+>
+  <input type="hidden" name="access_key" value={company.form.web3formsKey} />
+  <input type="hidden" name="subject" value="Homepage inquiry — Mulia Charcoal" />
+  <input type="hidden" name="from_name" value="Mulia Charcoal homepage form" />
+  <input type="hidden" name="redirect" value={redirectUrl} />
+  <input type="hidden" name="intent" value="" data-intent-input />
+  {/* Web3Forms honeypot — real users leave it unchecked. */}
+  <input
+    type="checkbox"
+    name="botcheck"
+    tabindex="-1"
+    autocomplete="off"
+    class="hidden"
+    aria-hidden="true"
+  />
+
+  <div class="grid gap-4 md:grid-cols-2">
+    <div>
+      <label for={`${formId}-name`} class="block text-sm font-semibold text-neutral-800">
+        {t.fields.name} <span aria-hidden="true" class="text-error">*</span>
+      </label>
+      <input
+        id={`${formId}-name`}
+        name="name"
+        type="text"
+        required
+        autocomplete="name"
+        class="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+      />
+    </div>
+    <div>
+      <label for={`${formId}-company`} class="block text-sm font-semibold text-neutral-800">
+        {t.fields.company} <span aria-hidden="true" class="text-error">*</span>
+      </label>
+      <input
+        id={`${formId}-company`}
+        name="company"
+        type="text"
+        required
+        autocomplete="organization"
+        class="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+      />
+    </div>
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-2">
+    <div>
+      <label for={`${formId}-email`} class="block text-sm font-semibold text-neutral-800">
+        {t.fields.email} <span aria-hidden="true" class="text-error">*</span>
+      </label>
+      <input
+        id={`${formId}-email`}
+        name="email"
+        type="email"
+        required
+        autocomplete="email"
+        class="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+      />
+    </div>
+    <div>
+      <label for={`${formId}-country`} class="block text-sm font-semibold text-neutral-800">
+        {t.fields.country} <span aria-hidden="true" class="text-error">*</span>
+      </label>
+      <select
+        id={`${formId}-country`}
+        name="country"
+        required
+        class="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+      >
+        <option value="">{t.fields.countryPlaceholder}</option>
+        {inquiryCountries.map((c) => <option value={c}>{c}</option>)}
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <label for={`${formId}-whatsapp`} class="block text-sm font-semibold text-neutral-800">
+      {t.fields.whatsapp}
+    </label>
+    <input
+      id={`${formId}-whatsapp`}
+      name="whatsapp"
+      type="tel"
+      autocomplete="tel"
+      placeholder="+1 555 123 4567"
+      class="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+    />
+  </div>
+
+  <fieldset>
+    <legend class="block text-sm font-semibold text-neutral-800">
+      {t.fields.containers} <span aria-hidden="true" class="text-error">*</span>
+    </legend>
+    <div class="mt-2 grid grid-cols-2 gap-2 md:grid-cols-4">
+      {containerOptions.map((opt, i) => (
+        <label class="cursor-pointer">
+          <input
+            type="radio"
+            name="containers"
+            value={opt.value}
+            required={i === 0}
+            class="peer sr-only"
+          />
+          <span class="flex h-full items-center justify-center rounded-md border border-neutral-300 bg-white px-3 py-2 text-center text-sm font-medium text-neutral-700 transition-colors peer-checked:border-brand-primary peer-checked:bg-brand-primary/5 peer-checked:text-brand-primary peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-brand-primary peer-focus-visible:ring-offset-2">
+            {opt.label}
+          </span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend class="block text-sm font-semibold text-neutral-800">
+      {t.fields.grade} <span aria-hidden="true" class="text-error">*</span>
+    </legend>
+    <div class="mt-2 grid grid-cols-2 gap-2 md:grid-cols-4">
+      {gradeOptions.map((opt, i) => (
+        <label class="cursor-pointer">
+          <input
+            type="radio"
+            name="grade"
+            value={opt.value}
+            required={i === 0}
+            class="peer sr-only"
+          />
+          <span class="flex h-full items-center justify-center rounded-md border border-neutral-300 bg-white px-3 py-2 text-center text-sm font-medium text-neutral-700 transition-colors peer-checked:border-brand-primary peer-checked:bg-brand-primary/5 peer-checked:text-brand-primary peer-focus-visible:outline-none peer-focus-visible:ring-2 peer-focus-visible:ring-brand-primary peer-focus-visible:ring-offset-2">
+            {opt.label}
+          </span>
+        </label>
+      ))}
+    </div>
+  </fieldset>
+
+  <div>
+    <label for={`${formId}-message`} class="block text-sm font-semibold text-neutral-800">
+      {t.fields.message}
+    </label>
+    <textarea
+      id={`${formId}-message`}
+      name="message"
+      rows="4"
+      placeholder={t.fields.messagePlaceholder}
+      class="mt-1 block w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm focus:border-brand-primary focus:outline-none focus:ring-1 focus:ring-brand-primary"
+    ></textarea>
+  </div>
+
+  <div class="flex items-start gap-3">
+    <input
+      id={`${formId}-privacy`}
+      name="privacy_consent"
+      type="checkbox"
+      value="yes"
+      required
+      class="mt-1 h-4 w-4 rounded border-neutral-300 text-brand-primary focus:ring-brand-primary"
+    />
+    <label for={`${formId}-privacy`} class="text-sm text-neutral-700">
+      {privacyConsent}
+    </label>
+  </div>
+
+  <div>
+    <button
+      type="submit"
+      data-event="contact_form_submit"
+      data-source-component="home-contact-form"
+      class="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+    >
+      {t.fields.submit}
+    </button>
+  </div>
+</form>
+
+<script
+  is:inline
+  define:vars={{ formId }}
+>
+  (function () {
+    var form = document.getElementById(formId);
+    if (!form) return;
+
+    // 1. Pre-fill the hidden `intent` input from URL ?intent=…
+    try {
+      var params = new URLSearchParams(location.search);
+      var intent = params.get('intent') || '';
+      if (intent) {
+        var input = form.querySelector('[data-intent-input]');
+        if (input) input.value = intent;
+      }
+    } catch (_) {}
+
+    // 2. contact_form_field_focus event on each focused input.
+    form.addEventListener('focusin', function (e) {
+      var t = e.target;
+      if (!t || !t.name) return;
+      // Skip hidden Web3Forms fields and the honeypot.
+      if (t.type === 'hidden' || t.name === 'botcheck' || t.name === 'access_key' || t.name === 'subject' || t.name === 'from_name' || t.name === 'redirect' || t.name === 'intent') return;
+      var payload = { field: t.name, section: 'contact', source: 'home-contact-form', locale: document.documentElement.lang || 'en', viewport: window.innerWidth + 'x' + window.innerHeight, url: location.pathname };
+      try { window.gtag && window.gtag('event', 'contact_form_field_focus', payload); } catch (_) {}
+      try { window.fbq && window.fbq('trackCustom', 'contact_form_field_focus', payload); } catch (_) {}
+    }, true);
+  })();
+</script>

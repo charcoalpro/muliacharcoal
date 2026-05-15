@@ -1,8 +1,27 @@
 ---
-import { company } from '~/config/company';
+/**
+ * Analytics — GA4 + Meta Pixel + sitewide click dispatcher.
+ *
+ * Both SDKs are gated to production builds. Pixel is additionally gated
+ * on a real numeric ID so dev/preview ship zero Pixel traffic until the
+ * production ID lands in `company.analytics.pixelId`.
+ *
+ * The delegated click listener fires once per click on any element with
+ * a `[data-event]` attribute, dispatching the same event name to BOTH
+ * gtag and fbq with a normalised payload. Comma-separated names dispatch
+ * as multiple events (used when one click is meaningful in two analytics
+ * dimensions, e.g. samples_request + whatsapp_click).
+ *
+ * Total wire weight when active: ~0.6 KB gz (excluding the GA4 + Pixel
+ * SDK loads, which are async).
+ */
 
-const { gaId, gscVerification } = company.analytics;
+import { company } from '~/config/company';
+import { hasFact } from '~/config/company';
+
+const { gaId, gscVerification, pixelId } = company.analytics;
 const isProd = import.meta.env.PROD;
+const pixelActive = isProd && hasFact(pixelId);
 ---
 <meta name="google-site-verification" content={gscVerification} />
 
@@ -12,8 +31,52 @@ const isProd = import.meta.env.PROD;
     <script is:inline define:vars={{ gaId }}>
       window.dataLayer = window.dataLayer || [];
       function gtag(){ dataLayer.push(arguments); }
+      window.gtag = gtag;
       gtag('js', new Date());
       gtag('config', gaId);
     </script>
   </>
+)}
+
+{pixelActive && (
+  <script is:inline define:vars={{ pixelId }}>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', pixelId);
+    fbq('track', 'PageView');
+  </script>
+)}
+
+{isProd && (
+  <script is:inline>
+    /* Sitewide [data-event] click dispatcher. Fires once per click on the
+       nearest ancestor carrying data-event; supports comma-separated event
+       names (e.g. "samples_request_click_hero,whatsapp_click_hero"). */
+    document.addEventListener('click', function (e) {
+      var el = e.target instanceof Element ? e.target.closest('[data-event]') : null;
+      if (!el) return;
+      var raw = el.getAttribute('data-event');
+      if (!raw) return;
+      var source = el.getAttribute('data-source-component') || '';
+      var payload = {
+        section: source,
+        source: source,
+        locale: document.documentElement.lang || 'en',
+        viewport: window.innerWidth + 'x' + window.innerHeight,
+        url: location.pathname,
+      };
+      raw.split(',').forEach(function (name) {
+        name = name.trim();
+        if (!name) return;
+        try { window.gtag && window.gtag('event', name, payload); } catch (_) {}
+        try { window.fbq && window.fbq('trackCustom', name, payload); } catch (_) {}
+      });
+    }, { passive: true });
+  </script>
 )}

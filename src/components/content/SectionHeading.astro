@@ -1,0 +1,61 @@
+---
+/**
+ * SectionHeading — top-of-section eyebrow + h2 + subtitle.
+ *
+ * Used at the start of every homepage block and pillar-page section so
+ * heading levels and rhythm stay consistent. Pass `id` for in-page
+ * anchors (the corresponding `<section aria-labelledby={id}>` is the
+ * caller's responsibility).
+ */
+
+interface Props {
+  /** Optional label above the heading — small caps, accent colour. */
+  eyebrow?: string;
+  /** The h2 text. Required. */
+  title: string;
+  /** Optional one-line subtitle below the heading. */
+  subtitle?: string;
+  /** Alignment for the whole heading block. */
+  align?: 'start' | 'center';
+  /** Stable id for the h2 (for `aria-labelledby` and deep links). */
+  id?: string;
+  /** Override h-level if the section sits inside another h2-bearing block. */
+  level?: 2 | 3;
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  subtitle,
+  align = 'start',
+  id,
+  level = 2,
+  class: className,
+} = Astro.props;
+
+const Tag = level === 3 ? 'h3' : 'h2';
+const alignClass = align === 'center' ? 'text-center mx-auto' : 'text-start';
+---
+<header class:list={[alignClass, 'max-w-3xl', className]}>
+  {eyebrow && (
+    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-brand-accent">
+      {eyebrow}
+    </p>
+  )}
+  <Tag
+    id={id}
+    class:list={[
+      'font-bold text-neutral-900',
+      level === 3 ? 'text-xl md:text-2xl' : 'text-2xl md:text-3xl lg:text-4xl',
+      eyebrow ? 'mt-2' : '',
+    ]}
+  >
+    {title}
+  </Tag>
+  {subtitle && (
+    <p class="mt-3 text-base leading-relaxed text-neutral-600 md:text-lg">
+      {subtitle}
+    </p>
+  )}
+</header>

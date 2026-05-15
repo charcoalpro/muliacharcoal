@@ -1,10 +1,12 @@
 ---
 /**
- * TrustBadge — single trust signal in the Contact-page Block 2 strip.
+ * TrustBadge — single trust signal as an icon + stacked label/value pair.
  *
- * Renders an icon + a stacked label/value pair. When `href` is set the
- * whole badge is a link (used for verifiable certifications and
- * Alibaba Gold profiles); otherwise it is a non-interactive `<div>`.
+ * Used on the Contact-page Block 2 strip and the homepage Hero. The
+ * `variant` prop switches between the default light card style and a
+ * dark-friendly translucent style for use over dark hero backgrounds.
+ * `tooltip` shows a native `title` attribute (zero JS) — sufficient
+ * for short transport-class explanations.
  */
 
 import en from '~/i18n/en.json';
@@ -18,36 +20,74 @@ interface Props {
   href?: string;
   /** Optional one-letter / short string used as a glyph in the icon slot. */
   iconText?: string;
+  /** Render style — `light` for white-card; `dark` for translucent on dark backgrounds. */
+  variant?: 'light' | 'dark';
+  /** Native `title` tooltip — kept short, surfaces on hover and via screen readers. */
+  tooltip?: string;
   class?: string;
 }
 
-const { label, value, href, iconText, class: className } = Astro.props;
+const {
+  label,
+  value,
+  href,
+  iconText,
+  variant = 'light',
+  tooltip,
+  class: className,
+} = Astro.props;
+
 const isLink = Boolean(href);
 const Tag = isLink ? 'a' : 'div';
+
+const isDark = variant === 'dark';
 ---
 <Tag
   href={href}
   target={isLink ? '_blank' : undefined}
   rel={isLink ? 'noopener noreferrer' : undefined}
+  title={tooltip}
   class:list={[
-    'flex shrink-0 items-center gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-3',
+    'flex shrink-0 items-center gap-3 rounded-xl border px-4 py-3',
+    isDark
+      ? 'border-white/15 bg-white/5 text-white'
+      : 'border-neutral-200 bg-white text-neutral-900',
     isLink &&
-      'transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary',
+      (isDark
+        ? 'transition-colors hover:border-brand-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-accent'
+        : 'transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary'),
     className,
   ]}
 >
   <span
     aria-hidden="true"
-    class="grid h-9 w-9 shrink-0 place-items-center rounded-md bg-brand-primary/10 text-sm font-semibold text-brand-primary"
+    class:list={[
+      'grid h-9 w-9 shrink-0 place-items-center rounded-md text-sm font-semibold',
+      isDark
+        ? 'bg-brand-accent/20 text-brand-accent'
+        : 'bg-brand-primary/10 text-brand-primary',
+    ]}
   >
     {iconText ?? '✓'}
   </span>
   <span class="flex flex-col leading-tight">
-    <span class="text-xs font-medium uppercase tracking-wide text-neutral-500">
+    <span
+      class:list={[
+        'text-xs font-medium uppercase tracking-wide',
+        isDark ? 'text-white/70' : 'text-neutral-500',
+      ]}
+    >
       {label}
     </span>
     {value && (
-      <span class="text-sm font-semibold text-neutral-900">{value}</span>
+      <span
+        class:list={[
+          'text-sm font-semibold',
+          isDark ? 'text-white' : 'text-neutral-900',
+        ]}
+      >
+        {value}
+      </span>
     )}
   </span>
   {isLink && (
