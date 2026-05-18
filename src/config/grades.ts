@@ -41,7 +41,7 @@ export interface Grade {
  * The seven properties listed for every grade, in published order.
  * Keep this list in sync with the table column logic in
  * `~/components/content/SpecsTable.astro` and the FAQ glossary in
- * `~/i18n/en.json` (home.specs.glossary).
+ * `~/i18n/en/home.json` (specs.glossary).
  */
 export const gradePropertyKeys = [
   'ash',

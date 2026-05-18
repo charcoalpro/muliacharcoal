@@ -16,7 +16,7 @@
  * the same string a buyer reads on the page.
  */
 
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { company } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 import { buildOrganization, buildWebSite } from '~/lib/schema/organization';
