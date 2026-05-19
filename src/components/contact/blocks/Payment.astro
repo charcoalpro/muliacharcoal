@@ -4,10 +4,12 @@
  * and Proforma Invoice CTA. Banking details are always public per
  * product decision; the BankDetailsTable component owns the table markup.
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company, getOwner, waLinkFor } from '~/config/company';
 import BankDetailsTable from '~/components/payment/BankDetailsTable.astro';
+import Section from '~/components/layout/Section.astro';
+import SectionHeading from '~/components/content/SectionHeading.astro';
 
 const t = en.contact;
 const isBankPublic = company.payment.mode === 'public';
@@ -17,13 +19,10 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
   director: getOwner()?.name ?? company.legalName,
 });
 ---
-<section aria-labelledby="payment-heading" class="bg-white">
-  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-    <h2 id="payment-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-      {t.payment.heading}
-    </h2>
+<Section labelledBy="payment-heading" class="bg-white">
+  <SectionHeading id="payment-heading" title={t.payment.heading} />
 
-    <div role="alert" class="mt-6 rounded-xl border-l-4 border-error bg-error/10 p-5">
+  <div role="alert" class="mt-6 rounded-xl border-l-4 border-error bg-error/10 p-5">
       <p class="font-semibold text-neutral-900">⚠ {t.payment.warningHeading}</p>
       <p class="mt-2 text-sm text-neutral-800">{paymentWarningBody}</p>
     </div>
@@ -77,5 +76,4 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
         </div>
       )}
     </div>
-  </div>
-</section>
+</Section>

@@ -6,12 +6,13 @@
  * names the legal entity and accepted currencies; an optional crypto
  * suffix is appended when `payment.acceptsCrypto` is true.
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company } from '~/config/company';
 import ColorBlock from '~/components/about/ColorBlock.astro';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 import BankDetailsTable from '~/components/payment/BankDetailsTable.astro';
+import Section from '~/components/layout/Section.astro';
 
 const t = en.about.block4;
 const co = company;
@@ -26,7 +27,7 @@ const paymentLastVerified = fill(t.trust.lastVerifiedTemplate, {
   date: co.bank.lastVerified,
 });
 ---
-<section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+<Section>
   <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
 
   <BankDetailsTable
@@ -60,4 +61,4 @@ const paymentLastVerified = fill(t.trust.lastVerifiedTemplate, {
       <ImagePlaceholder label={t.photos.factory3Alt} ratio="3/2" />
     </div>
   </div>
-</section>
+</Section>

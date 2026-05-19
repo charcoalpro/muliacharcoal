@@ -1,0 +1,30 @@
+---
+/**
+ * Section — sitewide page-section wrapper.
+ *
+ * Owns the canonical container rhythm (`mx-auto max-w-7xl px-4 py-16
+ * md:px-8 md:py-24`). The outer <section> carries background and aria
+ * concerns; the inner <div> carries the width + padding so a section
+ * can have a full-bleed background while content stays constrained.
+ *
+ * Pass background utilities (e.g. `class="bg-neutral-50"`) on the
+ * outer section. Wire `labelledBy` to the inner heading's id when the
+ * section has a SectionHeading.
+ */
+
+interface Props {
+  /** Maps to aria-labelledby on the outer <section>. Usually a SectionHeading id. */
+  labelledBy?: string;
+  /** Optional outer-section id for in-page anchors (e.g. `#inquiry`). */
+  id?: string;
+  /** Outer <section> classes (typically background utilities). */
+  class?: string;
+}
+
+const { labelledBy, id, class: className } = Astro.props;
+---
+<section id={id} aria-labelledby={labelledBy} class:list={[className]}>
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+    <slot />
+  </div>
+</section>

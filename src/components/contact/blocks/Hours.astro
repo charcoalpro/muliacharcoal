@@ -2,10 +2,12 @@
 /**
  * Contact Block 8 — weekly hours, 2026 holidays, Lebaran callout.
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company } from '~/config/company';
 import DataTable from '~/components/content/DataTable.astro';
+import Section from '~/components/layout/Section.astro';
+import SectionHeading from '~/components/content/SectionHeading.astro';
 
 const t = en.contact;
 const lebaran = company.lebaranShutdown;
@@ -25,14 +27,10 @@ const holidayRows = company.holidays2026.map((h) => ({
   values: [h.day, h.name],
 }));
 ---
-<section aria-labelledby="hours-heading" class="bg-neutral-50">
-  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-    <h2 id="hours-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-      {t.hours.heading}
-    </h2>
-    <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.hours.lead}</p>
+<Section labelledBy="hours-heading" class="bg-neutral-50">
+  <SectionHeading id="hours-heading" title={t.hours.heading} subtitle={t.hours.lead} />
 
-    <div class="mt-10 grid gap-10 lg:grid-cols-12">
+  <div class="mt-10 grid gap-10 lg:grid-cols-12">
       <div class="lg:col-span-5">
         <h3 class="text-base font-semibold text-neutral-900">{t.hours.weeklyHeading}</h3>
         <DataTable
@@ -52,9 +50,8 @@ const holidayRows = company.holidays2026.map((h) => ({
       </div>
     </div>
 
-    <div role="note" class="mt-8 rounded-xl border-l-4 border-warning bg-warning/10 p-5">
-      <p class="text-sm font-semibold text-neutral-900">{t.hours.lebaranHeading}</p>
-      <p class="mt-1 text-sm text-neutral-800">{lebaranBody}</p>
-    </div>
+  <div role="note" class="mt-8 rounded-xl border-l-4 border-warning bg-warning/10 p-5">
+    <p class="text-sm font-semibold text-neutral-900">{t.hours.lebaranHeading}</p>
+    <p class="mt-1 text-sm text-neutral-800">{lebaranBody}</p>
   </div>
-</section>
+</Section>

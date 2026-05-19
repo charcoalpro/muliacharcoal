@@ -8,12 +8,13 @@
  *   3C — Social-presence pills (only renders when at least one URL is set)
  *   3D — Virtual tour CTA banner
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company, getOwner, hasFact, imdgLabel } from '~/config/company';
 import DataTable from '~/components/content/DataTable.astro';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 import Button from '~/components/cta/Button.astro';
+import Section from '~/components/layout/Section.astro';
 
 const t = en.about.block3;
 const co = company;
@@ -143,11 +144,10 @@ const hasAnySocial = socialPills.length > 0;
 
 const newTabSr = en.contact.newTabSr;
 ---
-<section class="bg-neutral-50">
-  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-    <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">
-      {t.heading}
-    </h2>
+<Section class="bg-neutral-50">
+  <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">
+    {t.heading}
+  </h2>
 
     <!-- 3A — Legal table -->
     <DataTable
@@ -207,5 +207,4 @@ const newTabSr = en.contact.newTabSr;
         </Button>
       </div>
     </div>
-  </div>
-</section>
+</Section>

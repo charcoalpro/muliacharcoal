@@ -2,13 +2,15 @@
 /**
  * Contact Block 7 — factory address, travel hubs, and photos.
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company, mailto } from '~/config/company';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 import TextLink from '~/components/content/TextLink.astro';
 import DataTable from '~/components/content/DataTable.astro';
 import Button from '~/components/cta/Button.astro';
+import Section from '~/components/layout/Section.astro';
+import SectionHeading from '~/components/content/SectionHeading.astro';
 
 const t = en.contact;
 const addr = company.address;
@@ -24,16 +26,14 @@ const hubRows = company.travelHubs.map((hub) => ({
   ],
 }));
 ---
-<section aria-labelledby="findus-heading" class="bg-white">
-  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-    <h2 id="findus-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-      {t.findUs.heading}
-    </h2>
-    <p class="mt-4 max-w-prose text-lg text-neutral-700">
-      {fill(t.findUs.leadTemplate, { addressShort: addr.short })}
-    </p>
+<Section labelledBy="findus-heading" class="bg-white">
+  <SectionHeading
+    id="findus-heading"
+    title={t.findUs.heading}
+    subtitle={fill(t.findUs.leadTemplate, { addressShort: addr.short })}
+  />
 
-    <div class="mt-10 grid gap-10 lg:grid-cols-12">
+  <div class="mt-10 grid gap-10 lg:grid-cols-12">
       <div class="lg:col-span-5">
         <h3 class="text-base font-semibold text-neutral-900">{t.findUs.addressHeading}</h3>
         <address class="mt-3 not-italic text-neutral-700">
@@ -93,5 +93,4 @@ const hubRows = company.travelHubs.map((hub) => ({
       <ImagePlaceholder label={t.findUs.photoQualityControl} ratio="3/2" caption="Quality control" />
       <ImagePlaceholder label={t.findUs.photoLoadingBay} ratio="3/2" caption="Loading bay" />
     </div>
-  </div>
-</section>
+</Section>

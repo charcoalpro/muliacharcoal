@@ -4,11 +4,12 @@
  * Markets tag cloud falls back to a placeholder note when the
  * `commercial.exportMarkets` array is still empty.
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company, hasFact, portOfLoadingLabel } from '~/config/company';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 import Button from '~/components/cta/Button.astro';
+import Section from '~/components/layout/Section.astro';
 
 const t = en.about.block7;
 const hasExportMarkets = hasFact(company.commercial.exportMarkets);
@@ -19,9 +20,8 @@ const brandPhotoAlts = [1, 2, 3, 4, 5, 6].map((n) =>
   fill(t.photos.altTemplate, { n: String(n) }),
 );
 ---
-<section class="bg-neutral-50">
-  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-    <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
+<Section class="bg-neutral-50">
+  <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
     <p class="mt-3 max-w-3xl text-neutral-700">{t.intro}</p>
 
     <div class="mt-6">
@@ -57,5 +57,4 @@ const brandPhotoAlts = [1, 2, 3, 4, 5, 6].map((n) =>
         {t.ctaSecondary} →
       </Button>
     </div>
-  </div>
-</section>
+</Section>

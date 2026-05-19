@@ -8,13 +8,14 @@
  * confirmed; the certifications block conditionally renders patents and
  * halal sentences based on the same facts.
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company, hasFact, imdgLabel, portOfLoadingLabel } from '~/config/company';
 import ColorBlock from '~/components/about/ColorBlock.astro';
 import StatItem from '~/components/about/StatItem.astro';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 import TextLink from '~/components/content/TextLink.astro';
+import Section from '~/components/layout/Section.astro';
 
 const t = en.about.block2;
 const co = company;
@@ -108,7 +109,7 @@ const shippingBody = hasShippingLines
     })
   : fill(t.shipping.bodyNoLines, { portLabel: portOfLoadingLabel() });
 ---
-<section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+<Section>
   <div class="grid gap-8 lg:grid-cols-2">
     <ImagePlaceholder
       label={t.imageAlt}
@@ -169,4 +170,4 @@ const shippingBody = hasShippingLines
       </ColorBlock>
     </div>
   </div>
-</section>
+</Section>

@@ -6,9 +6,10 @@
  * YouTube embed; the transcript section uses a small vanilla-JS toggle
  * (no IDs — runs against `[data-transcript-toggle]` on the page).
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company, getOwner } from '~/config/company';
+import Section from '~/components/layout/Section.astro';
 
 const t = en.about.block6;
 const co = company;
@@ -20,7 +21,7 @@ const videoAlt = fill(t.videoAltTemplate, {
   legalName: co.legalName,
 });
 ---
-<section class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
+<Section>
   <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
 
   <div class="mt-8 grid gap-8 lg:grid-cols-2">
@@ -81,7 +82,7 @@ const videoAlt = fill(t.videoAltTemplate, {
       </button>
     </div>
   </div>
-</section>
+</Section>
 
 <script>
   /**

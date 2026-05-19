@@ -4,9 +4,11 @@
  * Builds the channel list from `company.channels.*` plus the standard
  * WhatsApp / phone / email entries; skips channels with no real handle.
  */
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { company, mailto, waLinkFor } from '~/config/company';
 import ChannelCard from '~/components/contact/ChannelCard.astro';
+import Section from '~/components/layout/Section.astro';
+import SectionHeading from '~/components/content/SectionHeading.astro';
 
 const t = en.contact;
 const phoneE164 = company.phone.e164;
@@ -47,24 +49,23 @@ if (c.viber) optionalChannels.push({ channel: 'Viber', handle: c.viber, href: `v
 
 const channels = [...baseChannels, ...optionalChannels];
 ---
-<section aria-labelledby="channels-heading" class="bg-white">
-  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-24">
-    <h2 id="channels-heading" class="text-xl font-bold text-neutral-900 md:text-2xl lg:text-3xl">
-      {t.channels.heading}
-    </h2>
-    <p class="mt-4 max-w-prose text-lg text-neutral-700">{t.channels.lead}</p>
-    <ul class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {channels.map((ch) => (
-        <li class="h-full">
-          <ChannelCard
-            channel={ch.channel}
-            handle={ch.handle}
-            href={ch.href}
-            iconText={ch.iconText}
-            ctaLabel={ch.ctaLabel}
-          />
-        </li>
-      ))}
-    </ul>
-  </div>
-</section>
+<Section labelledBy="channels-heading" class="bg-white">
+  <SectionHeading
+    id="channels-heading"
+    title={t.channels.heading}
+    subtitle={t.channels.lead}
+  />
+  <ul class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+    {channels.map((ch) => (
+      <li class="h-full">
+        <ChannelCard
+          channel={ch.channel}
+          handle={ch.handle}
+          href={ch.href}
+          iconText={ch.iconText}
+          ctaLabel={ch.ctaLabel}
+        />
+      </li>
+    ))}
+  </ul>
+</Section>
