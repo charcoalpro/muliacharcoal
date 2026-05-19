@@ -4,6 +4,12 @@
  * Use this for every schema.org graph (Organization, Product, Article,
  * BreadcrumbList, FAQPage, LocalBusiness). Serializes the data prop
  * with JSON.stringify; do not pre-stringify before passing in.
+ *
+ * The `<` → `<` escape future-proofs the serialized payload: if a
+ * content collection ever feeds in a string containing `</script>`, the
+ * literal tag would terminate the script element early. Replacing `<`
+ * with its JSON-equivalent escape sequence keeps the JSON parseable and
+ * the surrounding HTML well-formed.
  */
 
 interface Props {
@@ -12,4 +18,4 @@ interface Props {
 
 const { data } = Astro.props;
 ---
-<script type="application/ld+json" set:html={JSON.stringify(data)} />
+<script type="application/ld+json" set:html={JSON.stringify(data).replace(/</g, '\\u003c')} />

@@ -53,8 +53,14 @@ export function fill(template: string, tokens: Tokens): string {
  * in the codebase that needs a company fact must pull its values from here
  * (or extend this function) rather than reaching into `company.*` directly,
  * so the token vocabulary stays stable across files.
+ *
+ * The return type is intentionally inferred (no `: Tokens` annotation) so
+ * TypeScript captures the literal key set. Export `CompanyTokens` (below)
+ * to reference the canonical key vocabulary at a call site; referencing
+ * an unknown key on the returned object then fails at type-check rather
+ * than silently rendering `{{unknownKey}}` at runtime.
  */
-export function companyTokens(company: Company): Tokens {
+export function companyTokens(company: Company) {
   const executives: Person[] = company.people.filter((p) =>
     p.displayIn.includes('executive'),
   );
@@ -170,3 +176,12 @@ export function companyTokens(company: Company): Tokens {
     executives: executivesList,
   };
 }
+
+/**
+ * The canonical token vocabulary returned by `companyTokens()`. Inferred from
+ * the function's return literal so adding or renaming a token in one place
+ * automatically updates the type — call sites referencing a removed token
+ * get a compile error instead of a silent `{{tokenName}}` in the rendered
+ * page.
+ */
+export type CompanyTokens = ReturnType<typeof companyTokens>;

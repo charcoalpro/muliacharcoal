@@ -35,7 +35,7 @@ const normalizePath = (p: string) => {
   return '/' + p.replace(/^\/+/, '').replace(/\/+$/, '');
 };
 
-const canonical = `${siteBase}${normalizePath(path)}` || siteBase;
+const canonical = `${siteBase}${normalizePath(path)}`;
 const ogImage = image
   ? (image.startsWith('http') ? image : `${siteBase}${image}`)
   : null;
