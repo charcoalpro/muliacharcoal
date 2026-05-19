@@ -2,15 +2,19 @@
 /**
  * InquiryForm — Block 6 wholesale inquiry form.
  *
- * Posts to Web3Forms (https://api.web3forms.com/submit). Honeypot + Web3Forms'
- * built-in spam filter cover anti-spam; an optional hCaptcha widget can be
- * enabled via `company.form.captcha.provider = 'hcaptcha'`.
+ * Posts to Web3Forms (https://api.web3forms.com/submit). Honeypot +
+ * Web3Forms' built-in spam filter cover anti-spam; an optional hCaptcha
+ * widget can be enabled via `company.form.captcha.provider = 'hcaptcha'`.
  *
- * Vanilla-JS only — no framework. Total client JS for this component is
- * intentionally small to stay under the 20 KB site budget.
+ * Markup composition only — the submit / validation runtime lives in
+ * [src/lib/forms/inquirySubmit.ts](src/lib/forms/inquirySubmit.ts), the
+ * field markup is the [FormField](src/components/contact/FormField.astro)
+ * component. Server-rendered strings + validation constants travel to the
+ * browser via the `<script type="application/json" id="inquiry-form-config">`
+ * block so the bundled runtime stays free of `define:vars`.
  */
 
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { company, waLinkFor } from '~/config/company';
 import { inquiryCountries } from '~/lib/data/countries';
 import { inquiryProductOptions } from '~/lib/data/productOptions';
@@ -20,14 +24,12 @@ import {
   EMAIL_REGEX,
   WHATSAPP_E164_REGEX,
 } from '~/lib/forms/inquiryValidation';
+import type { InquirySubmitConfig } from '~/lib/forms/inquirySubmit';
+import FormField from '~/components/contact/FormField.astro';
 
 const t = en.contact.form;
 const f = t.fields;
-const errs = t.errors;
 const honeypotName = 'website_url'; // intentionally bait-like
-
-const countries = inquiryCountries;
-const productOptions = inquiryProductOptions;
 
 const sidebarWaHref = waLinkFor('salesGeneral');
 
@@ -36,11 +38,25 @@ const useHCaptcha =
   company.form.captcha.hcaptchaSiteKey &&
   !company.form.captcha.hcaptchaSiteKey.startsWith('TODO_');
 
-const inputClass =
-  'w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary aria-[invalid=true]:border-error';
+// Tailwind class kept inline here because it only applies to the one
+// fieldset legend (FormField uses its own internal labelClass for inputs).
 const labelClass = 'block text-sm font-medium text-neutral-800';
 const errClass = 'mt-1 text-sm text-error';
 const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
+
+const inquiryConfig: InquirySubmitConfig = {
+  endpoint: company.form.web3formsEndpoint,
+  honeypotName,
+  whatsappPattern: WHATSAPP_E164_REGEX.source,
+  emailPattern: EMAIL_REGEX.source,
+  attachmentMaxBytes: ATTACHMENT_MAX_BYTES,
+  attachmentMimeTypes: ATTACHMENT_MIME_TYPES,
+  successHeading: t.successHeading,
+  successBodyTemplate: t.successBodyTemplate,
+  successWaLabel: t.successWhatsapp,
+  successWaHref: sidebarWaHref,
+  errors: t.errors,
+};
 ---
 <div class="grid gap-10 lg:grid-cols-12">
   <div class="lg:col-span-8">
@@ -78,95 +94,48 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
       ></div>
 
       <div class="grid gap-6 md:grid-cols-2">
-        <div>
-          <label for="ih-fullname" class={labelClass}>
-            {f.fullName}<Fragment set:html={reqMark} />
-          </label>
-          <input
-            id="ih-fullname"
-            name="full_name"
-            type="text"
-            required
-            minlength="2"
-            maxlength="80"
-            autocomplete="name"
-            aria-describedby="ih-fullname-err"
-            class={`${inputClass} mt-1`}
-          />
-          <p id="ih-fullname-err" class={`${errClass} hidden`}></p>
-        </div>
-
-        <div>
-          <label for="ih-company" class={labelClass}>
-            {f.company}<Fragment set:html={reqMark} />
-          </label>
-          <input
-            id="ih-company"
-            name="company_name"
-            type="text"
-            required
-            minlength="2"
-            maxlength="120"
-            autocomplete="organization"
-            aria-describedby="ih-company-err"
-            class={`${inputClass} mt-1`}
-          />
-          <p id="ih-company-err" class={`${errClass} hidden`}></p>
-        </div>
-
-        <div>
-          <label for="ih-country" class={labelClass}>
-            {f.country}<Fragment set:html={reqMark} />
-          </label>
-          <select
-            id="ih-country"
-            name="country"
-            required
-            aria-describedby="ih-country-err"
-            class={`${inputClass} mt-1`}
-          >
-            <option value="">{f.countryPlaceholder}</option>
-            {countries.map((c) => <option value={c}>{c}</option>)}
-          </select>
-          <p id="ih-country-err" class={`${errClass} hidden`}></p>
-        </div>
-
-        <div>
-          <label for="ih-whatsapp" class={labelClass}>
-            {f.whatsapp}<Fragment set:html={reqMark} />
-          </label>
-          <input
-            id="ih-whatsapp"
-            name="whatsapp"
-            type="tel"
-            required
-            inputmode="tel"
-            placeholder="+1 555 0100"
-            autocomplete="tel"
-            aria-describedby="ih-whatsapp-hint ih-whatsapp-err"
-            class={`${inputClass} mt-1`}
-          />
-          <p id="ih-whatsapp-hint" class="mt-1 text-xs text-neutral-500">
-            {f.whatsappHint}
-          </p>
-          <p id="ih-whatsapp-err" class={`${errClass} hidden`}></p>
-        </div>
-
-        <div class="md:col-span-2">
-          <label for="ih-email" class={labelClass}>
-            {f.email}<Fragment set:html={reqMark} />
-          </label>
-          <input
-            id="ih-email"
-            name="email"
-            type="email"
-            required
-            autocomplete="email"
-            aria-describedby="ih-email-err"
-            class={`${inputClass} mt-1`}
-          />
-          <p id="ih-email-err" class={`${errClass} hidden`}></p>
-        </div>
+        <FormField
+          id="ih-fullname"
+          name="full_name"
+          label={f.fullName}
+          required
+          minLength={2}
+          maxLength={80}
+          autocomplete="name"
+        />
+        <FormField
+          id="ih-company"
+          name="company_name"
+          label={f.company}
+          required
+          minLength={2}
+          maxLength={120}
+          autocomplete="organization"
+        />
+        <FormField id="ih-country" name="country" type="select" label={f.country} required>
+          <option value="">{f.countryPlaceholder}</option>
+          {inquiryCountries.map((c) => <option value={c}>{c}</option>)}
+        </FormField>
+        <FormField
+          id="ih-whatsapp"
+          name="whatsapp"
+          type="tel"
+          label={f.whatsapp}
+          required
+          inputMode="tel"
+          placeholder="+1 555 0100"
+          autocomplete="tel"
+          hint={f.whatsappHint}
+        />
+        <FormField
+          id="ih-email"
+          name="email"
+          type="email"
+          label={f.email}
+          required
+          autocomplete="email"
+          class="md:col-span-2"
+        />
       </div>
 
       <fieldset aria-describedby="ih-products-hint ih-products-err">
@@ -177,7 +146,7 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
           {f.productsHint}
         </p>
         <div class="mt-3 grid gap-2 sm:grid-cols-2 md:grid-cols-3">
-          {productOptions.map((p) => (
+          {inquiryProductOptions.map((p) => (
             <label class="flex items-center gap-2 rounded-md border border-neutral-200 px-3 py-2 text-sm text-neutral-800 hover:border-brand-primary">
               <input
                 type="checkbox"
@@ -193,46 +162,24 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
       </fieldset>
 
       <div class="grid gap-6 md:grid-cols-2">
-        <div>
-          <label for="ih-volume" class={labelClass}>
-            {f.volume}<Fragment set:html={reqMark} />
-          </label>
-          <select
-            id="ih-volume"
-            name="volume"
-            required
-            aria-describedby="ih-volume-err"
-            class={`${inputClass} mt-1`}
-          >
-            <option value="">{f.volumePlaceholder}</option>
-            {company.form.volumeOptions.map((v) => <option value={v}>{v}</option>)}
-          </select>
-          <p id="ih-volume-err" class={`${errClass} hidden`}></p>
-        </div>
-
-        <div>
-          <label for="ih-packing" class={labelClass}>{f.packing}</label>
-          <input
-            id="ih-packing"
-            name="packing"
-            type="text"
-            maxlength="200"
-            placeholder={f.packingPlaceholder}
-            class={`${inputClass} mt-1`}
-          />
-        </div>
-
-        <div>
-          <label for="ih-port" class={labelClass}>{f.destinationPort}</label>
-          <input
-            id="ih-port"
-            name="destination_port"
-            type="text"
-            maxlength="80"
-            placeholder={f.destinationPortPlaceholder}
-            class={`${inputClass} mt-1`}
-          />
-        </div>
+        <FormField id="ih-volume" name="volume" type="select" label={f.volume} required>
+          <option value="">{f.volumePlaceholder}</option>
+          {company.form.volumeOptions.map((v) => <option value={v}>{v}</option>)}
+        </FormField>
+        <FormField
+          id="ih-packing"
+          name="packing"
+          label={f.packing}
+          maxLength={200}
+          placeholder={f.packingPlaceholder}
+        />
+        <FormField
+          id="ih-port"
+          name="destination_port"
+          label={f.destinationPort}
+          maxLength={80}
+          placeholder={f.destinationPortPlaceholder}
+        />
 
         <div>
           <label for="ih-attachment" class={labelClass}>{f.attachment}</label>
@@ -248,17 +195,15 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
         </div>
       </div>
 
-      <div>
-        <label for="ih-additional" class={labelClass}>{f.additional}</label>
-        <textarea
-          id="ih-additional"
-          name="additional"
-          rows="5"
-          maxlength="2000"
-          placeholder={f.additionalPlaceholder}
-          class={`${inputClass} mt-1 min-h-[120px]`}
-        ></textarea>
-      </div>
+      <FormField
+        id="ih-additional"
+        name="additional"
+        type="textarea"
+        label={f.additional}
+        rows={5}
+        maxLength={2000}
+        placeholder={f.additionalPlaceholder}
+      />
 
       <label class="flex items-start gap-3 text-sm text-neutral-700">
         <input
@@ -329,150 +274,27 @@ const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
   <script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 )}
 
-<script is:inline define:vars={{
-  errs,
-  honeypotName,
-  endpoint: company.form.web3formsEndpoint,
-  successHeading: t.successHeading,
-  successBodyTemplate: t.successBodyTemplate,
-  successWaLabel: t.successWhatsapp,
-  successWaHref: sidebarWaHref,
-  whatsappPattern: WHATSAPP_E164_REGEX.source,
-  emailPattern: EMAIL_REGEX.source,
-  attachmentMaxBytes: ATTACHMENT_MAX_BYTES,
-  attachmentMimeTypes: ATTACHMENT_MIME_TYPES,
-}}>
-(() => {
-  const form = document.getElementById('inquiry-form');
-  if (!form) return;
-  const successPanel = document.getElementById('inquiry-success');
-  const errorPanel = document.getElementById('inquiry-status-error');
-  const submitBtn = document.getElementById('ih-submit');
-  const submitLabel = submitBtn.querySelector('[data-submit-label]');
-  const submittingLabel = submitBtn.querySelector('[data-submitting-label]');
+{/*
+  Server-rendered config blob. The bundled <script> below reads + parses
+  this and passes it to initInquiryForm(). Kept as type="application/json"
+  so the browser parses it once, not on every keystroke. set:html bypasses
+  Astro's text-escaping so the JSON survives intact; JSON.stringify already
+  produces valid HTML inside <script> as long as it doesn't contain "</script>"
+  (it doesn't — the values are all i18n strings and numbers).
+*/}
+<script
+  type="application/json"
+  id="inquiry-form-config"
+  set:html={JSON.stringify(inquiryConfig)}
+/>
 
-  const setError = (id, msg) => {
-    const el = document.getElementById(id);
-    const input = document.getElementById(id.replace(/-err$/, ''));
-    if (msg) {
-      el.textContent = msg;
-      el.classList.remove('hidden');
-      if (input) input.setAttribute('aria-invalid', 'true');
-    } else {
-      el.classList.add('hidden');
-      el.textContent = '';
-      if (input) input.removeAttribute('aria-invalid');
-    }
-  };
+<script>
+  import { initInquiryForm, type InquirySubmitConfig } from '~/lib/forms/inquirySubmit';
 
-  const validate = () => {
-    let ok = true;
-    const fullName = form.full_name.value.trim();
-    if (!fullName) { setError('ih-fullname-err', errs.required); ok = false; }
-    else if (fullName.length < 2 || fullName.length > 80) { setError('ih-fullname-err', errs.fullNameLength); ok = false; }
-    else setError('ih-fullname-err', '');
-
-    const companyName = form.company_name.value.trim();
-    if (!companyName) { setError('ih-company-err', errs.required); ok = false; }
-    else if (companyName.length < 2 || companyName.length > 120) { setError('ih-company-err', errs.companyLength); ok = false; }
-    else setError('ih-company-err', '');
-
-    if (!form.country.value) { setError('ih-country-err', errs.countryRequired); ok = false; }
-    else setError('ih-country-err', '');
-
-    const wa = form.whatsapp.value.trim();
-    const waRe = new RegExp(whatsappPattern);
-    if (!wa) { setError('ih-whatsapp-err', errs.required); ok = false; }
-    else if (!waRe.test(wa.replace(/[\s-]/g, ''))) { setError('ih-whatsapp-err', errs.whatsappFormat); ok = false; }
-    else setError('ih-whatsapp-err', '');
-
-    const email = form.email.value.trim();
-    const emailRe = new RegExp(emailPattern);
-    if (!email) { setError('ih-email-err', errs.required); ok = false; }
-    else if (!emailRe.test(email)) { setError('ih-email-err', errs.emailFormat); ok = false; }
-    else setError('ih-email-err', '');
-
-    const products = form.querySelectorAll('input[name="products[]"]:checked');
-    if (products.length === 0) { setError('ih-products-err', errs.productsMin); ok = false; }
-    else setError('ih-products-err', '');
-
-    if (!form.volume.value) { setError('ih-volume-err', errs.volumeRequired); ok = false; }
-    else setError('ih-volume-err', '');
-
-    const file = form.attachment.files[0];
-    if (file) {
-      if (file.size > attachmentMaxBytes) { setError('ih-attachment-err', errs.fileSize); ok = false; }
-      else if (!attachmentMimeTypes.includes(file.type)) { setError('ih-attachment-err', errs.fileType); ok = false; }
-      else setError('ih-attachment-err', '');
-    } else {
-      setError('ih-attachment-err', '');
-    }
-
-    if (!form.consent.checked) { setError('ih-consent-err', errs.consentRequired); ok = false; }
-    else setError('ih-consent-err', '');
-
-    return ok;
-  };
-
-  // Inline blur validation for fast feedback.
-  ['ih-fullname','ih-company','ih-country','ih-whatsapp','ih-email','ih-volume'].forEach((id) => {
-    const el = document.getElementById(id);
-    if (el) el.addEventListener('blur', validate);
-  });
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    errorPanel.classList.add('hidden');
-    if (!validate()) {
-      const firstErr = form.querySelector('[aria-invalid="true"]');
-      if (firstErr) firstErr.focus();
-      return;
-    }
-
-    // Honeypot — silently drop if filled.
-    const trap = form.elements[honeypotName];
-    if (trap && trap.value) {
-      successPanel.classList.remove('hidden');
-      successPanel.innerHTML = '<p class="text-success">Thank you.</p>';
-      form.classList.add('hidden');
-      return;
-    }
-
-    const data = new FormData(form);
-    submitBtn.disabled = true;
-    submitLabel.classList.add('hidden');
-    submittingLabel.classList.remove('hidden');
-
-    try {
-      const res = await fetch(endpoint, { method: 'POST', body: data });
-      const json = await res.json().catch(() => ({}));
-      if (!res.ok || (json && json.success === false)) throw new Error(json.message || 'submit_failed');
-
-      const ref = 'INQ-' + Date.now().toString(36).toUpperCase();
-      const email = form.email.value.trim();
-      const body = successBodyTemplate.replace('{{ref}}', ref).replace('{{email}}', email);
-      successPanel.innerHTML =
-        '<h3 class="text-xl font-semibold text-neutral-900">' + successHeading + '</h3>' +
-        '<p class="mt-2 text-sm text-neutral-700">' + body + '</p>' +
-        '<a href="' + successWaHref + '" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white">' + successWaLabel + '</a>';
-      successPanel.classList.remove('hidden');
-      form.classList.add('hidden');
-      successPanel.focus?.();
-      if (window.dataLayer) {
-        window.dataLayer.push({
-          event: 'inquiry_submit',
-          product_category: Array.from(form.querySelectorAll('input[name="products[]"]:checked')).map(i => i.value).join(','),
-          estimated_quantity_tons: form.volume.value,
-          destination_country: form.country.value,
-        });
-      }
-    } catch (err) {
-      errorPanel.textContent = errs.submitFailed;
-      errorPanel.classList.remove('hidden');
-      submitBtn.disabled = false;
-      submitLabel.classList.remove('hidden');
-      submittingLabel.classList.add('hidden');
-    }
-  });
-})();
+  const form = document.getElementById('inquiry-form') as HTMLFormElement | null;
+  const configEl = document.getElementById('inquiry-form-config');
+  if (form && configEl?.textContent) {
+    const config = JSON.parse(configEl.textContent) as InquirySubmitConfig;
+    initInquiryForm(form, config);
+  }
 </script>

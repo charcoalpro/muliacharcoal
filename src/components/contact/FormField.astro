@@ -1,0 +1,116 @@
+---
+/**
+ * FormField — labelled text/email/tel/select/textarea field used by InquiryForm.
+ *
+ * Owns the canonical label + control + hint + hidden-error region pattern so
+ * the inquiry form stops repeating ~25 lines of identical markup per field.
+ * Validation is wired by [src/lib/forms/inquirySubmit.ts](src/lib/forms/inquirySubmit.ts),
+ * which finds the error `<p id="{id}-err">` and toggles its `.hidden` class
+ * plus `aria-invalid` on the control.
+ *
+ * Slot is reserved for `<option>` children when `type === 'select'`.
+ */
+
+interface Props {
+  /** DOM id of the control. The error region gets `{id}-err`; the hint, `{id}-hint`. */
+  id: string;
+  /** `name` attribute submitted to the server. */
+  name: string;
+  /** Visible label text. */
+  label: string;
+  /** Control type. `select` consumes children from the default slot. */
+  type?: 'text' | 'email' | 'tel' | 'select' | 'textarea';
+  required?: boolean;
+  autocomplete?: string;
+  minLength?: number;
+  maxLength?: number;
+  /** Optional small-print hint rendered between the control and the error region. */
+  hint?: string;
+  placeholder?: string;
+  /** Textarea row count. Ignored for other types. */
+  rows?: number;
+  inputMode?: 'tel' | 'numeric' | 'email' | 'text';
+  /** Classes applied to the outer wrapper `<div>` — e.g. `md:col-span-2`. */
+  class?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  type = 'text',
+  required = false,
+  autocomplete,
+  minLength,
+  maxLength,
+  hint,
+  placeholder,
+  rows,
+  inputMode,
+  class: className,
+} = Astro.props;
+
+// Shared visual contract for every InquiryForm field. Kept private to this
+// component so the inquiry form stops re-declaring four near-identical
+// Tailwind constants at the top of its frontmatter.
+const inputClass =
+  'w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary aria-[invalid=true]:border-error';
+const labelClass = 'block text-sm font-medium text-neutral-800';
+const errClass = 'mt-1 text-sm text-error';
+const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
+
+const hintId = `${id}-hint`;
+const errId = `${id}-err`;
+const describedBy = hint ? `${hintId} ${errId}` : errId;
+
+const controlClass =
+  type === 'textarea' ? `${inputClass} mt-1 min-h-[120px]` : `${inputClass} mt-1`;
+---
+<div class:list={[className]}>
+  <label for={id} class={labelClass}>
+    {label}{required && <Fragment set:html={reqMark} />}
+  </label>
+  {type === 'textarea' ? (
+    <textarea
+      id={id}
+      name={name}
+      required={required}
+      maxlength={maxLength}
+      minlength={minLength}
+      placeholder={placeholder}
+      rows={rows ?? 5}
+      autocomplete={autocomplete}
+      aria-describedby={describedBy}
+      class={controlClass}
+    ></textarea>
+  ) : type === 'select' ? (
+    <select
+      id={id}
+      name={name}
+      required={required}
+      autocomplete={autocomplete}
+      aria-describedby={describedBy}
+      class={controlClass}
+    >
+      <slot />
+    </select>
+  ) : (
+    <input
+      id={id}
+      name={name}
+      type={type}
+      required={required}
+      minlength={minLength}
+      maxlength={maxLength}
+      placeholder={placeholder}
+      autocomplete={autocomplete}
+      inputmode={inputMode}
+      aria-describedby={describedBy}
+      class={controlClass}
+    />
+  )}
+  {hint && (
+    <p id={hintId} class="mt-1 text-xs text-neutral-500">{hint}</p>
+  )}
+  <p id={errId} class={`${errClass} hidden`}></p>
+</div>
