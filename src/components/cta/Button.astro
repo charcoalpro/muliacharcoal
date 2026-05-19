@@ -23,6 +23,14 @@ interface Props {
   'data-event'?: string;
   /** Source component identifier forwarded as `data-source-component`. */
   'data-source-component'?: string;
+  /**
+   * Per-event payload forwarded as `data-param-role`. Picked up by the
+   * sitewide click dispatcher in `components/seo/Analytics.astro` and
+   * dispatched as `role: '...'` on the GA4 event. Used by /careers
+   * Apply buttons; add sibling `data-param-*` props here when new
+   * events need parameters.
+   */
+  'data-param-role'?: string;
 }
 
 const {
@@ -38,6 +46,7 @@ const {
   id,
   'data-event': dataEvent,
   'data-source-component': dataSourceComponent,
+  'data-param-role': dataParamRole,
 } = Astro.props;
 
 const base =
@@ -80,6 +89,7 @@ const externalRel =
     class={classes}
     data-event={dataEvent}
     data-source-component={dataSourceComponent}
+    data-param-role={dataParamRole}
   >
     {variant === 'whatsapp' && (
       <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 shrink-0" fill="currentColor">
@@ -97,6 +107,7 @@ const externalRel =
     class={classes}
     data-event={dataEvent}
     data-source-component={dataSourceComponent}
+    data-param-role={dataParamRole}
   >
     {variant === 'whatsapp' && (
       <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 shrink-0" fill="currentColor">

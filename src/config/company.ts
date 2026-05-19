@@ -181,6 +181,24 @@ export function mailto(subject?: string): string {
 }
 
 /**
+ * Build a `mailto:` URL for the careers inbox.
+ *
+ * Routes job applications to the careers-only address so HR routing
+ * stays independent of the wholesale-sales inbox. Used by the /careers
+ * Apply buttons.
+ *
+ * @param subject Optional subject line, URL-encoded. The /careers page
+ *                passes `"Application: <role title>"`.
+ *
+ * @example
+ *   <a href={careersMailto('Application: Head of Production')}>Apply</a>
+ */
+export function careersMailto(subject?: string): string {
+  if (!subject) return `mailto:${company.careersEmail}`;
+  return `mailto:${company.careersEmail}?subject=${encodeURIComponent(subject)}`;
+}
+
+/**
  * Integer years the company has been in business.
  *
  * Called at build time (the site is statically rendered by Astro), so the
