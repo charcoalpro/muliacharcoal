@@ -17,6 +17,7 @@ import footer from './footer.json';
 import contact from './contact.json';
 import about from './about.json';
 import home from './home.json';
+import careers from './careers.json';
 
 const en = {
   ...common,
@@ -24,6 +25,7 @@ const en = {
   contact,
   about,
   home,
+  careers,
 };
 
 export default en;
