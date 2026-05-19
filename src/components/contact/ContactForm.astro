@@ -22,7 +22,7 @@
  * dispatcher.
  */
 
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import { company } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 import { inquiryCountries } from '~/lib/data/countries';
@@ -49,6 +49,8 @@ const gradeOptions = [
 ];
 
 const privacyConsent = fill(t.fields.privacyConsentTemplate, tokens);
+const submissionSubject = fill(t.submission.subjectTemplate, tokens);
+const submissionFromName = fill(t.submission.fromNameTemplate, tokens);
 ---
 <form
   id={formId}
@@ -58,8 +60,8 @@ const privacyConsent = fill(t.fields.privacyConsentTemplate, tokens);
   class="grid gap-5"
 >
   <input type="hidden" name="access_key" value={company.form.web3formsKey} />
-  <input type="hidden" name="subject" value="Homepage inquiry — Mulia Charcoal" />
-  <input type="hidden" name="from_name" value="Mulia Charcoal homepage form" />
+  <input type="hidden" name="subject" value={submissionSubject} />
+  <input type="hidden" name="from_name" value={submissionFromName} />
   <input type="hidden" name="redirect" value={redirectUrl} />
   <input type="hidden" name="intent" value="" data-intent-input />
   {/* Web3Forms honeypot — real users leave it unchecked. */}
