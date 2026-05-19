@@ -1,0 +1,75 @@
+---
+/**
+ * CopyButton — icon-only button that copies `value` to the clipboard
+ * and shows a toast via the delegated `[data-copy]` listener mounted
+ * by `<Toast />` (BaseLayout singleton).
+ *
+ * The toast label comes from the i18n key `copied{kind}` resolved
+ * inside Toast.astro's IIFE; the button's own aria-label comes from
+ * `copy_aria_{kind}` here.
+ *
+ * Inert in non-clipboard contexts (older browsers / no permission) —
+ * the Toast handler silently no-ops.
+ */
+
+import en from '~/i18n/en';
+
+type Kind = 'phone' | 'email' | 'whatsapp' | 'address' | 'generic';
+
+interface Props {
+  /** Value to write to the clipboard. */
+  value: string;
+  /** Drives the toast label key and the aria-label. */
+  kind?: Kind;
+  /** Override the aria-label. */
+  ariaLabel?: string;
+  class?: string;
+}
+
+const { value, kind = 'generic', ariaLabel, class: className } = Astro.props;
+
+const ariaMap: Record<Kind, string> = {
+  phone: en.toast.copy_aria_phone,
+  email: en.toast.copy_aria_email,
+  whatsapp: en.toast.copy_aria_whatsapp,
+  address: en.toast.copy_aria_address,
+  generic: en.toast.copy_aria_generic,
+};
+
+const labelKeyMap: Record<Kind, string> = {
+  phone: 'copiedPhone',
+  email: 'copiedEmail',
+  whatsapp: 'copiedWhatsapp',
+  address: 'copiedAddress',
+  generic: 'copiedGeneric',
+};
+
+const aria = ariaLabel ?? ariaMap[kind];
+const labelKey = labelKeyMap[kind];
+---
+<button
+  type="button"
+  data-copy={value}
+  data-copy-label-key={labelKey}
+  data-event="copy_click"
+  data-source-component={`copy-${kind}`}
+  aria-label={aria}
+  class:list={[
+    'inline-flex h-8 w-8 shrink-0 items-center justify-center rounded text-neutral-500 transition-colors hover:bg-neutral-100 hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2',
+    className,
+  ]}
+>
+  <svg
+    viewBox="0 0 24 24"
+    class="h-4 w-4"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="1.75"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    aria-hidden="true"
+  >
+    <rect x="9" y="9" width="11" height="11" rx="2" />
+    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+  </svg>
+</button>

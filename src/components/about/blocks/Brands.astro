@@ -40,7 +40,7 @@ const brandPhotoAlts = [1, 2, 3, 4, 5, 6].map((n) =>
 
     <div class="mt-10">
       <h3 class="text-lg font-semibold text-neutral-900">{t.photos.heading}</h3>
-      <div class="mt-4 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-4 grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
         {brandPhotoAlts.map((alt) => (
           <ImagePlaceholder label={alt} ratio="3/2" />
         ))}

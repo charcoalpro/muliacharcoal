@@ -28,6 +28,21 @@
     "viewProducts": "View products",
     "backHome": "Back to home"
   },
+  "toast": {
+    "close": "Dismiss notification",
+    "inquiry_success": "Your inquiry was sent — we'll reply within one business day.",
+    "inquiry_error": "We couldn't send your inquiry. Try again or message us on WhatsApp.",
+    "copied_phone": "Phone number copied",
+    "copied_email": "Email address copied",
+    "copied_whatsapp": "WhatsApp number copied",
+    "copied_address": "Address copied",
+    "copied_generic": "Copied to clipboard",
+    "copy_aria_phone": "Copy phone number",
+    "copy_aria_email": "Copy email address",
+    "copy_aria_whatsapp": "Copy WhatsApp number",
+    "copy_aria_address": "Copy address",
+    "copy_aria_generic": "Copy to clipboard"
+  },
   "hero": {
     "eyebrow": "Factory-direct coconut shell charcoal",
     "title": "Shisha charcoal briquettes for importers who run the numbers",

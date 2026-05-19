@@ -55,9 +55,9 @@ const channels = [...baseChannels, ...optionalChannels];
     title={t.channels.heading}
     subtitle={t.channels.lead}
   />
-  <ul class="mt-10 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+  <ul class="mt-10 grid items-start gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
     {channels.map((ch) => (
-      <li class="h-full">
+      <li>
         <ChannelCard
           channel={ch.channel}
           handle={ch.handle}
