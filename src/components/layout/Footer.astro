@@ -3,6 +3,7 @@ import en from '~/i18n/en';
 import Logo from '~/components/layout/Logo.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
 import ExternalLink from '~/components/content/ExternalLink.astro';
+import CopyButton from '~/components/feedback/CopyButton.astro';
 import { company, mailto } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 
@@ -76,13 +77,15 @@ const operationsLinks = [
         </div>
 
         <dl class="space-y-1">
-          <div class="flex gap-2">
+          <div class="flex items-center gap-2">
             <dt class="text-neutral-500">{en.footer.emailLabel}:</dt>
             <dd><a href={emailHref} class={linkCls}>{company.email}</a></dd>
+            <CopyButton value={company.email} kind="email" />
           </div>
-          <div class="flex gap-2">
+          <div class="flex items-center gap-2">
             <dt class="text-neutral-500">{en.footer.phoneLabel}:</dt>
             <dd><a href={phoneHref} class={linkCls}>{company.phone.display}</a></dd>
+            <CopyButton value={company.phone.display} kind="phone" />
           </div>
         </dl>
 

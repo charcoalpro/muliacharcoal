@@ -11,6 +11,7 @@ import DataTable from '~/components/content/DataTable.astro';
 import Button from '~/components/cta/Button.astro';
 import Section from '~/components/layout/Section.astro';
 import SectionHeading from '~/components/content/SectionHeading.astro';
+import CopyButton from '~/components/feedback/CopyButton.astro';
 
 const t = en.contact;
 const addr = company.address;
@@ -42,13 +43,15 @@ const hubRows = company.travelHubs.map((hub) => ({
           <span class="block">{addr.district}</span>
           <span class="block">{addr.city}, {addr.region} {addr.postalCode}</span>
           <span class="block">{addr.country}</span>
-          <span class="mt-3 block">
+          <span class="mt-3 flex items-center gap-2">
             <span class="text-sm font-medium text-neutral-700">{t.findUs.phoneLabel}: </span>
             <TextLink href={`tel:${company.phone.e164}`}>{company.phone.display}</TextLink>
+            <CopyButton value={company.phone.display} kind="phone" />
           </span>
-          <span class="block">
+          <span class="flex items-center gap-2">
             <span class="text-sm font-medium text-neutral-700">{t.findUs.emailLabel}: </span>
             <TextLink href={mailto()}>{company.email}</TextLink>
+            <CopyButton value={company.email} kind="email" />
           </span>
           <span class="mt-3 block">
             <span class="text-sm font-medium text-neutral-700">{t.findUs.hoursHeading}: </span>

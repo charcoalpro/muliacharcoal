@@ -45,6 +45,10 @@ export interface InquirySubmitConfig {
   successWaHref: string;
   /** Localized error messages keyed by validation rule. */
   errors: Record<string, string>;
+  /** Toast message dispatched on successful submit (alongside the in-place success panel). */
+  toastSuccessMsg: string;
+  /** Toast message dispatched when the submit fetch fails. */
+  toastErrorMsg: string;
 }
 
 interface GtmWindow extends Window {
@@ -64,6 +68,8 @@ export function initInquiryForm(form: HTMLFormElement, config: InquirySubmitConf
     successWaLabel,
     successWaHref,
     errors: errs,
+    toastSuccessMsg,
+    toastErrorMsg,
   } = config;
 
   const successPanel = document.getElementById('inquiry-success');
@@ -194,6 +200,7 @@ export function initInquiryForm(form: HTMLFormElement, config: InquirySubmitConf
       successPanel.classList.remove('hidden');
       form.classList.add('hidden');
       successPanel.focus?.();
+      document.dispatchEvent(new CustomEvent('toast', { detail: { message: toastSuccessMsg, type: 'success', durationMs: 5000 } }));
       const w = window as GtmWindow;
       if (w.dataLayer) {
         w.dataLayer.push({
@@ -209,6 +216,7 @@ export function initInquiryForm(form: HTMLFormElement, config: InquirySubmitConf
       submitBtn.disabled = false;
       submitLabel.classList.remove('hidden');
       submittingLabel.classList.add('hidden');
+      document.dispatchEvent(new CustomEvent('toast', { detail: { message: toastErrorMsg, type: 'error' } }));
     }
   });
 }

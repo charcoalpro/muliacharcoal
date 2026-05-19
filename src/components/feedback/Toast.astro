@@ -1,0 +1,185 @@
+---
+/**
+ * Toast — singleton transient-feedback component.
+ *
+ * Mounted once via BaseLayout. Renders an empty `<div id="toast-root">`
+ * plus an inline IIFE that exposes two APIs:
+ *
+ *   1. `window.toast(message, opts)` — direct call from inline scripts.
+ *   2. `CustomEvent('toast', { detail: { message, ...opts } })` on
+ *       `document` — preferred for cross-script triggers (no load-order
+ *       coupling).
+ *
+ * The same IIFE also delegates `[data-copy]` clicks: it writes the
+ * element's `data-copy` value to the clipboard and shows a toast whose
+ * label comes from `data-copy-label-key` (resolves into the i18n map
+ * passed via `define:vars`).
+ *
+ * Stacks up to 3 toasts; oldest auto-dismisses when a 4th arrives.
+ * Auto-dismiss pauses on hover/focus (WAI-ARIA APG). Container is
+ * `pointer-events-none` so it never blocks clicks behind it; each
+ * toast is `pointer-events-auto`.
+ *
+ * RTL: positioned with `end-4` so it hugs the correct edge under
+ * `dir="rtl"` (ar/he) automatically.
+ *
+ * Analytics: fires `toast_show` directly on gtag + fbq when shown.
+ * Close-button clicks auto-fire `toast_close` via the existing sitewide
+ * `[data-event]` delegated listener in Analytics.astro.
+ */
+
+import en from '~/i18n/en';
+
+const i18n = {
+  close: en.toast.close,
+  copiedGeneric: en.toast.copied_generic,
+  copiedPhone: en.toast.copied_phone,
+  copiedEmail: en.toast.copied_email,
+  copiedWhatsapp: en.toast.copied_whatsapp,
+  copiedAddress: en.toast.copied_address,
+};
+---
+{/* Tailwind safelist for runtime-applied type classes: bg-success bg-error bg-neutral-900 text-white */}
+<div
+  id="toast-root"
+  class="pointer-events-none fixed bottom-20 end-4 z-50 flex w-[min(20rem,calc(100vw-2rem))] flex-col gap-2"
+  aria-live="polite"
+  aria-atomic="false"
+></div>
+
+<template id="toast-template">
+  <div
+    role="status"
+    data-toast
+    data-source-component="toast"
+    class="pointer-events-auto flex min-h-[44px] items-start gap-3 rounded-md border border-white/10 px-4 py-3 text-sm font-medium text-white shadow-lg [transition:opacity_180ms,transform_180ms]"
+    style="opacity:0;transform:translateY(8px);"
+  >
+    <span data-toast-message class="flex-1 break-words"></span>
+    <button
+      type="button"
+      data-toast-close
+      data-event="toast_close"
+      data-source-component="toast"
+      class="-me-1 -mt-1 grid h-8 w-8 shrink-0 place-items-center rounded text-white/80 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+    >
+      <span aria-hidden="true" class="text-lg leading-none">&times;</span>
+    </button>
+  </div>
+</template>
+
+<script is:inline define:vars={{ I18N: i18n }}>
+  (function () {
+    var root = document.getElementById('toast-root');
+    var tpl = document.getElementById('toast-template');
+    if (!root || !tpl) return;
+
+    var TYPE_CLASS = {
+      success: 'bg-success',
+      error: 'bg-error',
+      info: 'bg-neutral-900',
+    };
+    var DEFAULT_DURATION = { success: 4000, error: 6000, info: 4000 };
+    var MAX_VISIBLE = 3;
+
+    function track(event, payload) {
+      try { window.gtag && window.gtag('event', event, payload); } catch (_) {}
+      try { window.fbq && window.fbq('trackCustom', event, payload); } catch (_) {}
+    }
+
+    function dismiss(el) {
+      if (!el || el.dataset.dismissing === '1') return;
+      el.dataset.dismissing = '1';
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(8px)';
+      setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 200);
+    }
+
+    function show(opts) {
+      var message = opts && opts.message;
+      if (!message) return;
+      var type = (opts && opts.type) || 'success';
+      if (!TYPE_CLASS[type]) type = 'success';
+      var duration = (opts && typeof opts.durationMs === 'number') ? opts.durationMs : DEFAULT_DURATION[type];
+
+      // Cap visible toasts.
+      var existing = root.querySelectorAll('[data-toast]');
+      while (existing.length >= MAX_VISIBLE) {
+        dismiss(existing[0]);
+        existing = root.querySelectorAll('[data-toast]:not([data-dismissing="1"])');
+      }
+
+      var node = tpl.content.firstElementChild.cloneNode(true);
+      node.classList.add(TYPE_CLASS[type]);
+      node.dataset.type = type;
+      var msgEl = node.querySelector('[data-toast-message]');
+      if (msgEl) msgEl.textContent = String(message);
+
+      var closeBtn = node.querySelector('[data-toast-close]');
+      if (closeBtn) {
+        closeBtn.setAttribute('aria-label', I18N.close);
+        closeBtn.addEventListener('click', function () { dismiss(node); });
+      }
+
+      var timer = null;
+      function arm() {
+        if (duration <= 0) return;
+        clearTimeout(timer);
+        timer = setTimeout(function () { dismiss(node); }, duration);
+      }
+      function pause() { clearTimeout(timer); }
+      node.addEventListener('mouseenter', pause);
+      node.addEventListener('focusin', pause);
+      node.addEventListener('mouseleave', arm);
+      node.addEventListener('focusout', arm);
+
+      root.appendChild(node);
+
+      // Force reflow then fade/slide in.
+      void node.offsetWidth;
+      node.style.opacity = '1';
+      node.style.transform = 'translateY(0)';
+
+      arm();
+      track('toast_show', { type: type, source: 'toast', url: location.pathname });
+    }
+
+    window.toast = function (message, opts) {
+      show(Object.assign({ message: message }, opts || {}));
+    };
+
+    document.addEventListener('toast', function (e) {
+      var detail = e && e.detail;
+      if (detail && detail.message) show(detail);
+    });
+
+    // Copy-to-clipboard delegation.
+    document.addEventListener('click', function (e) {
+      var btn = e.target instanceof Element ? e.target.closest('[data-copy]') : null;
+      if (!btn) return;
+      var value = btn.getAttribute('data-copy') || '';
+      if (!value) return;
+      var labelKey = btn.getAttribute('data-copy-label-key') || '';
+      var msg = (labelKey && I18N[labelKey]) || I18N.copiedGeneric;
+      function ok() { show({ message: msg, type: 'success' }); }
+      function fail() { /* silent fallback — older browsers / no permission */ }
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(value).then(ok, fail);
+        } else {
+          var ta = document.createElement('textarea');
+          ta.value = value;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'absolute';
+          ta.style.left = '-9999px';
+          document.body.appendChild(ta);
+          ta.select();
+          var didCopy = false;
+          try { didCopy = document.execCommand('copy'); } catch (_) {}
+          document.body.removeChild(ta);
+          if (didCopy) ok(); else fail();
+        }
+      } catch (_) { fail(); }
+    }, { passive: true });
+  })();
+</script>
