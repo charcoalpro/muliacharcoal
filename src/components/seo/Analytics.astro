@@ -57,7 +57,9 @@ const pixelActive = isProd && hasFact(pixelId);
   <script is:inline>
     /* Sitewide [data-event] click dispatcher. Fires once per click on the
        nearest ancestor carrying data-event; supports comma-separated event
-       names (e.g. "samples_request_click_hero,whatsapp_click_hero"). */
+       names (e.g. "samples_request_click_hero,whatsapp_click_hero"). Any
+       data-param-* attribute on the clicked element is forwarded as a key
+       on the payload (data-param-role="foo" -> { role: "foo" }). */
     document.addEventListener('click', function (e) {
       var el = e.target instanceof Element ? e.target.closest('[data-event]') : null;
       if (!el) return;
@@ -71,6 +73,13 @@ const pixelActive = isProd && hasFact(pixelId);
         viewport: window.innerWidth + 'x' + window.innerHeight,
         url: location.pathname,
       };
+      for (var i = 0; i < el.attributes.length; i++) {
+        var attr = el.attributes[i];
+        if (attr.name.indexOf('data-param-') === 0) {
+          var key = attr.name.slice('data-param-'.length).replace(/-/g, '_');
+          payload[key] = attr.value;
+        }
+      }
       raw.split(',').forEach(function (name) {
         name = name.trim();
         if (!name) return;
@@ -78,5 +87,57 @@ const pixelActive = isProd && hasFact(pixelId);
         try { window.fbq && window.fbq('trackCustom', name, payload); } catch (_) {}
       });
     }, { passive: true });
+
+    /* scroll_75 — fires once when the user passes 75% of the document.
+       engaged_time — fires once after 60s of active (visible) page time.
+       Both are CLAUDE.md § Conversion Tracking events. */
+    (function () {
+      var basePayload = function () {
+        return {
+          locale: document.documentElement.lang || 'en',
+          viewport: window.innerWidth + 'x' + window.innerHeight,
+          url: location.pathname,
+        };
+      };
+      var dispatch = function (name, extra) {
+        var payload = basePayload();
+        if (extra) for (var k in extra) payload[k] = extra[k];
+        try { window.gtag && window.gtag('event', name, payload); } catch (_) {}
+        try { window.fbq && window.fbq('trackCustom', name, payload); } catch (_) {}
+      };
+
+      var scrollFired = false;
+      var onScroll = function () {
+        if (scrollFired) return;
+        var doc = document.documentElement;
+        var total = doc.scrollHeight - doc.clientHeight;
+        if (total <= 0) return;
+        if (window.scrollY / total >= 0.75) {
+          scrollFired = true;
+          dispatch('scroll_75');
+          window.removeEventListener('scroll', onScroll);
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      var activeMs = 0;
+      var lastTick = performance.now();
+      var engagedFired = false;
+      var interval = window.setInterval(function () {
+        if (engagedFired) return;
+        if (document.visibilityState === 'visible') {
+          var now = performance.now();
+          activeMs += now - lastTick;
+          lastTick = now;
+          if (activeMs >= 60000) {
+            engagedFired = true;
+            dispatch('engaged_time', { seconds: 60 });
+            window.clearInterval(interval);
+          }
+        } else {
+          lastTick = performance.now();
+        }
+      }, 1000);
+    })();
   </script>
 )}
