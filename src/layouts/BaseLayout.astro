@@ -1,4 +1,5 @@
 ---
+import type { ImageMetadata } from 'astro';
 import SEO from '~/components/seo/SEO.astro';
 import JsonLd from '~/components/seo/JsonLd.astro';
 import OrganizationSchema from '~/components/seo/OrganizationSchema.astro';
@@ -24,7 +25,12 @@ interface Props {
   title: string;
   description: string;
   path?: string;
-  image?: string;
+  /**
+   * Page social card. Pass an Astro `import` for processed assets, a
+   * public-folder string (e.g. `/og/products.jpg`), or omit to fall
+   * back to `company.brandAssets.images.ogDefault`.
+   */
+  image?: ImageMetadata | string;
   type?: 'website' | 'article' | 'product';
   noIndex?: boolean;
   /** Page locale. Drives <html lang>, <html dir>, and og:locale. Defaults to DEFAULT_LOCALE. */

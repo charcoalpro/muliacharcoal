@@ -17,18 +17,14 @@
  */
 
 import { company, getOwner, hasFact } from '~/config/company';
+import { siteOrigin as resolveSiteOrigin } from '~/lib/url';
 
 /**
- * Canonical site origin (no trailing slash). Single source of truth —
- * import this from any module that needs to build absolute URLs (schema
- * builders, breadcrumbs, JSON-LD `@id`s). The previous duplication of
- * the `(company.siteUrl ?? '').replace(/\/$/, '')` derivation across
- * five files is now eliminated.
- *
- * `SEO.astro` keeps its own derivation because it can fall back to
- * `Astro.site` when the user runs the dev server with a different host.
+ * Canonical site origin (no trailing slash). Re-exported from `~/lib/url`
+ * so schema builders, the OG image resolver, and any future absolute-URL
+ * consumer all read from one derivation.
  */
-export const siteOrigin = (company.siteUrl ?? '').replace(/\/$/, '');
+export const siteOrigin = resolveSiteOrigin();
 
 export const ORG_ID = `${siteOrigin}/#organization`;
 export const WEBSITE_ID = `${siteOrigin}/#website`;
@@ -71,7 +67,7 @@ export function buildOrganization({ mode = 'slim' }: BuildOptions = {}) {
     foundingDate: String(company.foundingYear),
     logo: {
       '@type': 'ImageObject',
-      url: `${siteOrigin}/logo.png`,
+      url: `${siteOrigin}${company.brandAssets.images.logo}`,
     },
     address: buildPostalAddress(),
     email: company.email,

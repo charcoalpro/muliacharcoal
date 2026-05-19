@@ -72,8 +72,8 @@ export const localBusinessSchema = {
   name: company.brand,
   legalName: company.legalName,
   url: `${siteOrigin}/contact`,
-  logo: `${siteOrigin}/logo.png`,
-  image: `${siteOrigin}/logo.png`,
+  logo: `${siteOrigin}${company.brandAssets.images.logo}`,
+  image: `${siteOrigin}${company.brandAssets.images.logo}`,
   telephone: company.phone.e164,
   email: company.email,
   address: {
