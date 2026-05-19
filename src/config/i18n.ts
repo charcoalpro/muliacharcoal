@@ -33,7 +33,9 @@ export const DEFAULT_LOCALE: Locale = 'en';
 /** OG `og:locale` value per locale, in the BCP-style POSIX form Facebook expects. */
 export const localeOgMap: Record<Locale, string> = {
   en: 'en_US',
-  ar: 'ar_AR',
+  // Saudi Arabia is the priority Arabic-speaking buyer market (see CLAUDE.md).
+  // Facebook does not accept `ar_AR`; pick the regional variant.
+  ar: 'ar_SA',
   he: 'he_IL',
   de: 'de_DE',
   tr: 'tr_TR',

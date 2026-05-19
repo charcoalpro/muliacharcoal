@@ -1,5 +1,5 @@
 ---
-import en from '~/i18n/en.json';
+import en from '~/i18n/en';
 import Logo from '~/components/layout/Logo.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
 import ExternalLink from '~/components/content/ExternalLink.astro';
@@ -29,12 +29,12 @@ const linkCls =
   'rounded-sm text-neutral-600 transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary';
 const listLinkCls = linkCls + ' inline-block min-h-11 py-2.5 md:min-h-0';
 
-// TODO(jobs): create /jobs page before launching the jobs section.
+// TODO(jobs): re-add `{ href: '/jobs', label: en.footer.links.jobs }` here
+// (and the matching i18n key) once the /jobs page exists.
 const companyLinks = [
   { href: '/about', label: en.footer.links.about },
   { href: '/contact', label: en.footer.links.contact },
   { href: '/glossary', label: en.footer.links.glossary },
-  { href: '/jobs', label: en.footer.links.jobs },
 ];
 
 const operationsLinks = [
