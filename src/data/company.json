@@ -10,6 +10,10 @@
       "primaryHover": "#0a2a1f",
       "accent": "#c9a24b",
       "dark": "#0a1f17"
+    },
+    "images": {
+      "logo": "/logo.png",
+      "ogDefault": "/og-default.jpg"
     }
   },
 

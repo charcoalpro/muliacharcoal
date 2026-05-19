@@ -71,7 +71,7 @@ export function buildOrganization({ mode = 'slim' }: BuildOptions = {}) {
     foundingDate: String(company.foundingYear),
     logo: {
       '@type': 'ImageObject',
-      url: `${siteOrigin}/logo.png`,
+      url: `${siteOrigin}${company.brandAssets.images.logo}`,
     },
     address: buildPostalAddress(),
     email: company.email,
