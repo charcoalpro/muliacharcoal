@@ -16,7 +16,7 @@ const members = getContactTeam().filter(
 ---
 <Section labelledBy="team-heading" class="bg-neutral-50">
   <SectionHeading id="team-heading" title={t.heading} subtitle={t.lead} />
-  <div class="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <div class="mt-10 grid items-start gap-6 md:grid-cols-2 lg:grid-cols-3">
     {members.map((member) => <TeamCard member={member} variant="sales" />)}
   </div>
 </Section>

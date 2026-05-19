@@ -38,7 +38,7 @@ const operationsCards = getOperations()
   <h2 class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
     <p class="mt-3 max-w-2xl text-neutral-600">{t.lead}</p>
 
-    <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+    <div class="mt-8 grid items-start gap-6 md:grid-cols-2 lg:grid-cols-4">
       {owner && (
         <TeamCard
           member={owner}

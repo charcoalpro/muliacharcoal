@@ -60,7 +60,7 @@ const hasContact = Boolean(member.email || member.phone || member.linkedin);
 
 const isSales = variant === 'sales';
 ---
-<article class="flex h-full flex-col rounded-xl border border-neutral-200 bg-white p-6">
+<article class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6">
   <ImagePlaceholder label={photoLabel} ratio="square" class="mb-4" />
   <h3 class="text-xl font-semibold text-neutral-900">{member.name}</h3>
   <p class="mt-1 text-sm text-neutral-600">{member.role}</p>
