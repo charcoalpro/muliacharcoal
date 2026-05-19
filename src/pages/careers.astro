@@ -33,18 +33,24 @@ const t = en.careers;
 
 // Roles displayed on the page. The order here drives the visible order
 // in the grid; the JSON-LD order matches via /src/lib/schema/jobPosting.
+//
+// `hasRealCopy` drops any bullet still flagged "TODO:" in the i18n JSON
+// so placeholder strings never render publicly. Sections collapse to
+// "details on request" until the hiring manager signs off on copy.
+const isReal = (item: string) => !item.startsWith('TODO:');
+
 const roles = [
   {
     id: 'head_of_production',
     title: t.roles.headOfProduction.title,
-    responsibilities: t.roles.headOfProduction.responsibilities,
-    requirements: t.roles.headOfProduction.requirements,
+    responsibilities: t.roles.headOfProduction.responsibilities.filter(isReal),
+    requirements: t.roles.headOfProduction.requirements.filter(isReal),
   },
   {
     id: 'sales_manager',
     title: t.roles.salesManager.title,
-    responsibilities: t.roles.salesManager.responsibilities,
-    requirements: t.roles.salesManager.requirements,
+    responsibilities: t.roles.salesManager.responsibilities.filter(isReal),
+    requirements: t.roles.salesManager.requirements.filter(isReal),
   },
 ] as const;
 ---
@@ -112,21 +118,27 @@ const roles = [
               </div>
             </dl>
 
-            <div class="mt-5">
-              <h4 class="text-sm font-semibold text-neutral-900">{t.openPositions.responsibilitiesHeading}</h4>
-              {/* TODO(careers-copy): replace placeholder bullets in
-                  /src/i18n/en.json once the hiring manager signs off. */}
-              <ul class="mt-2 list-disc space-y-1 ps-5 text-sm text-neutral-700">
-                {role.responsibilities.map((item) => <li>{item}</li>)}
-              </ul>
-            </div>
+            {role.responsibilities.length > 0 && (
+              <div class="mt-5">
+                <h4 class="text-sm font-semibold text-neutral-900">{t.openPositions.responsibilitiesHeading}</h4>
+                <ul class="mt-2 list-disc space-y-1 ps-5 text-sm text-neutral-700">
+                  {role.responsibilities.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
+            )}
 
-            <div class="mt-5">
-              <h4 class="text-sm font-semibold text-neutral-900">{t.openPositions.requirementsHeading}</h4>
-              <ul class="mt-2 list-disc space-y-1 ps-5 text-sm text-neutral-700">
-                {role.requirements.map((item) => <li>{item}</li>)}
-              </ul>
-            </div>
+            {role.requirements.length > 0 && (
+              <div class="mt-5">
+                <h4 class="text-sm font-semibold text-neutral-900">{t.openPositions.requirementsHeading}</h4>
+                <ul class="mt-2 list-disc space-y-1 ps-5 text-sm text-neutral-700">
+                  {role.requirements.map((item) => <li>{item}</li>)}
+                </ul>
+              </div>
+            )}
+
+            {role.responsibilities.length === 0 && role.requirements.length === 0 && (
+              <p class="mt-5 text-sm text-neutral-600">{t.openPositions.detailsOnRequest}</p>
+            )}
 
             <div class="mt-6 pt-2">
               <Button
