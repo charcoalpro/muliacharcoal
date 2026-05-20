@@ -4,12 +4,12 @@ import Logo from '~/components/layout/Logo.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
 import { company } from '~/config/company';
+import { headerNav } from '~/config/nav';
 
-const links = [
-  { href: '/about', label: en.nav.about },
-  { href: '/contact', label: en.nav.contact },
-  { href: '/products', label: en.nav.products },
-];
+// Render only links whose destination exists today. When `/products`
+// (or any other planned IA anchor) ships, add the route to LIVE_ROUTES
+// in src/config/nav.ts and it lights up here automatically.
+const links = headerNav.filter((l) => l.live);
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---

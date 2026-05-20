@@ -409,6 +409,37 @@ Arabic (`ar`) and Hebrew (`he`) require full RTL layout. This must be considered
 
 ---
 
+## Source-of-truth Conventions
+
+A small number of files act as single sources of truth for the rest of the codebase. Components, pages, and content files consume from these — they must never duplicate, hardcode, or shadow what these files already own.
+
+| Concern | Lives in | Rule |
+|---|---|---|
+| Company facts | `src/data/company.json` + `src/config/company.ts` (typed re-export, with `waLink()` / `mailto()` helpers) | All company facts — name, address, contact, MOQ, port, founding year, NIB, tax ID, capacity, executives, certifications. The JSON is edited via Sveltia CMS at `/admin/`; the TS module enforces shape. |
+| Navigation structure | `src/config/nav.ts` | Header + footer link arrays with a `live: boolean` flag. New pillar pages land here, and the `live` flag controls whether the link renders or is suppressed to avoid 404s. |
+| Active locales | `src/config/i18n.ts` | `LOCALES` (all planned), `ACTIVE_LOCALES` (currently shipping), `localeOgMap`, `localeDir`, `localePath`. SEO and BaseLayout consume from here. |
+| UI strings | `src/i18n/<locale>/<feature>.json`, merged via `src/i18n/<locale>/index.ts` | UI strings only — labels, headings, microcopy. **No business data, no URLs, no company facts.** |
+| JSON-LD schema | `src/lib/schema/<type>.ts` (per-type modules) | Organization, Website, Breadcrumb, FAQPage, JobPosting, LocalBusiness, etc. Pages call builders; pages never construct schema literals. |
+| URL helpers | `src/lib/url.ts` (`siteOrigin`, `absoluteUrl`) | Contact-link builders (`waLink`, `mailto`) live in `src/config/company.ts` because they bind to facts there. |
+| Analytics | `src/lib/analytics.ts` (`track()`) + `src/components/seo/Analytics.astro` (sitewide click delegation) | Components emit events via `data-event="..."` attributes; non-click events call `track()` directly. |
+| Token interpolation in prose | `src/lib/interpolate.ts` (`fill()` + `companyTokens()`) | i18n strings use `{{tokenName}}` placeholders that `fill()` substitutes from the canonical token dictionary. Keeps facts in `company.ts`, copy in i18n. |
+| LLM citation facts | `public/llm.txt` | Mirrors the canonical company facts in a format generative engines can cite. Update when `src/data/company.json` changes. |
+
+### Rules
+
+1. **Never hardcode a company fact** outside `src/data/company.json` / `src/config/company.ts`. Grepping for the real phone, address, NIB, or tax ID should return zero hits anywhere else.
+2. **Never write a JSON-LD literal** (`"@context": "https://schema.org"`) outside `src/lib/schema/`. Build it via the per-type helpers.
+3. **Never iterate over hardcoded nav arrays** in a component. Import from `src/config/nav.ts`; filter by `live` to suppress 404s.
+4. **Never put business data in i18n.** Address, SKU numbers, port names → `company.ts`. Translatable labels and microcopy → `src/i18n/<locale>/<feature>.json`.
+5. **Never fire analytics directly** from a component. Either add a `data-event` attribute (preferred) or import `track` from `src/lib/analytics.ts`.
+6. **Never add a locale's routes** without registering the code in `src/config/i18n.ts` `ACTIVE_LOCALES` first — `<SEO>` reads its hreflang list from there.
+
+### When a new convention emerges
+
+If a class of value or behavior keeps reappearing in components, promote it to a source-of-truth module before it leaks into multiple files. Update this table and add a rule. The cost of an extra module is small; the cost of drift across pages is significant.
+
+---
+
 ## Component Build Order (Recommendation)
 
 Build in this order, and create a visual test page for each as you go (at `/dev/components` — a page that shows every variant of every component, for design QA):
