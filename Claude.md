@@ -353,4 +353,5 @@ Apply sitewide:
 - Do not hide primary content behind tabs, accordions, or modals that require JS to reveal (hurts GEO and accessibility).
 - Do not create orphan pages (pages with no incoming internal links from the permanent site structure).
 - Do not use `any` generic image/video placeholders from external CDNs that could be taken down; use local placeholders in `/src/assets/placeholders/`.
+Do not hardcode company facts (name, address, contact, MOQ, port, founding year) in any component, page, or content file. All such values must be imported from /src/config/company.ts. If a value is missing from that file, add it there first, then use it.
 ```

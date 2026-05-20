@@ -4,6 +4,8 @@ import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import Prose from '~/components/content/Prose.astro';
 import en from '~/i18n/en.json';
+import { siteOrigin } from '~/lib/url';
+import { buildWebPage } from '~/lib/schema';
 
 const entry = await getEntry('legal', 'privacy-policy');
 if (!entry) {
@@ -14,8 +16,7 @@ const { Content, headings } = await render(entry);
 const { title, description, lastUpdated, datePublished } = entry.data;
 
 const path = '/privacy-policy';
-const siteOrigin = Astro.site ? Astro.site.toString().replace(/\/$/, '') : 'https://muliacharcoal.com';
-const absoluteUrl = `${siteOrigin}${path}`;
+const origin = siteOrigin(Astro.site);
 
 const isoModified = lastUpdated.toISOString().split('T')[0];
 const isoPublished = (datePublished ?? lastUpdated).toISOString().split('T')[0];
@@ -28,20 +29,15 @@ const lastUpdatedFormatted = lastUpdated.toLocaleDateString('en-GB', {
 // Top-level sections only: H2s from the demoted body. H3/H4 stay out of the TOC.
 const tocItems = headings.filter((h) => h.depth === 2);
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebPage',
-  '@id': `${absoluteUrl}#webpage`,
-  url: absoluteUrl,
-  name: title,
+const schema = buildWebPage({
+  siteOrigin: origin,
+  path,
+  title,
   description,
-  inLanguage: 'en',
+  lang: 'en',
   dateModified: isoModified,
   datePublished: isoPublished,
-  isPartOf: { '@id': `${siteOrigin}/#website` },
-  about: { '@id': `${siteOrigin}/#organization` },
-  publisher: { '@id': `${siteOrigin}/#organization` },
-};
+});
 ---
 <BaseLayout
   title={`${title} — ${en.site.name}`}

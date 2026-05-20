@@ -32,37 +32,26 @@
     "viewProducts": "View products",
     "backHome": "Back to home"
   },
+  "home": {
+    "metaDescription": "Coconut shell shisha charcoal briquettes from Semarang, Indonesia. Factory-direct, MOQ {moqTons} tons (one {moqContainer}). Full export documentation and consistent burn specifications."
+  },
   "hero": {
     "eyebrow": "Factory-direct coconut shell charcoal",
     "title": "Shisha charcoal briquettes for importers who run the numbers",
-    "subtitle": "18-ton container loads from our Semarang factory. Full export documentation, consistent burn specifications, and samples you can verify in the lab before you commit.",
+    "subtitle": "{moqTons}-ton container loads from our Semarang factory. Full export documentation, consistent burn specifications, and samples you can verify in the lab before you commit.",
     "trust": {
       "moqLabel": "Minimum order",
-      "moqValue": "18 tons (one 20ft container)",
       "portLabel": "Port of loading",
-      "portValue": "FOB Semarang, Indonesia",
-      "leadLabel": "Production lead time",
-      "leadValue": "14–21 days"
+      "leadLabel": "Production lead time"
     }
   },
   "footer": {
-    "logoTagline1": "PT Coco Reina Global Charcoal Indonesia",
-    "logoTagline2": "ISO 9001 Certified Shisha Charcoal Manufacturer in Indonesia",
+    "logoTagline": "{certifications} Certified Shisha Charcoal Manufacturer in Indonesia",
     "addressHeading": "Factory address",
-    "address": {
-      "companyName": "PT Coco Reina Global Charcoal Indonesia",
-      "street": "Jl. Mayor Unus KM 1.5",
-      "city": "Mertoyudan, Magelang 56172",
-      "country": "Central Java, Indonesia"
-    },
     "googleMaps": "View on Google Maps",
     "emailLabel": "Email",
-    "email": "export@charcoal.pro",
     "phoneLabel": "Phone",
-    "phone": "+62 821 287 68 545",
     "hoursHeading": "Working hours",
-    "hoursWeekdays": "Monday – Saturday 08:00 – 16:00 (GMT+7)",
-    "hoursSunday": "Sunday closed",
     "online": "We're on WhatsApp",
     "companyHeading": "Company",
     "operationsHeading": "Products & operations",
@@ -85,13 +74,13 @@
     },
     "llmTxt": "llm.txt",
     "description": {
-      "label": "About PT Coco Reina Global Charcoal Indonesia",
-      "p1Prefix": "PT Coco Reina Global Charcoal Indonesia, working under the registered brand ",
+      "label": "About {legalName}",
+      "p1Prefix": "{legalName}, working under the registered brand ",
       "p1Brand": "muliacharcoal.com",
       "p1Suffix": ", is an Indonesian direct manufacturer and wholesale exporter of 100% natural coconut shell charcoal briquettes specifically engineered for shisha and hookah applications.",
-      "p2": "Officially established in 2018 (Company Registration NIB: 0220001680488, National Tax ID: 94.608.951.3-524.000) with its primary manufacturing facility located at Jl. Mayor Unus KM 1.5, Magelang, Central Java, Indonesia, the company sustains a production capacity of 12 tons per day.",
-      "p3": "Operating under the executive direction of Wilson Gosalim, Henry Gosalim, Gatot Wibowo, and charcoal expert Greg Ryabtsev.",
-      "p4": "The factory is certified by ISO 9001:2015 standards (audit by Carsurin & Backjorindo laboratoires). We ensure uncompromising compliance with global maritime logistics, strictly adhering to IMDG Code UN 1361 Class 4.2 spontaneous combustion safety protocols, independent Self-Heating Tests (SHT), and the provision of fully authenticated Preferential Certificates of Origin for international container shipping."
+      "p2": "Officially established in {foundedYear} (Company Registration NIB: {nib}, National Tax ID: {taxId}) with its primary manufacturing facility located at {fullAddress}, the company sustains a production capacity of {capacityTonsPerDay} tons per day.",
+      "p3": "Operating under the executive direction of {executives}.",
+      "p4": "The factory is certified by {certifications} standards (audit by {certificationAudits}). We ensure uncompromising compliance with global maritime logistics, strictly adhering to IMDG Code UN 1361 Class 4.2 spontaneous combustion safety protocols, independent Self-Heating Tests (SHT), and the provision of fully authenticated Preferential Certificates of Origin for international container shipping."
     },
     "copyright": "All rights reserved."
   },

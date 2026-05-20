@@ -1,43 +1,9 @@
 ---
 import JsonLd from './JsonLd.astro';
-import en from '~/i18n/en.json';
+import { siteOrigin } from '~/lib/url';
+import { buildOrgGraph } from '~/lib/schema';
 
-const siteBase = (Astro.site?.toString() ?? 'https://muliacharcoal.com').replace(/\/$/, '');
-
-const data = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${siteBase}/#organization`,
-      name: en.site.name,
-      legalName: en.footer.address.companyName,
-      url: siteBase,
-      logo: {
-        '@type': 'ImageObject',
-        url: `${siteBase}/logo.png`,
-      },
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: `${en.footer.address.street}, Mertoyudan`,
-        addressLocality: 'Magelang',
-        addressRegion: 'Central Java',
-        postalCode: '56172',
-        addressCountry: 'ID',
-      },
-      email: en.footer.email,
-      telephone: en.footer.phone,
-      sameAs: [],
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${siteBase}/#website`,
-      url: siteBase,
-      name: en.site.name,
-      publisher: { '@id': `${siteBase}/#organization` },
-      inLanguage: 'en',
-    },
-  ],
-};
+const origin = siteOrigin(Astro.site);
+const data = buildOrgGraph(origin, 'en');
 ---
 <JsonLd data={data} />

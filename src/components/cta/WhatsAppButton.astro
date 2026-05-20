@@ -1,24 +1,22 @@
 ---
 import en from '~/i18n/en.json';
-import { WHATSAPP_PHONE, WHATSAPP_DEFAULT_MESSAGE, whatsappHref } from '~/lib/contact';
+import { company } from '~/config/company';
+import { whatsappHref } from '~/lib/url';
 
 interface Props {
+  /** WhatsApp number in E.164 without the leading + (wa.me format). Defaults to company.whatsappE164. */
   phone?: string;
   message?: string;
   floating?: boolean;
 }
 
 const {
-  phone = WHATSAPP_PHONE,
-  message = WHATSAPP_DEFAULT_MESSAGE,
+  phone = company.whatsappE164,
+  message = company.whatsappDefaultMessage,
   floating = false,
 } = Astro.props;
 
-// Use helper when defaults apply; otherwise build manually to honor overrides.
-const href =
-  phone === WHATSAPP_PHONE
-    ? whatsappHref(message)
-    : `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+const href = whatsappHref(phone, message);
 ---
 <a
   href={href}

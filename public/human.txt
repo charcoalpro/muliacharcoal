@@ -1,0 +1,9 @@
+/* TEAM */
+Site: Mulia Charcoal (muliacharcoal.com)
+Company: PT Coco Reina Global Charcoal Indonesia
+Contact: export@charcoal.pro
+
+/* SITE */
+Standards: HTML5, CSS3 (Tailwind), TypeScript
+Framework: Astro (static)
+Hosting: Cloudflare Pages

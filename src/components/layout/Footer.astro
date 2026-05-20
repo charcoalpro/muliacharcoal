@@ -2,54 +2,75 @@
 import en from '~/i18n/en.json';
 import Logo from '~/components/layout/Logo.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
+import { company, companyDerived } from '~/config/company';
+import { footerCompanyNav, footerOperationsNav, footerLegalNav, resolveLabel } from '~/config/nav';
+import { telHref, mailtoHref } from '~/lib/url';
+import { format } from '~/lib/format';
 
 const year = new Date().getFullYear();
+const phoneHref = telHref(company.phoneDisplay);
+const emailHref = mailtoHref(company.email);
 
-// Strip non-digits (keep leading +) for the tel: scheme.
-const phoneHref = 'tel:' + en.footer.phone.replace(/[^\d+]/g, '');
-const emailHref = 'mailto:' + en.footer.email;
-const googleMapsUrl = 'https://maps.app.goo.gl/SAcfhq4ypCud6HqQA';
+// Tokens for prose substitution. Keeps translatable copy in i18n while
+// pulling the embedded facts from config/company.ts.
+const tokens = {
+  legalName: company.legalName,
+  foundedYear: company.foundedYear,
+  nib: company.nib,
+  taxId: company.taxId,
+  fullAddress: companyDerived.fullAddress,
+  capacityTonsPerDay: company.capacityTonsPerDay,
+  executives: companyDerived.executivesDisplay,
+  certifications: companyDerived.certificationsDisplay,
+  certificationAudits: companyDerived.certificationAudits,
+};
+
+const logoTagline = format(en.footer.logoTagline, tokens);
+const descriptionLabel = format(en.footer.description.label, tokens);
+const p1Prefix = format(en.footer.description.p1Prefix, tokens);
+const p1Suffix = format(en.footer.description.p1Suffix, tokens);
+const p2 = format(en.footer.description.p2, tokens);
+const p3 = format(en.footer.description.p3, tokens);
+const p4 = format(en.footer.description.p4, tokens);
 
 const linkCls =
   'rounded-sm text-neutral-600 transition-colors hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary';
 const listLinkCls = linkCls + ' inline-block min-h-11 py-2.5 md:min-h-0';
 
-// TODO(jobs): create /jobs page before launching the jobs section.
-const companyLinks = [
-  { href: '/about', label: en.footer.links.about },
-  { href: '/contact', label: en.footer.links.contact },
-  { href: '/glossary', label: en.footer.links.glossary },
-  { href: '/jobs', label: en.footer.links.jobs },
-];
-
-const operationsLinks = [
-  { href: '/products', label: en.footer.links.products },
-  { href: '/logistics', label: en.footer.links.logistics },
-  { href: '/samples', label: en.footer.links.samples },
-  { href: '/quality', label: en.footer.links.quality },
-  { href: '/quality/certifications', label: en.footer.links.certificates },
-];
+const companyLinks = footerCompanyNav.map((item) => ({
+  href: item.href,
+  label: resolveLabel(item.labelKey),
+}));
+const operationsLinks = footerOperationsNav.map((item) => ({
+  href: item.href,
+  label: resolveLabel(item.labelKey),
+}));
+// Legal links — only render entries whose destination page exists, so we
+// don't ship 404s on every page (audit finding #9).
+const legalLinks = footerLegalNav
+  .filter((item) => item.live)
+  .map((item) => ({ href: item.href, label: resolveLabel(item.labelKey) }));
 ---
 <footer class="border-t border-neutral-200 bg-neutral-50">
   <div class="mx-auto max-w-7xl px-4 py-12 md:px-8 md:py-16">
     <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
       <div>
         <Logo />
-        <p class="mt-4 text-sm font-medium text-neutral-800">{en.footer.logoTagline1}</p>
-        <p class="mt-1 text-sm text-neutral-600">{en.footer.logoTagline2}</p>
+        <p class="mt-4 text-sm font-medium text-neutral-800">{company.legalName}</p>
+        <p class="mt-1 text-sm text-neutral-600">{logoTagline}</p>
       </div>
 
       <div class="space-y-4 text-sm">
         <div>
           <h2 class="text-sm font-semibold text-neutral-900">{en.footer.addressHeading}</h2>
           <address class="mt-2 not-italic text-neutral-600">
-            <p class="font-medium text-neutral-800">{en.footer.address.companyName}</p>
-            <p>{en.footer.address.street}</p>
-            <p>{en.footer.address.city}</p>
-            <p>{en.footer.address.country}</p>
+            <p class="font-medium text-neutral-800">{company.legalName}</p>
+            <p>{company.address.street}</p>
+            <p>{companyDerived.cityLine}</p>
+            <p>{companyDerived.regionLine}</p>
           </address>
           <a
-            href={googleMapsUrl}
+            href={company.googleMapsUrl}
             target="_blank"
             rel="noopener"
             data-event="outbound_click"
@@ -65,18 +86,18 @@ const operationsLinks = [
         <dl class="space-y-1">
           <div class="flex gap-2">
             <dt class="text-neutral-500">{en.footer.emailLabel}:</dt>
-            <dd><a href={emailHref} class={linkCls}>{en.footer.email}</a></dd>
+            <dd><a href={emailHref} class={linkCls}>{company.email}</a></dd>
           </div>
           <div class="flex gap-2">
             <dt class="text-neutral-500">{en.footer.phoneLabel}:</dt>
-            <dd><a href={phoneHref} class={linkCls}>{en.footer.phone}</a></dd>
+            <dd><a href={phoneHref} class={linkCls}>{company.phoneDisplay}</a></dd>
           </div>
         </dl>
 
         <div>
           <h2 class="text-sm font-semibold text-neutral-900">{en.footer.hoursHeading}</h2>
-          <p class="mt-2 text-neutral-600">{en.footer.hoursWeekdays}</p>
-          <p class="text-neutral-600">{en.footer.hoursSunday}</p>
+          <p class="mt-2 text-neutral-600">{company.hoursWeekdays}</p>
+          <p class="text-neutral-600">{company.hoursSunday}</p>
         </div>
 
         <OnlineIndicator label={en.footer.online} class="pt-1" />
@@ -101,33 +122,33 @@ const operationsLinks = [
       </nav>
     </div>
 
-    <div class="mt-12 border-t border-neutral-200 pt-8">
-      <nav aria-label={en.footer.legalHeading}>
-        <ul class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-600">
-          <li><a href="/privacy-policy" class={linkCls}>{en.footer.legal.privacy}</a></li>
-          <li aria-hidden="true" class="text-neutral-400">·</li>
-          <li><a href="/terms" class={linkCls}>{en.footer.legal.terms}</a></li>
-          <li aria-hidden="true" class="text-neutral-400">·</li>
-          <li><a href="/cookies" class={linkCls}>{en.footer.legal.cookies}</a></li>
-        </ul>
-      </nav>
-      <p class="mt-3 text-xs">
-        <a href="/llm.txt" class={linkCls}>{en.footer.llmTxt}</a>
-      </p>
-    </div>
+    {legalLinks.length > 0 && (
+      <div class="mt-12 border-t border-neutral-200 pt-8">
+        <nav aria-label={en.footer.legalHeading}>
+          <ul class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-600">
+            {legalLinks.map((link, idx) => (
+              <>
+                {idx > 0 && <li aria-hidden="true" class="text-neutral-400">·</li>}
+                <li><a href={link.href} class={linkCls}>{link.label}</a></li>
+              </>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    )}
 
     <section aria-labelledby="company-description-heading" class="mt-8 space-y-3 text-xs leading-relaxed text-neutral-500">
-      <h2 id="company-description-heading" class="sr-only">{en.footer.description.label}</h2>
+      <h2 id="company-description-heading" class="sr-only">{descriptionLabel}</h2>
       <p>
-        {en.footer.description.p1Prefix}<strong class="font-semibold text-neutral-700">{en.footer.description.p1Brand}</strong>{en.footer.description.p1Suffix}
+        {p1Prefix}<strong class="font-semibold text-neutral-700">{en.footer.description.p1Brand}</strong>{p1Suffix}
       </p>
-      <p>{en.footer.description.p2}</p>
-      <p>{en.footer.description.p3}</p>
-      <p>{en.footer.description.p4}</p>
+      <p>{p2}</p>
+      <p>{p3}</p>
+      <p>{p4}</p>
     </section>
 
     <p class="mt-8 border-t border-neutral-200 pt-6 text-xs text-neutral-500">
-      &copy; {year} {en.footer.address.companyName}. {en.footer.copyright}
+      &copy; {year} {company.legalName}. {en.footer.copyright}
     </p>
   </div>
 </footer>

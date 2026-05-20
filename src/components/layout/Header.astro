@@ -3,13 +3,12 @@ import en from '~/i18n/en.json';
 import Logo from '~/components/layout/Logo.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
+import { headerNav, resolveLabel } from '~/config/nav';
 
-// "Price" routes to /products per product-pricing decision (TODO: dedicated /pricing page later).
-const links = [
-  { href: '/about', label: en.nav.about },
-  { href: '/contact', label: en.nav.contact },
-  { href: '/products', label: en.nav.price },
-];
+const links = headerNav.map((item) => ({
+  href: item.href,
+  label: resolveLabel(item.labelKey),
+}));
 
 const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---

@@ -1,5 +1,7 @@
 ---
 import en from '~/i18n/en.json';
+import { siteOrigin, canonicalUrl, absoluteUrl } from '~/lib/url';
+import { activeLanguages, pathForLanguage, DEFAULT_LANGUAGE } from '~/config/i18n';
 
 interface Props {
   title: string;
@@ -21,23 +23,14 @@ const {
   noIndex = false,
 } = Astro.props;
 
-const siteBase = (Astro.site?.toString() ?? 'https://muliacharcoal.com').replace(/\/$/, '');
-
-const normalizePath = (p: string) => {
-  if (p === '/' || p === '') return '';
-  return '/' + p.replace(/^\/+/, '').replace(/\/+$/, '');
-};
-
-const canonical = `${siteBase}${normalizePath(path)}` || siteBase;
-const ogImage = image
-  ? (image.startsWith('http') ? image : `${siteBase}${image}`)
-  : null;
+const origin = siteOrigin(Astro.site);
+const canonical = canonicalUrl(origin, path);
+const ogImage = absoluteUrl(origin, image);
 
 const fullTitle = title.includes(en.site.name) ? title : `${title} | ${en.site.name}`;
 
-const languages: Array<{ code: string; path: string }> = [
-  { code: 'en', path },
-];
+const langs = activeLanguages();
+const defaultPath = pathForLanguage(DEFAULT_LANGUAGE, path);
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
@@ -60,7 +53,11 @@ const languages: Array<{ code: string; path: string }> = [
 <meta name="twitter:description" content={description} />
 {ogImage && <meta name="twitter:image" content={ogImage} />}
 
-{languages.map((lang) => (
-  <link rel="alternate" hreflang={lang.code} href={`${siteBase}${normalizePath(lang.path)}`} />
+{langs.map((lang) => (
+  <link
+    rel="alternate"
+    hreflang={lang.code}
+    href={canonicalUrl(origin, pathForLanguage(lang.code, path))}
+  />
 ))}
-<link rel="alternate" hreflang="x-default" href={canonical} />
+<link rel="alternate" hreflang="x-default" href={canonicalUrl(origin, defaultPath)} />

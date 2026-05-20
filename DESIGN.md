@@ -409,6 +409,36 @@ Arabic (`ar`) and Hebrew (`he`) require full RTL layout. This must be considered
 
 ---
 
+## Source-of-truth Conventions
+
+The codebase has a small number of files that act as single sources of truth. Every component, page, and content file consumes from these — they must never duplicate, hardcode, or shadow what these files already own. If a value needs to live in a component, it goes through one of these modules first.
+
+| Concern | Lives in | Rule |
+|---|---|---|
+| Company facts | `src/config/company.ts` | Name, legal name, address, contacts, MOQ, port, founding year, NIB, tax ID, capacity, executives, certifications. Nothing else may hardcode these. |
+| Navigation structure | `src/config/nav.ts` | Header and footer link arrays, with a typed `labelKey` and a `live` flag. New pillar pages land here; Header/Footer iterate. |
+| Active languages | `src/config/i18n.ts` | The `LANGUAGES` registry with `code`, `locale`, `dir`, `label`, `active`. `<SEO>` derives hreflang and `<BaseLayout>` derives `dir`/`locale` from it. |
+| UI strings | `src/i18n/<lang>.json` (resolved via `src/i18n/index.ts`) | UI strings only — labels, headings, microcopy. **No business data, no URLs, no company facts.** Resolve via `t('key.path')` for type-checked lookups. |
+| JSON-LD schema | `src/lib/schema.ts` | Organization, Website, Breadcrumb, WebPage, Product, Article, FAQPage builders. Pages call builders; pages never construct schema literals. |
+| URL helpers | `src/lib/url.ts` | `siteOrigin`, `canonicalUrl`, `normalizePath`, `absoluteUrl`, `whatsappHref`, `telHref`, `mailtoHref`. Stops every page re-implementing trailing-slash logic. |
+| Analytics | `src/lib/analytics.ts` | `trackEvent(name, params)` fans out to GA4 + Meta Pixel. Components emit events via `data-event="..."` attributes; click delegation is centralized. |
+| Translatable prose with embedded facts | i18n string with `{token}` placeholders + `src/lib/format.ts` | The string lives in i18n (translatable), the facts live in `company.ts`. Substitution happens at render time. |
+
+### Rules
+
+1. **Never hardcode a company fact** outside `src/config/company.ts`. CI / pre-merge review should grep for the real phone, address, NIB, or tax ID and reject hits anywhere else.
+2. **Never write a JSON-LD literal** (anything containing `"@context": "https://schema.org"`) outside `src/lib/schema.ts`. Build it via the helpers.
+3. **Never iterate over hardcoded nav arrays** in a component. Always import from `src/config/nav.ts`.
+4. **Never put business data in i18n.** If the value is the same in every language (an address, an SKU number, a port name), it belongs in `company.ts`. If the value is a translation of a label or microcopy, it belongs in `src/i18n/<lang>.json`.
+5. **Never fire analytics directly** from a component (no inline `gtag()` calls, no `fbq()` calls). Either add a `data-event` attribute (preferred — works without JS imports) or import `trackEvent` from `src/lib/analytics.ts`.
+6. **Never add a language route** without registering the language in `src/config/i18n.ts` first.
+
+### When a new convention emerges
+
+If a class of value or behavior keeps reappearing in components, promote it to a source-of-truth module before it leaks into multiple files. Update this table and add a rule. The cost of an extra module is small; the cost of drift across pages is significant.
+
+---
+
 ## Component Build Order (Recommendation)
 
 Build in this order, and create a visual test page for each as you go (at `/dev/components` — a page that shows every variant of every component, for design QA):
