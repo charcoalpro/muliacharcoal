@@ -9,10 +9,18 @@
  * `/public/gallery/<id>.avif` (and matching .webp / .jpg fallbacks)
  * AND the YouTube IDs are real, flip `hasAssets` to `true`.
  *
- * Alt text pattern: "{what is happening} at PT Coco Reina Global
- * Charcoal Indonesia factory in Semarang — {YYYY-MM}". Every alt is
- * unique and contextual; never "factory photo" or "image".
+ * Alt text pattern: "{what is happening} at {legalName} factory in
+ * {city} — {YYYY-MM}". Every alt is unique and contextual; never
+ * "factory photo" or "image". Company-fact tokens (legalName, brand,
+ * city) are interpolated from `~/config/company` so a rebrand or
+ * legal-name change updates every alt string automatically.
  */
+
+import { company } from '~/config/company';
+
+const legalName = company.legalName;
+const brand = company.brand;
+const city = company.address.city;
 
 export interface GalleryPhoto {
   type: 'photo';
@@ -50,6 +58,7 @@ export interface GalleryVideo {
 export type GalleryItem = GalleryPhoto | GalleryVideo;
 
 const SHARED_DATE = '2026-04-25';
+const SHARED_MONTH_LABEL = SHARED_DATE.slice(0, 7);
 
 /**
  * Set to `true` once the 9 photos exist at /public/gallery/<id>.* and
@@ -68,7 +77,7 @@ const factoryPhotos: GalleryPhoto[] = [
     id: 'factory-production-line',
     contentPath: '/gallery/factory-production-line.avif',
     thumbnailPath: '/gallery/factory-production-line-thumb.avif',
-    alt: 'Workers operating the briquetting extrusion line at PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
+    alt: `Workers operating the briquetting extrusion line at ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
     caption: 'Briquetting extrusion line in operation',
     datePublished: SHARED_DATE,
     aspect: '4/3',
@@ -78,7 +87,7 @@ const factoryPhotos: GalleryPhoto[] = [
     id: 'factory-kiln',
     contentPath: '/gallery/factory-kiln.avif',
     thumbnailPath: '/gallery/factory-kiln-thumb.avif',
-    alt: 'Carbonization kiln being charged with coconut shells at PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
+    alt: `Carbonization kiln being charged with coconut shells at ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
     caption: 'Carbonization kiln charging',
     datePublished: SHARED_DATE,
     aspect: '4/3',
@@ -88,7 +97,7 @@ const factoryPhotos: GalleryPhoto[] = [
     id: 'factory-press',
     contentPath: '/gallery/factory-press.avif',
     thumbnailPath: '/gallery/factory-press-thumb.avif',
-    alt: 'Briquetting press shaping 25-millimetre coconut charcoal cubes at PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
+    alt: `Briquetting press shaping 25-millimetre coconut charcoal cubes at ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
     caption: 'Briquetting press — 25 mm cubes',
     datePublished: SHARED_DATE,
     aspect: '4/3',
@@ -98,7 +107,7 @@ const factoryPhotos: GalleryPhoto[] = [
     id: 'factory-milling',
     contentPath: '/gallery/factory-milling.avif',
     thumbnailPath: '/gallery/factory-milling-thumb.avif',
-    alt: 'Coconut shell charcoal milling and grading station at PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
+    alt: `Coconut shell charcoal milling and grading station at ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
     caption: 'Coconut shell charcoal milling',
     datePublished: SHARED_DATE,
     aspect: '4/3',
@@ -108,7 +117,7 @@ const factoryPhotos: GalleryPhoto[] = [
     id: 'factory-drying',
     contentPath: '/gallery/factory-drying.avif',
     thumbnailPath: '/gallery/factory-drying-thumb.avif',
-    alt: 'Drying tunnel exit with stacked briquette trays at PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
+    alt: `Drying tunnel exit with stacked briquette trays at ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
     caption: 'Drying tunnel exit',
     datePublished: SHARED_DATE,
     aspect: '4/3',
@@ -118,7 +127,7 @@ const factoryPhotos: GalleryPhoto[] = [
     id: 'factory-qc-bench',
     contentPath: '/gallery/factory-qc-bench.avif',
     thumbnailPath: '/gallery/factory-qc-bench-thumb.avif',
-    alt: 'Quality-control technician running a moisture and ash burn test on a finished cube at PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
+    alt: `Quality-control technician running a moisture and ash burn test on a finished cube at ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
     caption: 'QC bench — moisture and ash burn test',
     datePublished: SHARED_DATE,
     aspect: '4/3',
@@ -131,8 +140,8 @@ const containerPhotos: GalleryPhoto[] = [
     id: 'container-exterior',
     contentPath: '/gallery/container-exterior.avif',
     thumbnailPath: '/gallery/container-exterior-thumb.avif',
-    alt: 'Twenty-foot shipping container with the Mulia Charcoal stencil parked at the loading bay of PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
-    caption: '20-ft container with Mulia Charcoal stencil — pre-loading',
+    alt: `Twenty-foot shipping container with the ${brand} stencil parked at the loading bay of ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
+    caption: `20-ft container with ${brand} stencil — pre-loading`,
     datePublished: SHARED_DATE,
     aspect: '4/3',
   },
@@ -141,7 +150,7 @@ const containerPhotos: GalleryPhoto[] = [
     id: 'container-loading',
     contentPath: '/gallery/container-loading.avif',
     thumbnailPath: '/gallery/container-loading-thumb.avif',
-    alt: 'Workers manually stacking master cartons of coconut shisha charcoal mid-load at PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
+    alt: `Workers manually stacking master cartons of coconut shisha charcoal mid-load at ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
     caption: 'Manual loading mid-process — master cartons',
     datePublished: SHARED_DATE,
     aspect: '4/3',
@@ -151,7 +160,7 @@ const containerPhotos: GalleryPhoto[] = [
     id: 'container-sealed',
     contentPath: '/gallery/container-sealed.avif',
     thumbnailPath: '/gallery/container-sealed-thumb.avif',
-    alt: 'Sealed twenty-foot container with the customs seal number visible, ready for trucking from PT Coco Reina Global Charcoal Indonesia factory in Semarang — 2026-04.',
+    alt: `Sealed twenty-foot container with the customs seal number visible, ready for trucking from ${legalName} factory in ${city} — ${SHARED_MONTH_LABEL}.`,
     caption: 'Sealed container — customs seal number visible',
     datePublished: SHARED_DATE,
     aspect: '4/3',
@@ -164,8 +173,7 @@ const videos: GalleryVideo[] = [
     id: 'video-container-loading',
     youtubeId: 'TODO_PLACEHOLDER_LOADING_VIDEO',
     title: 'Container loading time-lapse — full 18-ton FCL',
-    description:
-      'Vertical-phone time-lapse of a complete 18-ton 20-ft FCL load at the Mulia Charcoal factory in Semarang, Indonesia.',
+    description: `Vertical-phone time-lapse of a complete 18-ton 20-ft FCL load at the ${brand} factory in ${city}, Indonesia.`,
     durationISO: 'PT1M30S',
     uploadDate: 'TODO_PLACEHOLDER_DATE',
     aspect: '9/16',
@@ -175,8 +183,7 @@ const videos: GalleryVideo[] = [
     id: 'video-factory-walkthrough',
     youtubeId: 'TODO_PLACEHOLDER_WALK_VIDEO',
     title: 'Factory walkthrough — vertical phone tour',
-    description:
-      'Vertical-phone walkthrough of the briquetting and drying lines at the Mulia Charcoal factory in Semarang, Indonesia.',
+    description: `Vertical-phone walkthrough of the briquetting and drying lines at the ${brand} factory in ${city}, Indonesia.`,
     durationISO: 'PT2M00S',
     uploadDate: 'TODO_PLACEHOLDER_DATE',
     aspect: '9/16',

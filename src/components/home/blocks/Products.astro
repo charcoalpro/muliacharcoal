@@ -26,6 +26,7 @@ import { productShapes } from '~/config/products';
 const t = en.home.products;
 const formId = 'home-products-samples';
 const waNumber = company.whatsapp.e164Digits;
+const brand = company.brand;
 ---
 <section aria-labelledby="home-products-h2" class="bg-white">
   <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
@@ -51,6 +52,7 @@ const waNumber = company.whatsapp.e164Digits;
       method="get"
       data-products-samples
       data-wa-number={waNumber}
+      data-brand={brand}
       class="mt-10"
       novalidate
     >
@@ -91,12 +93,13 @@ const waNumber = company.whatsapp.e164Digits;
 
     var waNumber = form.dataset.waNumber;
     if (!waNumber) return;
+    var brand = form.dataset.brand || '';
 
     form.addEventListener('submit', function (e) {
       var fd = new FormData(form);
       var shapes = fd.getAll('shapes').filter(function (s) { return typeof s === 'string' && s.length > 0; });
       var summary = shapes.length > 0 ? shapes.join(', ') : 'all shapes';
-      var text = "Hello Mulia Charcoal — please send free samples of: " + summary + ". Sent from " + location.pathname + ".";
+      var text = "Hello " + brand + " — please send free samples of: " + summary + ". Sent from " + location.pathname + ".";
       var url = 'https://wa.me/' + waNumber + '?text=' + encodeURIComponent(text);
 
       e.preventDefault();
