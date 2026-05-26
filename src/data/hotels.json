@@ -1,58 +1,49 @@
 {
   "hotels": [
   {
-    "name": "TODO_PLACEHOLDER_GRAND_HOTEL_SEMARANG",
+    "name": "Grand Candi Hotel Semarang",
     "stars": 5,
-    "distanceKm": 8,
-    "driveTimeMinutes": 20,
-    "description": "Premium five-star hotel near downtown Semarang with executive lounge and airport shuttle.",
-    "website": "https://example.com/grand-hotel-semarang",
-    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_5_STAR_A"
+    "distanceKm": 0,
+    "driveTimeMinutes": 45,
+    "description": "Premium five-star hotel at Jl. Sisingamangaraja No.16, Semarang. Executive lounge, conference facilities, and English-speaking staff suitable for buyer meetings.",
+    "website": "https://grandcandihotel.com/",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Grand+Candi+Hotel+Semarang"
   },
   {
-    "name": "TODO_PLACEHOLDER_LUXE_TOWER_SEMARANG",
+    "name": "Hotel Ciputra Semarang",
     "stars": 5,
-    "distanceKm": 10,
-    "driveTimeMinutes": 25,
-    "description": "Five-star city tower with rooftop dining and conference facilities suitable for buyer meetings.",
-    "website": "https://example.com/luxe-tower-semarang",
-    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_5_STAR_B"
+    "distanceKm": 0,
+    "driveTimeMinutes": 50,
+    "description": "Five-star hotel at Simpang Lima with rooftop dining, meeting rooms, and reliable airport transfer arrangements.",
+    "website": "https://www.swiss-belhotel.com/hotels/hotel-ciputra-semarang",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel+Ciputra+Semarang"
   },
   {
-    "name": "TODO_PLACEHOLDER_BUSINESS_HOTEL_SEMARANG",
+    "name": "Patra Semarang Hotel & Convention",
     "stars": 4,
-    "distanceKm": 6,
-    "driveTimeMinutes": 15,
-    "description": "Four-star business hotel with reliable Wi-Fi, English-speaking staff, and walkable cafés.",
-    "website": "https://example.com/business-hotel-semarang",
-    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_4_STAR_A"
+    "distanceKm": 0,
+    "driveTimeMinutes": 45,
+    "description": "Four-star hotel on Jl. Sisingamangaraja with on-site convention facilities — popular for sample-evaluation visits.",
+    "website": "https://mypatrahotels.com/en/patra-jasa-hotel/hotel/patra-semarang",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Patra+Semarang+Hotel+%26+Convention"
   },
   {
-    "name": "TODO_PLACEHOLDER_CITY_INN_SEMARANG",
+    "name": "Hotel Santika Premiere Semarang",
     "stars": 4,
-    "distanceKm": 9,
-    "driveTimeMinutes": 22,
-    "description": "Four-star inn with on-site restaurant and complimentary breakfast — popular with returning buyers.",
-    "website": "https://example.com/city-inn-semarang",
-    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_4_STAR_B"
+    "distanceKm": 0,
+    "driveTimeMinutes": 55,
+    "description": "Four-star hotel on Jl. Pandanaran in central Semarang with reliable Wi-Fi and walkable cafés.",
+    "website": "https://www.mysantika.com/indonesia/banyumas/hotel-santika-premiere-semarang",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel+Santika+Premiere+Semarang"
   },
   {
-    "name": "TODO_PLACEHOLDER_BUDGET_LODGE_SEMARANG",
+    "name": "Hotel Neo Candi Simpang Lima Semarang",
     "stars": 3,
-    "distanceKm": 5,
-    "driveTimeMinutes": 12,
-    "description": "Three-star lodge close to the factory — clean rooms, basic amenities, friendly staff.",
-    "website": "https://example.com/budget-lodge-semarang",
-    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_3_STAR_A"
-  },
-  {
-    "name": "TODO_PLACEHOLDER_VALUE_INN_SEMARANG",
-    "stars": 3,
-    "distanceKm": 7,
-    "driveTimeMinutes": 18,
-    "description": "Three-star value inn with secure parking, suitable for short pre-shipment inspection trips.",
-    "website": "https://example.com/value-inn-semarang",
-    "mapsUrl": "https://maps.google.com/?q=TODO_PLACEHOLDER_HOTEL_3_STAR_B"
+    "distanceKm": 0,
+    "driveTimeMinutes": 45,
+    "description": "Three-star hotel on Jl. S. Parman — clean rooms, complimentary breakfast, suitable for short pre-shipment inspection trips.",
+    "website": "https://www.neohotels.com/id/hotel/view/6/hotel-neo-candi-simpang-lima-semarang",
+    "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Hotel+Neo+Candi+Simpang+Lima+Semarang"
   }
   ]
 }

@@ -244,10 +244,10 @@
       "handle": "",
       "url": ""
     },
-    "botim": "+6280000000010",
+    "botim": "",
     "max": "",
     "line": "",
-    "viber": "+6280000000011",
+    "viber": "",
     "zoom": {
       "schedulingUrl": ""
     },
@@ -349,7 +349,7 @@
       "lastReviewed": "2026-04-25"
     },
     "factChecker": {
-      "name": "TODO_PLACEHOLDER_QC_LEAD",
+      "name": "Teguh Pranomo",
       "role": "Quality Control Manager",
       "lastReviewed": "2026-04-25"
     }

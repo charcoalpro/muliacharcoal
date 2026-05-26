@@ -1,10 +1,10 @@
 {
   "people": [
   {
-    "name": "Wilson Gosalim",
+    "name": "Mohamad Sinno",
     "role": "Owner & Director",
-    "bio": null,
-    "email": "wilson@muliacharcoal.com",
+    "bio": "Mohamad Sinno was born in 1963 in Beirut, Lebanon. At the age of 20, he moved to Canada, where he worked in a shisha café and learned the business from the ground up. He later moved to Ivory Coast and opened around 20 shisha shops across the country. In 2015, he moved to Indonesia and founded a shisha charcoal factory. Today, he leads the production of high-quality shisha charcoal and is behind one of the first factories to achieve ISO certification, Halal certification, and patent-pending technology.",
+    "email": "mohamad@muliacharcoal.com",
     "phone": {
       "display": "+62 821 287 68 545",
       "e164": "+6282128768545"
@@ -12,45 +12,45 @@
     "whatsapp": {
       "e164Digits": "6282128768545",
       "display": "+62 821 287 68 545",
-      "preset": "Hello Mr. Gosalim — I am a wholesale buyer interested in your coconut shisha charcoal. Could we discuss specifications and pricing?"
+      "preset": "Hello Mr. Sinno — I am a wholesale buyer interested in your coconut shisha charcoal. Could we discuss specifications and pricing?"
     },
-    "linkedin": null,
-    "photo": "/team/wilson-gosalim.jpg",
-    "languages": ["English", "Bahasa Indonesia"],
+    "linkedin": "https://www.linkedin.com/in/mohamad-sinno",
+    "photo": null,
+    "languages": ["English", "Arabic", "French", "Bahasa Indonesia"],
     "displayIn": ["owner", "executive", "contact-team", "whatsapp-director"]
   },
   {
-    "name": "TODO_PLACEHOLDER_SALES_MANAGER",
+    "name": "Ahmet Bassam",
     "role": "Sales Manager",
-    "email": "sales@muliacharcoal.com",
+    "email": "export@muliacharcoal.com",
     "phone": {
-      "display": "+62 800 0000 0002",
-      "e164": "+6280000000002"
+      "display": "+62 811 879 7070",
+      "e164": "+628118797070"
     },
     "whatsapp": {
-      "e164Digits": "6280000000002",
-      "display": "+62 800 0000 0002",
+      "e164Digits": "628118797070",
+      "display": "+62 811 879 7070",
       "preset": "Hello, I am interested in placing a wholesale order for coconut shisha charcoal. Please share your latest price list and MOQ."
     },
     "photo": "/team/sales-manager.jpg",
-    "languages": ["English", "Mandarin", "Bahasa Indonesia"],
+    "languages": ["English", "Arabic", "Bahasa Indonesia"],
     "displayIn": ["contact-team", "whatsapp-sales"]
   },
   {
-    "name": "TODO_PLACEHOLDER_EXPORT_COORDINATOR",
+    "name": "Budi Darmawan",
     "role": "Export Coordinator",
     "email": "export.ops@muliacharcoal.com",
     "phone": {
-      "display": "+62 800 0000 0003",
-      "e164": "+6280000000003"
+      "display": "+62 853 2872 7291",
+      "e164": "+6285328727291"
     },
     "whatsapp": {
-      "e164Digits": "6280000000003",
-      "display": "+62 800 0000 0003",
+      "e164Digits": "6285328727291",
+      "display": "+62 853 2872 7291",
       "preset": "Hello, I have a question about export documentation and shipping for your coconut shisha charcoal. Could you assist?"
     },
     "photo": "/team/export-coordinator.jpg",
-    "languages": ["English", "Bahasa Indonesia", "Arabic"],
+    "languages": ["English", "Bahasa Indonesia"],
     "displayIn": ["contact-team"]
   },
   {
@@ -64,54 +64,49 @@
     "displayIn": ["executive"]
   },
   {
-    "name": "Greg Ryabtsev",
-    "role": "Charcoal Expert / Consultant",
-    "displayIn": ["executive"]
-  },
-  {
-    "name": "TODO_PLACEHOLDER_OPS_DIRECTOR",
+    "name": "Mohamad Sinno",
     "role": "Operational Director",
     "email": null,
     "phone": null,
     "displayIn": ["operations"]
   },
   {
-    "name": "TODO_PLACEHOLDER_QC_MANAGER",
+    "name": "Teguh Pranomo",
     "role": "Quality Control Manager",
     "email": null,
     "phone": null,
     "displayIn": ["operations"]
   },
   {
-    "name": "TODO_PLACEHOLDER_HEAD_FINANCE",
+    "name": "Kiki Marzuki",
     "role": "Head of Finance",
     "email": null,
     "phone": null,
     "displayIn": ["operations"]
   },
   {
-    "name": "TODO_PLACEHOLDER_HEAD_WAREHOUSE",
+    "name": "Daniel Basuki",
     "role": "Head of Warehouse",
     "email": null,
     "phone": null,
     "displayIn": ["operations"]
   },
   {
-    "name": "TODO_PLACEHOLDER_HEAD_PACKAGING",
+    "name": "Riki Dono",
     "role": "Head of Packaging",
     "email": null,
     "phone": null,
     "displayIn": ["operations"]
   },
   {
-    "name": "TODO_PLACEHOLDER_HEAD_CRUSHER",
+    "name": "Antony Tan",
     "role": "Head of Crusher Operations",
     "email": null,
     "phone": null,
     "displayIn": ["operations"]
   },
   {
-    "name": "TODO_PLACEHOLDER_HEAD_LOGISTICS",
+    "name": "Adi Budiman",
     "role": "Head of Logistics",
     "email": null,
     "phone": null,
