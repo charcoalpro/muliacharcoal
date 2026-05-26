@@ -10,4 +10,4 @@ Thumbs.db
 !.vscode/extensions.json
 .idea
 .cloudflare
-.claude/settings.local.json
+.claude/
