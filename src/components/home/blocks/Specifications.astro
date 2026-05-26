@@ -167,6 +167,15 @@ const glossaryItems = (t.glossary?.items ?? []).map((item) => ({
       items={glossaryItems}
       class="mt-16"
     />
+    <p class="mx-auto mt-6 max-w-3xl text-sm">
+      <a
+        href={en.home.faqTeaser.href}
+        class="font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+        data-source-component="home-specs-faq-teaser"
+      >
+        {en.home.faqTeaser.label} <span aria-hidden="true">→</span>
+      </a>
+    </p>
   </div>
 </section>
 

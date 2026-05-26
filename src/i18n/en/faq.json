@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "titleTemplate": "Shisha Charcoal FAQ: MOQ, Shipping, Payment, Specs — {{brand}}",
+    "descriptionTemplate": "Wholesale buyer FAQ from {{brand}}, {{port}}. {{moqLabel}}, {{paymentTerms}}, lead time {{leadTimeLabel}}, IMDG {{unNumber}}, OEM packaging, samples, and transit times to USA, UK, GCC, EU and CIS."
+  },
+
+  "breadcrumb": "FAQ",
+  "h1": "Buyer FAQ",
+  "introTemplate": "Cross-cutting questions a wholesale buyer asks before their first {{moqTons}}-ton container. Answer-first, with numbers. Specifications, payment process, shipping, samples, certifications, factory visits. If your question isn't here, send it on WhatsApp.",
+
+  "metaBlock": {
+    "authorRole": "Authored by",
+    "reviewerRole": "Reviewed by",
+    "factCheckerRole": "Fact-checked by",
+    "lastUpdatedLabel": "Last updated",
+    "readTimeLabel": "Reading time",
+    "readTimeValueTemplate": "{{minutes}} min"
+  },
+
+  "tocHeading": "Jump to a category",
+  "backToTopLabel": "Back to top",
+
+  "stillHaveQuestions": {
+    "heading": "Still have questions?",
+    "subtitleTemplate": "We answer wholesale inquiries within {{responseHours}} business hours in {{salesLanguages}}.",
+    "ctaWhatsapp": "Ask on WhatsApp",
+    "ctaInquiry": "Send a written inquiry",
+    "waPrefill": "Hello Mulia Charcoal — I have a question about a wholesale order of coconut shisha charcoal that wasn't covered in the FAQ. Could you help?"
+  },
+
+  "transitTable": {
+    "heading": "Indicative ocean transit from {{port}}",
+    "captionTemplate": "Indicative carrier transit from {{port}} (Tanjung Emas, IDSRG) by route. Figures vary by carrier, rotation, and season — confirmed on each booking.",
+    "destinationHeader": "Destination",
+    "portHeader": "Port (UN/LOCODE)",
+    "transitHeader": "Transit (days)"
+  },
+
+  "linkOuts": {
+    "heading": "Also covered in our glossary",
+    "intro": "These three questions live on the glossary so the term-definition stays the canonical answer. Tap through for the full breakdown.",
+    "items": [
+      {
+        "q": "Is hookah charcoal activated carbon?",
+        "summary": "Short answer: no. Shisha briquettes are pyrolyzed coconut shell carbon, not steam-activated adsorbent.",
+        "href": "/glossary#un-1361"
+      },
+      {
+        "q": "What does FOB {{port}} include and exclude?",
+        "summary": "Trucking to port, customs clearance, vanning and IMDG documentation are on us; freight, insurance, and destination clearance are on you.",
+        "href": "/glossary#fob"
+      },
+      {
+        "q": "Why does {{unNumber}} ship only in full containers (FCL)?",
+        "summary": "Class {{unClass}} self-heating substances require segregation, ventilation, and emergency response that LCL terminals cannot guarantee.",
+        "href": "/glossary#fcl-vs-lcl"
+      }
+    ]
+  },
+
+  "categories": [
+    {
+      "anchor": "ordering",
+      "heading": "Ordering & MOQ",
+      "items": [
+        {
+          "id": "minimum-order-quantity",
+          "q": "What is the minimum order quantity for shisha charcoal?",
+          "a": "The minimum order quantity is {{moqLabel}}. We load FOB {{port}} only — LCL is not available because {{unNumber}} Class {{unClass}} dangerous goods ship in full containers under a single Bill of Lading and a single Dangerous Goods Declaration. Inside that 20ft container you can mix shapes (cube, hexagonal, finger, dome, flat, lotus), sizes, and grades freely; what we cannot do is split a container across two buyers. See {{moqLabel}} in context at /glossary#fcl-vs-lcl."
+        },
+        {
+          "id": "mix-shapes-in-one-container",
+          "q": "Can I mix products, shapes, and grades inside one container?",
+          "a": "Yes — one 20ft FCL holds {{moqTons}} tons in any combination of our six shapes and three grades. Mixed loads are common for buyers building a multi-SKU retail line off a single shipment and do not affect per-ton pricing or lead time. The packing list itemizes each shape, size, grade, and inner/master-box count so your customs broker can map every SKU to its HS code."
+        },
+        {
+          "id": "how-to-place-an-order",
+          "q": "How do I place a wholesale order?",
+          "a": "Send a wholesale inquiry on WhatsApp or through the contact form with your destination port, shape and grade, and target volume in containers. We reply within {{responseHours}} business hours with a USD price list FOB {{port}}, current lead time, and a draft Proforma Invoice. Once you sign and return the PI we issue the deposit invoice — that triggers raw-material allocation and the production schedule."
+        },
+        {
+          "id": "manufacturer-or-trader",
+          "q": "Are you a manufacturer or a trading company?",
+          "a": "{{legalName}} is a registered manufacturer, not a trading company. We operate {{ovenCount}} carbonization ovens and {{productionLines}} briquetting lines in a single facility in {{city}}, {{region}}, producing {{capacityMonth}} tons per month under {{isoStandard}}. Our NIB ({{nib}}) and NPWP ({{taxId}}) are issued in the same legal name that signs your contract — the same name on your proforma invoice and Bill of Lading."
+        }
+      ]
+    },
+
+    {
+      "anchor": "payment",
+      "heading": "Pricing & Payment",
+      "items": [
+        {
+          "id": "payment-terms",
+          "q": "What are your payment terms?",
+          "a": "We accept T/T (telegraphic transfer) and L/C at sight in USD. The standard structure is {{paymentTerms}}: the advance triggers production and material allocation; the balance is settled before the container leaves {{port}}. Full banking details — bank name, branch, SWIFT, account number — arrive only on the proforma invoice issued to the confirmed buyer; they are not published. Background on the process at /glossary#tt-payment."
+        },
+        {
+          "id": "letter-of-credit",
+          "q": "Do you accept Letter of Credit (L/C)?",
+          "a": "Yes, we accept irrevocable L/C at sight from rated banks for orders of {{lcMinContainers}} or more 20ft containers. The L/C is issued against the Proforma Invoice and must permit FOB {{port}}, prohibit partial shipments, and accept the documentary set we issue (commercial invoice, packing list, B/L, COO, COA, SHT report, IMDG declaration). For multi-container monthly contracts we can structure the L/C across shipments — discuss with sales. Detail at /glossary#letter-of-credit."
+        },
+        {
+          "id": "price-basis",
+          "q": "On what basis are your prices quoted?",
+          "a": "Prices are quoted FOB {{port}}, {{country}}, in USD per metric ton. FOB ({{port}}) means we deliver to the rail of the vessel at Tanjung Emas: trucking to port, customs export clearance, IMDG documentation, vanning, and loading are on our side; ocean freight, insurance, destination clearance, and import duties are on yours. We can issue CIF or DAP quotes on request when your forwarder cannot book the freight leg. Detail at /glossary#fob."
+        }
+      ]
+    },
+
+    {
+      "anchor": "production",
+      "heading": "Production & Lead Time",
+      "items": [
+        {
+          "id": "production-capacity",
+          "q": "What is your production capacity per day?",
+          "a": "Daily production capacity is {{capacity}} tons of finished briquettes — roughly one 20ft container every working day. The plant runs {{ovenCount}} carbonization ovens (each {{ovenBatchTons}} tons per {{ovenCycleHours}}-hour cycle) and {{productionLines}} briquetting lines, totaling {{capacityMonth}} tons per month. Capacity is binder-cure paced, not press-paced, so the binder ratio holds constant across full-rate runs."
+        },
+        {
+          "id": "container-production-time",
+          "q": "How long does it take to produce one container?",
+          "a": "One 20ft FCL ({{moqTons}} tons) takes roughly 1.5 production days end-to-end, but real lead time is dominated by the binder cure and drying cycle, not press throughput. After the press, briquettes cure for 18–24 hours and dry for several days before QC and packing. We schedule the carrier booking in parallel so the container is ready on the agreed laycan."
+        },
+        {
+          "id": "total-lead-time",
+          "q": "What is the total lead time from deposit to shipment?",
+          "a": "Total lead time from cleared deposit to container leaving {{port}} is {{leadTimeLabel}}. Repeat orders with existing artwork load on the lower end ({{repeatBrandLeadTime}} days); first-time private-label orders with new print proofs run closer to {{newBrandLeadTime}} days because of the packaging-proof cycle. Lead time excludes ocean transit — see Indicative transit times further down this page."
+        }
+      ]
+    },
+
+    {
+      "anchor": "quality",
+      "heading": "Quality & Specifications",
+      "items": [
+        {
+          "id": "grades-offered",
+          "q": "What grades do you offer and how do they differ?",
+          "a": "We offer three grades: Premium (≥75% fixed carbon, 2.5–2.8% ash, 2+ hour burn at 600°C), Super Premium (≥80% fixed carbon, 2.0–2.5% ash, 2+ hours at 650°C), and Platinum (≥82% fixed carbon, 1.6–2.0% ash, 2.5+ hours at 680°C). All three are 100% natural coconut shell carbon bound with food-grade tapioca starch under {{isoStandard}}. Moisture stays ≤6%, calorific value is 7000–7500 kcal/kg, and the drop-test result is consistent across grades. Background at /glossary#ash-content."
+        },
+        {
+          "id": "batch-testing",
+          "q": "How is each batch tested?",
+          "a": "Every production batch is tested by {{auditors}} — independent Indonesian laboratories accredited under ISO/IEC 17025. The Certificate of Analysis (COA) reports ash content, fixed carbon, volatile matter, moisture, calorific value, burn time, and the Self-Heating Test (SHT) used for IMDG classification. The COA ships with each container and is also issued with paid samples so you can verify burn specs in your own lab before committing to FCL."
+        },
+        {
+          "id": "shelf-life",
+          "q": "Do briquettes have a shelf life and how should they be stored?",
+          "a": "Properly stored coconut shell briquettes have a shelf life of {{shelfLifeMonths}} months from the production date printed on every inner and master box. Store sealed in a cool, dry warehouse away from direct sunlight; coconut briquettes are mildly hygroscopic, so moisture pickup in humid storage shortens burn time and raises smoke output. Re-sealing the inner pouch after opening preserves the burn profile across the full shelf life."
+        },
+        {
+          "id": "quality-guarantee",
+          "q": "What happens if specs are off-target on arrival?",
+          "a": "Every shipment ships with a batch COA issued by {{auditors}} before the container loads, so spec compliance is verified at the source. If an independent re-analysis at destination shows a material deviation from the COA — for example ash content above the stated ceiling — send the destination lab report on company letterhead within 30 days of B/L date. We replace or credit at the per-ton FOB invoice value of the affected lot; we will not credit ocean freight or destination duties."
+        },
+        {
+          "id": "natural-vs-quicklight",
+          "q": "Do you make natural coconut coals or quick-light / instant-light coals?",
+          "a": "We manufacture only 100% natural coconut shell briquettes — no chemical accelerants. Natural coals require external heat (electric coil, gas burner) to ignite and burn 2+ hours at consistent surface temperature. Quick-light coals are pre-treated with saltpetre or similar accelerants that flash-ignite, burn faster, and emit characteristic odor. The IMDG classification differs: natural coconut coals are {{unNumber}} Class {{unClass}}, while chemically-treated quick-light coals are UN 1362 — we do not produce UN 1362 product."
+        }
+      ]
+    },
+
+    {
+      "anchor": "oem",
+      "heading": "OEM / Private Label / Packaging",
+      "items": [
+        {
+          "id": "oem-private-label",
+          "q": "Do you offer OEM and private-label packaging?",
+          "a": "Yes — private label is our default for retail-bound orders. We print full-color inner plastic, {{innerBoxGsm}} gsm inner boxes ({{innerBoxSizes}}), and {{masterBoxSizes}} master cartons (single- or double-wall) from your {{acceptedArtworkFormats}} artwork. Print proof turns around in {{proofTimeDays}} working days; minimum to start a private label is one 20ft FCL ({{moqLabel}}). Full packaging overview at /packaging."
+        },
+        {
+          "id": "packaging-options",
+          "q": "What packaging options exist (full / standard / bulk)?",
+          "a": "Three packaging tiers: Full (printed inner plastic + inner box + master box — retail-ready), Standard (inner plastic + inner box — the most common SKU for retail and lounge accounts), and Pouch-in-master (inner plastic + master box — bulk for distributors who repack locally). Inner plastic sizes are {{innerPlasticSizes}}; inner boxes are {{innerBoxSizes}}; master cartons are {{masterBoxSizes}}."
+        },
+        {
+          "id": "artwork-and-design",
+          "q": "Do you design packaging, or do I supply the artwork?",
+          "a": "We manufacture briquettes and print packaging — we do not design. Send print-ready Adobe Illustrator or PDF files ({{acceptedArtworkFormats}}) at the dieline dimensions we share, CMYK at 300 dpi with 3 mm bleed. If you need a designer we can refer one in {{city}} who knows our dielines, but the design contract is between you and the designer."
+        }
+      ]
+    },
+
+    {
+      "anchor": "shipping",
+      "heading": "Shipping & Logistics",
+      "items": [
+        {
+          "id": "port-of-loading",
+          "q": "Which port do you ship from?",
+          "a": "We load FOB {{port}} — Tanjung Emas (UN/LOCODE IDSRG), the principal sea port of Central Java — with weekly direct calls from {{shippingLines}} to all major hubs. Tanjung Priok (Jakarta) is available as an alternate on request when carrier rotations favor it for your destination. Both ports accept the IMDG {{unNumber}} declarations and Self-Heating Test reports we file with each booking."
+        },
+        {
+          "id": "transit-times",
+          "q": "How long is the ocean transit to my country?",
+          "a": "Ocean transit from {{port}} to major destination ports ranges from roughly 18 to 48 days, depending on the carrier, rotation, and transshipment hub. Indicative ranges by route: {{transitSummary}}. Carrier-confirmed transit and laycan windows are included in every quote — we book through {{shippingLines}} and pass the carrier's transit estimate through unmodified."
+        }
+      ]
+    },
+
+    {
+      "anchor": "compliance",
+      "heading": "Compliance & Documentation",
+      "items": [
+        {
+          "id": "export-documents",
+          "q": "What export documents do you provide with each shipment?",
+          "a": "Each shipment carries a Bill of Lading (B/L), commercial invoice, packing list, Certificate of Origin (Form A / Form E / ASEAN-Korea where applicable), batch Certificate of Analysis from {{auditors}}, Self-Heating Test report, and the IMDG {{unNumber}} Class {{unClass}} Dangerous Goods Declaration. Fumigation, phytosanitary, and legalized invoices through the Indonesian Chamber of Commerce are issued where the destination customs broker requires them."
+        },
+        {
+          "id": "certifications",
+          "q": "What certifications do you hold?",
+          "a": "We hold {{isoStandard}} (quality management, audited by {{auditors}}), IMDG Code compliance for {{unNumber}} Class {{unClass}} ({{imdgClassDescription}}), Self-Heating Test certification per UN N.4 protocol, and Preferential Certificate of Origin issued through the Indonesian Ministry of Trade. Certificate scans are released to confirmed buyers under NDA; specs were last verified {{specsLastVerified}}."
+        }
+      ]
+    },
+
+    {
+      "anchor": "samples-and-visits",
+      "heading": "Samples & Factory Visits",
+      "items": [
+        {
+          "id": "samples",
+          "q": "Can I get a sample before ordering?",
+          "a": "Yes. Lab-grade {{sampleWeightG}}-gram samples ship within 48 hours by {{sampleTransitChannel}} ({{sampleCarrier}}, around {{sampleTransitDays}}-day transit); every sample includes a batch COA so you can verify burn time, ash, and fixed carbon in your own lab before committing. Sample freight is quoted by destination and paid by the buyer; we credit the freight back against your first 20ft FCL order. Larger multi-grade evaluation kits are quoted on request."
+        },
+        {
+          "id": "factory-visit",
+          "q": "Can I visit the factory?",
+          "a": "Yes — wholesale buyers are welcome at our {{city}} factory by appointment, {{officeHours}} Asia/Jakarta. The visit covers carbonization ovens, briquetting lines, drying tunnel, QC station, packing, and the loading bay; allow about 90 minutes for the full walk-through. If you cannot travel, we run live WhatsApp video tours covering the same stations — message us to schedule a slot."
+        },
+        {
+          "id": "verify-legitimacy",
+          "q": "How do I verify you're a legitimate, registered company?",
+          "a": "{{legalName}} is registered in Indonesia under NIB {{nib}} and NPWP (Tax ID) {{taxId}} — both numbers are independently verifiable through the OSS (Online Single Submission) and Direktorat Jenderal Pajak portals. We have operated since {{year}} and hold {{isoStandard}}, audited by {{auditors}}; the legal name on every Proforma Invoice and Bill of Lading matches our registration. Our director Wilson Gosalim is reachable directly on WhatsApp for any KYC verification step your import bank requires."
+        }
+      ]
+    }
+  ]
+}

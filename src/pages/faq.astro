@@ -1,0 +1,306 @@
+---
+/**
+ * /faq — canonical buyer FAQ page.
+ *
+ * Pure composition: resolves every Q & A via fill() against companyTokens
+ * (so every figure traces back to /src/config/company.ts), builds one
+ * FAQPage graph for the entire page (BreadcrumbList is emitted by the
+ * Breadcrumbs component on its own), and lays out 8 category sections
+ * plus a transit-time table and three link-out stubs to the glossary.
+ *
+ * Canonical-home rule (CLAUDE.md):
+ *   - This is the only URL on the site emitting FAQPage schema for these
+ *     buyer-operations questions.
+ *   - /glossary keeps a FAQPage of distinct terminology-comparison Qs.
+ *   - The homepage stops emitting FAQPage (see homepage.ts) — its visible
+ *     Q&A stays as a teaser linking up to /faq.
+ *
+ * Zero client JS. All answers are in the static HTML (FAQSection uses
+ * native <details>/<summary>; first item open by default for crawlers).
+ *
+ * Sensitive-fact rule: this page MUST NOT print bank account numbers,
+ * SWIFT/BIC codes, or branch details even when company.json values are
+ * filled in. The payment-terms answer describes the process only.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import Button from '~/components/cta/Button.astro';
+import en from '~/i18n/en';
+import { company, waLink } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { buildFaqPageGraph } from '~/lib/schema/faqPageGraph';
+
+const t = en.faq;
+
+// Build the destination-port phrase used inside the transit-times answer
+// so the on-page sentence and the JSON-LD answer match (Google's FAQ
+// rich-result requirement). Numbers come from
+// company.commercial.transitTimes — never hardcoded.
+const transitSummary = company.commercial.transitTimes
+  .map((row) => `${row.destination} ~${row.minDays}–${row.maxDays} days`)
+  .join('; ');
+
+const tokens = {
+  ...companyTokens(company),
+  transitSummary,
+};
+
+// Resolve every Q & A. Categories preserve their original ordering and
+// section anchors; items get their kebab-case id from the JSON so each
+// Q is individually linkable (and citable).
+const categories = t.categories.map((cat) => ({
+  anchor: cat.anchor,
+  heading: cat.heading,
+  items: cat.items.map((item) => ({
+    id: item.id,
+    q: fill(item.q, tokens),
+    a: fill(item.a, tokens),
+  })),
+}));
+
+// Flat list of every schema-eligible Q&A for the FAQPage @graph. The
+// link-out stubs further down the page are intentionally NOT in this
+// list — their FAQPage home is /glossary.
+const schemaItems = categories.flatMap((cat) =>
+  cat.items.map(({ q, a }) => ({ q, a })),
+);
+
+// Indicative reading time at ~200 wpm across every visible answer.
+const totalWords = schemaItems.reduce(
+  (sum, item) => sum + item.q.split(/\s+/).length + item.a.split(/\s+/).length,
+  0,
+);
+const readMinutes = Math.max(1, Math.round(totalWords / 200));
+
+// Link-out stubs (visible on the page; deliberately not in schema).
+const linkOuts = t.linkOuts.items.map((item) => ({
+  q: fill(item.q, tokens),
+  summary: fill(item.summary, tokens),
+  href: item.href,
+}));
+
+const transitTable = {
+  heading: fill(t.transitTable.heading, tokens),
+  caption: fill(t.transitTable.captionTemplate, tokens),
+  destinationHeader: t.transitTable.destinationHeader,
+  portHeader: t.transitTable.portHeader,
+  transitHeader: t.transitTable.transitHeader,
+  rows: company.commercial.transitTimes,
+};
+
+const stillTitle = t.stillHaveQuestions.heading;
+const stillSub = fill(t.stillHaveQuestions.subtitleTemplate, tokens);
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+const intro = fill(t.introTemplate, tokens);
+
+const schema = buildFaqPageGraph(schemaItems);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/faq"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact', '/glossary']}
+>
+  <div class="mx-auto max-w-4xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <header id="top" class="border-b border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-4xl px-4 py-10 md:px-8 md:py-14">
+      <h1 class="text-3xl font-bold text-neutral-900 md:text-4xl">{t.h1}</h1>
+      <p class="mt-4 max-w-prose text-lg leading-relaxed text-neutral-700">{intro}</p>
+
+      <ArticleMeta
+        class="mt-8"
+        labels={{
+          authoredBy: t.metaBlock.authorRole,
+          reviewedBy: t.metaBlock.reviewerRole,
+          factCheckedBy: t.metaBlock.factCheckerRole,
+          lastUpdated: t.metaBlock.lastUpdatedLabel,
+          readTime: t.metaBlock.readTimeLabel,
+        }}
+        readTimeValue={fill(t.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </header>
+
+  {/* Table of contents — pure anchor list, no JS. */}
+  <nav
+    aria-labelledby="faq-toc-heading"
+    class="border-b border-neutral-200 bg-white"
+  >
+    <div class="mx-auto max-w-4xl px-4 py-8 md:px-8">
+      <h2 id="faq-toc-heading" class="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+        {t.tocHeading}
+      </h2>
+      <ul class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+        {categories.map((cat) => (
+          <li>
+            <a
+              href={`#${cat.anchor}`}
+              class="block rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm font-medium text-neutral-900 transition-colors hover:border-brand-primary hover:bg-brand-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+            >
+              {cat.heading}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
+  {/* Category sections. Each FAQSection emitSchema=false — the page emits
+      one combined FAQPage at the @graph level. Items inside each section
+      have stable kebab-case anchor ids so each Q is individually linkable. */}
+  {categories.map((cat) => (
+    <section
+      id={cat.anchor}
+      aria-labelledby={`${cat.anchor}-heading`}
+      class="border-b border-neutral-200 bg-white scroll-mt-20"
+    >
+      <div class="mx-auto max-w-4xl px-4 py-12 md:px-8 md:py-16">
+        <h2
+          id={`${cat.anchor}-heading`}
+          class="text-2xl font-bold text-neutral-900 md:text-3xl"
+        >
+          {cat.heading}
+        </h2>
+
+        <dl class="mt-8 divide-y divide-neutral-200 border-y border-neutral-200">
+          {cat.items.map((item, i) => (
+            <details id={item.id} class="group scroll-mt-20" open={i === 0}>
+              <summary class="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 py-4 marker:hidden hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+                <h3 class="flex-1 text-start text-base font-semibold text-neutral-900">
+                  <dt>{item.q}</dt>
+                </h3>
+                <span aria-hidden="true" class="mt-1 flex-shrink-0 text-brand-primary transition-transform duration-200 group-open:rotate-180">
+                  <svg viewBox="0 0 20 20" class="h-5 w-5" fill="currentColor" aria-hidden="true">
+                    <path d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 11.06l3.71-3.83a.75.75 0 1 1 1.08 1.04l-4.24 4.38a.75.75 0 0 1-1.08 0L5.21 8.27a.75.75 0 0 1 .02-1.06z" />
+                  </svg>
+                </span>
+              </summary>
+              <dd class="pb-5 pe-9 text-base leading-relaxed text-neutral-700">
+                {item.a}
+              </dd>
+            </details>
+          ))}
+        </dl>
+
+        {/* Transit-time table renders inside the Shipping category, right
+            after the FAQSection — gives sighted users a scannable lookup
+            for the same data the answer text describes. */}
+        {cat.anchor === 'shipping' && (
+          <div class="mt-10 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
+            <h3 class="text-base font-semibold text-neutral-900">{transitTable.heading}</h3>
+            <p class="mt-1 text-sm text-neutral-600">{transitTable.caption}</p>
+            <div class="mt-5 overflow-x-auto">
+              <table class="w-full text-start text-sm">
+                <thead>
+                  <tr class="border-b border-neutral-300 text-neutral-700">
+                    <th scope="col" class="py-2 pe-4 text-start font-semibold">{transitTable.destinationHeader}</th>
+                    <th scope="col" class="py-2 pe-4 text-start font-semibold">{transitTable.portHeader}</th>
+                    <th scope="col" class="py-2 text-start font-semibold">{transitTable.transitHeader}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {transitTable.rows.map((row) => (
+                    <tr class="border-b border-neutral-200 last:border-0">
+                      <td class="py-2 pe-4 text-neutral-800">{row.destination}</td>
+                      <td class="py-2 pe-4 font-mono text-xs text-neutral-600">{row.portCode}</td>
+                      <td class="py-2 text-neutral-800">{row.minDays}–{row.maxDays}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
+
+        <p class="mt-8 text-sm">
+          <a
+            href="#top"
+            class="font-medium text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          >
+            ↑ {t.backToTopLabel}
+          </a>
+        </p>
+      </div>
+    </section>
+  ))}
+
+  {/* Link-out stubs. Visible Q&A previews that route to /glossary where
+      the FAQPage schema for those terminology questions lives. Deliberately
+      NOT in this page's FAQPage @graph. */}
+  <section
+    id="related-glossary"
+    aria-labelledby="related-glossary-heading"
+    class="border-b border-neutral-200 bg-neutral-50 scroll-mt-20"
+  >
+    <div class="mx-auto max-w-4xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="related-glossary-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.linkOuts.heading}
+      </h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.linkOuts.intro}</p>
+
+      <ul class="mt-6 space-y-4">
+        {linkOuts.map((item) => (
+          <li class="rounded-lg border border-neutral-200 bg-white p-4">
+            <a
+              href={item.href}
+              class="font-semibold text-neutral-900 hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+            >
+              {item.q} <span aria-hidden="true">→</span>
+            </a>
+            <p class="mt-1 text-sm leading-relaxed text-neutral-600">{item.summary}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* Still have questions? — direct, low-friction CTA. */}
+  <section
+    aria-labelledby="still-have-questions-heading"
+    class="bg-white"
+  >
+    <div class="mx-auto max-w-4xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="still-have-questions-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {stillTitle}
+      </h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{stillSub}</p>
+
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+        <Button
+          href={waLink(t.stillHaveQuestions.waPrefill)}
+          variant="primary"
+          size="lg"
+          target="_blank"
+          rel="noopener"
+          class="w-full sm:w-auto"
+          data-event="whatsapp_click"
+          data-source-component="faq-still-have-questions"
+        >
+          {t.stillHaveQuestions.ctaWhatsapp}
+        </Button>
+        <Button
+          href="/contact"
+          variant="ghost"
+          size="lg"
+          class="w-full sm:w-auto"
+          data-source-component="faq-still-have-questions-inquiry"
+        >
+          {t.stillHaveQuestions.ctaInquiry}
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <CTABanner />
+</BaseLayout>

@@ -133,6 +133,9 @@ export function companyTokens(company: Company) {
     capacityMonth: company.production.capacityTonsPerMonth,
     productionLines: company.production.lines,
     ovenCount: company.production.ovens.count,
+    ovenBatchTons: company.production.ovens.capacityTonsPerBatch,
+    ovenCycleHours: company.production.ovens.cycleHours,
+    shelfLifeMonths: company.production.shelfLifeMonths,
     facilityArea: company.production.factoryAreaSqm,
     headcount: company.production.headcount,
     timezone: company.hours.timezone.replace('Asia/Jakarta', 'GMT+7'),
@@ -141,6 +144,14 @@ export function companyTokens(company: Company) {
     // Lead time variants
     newBrandLeadTime: company.commercial.leadTime.newBrandDays,
     repeatBrandLeadTime: company.commercial.leadTime.repeatBrandDays,
+    // Payment process text, used by the /faq Payment Terms answer.
+    paymentTerms: company.commercial.paymentTerms,
+    lcMinContainers: company.commercial.lcMinContainers,
+    // Samples — used by /faq Samples answer.
+    sampleWeightG: company.samples.freeWeightGrams,
+    sampleTransitChannel: company.samples.transitChannel,
+    sampleCarrier: company.samples.carrier,
+    sampleTransitDays: company.samples.transitDays,
     // Lower-bound lead time used by the homepage CTA banner sub-headline
     // ("Production from {{leadTimeDays}} days").
     leadTimeDays: company.commercial.leadTime.repeatBrandDays,

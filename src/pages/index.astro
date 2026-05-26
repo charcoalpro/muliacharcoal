@@ -47,6 +47,15 @@ const faqItems = en.home.faq.items.map((item) => ({
   <section aria-labelledby="home-faq-title" class="bg-white">
     <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
       <FAQSection heading={en.home.faq.heading} items={faqItems} id="home-faq-title" />
+      <p class="mx-auto mt-6 max-w-3xl text-sm">
+        <a
+          href={en.home.faqTeaser.href}
+          class="font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          data-source-component="home-faq-teaser"
+        >
+          {en.home.faqTeaser.label} <span aria-hidden="true">→</span>
+        </a>
+      </p>
     </div>
   </section>
   <CTABanner />

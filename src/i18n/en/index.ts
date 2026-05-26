@@ -19,6 +19,7 @@ import about from './about.json';
 import home from './home.json';
 import careers from './careers.json';
 import glossary from './glossary.json';
+import faq from './faq.json';
 
 const en = {
   ...common,
@@ -28,6 +29,7 @@ const en = {
   home,
   careers,
   glossary,
+  faq,
 };
 
 export default en;

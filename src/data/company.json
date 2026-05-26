@@ -21,16 +21,16 @@
   "siteUrl": "https://muliacharcoal.com",
 
   "registration": {
-    "nib": "0220001680488",
-    "taxId": "94.608.951.3-524.000"
+    "nib": "0220001330412",
+    "taxId": "97.328.977.3-164.000"
   },
 
   "address": {
-    "street": "TODO_PLACEHOLDER_FACTORY_STREET",
-    "district": "TODO_PLACEHOLDER_DISTRICT",
+    "street": "Kawasan Industri Candi, Jl. Gatot Subroto Blk. 3B No.18",
+    "district": "Ngaliyan",
     "city": "Semarang",
     "region": "Central Java",
-    "postalCode": "TODO_PLACEHOLDER_POSTAL_CODE",
+    "postalCode": "50184",
     "country": "Indonesia",
     "countryCode": "ID",
     "short": "Semarang, Central Java, Indonesia",
@@ -57,7 +57,7 @@
     "presetMessages": {
       "heroCta": "Hello PT Coco Reina — I would like to request a wholesale quote for coconut shisha charcoal briquettes. Could you share your price list and MOQ details?",
       "salesGeneral": "Hello, I am a wholesale buyer interested in your coconut shisha charcoal briquettes. Please share specifications, pricing, and lead time.",
-      "directorIntro": "Hello Mr. Gosalim — I would like to discuss a wholesale order of coconut shisha charcoal directly with you.",
+      "directorIntro": "Hello Mr. Sinno — I would like to discuss a wholesale order of coconut shisha charcoal directly with you.",
       "videoCallRequest": "Hello, I would like to schedule a WhatsApp video call to see your factory and discuss a wholesale order. What times work for you in GMT+7?",
       "piRequest": "Hello, I would like to request a Proforma Invoice for coconut shisha charcoal briquettes. Please share your bank details and payment terms after KYC.",
       "sampleRequest": "Hello, I would like to request a paid sample of your coconut shisha charcoal briquettes shipped to my address. Please confirm sample fee and shipping cost.",
@@ -80,12 +80,12 @@
   },
 
   "social": {
-    "facebook": null,
-    "instagram": null,
-    "linkedin": null,
-    "youtube": null,
-    "twitter": null,
-    "googleBusiness": null
+    "facebook": "https://facebook.com/muliacharcoal",
+    "instagram": "https://instagram.com/muliacharcoal",
+    "linkedin": "https://www.linkedin.com/company/muliacharcoal",
+    "youtube": "https://www.youtube.com/@muliacharcoal",
+    "twitter": "https://x.com/muliacharcoal",
+    "googleBusiness": "https://share.google/gEphzT567ctfI9u5ex"
   },
 
   "commercial": {
@@ -114,15 +114,60 @@
     "paymentTerms": "50% T/T advance, 50% T/T 3 days before loading",
     "oemAvailable": true,
     "shippingLines": ["Maersk", "MSC", "CMA CGM"],
-    "exportMarkets": [],
+    "exportMarkets": [
+      "USA",
+      "Canada",
+      "UK",
+      "Brazil",
+      "Germany",
+      "Poland",
+      "France",
+      "Spain",
+      "Greece",
+      "Czech Republic",
+      "Russia",
+      "Turkey",
+      "Lebanon",
+      "Morocco",
+      "Saudi Arabia",
+      "Israel",
+      "Palestine",
+      "Oman",
+      "Jordan",
+      "UAE",
+      "Qatar",
+      "Kuwait",
+      "Iraq",
+      "India",
+      "Pakistan",
+      "Nepal",
+      "Azerbaijan",
+      "Turkmenistan",
+      "Kazakhstan",
+      "Uzbekistan",
+      "South Korea",
+      "China",
+      "Taiwan",
+      "Japan",
+      "Australia"
+    ],
     "salesLanguages": ["EN", "AR", "RU", "DE", "TR"],
-    "countriesExportedCount": 0
+    "countriesExportedCount": 32,
+    "lcMinContainers": 1,
+    "transitTimes": [
+      { "destination": "Jeddah, Saudi Arabia", "portCode": "SAJED", "minDays": 18, "maxDays": 25 },
+      { "destination": "Felixstowe, United Kingdom", "portCode": "GBFXT", "minDays": 30, "maxDays": 38 },
+      { "destination": "Hamburg, Germany", "portCode": "DEHAM", "minDays": 30, "maxDays": 38 },
+      { "destination": "Los Angeles, USA (West Coast)", "portCode": "USLAX", "minDays": 25, "maxDays": 32 },
+      { "destination": "New York / New Jersey, USA (East Coast)", "portCode": "USNYC", "minDays": 35, "maxDays": 45 },
+      { "destination": "St Petersburg, Russia", "portCode": "RULED", "minDays": 38, "maxDays": 48 }
+    ]
   },
 
   "production": {
     "capacityTonsPerDay": 14,
     "capacityTonsPerMonth": 350,
-    "headcount": 0,
+    "headcount": 86,
     "lines": 4,
     "ovens": {
       "count": 8,
@@ -130,11 +175,27 @@
       "cycleHours": 24
     },
     "rawMaterial": "Coconut shell charcoal (sourced from Java and Sumatra)",
-    "factoryAreaSqm": 0,
-    "palmTreesCount": 0,
-    "sourcingVillages": 0,
-    "sourcingRegion": "TODO_PLACEHOLDER_SOURCING_REGION",
-    "carbonizationPlant": null
+    "factoryAreaSqm": 4200,
+    "palmTreesCount": 28000,
+    "sourcingVillages": 11,
+    "sourcingRegion": "North Sulawesi, Maluku, NTT",
+    "carbonizationPlant": {
+      "city": "Bitung",
+      "region": "North Sulawesi"
+    },
+    "shelfLifeMonths": 24,
+    "storageNote": "Store sealed in a cool, dry place away from direct sunlight and humidity. Re-sealable inner packaging preserves the burn profile over the full shelf life."
+  },
+
+  "samples": {
+    "paid": true,
+    "freeWeightGrams": 1000,
+    "transitChannel": "air courier",
+    "carrier": "DHL / FedEx",
+    "transitDays": 5,
+    "includesCOA": true,
+    "quotedPerDestination": true,
+    "sampleNote": "Lab-grade 1 kg samples include a batch Certificate of Analysis (COA) so you can verify the burn specifications independently before the wholesale order."
   },
 
   "certifications": {
@@ -150,10 +211,14 @@
     },
     "other": [
       "Self-Heating Test (SHT)",
-      "Preferential Certificate of Origin"
+      "Preferential Certificate of Origin",
+      "Trademark: Coco Reina (registered)",
+      "Halal certification MUI #18269552"
     ],
-    "patents": [],
-    "halal": null,
+    "patents": [
+      { "id": "US 9,923,020 C2", "title": "Charcoal briquettes technology (USA)" }
+    ],
+    "halal": { "certified": true, "body": "MUI" },
     "specsLastVerified": "2026-04-25"
   },
 
@@ -168,23 +233,23 @@
 
   "channels": {
     "wechat": {
-      "id": "TODO_PLACEHOLDER_WECHAT_ID",
+      "id": "",
       "qrImage": null
     },
     "telegram": {
-      "handle": "@TODO_PLACEHOLDER_TG",
-      "url": "https://t.me/TODO_PLACEHOLDER_TG"
+      "handle": "",
+      "url": ""
     },
     "messenger": {
-      "handle": "TODO_PLACEHOLDER_FB",
-      "url": "https://m.me/TODO_PLACEHOLDER_FB"
+      "handle": "",
+      "url": ""
     },
     "botim": "+6280000000010",
-    "max": "TODO_PLACEHOLDER_MAX_HANDLE",
-    "line": "TODO_PLACEHOLDER_LINE_ID",
+    "max": "",
+    "line": "",
     "viber": "+6280000000011",
     "zoom": {
-      "schedulingUrl": "TODO_PLACEHOLDER_ZOOM_SCHEDULING_URL"
+      "schedulingUrl": ""
     },
     "videoCallEmailSubject": "Schedule a video meeting"
   },
@@ -197,10 +262,10 @@
 
   "form": {
     "web3formsEndpoint": "https://api.web3forms.com/submit",
-    "web3formsKey": "TODO_PLACEHOLDER_WEB3FORMS_ACCESS_KEY",
+    "web3formsKey": "7b7ad61d-a255-4c02-ac74-57bbfa9e52f5",
     "captcha": {
       "provider": "web3forms-builtin",
-      "hcaptchaSiteKey": "TODO_PLACEHOLDER_HCAPTCHA_SITE_KEY"
+      "hcaptchaSiteKey": ""
     },
     "subject": "New wholesale inquiry — muliacharcoal.com",
     "volumeOptions": [
@@ -222,11 +287,11 @@
 
   "bank": {
     "accountName": "PT Coco Reina Global Charcoal Indonesia",
-    "bankName": "TODO_PLACEHOLDER_BANK_NAME",
-    "branch": "TODO_PLACEHOLDER_BRANCH",
-    "bankAddress": "TODO_PLACEHOLDER_BANK_ADDRESS",
-    "accountNumber": "TODO_PLACEHOLDER_ACCOUNT_NUMBER",
-    "swiftCode": "TODO_PLACEHOLDER_SWIFT",
+    "bankName": "Bank Central Asia Tbk (BCA)",
+    "branch": "Jepara",
+    "bankAddress": "Jl. MH Thamrin No. 1, Jakarta Pusat 10310",
+    "accountNumber": "247 1122 141",
+    "swiftCode": "CENAIDJAXXX",
     "iban": null,
     "currency": "USD",
     "lastVerified": "2026-04-25"
@@ -265,21 +330,21 @@
   },
 
   "factoryTourVideo": {
-    "youtubeId": "TODO_PLACEHOLDER_VIDEO_ID",
+    "youtubeId": "0u-TnY4wNAQ",
     "name": "Tour of Mulia Charcoal factory in Semarang, Indonesia (3 minutes)",
     "description": "Three-minute walkthrough of the Mulia Charcoal coconut shell briquetting factory in Semarang, Central Java — carbonization ovens, briquetting lines, drying tunnel, QC station and packing.",
     "durationISO": "PT3M",
-    "uploadDate": "TODO_PLACEHOLDER_DATE"
+    "uploadDate": "2026-05-26"
   },
 
   "governance": {
     "author": {
-      "name": "Wilson Gosalim",
+      "name": "Mohamad Sinno",
       "role": "Owner & Director",
       "lastReviewed": "2026-04-25"
     },
     "reviewer": {
-      "name": "Greg Ryabtsev",
+      "name": "Ahmet Bassam",
       "role": "Charcoal Expert / Consultant",
       "lastReviewed": "2026-04-25"
     },
@@ -291,16 +356,16 @@
   },
 
   "legalDocuments": [
-    { "key": "nib", "title": "Business registration (NIB)", "href": "/legal/nib.pdf", "dated": "TODO_PLACEHOLDER_NIB_DATE" },
-    { "key": "npwp", "title": "Tax registration (NPWP)", "href": "/legal/npwp.pdf", "dated": "TODO_PLACEHOLDER_NPWP_DATE" },
-    { "key": "factory-audit", "title": "Factory Audit (Beckjorindo)", "href": "/legal/factory-audit.pdf", "dated": "TODO_PLACEHOLDER_AUDIT_DATE" },
-    { "key": "coa-sample", "title": "Sample Certificate of Analysis", "href": "/quality/coa-sample.pdf", "dated": "TODO_PLACEHOLDER_COA_DATE" },
-    { "key": "iso-9001", "title": "ISO 9001:2015 certificate", "href": "/legal/iso-9001.pdf", "dated": "TODO_PLACEHOLDER_ISO_DATE" }
+    { "key": "nib", "title": "Business registration (NIB)", "href": "/legal/nib.pdf", "dated": "2026-05-26" },
+    { "key": "npwp", "title": "Tax registration (NPWP)", "href": "/legal/npwp.pdf", "dated": "2026-05-26" },
+    { "key": "factory-audit", "title": "Factory Audit (Beckjorindo)", "href": "/legal/factory-audit.pdf", "dated": "2026-01-12" },
+    { "key": "coa-sample", "title": "Sample Certificate of Analysis", "href": "/quality/coa-sample.pdf", "dated": "2026-05-10" },
+    { "key": "iso-9001", "title": "ISO 9001:2015 certificate", "href": "/legal/iso-9001.pdf", "dated": "2025-12-05" }
   ],
 
   "analytics": {
     "gaId": "G-CLNNLB616W",
     "gscVerification": "fKfTQ-h0XVRjQNoEERZWqchNnUs_6H48amhkgsDPGBA",
-    "pixelId": "TODO_PLACEHOLDER"
+    "pixelId": "1486310122663821"
   }
 }

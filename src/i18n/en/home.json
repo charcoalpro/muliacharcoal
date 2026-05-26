@@ -312,6 +312,10 @@
     "ctaLabel": "Request samples + price",
     "waPrefill": "Hello Mulia Charcoal — please send a free 1 kg sample and your latest USD price list FOB Semarang for coconut shisha charcoal briquettes."
   },
+  "faqTeaser": {
+    "label": "See the full buyer FAQ",
+    "href": "/faq"
+  },
   "faq": {
     "heading": "Buyer FAQ",
     "items": [

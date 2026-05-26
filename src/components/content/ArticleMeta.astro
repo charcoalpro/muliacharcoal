@@ -1,0 +1,72 @@
+---
+/**
+ * ArticleMeta — GEO/authorship metadata block used at the top of long-form
+ * content (FAQ, glossary, future pillar pages). Renders the author /
+ * reviewer / fact-checker triple, the last-updated date, and an indicative
+ * reading time as a 5-column `<dl>`. The fact-checker cell is silently
+ * dropped when the name is still a TODO placeholder so we never publish
+ * an unconfirmed role.
+ *
+ * Mirrors the inline pattern in `src/components/glossary/blocks/Hero.astro`
+ * — extracted here so /faq and future pillars can reuse it without copying
+ * the markup again.
+ */
+import { company, hasFact } from '~/config/company';
+
+interface LabelStrings {
+  authoredBy: string;
+  reviewedBy: string;
+  factCheckedBy: string;
+  lastUpdated: string;
+  readTime: string;
+}
+
+interface Props {
+  labels: LabelStrings;
+  /** Reading-time value (already formatted, e.g. "5 min"). */
+  readTimeValue: string;
+  /** Override the last-updated date. Defaults to the author's lastReviewed. */
+  lastUpdated?: string;
+  class?: string;
+}
+
+const { labels, readTimeValue, lastUpdated, class: className } = Astro.props;
+
+const gov = company.governance;
+const showFactChecker = hasFact(gov.factChecker.name);
+const updated = lastUpdated ?? gov.author.lastReviewed;
+---
+<dl
+  class:list={[
+    'grid gap-x-6 gap-y-4 border-y border-neutral-200 py-5 text-sm sm:grid-cols-2 md:grid-cols-5',
+    className,
+  ]}
+>
+  <div>
+    <dt class="text-neutral-500">{labels.authoredBy}</dt>
+    <dd class="mt-0.5 font-medium text-neutral-900">{gov.author.name}</dd>
+    <dd class="text-neutral-600">{gov.author.role}</dd>
+  </div>
+  <div>
+    <dt class="text-neutral-500">{labels.reviewedBy}</dt>
+    <dd class="mt-0.5 font-medium text-neutral-900">{gov.reviewer.name}</dd>
+    <dd class="text-neutral-600">{gov.reviewer.role}</dd>
+  </div>
+  {showFactChecker && (
+    <div>
+      <dt class="text-neutral-500">{labels.factCheckedBy}</dt>
+      <dd class="mt-0.5 font-medium text-neutral-900">{gov.factChecker.name}</dd>
+      <dd class="text-neutral-600">{gov.factChecker.role}</dd>
+    </div>
+  )}
+  <div>
+    <dt class="text-neutral-500">{labels.lastUpdated}</dt>
+    <dd class="mt-0.5 font-medium text-neutral-900">
+      <time datetime={updated}>{updated}</time>
+    </dd>
+  </div>
+  <div>
+    <dt class="text-neutral-500">{labels.readTime}</dt>
+    <dd class="mt-0.5 font-medium text-neutral-900">{readTimeValue}</dd>
+  </div>
+</dl>
