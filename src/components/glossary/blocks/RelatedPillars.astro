@@ -1,0 +1,36 @@
+---
+/**
+ * Related pillars — final block at the foot of /glossary.
+ *
+ * Every pillar gets a card linking to its index URL. Each pillar's
+ * destination is the eventual URL; pages that haven't shipped yet 404
+ * today and light up automatically as each pillar lands (the IA is
+ * documented either way).
+ */
+import en from '~/i18n/en';
+import TextLink from '~/components/content/TextLink.astro';
+
+const t = en.glossary.relatedPillars;
+---
+<section
+  id="related-pillars"
+  aria-labelledby="related-pillars-heading"
+  class="border-t border-neutral-200 bg-neutral-50"
+>
+  <div class="mx-auto max-w-4xl px-4 py-10 md:px-8 md:py-12">
+    <h2 id="related-pillars-heading" class="text-2xl font-bold text-neutral-900">
+      {t.heading}
+    </h2>
+    <p class="mt-2 text-neutral-600">{t.intro}</p>
+    <ul class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {t.items.map((p) => (
+        <li class="rounded-md border border-neutral-200 bg-white p-4">
+          <h3 class="font-semibold">
+            <TextLink href={p.href}>{p.label} →</TextLink>
+          </h3>
+          <p class="mt-1 text-sm leading-relaxed text-neutral-600">{p.description}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,597 @@
+{
+  "meta": {
+    "titleTemplate": "Shisha Charcoal Glossary: Specs, IMDG, Trade Terms",
+    "descriptionTemplate": "{{termCount}} definitions for coconut shisha charcoal buyers: UN 1361, ash content, FOB {{port}}, EUDR, ISPM-15, and every term on our invoices and COAs."
+  },
+
+  "breadcrumb": "Glossary",
+
+  "hero": {
+    "heading": "Shisha Charcoal Glossary",
+    "kicker": "Definitions, regulations, and trade terms",
+    "introTemplate": "{{brand}} ships coconut shell shisha charcoal briquettes to wholesale buyers worldwide. This glossary defines the {{termCount}} regulatory, technical, logistics, and trade terms that appear on our invoices, certificates of analysis, dangerous-goods declarations, and packaging artwork — and links every entry down to the pillar page that goes deeper.",
+    "authoredByLabel": "Authored by",
+    "reviewedByLabel": "Reviewed by",
+    "factCheckedByLabel": "Fact-checked by",
+    "lastUpdatedLabel": "Last updated",
+    "readTimeLabel": "Time to read",
+    "readTimeValue": "12 min"
+  },
+
+  "toc": {
+    "heading": "Browse by topic",
+    "alphaHeading": "Or jump alphabetically",
+    "backToTopLabel": "Back to top",
+    "topAnchorId": "top"
+  },
+
+  "clusters": [
+    { "key": "dg",         "anchor": "cluster-dg",         "heading": "Dangerous Goods Transport & IMDG Compliance" },
+    { "key": "specs",      "anchor": "cluster-specs",      "heading": "Technical Quality Specifications" },
+    { "key": "products",   "anchor": "cluster-products",   "heading": "Product, Form Factor & Performance" },
+    { "key": "production", "anchor": "cluster-production", "heading": "Production & Raw Material" },
+    { "key": "packaging",  "anchor": "cluster-packaging",  "heading": "Packaging & OEM" },
+    { "key": "incoterms",  "anchor": "cluster-incoterms",  "heading": "Incoterms & Payment" },
+    { "key": "docs",       "anchor": "cluster-docs",       "heading": "Documentation & Shipping" },
+    { "key": "indonesia",  "anchor": "cluster-indonesia",  "heading": "Indonesian Export Regime" },
+    { "key": "markets",    "anchor": "cluster-markets",    "heading": "Destination-Market Regulations" },
+    { "key": "hookah",     "anchor": "cluster-hookah",     "heading": "Hookah-Industry Specifics" }
+  ],
+
+  "terms": [
+    {
+      "slug": "un-1361",
+      "term": "UN 1361",
+      "termCode": "UN 1361",
+      "cluster": "dg",
+      "definitionTemplate": "UN 1361 is the United Nations Recommendations on the Transport of Dangerous Goods identifier for \"Carbon, animal or vegetable origin\" — the classification under which coconut-shell shisha charcoal briquettes are shipped by sea. Cargo declared as UN 1361 is assigned to {{imdgLabel}}, requires a Dangerous Goods Declaration, and is subject to special provisions including a self-heating exemption test.",
+      "see": { "href": "/logistics/UN-1361", "label": "UN 1361 shipping rules and exemption test" }
+    },
+    {
+      "slug": "un-1362",
+      "term": "UN 1362 (contrast)",
+      "termCode": "UN 1362",
+      "cluster": "dg",
+      "definitionTemplate": "UN 1362 is the UN identifier for \"Carbon, activated\" — a distinct classification covering activated carbon engineered for filtration and gas adsorption. Activated carbon and shisha charcoal share a precursor (coconut shell) but differ in process and end use: UN 1362 cargo is also IMDG Class 4.2 but follows a different exemption pathway. Misdeclaring shisha charcoal as UN 1362 is a common compliance error rejected by surveyors and carriers."
+    },
+    {
+      "slug": "class-4-2",
+      "term": "Class 4.2 (spontaneously combustible)",
+      "termCode": "IMDG Class 4.2",
+      "cluster": "dg",
+      "definitionTemplate": "IMDG Class 4.2 is the hazard class for substances liable to spontaneous combustion — materials that may heat up in contact with air and ignite without an external ignition source. Coconut-shell briquettes are weathered ≥ 14 days post-carbonization and pass the UN Manual self-heating test (Test N.4) before loading; the test certificate is the document that converts a UN 1361 booking from \"restricted\" to \"accepted\" by container lines."
+    },
+    {
+      "slug": "packing-group",
+      "term": "Packing Group",
+      "cluster": "dg",
+      "definitionTemplate": "Packing Group is the IMDG severity tier (I = high, II = medium, III = low) assigned within a hazard class. UN 1361 coconut-shell charcoal ships as Packing Group III, the lowest severity within Class 4.2 — provided the consignment passes the self-heating exemption test.",
+      "see": { "href": "/logistics/rules", "label": "Booking checklist for UN 1361 PG III" }
+    },
+    {
+      "slug": "sp-978",
+      "term": "SP 978 (Special Provision)",
+      "termCode": "SP 978",
+      "cluster": "dg",
+      "definitionTemplate": "SP 978 is the IMDG Code Special Provision that exempts certain carbon shipments from full Class 4.2 dangerous-goods rules when an accredited laboratory has verified the cargo passes the self-heating test under controlled conditions. SP 978 is the practical path most shisha-charcoal exports take — the cargo remains booked under UN 1361 but ships without DG surcharges when the SHT certificate and accompanying export declaration are in order.",
+      "see": { "href": "/logistics/UN-1361", "label": "How SP 978 exemption is obtained" }
+    },
+    {
+      "slug": "imdg-amendment-42-24",
+      "term": "IMDG Amendment 42-24",
+      "termCode": "IMDG 42-24",
+      "cluster": "dg",
+      "definitionTemplate": "IMDG Amendment 42-24 is the biennial revision of the International Maritime Dangerous Goods Code published by the IMO, mandatory from 1 January 2026. It refines documentation requirements for self-heating substances including UN 1361 and tightens packaging and segregation rules for Class 4.2 cargo. Bookings on or after the effective date must reference the current amendment in the DG declaration."
+    },
+    {
+      "slug": "self-heating-test-n4",
+      "term": "Self-Heating Test (Test N.4)",
+      "cluster": "dg",
+      "definitionTemplate": "Test N.4 is the United Nations Manual of Tests and Criteria procedure for measuring whether a substance is liable to self-heating. A 25 mm or 100 mm cube of the material is held at 140 °C in a circulating-air oven for 24 hours; passing the test (no auto-ignition and a maximum core-temperature rise below the threshold) is the prerequisite for SP 978 exemption and the document a carrier requires for every UN 1361 booking.",
+      "see": { "href": "/quality/testing-methods", "label": "Self-heating test protocol and certificate" }
+    },
+    {
+      "slug": "dangerous-goods-declaration",
+      "term": "Dangerous Goods Declaration (DGD)",
+      "termCode": "DGD",
+      "cluster": "dg",
+      "definitionTemplate": "A Dangerous Goods Declaration is the shipper-signed document that classifies a consignment under the IMDG Code, naming the UN number, hazard class, packing group, packaging description, and the responsible party. The DGD travels with the bill of lading; a single error (wrong UN number, missing SHT reference) is the most common reason a container line refuses or short-ships a UN 1361 booking.",
+      "see": { "href": "/logistics/documents", "label": "DGD template for UN 1361" }
+    },
+    {
+      "slug": "weathering",
+      "term": "Weathering",
+      "cluster": "dg",
+      "definitionTemplate": "Weathering is the controlled rest period — typically ≥ 14 days — between completion of carbonization and loading of finished briquettes, during which residual reactive carbon surface oxidizes and the material's self-heating tendency drops to safe levels. Weathering is recorded in the QC log and is the single biggest lever for passing the self-heating test.",
+      "see": { "href": "/factory/production-process", "label": "Production process and weathering window" }
+    },
+    {
+      "slug": "vanning-certificate",
+      "term": "Vanning Certificate",
+      "cluster": "dg",
+      "definitionTemplate": "A Vanning Certificate is a third-party declaration that a shipping container was properly stuffed according to the IMDG Code — covering segregation, weight distribution, dunnage, and headspace. Most carriers and destination ports require a Vanning Certificate for UN 1361 cargo; the surveyor witnesses the stuffing and seals the container.",
+      "see": { "href": "/logistics/documents", "label": "Vanning Certificate sample" }
+    },
+    {
+      "slug": "headspace-rule",
+      "term": "Headspace Rule",
+      "cluster": "dg",
+      "definitionTemplate": "The headspace rule is the IMDG packaging requirement that solid Class 4.2 cargo not completely fill its packaging — a 5–10% void volume must remain at the top of each inner box to prevent thermal pressure build-up and accommodate any residual outgassing during the voyage. Headspace is verified at vanning and is among the items a Vanning Certificate attests to.",
+      "see": { "href": "/logistics/rules", "label": "Headspace and packaging rules" }
+    },
+    {
+      "slug": "fcl-vs-lcl",
+      "term": "FCL vs LCL",
+      "cluster": "dg",
+      "definitionTemplate": "FCL (Full Container Load) and LCL (Less than Container Load) describe how cargo is consolidated for sea freight. UN 1361 shisha charcoal ships FCL only — Class 4.2 dangerous goods cannot be co-loaded with non-DG or differently-classed cargo in an LCL groupage container. Our minimum order is {{moqLabel}} for that reason.",
+      "see": { "href": "/logistics/rules", "label": "Why UN 1361 ships FCL only" }
+    },
+
+    {
+      "slug": "ash-content",
+      "term": "Ash content",
+      "cluster": "specs",
+      "definitionTemplate": "Ash content is the non-combustible mineral residue remaining after complete combustion of a fuel, expressed as a percentage by mass. Lower ash means a cleaner burn, less debris in the bowl, and reduced odour. Our published grades range from {{platinumAsh}} (Platinum) to {{premiumAsh}} (Premium); measurement follows ISO 1171.",
+      "see": { "href": "/quality/specifications-explained", "label": "Ash content per grade and how we measure it" }
+    },
+    {
+      "slug": "fixed-carbon",
+      "term": "Fixed carbon",
+      "cluster": "specs",
+      "definitionTemplate": "Fixed carbon is the share of pure carbon left in a briquette after moisture and volatile matter have burned off — calculated as 100 − (ash + moisture + volatile matter). Higher fixed carbon means a longer, hotter burn at lower ash. Our Platinum grade is {{platinumFC}} fixed carbon; Premium is {{premiumFC}}.",
+      "see": { "href": "/quality/specifications-explained", "label": "Fixed carbon per grade" }
+    },
+    {
+      "slug": "calorific-value",
+      "term": "Calorific value",
+      "cluster": "specs",
+      "definitionTemplate": "Calorific value (also called heating value) is the energy released per unit mass of fuel during complete combustion, reported in kcal/kg or MJ/kg. Our briquettes are tested per ISO 1928 with a bomb calorimeter; Platinum measures {{platinumCalorific}} and Premium {{premiumCalorific}}.",
+      "see": { "href": "/quality/testing-methods", "label": "Calorific value measurement (ISO 1928)" }
+    },
+    {
+      "slug": "moisture",
+      "term": "Moisture",
+      "cluster": "specs",
+      "definitionTemplate": "Moisture is the mass percentage of water in the briquette as delivered, measured per ISO 589 by drying a sample to constant mass at 105 °C. All our grades cap moisture at ≤ 6% — higher moisture suppresses ignition, releases steam in the bowl, and adds dead weight to the freight invoice."
+    },
+    {
+      "slug": "volatile-matter",
+      "term": "Volatile matter",
+      "cluster": "specs",
+      "definitionTemplate": "Volatile matter is the percentage of combustible gases and tars driven off when the briquette is heated in the absence of air, measured per ISO 562. In coconut-shell briquettes, low volatile matter is the property responsible for the characteristic odourless, smokeless burn — fully carbonized briquettes typically run under 15% volatile matter."
+    },
+    {
+      "slug": "carbonization-level",
+      "term": "Carbonization level",
+      "cluster": "specs",
+      "definitionTemplate": "Carbonization level is a qualitative classification of how completely the raw coconut shell has been pyrolyzed, expressed on a 0–100% scale where 100% denotes complete conversion to charcoal. Under-carbonized briquettes smoke, smell, and shed soot; over-carbonized briquettes lose structural integrity. We target ≥ 95% carbonization level on every batch.",
+      "see": { "href": "/factory/production-process", "label": "Carbonization in our ovens" }
+    },
+    {
+      "slug": "white-ash-grading",
+      "term": "White-ash grading",
+      "cluster": "specs",
+      "definitionTemplate": "White-ash grading is the visual quality test in which a briquette is fully burned and the resulting ash is inspected for colour — uniformly white ash indicates clean mineral chemistry and complete combustion, while grey or black streaks point to incomplete carbonization or contamination. Buyers in the GCC market commonly require photographic evidence of white ash as part of pre-shipment QC."
+    },
+    {
+      "slug": "drop-test",
+      "term": "Drop test",
+      "cluster": "specs",
+      "definitionTemplate": "The drop test is a mechanical-integrity check in which a briquette is dropped from 1 m onto a steel plate and the number of drops it survives without cracking is recorded. All our published grades hit ≥ 3 drops — the test reflects how the cargo will survive vanning, transhipment, and the customer's own warehouse handling."
+    },
+    {
+      "slug": "iso-and-astm-test-methods",
+      "term": "ISO and ASTM test methods",
+      "cluster": "specs",
+      "definitionTemplate": "ISO and ASTM test methods are the international laboratory standards governing how each charcoal property is measured. The methods our COA references: ISO 1171 (ash), ISO 1928 (calorific value), ISO 589 (moisture), ISO 562 (volatile matter), and the ASTM D3174 / D3172 / D3173 series (US-equivalent methods for ash, proximate analysis, and moisture). Quoting a result without naming its method is meaningless — every value on our certificate of analysis is tagged with the standard it was measured against.",
+      "see": { "href": "/quality/testing-methods", "label": "Standards referenced in our COA" }
+    },
+
+    {
+      "slug": "cube-size-matrix",
+      "term": "Cube size matrix",
+      "cluster": "products",
+      "definitionTemplate": "A cube size matrix is the published table mapping each cube edge in millimetres to its standard parameters: pieces per kilogram, briquettes per shisha bowl, and per-bowl burn duration. The matrix is what private-label buyers cite when matching a finished SKU to a target retail box weight — 25 mm and 26 mm cubes are the global wholesale defaults.",
+      "see": { "href": "/products/cubes", "label": "Cube SKUs and size matrix" }
+    },
+    {
+      "slug": "pieces-per-kg",
+      "term": "Pieces per kg",
+      "cluster": "products",
+      "definitionTemplate": "Pieces per kg is the count of individual briquettes contained in one kilogram of finished product — a derived figure that depends on edge length, density, and packing. For coconut-shell briquettes at a target density near 1 g/cm³, a 25 mm cube yields roughly 64 pieces per kg; a 22 × 22 × 26 mm cube yields roughly 80 pieces per kg. The exact pieces-per-kg is recorded on the master-box label so customs and retail audits reconcile to weight."
+    },
+    {
+      "slug": "hexagonal-briquette",
+      "term": "Hexagonal briquette",
+      "cluster": "products",
+      "definitionTemplate": "A hexagonal briquette is a six-sided extruded cylinder, typically 22 mm across-flats and 50 mm long, designed for narghile and pipe bowls where a single piece spans the bowl head. Hexagonals burn longer per piece than cubes (one piece per bowl session) but ignite more slowly and ash heavier.",
+      "see": { "href": "/products/hexagonals", "label": "Hexagonal SKUs" }
+    },
+    {
+      "slug": "finger-briquette",
+      "term": "Finger briquette",
+      "cluster": "products",
+      "definitionTemplate": "A finger briquette is a slim cylindrical or rectangular bar — typically 100 × 20 × 20 mm — sold for traditional shisha use in cafés where the operator breaks the piece across multiple bowls. The format is dominant in the Levant and parts of North Africa.",
+      "see": { "href": "/products/fingers", "label": "Finger SKUs" }
+    },
+    {
+      "slug": "flat-briquette",
+      "term": "Flat briquette",
+      "cluster": "products",
+      "definitionTemplate": "A flat briquette is a thin disc or tablet — typically 30–40 mm in diameter and 8–12 mm thick — designed for quick-light competing formats and HMD-friendly bowls. Flats are sold in foiled stacks and ignite faster than cubes but burn shorter.",
+      "see": { "href": "/products/flats", "label": "Flat SKUs" }
+    },
+    {
+      "slug": "standby-vs-active-burn-time",
+      "term": "Standby vs active burn time",
+      "cluster": "products",
+      "definitionTemplate": "Standby burn time is how long a briquette remains incandescent on the bowl when no one is drawing on the hose; active burn time is the working duration during a session of normal draws (typically 5–7 draws per minute). Active burn time is the figure buyers ultimately care about — our Platinum grade delivers {{platinumBurnTime}} per cube at active draw on a standard shisha bowl.",
+      "see": { "href": "/quality/specifications-explained", "label": "Burn time benchmarks per grade" }
+    },
+    {
+      "slug": "ignition-time",
+      "term": "Ignition time",
+      "cluster": "products",
+      "definitionTemplate": "Ignition time is the duration required for the briquette surface to reach uniform red-hot incandescence under direct flame, measured under standardized airflow with an open-coil electric stove or a torch. Coconut-shell natural briquettes typically require 5–10 minutes to fully ignite; quick-light tablets reach incandescence in under 60 seconds but at a cost in odour and burn cleanliness.",
+      "see": { "href": "/quality/testing-methods", "label": "How we measure ignition time" }
+    },
+
+    {
+      "slug": "pyrolysis",
+      "term": "Pyrolysis",
+      "cluster": "production",
+      "definitionTemplate": "Pyrolysis is the thermal decomposition of organic matter at high temperature in the absence of oxygen — the chemical process that converts coconut shell into charcoal. Industrial coconut-shell pyrolysis is carried out at 400–700 °C over several hours; the resulting char is the raw material for the briquetting press.",
+      "see": { "href": "/factory/production-process", "label": "Pyrolysis step by step" }
+    },
+    {
+      "slug": "carbonization-kiln",
+      "term": "Carbonization kiln",
+      "cluster": "production",
+      "definitionTemplate": "A carbonization kiln is the sealed thermal vessel — typically a brick or steel drum kiln — in which raw coconut shell is pyrolyzed into charcoal at controlled temperature and oxygen starvation. Our factory operates {{ovenCount}} kilns running in parallel to feed {{productionLines}} briquetting lines at a sustained {{capacity}} tons per day.",
+      "see": { "href": "/factory/production-process", "label": "Kiln operation and cycle" }
+    },
+    {
+      "slug": "tempurung-kelapa-feedstock",
+      "term": "Tempurung kelapa (coconut shell feedstock)",
+      "cluster": "production",
+      "definitionTemplate": "Tempurung kelapa is the Indonesian term for coconut shell — the hard, fibrous endocarp left over after the flesh and water are extracted. It is the highest-density natural feedstock available for charcoal: roughly 1.4 g/cm³ raw, versus around 0.5 g/cm³ for wood, which is why coconut briquettes burn longer and produce less ash than wood-based equivalents.",
+      "see": { "href": "/factory/raw-materials", "label": "How we source coconut shell" }
+    },
+    {
+      "slug": "tapioca-binder",
+      "term": "Tapioca binder",
+      "cluster": "production",
+      "definitionTemplate": "Tapioca binder is the food-grade starch added at the briquetting stage to hold pulverized coconut charcoal into a coherent cube. Tapioca is preferred over synthetic binders because it carbonizes cleanly during drying, contributes no foreign odour or smoke, and meets food-contact regulations in destination markets. Binder content is typically 3–6% by mass.",
+      "see": { "href": "/factory/production-process", "label": "Binder and pressing step" }
+    },
+    {
+      "slug": "briquetting-press",
+      "term": "Briquetting press",
+      "cluster": "production",
+      "definitionTemplate": "A briquetting press is the high-pressure hydraulic or mechanical machine that compacts pulverized coconut charcoal mixed with tapioca binder into the final cube shape — typically operating at 1500–2500 kg/cm² of die pressure. Multiple presses feed a shared drying tunnel; our factory operates {{productionLines}} lines."
+    },
+    {
+      "slug": "qc-protocol",
+      "term": "QC protocol",
+      "cluster": "production",
+      "definitionTemplate": "A QC (Quality Control) protocol is the documented set of in-process and pre-shipment checks against which every production batch is verified. Ours includes raw-material moisture sampling, mid-line density measurement, post-drying full-spec analysis (ash, fixed carbon, moisture, volatile matter, calorific value), random drop tests, and pre-loading containerized inspection per {{isoStandard}} — audited by {{auditors}}.",
+      "see": { "href": "/quality/testing-methods", "label": "Our full QC protocol" }
+    },
+
+    {
+      "slug": "three-tier-packaging",
+      "term": "Three-tier packaging",
+      "cluster": "packaging",
+      "definitionTemplate": "Three-tier packaging is the standard wholesale stack: inner plastic film (printed, sealed, retail-ready) → inner box (printed retail unit) → master box (corrugated outer carton). The buyer chooses which tiers ship: \"full\" (all three), \"standard\" (plastic + inner box), or \"minimal\" (plastic + master box). We offer plastic in {{innerPlasticSizes}}, inner boxes in {{innerBoxSizes}}, and master boxes in {{masterBoxSizes}}.",
+      "see": { "href": "/packaging", "label": "Packaging configurations" }
+    },
+    {
+      "slug": "full-bulk-bulk-loose",
+      "term": "Full / Bulk / Bulk-loose",
+      "cluster": "packaging",
+      "definitionTemplate": "These three terms describe how a master box is filled. \"Full\" means inner boxes are packed inside the master box (retail-ready). \"Bulk\" means briquettes go directly into the master box in sealed plastic but without retail inner boxes (B2B reseller). \"Bulk-loose\" means briquettes are loaded directly into the master box with no inner plastic — the cheapest format, used by importers who repack at destination.",
+      "see": { "href": "/packaging/master-box", "label": "Master-box configurations" }
+    },
+    {
+      "slug": "floor-stuffing-vs-palletized",
+      "term": "Floor-stuffing vs palletized",
+      "cluster": "packaging",
+      "definitionTemplate": "Floor-stuffing is loading master boxes directly onto the container floor by hand, maximizing the cubic capacity (≈ 18 tons in a 20ft) but requiring manual unloading at destination. Palletized loading places master boxes on heat-treated wooden pallets compliant with ISPM-15, reducing per-container weight (≈ 16 tons in a 20ft) but enabling forklift handling. We offer both.",
+      "see": { "href": "/logistics/rules", "label": "Container loading options" }
+    },
+    {
+      "slug": "ispm-15",
+      "term": "ISPM-15",
+      "termCode": "ISPM 15",
+      "cluster": "packaging",
+      "definitionTemplate": "ISPM-15 is the International Standards for Phytosanitary Measures rule that mandates heat treatment and IPPC stamping of all wood packaging material (pallets, dunnage, crates) used in international trade. ISPM-15 compliance is non-negotiable for entry into the EU, US, Australia, and most other major markets. We use only ISPM-15-marked pallets when palletization is requested.",
+      "see": { "href": "/logistics/rules", "label": "ISPM-15 documentation" }
+    },
+    {
+      "slug": "master-box-and-inner-box",
+      "term": "Master box and inner box",
+      "cluster": "packaging",
+      "definitionTemplate": "The master box is the corrugated outer carton — {{masterBoxSizes}}, single- or double-wall — that holds inner boxes or briquettes for ocean freight and warehouse handling. The inner box is the retail-printed unit, typically {{innerBoxGsm}} gsm board, in sizes from {{innerBoxSizes}}. We accept artwork in {{acceptedArtworkFormats}} formats and supply a digital proof within {{proofTimeDays}} days of receiving final files.",
+      "see": { "href": "/packaging/master-box", "label": "Master and inner box specs" }
+    },
+    {
+      "slug": "white-label-oem",
+      "term": "White-label / OEM",
+      "cluster": "packaging",
+      "definitionTemplate": "White-label (also called OEM, Original Equipment Manufacturer) is private-label manufacturing — the buyer supplies a brand and artwork, and the factory produces the finished retail SKU under that brand. Our white-label workflow accepts {{acceptedArtworkFormats}} artwork, returns a digital proof in {{proofTimeDays}} days, and is included in standard MOQ ({{moqLabel}}) with no extra setup fee.",
+      "see": { "href": "/packaging/white-lable", "label": "White-label process and timeline" }
+    },
+
+    {
+      "slug": "incoterms-2020",
+      "term": "Incoterms 2020",
+      "cluster": "incoterms",
+      "definitionTemplate": "Incoterms 2020 is the International Chamber of Commerce's eleven-rule glossary that defines who pays for and bears risk over each leg of an international shipment — from the seller's gate to the buyer's warehouse. Every commercial invoice should name an Incoterm followed by a place (e.g. FOB Semarang); the absence of an Incoterm is the most common cause of freight disputes.",
+      "see": { "href": "/logistics/rules", "label": "Incoterms summary table" }
+    },
+    {
+      "slug": "fob",
+      "term": "FOB (Free On Board)",
+      "termCode": "FOB",
+      "cluster": "incoterms",
+      "definitionTemplate": "FOB (Free On Board) is the Incoterm under which the seller delivers cargo on board the vessel at the named port of loading — ownership and risk transfer when the goods cross the ship's rail. Our default sales basis is {{portLabel}}: we cover origin trucking, customs export clearance, terminal handling, and vanning; the buyer arranges the ocean freight, insurance, and destination clearance."
+    },
+    {
+      "slug": "cfr-cif",
+      "term": "CFR and CIF (contrast)",
+      "termCode": "CFR / CIF",
+      "cluster": "incoterms",
+      "definitionTemplate": "CFR (Cost and Freight) and CIF (Cost, Insurance and Freight) are the Incoterms under which the seller arranges and pays for ocean freight to the named destination port; risk still transfers at the loading port, the same as FOB. CIF additionally requires the seller to arrange marine cargo insurance for the buyer's benefit. We quote CFR and CIF on request; the freight rate is added to the FOB price."
+    },
+    {
+      "slug": "dap",
+      "term": "DAP (Delivered at Place)",
+      "termCode": "DAP",
+      "cluster": "incoterms",
+      "definitionTemplate": "DAP (Delivered at Place) is the Incoterm under which the seller delivers cargo to a named place in the destination country, ready for unloading — covering ocean freight, destination port charges, and inland trucking, but excluding import duties and VAT. DAP is suitable for buyers without an established import broker."
+    },
+    {
+      "slug": "letter-of-credit",
+      "term": "Letter of Credit (L/C)",
+      "termCode": "L/C",
+      "cluster": "incoterms",
+      "definitionTemplate": "A Letter of Credit is a bank-issued payment instrument under which the buyer's bank guarantees payment to the seller against documentary evidence that the shipment was made as agreed (bill of lading, COO, COA, packing list). L/C at sight is the standard secure payment terms for first orders; the seller pays a discount or fee to the issuing bank for the guarantee.",
+      "see": { "href": "/logistics/documents", "label": "L/C documentary requirements" }
+    },
+    {
+      "slug": "tt-payment",
+      "term": "T/T payment (Telegraphic Transfer)",
+      "termCode": "T/T",
+      "cluster": "incoterms",
+      "definitionTemplate": "T/T (Telegraphic Transfer) is direct bank-to-bank wire transfer, the dominant payment method in the shisha-charcoal trade once a buyer–seller relationship is established. Our default terms: {{paymentTerms}}. Wire fees and FX spread sit with the buyer."
+    },
+
+    {
+      "slug": "telex-release",
+      "term": "Telex release",
+      "cluster": "docs",
+      "definitionTemplate": "A Telex release is an electronic instruction from the carrier authorizing release of cargo at destination without surrender of the physical original bill of lading. Used when documents would arrive after the vessel — common on short trans-Asia routes — the telex release saves demurrage at the cost of slightly higher carrier-handling fees. Issued only after the seller confirms payment received.",
+      "see": { "href": "/logistics/documents", "label": "When telex release makes sense" }
+    },
+    {
+      "slug": "isf-10-2",
+      "term": "ISF 10+2",
+      "termCode": "ISF 10+2",
+      "cluster": "docs",
+      "definitionTemplate": "ISF (Importer Security Filing) 10+2 is the US Customs and Border Protection rule requiring importers to file ten data elements about the cargo and the carrier to file two more, at least 24 hours before vessel departure for the United States. Late or inaccurate ISF filings carry a USD 5,000 penalty per shipment; the importer's customs broker handles the filing but needs supplier-side data from us.",
+      "see": { "href": "/logistics/import-to-usa", "label": "ISF 10+2 data we supply" }
+    },
+    {
+      "slug": "lacey-act",
+      "term": "Lacey Act",
+      "cluster": "docs",
+      "definitionTemplate": "The Lacey Act (16 USC § 3371) is the US law that prohibits import of plant and plant-derived products taken in violation of any foreign law, and requires importers to declare species and country of harvest. Coconut shell is exempt from the formal species declaration (it is not a CITES-listed or regulated taxon), but the underlying due-diligence obligation remains — buyers' brokers should retain our coconut-origin documentation.",
+      "see": { "href": "/logistics/import-to-usa", "label": "Lacey Act documentation we provide" }
+    },
+    {
+      "slug": "chamber-of-commerce-legalization",
+      "term": "Chamber of Commerce legalization",
+      "cluster": "docs",
+      "definitionTemplate": "Chamber of Commerce legalization is the stamp and certification by Indonesia's national Chamber of Commerce (KADIN) attesting that the signatures and seals on export documents (commercial invoice, packing list, certificate of origin) are genuine. Many GCC and African destinations require Chamber legalization plus consular embassy legalization on top — adding 3–5 working days to the document timeline.",
+      "see": { "href": "/logistics/documents", "label": "Document legalization timeline" }
+    },
+    {
+      "slug": "phytosanitary",
+      "term": "Phytosanitary certificate",
+      "cluster": "docs",
+      "definitionTemplate": "A phytosanitary certificate is the document issued by the exporting country's plant-health authority (Indonesia: Badan Karantina Pertanian) attesting that the consignment is free of pests and complies with the importing country's phytosanitary regulations. Coconut shell charcoal is fully carbonized so the risk is minimal, but a phytosanitary certificate is mandatory for entry into the EU, Australia, and several Middle Eastern markets.",
+      "see": { "href": "/logistics/documents", "label": "Phytosanitary certificate process" }
+    },
+    {
+      "slug": "coo-form-a-fta",
+      "term": "COO / Form A / FTA forms",
+      "cluster": "docs",
+      "definitionTemplate": "A Certificate of Origin (COO) names the country in which goods were manufactured — the basis on which the destination customs authority applies the applicable import duty. Indonesia issues several variants: the generic COO, Form A (for GSP preferences in markets that recognize it), and the various FTA-specific forms (Form D for ASEAN, Form E for ASEAN–China, etc.). Choosing the right form can eliminate the duty entirely.",
+      "see": { "href": "/logistics/documents", "label": "COO variants and FTA eligibility" }
+    },
+    {
+      "slug": "hs-code-4402-90",
+      "term": "HS code 4402.90",
+      "termCode": "HS 4402.90",
+      "cluster": "docs",
+      "definitionTemplate": "4402.90 is the World Customs Organization Harmonized System code for \"Wood charcoal (including shell or nut charcoal), whether or not agglomerated, other than wood charcoal of bamboo\". It is the code under which coconut-shell charcoal briquettes are declared on every export invoice and import customs entry. Destination duty rates and FTA eligibility are looked up against this code."
+    },
+    {
+      "slug": "coa-roa",
+      "term": "COA / ROA",
+      "cluster": "docs",
+      "definitionTemplate": "A Certificate of Analysis (COA), also called a Report of Analysis (ROA), is the laboratory document accompanying a shipment that reports the measured value of each contractual specification (ash, moisture, fixed carbon, calorific value, volatile matter) against the agreed grade. Our COA is issued per batch and signed by the QC manager; specs were last verified {{specsLastVerified}}.",
+      "see": { "href": "/quality/testing-methods", "label": "Sample COA" }
+    },
+
+    {
+      "slug": "nib",
+      "term": "NIB (Nomor Induk Berusaha)",
+      "termCode": "NIB",
+      "cluster": "indonesia",
+      "definitionTemplate": "NIB (Nomor Induk Berusaha) is the Indonesian Business Identification Number — the single integrated registration that replaces the older SIUP, TDP, and import/export licences. Our NIB is {{nib}}; it appears on every commercial invoice and is the document a destination customs broker uses to verify the exporter's legal status with Indonesian authorities.",
+      "see": { "href": "/about", "label": "Our legal registration documents" }
+    },
+    {
+      "slug": "npwp",
+      "term": "NPWP (Nomor Pokok Wajib Pajak)",
+      "termCode": "NPWP",
+      "cluster": "indonesia",
+      "definitionTemplate": "NPWP (Nomor Pokok Wajib Pajak) is the Indonesian Tax Identification Number — the equivalent of an EIN in the US or a VAT number in the EU. Our NPWP is {{taxId}}; required on every export invoice and used by Indonesian Customs to reconcile export-tax positions."
+    },
+    {
+      "slug": "peb-npe",
+      "term": "PEB and NPE",
+      "cluster": "indonesia",
+      "definitionTemplate": "PEB (Pemberitahuan Ekspor Barang) is the Indonesian Export Declaration submitted electronically to Customs before vessel loading, naming the exporter, consignee, HS code, value, quantity, and vessel/voyage. NPE (Nota Pelayanan Ekspor) is the resulting customs release note authorizing the container to enter the export terminal. No NPE, no loading.",
+      "see": { "href": "/logistics/documents", "label": "PEB and NPE process" }
+    },
+    {
+      "slug": "ppjk",
+      "term": "PPJK (Customs Broker)",
+      "termCode": "PPJK",
+      "cluster": "indonesia",
+      "definitionTemplate": "PPJK (Pengusaha Pengurusan Jasa Kepabeanan) is the licensed Indonesian customs broker who files the PEB on the exporter's behalf and shepherds the consignment through Customs at Tanjung Emas ({{port}}) or the alternate port. We retain a licensed PPJK; the broker's reference appears on the bill of lading."
+    },
+    {
+      "slug": "halal-mui-bpjph",
+      "term": "Halal MUI / BPJPH",
+      "cluster": "indonesia",
+      "definitionTemplate": "Halal certification in Indonesia is issued by BPJPH (Badan Penyelenggara Jaminan Produk Halal), the body that took over from MUI's LPPOM under Indonesia's 2014 Halal Product Assurance Law. Coconut shell charcoal contains no animal-derived ingredients, so the certification is typically not requested by buyers, but we will obtain it on a per-order basis where the destination market mandates it.",
+      "see": { "href": "/quality/certifications", "label": "Our certifications" }
+    },
+
+    {
+      "slug": "reach-eu",
+      "term": "REACH (EU)",
+      "termCode": "EC 1907/2006",
+      "cluster": "markets",
+      "definitionTemplate": "REACH (EC Regulation 1907/2006 — Registration, Evaluation, Authorisation and Restriction of Chemicals) is the EU chemicals regulation under which any substance manufactured in or imported into the EU above one tonne per year must be registered with the European Chemicals Agency. Coconut shell charcoal is exempt from registration as a \"naturally occurring substance\" under REACH Annex V, but the safety data sheet (SDS) requirements still apply.",
+      "see": { "href": "/markets/germany", "label": "EU market requirements" }
+    },
+    {
+      "slug": "clp-eu",
+      "term": "CLP (EU)",
+      "termCode": "EC 1272/2008",
+      "cluster": "markets",
+      "definitionTemplate": "CLP (EC Regulation 1272/2008 — Classification, Labelling and Packaging) is the EU regulation aligning chemical hazard labelling with the UN Globally Harmonized System. Coconut shell charcoal carries the GHS Class 4.2 self-heating pictogram on shipping packaging only — finished consumer retail boxes are out of scope when the product is not classified as hazardous to consumers."
+    },
+    {
+      "slug": "eudr",
+      "term": "EUDR",
+      "termCode": "EU 2023/1115",
+      "cluster": "markets",
+      "definitionTemplate": "EUDR (EU Regulation 2023/1115 — Deforestation Regulation) is the EU rule that prohibits placement on the EU market of seven commodity groups — including \"wood\" and \"charcoal\" under HS 4402 — unless the operator can prove the product is deforestation-free, legally produced, and traceable to plot-level geolocation of origin. Effective for large operators from 30 December 2025.",
+      "see": { "href": "/markets/germany", "label": "EUDR compliance for our shipments" }
+    },
+    {
+      "slug": "dds-eudr",
+      "term": "DDS (EUDR Due Diligence Statement)",
+      "termCode": "EUDR DDS",
+      "cluster": "markets",
+      "definitionTemplate": "A DDS (Due Diligence Statement) is the geolocation-tagged declaration that EU importers must file in the EU TRACES NT system for each batch of EUDR-scope cargo. The DDS names the producer, plot polygon, harvest date, and the operator's risk assessment; for coconut shell charcoal, the production origin is the carbonization facility, with farm-level traceability where required by the importer."
+    },
+    {
+      "slug": "saso-gcc",
+      "term": "SASO (Saudi Arabia)",
+      "termCode": "SASO",
+      "cluster": "markets",
+      "definitionTemplate": "SASO (Saudi Standards, Metrology and Quality Organization) sets product standards and conformity-assessment requirements for goods entering Saudi Arabia. Shisha charcoal has no dedicated SASO standard, but the SABER product-conformity gateway routes every consignment for clearance — the buyer's broker handles SABER registration with our COA and packing list.",
+      "see": { "href": "/markets/saudi-arabia", "label": "Saudi Arabia import process" }
+    },
+    {
+      "slug": "saber-gcc",
+      "term": "SABER (Saudi Arabia)",
+      "termCode": "SABER",
+      "cluster": "markets",
+      "definitionTemplate": "SABER (Saudi Product Safety Programme) is the electronic conformity-assessment system through which all goods entering Saudi Arabia obtain a Product Certificate of Conformity (PCoC) and a Shipment CoC. The system replaced the legacy SASO-CoC. PCoC validity is one year from product registration; renewal is the importer's responsibility."
+    },
+    {
+      "slug": "eac-eaeu",
+      "term": "EAC (Eurasian Economic Union)",
+      "termCode": "EAC",
+      "cluster": "markets",
+      "definitionTemplate": "EAC (Eurasian Conformity) is the conformity mark required for goods entering the Eurasian Economic Union (Russia, Belarus, Kazakhstan, Armenia, Kyrgyzstan). Products under Technical Regulations of the Customs Union (TR CU) carry an EAC declaration; coconut shell charcoal falls outside any specific TR CU, but importers commonly request a voluntary EAC declaration to ease customs.",
+      "see": { "href": "/markets/russia", "label": "Russia / EAEU import process" }
+    },
+    {
+      "slug": "gost-r",
+      "term": "GOST R",
+      "termCode": "GOST R",
+      "cluster": "markets",
+      "definitionTemplate": "GOST R is the Russian Federation product-standards system that predates EAC and remains in force for products not covered by a TR CU. For shisha charcoal, a voluntary GOST R conformity declaration is sometimes requested by Russian importers — issued by a Russian certification body against our COA — but is not mandatory."
+    },
+    {
+      "slug": "fda-deeming-rule-usa",
+      "term": "FDA Deeming Rule (USA)",
+      "termCode": "21 CFR 1100",
+      "cluster": "markets",
+      "definitionTemplate": "The FDA Deeming Rule (21 CFR Part 1100, finalized 2016) extended FDA regulatory authority to \"all tobacco products\" including hookah and shisha tobacco and accessories. Charcoal itself is not a tobacco product and is not directly regulated, but the rule's adjacency means US importers commonly ask for our HS code, COA, and Lacey Act documentation up-front.",
+      "see": { "href": "/markets/usa", "label": "USA market requirements" }
+    },
+
+    {
+      "slug": "hmd-kaloud-lotus",
+      "term": "HMD / Kaloud Lotus",
+      "cluster": "hookah",
+      "definitionTemplate": "HMD (Heat Management Device) is the category of metal or ceramic accessories that sit on top of a shisha bowl to hold the briquette away from the tobacco, distributing heat more evenly. The Kaloud Lotus is the original and best-known HMD. Cube briquettes (25–26 mm) are the standard format for HMD users."
+    },
+    {
+      "slug": "natural-vs-quick-light-coals",
+      "term": "Natural vs quick-light coals",
+      "cluster": "hookah",
+      "definitionTemplate": "Natural charcoal briquettes (the entire output of our factory) are pure coconut-shell charcoal pressed with food-grade tapioca binder — no accelerants, no chemical ignition, lit by stove or torch over 5–10 minutes. Quick-light coals are charcoal tablets dipped in or impregnated with chemical accelerants (typically potassium nitrate) so they self-ignite with a match; they burn shorter, ash heavier, and produce more odour."
+    },
+    {
+      "slug": "shisha-vs-hookah",
+      "term": "Shisha vs hookah",
+      "cluster": "hookah",
+      "definitionTemplate": "\"Shisha\" and \"hookah\" refer to the same water-pipe smoking device — \"hookah\" is the Anglicized form of the Indian word for the pipe itself, while \"shisha\" is the Arabic-rooted name common in the GCC, Levant, and Turkey for both the device and the flavoured tobacco. The product spec is identical regardless of which term the destination market uses."
+    }
+  ],
+
+  "faq": {
+    "heading": "Glossary FAQ",
+    "introTemplate": "Comparison-style questions buyers ask most often. Mirrored as FAQPage schema for AI-engine extraction.",
+    "items": [
+      {
+        "q": "What is the difference between UN 1361 and UN 1362?",
+        "a": "UN 1361 covers \"Carbon, animal or vegetable origin\" — coconut shell charcoal, wood charcoal, and similar carbonized organic materials. UN 1362 is \"Carbon, activated\" — a distinct material engineered for adsorption (water filters, gas masks). Both are IMDG Class 4.2 self-heating substances, but they follow different exemption pathways; misdeclaring shisha charcoal as UN 1362 is a frequent cause of carrier rejection."
+      },
+      {
+        "q": "Is shisha charcoal activated carbon?",
+        "a": "No. Shisha charcoal is finished carbonized briquettes pressed for combustion. Activated carbon is a separate material processed with steam or chemical activation to maximize surface area for adsorption (filters, purification). The two share a precursor (coconut shell) and an HS code family but are not interchangeable; the shipping declaration codes also differ (UN 1361 vs UN 1362)."
+      },
+      {
+        "q": "What does FOB {{port}} include and exclude?",
+        "a": "Our FOB {{port}} price includes origin trucking from the factory, Indonesian customs export clearance, container vanning, port terminal handling, and a vanning certificate. It excludes ocean freight, marine insurance, destination port charges, destination customs clearance, and destination duties or VAT — all of which the buyer or buyer's broker arranges separately. Risk and title transfer when the cargo crosses the ship's rail at Tanjung Emas."
+      },
+      {
+        "q": "Coconut vs bamboo vs wood charcoal — which lasts longer in a shisha bowl?",
+        "a": "Coconut shell briquettes burn longest at the highest fixed-carbon density. Industry-typical figures: coconut shell 75–82% fixed carbon and 2+ hours active burn per cube; bamboo charcoal 70–75% FC and 60–90 minutes per piece; wood charcoal 60–70% FC and 30–60 minutes per piece. Coconut also produces less ash and lower odour, which is why it is the dominant raw material for premium shisha-charcoal manufacture."
+      },
+      {
+        "q": "Why does UN 1361 ship only in full containers (FCL)?",
+        "a": "IMDG Class 4.2 cargo cannot be co-loaded with non-DG goods in an LCL (Less than Container Load) groupage, because the segregation, ventilation, and emergency-response requirements for Class 4.2 cannot be satisfied in a shared box. Every shisha-charcoal shipment moves as FCL, which is the operational reason our minimum order is {{moqLabel}}."
+      },
+      {
+        "q": "How long after order do containers leave {{port}}?",
+        "a": "Standard lead time is {{leadTimeLabel}} from confirmed deposit and final artwork (private label) to vessel ETD at {{port}}. The faster end of the range applies to repeat brands with artwork already on file; the slower end applies to first-order white-label runs that include a printing-proof cycle ({{proofTimeDays}} days)."
+      }
+    ]
+  },
+
+  "relatedPillars": {
+    "heading": "Related pillars",
+    "intro": "Each definition links inline to the pillar that explains the topic in operational depth. The full set:",
+    "items": [
+      { "href": "/products",  "label": "Products",       "description": "SKU catalogue: cubes, hexagonals, fingers, flats." },
+      { "href": "/factory",   "label": "Factory",        "description": "Production process, capacity, raw materials." },
+      { "href": "/logistics", "label": "Logistics",      "description": "UN 1361, shipping rules, documents, import-by-country." },
+      { "href": "/quality",   "label": "Quality",        "description": "Specifications, testing methods, certifications." },
+      { "href": "/markets",   "label": "Markets",        "description": "Country-specific buyer landing pages." },
+      { "href": "/packaging", "label": "Packaging",      "description": "Master box, inner box, white-label / OEM." },
+      { "href": "/guide",     "label": "Buyer's Guide",  "description": "How to choose a factory, private-label options." }
+    ]
+  }
+}

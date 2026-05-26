@@ -1,0 +1,46 @@
+---
+/**
+ * One thematic cluster — h2 heading + ordered list of DefinitionItems +
+ * Back-to-top anchor. The page composes these in sequence so the long
+ * document remains scannable and every term sits inside a labelled
+ * landmark.
+ */
+import DefinitionItem from './DefinitionItem.astro';
+import en from '~/i18n/en';
+
+interface Term {
+  slug: string;
+  term: string;
+  termCode?: string;
+  definition: string;
+  see?: { href: string; label: string };
+}
+
+interface Props {
+  anchor: string;
+  heading: string;
+  terms: Term[];
+}
+
+const { anchor, heading, terms } = Astro.props;
+const t = en.glossary;
+const headingId = `${anchor}-heading`;
+---
+<section
+  id={anchor}
+  aria-labelledby={headingId}
+  class="border-t border-neutral-200"
+>
+  <div class="mx-auto max-w-4xl px-4 py-10 md:px-8 md:py-12">
+    <h2 id={headingId} class="text-2xl font-bold text-neutral-900">{heading}</h2>
+    <div class="mt-5">
+      {terms.map((term) => <DefinitionItem {...term} />)}
+    </div>
+    <p class="mt-6 text-sm">
+      <a
+        href={`#${t.toc.topAnchorId}`}
+        class="rounded-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+      >↑ {t.toc.backToTopLabel}</a>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,140 @@
+---
+/**
+ * /glossary — the semantic hub of the site.
+ *
+ * Pure composition: assembles the token map (companyTokens + grade specs),
+ * resolves every term's definitionTemplate through fill(), buckets the
+ * resolved terms by cluster, derives the A–Z letter map, builds the
+ * @graph (DefinedTermSet + BreadcrumbList + FAQPage), and hands each
+ * block its already-resolved data.
+ *
+ * Every fact in a definition is interpolated from `~/config/company` or
+ * `~/config/grades`. The glossary.json strings carry labels and prose but
+ * never the fact values themselves — same single-source-of-truth rule
+ * that governs the rest of the site.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import Hero from '~/components/glossary/blocks/Hero.astro';
+import ThematicTOC from '~/components/glossary/blocks/ThematicTOC.astro';
+import AlphaJumpBar from '~/components/glossary/blocks/AlphaJumpBar.astro';
+import Cluster from '~/components/glossary/blocks/Cluster.astro';
+import GlossaryFAQ from '~/components/glossary/blocks/GlossaryFAQ.astro';
+import RelatedPillars from '~/components/glossary/blocks/RelatedPillars.astro';
+import en from '~/i18n/en';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { company } from '~/config/company';
+import { grades } from '~/config/grades';
+import { glossaryPageSchema, type ResolvedTerm } from '~/lib/schema/glossaryPage';
+
+const t = en.glossary;
+
+const premium = grades.find((g) => g.key === 'premium')!;
+const superPremium = grades.find((g) => g.key === 'super-premium')!;
+const platinum = grades.find((g) => g.key === 'platinum')!;
+
+const tokens = {
+  ...companyTokens(company),
+  termCount: t.terms.length,
+  paymentTerms: company.commercial.paymentTerms,
+  // Grade-derived spec strings — sourced from grades.ts (SSoT); never
+  // hardcoded in i18n bodies.
+  premiumAsh: premium.ash.display,
+  superPremiumAsh: superPremium.ash.display,
+  platinumAsh: platinum.ash.display,
+  premiumFC: premium.fixedCarbon.display,
+  superPremiumFC: superPremium.fixedCarbon.display,
+  platinumFC: platinum.fixedCarbon.display,
+  premiumBurnTime: premium.burnTime.display,
+  platinumBurnTime: platinum.burnTime.display,
+  premiumCalorific: premium.calorieValue.display,
+  platinumCalorific: platinum.calorieValue.display,
+};
+
+// Resolve every term's body once; group by cluster key.
+const resolvedTerms: Array<ResolvedTerm & { cluster: string; see?: { href: string; label: string } }> = t.terms.map((term) => ({
+  slug: term.slug,
+  term: term.term,
+  termCode: term.termCode,
+  cluster: term.cluster,
+  definition: fill(term.definitionTemplate, tokens),
+  see: term.see,
+}));
+
+const termsByCluster = new Map<string, typeof resolvedTerms>();
+for (const term of resolvedTerms) {
+  const bucket = termsByCluster.get(term.cluster) ?? [];
+  bucket.push(term);
+  termsByCluster.set(term.cluster, bucket);
+}
+
+// Alphabetical jump map: capital letter → slug of the first term that
+// starts with that letter (in document order). Letters with no terms
+// render as disabled in the AlphaJumpBar.
+const letterMap: Record<string, string> = {};
+for (const term of resolvedTerms) {
+  const first = term.term[0]?.toUpperCase();
+  if (first && /^[A-Z]$/.test(first) && !letterMap[first]) {
+    letterMap[first] = term.slug;
+  }
+}
+
+// FAQ token resolution.
+const resolvedFaq = t.faq.items.map((item) => ({
+  q: fill(item.q, tokens),
+  a: fill(item.a, tokens),
+}));
+
+// SEO head copy.
+const pageTitle = t.meta.titleTemplate;
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// Combined @graph (BreadcrumbList is emitted by the Breadcrumbs component
+// further down so we don't duplicate it here).
+const schema = glossaryPageSchema({
+  pageTitle,
+  pageDescription,
+  terms: resolvedTerms.map(({ slug, term, termCode, definition }) => ({
+    slug,
+    term,
+    termCode,
+    definition,
+  })),
+  faq: resolvedFaq,
+});
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/glossary"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-7xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <Hero />
+
+  <div class="py-8">
+    <ThematicTOC />
+    <AlphaJumpBar letterMap={letterMap} />
+  </div>
+
+  {t.clusters.map((c) => (
+    <Cluster
+      anchor={c.anchor}
+      heading={c.heading}
+      terms={termsByCluster.get(c.key) ?? []}
+    />
+  ))}
+
+  <GlossaryFAQ items={resolvedFaq} />
+
+  <RelatedPillars />
+
+  <CTABanner />
+</BaseLayout>

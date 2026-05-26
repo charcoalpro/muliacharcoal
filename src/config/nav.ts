@@ -41,6 +41,7 @@ export const LIVE_ROUTES: ReadonlySet<string> = new Set([
   '/about',
   '/careers',
   '/contact',
+  '/glossary',
   '/legal/privacy-policy',
   '/legal/terms',
   '/legal/cookies',

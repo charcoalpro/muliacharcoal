@@ -1,0 +1,34 @@
+---
+/**
+ * One glossary term — h3 with stable id (for hash anchors), definition body,
+ * optional public-standard code chip, optional "Detail" link down to the
+ * pillar that owns the topic.
+ */
+import TextLink from '~/components/content/TextLink.astro';
+
+interface Props {
+  slug: string;
+  term: string;
+  termCode?: string;
+  definition: string;
+  see?: { href: string; label: string };
+}
+
+const { slug, term, termCode, definition, see } = Astro.props;
+---
+<article class="border-b border-neutral-200 py-5 last:border-b-0">
+  <h3 id={slug} class="scroll-mt-24 text-lg font-semibold text-neutral-900">
+    {term}
+    {termCode && (
+      <span class="ms-2 inline-block rounded bg-neutral-100 px-2 py-0.5 align-middle text-xs font-normal tracking-wide text-neutral-600">
+        {termCode}
+      </span>
+    )}
+  </h3>
+  <p class="mt-2 leading-relaxed text-neutral-700">{definition}</p>
+  {see && (
+    <p class="mt-2 text-sm">
+      <TextLink href={see.href}>Detail: {see.label} →</TextLink>
+    </p>
+  )}
+</article>

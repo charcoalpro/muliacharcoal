@@ -1,0 +1,46 @@
+---
+/**
+ * Alphabetical jump bar — A through Z. Each letter is either an anchor
+ * to the first term starting with that letter (passed in via letterMap)
+ * or rendered as disabled when no term starts with the letter. No JS.
+ */
+import en from '~/i18n/en';
+
+interface Props {
+  /** Map of capitalized first letter → slug of the first term that starts with that letter. */
+  letterMap: Record<string, string>;
+}
+
+const { letterMap } = Astro.props;
+const t = en.glossary;
+const letters = [
+  'A','B','C','D','E','F','G','H','I','J','K','L','M',
+  'N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+];
+---
+<nav
+  aria-label={t.toc.alphaHeading}
+  class="mx-auto max-w-4xl px-4 pt-8 md:px-8"
+>
+  <h2 class="text-base font-semibold text-neutral-900">{t.toc.alphaHeading}</h2>
+  <ul class="mt-3 flex flex-wrap gap-1.5">
+    {letters.map((L) => {
+      const slug = letterMap[L];
+      return (
+        <li>
+          {slug ? (
+            <a
+              href={`#${slug}`}
+              class="inline-flex min-h-11 min-w-11 items-center justify-center rounded border border-neutral-300 px-3 py-2 text-sm font-medium text-neutral-900 hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+            >{L}</a>
+          ) : (
+            <span
+              aria-hidden="true"
+              class="inline-flex min-h-11 min-w-11 select-none items-center justify-center rounded border border-neutral-200 px-3 py-2 text-sm text-neutral-300"
+            >{L}</span>
+          )}
+        </li>
+      );
+    })}
+  </ul>
+</nav>

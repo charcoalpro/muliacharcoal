@@ -1,0 +1,27 @@
+---
+/**
+ * Thematic table of contents — anchor list of the 10 clusters.
+ * Plain anchor links; no JavaScript.
+ */
+import en from '~/i18n/en';
+
+const t = en.glossary;
+---
+<nav aria-label={t.toc.heading} class="mx-auto max-w-4xl px-4 pt-2 md:px-8">
+  <h2 class="text-base font-semibold text-neutral-900">{t.toc.heading}</h2>
+  <ol class="mt-3 grid gap-2 md:grid-cols-2">
+    {t.clusters.map((c, i) => (
+      <li class="flex gap-2">
+        <span class="text-neutral-400 tabular-nums" aria-hidden="true">
+          {String(i + 1).padStart(2, '0')}
+        </span>
+        <a
+          href={`#${c.anchor}`}
+          class="rounded-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+        >
+          {c.heading}
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>

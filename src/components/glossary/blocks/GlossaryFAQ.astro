@@ -1,0 +1,38 @@
+---
+/**
+ * Glossary FAQ — short, comparison-style Q&As that don't fit dictionary
+ * form. Mirrored as FAQPage schema for AI-engine extraction (the single
+ * highest-ROI GEO format per CLAUDE.md).
+ *
+ * Q/A copy arrives token-resolved from the page; this block just renders.
+ */
+import en from '~/i18n/en';
+import type { QAPair } from '~/lib/schema/faqPage';
+
+interface Props {
+  items: QAPair[];
+}
+
+const { items } = Astro.props;
+const t = en.glossary.faq;
+---
+<section
+  id="glossary-faq"
+  aria-labelledby="glossary-faq-heading"
+  class="border-t border-neutral-200"
+>
+  <div class="mx-auto max-w-4xl px-4 py-10 md:px-8 md:py-12">
+    <h2 id="glossary-faq-heading" class="text-2xl font-bold text-neutral-900">
+      {t.heading}
+    </h2>
+    <p class="mt-2 text-neutral-600">{t.introTemplate}</p>
+    <dl class="mt-6">
+      {items.map((it) => (
+        <div class="border-b border-neutral-200 py-5 last:border-b-0">
+          <dt class="font-semibold text-neutral-900">{it.q}</dt>
+          <dd class="mt-2 leading-relaxed text-neutral-700">{it.a}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
