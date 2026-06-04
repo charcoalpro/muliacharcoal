@@ -11,7 +11,8 @@
  *   1. Inline blur validation on every required field for fast feedback.
  *   2. Submit handler: per-field validate(), honeypot silent-success,
  *      `fetch()` POST to Web3Forms, inline DOM swap for the success panel,
- *      `dataLayer.push({ event: 'inquiry_submit', ... })` for GTM.
+ *      and an `inquiry_submit` conversion event fired on GA4 + Meta Pixel
+ *      via `track()`, plus a `dataLayer.push` for any GTM container present.
  *
  * Stable selectors (kept identical to the Astro component):
  *   - form#inquiry-form
@@ -24,6 +25,8 @@
  * `ATTACHMENT_MIME_TYPES` live in `inquiryValidation.ts`; the Astro
  * frontmatter copies them into the `config` blob below.
  */
+
+import { track } from '~/lib/analytics';
 
 export interface InquirySubmitConfig {
   /** Web3Forms POST endpoint. */
@@ -201,14 +204,23 @@ export function initInquiryForm(form: HTMLFormElement, config: InquirySubmitConf
       form.classList.add('hidden');
       successPanel.focus?.();
       document.dispatchEvent(new CustomEvent('toast', { detail: { message: toastSuccessMsg, type: 'success', durationMs: 5000 } }));
+
+      // Conversion event. Fire on GA4 + Meta Pixel directly via track()
+      // (this site loads gtag.js + fbq, not a GTM container), and also push
+      // to dataLayer so any GTM container present still receives it.
+      const eventParams = {
+        product_category: Array.from(
+          form.querySelectorAll<HTMLInputElement>('input[name="products[]"]:checked'),
+        )
+          .map((i) => i.value)
+          .join(','),
+        estimated_quantity_tons: field<HTMLSelectElement>('volume')?.value ?? '',
+        destination_country: field<HTMLSelectElement>('country')?.value ?? '',
+      };
+      track('inquiry_submit', eventParams);
       const w = window as GtmWindow;
       if (w.dataLayer) {
-        w.dataLayer.push({
-          event: 'inquiry_submit',
-          product_category: Array.from(form.querySelectorAll<HTMLInputElement>('input[name="products[]"]:checked')).map((i) => i.value).join(','),
-          estimated_quantity_tons: field<HTMLSelectElement>('volume')?.value ?? '',
-          destination_country: field<HTMLSelectElement>('country')?.value ?? '',
-        });
+        w.dataLayer.push({ event: 'inquiry_submit', ...eventParams });
       }
     } catch {
       errorPanel.textContent = errs.submitFailed;

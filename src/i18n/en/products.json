@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "titleTemplate": "Coconut Shisha Charcoal: Shapes, Grades & Specs",
+    "descriptionTemplate": "Coconut shell shisha charcoal from {{brand}}, {{port}}: {{shapeCount}} shapes, {{gradeCount}} grades, ash {{ashRange}}. Wholesale MOQ {{moqTons}} tons. Compare specs, request a sample."
+  },
+
+  "breadcrumb": "Products",
+  "eyebrow": "Coconut shell shisha charcoal · {{city}}, {{country}}",
+  "h1": "Coconut Shell Shisha Charcoal: Shapes, Grades & Specifications",
+  "heroSubtitle": "Coconut shell shisha charcoal briquettes are compressed coconut-shell carbon pressed into uniform shapes for hookah. Also sold as coconut charcoal, hookah coals, shisha cubes, or natural charcoal briquettes — {{brand}} presses {{shapeCount}} shapes in {{gradeCount}} quality grades, factory-direct from {{port}}, {{country}}.",
+
+  "heroTrust": {
+    "moqLabel": "MOQ",
+    "originLabel": "Origin",
+    "qualityLabel": "Quality",
+    "complianceLabel": "Transport"
+  },
+
+  "hero": {
+    "ctaQuote": "Request a quote",
+    "ctaQuoteAria": "Request a wholesale quote on WhatsApp",
+    "ctaSample": "Request a sample",
+    "ctaSampleAria": "Request a sample on WhatsApp"
+  },
+
+  "metaBlock": {
+    "authorRole": "Authored by",
+    "reviewerRole": "Reviewed by",
+    "factCheckerRole": "Fact-checked by",
+    "lastUpdatedLabel": "Last updated",
+    "readTimeLabel": "Reading time",
+    "readTimeValueTemplate": "{{minutes}} min"
+  },
+
+  "atAGlance": {
+    "heading": "At a glance",
+    "definition": "Coconut shell shisha charcoal is a quick-light-free briquette made by carbonizing coconut shells, milling the char, binding it with food-grade tapioca starch, and pressing it into a fixed shape. It burns hotter and longer than wood charcoal, leaves less ash, and adds no taste or odor to the tobacco — which is why it is the default fuel for hookah lounges and shisha retail worldwide.",
+    "shapesLabel": "Shapes",
+    "shapesValueTemplate": "{{shapeCount}} (cube, finger, hexagonal, dome, flat, lotus)",
+    "sizesLabel": "Size range",
+    "sizesValueTemplate": "{{sizeRange}}",
+    "gradesLabel": "Grades",
+    "gradesValueTemplate": "{{gradeNames}}",
+    "ashLabel": "Ash content",
+    "ashValueTemplate": "{{ashRange}} by mass",
+    "moqLabel": "Minimum order",
+    "moqValueTemplate": "{{moqLabel}}",
+    "originLabel": "Origin / port",
+    "originValueTemplate": "{{portLabel}}"
+  },
+
+  "toc": {
+    "heading": "On this page",
+    "shapes": "Shapes & sizes",
+    "grades": "Quality grades compared",
+    "meaning": "What the specs mean",
+    "choose": "Which charcoal to choose",
+    "ordering": "Ordering, MOQ & shipping"
+  },
+  "backToTopLabel": "Back to top",
+
+  "shapes": {
+    "h2": "Shapes & sizes",
+    "intro": "Every shape below is pressed from the same 100% coconut shell formulation and is available in all {{gradeCount}} quality grades — the grade is chosen per order, not per shape. Sizes are cut to your specification; the dimensions and approximate pieces-per-kilogram listed are our published formats. You can mix shapes and sizes inside a single {{moqLabel}} container.",
+    "sizesHeading": "Sizes",
+    "pcsLabel": "pcs/kg",
+    "viewAllTemplate": "View all {{shape}} sizes & specs",
+    "skuAriaTemplate": "{{name}} detail page"
+  },
+
+  "grades": {
+    "h2": "Quality grades compared",
+    "intro": "All three grades are 100% natural coconut shell charcoal — no chemicals, no fillers — produced under {{isoStandard}} and classified for sea transport as IMDG {{unNumber}}. The grades are separated by two things a buyer can measure: ash content and the raw-material selection behind it. The numeric specifications below are factory targets; a per-batch certificate of analysis (COA) issued by {{auditors}} ships with every order.",
+    "propertyHeader": "Specification",
+    "cardEyebrow": "Grade",
+    "caption": "Factory targets per grade. Independent lab COA issued per shipment; figures confirmed on each batch.",
+    "properties": {
+      "ash": "Ash content",
+      "rawMaterialSource": "Raw material / source",
+      "fixedCarbon": "Fixed carbon",
+      "burnTime": "Burn time",
+      "burnTemp": "Burn temperature",
+      "calorieValue": "Calorific value"
+    },
+    "rawMaterialPending": "Per-grade source profile pending QC sign-off",
+    "ash": {
+      "h3": "Ash content by grade",
+      "body": "Ash content is the percentage of mineral residue left after the briquette has fully combusted, measured by mass. It is the single most visible quality marker to your end customer: lower ash means less white debris in the bowl, fewer interruptions to scrape and re-seat coals, and a cleaner-looking session. Our grades run from {{premiumAsh}} on Premium down to {{platinumAsh}} on Platinum. Below roughly 2%, the difference is obvious to an experienced lounge operator — which is why Platinum commands a premium shelf price."
+    },
+    "rawMaterial": {
+      "h3": "Raw material / source by grade",
+      "body": "The ash gap between grades comes from the raw material. Denser, more mature coconut shell carbonized at a controlled temperature yields a higher fixed-carbon, lower-ash briquette; younger or mixed shell raises ash and shortens burn. Each grade is therefore built from a different shell selection — the specific per-grade sourcing profile is being finalized with our QC team and will be published here. Read how we select and carbonize shell on the raw-materials page.",
+      "linkLabel": "How we source and carbonize coconut shell"
+    },
+    "shared": {
+      "h3": "Shared specifications",
+      "body": "Some specifications are identical across all three grades, so we state them once rather than repeating them in every column: moisture is held at {{premiumMoisture}}, every grade passes a {{premiumDropTest}} drop test for breakage resistance in transit, and sealed shelf life is {{shelfLifeMonths}} months. All grades are odorless and tasteless when lit, with no quick-light accelerants."
+    },
+    "docs": {
+      "h3": "Grade spec sheets & lab reports",
+      "body": "Download the primary-source evidence: the independent certificate of analysis, the {{iso9001Short}} certificate, and — once published — the per-grade lab report and material safety data sheet (SDS/MSDS) you will file with your customs broker.",
+      "coaTitle": "Sample certificate of analysis (COA)",
+      "isoTitle": "{{isoStandard}} certificate",
+      "labReportPendingTitle": "{{grade}} lab report — pending publication",
+      "msdsPendingTitle": "Material safety data sheet (SDS/MSDS) — pending publication",
+      "certLinkLabel": "See all certifications & testing methods"
+    }
+  },
+
+  "meaning": {
+    "h2": "What the specifications mean",
+    "experience": {
+      "h3": "Impact on the smoking experience",
+      "body": "Specifications are not abstract. Lower ash content keeps the bowl clean and the airflow open, so the session draws the same on the last 20 minutes as the first. A longer burn time — {{premiumBurnTime}} on Premium, up to {{platinumBurnTime}} on Platinum — means fewer coal changes per session and less interruption for the customer. A stable peak temperature near {{platinumBurnTemp}} delivers consistent heat to the tobacco without scorching it, and because the briquette is pure carbonized coconut shell with no accelerant, it adds no chemical taste or smell — the flavor your customer pays for is the tobacco, not the coal.",
+      "linkLabel": "Specifications explained, term by term"
+    },
+    "business": {
+      "h3": "Impact on your business",
+      "body": "Consistency is what protects your margin. A coal that burns the same in every box means fewer customer complaints, fewer returns, and a reputation your lounge or retail brand can charge for. Low ash and long burn let you position a premium SKU above the commodity wood-charcoal shelf. And because every batch ships with a {{auditors}} COA, you can answer a distributor's specification question with a document instead of a promise. Compare the coconut-shell advantage against bamboo and wood charcoal in our buyer's guide."
+    }
+  },
+
+  "choose": {
+    "h2": "Which charcoal to choose",
+    "intro": "The product is the same coconut shell briquette across every use case — what changes is the shape, size, and packaging that fits how your customers buy and burn it.",
+    "cafe": {
+      "h3": "For shisha cafés & lounges",
+      "body": "High-volume venues burn through coals fast, so the priority is cost-per-session and long burn. Order larger 26–28 mm cubes or flats in bulk master-box packing — the lowest cost per kilogram, minimal retail printing. Platinum or Super Premium grade keeps ash off the table during long sessions.",
+      "linkLabel": "Charcoal for shisha cafés & lounges",
+      "packagingLinkLabel": "bulk master-box packing"
+    },
+    "smokeShop": {
+      "h3": "For smoke shops & retail",
+      "body": "Retail sells on shelf appeal and brand. Choose smaller 25 mm cubes or hexagonals in printed inner boxes ({{innerBoxSizes}}), and consider OEM / white-label so the box carries your brand, not ours. A printed 1 kg box is the standard retail unit.",
+      "linkLabel": "Charcoal for smoke shops & retail",
+      "packagingLinkLabel": "OEM / white-label packaging"
+    },
+    "market": {
+      "h3": "By destination market",
+      "intro": "Size preference varies by region. These are common specifications by market — your account manager will confirm the right SKU and the import particulars for your country:",
+      "items": [
+        { "key": "usa", "href": "/markets/usa", "label": "United States", "note": "25–26 mm cubes for lounges and retail; flats and fingers for HMD/kaloud users." },
+        { "key": "uk", "href": "/markets/uk", "label": "United Kingdom", "note": "25–26 mm cubes are the retail standard; printed 1 kg inner boxes." },
+        { "key": "saudi-arabia", "href": "/markets/saudi-arabia", "label": "Saudi Arabia & GCC", "note": "Larger 26–28 mm cubes for long lounge sessions; hexagonals for retail shelf." },
+        { "key": "germany", "href": "/markets/germany", "label": "Germany & EU", "note": "26–28 mm cubes; REACH-compliant and full export documentation." },
+        { "key": "russia", "href": "/markets/russia", "label": "Russia & CIS", "note": "22–25 mm cubes plus finger and hexagonal formats." }
+      ]
+    },
+    "newcomer": {
+      "h3": "For first-time importers & new brands",
+      "body": "If this is your first container, start with a proven, fast-moving SKU — 25 mm cubes in Super Premium grade — to validate demand before you commit to a custom range. Once the SKU sells, move to private label: the same briquette in a box that carries your brand. Our guides walk through both steps.",
+      "startBrandLinkLabel": "How to start your own charcoal brand",
+      "privateLabelLinkLabel": "Private-label options"
+    }
+  },
+
+  "ordering": {
+    "h2": "Ordering, MOQ & shipping",
+    "moqBody": "The minimum order is {{moqLabel}} — we load full containers only, but you can mix shapes and grades inside one. Production lead time is {{leadTimeLabel}} from the deposit. Goods load {{portLabel}}.",
+    "incotermsLine": "Prices are quoted {{portLabel}}; CIF to your destination port is available on request.",
+    "dgLine": "Coconut shell charcoal ships as a regulated dangerous good: {{imdgLabel}}. We file the declaration and the Self-Heating Test report with every booking.",
+    "dgLinkLabel": "What {{unNumber}} means for your shipment",
+    "logisticsLinkLabel": "Logistics & shipping rules",
+    "documentsLinkLabel": "Export documents we issue",
+    "capacityLinkLabel": "Factory capacity & lead time",
+    "inquiryHeading": "Request a wholesale quote",
+    "nextAction": "Send your target shape, grade, quantity, and destination port and we will quote the same day in most time zones — or message us on WhatsApp for a faster reply."
+  },
+
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/quality/certifications", "label": "Certifications & testing" },
+      { "href": "/factory/raw-materials", "label": "Raw materials & sourcing" },
+      { "href": "/packaging", "label": "Packaging & OEM options" },
+      { "href": "/logistics", "label": "Logistics & shipping" },
+      { "href": "/guide/coconut-vs-bamboo-vs-wood-charcoal", "label": "Coconut vs. bamboo vs. wood charcoal" }
+    ]
+  }
+}

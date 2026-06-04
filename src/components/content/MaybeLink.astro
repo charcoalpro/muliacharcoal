@@ -1,0 +1,58 @@
+---
+/**
+ * MaybeLink — a link that degrades to plain text when its destination
+ * isn't built yet.
+ *
+ * The site ships pillar pages before their cluster pages exist. Rather than
+ * emit links that 404 (or hide the structure entirely), a hub renders every
+ * down/across target through MaybeLink: a real `<TextLink>` when the route is
+ * in `LIVE_ROUTES`, otherwise a muted, non-interactive `<span>` carrying the
+ * same keyword-rich label. As each route is added to `LIVE_ROUTES`
+ * (src/config/nav.ts) the link lights up automatically — no page edits.
+ *
+ * Same gating philosophy as Header/Footer (which omit non-live nav items);
+ * here the label stays visible so the planned taxonomy reads as text for both
+ * humans and AI extractors.
+ *
+ * For off-site links (PDFs, social) use `<ExternalLink>` directly — those are
+ * never gated by `LIVE_ROUTES`.
+ */
+import TextLink from '~/components/content/TextLink.astro';
+import { isLive } from '~/config/nav';
+
+interface Props {
+  href: string;
+  class?: string;
+  /** Extra classes applied only to the muted (not-yet-live) span. */
+  mutedClass?: string;
+  'data-event'?: string;
+  'data-source-component'?: string;
+  'aria-label'?: string;
+}
+
+const {
+  href,
+  class: className,
+  mutedClass,
+  'data-event': dataEvent,
+  'data-source-component': dataSourceComponent,
+  'aria-label': ariaLabel,
+} = Astro.props;
+
+const live = isLive(href);
+---
+{live ? (
+  <TextLink
+    href={href}
+    class={className}
+    data-event={dataEvent}
+    data-source-component={dataSourceComponent}
+    aria-label={ariaLabel}
+  ><slot /></TextLink>
+) : (
+  <span
+    class:list={['text-neutral-400', className, mutedClass]}
+    data-coming-soon
+    aria-label={ariaLabel}
+  ><slot /></span>
+)}

@@ -43,11 +43,24 @@ export const LIVE_ROUTES: ReadonlySet<string> = new Set([
   '/contact',
   '/faq',
   '/glossary',
+  '/products',
   '/legal/privacy-policy',
   '/legal/terms',
   '/legal/cookies',
   '/llm.txt',
 ]);
+
+/**
+ * Does `href` resolve to a real page today? Strips any `#hash`/`?query` and a
+ * trailing slash before testing against `LIVE_ROUTES`. Used by `<MaybeLink>`
+ * to render a real link only for live destinations and degrade not-yet-built
+ * targets to plain text — so cross/down links on pillar pages never 404 and
+ * self-light as each route is added to `LIVE_ROUTES` above.
+ */
+export function isLive(href: string): boolean {
+  const path = href.split(/[?#]/)[0].replace(/\/+$/, '') || '/';
+  return LIVE_ROUTES.has(path);
+}
 
 const make = (href: string, label: string): NavItem => ({
   href,

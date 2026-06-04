@@ -12,6 +12,13 @@
  */
 
 export interface ProductSize {
+  /**
+   * SKU slug — the `{shape}-{size}` URL segment for this size's detail page
+   * (`/products/{slug}`). Single source of truth for the SKU URL, read by the
+   * `/products` hub `ItemList` JSON-LD and the future `/products/[sku].astro`
+   * route. Kebab-case, keyword-rich, < 60 chars (CLAUDE.md § URL conventions).
+   */
+  slug: string;
   /** Display label as shown in the size `<dl>` (e.g. "22×22 mm", "3-piece set"). */
   label: string;
   /** Approximate pieces per kg — drives the second column in the size table. */
@@ -58,11 +65,11 @@ export const productShapes: ProductShape[] = [
     description:
       'Compressed coconut shell charcoal cubes — the most common shisha format worldwide. Edges are uniformly cut, no first-light cracking.',
     sizes: [
-      { label: '22×22 mm', width: 22, height: 22, length: 22, pcsPerKg: 120 },
-      { label: '25×25 mm', width: 25, height: 25, length: 25, pcsPerKg: 96 },
-      { label: '26×26 mm', width: 26, height: 26, length: 26, pcsPerKg: 85 },
-      { label: '27×27 mm', width: 27, height: 27, length: 27, pcsPerKg: 78 },
-      { label: '28×28 mm', width: 28, height: 28, length: 28, pcsPerKg: 70 },
+      { slug: 'cube-22mm', label: '22×22 mm', width: 22, height: 22, length: 22, pcsPerKg: 120 },
+      { slug: 'cube-25mm', label: '25×25 mm', width: 25, height: 25, length: 25, pcsPerKg: 96 },
+      { slug: 'cube-26mm', label: '26×26 mm', width: 26, height: 26, length: 26, pcsPerKg: 85 },
+      { slug: 'cube-27mm', label: '27×27 mm', width: 27, height: 27, length: 27, pcsPerKg: 78 },
+      { slug: 'cube-28mm', label: '28×28 mm', width: 28, height: 28, length: 28, pcsPerKg: 70 },
     ],
     image: '/products/cube.svg',
     href: '/products/cubes',
@@ -76,10 +83,10 @@ export const productShapes: ProductShape[] = [
     description:
       'Slim finger briquettes for kaloud and HMD-style heat-management devices. Long burn at low surface temperature.',
     sizes: [
-      { label: '18×35 mm', width: 18, height: 18, length: 35, pcsPerKg: 80 },
-      { label: '18×50 mm', width: 18, height: 18, length: 50, pcsPerKg: 60 },
-      { label: '20×35 mm', width: 20, height: 20, length: 35, pcsPerKg: 65 },
-      { label: '20×50 mm', width: 20, height: 20, length: 50, pcsPerKg: 50 },
+      { slug: 'finger-18x35', label: '18×35 mm', width: 18, height: 18, length: 35, pcsPerKg: 80 },
+      { slug: 'finger-18x50', label: '18×50 mm', width: 18, height: 18, length: 50, pcsPerKg: 60 },
+      { slug: 'finger-20x35', label: '20×35 mm', width: 20, height: 20, length: 35, pcsPerKg: 65 },
+      { slug: 'finger-20x50', label: '20×50 mm', width: 20, height: 20, length: 50, pcsPerKg: 50 },
     ],
     image: '/products/stix.svg',
     href: '/products/fingers',
@@ -93,10 +100,10 @@ export const productShapes: ProductShape[] = [
     description:
       'Six-sided briquettes with a centre hole — preferred by retail tobacco brands for shelf appeal and even ignition.',
     sizes: [
-      { label: '18×35 mm', width: 18, height: 18, length: 35, pcsPerKg: 80 },
-      { label: '18×50 mm', width: 18, height: 18, length: 50, pcsPerKg: 60 },
-      { label: '20×35 mm', width: 20, height: 20, length: 35, pcsPerKg: 65 },
-      { label: '20×50 mm', width: 20, height: 20, length: 50, pcsPerKg: 50 },
+      { slug: 'hexagonal-18x35', label: '18×35 mm', width: 18, height: 18, length: 35, pcsPerKg: 80 },
+      { slug: 'hexagonal-18x50', label: '18×50 mm', width: 18, height: 18, length: 50, pcsPerKg: 60 },
+      { slug: 'hexagonal-20x35', label: '20×35 mm', width: 20, height: 20, length: 35, pcsPerKg: 65 },
+      { slug: 'hexagonal-20x50', label: '20×50 mm', width: 20, height: 20, length: 50, pcsPerKg: 50 },
     ],
     image: '/products/hexagonal.svg',
     href: '/products/hexagonals',
@@ -110,8 +117,8 @@ export const productShapes: ProductShape[] = [
     description:
       'Hemisphere briquettes shaped to seat flush against ceramic and silicone shisha bowls. Stable burn surface.',
     sizes: [
-      { label: '25 mm', width: 25, height: 12, pcsPerKg: 80 },
-      { label: '30 mm', width: 30, height: 15, pcsPerKg: 65 },
+      { slug: 'dome-25mm', label: '25 mm', width: 25, height: 12, pcsPerKg: 80 },
+      { slug: 'dome-30mm', label: '30 mm', width: 30, height: 15, pcsPerKg: 65 },
     ],
     image: '/products/dome.svg',
     href: '/products/domes',
@@ -125,8 +132,8 @@ export const productShapes: ProductShape[] = [
     description:
       'Flat slab cut for kaloud, foil and large-bowl applications. Maximum heat-management surface area.',
     sizes: [
-      { label: '25×25×17 mm', width: 25, height: 17, length: 25, pcsPerKg: 75 },
-      { label: '30×30×17 mm', width: 30, height: 17, length: 30, pcsPerKg: 55 },
+      { slug: 'flat-25x25x17', label: '25×25×17 mm', width: 25, height: 17, length: 25, pcsPerKg: 75 },
+      { slug: 'flat-30x30x17', label: '30×30×17 mm', width: 30, height: 17, length: 30, pcsPerKg: 55 },
     ],
     image: '/products/flat.svg',
     href: '/products/flats',
@@ -140,8 +147,8 @@ export const productShapes: ProductShape[] = [
     description:
       'Decorative profile briquettes for premium shisha lounges. Same coconut shell formulation, distinctive shape.',
     sizes: [
-      { label: '3-piece set', configuration: '3-piece set', pcsPerKg: 30 },
-      { label: '4-piece set', configuration: '4-piece set', pcsPerKg: 25 },
+      { slug: 'lotus-3pc', label: '3-piece set', configuration: '3-piece set', pcsPerKg: 30 },
+      { slug: 'lotus-4pc', label: '4-piece set', configuration: '4-piece set', pcsPerKg: 25 },
     ],
     image: '/products/lotus.svg',
     href: '/products/cloud',
@@ -149,3 +156,40 @@ export const productShapes: ProductShape[] = [
     material: SHARED_MATERIAL,
   },
 ];
+
+/** A single SKU = one size of one shape. Flattened view for the hub. */
+export interface ProductSku {
+  /** SKU slug (`{shape}-{size}`), e.g. `cube-25mm`. */
+  slug: string;
+  /** Detail-page URL (`/products/{slug}`). */
+  href: string;
+  /** Full display name, e.g. "Cube 25×25 mm". */
+  name: string;
+  /** The size record this SKU is built from. */
+  size: ProductSize;
+  /** The shape this SKU belongs to. */
+  shape: ProductShape;
+}
+
+/** Root-relative detail-page URL for a SKU slug (`/products/{slug}`). */
+export function skuHref(slug: string): string {
+  return `/products/${slug}`;
+}
+
+/**
+ * Flatten every shape × size into one SKU list (19 entries today), in
+ * shape-then-size order. Powers the `/products` hub `ItemList` JSON-LD and
+ * the per-shape size lists. The future `/products/[sku].astro` route can
+ * `getStaticPaths()` over the same list.
+ */
+export function allSkus(): ProductSku[] {
+  return productShapes.flatMap((shape) =>
+    shape.sizes.map((size) => ({
+      slug: size.slug,
+      href: skuHref(size.slug),
+      name: `${shape.name} ${size.label}`,
+      size,
+      shape,
+    })),
+  );
+}

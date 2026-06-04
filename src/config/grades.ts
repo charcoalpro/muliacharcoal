@@ -29,6 +29,15 @@ export interface Grade {
   /** Short paragraph used by JSON-LD `description`. */
   description: string;
   ash: SpecValue;
+  /**
+   * Raw-material source / selection that distinguishes this grade — the
+   * second defining differentiator alongside `ash` (the `/products` hub
+   * leads the grade comparison with these two). Optional and unset today:
+   * the per-grade sourcing copy is pending QC sign-off, so consumers gate
+   * on `hasFact(grade.rawMaterialSource?.display)` and render a placeholder
+   * until it lands. Populate `display` here when confirmed.
+   */
+  rawMaterialSource?: SpecValue;
   moisture: SpecValue;
   fixedCarbon: SpecValue;
   burnTime: SpecValue;

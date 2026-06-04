@@ -1,0 +1,621 @@
+---
+/**
+ * /products — the Products pillar hub.
+ *
+ * Canonical index for the coconut-shell shisha-charcoal line: the taxonomy
+ * (6 shapes × sizes, each in 3 grades), the grade comparison, what the specs
+ * mean, use-case/market/newcomer routing, and the ordering terms.
+ *
+ * Single-source-of-truth rules:
+ *   - Every company/product fact is read from ~/config/{company,products,grades}
+ *     and interpolated via fill(); products.json carries labels + prose only.
+ *   - Down/across links to not-yet-built cluster pages are rendered through
+ *     <MaybeLink>, which degrades to plain text until the route is added to
+ *     LIVE_ROUTES (src/config/nav.ts) — so the page ships zero 404 links.
+ *   - Schema: CollectionPage + an ItemList of all SKUs. No priced Product
+ *     (that lives on SKU pages), no FAQPage (canonical home is /faq).
+ *     Breadcrumbs emits its own BreadcrumbList.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import SpecsTable from '~/components/content/SpecsTable.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import InquiryForm from '~/components/contact/InquiryForm.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { productShapes, allSkus, skuHref, type ProductShape } from '~/config/products';
+import { grades, type Grade } from '~/config/grades';
+import { collectionPageSchema } from '~/lib/schema/collectionPage';
+
+const t = en.products;
+
+const premium = grades.find((g) => g.key === 'premium')!;
+const platinum = grades.find((g) => g.key === 'platinum')!;
+
+// Derived display tokens — every value traces back to grades.ts / products.ts.
+const gradeNames = grades.map((g) => g.name);
+const gradeNamesStr =
+  gradeNames.length > 1
+    ? `${gradeNames.slice(0, -1).join(', ')}, and ${gradeNames[gradeNames.length - 1]}`
+    : gradeNames[0];
+
+const ashMin = Math.min(...grades.map((g) => g.ash.min ?? Infinity));
+const ashMax = Math.max(...grades.map((g) => g.ash.max ?? -Infinity));
+const ashRange = `${ashMin}–${ashMax}%`;
+
+const dims = productShapes.flatMap((s) =>
+  s.sizes.flatMap((z) =>
+    [z.width, z.length].filter((n): n is number => typeof n === 'number'),
+  ),
+);
+const sizeRange = `${Math.min(...dims)}–${Math.max(...dims)} mm`;
+
+const tokens = {
+  ...companyTokens(company),
+  shapeCount: productShapes.length,
+  gradeCount: grades.length,
+  gradeNames: gradeNamesStr,
+  ashRange,
+  sizeRange,
+  premiumAsh: premium.ash.display,
+  platinumAsh: platinum.ash.display,
+  premiumBurnTime: premium.burnTime.display,
+  platinumBurnTime: platinum.burnTime.display,
+  platinumBurnTemp: platinum.burnTemp.display,
+  premiumMoisture: premium.moisture.display,
+  premiumDropTest: premium.dropTest.display,
+};
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// Stable kebab anchors per shape (shape.key 'stix' reads as 'finger').
+const shapeAnchor: Record<ProductShape['key'], string> = {
+  cube: 'cube',
+  stix: 'finger',
+  hexagonal: 'hexagonal',
+  dome: 'dome',
+  flat: 'flat',
+  lotus: 'lotus',
+};
+const shapeImageAlt = (shape: ProductShape) =>
+  en.home.products.items[shape.key]?.imageAlt ?? `${shape.name} coconut shell briquette`;
+
+// Grade comparison table — leads with ash + raw-material source.
+const gradeColumns = grades.map((g) => ({ key: g.key, label: g.name }));
+const gp = t.grades.properties;
+const gradeRow = (name: string, fn: (g: Grade) => string) => {
+  const row: { name: string } & Record<string, string> = { name };
+  for (const g of grades) row[g.key] = fn(g);
+  return row;
+};
+const gradeRows = [
+  gradeRow(gp.ash, (g) => g.ash.display),
+  gradeRow(gp.rawMaterialSource, (g) =>
+    hasFact(g.rawMaterialSource?.display) ? g.rawMaterialSource!.display : t.grades.rawMaterialPending,
+  ),
+  gradeRow(gp.fixedCarbon, (g) => g.fixedCarbon.display),
+  gradeRow(gp.burnTime, (g) => g.burnTime.display),
+  gradeRow(gp.burnTemp, (g) => g.burnTemp.display),
+  gradeRow(gp.calorieValue, (g) => g.calorieValue.display),
+];
+
+// Primary-source documents. COA + ISO are real (company.legalDocuments);
+// per-grade lab reports and the SDS/MSDS are pending and render as muted.
+const docByKey = (k: string) => company.legalDocuments.find((d) => d.key === k);
+const coaDoc = docByKey('coa-sample');
+const isoDoc = docByKey('iso-9001');
+
+// At-a-glance key facts (definition box under H1).
+const atGlance = [
+  { label: t.atAGlance.shapesLabel, value: fill(t.atAGlance.shapesValueTemplate, tokens) },
+  { label: t.atAGlance.sizesLabel, value: fill(t.atAGlance.sizesValueTemplate, tokens) },
+  { label: t.atAGlance.gradesLabel, value: fill(t.atAGlance.gradesValueTemplate, tokens) },
+  { label: t.atAGlance.ashLabel, value: fill(t.atAGlance.ashValueTemplate, tokens) },
+  { label: t.atAGlance.moqLabel, value: fill(t.atAGlance.moqValueTemplate, tokens) },
+  { label: t.atAGlance.originLabel, value: fill(t.atAGlance.originValueTemplate, tokens) },
+];
+
+// Hero trust signals (commercial, above the fold).
+const heroTrust = [
+  { label: t.heroTrust.moqLabel, value: tokens.moqLabel },
+  { label: t.heroTrust.originLabel, value: tokens.portLabel },
+  { label: t.heroTrust.qualityLabel, value: `${tokens.iso9001Short}:2015` },
+  { label: t.heroTrust.complianceLabel, value: tokens.unNumber },
+];
+
+const toc = [
+  { href: '#shapes-sizes', label: t.toc.shapes },
+  { href: '#quality-grades-compared', label: t.toc.grades },
+  { href: '#what-the-specs-mean', label: t.toc.meaning },
+  { href: '#which-charcoal-to-choose', label: t.toc.choose },
+  { href: '#ordering-moq-shipping', label: t.toc.ordering },
+];
+
+// Indicative reading time at ~200 wpm across the page's prose.
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.atAGlance.definition,
+    t.shapes.intro,
+    t.grades.intro,
+    t.grades.ash.body,
+    t.grades.rawMaterial.body,
+    t.grades.shared.body,
+    t.grades.docs.body,
+    t.meaning.experience.body,
+    t.meaning.business.body,
+    t.choose.intro,
+    t.choose.cafe.body,
+    t.choose.smokeShop.body,
+    t.choose.newcomer.body,
+    t.ordering.moqBody,
+    t.ordering.incotermsLine,
+    t.ordering.dgLine,
+    t.ordering.nextAction,
+  ].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+
+const skus = allSkus();
+const schema = collectionPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/products',
+  skus: skus.map((s) => ({ href: s.href, name: s.name })),
+});
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/products"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={fill(t.eyebrow, tokens)}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'products-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaSample,
+      href: waLinkFor('samplesHero'),
+      ariaLabel: t.hero.ctaSampleAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'sample_request,whatsapp_click',
+      dataSourceComponent: 'products-hero-sample',
+    }}
+  >
+    <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
+      {heroTrust.map((item) => (
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </HeroSection>
+
+  {/* Authorship / freshness byline — GEO cornerstone pattern. */}
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: t.metaBlock.authorRole,
+          reviewedBy: t.metaBlock.reviewerRole,
+          factCheckedBy: t.metaBlock.factCheckerRole,
+          lastUpdated: t.metaBlock.lastUpdatedLabel,
+          readTime: t.metaBlock.readTimeLabel,
+        }}
+        readTimeValue={fill(t.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  {/* At-a-glance key facts — the highest-ROI extractable block. */}
+  <section aria-labelledby="at-a-glance-heading" class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <div class="rounded-2xl border border-brand-primary/20 bg-brand-primary/5 p-6 md:p-8">
+        <h2 id="at-a-glance-heading" class="text-sm font-semibold uppercase tracking-wide text-brand-primary">
+          {t.atAGlance.heading}
+        </h2>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-800">
+          {t.atAGlance.definition}
+        </p>
+        <dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+          {atGlance.map((item) => (
+            <div class="border-t border-brand-primary/15 pt-3">
+              <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+              <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  {/* On-page jump navigation — pure HTML, no JS. */}
+  <nav aria-labelledby="products-toc-heading" class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <h2 id="products-toc-heading" class="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+        {t.toc.heading}
+      </h2>
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {toc.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="inline-block rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm font-medium text-neutral-900 transition-colors hover:border-brand-primary hover:bg-brand-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </nav>
+
+  {/* ===== Shapes & sizes ===== */}
+  <section id="shapes-sizes" aria-labelledby="shapes-sizes-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="shapes-sizes-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.shapes.h2}
+      </h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.shapes.intro, tokens)}
+      </p>
+
+      <ul class="mt-10 grid grid-cols-1 items-start gap-6 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {productShapes.map((shape) => (
+          <li>
+            <article id={shapeAnchor[shape.key]} class="flex h-full scroll-mt-24 flex-col rounded-2xl border border-neutral-200 bg-white">
+              <div class="overflow-hidden rounded-t-2xl">
+                <ImagePlaceholder ratio="square" label={shapeImageAlt(shape)} />
+              </div>
+              <div class="flex flex-1 flex-col gap-4 p-5">
+                <div>
+                  <h3 class="text-lg font-semibold text-neutral-900">{shape.name}</h3>
+                  <p class="mt-2 text-sm leading-relaxed text-neutral-600">{shape.description}</p>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+                    {t.shapes.sizesHeading}
+                  </p>
+                  <ul class="mt-2 space-y-1.5 text-sm" role="list">
+                    {shape.sizes.map((size) => (
+                      <li class="flex items-baseline justify-between gap-3">
+                        <MaybeLink
+                          href={skuHref(size.slug)}
+                          data-source-component={`products-sku-${size.slug}`}
+                          aria-label={fill(t.shapes.skuAriaTemplate, { name: `${shape.name} ${size.label}` })}
+                        >
+                          {shape.name} {size.label}
+                        </MaybeLink>
+                        <span class="shrink-0 text-neutral-500">
+                          {size.pcsPerKg ? `≈ ${size.pcsPerKg} ${t.shapes.pcsLabel}` : '—'}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <p class="mt-auto pt-2 text-sm">
+                  <MaybeLink
+                    href={shape.href}
+                    class="font-semibold"
+                    data-source-component={`products-category-${shape.slug}`}
+                  >
+                    {fill(t.shapes.viewAllTemplate, { shape: shape.name })} <span aria-hidden="true">→</span>
+                  </MaybeLink>
+                </p>
+              </div>
+            </article>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* ===== Quality grades compared ===== */}
+  <section id="quality-grades-compared" aria-labelledby="grades-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="grades-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.grades.h2}
+      </h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.grades.intro, tokens)}
+      </p>
+
+      <SpecsTable
+        class="mt-8"
+        columns={gradeColumns}
+        rows={gradeRows}
+        caption={t.grades.caption}
+        propertyHeader={t.grades.propertyHeader}
+        cardEyebrow={t.grades.cardEyebrow}
+      />
+
+      <div class="mt-12 space-y-10">
+        <div id="ash-content-by-grade" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.grades.ash.h3}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+            {fill(t.grades.ash.body, tokens)}
+          </p>
+        </div>
+
+        <div id="raw-material-source-by-grade" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.grades.rawMaterial.h3}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+            {fill(t.grades.rawMaterial.body, tokens)}
+          </p>
+          <p class="mt-3 text-sm">
+            <MaybeLink href="/factory/raw-materials" class="font-semibold" data-source-component="products-raw-materials">
+              {t.grades.rawMaterial.linkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </p>
+        </div>
+
+        <div id="shared-specifications" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.grades.shared.h3}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+            {fill(t.grades.shared.body, tokens)}
+          </p>
+        </div>
+
+        <div id="grade-spec-sheets-lab-reports" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.grades.docs.h3}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+            {fill(t.grades.docs.body, tokens)}
+          </p>
+          <ul class="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2" role="list">
+            {coaDoc && (
+              <li>
+                <a
+                  href={coaDoc.href}
+                  download
+                  target="_blank"
+                  rel="noopener"
+                  data-event="outbound_click"
+                  data-source-component="products-doc-coa"
+                  class="flex items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-brand-primary transition-colors hover:border-brand-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                >
+                  <span>{t.grades.docs.coaTitle}</span>
+                  <span aria-hidden="true">↓</span>
+                </a>
+              </li>
+            )}
+            {isoDoc && (
+              <li>
+                <a
+                  href={isoDoc.href}
+                  download
+                  target="_blank"
+                  rel="noopener"
+                  data-event="outbound_click"
+                  data-source-component="products-doc-iso"
+                  class="flex items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-brand-primary transition-colors hover:border-brand-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                >
+                  <span>{fill(t.grades.docs.isoTitle, tokens)}</span>
+                  <span aria-hidden="true">↓</span>
+                </a>
+              </li>
+            )}
+            {grades.map((g) => (
+              <li>
+                <span
+                  data-coming-soon
+                  class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-400"
+                >
+                  <span>{fill(t.grades.docs.labReportPendingTitle, { grade: g.name })}</span>
+                  <span aria-hidden="true">·</span>
+                </span>
+              </li>
+            ))}
+            <li>
+              <span
+                data-coming-soon
+                class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-400"
+              >
+                <span>{t.grades.docs.msdsPendingTitle}</span>
+                <span aria-hidden="true">·</span>
+              </span>
+            </li>
+          </ul>
+          <p class="mt-4 text-sm">
+            <MaybeLink href="/quality/certifications" class="font-semibold" data-source-component="products-certifications">
+              {t.grades.docs.certLinkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ===== What the specifications mean ===== */}
+  <section id="what-the-specs-mean" aria-labelledby="meaning-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="meaning-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.meaning.h2}
+      </h2>
+
+      <div class="mt-8 grid gap-10 md:grid-cols-2">
+        <div id="impact-on-the-smoking-experience" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.meaning.experience.h3}</h3>
+          <p class="mt-3 text-base leading-relaxed text-neutral-700">
+            {fill(t.meaning.experience.body, tokens)}
+          </p>
+          <p class="mt-3 text-sm">
+            <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="products-specs-explained">
+              {t.meaning.experience.linkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </p>
+        </div>
+
+        <div id="impact-on-your-business" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.meaning.business.h3}</h3>
+          <p class="mt-3 text-base leading-relaxed text-neutral-700">
+            {fill(t.meaning.business.body, tokens)}
+          </p>
+          <p class="mt-3 text-sm">
+            <MaybeLink href="/guide/coconut-vs-bamboo-vs-wood-charcoal" class="font-semibold" data-source-component="products-guide-comparison">
+              {t.meaning.business.linkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ===== Which charcoal to choose ===== */}
+  <section id="which-charcoal-to-choose" aria-labelledby="choose-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="choose-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.choose.h2}
+      </h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.choose.intro}</p>
+
+      <div class="mt-8 space-y-10">
+        <div id="for-shisha-cafes" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.choose.cafe.h3}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.choose.cafe.body}</p>
+          <p class="mt-3 text-sm">
+            <MaybeLink href="/products/shisha-cafee" class="font-semibold" data-source-component="products-shisha-cafee">
+              {t.choose.cafe.linkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+            <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+            <MaybeLink href="/packaging" data-source-component="products-packaging-cafe">
+              {t.choose.cafe.packagingLinkLabel}
+            </MaybeLink>
+          </p>
+        </div>
+
+        <div id="for-smoke-shops-retail" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.choose.smokeShop.h3}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+            {fill(t.choose.smokeShop.body, tokens)}
+          </p>
+          <p class="mt-3 text-sm">
+            <MaybeLink href="/products/shisha-shop" class="font-semibold" data-source-component="products-shisha-shop">
+              {t.choose.smokeShop.linkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+            <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+            <MaybeLink href="/packaging/white-lable" data-source-component="products-white-label">
+              {t.choose.smokeShop.packagingLinkLabel}
+            </MaybeLink>
+          </p>
+        </div>
+
+        <div id="by-destination-market" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.choose.market.h3}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.choose.market.intro}</p>
+          <ul class="mt-4 space-y-3" role="list">
+            {t.choose.market.items.map((m) => (
+              <li id={`market-${m.key}`} class="scroll-mt-24 text-sm leading-relaxed text-neutral-700">
+                <MaybeLink href={m.href} class="font-semibold" data-source-component={`products-market-${m.key}`}>
+                  {m.label}
+                </MaybeLink>
+                <span class="text-neutral-400"> — </span>{m.note}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div id="for-first-time-importers" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.choose.newcomer.h3}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.choose.newcomer.body}</p>
+          <p class="mt-3 text-sm">
+            <MaybeLink href="/guide/how-to-start-your-own-brand" class="font-semibold" data-source-component="products-guide-start-brand">
+              {t.choose.newcomer.startBrandLinkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+            <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+            <MaybeLink href="/guide/private-label-options" data-source-component="products-guide-private-label">
+              {t.choose.newcomer.privateLabelLinkLabel}
+            </MaybeLink>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* ===== Ordering, MOQ & shipping ===== */}
+  <section id="ordering-moq-shipping" aria-labelledby="ordering-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="ordering-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.ordering.h2}
+      </h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.ordering.moqBody, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.ordering.incotermsLine, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.ordering.dgLine, tokens)}{' '}
+        <MaybeLink href="/logistics/UN-1361" class="font-semibold" data-source-component="products-un1361">
+          {fill(t.ordering.dgLinkLabel, tokens)} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-neutral-600">
+        <MaybeLink href="/logistics" data-source-component="products-logistics">{t.ordering.logisticsLinkLabel}</MaybeLink>
+        <span aria-hidden="true">·</span>
+        <MaybeLink href="/logistics/documents" data-source-component="products-logistics-docs">{t.ordering.documentsLinkLabel}</MaybeLink>
+        <span aria-hidden="true">·</span>
+        <MaybeLink href="/factory/capacity" data-source-component="products-capacity">{t.ordering.capacityLinkLabel}</MaybeLink>
+      </p>
+
+      {/* Inquiry next action — the canonical Web3Forms flow, embedded inline.
+          Reuses /contact's InquiryForm; its handler fires `inquiry_submit`
+          (product_category, estimated_quantity_tons, destination_country) and
+          shows the success state in place (no redirect). */}
+      <div id="request-a-quote" class="mt-10 scroll-mt-24 rounded-2xl border border-neutral-200 bg-neutral-50 p-6 md:p-8">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.ordering.inquiryHeading}</h3>
+        <p class="mt-2 max-w-prose text-base leading-relaxed text-neutral-700">{t.ordering.nextAction}</p>
+        <div class="mt-8">
+          <InquiryForm />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Related topics — lateral pillar links. */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.related.heading}
+      </h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`products-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner />
+</BaseLayout>
