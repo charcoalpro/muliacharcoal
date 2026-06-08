@@ -16,6 +16,7 @@
  */
 
 import en from '~/i18n/en';
+import { publishedProductRoutes } from '~/config/productRoutes';
 
 export interface NavItem {
   href: string;
@@ -48,6 +49,10 @@ export const LIVE_ROUTES: ReadonlySet<string> = new Set([
   '/legal/terms',
   '/legal/cookies',
   '/llm.txt',
+  // Product child routes (grade SKU + shape-category + market pages) for the
+  // currently published set. Computed so a phase rollout in
+  // ~/config/productRoutes.ts lights up every link in one edit.
+  ...publishedProductRoutes(),
 ]);
 
 /**

@@ -28,7 +28,7 @@ import CTABanner from '~/components/cta/CTABanner.astro';
 import en from '~/i18n/en';
 import { company, waLinkFor, hasFact } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
-import { productShapes, allSkus, skuHref, type ProductShape } from '~/config/products';
+import { productShapes, productMarkets, type ProductShape } from '~/config/products';
 import { grades, type Grade } from '~/config/grades';
 import { collectionPageSchema } from '~/lib/schema/collectionPage';
 
@@ -163,12 +163,23 @@ const proseForReadTime = fill(
 );
 const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
 
-const skus = allSkus();
+// Hub down-links + ItemList target the shape-category and market-category
+// pages (which enumerate sizes → grade pages), not bare SKU URLs. The leaf
+// product is the grade page (`{shape}-{size}-{grade}`), so `/products/{shape}-{size}`
+// no longer resolves; the categories are the next hop down the taxonomy.
+const marketNames: Record<(typeof productMarkets)[number]['key'], string> = {
+  cafe: t.choose.cafe.linkLabel,
+  shop: t.choose.smokeShop.linkLabel,
+};
+const downLinks = [
+  ...productShapes.map((s) => ({ href: s.href, name: `${s.name} coconut shisha charcoal` })),
+  ...productMarkets.map((m) => ({ href: m.href, name: marketNames[m.key] })),
+];
 const schema = collectionPageSchema({
   pageTitle,
   pageDescription,
   path: '/products',
-  skus: skus.map((s) => ({ href: s.href, name: s.name })),
+  skus: downLinks,
 });
 ---
 <BaseLayout
@@ -306,7 +317,7 @@ const schema = collectionPageSchema({
                     {shape.sizes.map((size) => (
                       <li class="flex items-baseline justify-between gap-3">
                         <MaybeLink
-                          href={skuHref(size.slug)}
+                          href={`${shape.href}#sizes-available`}
                           data-source-component={`products-sku-${size.slug}`}
                           aria-label={fill(t.shapes.skuAriaTemplate, { name: `${shape.name} ${size.label}` })}
                         >

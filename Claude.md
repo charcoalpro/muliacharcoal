@@ -25,9 +25,12 @@ The site follows a pillar-and-cluster structure. Every new piece of content must
 
 1. **Products pillar** (`/products`)
     
-    - Cluster: individual SKU pages at 
-      `/products/{shape}-{size}` e.g. 
-      `/products/cube-25mm`, `/products/hexagonal-22x50`
+    - Cluster: grade (SKU) leaf pages at 
+      `/products/{shape}-{size}-{grade}` e.g. 
+      `/products/cube-25mm-platinum`, `/products/hexagonal-20x50-premium`
+      (each grade is its own self-canonical page, declared `isVariantOf` a
+      `ProductGroup` for the shape×size; the bare `/products/{shape}-{size}`
+      is NOT a page — its grades are reached from the shape-category page)
       
     - Also: shape category pages at 
       `/products/cubes`, 
@@ -293,7 +296,7 @@ Every event below must fire on both Google Analytics 4 and Meta Pixel.
 - Under 60 characters including the domain
 - Include primary keyword, exclude stop words where possible
 - No trailing slashes except the root (`/`)
-- Product slugs: `{shape}-{size}` → `cube-25mm`, `hexagonal-22x50`
+- Product (grade SKU) slugs: `{shape}-{size}-{grade}` → `cube-25mm-platinum`, `hexagonal-20x50-premium` (grade is `premium` / `super-premium` / `platinum`, kebab-case). Shape-category slugs are the plural `{shape-plural}` → `cubes`, `fingers`. The bare `{shape}-{size}` is not a routed page.
 - Article slugs: keyword-rich, not clickbait
 - No dates in blog URLs (content stays evergreen; dates live in frontmatter)
 

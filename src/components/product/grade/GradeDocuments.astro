@@ -1,0 +1,60 @@
+---
+/**
+ * GradeDocuments — primary-source evidence block.
+ *
+ * Live COA + ISO 9001 certificate visuals (placeholders) alongside the real
+ * downloadable PDFs from `company.legalDocuments` (tracked as outbound_click),
+ * plus the pending per-grade lab report and SDS/MSDS. Links to the
+ * certifications cluster page.
+ */
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import en from '~/i18n/en';
+import { company } from '~/config/company';
+import { fill } from '~/lib/interpolate';
+
+interface Props {
+  tokens: Record<string, string | number>;
+}
+const { tokens } = Astro.props;
+
+const t = en.productGrade;
+const docByKey = (k: string) => company.legalDocuments.find((d) => d.key === k);
+const coaDoc = docByKey('coa-sample');
+const isoDoc = docByKey('iso-9001');
+
+const docLinkClass =
+  'flex items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm font-semibold text-brand-primary transition-colors hover:border-brand-primary/40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2';
+const docPendingClass =
+  'flex items-center justify-between gap-3 rounded-xl border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-400';
+const proseP = 'mt-4 max-w-prose text-base leading-relaxed text-neutral-700';
+---
+<section id="documents" aria-labelledby="documents-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+  <h2 id="documents-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.sections.documents}</h2>
+  <p class={proseP}>{fill(t.documents.body, tokens)}</p>
+  <div class="mt-6 grid gap-4 sm:grid-cols-2">
+    <ImagePlaceholder ratio="3/2" label={t.documents.coaAlt} />
+    <ImagePlaceholder ratio="3/2" label={fill(t.documents.isoAlt, tokens)} />
+  </div>
+  <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2" role="list">
+    {coaDoc && (
+      <li>
+        <a href={coaDoc.href} download target="_blank" rel="noopener" data-event="outbound_click" data-source-component="grade-doc-coa" class={docLinkClass}>
+          <span>{t.documents.coaTitle}</span><span aria-hidden="true">↓</span>
+        </a>
+      </li>
+    )}
+    {isoDoc && (
+      <li>
+        <a href={isoDoc.href} download target="_blank" rel="noopener" data-event="outbound_click" data-source-component="grade-doc-iso" class={docLinkClass}>
+          <span>{fill(t.documents.isoTitleTemplate, tokens)}</span><span aria-hidden="true">↓</span>
+        </a>
+      </li>
+    )}
+    <li><span data-coming-soon class={docPendingClass}><span>{fill(t.documents.labPendingTemplate, tokens)}</span><span aria-hidden="true">·</span></span></li>
+    <li><span data-coming-soon class={docPendingClass}><span>{t.documents.msdsPending}</span><span aria-hidden="true">·</span></span></li>
+  </ul>
+  <p class="mt-4 text-sm">
+    <MaybeLink href="/quality/certifications" class="font-semibold" data-source-component="grade-documents-cert">{t.documents.linkCert} <span aria-hidden="true">→</span></MaybeLink>
+  </p>
+</section>

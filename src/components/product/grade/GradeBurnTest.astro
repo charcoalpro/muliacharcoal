@@ -1,0 +1,76 @@
+---
+/**
+ * GradeBurnTest — "Performance over time" staged table + curves.
+ *
+ * Six measured stages as an extractable `DataTable` (not caption-trapped),
+ * a per-stage photo grid, and the two required curves (temperature, weight).
+ * The narrative paragraph is per-grade (`gt.burnTestNarrative`); stage labels
+ * and conditions are shared. Metrics render `—` until `grade.burnTest` data
+ * lands. Expert-supervision note names the reviewer (Person schema in the
+ * page @graph).
+ */
+import DataTable from '~/components/content/DataTable.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import en from '~/i18n/en';
+import { hasFact } from '~/config/company';
+import { fill } from '~/lib/interpolate';
+import type { ProductShape, ProductSize } from '~/config/products';
+import type { Grade } from '~/config/grades';
+
+interface Props {
+  shape: ProductShape;
+  size: ProductSize;
+  grade: Grade;
+  tokens: Record<string, string | number>;
+}
+const { grade, tokens } = Astro.props;
+
+const t = en.productGrade;
+const gt = t.grade[grade.key];
+
+const stageKeys = ['heatup', 'ready10', 'ash20', 'ash40', 'ash60', 'ash90'] as const;
+const stages = stageKeys.map((k) => ({ key: k, ...t.burnTest.stages[k] }));
+const burnHeaders = [t.burnTest.stageHeader, t.burnTest.tempHeader, t.burnTest.weightHeader, t.burnTest.sizeHeader, t.burnTest.appearanceHeader];
+const burnRows = stages.map((s, i) => {
+  const data = grade.burnTest?.stages?.[i];
+  return {
+    label: s.label,
+    values: [
+      hasFact(data?.tempC) ? `${data?.tempC} °C` : t.burnTest.pending,
+      hasFact(data?.weightG) ? `${data?.weightG} g` : t.burnTest.pending,
+      hasFact(data?.sizeMm) ? `${data?.sizeMm} mm` : t.burnTest.pending,
+      s.note,
+    ],
+  };
+});
+
+const proseP = 'mt-4 max-w-prose text-base leading-relaxed text-neutral-700';
+---
+<section id="burn-test" aria-labelledby="burn-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+  <h2 id="burn-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.sections.burnTest}</h2>
+  <p class={proseP}>{fill(t.burnTest.intro, tokens)}</p>
+  <p class={proseP}>{fill(gt.burnTestNarrative, tokens)}</p>
+  <DataTable class="mt-8" headers={burnHeaders} rows={burnRows} striped />
+  <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3" role="list" aria-label={t.sections.burnTest}>
+    {stages.map((s) => (
+      <div role="listitem">
+        <ImagePlaceholder ratio="4/3" label={fill(t.burnTest.photoAltTemplate, { ...tokens, stage: s.label })} />
+      </div>
+    ))}
+  </div>
+  <div class="mt-6 grid gap-4 md:grid-cols-3">
+    <div>
+      <h3 class="text-sm font-semibold text-neutral-900">{t.burnTest.tempCurve.heading}</h3>
+      <ImagePlaceholder class="mt-2" ratio="16/9" label={fill(t.burnTest.tempCurve.alt, tokens)} />
+    </div>
+    <div>
+      <h3 class="text-sm font-semibold text-neutral-900">{t.burnTest.weightCurve.heading}</h3>
+      <ImagePlaceholder class="mt-2" ratio="16/9" label={fill(t.burnTest.weightCurve.alt, tokens)} />
+    </div>
+    <div>
+      <h3 class="text-sm font-semibold text-neutral-900">{t.burnTest.sizeCurve.heading}</h3>
+      <ImagePlaceholder class="mt-2" ratio="16/9" label={fill(t.burnTest.sizeCurve.alt, tokens)} />
+    </div>
+  </div>
+  <p class="mt-4 text-sm text-neutral-600">{fill(t.burnTest.conditions, tokens)}</p>
+</section>

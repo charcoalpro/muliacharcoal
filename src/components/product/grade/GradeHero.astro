@@ -1,0 +1,174 @@
+---
+/**
+ * GradeHero — the grade SKU page hero block.
+ *
+ * Gallery (placeholder shot list) + click-to-load video facade + expert
+ * micro-insight + at-a-glance key facts (with the primary "free sample" /
+ * "quote" CTAs) + spec-highlight icon row. Extracted from GradePage so the
+ * page composes blocks rather than carrying ~110 lines of hero markup.
+ *
+ * Facts come from config via `tokens`; prose from `en.productGrade`.
+ */
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import YouTubeLite from '~/components/content/YouTubeLite.astro';
+import Button from '~/components/cta/Button.astro';
+import en from '~/i18n/en';
+import { hasFact } from '~/config/company';
+import { fill } from '~/lib/interpolate';
+import { gradeCtas } from '~/lib/productCta';
+import type { ProductShape, ProductSize } from '~/config/products';
+import type { Grade } from '~/config/grades';
+
+interface Props {
+  shape: ProductShape;
+  size: ProductSize;
+  grade: Grade;
+  tokens: Record<string, string | number>;
+}
+const { shape, size, grade, tokens } = Astro.props;
+
+const t = en.productGrade;
+const gt = t.grade[grade.key];
+const { slug, sampleHref, quoteHref, tourHref } = gradeCtas(shape, size, grade);
+const h1 = fill(t.h1Template, tokens);
+
+const gallery = [
+  t.gallery.topAlt,
+  t.gallery.sideAlt,
+  t.gallery.ashAlt,
+  t.gallery.ashCloseAlt,
+  t.gallery.packagingAlt,
+  t.gallery.scaleAlt,
+  t.gallery.caliperAlt,
+  t.gallery.dropAlt,
+].map((alt) => fill(alt, tokens));
+
+const fobValue = !hasFact(grade.fobRange)
+  ? t.atAGlance.fobPending
+  : hasFact(grade.fobRange?.high)
+    ? fill(t.atAGlance.fobRangeTemplate, tokens)
+    : fill(t.atAGlance.fobFromTemplate, tokens);
+const atGlance = [
+  { label: t.atAGlance.shapeLabel, value: shape.name },
+  { label: t.atAGlance.sizeLabel, value: fill(t.atAGlance.sizeValueTemplate, tokens) },
+  { label: t.atAGlance.ashLabel, value: grade.ash.display },
+  { label: t.atAGlance.sourceLabel, value: hasFact(grade.rawMaterialSource?.display) ? grade.rawMaterialSource!.display : t.atAGlance.sourcePending },
+  { label: t.atAGlance.burnTimeLabel, value: grade.burnTime.display },
+  { label: t.atAGlance.pcsLabel, value: size.pcsPerKg ? fill(t.atAGlance.pcsValueTemplate, tokens) : '—' },
+  { label: t.atAGlance.moqLabel, value: fill(t.atAGlance.moqValueTemplate, tokens) },
+  { label: t.atAGlance.fobLabel, value: fobValue },
+  { label: t.atAGlance.originLabel, value: fill(t.atAGlance.originValueTemplate, tokens) },
+];
+
+const highlights = [
+  { value: fill(t.specHighlights.ashTemplate, tokens), sub: t.specHighlights.ashSub, icon: 'spark' },
+  { value: fill(t.specHighlights.burnTemplate, tokens), sub: t.specHighlights.burnSub, icon: 'clock' },
+  { value: t.specHighlights.odorless, sub: t.specHighlights.odorlessSub, icon: 'nose' },
+  { value: t.specHighlights.naturalAsh, sub: t.specHighlights.naturalAshSub, icon: 'leaf' },
+  { value: t.specHighlights.origin, sub: t.specHighlights.originSub, icon: 'coconut' },
+];
+---
+<section class="bg-white">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-10 md:px-8 lg:grid-cols-2 lg:py-14">
+    {/* Gallery + video */}
+    <div>
+      <h1 class="text-3xl font-bold text-neutral-900 md:text-4xl">{h1}</h1>
+      <p class="sr-only">{t.gallery.heading}</p>
+      <div class="mt-6 grid grid-cols-2 gap-3" role="list" aria-label={t.gallery.heading}>
+        {gallery.map((alt) => (
+          <div role="listitem"><ImagePlaceholder ratio="4/3" label={alt} /></div>
+        ))}
+      </div>
+      <div class="mt-6">
+        {hasFact(grade.video) ? (
+          <YouTubeLite
+            videoId={grade.video!.youtubeId}
+            title={fill(t.video.titleTemplate, tokens)}
+            posterSrc={grade.video!.poster}
+            dataEvent="gallery_video_play"
+            dataSourceComponent={`grade-video-${slug}`}
+          />
+        ) : (
+          <ImagePlaceholder ratio="16/9" label={fill(t.video.pendingLabel, tokens)} caption={t.video.caption} />
+        )}
+      </div>
+    </div>
+
+    {/* Insight + key facts + CTAs + highlights */}
+    <div class="lg:ps-2">
+      <aside class="rounded-2xl border-s-4 border-brand-accent bg-brand-accent/5 p-5">
+        <p class="text-xs font-semibold uppercase tracking-wide text-brand-accent">{t.microInsightLabel}</p>
+        <p class="mt-2 text-base italic leading-relaxed text-neutral-800">{fill(gt.microInsight, tokens)}</p>
+      </aside>
+
+      <div class="mt-6 rounded-2xl border border-brand-primary/20 bg-brand-primary/5 p-6">
+        <h2 class="text-sm font-semibold uppercase tracking-wide text-brand-primary">{t.atAGlance.heading}</h2>
+        <dl class="mt-4 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
+          {atGlance.map((item) => (
+            <div class="border-t border-brand-primary/15 pt-2">
+              <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+              <dd class="mt-0.5 text-sm font-semibold text-neutral-900">{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <p class="mt-4 text-sm text-neutral-600">{t.atAGlance.priceDrivers}</p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <Button
+            href={sampleHref}
+            variant="primary"
+            target="_blank"
+            rel="noopener"
+            aria-label={fill(t.cta.sampleAria, tokens)}
+            data-event="sample_request,whatsapp_click"
+            data-source-component="grade-hero-sample"
+            data-param-product-sku={slug}
+          >
+            {t.cta.sample}
+          </Button>
+          <Button
+            href={quoteHref}
+            variant="secondary"
+            target="_blank"
+            rel="noopener"
+            aria-label={fill(t.cta.quoteAria, tokens)}
+            data-event="whatsapp_click"
+            data-source-component="grade-hero-quote"
+          >
+            {t.cta.quote}
+          </Button>
+        </div>
+        <p class="mt-3 text-sm">
+          <a
+            href={tourHref}
+            target="_blank"
+            rel="noopener"
+            data-event="whatsapp_click"
+            data-source-component="grade-hero-tour"
+            class="inline-flex items-center gap-1.5 rounded-sm font-semibold text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+          >
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            {t.cta.tour}
+          </a>
+        </p>
+      </div>
+
+      <ul class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5" role="list" aria-label={t.specHighlights.heading}>
+        {highlights.map((h) => (
+          <li class="rounded-xl border border-neutral-200 bg-white p-3 text-center">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="mx-auto h-6 w-6 text-brand-primary">
+              {h.icon === 'spark' && <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v4m0 10v4m9-9h-4M7 12H3m12.5-5.5L13 9m-6 6l2.5-2.5m0-5L7 5m10 14l-2.5-2.5" />}
+              {h.icon === 'clock' && <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m5-2a9 9 0 11-18 0 9 9 0 0118 0z" />}
+              {h.icon === 'nose' && <path stroke-linecap="round" stroke-linejoin="round" d="M12 3a6 6 0 00-6 6v4l-2 3a2 2 0 002 3h2m8-19a6 6 0 016 6v4l2 3a2 2 0 01-2 3h-2" />}
+              {h.icon === 'leaf' && <path stroke-linecap="round" stroke-linejoin="round" d="M3 21c0-9 7-16 18-16 0 11-7 18-16 18m-2-2l8-8" />}
+              {h.icon === 'coconut' && <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 110-18 9 9 0 010 18zM9 9h.01M15 9h.01M9.5 14a3 3 0 005 0" />}
+            </svg>
+            <p class="mt-1.5 text-xs font-semibold text-neutral-900">{h.value}</p>
+            <p class="text-xs text-neutral-500">{h.sub}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,494 @@
+---
+/**
+ * Grade (SKU) leaf page template (`/products/{shape}-{size}-{grade}`).
+ *
+ * The transactional product page. Self-canonical and declared `isVariantOf`
+ * a ProductGroup (shape × size) with the other two grades as co-variants —
+ * the schema that legitimizes three URLs per size (see
+ * `~/lib/schema/productGradePage.ts`).
+ *
+ * Composition: the heavy blocks are extracted into `./grade/*`
+ * (GradeHero / GradeBurnTest / GradeLogistics / GradeDocuments); the lighter
+ * prose sections render inline here. Per-grade UNIQUE prose lives under
+ * `en.productGrade.grade.{key}` (intro, Best For, value, micro-insight,
+ * burn-test, how-to-light, packaging, pricing, guarantee notes) and leads
+ * each section so unique copy dominates the shared mechanical content. Every
+ * fact comes from `~/config/{company,grades,products}`; unconfirmed values
+ * render as greppable muted placeholders. All blocks are anchored static
+ * `<section>`s — no JS tabs/accordions, no banking details.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import SpecsTable from '~/components/content/SpecsTable.astro';
+import DataTable from '~/components/content/DataTable.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import Button from '~/components/cta/Button.astro';
+import InquiryForm from '~/components/contact/InquiryForm.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import YouTubeLite from '~/components/content/YouTubeLite.astro';
+import GradeHero from '~/components/product/grade/GradeHero.astro';
+import GradeBurnTest from '~/components/product/grade/GradeBurnTest.astro';
+import GradeDropTest from '~/components/product/grade/GradeDropTest.astro';
+import GradeLogistics from '~/components/product/grade/GradeLogistics.astro';
+import GradeDocuments from '~/components/product/grade/GradeDocuments.astro';
+import en from '~/i18n/en';
+import { company, hasFact, yearsInBusiness } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { grades, type Grade } from '~/config/grades';
+import { gradesForSize, gradeHref } from '~/config/productRoutes';
+import { gradeCtas } from '~/lib/productCta';
+import { productShapes } from '~/config/products';
+import type { ProductShape, ProductSize } from '~/config/products';
+import { gradePageSchema } from '~/lib/schema/productGradePage';
+
+interface Props {
+  shape: ProductShape;
+  size: ProductSize;
+  grade: Grade;
+}
+const { shape, size, grade } = Astro.props;
+
+const t = en.productGrade;
+const gt = t.grade[grade.key];
+
+const { productName, slug, sampleHref, chatHref, tourHref } = gradeCtas(shape, size, grade);
+const path = `/products/${slug}`;
+const weightG = size.pcsPerKg ? Math.round(1000 / size.pcsPerKg) : undefined;
+
+const tokens = {
+  ...companyTokens(company),
+  grade: grade.name,
+  gradeLower: grade.name.toLowerCase(),
+  size: size.label,
+  shape: shape.shortName,
+  shapeLower: shape.shortName.toLowerCase(),
+  product: productName,
+  ash: grade.ash.display,
+  burnTime: grade.burnTime.display,
+  burnTemp: grade.burnTemp.display,
+  fixedCarbon: grade.fixedCarbon.display,
+  calorieValue: grade.calorieValue.display,
+  moisture: grade.moisture.display,
+  dropTest: grade.dropTest.display,
+  pcsPerKg: size.pcsPerKg ?? '—',
+  pcsPerBox: size.pcsPerKg ? size.pcsPerKg * 20 : '—',
+  weightG: weightG ?? '—',
+  reviewer: company.governance.reviewer.name,
+  reviewerRole: company.governance.reviewer.role,
+  years: yearsInBusiness(),
+  gradeCount: grades.length,
+  currency: company.commercial.currency,
+  fobLow: grade.fobRange?.low ?? '',
+  fobHigh: grade.fobRange?.high ?? '',
+  fobUnit: grade.fobRange?.unit ?? '',
+  innerPlasticMicron: company.packaging.innerPlastic.micron ?? '',
+};
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(gt.metaDescriptionTemplate, tokens);
+
+const schema = gradePageSchema({ shape, size, grade, name: pageTitle, description: pageDescription, path });
+
+const productOptionId: Record<ProductShape['key'], string> = {
+  cube: 'cube', stix: 'finger', hexagonal: 'hexagonal', dome: 'dome', flat: 'flat', lotus: 'custom',
+};
+
+// --- Full specification table (~18 rows). Config facts + greppable pendings.
+const sv = t.specs.values;
+const PENDING = t.specs.pending;
+const specRows = [
+  { name: t.specs.rows.shape, value: shape.name },
+  { name: t.specs.rows.size, value: size.label },
+  { name: t.specs.rows.tolerance, value: sv.toleranceTemplate },
+  { name: t.specs.rows.weight, value: weightG ? fill(sv.weightTemplate, tokens) : PENDING },
+  { name: t.specs.rows.pcsKg, value: size.pcsPerKg ? String(size.pcsPerKg) : PENDING },
+  { name: t.specs.rows.ash, value: grade.ash.display },
+  { name: t.specs.rows.burnStandby, value: grade.burnTime.display },
+  { name: t.specs.rows.burnActive, value: PENDING },
+  { name: t.specs.rows.fixedCarbon, value: grade.fixedCarbon.display },
+  { name: t.specs.rows.calorie, value: grade.calorieValue.display },
+  { name: t.specs.rows.volatile, value: PENDING },
+  { name: t.specs.rows.burnTemp, value: grade.burnTemp.display },
+  { name: t.specs.rows.moistureOven, value: PENDING },
+  { name: t.specs.rows.moisturePacked, value: grade.moisture.display },
+  { name: t.specs.rows.density, value: PENDING },
+  { name: t.specs.rows.dropTest, value: grade.dropTest.display },
+  { name: t.specs.rows.ashColor, value: sv.ashColor },
+  { name: t.specs.rows.smell, value: sv.smell },
+];
+const specColumns = [{ key: 'v', label: fill(t.specs.valueHeaderTemplate, tokens) }];
+const specTableRows = specRows.map((r) => ({ name: r.name, v: r.value }));
+
+// --- Available grades for this size (variant family).
+const siblings = gradesForSize(size);
+
+// --- Related products: other sizes of this shape (same grade) + sibling shapes.
+const otherSizes = shape.sizes.filter((z) => z.slug !== size.slug);
+const siblingShapes = productShapes.filter((s) => s.key !== shape.key);
+
+// --- Packaging technical spec.
+const pk = company.packaging;
+const packTech = [
+  {
+    label: t.packaging.tech.plasticLabel,
+    value: hasFact(pk.innerPlastic.micron)
+      ? fill(t.packaging.tech.plasticValueTemplate, tokens)
+      : fill(t.packaging.tech.plasticPending, tokens),
+  },
+  { label: t.packaging.tech.innerBoxLabel, value: fill(t.packaging.tech.innerBoxValueTemplate, tokens) },
+  { label: t.packaging.tech.masterBoxLabel, value: fill(t.packaging.tech.masterBoxValueTemplate, tokens) },
+];
+
+// --- Volume-discount tiers (single source: company.commercial.volumeDiscountTiers).
+const discountHeaders = [t.pricing.tierHeader, t.pricing.discountHeader];
+const discountRows = company.commercial.volumeDiscountTiers.map((tier) => ({
+  label:
+    tier.maxTons == null
+      ? fill(t.pricing.openBracketTemplate, { min: tier.minTons })
+      : fill(t.pricing.bracketTemplate, { min: tier.minTons, max: tier.maxTons }),
+  // null → "on request"; 0 → base "List price"; >0 → "x% off list".
+  values: [
+    tier.discountPercent == null
+      ? t.pricing.discountPending
+      : tier.discountPercent === 0
+        ? t.pricing.discountBase
+        : fill(t.pricing.discountTemplate, { percent: tier.discountPercent }),
+  ],
+}));
+
+// Indicative FOB display: "from {low}" (floor) or "{low}–{high}" (band); muted when unset.
+const fobDisplay = !hasFact(grade.fobRange)
+  ? t.atAGlance.fobPending
+  : hasFact(grade.fobRange?.high)
+    ? fill(t.atAGlance.fobRangeTemplate, tokens)
+    : fill(t.atAGlance.fobFromTemplate, tokens);
+
+// --- Trust stats (real data only).
+const trustStats = [
+  { label: t.trust.yearsLabel, value: fill(t.trust.yearsTemplate, tokens) },
+  { label: t.trust.countriesLabel, value: fill(t.trust.countriesTemplate, tokens) },
+  { label: t.trust.perContainerLabel, value: fill(t.trust.perContainerTemplate, tokens) },
+];
+
+const sectionH2 = 'text-2xl font-bold text-neutral-900 md:text-3xl';
+const proseP = 'mt-4 max-w-prose text-base leading-relaxed text-neutral-700';
+const linkP = 'mt-4 text-sm';
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path={path}
+  type="product"
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-6xl px-4 pt-6 md:px-8">
+    <Breadcrumbs
+      items={[
+        { label: t.breadcrumbProducts, href: '/products' },
+        { label: shape.shortName, href: shape.href },
+        { label: `${grade.name} ${size.label} ${shape.shortName}` },
+      ]}
+    />
+  </div>
+
+  <GradeHero shape={shape} size={size} grade={grade} tokens={tokens} />
+
+  <div class="mx-auto max-w-5xl px-4 md:px-8">
+    {/* ===== Why this grade (unique) ===== */}
+    <section id="why-this-grade" aria-labelledby="why-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="why-heading" class={sectionH2}>{fill(t.sections.why, tokens)}</h2>
+      <p class={proseP}>{fill(gt.whyBody, tokens)}</p>
+      <p class="mt-4 max-w-prose text-base font-semibold leading-relaxed text-neutral-900">{fill(gt.bestFor, tokens)}</p>
+      <p class={proseP}>{fill(gt.valueProp, tokens)}</p>
+      <p class={linkP}>
+        <MaybeLink href="/factory/raw-materials" class="font-semibold" data-source-component="grade-raw-materials">
+          {en.products.grades.rawMaterial.linkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+    </section>
+
+    {/* ===== Specifications ===== */}
+    <section id="specifications" aria-labelledby="specs-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="specs-heading" class={sectionH2}>{t.sections.specs}</h2>
+      <SpecsTable
+        class="mt-8"
+        columns={specColumns}
+        rows={specTableRows}
+        caption={fill(t.specs.caption, tokens)}
+        propertyHeader={t.specs.propertyHeader}
+        cardEyebrow={grade.name}
+      />
+    </section>
+
+    <GradeBurnTest shape={shape} size={size} grade={grade} tokens={tokens} />
+
+    <GradeDropTest shape={shape} size={size} grade={grade} tokens={tokens} />
+
+    {/* ===== How to light & use ===== */}
+    <section id="how-to-light" aria-labelledby="light-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="light-heading" class={sectionH2}>{t.sections.howToLight}</h2>
+      <p class={proseP}>{t.howToLight.body}</p>
+      <p class={proseP}>{fill(gt.howToLightNote, tokens)}</p>
+      <p class={linkP}>
+        <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="grade-specs-explained">
+          {t.howToLight.linkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+    </section>
+
+    {/* ===== Mid-page CTA strip ===== */}
+    <section aria-label={t.midCta.heading} class="my-4 rounded-2xl bg-brand-dark px-6 py-8 text-white md:px-10">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="max-w-xl">
+          <h2 class="text-xl font-bold md:text-2xl">{t.midCta.heading}</h2>
+          <p class="mt-2 text-base text-neutral-200">{t.midCta.body}</p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <Button href={sampleHref} variant="primary" size="lg" target="_blank" rel="noopener" aria-label={fill(t.cta.sampleAria, tokens)} data-event="sample_request,whatsapp_click" data-source-component="grade-mid-sample" data-param-product-sku={slug}>
+            {t.cta.sample}
+          </Button>
+          <Button href={chatHref} variant="ghost" size="lg" class="text-white hover:bg-white/10" target="_blank" rel="noopener" aria-label={t.cta.chatAria} data-event="whatsapp_click" data-source-component="grade-mid-chat">
+            {t.cta.chat}
+          </Button>
+        </div>
+      </div>
+    </section>
+
+    {/* ===== Available grades for this size ===== */}
+    <section id="available-grades" aria-labelledby="grades-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="grades-heading" class={sectionH2}>{t.sections.availableGrades}</h2>
+      <p class={proseP}>{fill(t.availableGrades.intro, tokens)}</p>
+      <ul class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-3" role="list">
+        {siblings.map((entry) => {
+          const isCurrent = entry.grade.key === grade.key;
+          return (
+            <li id={`grade-${entry.grade.key}`} class:list={['scroll-mt-24 rounded-2xl border bg-white p-5', isCurrent ? 'border-brand-primary ring-1 ring-brand-primary' : 'border-neutral-200']}>
+              <div class="flex items-baseline justify-between gap-2">
+                <h3 class="text-lg font-semibold text-neutral-900">{entry.grade.name}</h3>
+                {isCurrent && <span class="rounded-full bg-brand-primary/10 px-2 py-0.5 text-xs font-medium text-brand-primary">{t.availableGrades.thisGradeBadge}</span>}
+              </div>
+              <dl class="mt-3 space-y-1 text-sm text-neutral-600">
+                <div class="flex justify-between gap-2"><dt>{t.availableGrades.ashLabel}</dt><dd class="font-medium text-neutral-900">{entry.grade.ash.display}</dd></div>
+                <div class="flex justify-between gap-2"><dt>{t.availableGrades.burnLabel}</dt><dd class="font-medium text-neutral-900">{entry.grade.burnTime.display}</dd></div>
+              </dl>
+              {!isCurrent && (
+                <p class="mt-4 text-sm">
+                  <MaybeLink href={entry.href} class="font-semibold" mutedClass="font-semibold" data-source-component={`grade-sibling-${entry.slug}`}>
+                    {fill(t.availableGrades.viewTemplate, { grade: entry.grade.name, size: size.label, shape: shape.name })} <span aria-hidden="true">→</span>
+                  </MaybeLink>
+                </p>
+              )}
+            </li>
+          );
+        })}
+      </ul>
+    </section>
+
+    {/* ===== Packaging ===== */}
+    <section id="packaging" aria-labelledby="packaging-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="packaging-heading" class={sectionH2}>{t.sections.packaging}</h2>
+      <p class={proseP}>{fill(gt.packagingNote, tokens)}</p>
+      <p class={proseP}>{fill(t.packaging.body, tokens)}</p>
+      <dl class="mt-6 divide-y divide-neutral-200 rounded-xl border border-neutral-200">
+        <p class="px-4 py-3 text-sm font-semibold text-neutral-900">{t.packaging.techIntro}</p>
+        {packTech.map((row) => (
+          <div class="grid grid-cols-1 gap-1 px-4 py-3 sm:grid-cols-[10rem_1fr]">
+            <dt class="text-sm font-medium text-neutral-700">{row.label}</dt>
+            <dd class="text-sm text-neutral-800">{row.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <div class="mt-6 grid gap-4 sm:grid-cols-2">
+        <ImagePlaceholder ratio="4/3" label={fill(t.packaging.configFullAlt, tokens)} caption={`${t.packaging.configFullLabel} — ${t.packaging.configFullSub}`} />
+        <ImagePlaceholder ratio="4/3" label={fill(t.packaging.configBulkAlt, tokens)} caption={`${t.packaging.configBulkLabel} — ${t.packaging.configBulkSub}`} />
+      </div>
+      <p class={linkP}>
+        <MaybeLink href="/packaging" class="font-semibold" data-source-component="grade-packaging">{t.packaging.linkPackaging} <span aria-hidden="true">→</span></MaybeLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <MaybeLink href="/packaging/white-lable" class="font-semibold" data-source-component="grade-white-label">{t.packaging.linkWhiteLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    {/* ===== Pricing & volume discounts ===== */}
+    <section id="pricing" aria-labelledby="pricing-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="pricing-heading" class={sectionH2}>{t.sections.pricing}</h2>
+      <p class={proseP}>{fill(gt.pricingNote, tokens)}</p>
+      <div class="mt-6 rounded-xl border border-brand-primary/20 bg-brand-primary/5 p-5">
+        <p class="text-xs font-semibold uppercase tracking-wide text-brand-primary">{t.pricing.fobLabel}</p>
+        <p class="mt-1 text-2xl font-bold text-neutral-900">{fobDisplay}</p>
+        <p class="mt-1 text-sm text-neutral-600">{fill(t.pricing.fobNote, tokens)}</p>
+      </div>
+      <p class={proseP}>{fill(t.pricing.body, tokens)}</p>
+      <DataTable class="mt-6" headers={discountHeaders} rows={discountRows} striped />
+      <p class="mt-3 text-sm text-neutral-500">{fill(t.pricing.disclaimer, tokens)}</p>
+    </section>
+
+    <GradeLogistics shape={shape} size={size} grade={grade} tokens={tokens} />
+
+    {/* ===== How ordering works ===== */}
+    <section id="how-ordering-works" aria-labelledby="ordering-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="ordering-heading" class={sectionH2}>{t.sections.ordering}</h2>
+      <p class={proseP}>{t.ordering.intro}</p>
+      <ol class="mt-6 max-w-prose list-decimal space-y-2 ps-6 text-base leading-relaxed text-neutral-700">
+        {t.ordering.steps.map((step) => <li>{step}</li>)}
+      </ol>
+      <h3 class="mt-8 text-lg font-semibold text-neutral-900">{t.ordering.paymentHeading}</h3>
+      <p class={proseP}>{fill(t.ordering.paymentBody, tokens)}</p>
+      <h3 class="mt-6 text-lg font-semibold text-neutral-900">{t.ordering.depositSecurityHeading}</h3>
+      <p class={proseP}>{fill(t.ordering.depositSecurity, tokens)}</p>
+      <p class={proseP}>{t.ordering.sampleBridge}</p>
+      <p class={proseP}>{fill(t.ordering.leadCapacity, tokens)}</p>
+      <p class={linkP}>
+        <MaybeLink href="/factory/capacity" class="font-semibold" data-source-component="grade-capacity">{t.ordering.linkCapacity} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    {/* ===== Samples ===== */}
+    <section id="samples" aria-labelledby="samples-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="samples-heading" class={sectionH2}>{t.sections.samples}</h2>
+      <p class={proseP}>{fill(t.samples.body, tokens)}</p>
+      <p class={proseP}>{fill(t.samples.coverage, tokens)}</p>
+      <p class={proseP}>{t.samples.bridge}</p>
+      <div class={linkP}>
+        <Button href={sampleHref} variant="primary" target="_blank" rel="noopener" aria-label={fill(t.cta.sampleAria, tokens)} data-event="sample_request,whatsapp_click" data-source-component="grade-samples-cta" data-param-product-sku={slug}>
+          {t.cta.sample}
+        </Button>
+      </div>
+      <p class={linkP}>
+        <MaybeLink href="/samples" class="font-semibold" data-source-component="grade-samples-link">{t.samples.linkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    {/* ===== Quality guarantee & claims ===== */}
+    <section id="quality-guarantee" aria-labelledby="guarantee-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="guarantee-heading" class={sectionH2}>{t.sections.guarantee}</h2>
+      <p class={proseP}>{fill(gt.guaranteeNote, tokens)}</p>
+      <p class={proseP}>{t.guarantee.body}</p>
+      <p class={proseP}>{t.guarantee.batch}</p>
+      <p class={linkP}>
+        <MaybeLink href="/quality/certifications" class="font-semibold" data-source-component="grade-guarantee-cert">{t.guarantee.linkCert} <span aria-hidden="true">→</span></MaybeLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <MaybeLink href="/legal/terms" data-source-component="grade-guarantee-terms">{t.guarantee.linkTerms}</MaybeLink>
+      </p>
+    </section>
+
+    {/* ===== Why buyers trust us ===== */}
+    <section id="why-buyers-trust-us" aria-labelledby="trust-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="trust-heading" class={sectionH2}>{t.sections.trust}</h2>
+
+      {/* See the factory — prominent legitimacy proof: walk-through video + live-call CTA. */}
+      <h3 class="mt-6 text-xl font-semibold text-neutral-900">{t.trust.tourHeading}</h3>
+      <p class={proseP}>{t.trust.tourBody}</p>
+      <div class="mt-6 grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-center">
+        {hasFact(company.factoryTourVideo.youtubeId) ? (
+          <YouTubeLite
+            videoId={company.factoryTourVideo.youtubeId}
+            title={fill(t.trust.tourVideoTitle, tokens)}
+            dataEvent="gallery_video_play"
+            dataSourceComponent="grade-trust-factory-video"
+          />
+        ) : (
+          <ImagePlaceholder ratio="16/9" label={fill(t.trust.tourVideoTitle, tokens)} />
+        )}
+        <div>
+          <Button href={tourHref} variant="primary" target="_blank" rel="noopener" aria-label={t.cta.tourAria} data-event="whatsapp_click" data-source-component="grade-trust-tour-cta">
+            {t.cta.tour}
+          </Button>
+        </div>
+      </div>
+
+      <p class="mt-10 max-w-prose text-base leading-relaxed text-neutral-700">{t.trust.body}</p>
+      <dl class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {trustStats.map((s) => (
+          <div class="rounded-2xl border border-neutral-200 bg-white p-5 text-center">
+            <dd class="text-3xl font-bold text-brand-primary">{s.value}</dd>
+            <dt class="mt-1 text-sm text-neutral-600">{s.label}</dt>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <GradeDocuments tokens={tokens} />
+
+    {/* ===== Compare to other brands ===== */}
+    <section id="compare-brands" aria-labelledby="compare-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="compare-heading" class={sectionH2}>{t.sections.compare}</h2>
+      <p class={proseP}>{t.compare.body}</p>
+      <p class={linkP}>
+        <MaybeLink href="/guide/coconut-charcoal-suppliers-compared" class="font-semibold" mutedClass="font-semibold" data-source-component="grade-compare">{t.compare.linkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    {/* ===== Related products ===== */}
+    <section id="related-products" aria-labelledby="related-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="related-heading" class={sectionH2}>{t.related.heading}</h2>
+      <p class={proseP}>{fill(t.related.intro, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href={shape.href} class="font-semibold" data-source-component="grade-up-shape">{fill(t.related.upToShapeTemplate, tokens)}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/products" data-source-component="grade-up-hub">{t.related.upToHub}</MaybeLink>
+      </p>
+      <p class="mt-3 text-sm leading-relaxed text-neutral-700">
+        <span class="font-semibold">{en.products.choose.market.h3}:</span>{' '}
+        {en.products.choose.market.items.map((m, i) => (
+          <Fragment>
+            {i > 0 && <span class="text-neutral-300" aria-hidden="true"> · </span>}
+            <MaybeLink href={m.href} data-source-component={`grade-market-${m.key}`}>{m.label}</MaybeLink>
+          </Fragment>
+        ))}
+      </p>
+
+      {otherSizes.length > 0 && (
+        <div class="mt-6">
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-500">{fill(t.related.otherSizesHeading, tokens)}</h3>
+          <ul class="mt-2 flex flex-wrap gap-2" role="list">
+            {otherSizes.map((z) => (
+              <li>
+                <MaybeLink
+                  href={gradeHref(z, grade)}
+                  class="inline-block rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm font-medium"
+                  mutedClass="inline-block rounded-md border border-dashed border-neutral-300 bg-white px-3 py-2 text-sm"
+                  data-source-component={`grade-othersize-${z.slug}-${grade.key}`}
+                >
+                  {fill(t.related.viewSizeTemplate, { shape: shape.shortName, size: z.label })}
+                </MaybeLink>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      <div class="mt-6">
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-500">{t.related.otherShapesHeading}</h3>
+        <ul class="mt-2 flex flex-wrap gap-2" role="list">
+          {siblingShapes.map((s) => (
+            <li>
+              <MaybeLink
+                href={s.href}
+                class="inline-block rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm font-medium"
+                mutedClass="inline-block rounded-md border border-dashed border-neutral-300 bg-white px-3 py-2 text-sm"
+                data-source-component={`grade-othershape-${s.key}`}
+              >
+                {s.shortName}
+              </MaybeLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    {/* ===== Inquiry form ===== */}
+    <section id="request-a-quote" aria-labelledby="inquiry-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+      <h2 id="inquiry-heading" class={sectionH2}>{fill(t.inquiry.heading, tokens)}</h2>
+      <p class={proseP}>{t.inquiry.whatToInclude}</p>
+      <p class="mt-2 text-sm text-neutral-500">{fill(t.inquiry.responseTime, tokens)}</p>
+      <div class="mt-8">
+        <InquiryForm prefill={{ productId: productOptionId[shape.key], sku: slug, note: fill(t.inquiry.heading, tokens) }} />
+      </div>
+    </section>
+  </div>
+
+  <CTABanner />
+</BaseLayout>

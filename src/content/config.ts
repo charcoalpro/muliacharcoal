@@ -22,18 +22,17 @@ const legal = defineCollection({
 });
 
 /**
- * Products collection — one entry per SKU.
+ * Products collection — optional per-SKU content (currently unused).
  *
- * URL: /products/{shape}-{size} (per CLAUDE.md). The slug is the file
- * name; `shape` and `size` are repeated in front-matter so they're
- * queryable without parsing the slug.
+ * NOTE: the live product pages (grade SKU, shape-category, market-category)
+ * are generated from config — `~/config/products.ts`, `~/config/grades.ts`,
+ * `~/config/productRoutes.ts` — via `src/pages/products/[slug].astro`, NOT
+ * from this collection. The leaf URL is `/products/{shape}-{size}-{grade}`
+ * (e.g. `cube-25mm-platinum`); the bare `{shape}-{size}` is not a page.
  *
- * Per-locale entries live under `<base>/{locale}/<slug>.md`, e.g.
- * `src/content/products/en/cube-25mm.md`. Future locales add sibling
- * folders.
- *
- * Numeric specs default to optional so a product can be listed before
- * lab data is finalized.
+ * This collection schema is retained for a possible future where individual
+ * SKUs need authored MDX bodies or per-SKU asset overrides (real photos, a
+ * confirmed FOB band). It has no entries today.
  */
 const products = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/products' }),

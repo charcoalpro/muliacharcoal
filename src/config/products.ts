@@ -38,8 +38,15 @@ export interface ProductShape {
   slug: string;
   /** Stable key for i18n lookup — `en.home.products.items[key]`. */
   key: 'cube' | 'stix' | 'hexagonal' | 'dome' | 'flat' | 'lotus';
-  /** Display name (English). */
+  /** Display name (English), incl. alias where one exists (e.g. "Stix / Finger"). */
   name: string;
+  /**
+   * Short, keyword-clean single word for page titles, H1s, and body prose
+   * (e.g. "Finger" for "Stix / Finger"). Keeps grade-page titles under the
+   * 60-char SEO budget; the full `name` alias is surfaced once per page
+   * (the at-a-glance "Shape" row and the category definition prose).
+   */
+  shortName: string;
   /** Short paragraph used by JSON-LD and the card subtitle fallback. */
   description: string;
   /** Available sizes for this shape, in spec order. */
@@ -62,6 +69,7 @@ export const productShapes: ProductShape[] = [
     slug: 'cube',
     key: 'cube',
     name: 'Cube',
+    shortName: 'Cube',
     description:
       'Compressed coconut shell charcoal cubes — the most common shisha format worldwide. Edges are uniformly cut, no first-light cracking.',
     sizes: [
@@ -80,6 +88,7 @@ export const productShapes: ProductShape[] = [
     slug: 'stix',
     key: 'stix',
     name: 'Stix / Finger',
+    shortName: 'Finger',
     description:
       'Slim finger briquettes for kaloud and HMD-style heat-management devices. Long burn at low surface temperature.',
     sizes: [
@@ -97,6 +106,7 @@ export const productShapes: ProductShape[] = [
     slug: 'hexagonal',
     key: 'hexagonal',
     name: 'Hexagonal',
+    shortName: 'Hexagonal',
     description:
       'Six-sided briquettes with a centre hole — preferred by retail tobacco brands for shelf appeal and even ignition.',
     sizes: [
@@ -114,6 +124,7 @@ export const productShapes: ProductShape[] = [
     slug: 'dome',
     key: 'dome',
     name: 'D-shape / Dome',
+    shortName: 'Dome',
     description:
       'Hemisphere briquettes shaped to seat flush against ceramic and silicone shisha bowls. Stable burn surface.',
     sizes: [
@@ -129,6 +140,7 @@ export const productShapes: ProductShape[] = [
     slug: 'flat',
     key: 'flat',
     name: 'Flat / Slab',
+    shortName: 'Flat',
     description:
       'Flat slab cut for kaloud, foil and large-bowl applications. Maximum heat-management surface area.',
     sizes: [
@@ -144,6 +156,7 @@ export const productShapes: ProductShape[] = [
     slug: 'lotus',
     key: 'lotus',
     name: 'Lotus / Cloud',
+    shortName: 'Lotus',
     description:
       'Decorative profile briquettes for premium shisha lounges. Same coconut shell formulation, distinctive shape.',
     sizes: [
@@ -155,6 +168,25 @@ export const productShapes: ProductShape[] = [
     category: SHARED_CATEGORY,
     material: SHARED_MATERIAL,
   },
+];
+
+/**
+ * Use-case ("market") category pages under the Products pillar — the
+ * café/lounge (bulk) vs. smoke-shop/retail (private label) landers. Slugs
+ * match the site-architecture spelling exactly (`shisha-cafee`, double-e).
+ */
+export interface ProductMarket {
+  /** URL slug under `/products/`. */
+  slug: 'shisha-cafee' | 'shisha-shop';
+  /** Stable key for i18n lookup (`productMarket.market[key]`). */
+  key: 'cafe' | 'shop';
+  /** Root-relative page URL. */
+  href: string;
+}
+
+export const productMarkets: ProductMarket[] = [
+  { slug: 'shisha-cafee', key: 'cafe', href: '/products/shisha-cafee' },
+  { slug: 'shisha-shop', key: 'shop', href: '/products/shisha-shop' },
 ];
 
 /** A single SKU = one size of one shape. Flattened view for the hub. */

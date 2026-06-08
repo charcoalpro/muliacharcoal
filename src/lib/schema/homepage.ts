@@ -52,7 +52,10 @@ export function buildHomepageGraph() {
           slug: p.slug,
           name: p.name,
           description: p.description,
-          image: p.image,
+          // `p.image` (/products/*.svg) is a placeholder path with no asset on
+          // disk yet, so omit it — productItemListSchema falls back to the real
+          // logo rather than advertising a 404 image to crawlers. Pass the real
+          // product photo here once it lands.
           category: p.category,
           material: p.material,
           sizes: p.sizes,

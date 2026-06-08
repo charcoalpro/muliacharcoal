@@ -30,6 +30,8 @@ interface Props {
   /** Textarea row count. Ignored for other types. */
   rows?: number;
   inputMode?: 'tel' | 'numeric' | 'email' | 'text';
+  /** Optional initial value — prefills text/textarea controls (not select). */
+  value?: string;
   /** Classes applied to the outer wrapper `<div>` — e.g. `md:col-span-2`. */
   class?: string;
 }
@@ -47,6 +49,7 @@ const {
   placeholder,
   rows,
   inputMode,
+  value,
   class: className,
 } = Astro.props;
 
@@ -82,7 +85,7 @@ const controlClass =
       autocomplete={autocomplete}
       aria-describedby={describedBy}
       class={controlClass}
-    ></textarea>
+    >{value}</textarea>
   ) : type === 'select' ? (
     <select
       id={id}
@@ -103,6 +106,7 @@ const controlClass =
       minlength={minLength}
       maxlength={maxLength}
       placeholder={placeholder}
+      value={value}
       autocomplete={autocomplete}
       inputmode={inputMode}
       aria-describedby={describedBy}

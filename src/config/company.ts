@@ -102,6 +102,26 @@ const companyData = rawCompanyData as typeof rawCompanyData & {
   commercial: typeof rawCompanyData.commercial & {
     shippingLines: string[];
     exportMarkets: string[];
+    // Container payload by box type. `bulkKg` (loose, no inner box) is
+    // pending a weigh-in, so it widens to `number | null`.
+    containerCapacity: {
+      ft20: { fullKg: number; bulkKg: number | null };
+      ft40: { fullKg: number; bulkKg: number | null };
+    };
+    // Single source for the volume-discount tier table. `maxTons: null`
+    // marks the open-ended top bracket; `discountPercent: null` marks a
+    // bracket whose rate is pending owner confirmation (rendered muted).
+    volumeDiscountTiers: Array<{
+      minTons: number;
+      maxTons: number | null;
+      discountPercent: number | null;
+    }>;
+    // Sub-container / trial entry point below the full-container MOQ.
+    // `null` = full container only; samples are the entry point.
+    trialMinimum: { tons: number; note: string } | null;
+    // Customs commodity (HS) code for coconut shell charcoal — pending
+    // confirmation, so widens to `string | null` (rendered muted until set).
+    hsCode: string | null;
   };
   certifications: typeof rawCompanyData.certifications & {
     patents: Array<{ id: string; title: string }>;
@@ -117,6 +137,12 @@ const companyData = rawCompanyData as typeof rawCompanyData & {
   };
   bank: typeof rawCompanyData.bank & {
     iban: string | null;
+  };
+  packaging: typeof rawCompanyData.packaging & {
+    // Inner-plastic film gauge, pending confirmation → widens to number | null.
+    innerPlastic: typeof rawCompanyData.packaging.innerPlastic & {
+      micron: number | null;
+    };
   };
   phones: Array<{ label: string; display: string; e164: string }>;
 };

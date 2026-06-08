@@ -1,0 +1,52 @@
+---
+/**
+ * Product child-route dispatcher (`/products/{slug}`).
+ *
+ * One dynamic route generates all three page types under the Products
+ * pillar — grade SKU pages, shape-category pages, and market-category
+ * pages — from `~/config/productRoutes`. The published-set switch there
+ * controls exactly which routes build (Phase A: the Cube shape + the café
+ * market); unpublished cross-links degrade to text via `<MaybeLink>`, so
+ * the site ships zero 404s.
+ *
+ * Each path carries a discriminated `kind` so this file just delegates to
+ * the matching template component.
+ */
+import GradePage from '~/components/product/GradePage.astro';
+import ShapeCategoryPage from '~/components/product/ShapeCategoryPage.astro';
+import MarketCategoryPage from '~/components/product/MarketCategoryPage.astro';
+import { publishedGradePages, publishedShapes, publishedMarkets } from '~/config/productRoutes';
+import type { ProductShape, ProductSize, ProductMarket } from '~/config/products';
+import type { Grade } from '~/config/grades';
+
+type PageProps =
+  | { kind: 'grade'; shape: ProductShape; size: ProductSize; grade: Grade }
+  | { kind: 'category'; shape: ProductShape }
+  | { kind: 'market'; market: ProductMarket };
+
+export function getStaticPaths() {
+  const gradePaths = publishedGradePages().map((g) => ({
+    params: { slug: g.slug },
+    props: { kind: 'grade', shape: g.shape, size: g.size, grade: g.grade } satisfies PageProps,
+  }));
+
+  const categoryPaths = publishedShapes().map((shape) => ({
+    // Category URL segment is the architecture plural from `shape.href`
+    // (e.g. `cubes`, `fingers`, `cloud`) — not the singular `shape.slug`.
+    params: { slug: shape.href.replace(/^\/products\//, '') },
+    props: { kind: 'category', shape } satisfies PageProps,
+  }));
+
+  const marketPaths = publishedMarkets().map((market) => ({
+    params: { slug: market.slug },
+    props: { kind: 'market', market } satisfies PageProps,
+  }));
+
+  return [...gradePaths, ...categoryPaths, ...marketPaths];
+}
+
+const props = Astro.props as PageProps;
+---
+{props.kind === 'grade' && <GradePage shape={props.shape} size={props.size} grade={props.grade} />}
+{props.kind === 'category' && <ShapeCategoryPage shape={props.shape} />}
+{props.kind === 'market' && <MarketCategoryPage market={props.market} />}
