@@ -1,0 +1,122 @@
+{
+  "breadcrumbProducts": "Products",
+
+  "meta": {
+    "titleTemplate": "{{shape}} Coconut Shisha Charcoal — Sizes & Grades",
+    "descriptionTemplate": "{{shape}} coconut shell shisha charcoal wholesale from {{brand}}, {{port}}: every size in {{gradeCount}} grades. MOQ {{moqTons}} tons. Compare sizes & request a sample."
+  },
+  "eyebrowTemplate": "Coconut shell shisha charcoal · {{city}}, {{country}}",
+  "h1Template": "{{shape}} Coconut Shisha Charcoal — Sizes & Grades",
+
+  "atAGlance": {
+    "heading": "At a glance",
+    "burnLabel": "Burn behavior",
+    "usersLabel": "Typical buyers",
+    "sizesLabel": "Sizes available",
+    "gradesLabel": "Grades",
+    "moqLabel": "Minimum order",
+    "sizesValueTemplate": "{{sizeCount}} sizes",
+    "gradesValueTemplate": "{{gradeNames}}",
+    "moqValueTemplate": "{{moqLabel}}"
+  },
+
+  "cta": {
+    "quote": "Request a quote",
+    "quoteAria": "Request a wholesale quote for {{shape}} coconut charcoal on WhatsApp",
+    "sample": "Request a sample",
+    "sampleAria": "Request a {{shape}} coconut charcoal sample on WhatsApp"
+  },
+
+  "sections": {
+    "about": "About the {{shape}} format",
+    "sizes": "Sizes available",
+    "grades": "Grades explained",
+    "markets": "Best markets & use cases for {{shape}}",
+    "packaging": "Packaging & logistics"
+  },
+
+  "sizes": {
+    "intro": "Every {{shape}} size is pressed from the same 100% coconut shell formulation and is available in all {{gradeCount}} grades. Pick a size, then choose the grade — each links to its own spec sheet, burn test, and FOB band.",
+    "sizeHeader": "Size",
+    "pcsHeader": "Pieces / kg",
+    "gradesHeader": "Grade pages",
+    "pcsTemplate": "≈ {{pcsPerKg}}",
+    "pcsPending": "—"
+  },
+
+  "grades": {
+    "body": "The grade sets ash content and the shell selection behind it — from Premium ({{premiumAsh}} ash) for value retail, through Super Premium for established brands, to Platinum ({{platinumAsh}} ash) for premium private label. The shape and size do not change with the grade; only the burn cleanliness and price do.",
+    "linkSpecs": "Specifications explained, term by term",
+    "linkHub": "Compare all grades on the products hub"
+  },
+
+  "markets": {
+    "body": "Different regions favor different formats and sizes. Tell us your destination and channel and we will confirm the right {{shape}} size and grade for it; the country and use-case pages below go into detail.",
+    "linkCafe": "For shisha cafés & lounges",
+    "linkShop": "For smoke shops & retail",
+    "marketsHeading": "By destination market"
+  },
+
+  "packaging": {
+    "body": "Any {{shape}} size ships in bulk master-box packing for café accounts or printed inner boxes ({{innerBoxSizes}}) for retail and private label. We load full {{containerType}} containers; you can mix sizes and grades inside one.",
+    "linkPackaging": "Packaging & OEM options",
+    "linkLogistics": "Logistics & shipping"
+  },
+
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/quality/certifications", "label": "Certifications & testing" },
+      { "href": "/factory/raw-materials", "label": "Raw materials & sourcing" },
+      { "href": "/packaging", "label": "Packaging & OEM options" },
+      { "href": "/logistics", "label": "Logistics & shipping" },
+      { "href": "/products", "label": "All coconut shisha charcoal" }
+    ]
+  },
+
+  "shape": {
+    "cube": {
+      "definition": "A coconut charcoal cube is a six-faced briquette pressed to equal width, height, and depth — the most widely used shisha format worldwide. Even faces mean even ignition and a predictable burn on any bowl or heat-management device.",
+      "aboutBody": "The cube is the default because geometry works in its favor: equal faces give the largest stable contact area against foil or a heat-management device, so heat transfers evenly and the coal sits without rocking. Uniformly cut edges ignite without the first-light cracking you hear from poorly pressed coals, and a cube stacks tightly in the box, which lowers freight cost per kilogram. Sizes from 22 mm to 28 mm let you tune session length and heat to the bowl: smaller cubes for quick retail sessions, larger cubes for long lounge use.",
+      "burn": "Even faces, predictable ignition, 2+ hour burn; larger cubes run longer and hotter.",
+      "users": "Lounges, retail brands, and private-label distributors in every market.",
+      "marketsBody": "Cubes suit nearly every market, with size the regional variable: 25–26 mm dominates US and UK retail and lounges, 26–28 mm suits long GCC and EU lounge sessions, and 22–25 mm is common across Russia and CIS. The café and smoke-shop pages map sizes and grades to each channel."
+    },
+    "stix": {
+      "definition": "A finger briquette — also sold as a stix or stick — is a slim, elongated coconut charcoal bar sized for kaloud and heat-management devices (HMDs) rather than laid directly on foil.",
+      "aboutBody": "Fingers solve a specific problem: HMD and kaloud devices have a narrow coal chamber, and a cube either will not seat or chokes the airflow. A slim 18–20 mm finger drops in cleanly, presents more surface area to the device wall, and burns at a lower, more even surface temperature — exactly what a heat-managed setup wants. The trade-off is a shorter per-piece burn than a large cube, so fingers are reloaded more often; lengths from 35 mm to 50 mm let you tune how long each load lasts. They are the format of choice for the HMD segment that has grown with premium home shisha.",
+      "burn": "Low even surface heat for HMD/kaloud; shorter per-piece burn, reloaded more often.",
+      "users": "HMD/kaloud users, premium home-shisha brands, specialty retail.",
+      "marketsBody": "Fingers track the spread of heat-management devices — strongest in the US and Western Europe, where kaloud-style setups are common in both retail and enthusiast channels. Pair them with the smoke-shop page for retail packs."
+    },
+    "hexagonal": {
+      "definition": "A hexagonal briquette is a six-sided coconut charcoal stick with a centre hole, designed for fast, even ignition and shelf appeal in retail tobacco packaging.",
+      "aboutBody": "The hexagon is a retail-driven shape. Six flat faces and a centre hole give a hexagonal more exposed surface than a round stick, so it lights faster and more evenly along its length — a real benefit when a customer is lighting on a single-coil burner at home. Just as important, hexagonals stack and photograph well, which is why tobacco brands favor them for printed retail boxes: a tidy row of six-sided sticks reads as a premium product on the shelf. Lengths from 35 mm to 50 mm cover quick retail sessions through to longer burns.",
+      "burn": "Fast even ignition from six faces + centre hole; tidy stack for the retail shelf.",
+      "users": "Retail tobacco brands, smoke shops, private-label lines.",
+      "marketsBody": "Hexagonals are a retail-shelf format favored across the GCC and Eastern Europe for branded boxes. See the smoke-shop page for private-label packs and the regional market notes."
+    },
+    "dome": {
+      "definition": "A dome — or D-shape — briquette is a hemisphere of coconut charcoal with a flat base, shaped to sit flush against ceramic and silicone shisha bowls.",
+      "aboutBody": "The dome is a bowl-contact shape. Its flat base seats stably on foil or a bowl rim without rocking, while the rounded top keeps the glowing surface away from the foil edge — giving a steady, contained burn surface that suits traditional foil setups. Domes are simple to place and rotate, which makes them forgiving for venues training new staff. The 25 mm and 30 mm sizes match common bowl diameters; the larger dome holds heat longer for extended sessions.",
+      "burn": "Stable flat base, contained burn surface; easy to seat and rotate on foil bowls.",
+      "users": "Traditional foil-setup lounges, cafés, value retail.",
+      "marketsBody": "Domes suit traditional foil-bowl markets across the Middle East and South Asia. Match the size to your customers' bowls; the café page covers bulk economics."
+    },
+    "flat": {
+      "definition": "A flat — or slab — briquette is a low, wide block of coconut charcoal cut to maximize heated surface area for kaloud, foil, and large-bowl applications.",
+      "aboutBody": "The flat trades height for surface. Where a cube concentrates heat in a small footprint, a slab spreads the same mass across a wider, lower face — putting more glowing area under a kaloud lid or a large foil bowl and transferring heat more gradually. That makes flats the heat-management choice for big-bowl and group sessions where even, broad heat beats a hot point source. The 25 mm and 30 mm footprints suit different devices and bowls; both keep the low 17 mm profile that defines the format.",
+      "burn": "Maximum heated surface area, broad even heat for kaloud and large bowls; low 17 mm profile.",
+      "users": "Kaloud/HMD users, large-bowl lounges, group-session venues.",
+      "marketsBody": "Flats follow the kaloud and large-bowl segments, strongest in the US and Europe. The café page covers high-volume venue economics; pair flats with HMD-oriented retail."
+    },
+    "lotus": {
+      "definition": "A lotus — or cloud — briquette is a decorative profile coconut charcoal piece, sold in multi-piece sets for premium shisha lounges that present the coal as part of the experience.",
+      "aboutBody": "The lotus is the showpiece format. It is the same 100% coconut shell formulation as every other shape, pressed into a decorative profile and sold as a coordinated 3- or 4-piece set so a premium lounge can present the coal, not just burn it. The shape is about presentation and a slow, even burn across the set rather than raw heat economics, so it sits at the top of a venue's offering — the coal brought to the table for a signature service. Because it is a premium, lower-volume format, it most often runs as a private-label or signature SKU.",
+      "burn": "Decorative profile, coordinated multi-piece set, slow even burn; presentation-led.",
+      "users": "Premium lounges, hotels, signature/private-label service.",
+      "marketsBody": "Lotus/cloud sets suit premium lounges and hotels in the GCC and high-end Western venues. They pair naturally with Platinum grade and private label — see the smoke-shop / OEM page."
+    }
+  }
+}

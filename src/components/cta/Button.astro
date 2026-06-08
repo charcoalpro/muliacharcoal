@@ -31,6 +31,12 @@ interface Props {
    * events need parameters.
    */
   'data-param-role'?: string;
+  /**
+   * Per-event payload forwarded as `data-param-product-sku` → dispatched as
+   * `product_sku: '...'`. Used by grade-page `sample_request` CTAs so the
+   * event carries the SKU (CLAUDE.md § Conversion Tracking).
+   */
+  'data-param-product-sku'?: string;
 }
 
 const {
@@ -47,6 +53,7 @@ const {
   'data-event': dataEvent,
   'data-source-component': dataSourceComponent,
   'data-param-role': dataParamRole,
+  'data-param-product-sku': dataParamProductSku,
 } = Astro.props;
 
 const base =
@@ -90,6 +97,7 @@ const externalRel =
     data-event={dataEvent}
     data-source-component={dataSourceComponent}
     data-param-role={dataParamRole}
+    data-param-product-sku={dataParamProductSku}
   >
     {variant === 'whatsapp' && (
       <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 shrink-0" fill="currentColor">
@@ -108,6 +116,7 @@ const externalRel =
     data-event={dataEvent}
     data-source-component={dataSourceComponent}
     data-param-role={dataParamRole}
+    data-param-product-sku={dataParamProductSku}
   >
     {variant === 'whatsapp' && (
       <svg aria-hidden="true" viewBox="0 0 24 24" class="h-5 w-5 shrink-0" fill="currentColor">

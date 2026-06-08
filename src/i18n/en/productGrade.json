@@ -1,0 +1,372 @@
+{
+  "breadcrumbProducts": "Products",
+
+  "meta": {
+    "titleTemplate": "{{grade}} {{size}} {{shape}} Coconut Shisha Charcoal"
+  },
+  "h1Template": "{{grade}} {{size}} {{shape}} Coconut Shell Shisha Charcoal",
+
+  "gallery": {
+    "heading": "Product gallery",
+    "topAlt": "{{grade}} {{size}} {{shape}} coconut shisha charcoal, top view showing uniform pressed faces",
+    "sideAlt": "{{grade}} {{size}} {{shape}} side profile showing consistent edge height and clean cut",
+    "ashAlt": "{{grade}} {{size}} {{shape}} mid-burn beside its own ash, demonstrating low-ash residue",
+    "ashCloseAlt": "Close-up of the natural light-grey ash from {{grade}} {{shape}} coconut charcoal (no white filler)",
+    "packagingAlt": "{{grade}} {{size}} {{shape}} master box and inner packaging ready for export",
+    "scaleAlt": "{{grade}} {{shape}} briquettes on a scale showing approximately {{pcsPerKg}} pieces per kilogram",
+    "caliperAlt": "Caliper measuring a {{grade}} {{size}} {{shape}} briquette to confirm dimensional tolerance",
+    "dropAlt": "Drop-test frame for {{grade}} {{size}} {{shape}}, showing breakage resistance in transit"
+  },
+
+  "video": {
+    "titleTemplate": "{{grade}} {{size}} {{shape}} — burn demonstration",
+    "pendingLabel": "Burn-demonstration video for {{grade}} {{size}} {{shape}} — coming soon",
+    "caption": "B2B burn demonstration: ignition, burn consistency, low smoke, and minimal ash. Loads only when you press play."
+  },
+
+  "microInsightLabel": "Expert note",
+
+  "atAGlance": {
+    "heading": "At a glance",
+    "shapeLabel": "Shape",
+    "sizeLabel": "Size & tolerance",
+    "ashLabel": "Ash content (this grade)",
+    "sourceLabel": "Raw material",
+    "burnTimeLabel": "Burn time",
+    "pcsLabel": "Pieces per kg / per box",
+    "moqLabel": "Minimum order",
+    "fobLabel": "Indicative FOB",
+    "originLabel": "Origin / port",
+    "sizeValueTemplate": "{{size}} (± 1 mm typical, confirmed per order)",
+    "sourcePending": "Per-grade source profile pending QC sign-off",
+    "pcsValueTemplate": "≈ {{pcsPerKg}} pcs/kg · ≈ {{pcsPerBox}} / 20 kg box",
+    "fobPending": "Pricing on request",
+    "fobRangeTemplate": "{{fobLow}}–{{fobHigh}} USD/{{fobUnit}} ({{port}})",
+    "fobFromTemplate": "from {{fobLow}} USD/{{fobUnit}} ({{port}})",
+    "priceDrivers": "Final price depends on grade, packaging, destination, and volume — message us on WhatsApp for your exact quote.",
+    "moqValueTemplate": "{{moqLabel}}",
+    "originValueTemplate": "{{portLabel}}"
+  },
+
+  "cta": {
+    "sample": "Request a free sample",
+    "sampleAria": "Request a free sample of {{grade}} {{size}} {{shape}} on WhatsApp",
+    "quote": "Get a quote on WhatsApp",
+    "quoteAria": "Get a wholesale quote for {{grade}} {{size}} {{shape}} on WhatsApp",
+    "chat": "Chat with our expert on WhatsApp",
+    "chatAria": "Chat with our charcoal expert on WhatsApp",
+    "downloadSpec": "Download the spec sheet",
+    "tour": "Book a video factory tour",
+    "tourAria": "Book a WhatsApp video call to tour the factory"
+  },
+
+  "specHighlights": {
+    "heading": "At-a-glance specifications",
+    "ashTemplate": "{{ash}} ash",
+    "ashSub": "by mass",
+    "burnTemplate": "{{burnTime}} burn",
+    "burnSub": "per briquette",
+    "odorless": "Odorless",
+    "odorlessSub": "no spark, no taste",
+    "naturalAsh": "Natural grey ash",
+    "naturalAshSub": "no white filler",
+    "origin": "100% coconut shell",
+    "originSub": "no quick-light"
+  },
+
+  "sections": {
+    "why": "Why {{grade}} {{size}} {{shape}}",
+    "specs": "Specifications",
+    "burnTest": "Burn test — performance over time",
+    "dropTest": "Drop test — transit durability",
+    "howToLight": "How to light & use",
+    "availableGrades": "Available grades for this size",
+    "packaging": "Packaging",
+    "pricing": "Pricing & volume discounts",
+    "logistics": "Logistics & ordering",
+    "ordering": "How ordering works",
+    "samples": "Samples",
+    "guarantee": "Quality guarantee & claims",
+    "trust": "Why buyers trust us",
+    "documents": "Documents",
+    "compare": "Compare to other brands",
+    "related": "Related products",
+    "inquiry": "Request a wholesale quote"
+  },
+
+  "specs": {
+    "caption": "Factory targets for {{grade}} grade. An independent per-batch certificate of analysis (COA) issued by {{auditors}} ships with every order; figures are confirmed on each batch.",
+    "propertyHeader": "Specification",
+    "valueHeaderTemplate": "{{grade}} {{size}} {{shape}}",
+    "pending": "Pending QC publication",
+    "rows": {
+      "shape": "Shape",
+      "size": "Nominal size",
+      "tolerance": "Dimensional tolerance",
+      "weight": "Weight per piece",
+      "pcsKg": "Pieces per kg",
+      "ash": "Ash content",
+      "burnStandby": "Burn time (standby)",
+      "burnActive": "Burn time (active session)",
+      "fixedCarbon": "Fixed carbon",
+      "calorie": "Calorific value",
+      "volatile": "Volatile matter",
+      "burnTemp": "Burning temperature",
+      "moistureOven": "Moisture (after oven)",
+      "moisturePacked": "Moisture (after packing)",
+      "density": "Density",
+      "dropTest": "Drop test",
+      "ashColor": "Ash color",
+      "smell": "Smell / odor / taste / spark"
+    },
+    "values": {
+      "toleranceTemplate": "± 1 mm (typical)",
+      "weightTemplate": "≈ {{weightG}} g",
+      "ashColor": "Natural light grey",
+      "smell": "None / none / none / none"
+    }
+  },
+
+  "burnTest": {
+    "intro": "Specifications are claims; a burn test is proof. We burned a single {{grade}} {{size}} {{shape}} briquette under controlled conditions and recorded surface temperature, remaining weight, and appearance at each stage — so you can read the performance as data, not a marketing caption.",
+    "conditions": "Test conditions: one briquette, electric-coil ignition, ambient 25 °C, no forced air. Conducted under the supervision of {{reviewer}}, {{reviewerRole}}.",
+    "stageHeader": "Stage",
+    "tempHeader": "Surface temp",
+    "weightHeader": "Weight",
+    "sizeHeader": "Size",
+    "appearanceHeader": "Appearance",
+    "pending": "—",
+    "photoAltTemplate": "{{grade}} {{shape}} at the \"{{stage}}\" stage of the burn test",
+    "stages": {
+      "heatup": { "label": "0 min — heating up to ready", "note": "Edges begin to glow; the briquette is not yet ready to place on the bowl." },
+      "ready10": { "label": "Ready → 10 min", "note": "Fully ashed-over and seated; even heat across the top face." },
+      "ash20": { "label": "10–20 min + clear ash", "note": "First ash tapped; the core glows steadily with no flaking." },
+      "ash40": { "label": "40 min + clear ash", "note": "Stable mid-session heat; minimal size loss, dense ember." },
+      "ash60": { "label": "60 min + clear ash", "note": "Heat holding; ash kept thin keeps airflow and temperature constant." },
+      "ash90": { "label": "90 min + clear ash", "note": "End of useful life; collapses to a small, pale-grey ash with no clinker." }
+    },
+    "tempCurve": {
+      "heading": "Temperature over time (0–90 min)",
+      "alt": "Temperature curve from 0 to 90 minutes for {{grade}} {{size}} {{shape}}, peaking near {{burnTemp}}",
+      "pending": "Temperature curve — graphic pending"
+    },
+    "weightCurve": {
+      "heading": "Weight loss over time (0–90 min)",
+      "alt": "Weight-loss curve from 0 to 90 minutes for {{grade}} {{size}} {{shape}}",
+      "pending": "Weight curve — graphic pending"
+    },
+    "sizeCurve": {
+      "heading": "Size over time (0–90 min)",
+      "alt": "Size (dimension) curve from 0 to 90 minutes for {{grade}} {{size}} {{shape}}",
+      "pending": "Size curve — graphic pending"
+    }
+  },
+
+  "dropTest": {
+    "heading": "Drop test — transit durability",
+    "body": "A briquette that arrives cracked is unsellable, so we drop-test every grade for breakage resistance before it ships. The two clips below show the test; this grade passes a {{dropTest}} drop test — it survives repeated drops onto a hard surface without fracturing — which is what lets it travel a full sea leg and still light clean.",
+    "specLabel": "Drop-test rating",
+    "video1Title": "Drop test — {{grade}} {{size}} {{shape}}, carton-height drop",
+    "video2Title": "Drop test — {{grade}} {{size}} {{shape}}, container-stack drop",
+    "pendingLabel": "Drop-test video for {{grade}} {{size}} {{shape}} — coming soon"
+  },
+
+  "howToLight": {
+    "body": "Coconut shell charcoal does not light from a flame the way quick-light coals do — and that is the point: there is no accelerant to taste. Place the briquette on an electric coil burner or a single-coil lighter for 4–6 minutes, turning once, until every face has ashed over to grey with no black spots. Only then seat it on the foil or heat-management device. On a bowl, rotate the coals every 15–20 minutes to keep the heat even and the session consistent.",
+    "linkLabel": "Specifications explained, term by term"
+  },
+
+  "midCta": {
+    "heading": "Seen the proof? Take the next step.",
+    "body": "You have the specs and the burn data. The fastest way to verify them is in your own lab: request a free sample, or message our expert on WhatsApp for your exact price."
+  },
+
+  "availableGrades": {
+    "intro": "This size is pressed from the same coconut shell formulation in {{gradeCount}} grades — the only difference is ash content and the shell selection behind it. Compare the siblings:",
+    "thisGradeBadge": "You are viewing",
+    "ashLabel": "Ash",
+    "burnLabel": "Burn",
+    "viewTemplate": "View {{grade}} {{size}} {{shape}}"
+  },
+
+  "packaging": {
+    "body": "Packaging for this grade follows the buyer, not the briquette. High-volume café accounts take bulk master-box packing for the lowest cost per kilogram; retail and private-label accounts take printed inner boxes ({{innerBoxSizes}}) so the shelf unit carries a brand. The same {{size}} {{shape}} fits every configuration.",
+    "techIntro": "Technical packaging specification:",
+    "tech": {
+      "plasticLabel": "Inner plastic",
+      "plasticValueTemplate": "Printed film, {{innerPlasticMicron}} micron, sizes {{innerPlasticSizes}}",
+      "plasticPending": "Printed film, gauge pending confirmation, sizes {{innerPlasticSizes}}",
+      "innerBoxLabel": "Inner box",
+      "innerBoxValueTemplate": "{{innerBoxGsm}} gsm board, full-colour CMYK, matte or gloss, sizes {{innerBoxSizes}}",
+      "masterBoxLabel": "Master box",
+      "masterBoxValueTemplate": "{{masterBoxWallOptions}}-wall corrugated, {{masterBoxSizes}}, printed or kraft"
+    },
+    "configFullLabel": "Full pack",
+    "configFullSub": "inner plastic + inner box + master box",
+    "configFullAlt": "Full retail packing of {{shape}} charcoal: inner plastic, printed inner box, and master box",
+    "configBulkLabel": "Bulk-loose",
+    "configBulkSub": "inner plastic + master box",
+    "configBulkAlt": "Bulk-loose packing of {{shape}} charcoal: sealed inner plastic inside the master box, no inner box",
+    "linkPackaging": "All packaging & OEM options",
+    "linkWhiteLabel": "OEM / white-label packaging"
+  },
+
+  "pricing": {
+    "body": "Prices are quoted per order, FOB {{port}}, because the landed number depends on grade, packaging, destination, and volume. The indicative FOB band above is a starting point; the tiers below show how the unit price moves with container count.",
+    "disclaimer": "Indicative only, FOB {{port}}, subject to written confirmation on your proforma invoice.",
+    "tierHeader": "Order volume",
+    "discountHeader": "Indicative volume benefit",
+    "discountPending": "On request",
+    "discountBase": "List price",
+    "discountTemplate": "{{percent}}% off list",
+    "openBracketTemplate": "{{min}}+ tons",
+    "bracketTemplate": "{{min}}–{{max}} tons",
+    "fobLabel": "Indicative FOB price",
+    "fobNote": "Per metric ton, FOB {{port}}, subject to written confirmation on your proforma invoice."
+  },
+
+  "logistics": {
+    "moqLine": "The minimum order is {{moqLabel}} — we load full containers only, but you can mix shapes and grades inside one. First-time buyers wary of a full container should start with a free sample (below); we do not sell sub-container retail quantities.",
+    "incoterm": "Goods load {{portLabel}}; CIF to your destination port is available on request. Production lead time is {{leadTimeLabel}} from the deposit.",
+    "capacityHeading": "Container capacity",
+    "capContainerHeader": "Container",
+    "capFullHeader": "Full pack",
+    "capBulkHeader": "Bulk-loose",
+    "ft20Label": "20ft",
+    "ft40Label": "40ft",
+    "capPending": "On request",
+    "capValueTemplate": "{{kg}} kg",
+    "protections": "Every container is loaded with a thermal blanket against deck heat and desiccant moisture absorbers; charcoal is stowed away from the container walls to control condensation over a long sea leg.",
+    "surveyors": "Loading and self-heating compliance are surveyed by {{auditors}}.",
+    "dgLine": "Coconut shell charcoal ships as a regulated dangerous good: {{imdgLabel}}. We file the dangerous-goods declaration and the Self-Heating Test (SHT) report with every booking.",
+    "hsCodeLabel": "Customs classification (HS code)",
+    "hsCodeTemplate": "HS {{hsCode}} — coconut shell charcoal. Confirm the exact tariff line with your customs broker for your country.",
+    "hsCodePending": "Customs classification (HS code): we provide the commodity code and full export paperwork on request — confirm the exact tariff line with your broker.",
+    "transitHeading": "Transit time from {{port}}",
+    "transitDestHeader": "Destination port",
+    "transitDaysHeader": "Transit (days)",
+    "transitDaysTemplate": "{{min}}–{{max}}",
+    "loadingAlt": "Container being stuffed with {{shape}} coconut charcoal at {{port}} for export",
+    "linkLogistics": "Logistics & shipping rules",
+    "linkDocuments": "Export documents we issue",
+    "linkUn": "What {{unNumber}} means for your shipment"
+  },
+
+  "ordering": {
+    "intro": "If this is your first import, here is the full path from question to delivered container:",
+    "steps": [
+      "Inquiry — send your shape, size, grade, quantity, and destination port.",
+      "Sample — we ship a free lab sample with its COA so you verify the burn specs.",
+      "Proforma invoice — we issue a PI with the agreed price, packaging, and Incoterm.",
+      "Deposit — you confirm with the deposit; production is scheduled.",
+      "Production & QC — the batch is pressed, dried, and lab-checked against the COA.",
+      "Balance & shipment — you settle the balance against the documents and we load.",
+      "Documents — you receive the B/L, COA, packing list, and export paperwork for customs."
+    ],
+    "paymentHeading": "Payment terms",
+    "paymentBody": "Terms are {{paymentTerms}}. We accept T/T and, from {{lcMinContainers}} container, an L/C at sight. Prices are in {{currency}}. We never publish bank-account details on the site — they travel only on your proforma invoice after KYC.",
+    "depositSecurityHeading": "Is my deposit safe?",
+    "depositSecurity": "A fair worry on a first overseas order — so the deal is structured to de-risk it: production starts only once your deposit is in, the balance falls due around loading (per the terms above), every container's loading is surveyed by {{auditors}}, and we accept an irrevocable L/C at sight for buyers who prefer bank-guaranteed payment over T/T.",
+    "sampleBridge": "The sample is not a dead end: once you approve it, its cost (where a sample fee applies) is credited against your first order, and approval is the step that unlocks the proforma invoice.",
+    "leadCapacity": "This SKU presses on our standard line; monthly capacity is {{capacityMonth}} tons and repeat-brand lead time is {{repeatBrandLeadTime}} days.",
+    "linkCapacity": "Factory capacity & lead time"
+  },
+
+  "samples": {
+    "body": "Yes — you can verify this grade before you commit a container. We ship a {{sampleWeightG}} g lab sample by {{sampleTransitChannel}} ({{sampleCarrier}}, about {{sampleTransitDays}} days), and every sample includes a batch COA so your lab can confirm ash, fixed carbon, and burn time independently.",
+    "coverage": "A sample of this size covers this {{shape}} format; tell us which grade you want to evaluate and we can include all three for a side-by-side burn.",
+    "bridge": "Sample cost (where charged) is credited to your first order — the sample is the entry point to a full container, not a separate purchase.",
+    "linkLabel": "Full sample-program details"
+  },
+
+  "guarantee": {
+    "body": "This is a B2B specification guarantee, not a retail warranty. We guarantee the delivered container meets the COA issued for its batch. If a container arrives off-spec or moisture-damaged against that COA, you raise a claim with photos and the retained-sample reference, and we resolve it by replacement, credit, or refund — agreed in writing on your contract, not on this page.",
+    "batch": "Batch-to-batch consistency is protected by a retained sample from every production batch, fixed QC tolerances, and pressing every reorder on the same line — so your second container matches your first.",
+    "linkCert": "Certifications & testing methods",
+    "linkTerms": "Terms of sale"
+  },
+
+  "trust": {
+    "tourHeading": "See the factory before you commit",
+    "tourBody": "You are evaluating an order measured in tons from overseas — so see where it is made. Watch our factory walk-through below, or book a live WhatsApp video call and we will take you through the carbonization ovens, briquetting lines, and QC station in real time.",
+    "tourVideoTitle": "Factory walk-through — {{brand}}, {{city}}",
+    "body": "We back claims with numbers, not adjectives. The figures below are real; we publish client logos and testimonials only where they are genuine, and we show no star rating because we do not yet collect verified public reviews.",
+    "yearsLabel": "Years exporting",
+    "yearsTemplate": "{{years}}+",
+    "countriesLabel": "Countries served",
+    "countriesTemplate": "{{countriesExportedCount}}",
+    "perContainerLabel": "Per 20ft container",
+    "perContainerTemplate": "{{moqTons}} tons"
+  },
+
+  "documents": {
+    "body": "Download the primary-source evidence for this grade: the independent certificate of analysis and the {{iso9001Short}} certificate are live; the per-grade lab report and the material safety data sheet (SDS/MSDS) you will file with your customs broker are pending publication.",
+    "coaTitle": "Sample certificate of analysis (COA)",
+    "coaAlt": "Thumbnail of the independent certificate of analysis for coconut shisha charcoal",
+    "isoTitleTemplate": "{{isoStandard}} certificate",
+    "isoAlt": "Thumbnail of the {{isoStandard}} quality-management certificate",
+    "labPendingTemplate": "{{grade}} lab report — pending publication",
+    "msdsPending": "Material safety data sheet (SDS/MSDS) — pending publication",
+    "linkCert": "All certifications & testing methods"
+  },
+
+  "compare": {
+    "body": "Comparing suppliers before you commit a container is the right move. Our supplier-comparison guide lays out the criteria — ash, fixed carbon, documentation, MOQ, and lead time — against named competitors, factually.",
+    "linkLabel": "Compare coconut charcoal suppliers"
+  },
+
+  "related": {
+    "heading": "Related products",
+    "intro": "Stay in the {{shape}} family or move up a tier:",
+    "upToShapeTemplate": "All {{shape}} sizes & grades",
+    "upToHub": "All coconut shisha charcoal products",
+    "otherSizesHeading": "More {{shape}} sizes ({{grade}} grade)",
+    "otherShapesHeading": "Other shapes",
+    "viewSizeTemplate": "{{shape}} {{size}}"
+  },
+
+  "inquiry": {
+    "heading": "Request a quote for {{grade}} {{size}} {{shape}}",
+    "whatToInclude": "For an exact quote, include your destination port, target quantity (tons or containers), packaging, and grade. The form prefills this product.",
+    "responseTime": "We reply within {{responseHours}} hours during office hours ({{officeHours}}, {{timezone}})."
+  },
+
+  "grade": {
+    "premium": {
+      "metaDescriptionTemplate": "{{grade}} {{size}} {{shape}} coconut shisha charcoal, {{ash}} ash, ≥ 75% fixed carbon. Wholesale value SKU, MOQ {{moqTons}} tons FOB {{port}}. Free sample.",
+      "whyBody": "Premium is the value workhorse: the grade you order when the SKU has to win on price per kilogram without dropping below a spec your customers will notice. It is built for large-volume retail chains and distributors who move pallets, not boxes — high-turnover shelves where a clean, odorless coconut coal at a sharp landed cost beats a boutique grade that sits in the warehouse.",
+      "bestFor": "Best for: high-volume retail and value SKUs in price-driven markets — distributors who compete on shelf price and need a consistent, documented coconut coal at the lowest workable spec.",
+      "valueProp": "The value proposition is simple arithmetic: at {{ash}} ash and ≥ 75% fixed carbon, Premium delivers the lowest landed cost per session that still passes a {{auditors}} COA — so you protect margin at the bottom of the range without selling a coal that sparks, smells, or crumbles.",
+      "microInsight": "A nominal {{size}} {{shape}} often measures a touch under {{size}} after the drying tunnel. That under-reading is not weak pressing — it is the last moisture leaving fully carbonized shell, and it is exactly why a Premium cube lights without the first-light cracking you hear from coals pressed wet to hit a round number on the caliper.",
+      "howToLightNote": "Premium ignites on a coil in about 5 minutes; because the shell is fully carbonized, give it the extra minute to grey over completely and it will not spark on the bowl.",
+      "burnTestNarrative": "Premium holds a working temperature near {{burnTemp}} and runs the full standby window before it tapers — more than enough for a retail customer's home session, which is the use case this grade is priced for.",
+      "packagingNote": "For a Premium SKU the packaging follows the margin: order it in bulk {{masterBoxSizes}} master boxes with sealed inner plastic and skip the printed inner box. At value-retail volumes the inner-box print cost is the difference between winning and losing the shelf price, and a distributor moving pallets shelves or re-bags loose anyway.",
+      "pricingNote": "Read the Premium price as a cost-of-goods line, not a margin line. The buyer who wins with this grade turns volume fast at a thin per-unit margin, so the lever that moves the landed number is container count, not a grade upgrade — the tiers below shift the unit price more than any spec change would.",
+      "guaranteeNote": "At Premium volumes the risk you are insuring against is variance across a large run, not one bad box. The retained-sample and same-line guarantees below matter most here, because a value distributor's reputation rests on every pallet lighting and burning the same — a complaint at volume is a volume problem."
+    },
+    "super-premium": {
+      "metaDescriptionTemplate": "{{grade}} {{size}} {{shape}} coconut shisha charcoal, {{ash}} ash, ≥ 80% fixed carbon. The workhorse lounge grade, MOQ {{moqTons}} tons FOB {{port}}. Free sample.",
+      "whyBody": "Super Premium is the grade most established brands actually standardize on. It sits where the volume is: established shisha brands and lounge-supply wholesalers who want dependable, low-ash performance every box, every container, without paying the top-tier premium. If you are placing a first container and are not sure which grade to commit to, this is the safe default.",
+      "bestFor": "Best for: established shisha brands and café/lounge supply — buyers who reorder steadily and need batch-to-batch consistency more than the lowest ash number on the chart.",
+      "valueProp": "The value proposition is consistency per dollar: {{ash}} ash and ≥ 80% fixed carbon give a café noticeably cleaner sessions than Premium, while the price stays well under Platinum — the most defensible 'house' grade for a brand that has to look the same in every market it ships to.",
+      "microInsight": "Super Premium peaks hotter than Premium — near {{burnTemp}} — yet burns just as long. Heat and duration only trade off when density is fixed; the denser shell selection behind this grade raises both at once, so a café gets hotter, cleaner heat into the tobacco without changing coals more often.",
+      "howToLightNote": "Super Premium greys over evenly in 4–5 minutes; its denser body holds the bowl temperature steady, so you can stretch the rotation interval toward 20 minutes during a busy service.",
+      "burnTestNarrative": "Across the burn, Super Premium settles into a flatter temperature plateau than Premium and sheds weight more slowly through the middle stages — the curve a lounge operator wants, because it means the last guest of a session draws the same heat as the first.",
+      "packagingNote": "Super Premium is the grade that ships both ways. Café accounts take it in bulk {{masterBoxSizes}} master boxes; established retail brands take the same briquette in printed {{innerBoxSizes}} inner boxes. Because most buyers standardize on this grade, it is the one we most often run as a mixed container — bulk for the on-trade, printed for the shelf — under one booking.",
+      "pricingNote": "Super Premium sits in the priced-to-reorder band: cleaner than the commodity shelf, well under the premium tier, and stable enough to build a year of pricing around. Buyers do best here by locking a size and reordering it monthly — which is exactly where the volume tiers below start to compound.",
+      "guaranteeNote": "Because Super Premium is the grade brands reorder, batch-to-batch consistency is the whole promise: your third container has to match your first or your wholesale customers notice. The retained sample per batch and fixed QC tolerances below exist to make that match auditable, not aspirational."
+    },
+    "platinum": {
+      "metaDescriptionTemplate": "{{grade}} {{size}} {{shape}} coconut shisha charcoal, {{ash}} ash, ≥ 82% fixed carbon. Premium private-label & hotel grade, MOQ {{moqTons}} tons FOB {{port}}.",
+      "whyBody": "Platinum is the grade you build a premium brand on. It is specified for private-label heroes, five-star hotels, and flagship lounges — accounts where the coal is part of the experience the venue charges for, and where sub-2% ash is a selling point on the shelf, not just a line on a spec sheet. This is the white-label product that lets a distributor sit above the commodity wood-charcoal shelf.",
+      "bestFor": "Best for: premium private-label brands, hotel and flagship-lounge accounts, and GCC/EU premium retail — buyers who charge a shelf premium and need the documentation to defend it.",
+      "valueProp": "The value proposition is pricing power: at {{ash}} ash and ≥ 82% fixed carbon, Platinum is clean enough that an experienced lounge operator can feel the difference — which is what lets you position a premium SKU and back the price with a {{auditors}} COA instead of a promise.",
+      "microInsight": "Platinum ash is light grey, not bright white. Buyers often read pure-white ash as 'cleaner,' but bright white usually means a limestone or starch filler flashing off — natural coconut-shell ash stays pale grey. The sub-2% ash here is low because there is almost nothing but carbon left to burn, which your customer feels as a session that draws the same at minute 80 as at minute 5.",
+      "howToLightNote": "Platinum's dense, high-carbon body takes a full 5–6 minutes to ash over — do not rush it onto the bowl. Once seated, it delivers the highest, most stable peak of the three grades, near {{burnTemp}}.",
+      "burnTestNarrative": "Platinum's curves are the flattest and longest of the range: the highest peak temperature, the slowest weight loss, and the smallest, palest ash at 90 minutes — the measurable basis for the premium session this grade is sold for.",
+      "packagingNote": "Platinum is built to be branded. The buyers who specify it are stocking a premium shelf or a five-star bar, so it almost always ships in printed {{innerBoxSizes}} inner boxes — and increasingly as OEM / white-label on {{innerBoxGsm}} gsm board, where the box carries the buyer's brand, not ours. Bulk master-box packing is available but is the exception for this grade.",
+      "pricingNote": "Platinum is priced to be re-priced. A lounge or private-label brand buys it precisely so it can charge a shelf premium downstream, so the FOB number is a small share of the final retail value. The real question is not whether Platinum costs more per kilogram than Premium — it does — but how much margin its sub-2% ash unlocks at the point of sale.",
+      "guaranteeNote": "For Platinum the guarantee is reputational. A premium private label or hotel account cannot afford an off-spec container reaching a flagship venue, so this grade carries the tightest QC tolerance of the three alongside the retained-sample and replacement-or-credit terms below — your premium positioning is only as safe as the worst box in the container."
+    }
+  }
+}

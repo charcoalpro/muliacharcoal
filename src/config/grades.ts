@@ -21,6 +21,74 @@ export interface SpecValue {
   unit?: string;
 }
 
+/**
+ * Indicative FOB price band for a grade, in USD per the quoted unit
+ * (typically per kg or per ton — confirmed at quote time). Feeds the
+ * `AggregateOffer` `lowPrice` / `highPrice` on the grade SKU page and the
+ * visible "indicative, FOB Semarang, subject to confirmation" range.
+ *
+ * Unset today: pricing is quoted per enquiry, so the SKU page renders a
+ * muted "pricing on request" placeholder and the `AggregateOffer` node is
+ * omitted (gated on `hasFact(grade.fobRange)`) until the owner publishes a
+ * band. Populate `low` / `high` here when confirmed.
+ */
+export interface FobRange {
+  /** Floor ("from") price. */
+  low: number;
+  /** Optional ceiling. When set the page shows a low–high band; when omitted it shows "from {low}". */
+  high?: number;
+  currency: 'USD';
+  /** Pricing unit the floor is quoted in (drives "from USD x / ton" vs "/ kg"). */
+  unit: 'kg' | 'ton';
+}
+
+/**
+ * Per-grade product video (B2B framing: ignition, burn consistency, low
+ * smoke, minimal ash). Each grade carries its own video, so each grade
+ * page emits its own `VideoObject`. Unset today → the SKU page renders a
+ * poster-only placeholder facade and `videoObjectSchema()` returns null.
+ */
+export interface GradeVideo {
+  /** YouTube ID; feeds the YouTubeLite facade + VideoObject contentUrl. */
+  youtubeId: string;
+  /** ISO-8601 duration (e.g. "PT2M30S"). */
+  durationISO: string;
+  /** ISO-8601 upload date ("YYYY-MM-DD"). */
+  uploadDate: string;
+  /** Optional poster path; falls back to the YouTube auto-thumbnail. */
+  poster?: string;
+}
+
+/** One row of the burn-test "performance over time" staged table. */
+export interface BurnTestStage {
+  /** Stable kebab id + i18n key, e.g. "ready-10". */
+  key: string;
+  /** Surface temperature at this stage, °C. */
+  tempC?: number;
+  /** Remaining briquette weight at this stage, grams. */
+  weightG?: number;
+  /** Remaining briquette dimension at this stage, mm (shrinkage over time). */
+  sizeMm?: number;
+  /** Free-form appearance note (e.g. "edges greyed, core red"). */
+  sizeNote?: string;
+}
+
+/**
+ * Burn-test evidence for a grade: the six measured stages plus the three
+ * required curves (temperature, weight, and size over 0–90 min). Unset today
+ * → the SKU page renders the stage labels (prose, from i18n) with muted
+ * metric cells and placeholder graphics until QC supplies the series.
+ */
+export interface BurnTest {
+  stages: BurnTestStage[];
+  /** Temperature curve samples, 0–90 min. */
+  tempSeries: number[];
+  /** Weight curve samples, 0–90 min. */
+  weightSeries: number[];
+  /** Size (dimension) curve samples, 0–90 min. */
+  sizeSeries: number[];
+}
+
 export interface Grade {
   /** Key for i18n lookup, JSON-LD `@id`, and stable URL anchors. */
   key: 'premium' | 'super-premium' | 'platinum';
@@ -44,6 +112,21 @@ export interface Grade {
   burnTemp: SpecValue;
   calorieValue: SpecValue;
   dropTest: SpecValue;
+  /**
+   * Indicative FOB price band (USD). Unset today — the SKU page shows a
+   * "pricing on request" placeholder and omits the `AggregateOffer` until
+   * the owner publishes a band. See {@link FobRange}.
+   */
+  fobRange?: FobRange;
+  /** Per-grade product video. Unset → poster placeholder. See {@link GradeVideo}. */
+  video?: GradeVideo;
+  /** Burn-test series + stage metrics. Unset → placeholder cells. See {@link BurnTest}. */
+  burnTest?: BurnTest;
+  /**
+   * Drop-test videos proving transit durability (up to 2 — e.g. two drop
+   * heights or angles). Unset → poster placeholders. See {@link GradeVideo}.
+   */
+  dropTestVideos?: GradeVideo[];
 }
 
 /**
@@ -77,6 +160,7 @@ export const grades: Grade[] = [
     burnTemp: { display: '600 °C', min: 600, max: 600, unit: '°C' },
     calorieValue: { display: '≥ 7000 kcal/kg', min: 7000, unit: 'kcal/kg' },
     dropTest: { display: '3+', min: 3, unit: 'drops' },
+    fobRange: { low: 1450, currency: 'USD', unit: 'ton' },
   },
   {
     key: 'super-premium',
@@ -90,6 +174,7 @@ export const grades: Grade[] = [
     burnTemp: { display: '650 °C', min: 650, max: 650, unit: '°C' },
     calorieValue: { display: '≥ 7300 kcal/kg', min: 7300, unit: 'kcal/kg' },
     dropTest: { display: '3+', min: 3, unit: 'drops' },
+    fobRange: { low: 1550, currency: 'USD', unit: 'ton' },
   },
   {
     key: 'platinum',
@@ -103,5 +188,6 @@ export const grades: Grade[] = [
     burnTemp: { display: '680 °C', min: 680, max: 680, unit: '°C' },
     calorieValue: { display: '≥ 7500 kcal/kg', min: 7500, unit: 'kcal/kg' },
     dropTest: { display: '3+', min: 3, unit: 'drops' },
+    fobRange: { low: 1650, currency: 'USD', unit: 'ton' },
   },
 ];

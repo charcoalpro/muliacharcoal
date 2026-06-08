@@ -1,0 +1,261 @@
+---
+/**
+ * Market-category page template (`/products/shisha-cafee`, `/products/shisha-shop`).
+ *
+ * Use-case lander: maps a buyer's situation (café bulk economics vs. retail
+ * shelf appeal / private label) to the right shapes, sizes, grades, and
+ * packaging. Owns the use-case head terms. Schema: CollectionPage + ItemList
+ * of the recommended grade pages; Breadcrumbs emits its own BreadcrumbList.
+ *
+ * Recommendation rows keep their structural refs (size slug + grade key) in
+ * this template — they point at config — while the "why" prose lives in
+ * `en.productMarket.market.{key}.recos`, zipped by index. Facts come from
+ * `~/config/{company,products,grades}`; all links use `<MaybeLink>`.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { grades } from '~/config/grades';
+import { allSkus, type ProductMarket } from '~/config/products';
+import { gradeHref } from '~/config/productRoutes';
+import { collectionPageSchema } from '~/lib/schema/collectionPage';
+
+interface Props {
+  market: ProductMarket;
+}
+const { market } = Astro.props;
+
+const t = en.productMarket;
+const mt = t.market[market.key];
+
+const tokens = {
+  ...companyTokens(company),
+  audience: mt.audience,
+};
+
+const pageTitle = mt.metaTitle;
+const pageDescription = fill(mt.metaDescriptionTemplate, tokens);
+
+// Recommendation structure (refs into config); "why" prose pairs by index.
+const recoRefs: Record<ProductMarket['key'], Array<{ sizeSlug: string; gradeKey: string }>> = {
+  cafe: [
+    { sizeSlug: 'cube-26mm', gradeKey: 'super-premium' },
+    { sizeSlug: 'cube-28mm', gradeKey: 'platinum' },
+    { sizeSlug: 'flat-25x25x17', gradeKey: 'super-premium' },
+  ],
+  shop: [
+    { sizeSlug: 'cube-25mm', gradeKey: 'premium' },
+    { sizeSlug: 'cube-25mm', gradeKey: 'super-premium' },
+    { sizeSlug: 'hexagonal-20x50', gradeKey: 'super-premium' },
+  ],
+};
+
+const skuIndex = allSkus();
+const recos = recoRefs[market.key]
+  .map((ref, i) => {
+    const sku = skuIndex.find((s) => s.slug === ref.sizeSlug);
+    const grade = grades.find((g) => g.key === ref.gradeKey);
+    if (!sku || !grade) return null;
+    return {
+      format: `${sku.shape.shortName} ${sku.size.label}`,
+      gradeName: grade.name,
+      href: gradeHref(sku.size, grade),
+      why: mt.recos[i]?.why ?? '',
+      key: `${ref.sizeSlug}-${ref.gradeKey}`,
+    };
+  })
+  .filter((r): r is NonNullable<typeof r> => r !== null);
+
+const schema = collectionPageSchema({
+  pageTitle,
+  pageDescription,
+  path: market.href,
+  skus: recos.map((r) => ({ href: r.href, name: `${r.gradeName} ${r.format}` })),
+});
+
+const isShop = market.key === 'shop';
+
+const atGlance = [
+  { label: t.atAGlance.needLabel, value: mt.needValue },
+  { label: t.atAGlance.shapesLabel, value: mt.shapesValue },
+  { label: t.atAGlance.gradeLabel, value: mt.gradeValue },
+  { label: t.atAGlance.packagingLabel, value: mt.packagingValue },
+  { label: t.atAGlance.moqLabel, value: fill(t.atAGlance.moqValueTemplate, tokens) },
+];
+
+const sectionH2 = 'text-2xl font-bold text-neutral-900 md:text-3xl';
+const proseP = 'mt-4 max-w-prose text-base leading-relaxed text-neutral-700';
+const linkP = 'mt-3 text-sm';
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path={market.href}
+  type="website"
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumbProducts, href: '/products' }, { label: mt.h1 }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={fill(t.eyebrowTemplate, tokens)}
+    title={mt.h1}
+    subtitle={mt.atAGlanceDefinition}
+    primaryCta={{
+      label: t.cta.quote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.cta.quoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: `market-${market.key}-hero-quote`,
+    }}
+    secondaryCta={{
+      label: t.cta.sample,
+      href: waLinkFor('samplesHero'),
+      ariaLabel: t.cta.sampleAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'sample_request,whatsapp_click',
+      dataSourceComponent: `market-${market.key}-hero-sample`,
+    }}
+  >
+    <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-3 lg:grid-cols-5">
+      {atGlance.filter((i) => i.value).map((item) => (
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </HeroSection>
+
+  {/* What they need */}
+  <section id="what-they-need" aria-labelledby="need-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="need-heading" class={sectionH2}>{fill(t.sections.need, tokens)}</h2>
+      <p class={proseP}>{mt.needBody}</p>
+    </div>
+  </section>
+
+  {/* Recommended shapes, sizes & grades */}
+  <section id="recommended" aria-labelledby="reco-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="reco-heading" class={sectionH2}>{t.sections.reco}</h2>
+      <p class={proseP}>{t.reco.intro}</p>
+      <ul class="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3" role="list">
+        {recos.map((r) => (
+          <li class="flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-5">
+            <h3 class="text-lg font-semibold text-neutral-900">{r.format}</h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-neutral-600">{r.why}</p>
+            <p class="mt-4 text-sm">
+              <MaybeLink
+                href={r.href}
+                class="font-semibold"
+                mutedClass="font-semibold"
+                data-source-component={`market-reco-${r.key}`}
+              >
+                {r.gradeName} <span aria-hidden="true">→</span>
+              </MaybeLink>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* Packaging for this channel */}
+  <section id="packaging" aria-labelledby="packaging-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="packaging-heading" class={sectionH2}>{t.sections.packaging}</h2>
+      <p class={proseP}>{fill(mt.packagingBody, tokens)}</p>
+      <p class={linkP}>
+        <MaybeLink href="/packaging" class="font-semibold" data-source-component={`market-${market.key}-packaging`}>
+          {t.links.packaging} <span aria-hidden="true">→</span>
+        </MaybeLink>
+        {isShop && (
+          <>
+            <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+            <MaybeLink href="/packaging/white-lable" class="font-semibold" data-source-component="market-shop-white-label">
+              {t.links.whiteLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </>
+        )}
+      </p>
+    </div>
+  </section>
+
+  {/* MOQ & economics */}
+  <section id="moq-economics" aria-labelledby="economics-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="economics-heading" class={sectionH2}>{t.sections.economics}</h2>
+      <p class={proseP}>{fill(t.economics.moqLine, tokens)}</p>
+      <p class={linkP}>
+        <MaybeLink href="/logistics" class="font-semibold" data-source-component={`market-${market.key}-logistics`}>
+          {t.economics.linkLogistics} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+    </div>
+  </section>
+
+  {/* Getting started */}
+  <section id="getting-started" aria-labelledby="start-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="start-heading" class={sectionH2}>{t.sections.gettingStarted}</h2>
+      <p class={proseP}>{mt.gettingStartedBody}</p>
+      <p class={linkP}>
+        {isShop ? (
+          <>
+            <MaybeLink href="/guide/how-to-start-your-own-brand" class="font-semibold" data-source-component="market-shop-start-brand">
+              {t.links.startBrand} <span aria-hidden="true">→</span>
+            </MaybeLink>
+            <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+            <MaybeLink href="/guide/private-label-options" data-source-component="market-shop-private-label">
+              {t.links.privateLabel}
+            </MaybeLink>
+          </>
+        ) : (
+          <>
+            <MaybeLink href="/products" class="font-semibold" data-source-component="market-cafe-proven-skus">
+              {t.links.provenSkus} <span aria-hidden="true">→</span>
+            </MaybeLink>
+            <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+            <MaybeLink href="/samples" data-source-component="market-cafe-samples">
+              {t.links.samples}
+            </MaybeLink>
+          </>
+        )}
+      </p>
+    </div>
+  </section>
+
+  {/* Related topics */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class={sectionH2}>{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`market-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner />
+</BaseLayout>

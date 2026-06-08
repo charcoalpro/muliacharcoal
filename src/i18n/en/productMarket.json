@@ -1,0 +1,102 @@
+{
+  "breadcrumbProducts": "Products",
+
+  "eyebrowTemplate": "Coconut shell shisha charcoal · {{port}}",
+
+  "atAGlance": {
+    "heading": "At a glance",
+    "needLabel": "What matters",
+    "shapesLabel": "Recommended formats",
+    "gradeLabel": "Recommended grade",
+    "packagingLabel": "Packaging",
+    "moqLabel": "Minimum order",
+    "moqValueTemplate": "{{moqLabel}}"
+  },
+
+  "cta": {
+    "quote": "Request a quote",
+    "quoteAria": "Request a wholesale quote on WhatsApp",
+    "sample": "Request a sample",
+    "sampleAria": "Request a sample on WhatsApp"
+  },
+
+  "sections": {
+    "need": "What {{audience}} need",
+    "reco": "Recommended shapes, sizes & grades",
+    "packaging": "Packaging for this channel",
+    "economics": "MOQ & economics",
+    "gettingStarted": "Getting started"
+  },
+
+  "reco": {
+    "intro": "These are the formats and grades that fit this channel. Each links to its grade page with full specs and FOB band.",
+    "shapeHeader": "Format",
+    "useHeader": "Why it fits",
+    "gradeHeader": "Suggested grade"
+  },
+
+  "economics": {
+    "moqLine": "We load full {{containerType}} containers — {{moqLabel}} — and you can mix sizes and grades inside one. There is no sub-container retail option; first-time buyers start with a free sample.",
+    "linkLogistics": "Logistics & container math"
+  },
+
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/products", "label": "All coconut shisha charcoal" },
+      { "href": "/packaging", "label": "Packaging & OEM options" },
+      { "href": "/logistics", "label": "Logistics & shipping" },
+      { "href": "/samples", "label": "Request samples" }
+    ]
+  },
+
+  "links": {
+    "samples": "Request a free sample",
+    "provenSkus": "Browse proven SKUs",
+    "startBrand": "How to start your own brand",
+    "privateLabel": "Private-label options",
+    "whiteLabel": "OEM / white-label packaging",
+    "packaging": "Packaging & OEM options"
+  },
+
+  "market": {
+    "cafe": {
+      "audience": "cafés & lounges",
+      "metaTitle": "Bulk Shisha Charcoal for Cafés & Lounges",
+      "metaDescriptionTemplate": "Bulk coconut shisha charcoal for cafés & lounges from {{brand}}, {{port}}: long-burn cubes in master-box packing, lowest cost per session. MOQ {{moqTons}} tons.",
+      "h1": "Wholesale Coconut Shisha Charcoal for Cafés & Lounges",
+      "atAGlanceDefinition": "Cafés and lounges burn coals by the kilogram, every night, so the numbers that matter are cost per session and burn length — not shelf design. The lowest landed cost comes from larger cubes in bulk master-box packing.",
+      "needValue": "Cost per session, long burn",
+      "shapesValue": "26–28 mm cubes, flats",
+      "gradeValue": "Super Premium / Platinum",
+      "packagingValue": "Bulk master box",
+      "needBody": "A high-turnover venue cares about three things: how long a coal holds heat (fewer changes per session), how clean it burns (less ash on the table, fewer interruptions), and what a kilogram costs landed. Larger cubes hold heat longer per piece, so staff change coals less often during a busy service; a low-ash grade keeps the session clean from the first guest to the last. Retail printing adds cost you do not need behind the counter, so bulk packing wins.",
+      "packagingBody": "Order bulk master-box packing: sealed inner plastic inside a corrugated master box ({{masterBoxSizes}}), no printed retail inner box. It is the lowest cost per kilogram and the fastest to stock behind a bar.",
+      "gettingStartedBody": "Start with a proven, fast-moving SKU — a 26–28 mm cube in Super Premium grade — and order a free sample to confirm the burn in your own lounge before the first container. Most café accounts standardize on one size and reorder it; once your volume is steady, Platinum is the upgrade that lets a flagship venue charge for the session.",
+      "recos": [
+        { "why": "The largest cube holds heat the longest, so staff change coals least often during a busy service." },
+        { "why": "A larger cube in a clean, low-ash grade keeps long lounge sessions interruption-free to the last guest." },
+        { "why": "Flats give maximum surface area for kaloud and large-bowl setups common in high-volume venues." }
+      ]
+    },
+    "shop": {
+      "audience": "smoke shops & retailers",
+      "metaTitle": "Private-Label Shisha Charcoal for Retail",
+      "metaDescriptionTemplate": "Private-label coconut shisha charcoal for smoke shops & retail from {{brand}}: printed inner boxes, OEM/white-label, small packs. MOQ {{moqTons}} tons FOB {{port}}.",
+      "h1": "Wholesale Coconut Shisha Charcoal for Smoke Shops & Retail",
+      "atAGlanceDefinition": "Smoke shops and retailers sell on shelf appeal and brand. The winning unit is a smaller cube or hexagonal in a printed inner box — ideally one that carries your brand, not ours.",
+      "needValue": "Shelf appeal, brand",
+      "shapesValue": "25 mm cubes, hexagonals",
+      "gradeValue": "Premium / Super Premium",
+      "packagingValue": "Printed inner box / OEM",
+      "needBody": "Retail moves on what the customer sees: a clean printed box, a recognizable size, and a brand. The standard retail unit is a printed 1 kg inner box of 25 mm cubes or hexagonals; hexagonals add shelf distinction and even ignition. Premium and Super Premium grades hit the price point a shelf needs, and private label turns a commodity coal into your brand.",
+      "packagingBody": "Choose printed inner boxes ({{innerBoxSizes}}) on {{innerBoxGsm}} gsm board, and consider OEM / white-label so the box carries your brand. A printed 1 kg box is the standard retail unit.",
+      "gettingStartedBody": "If you are building a brand, validate first and brand second: order a proven 25 mm cube SKU to confirm demand, then move to private label — the same briquette in a box that carries your name. Our guides walk through both steps, from first SKU to full OEM.",
+      "recos": [
+        { "why": "The retail-standard cube size; the proven SKU to validate demand before private label." },
+        { "why": "Same size, one grade up — the clean-burning option for a brand that wants a quality story." },
+        { "why": "Hexagonals add shelf distinction and even ignition; a strong private-label differentiator." }
+      ]
+    }
+  }
+}

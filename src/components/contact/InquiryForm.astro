@@ -27,6 +27,18 @@ import {
 import type { InquirySubmitConfig } from '~/lib/forms/inquirySubmit';
 import FormField from '~/components/contact/FormField.astro';
 
+interface Props {
+  /**
+   * Optional product context for SKU-page embeds. `productId` pre-checks the
+   * matching product checkbox; `sku` rides along as a hidden field; `note`
+   * prefills the message textarea. All optional — omitting `prefill` renders
+   * the form exactly as on /contact and /products.
+   */
+  prefill?: { productId?: string; sku?: string; note?: string };
+}
+
+const { prefill } = Astro.props;
+
 const t = en.contact.form;
 const f = t.fields;
 const honeypotName = 'website_url'; // intentionally bait-like
@@ -75,6 +87,7 @@ const inquiryConfig: InquirySubmitConfig = {
       <input type="hidden" name="subject" value={company.form.subject} />
       <input type="hidden" name="from_name" value={company.brand} />
       <input type="hidden" name="redirect" value="false" />
+      {prefill?.sku && <input type="hidden" name="product_sku" value={prefill.sku} />}
 
       <!-- Honeypot — bots fill any visible-named field; humans never see this. -->
       <div class="hidden" aria-hidden="true">
@@ -154,6 +167,7 @@ const inquiryConfig: InquirySubmitConfig = {
                 type="checkbox"
                 name="products[]"
                 value={p.id}
+                checked={prefill?.productId === p.id}
                 class="h-4 w-4 rounded border-neutral-300 text-brand-primary focus:ring-brand-primary"
               />
               {p.label}
@@ -205,6 +219,7 @@ const inquiryConfig: InquirySubmitConfig = {
         rows={5}
         maxLength={2000}
         placeholder={f.additionalPlaceholder}
+        value={prefill?.note}
       />
 
       <label class="flex items-start gap-3 text-sm text-neutral-700">

@@ -1,0 +1,74 @@
+---
+/**
+ * GradeLogistics — "Logistics & ordering" block.
+ *
+ * MOQ + full-container framing, container-capacity table, transit-time table
+ * (real `company.commercial.transitTimes`), container protections, named
+ * surveyors, the UN 1361 dangerous-goods note, a loading-photo placeholder,
+ * and links to the shipping pages. All figures from config; `bulkKg` renders
+ * "On request" until weighed.
+ */
+import DataTable from '~/components/content/DataTable.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import en from '~/i18n/en';
+import { company, hasFact } from '~/config/company';
+import { fill } from '~/lib/interpolate';
+import type { ProductShape, ProductSize } from '~/config/products';
+import type { Grade } from '~/config/grades';
+
+interface Props {
+  shape: ProductShape;
+  size: ProductSize;
+  grade: Grade;
+  tokens: Record<string, string | number>;
+}
+const { tokens } = Astro.props;
+
+const t = en.productGrade;
+
+const cc = company.commercial.containerCapacity;
+const capacityHeaders = [t.logistics.capContainerHeader, t.logistics.capFullHeader, t.logistics.capBulkHeader];
+const capValue = (kg: number | null | undefined) =>
+  hasFact(kg) ? fill(t.logistics.capValueTemplate, { kg: kg! }) : t.logistics.capPending;
+const capacityRows = [
+  { label: t.logistics.ft20Label, values: [capValue(cc.ft20.fullKg), capValue(cc.ft20.bulkKg)] },
+  { label: t.logistics.ft40Label, values: [capValue(cc.ft40.fullKg), capValue(cc.ft40.bulkKg)] },
+];
+
+const transitHeaders = [t.logistics.transitDestHeader, t.logistics.transitDaysHeader];
+const transitRows = company.commercial.transitTimes.map((tt) => ({
+  label: tt.destination,
+  values: [fill(t.logistics.transitDaysTemplate, { min: tt.minDays, max: tt.maxDays })],
+}));
+
+const proseP = 'mt-4 max-w-prose text-base leading-relaxed text-neutral-700';
+---
+<section id="logistics-ordering" aria-labelledby="logistics-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+  <h2 id="logistics-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.sections.logistics}</h2>
+  <p class={proseP}>{fill(t.logistics.moqLine, tokens)}</p>
+  <p class={proseP}>{fill(t.logistics.incoterm, tokens)}</p>
+
+  <h3 class="mt-8 text-lg font-semibold text-neutral-900">{t.logistics.capacityHeading}</h3>
+  <DataTable class="mt-3" headers={capacityHeaders} rows={capacityRows} striped />
+
+  <h3 class="mt-8 text-lg font-semibold text-neutral-900">{fill(t.logistics.transitHeading, tokens)}</h3>
+  <DataTable class="mt-3" headers={transitHeaders} rows={transitRows} striped />
+
+  <p class={proseP}>{t.logistics.protections}</p>
+  <p class={proseP}>{fill(t.logistics.surveyors, tokens)}</p>
+  <p class={proseP}>{fill(t.logistics.dgLine, tokens)}</p>
+  <p class={proseP}>
+    {hasFact(company.commercial.hsCode)
+      ? fill(t.logistics.hsCodeTemplate, { ...tokens, hsCode: company.commercial.hsCode! })
+      : t.logistics.hsCodePending}
+  </p>
+  <ImagePlaceholder class="mt-6" ratio="16/9" label={fill(t.logistics.loadingAlt, tokens)} />
+  <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+    <MaybeLink href="/logistics" class="font-semibold" data-source-component="grade-logistics">{t.logistics.linkLogistics}</MaybeLink>
+    <span aria-hidden="true" class="text-neutral-300">·</span>
+    <MaybeLink href="/logistics/documents" data-source-component="grade-logistics-docs">{t.logistics.linkDocuments}</MaybeLink>
+    <span aria-hidden="true" class="text-neutral-300">·</span>
+    <MaybeLink href="/logistics/UN-1361" data-source-component="grade-un1361">{fill(t.logistics.linkUn, tokens)}</MaybeLink>
+  </p>
+</section>

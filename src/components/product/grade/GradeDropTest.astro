@@ -1,0 +1,60 @@
+---
+/**
+ * GradeDropTest — transit-durability proof: two drop-test video facades.
+ *
+ * Buyers worry a briquette arrives cracked; two drop clips (e.g. carton-height
+ * and container-stack) prove breakage resistance, tied to the grade's real
+ * drop-test rating (`grade.dropTest`). Videos are click-to-load `YouTubeLite`
+ * facades (poster only on first paint); until IDs land, each slot renders a
+ * poster placeholder. `VideoObject` schema for real clips is emitted in the
+ * page @graph (see productGradePage.ts).
+ */
+import YouTubeLite from '~/components/content/YouTubeLite.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import en from '~/i18n/en';
+import { hasFact } from '~/config/company';
+import { fill } from '~/lib/interpolate';
+import { gradeSlug } from '~/config/productRoutes';
+import type { ProductShape, ProductSize } from '~/config/products';
+import type { Grade } from '~/config/grades';
+
+interface Props {
+  shape: ProductShape;
+  size: ProductSize;
+  grade: Grade;
+  tokens: Record<string, string | number>;
+}
+const { size, grade, tokens } = Astro.props;
+
+const t = en.productGrade;
+const slug = gradeSlug(size, grade);
+const videos = grade.dropTestVideos ?? [];
+const titles = [fill(t.dropTest.video1Title, tokens), fill(t.dropTest.video2Title, tokens)];
+
+const proseP = 'mt-4 max-w-prose text-base leading-relaxed text-neutral-700';
+---
+<section id="drop-test" aria-labelledby="drop-test-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
+  <h2 id="drop-test-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.sections.dropTest}</h2>
+  <p class={proseP}>{fill(t.dropTest.body, tokens)}</p>
+  <div class="mt-6 grid gap-6 md:grid-cols-2" role="list" aria-label={t.sections.dropTest}>
+    {titles.map((title, i) => {
+      const v = videos[i];
+      return (
+        <figure role="listitem">
+          {hasFact(v) ? (
+            <YouTubeLite
+              videoId={v!.youtubeId}
+              title={title}
+              posterSrc={v!.poster}
+              dataEvent="gallery_video_play"
+              dataSourceComponent={`grade-droptest-${slug}-${i + 1}`}
+            />
+          ) : (
+            <ImagePlaceholder ratio="16/9" label={fill(t.dropTest.pendingLabel, tokens)} />
+          )}
+          <figcaption class="mt-2 text-sm text-neutral-600">{title}</figcaption>
+        </figure>
+      );
+    })}
+  </div>
+</section>

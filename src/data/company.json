@@ -161,7 +161,18 @@
       { "destination": "Los Angeles, USA (West Coast)", "portCode": "USLAX", "minDays": 25, "maxDays": 32 },
       { "destination": "New York / New Jersey, USA (East Coast)", "portCode": "USNYC", "minDays": 35, "maxDays": 45 },
       { "destination": "St Petersburg, Russia", "portCode": "RULED", "minDays": 38, "maxDays": 48 }
-    ]
+    ],
+    "containerCapacity": {
+      "ft20": { "fullKg": 18000, "bulkKg": null },
+      "ft40": { "fullKg": 26000, "bulkKg": null }
+    },
+    "volumeDiscountTiers": [
+      { "minTons": 18, "maxTons": 54, "discountPercent": 0 },
+      { "minTons": 54, "maxTons": 108, "discountPercent": 2.5 },
+      { "minTons": 108, "maxTons": null, "discountPercent": 3 }
+    ],
+    "trialMinimum": null,
+    "hsCode": "4402.20"
   },
 
   "production": {
@@ -308,6 +319,7 @@
   "packaging": {
     "innerPlastic": {
       "sizesGrams": [250, 500, 1000],
+      "micron": null,
       "notes": "Printed inner plastic film; your logo + lot code per buyer requirements."
     },
     "innerBox": {
