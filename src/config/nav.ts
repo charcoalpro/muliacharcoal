@@ -45,6 +45,7 @@ export const LIVE_ROUTES: ReadonlySet<string> = new Set([
   '/faq',
   '/glossary',
   '/products',
+  '/packaging',
   '/legal/privacy-policy',
   '/legal/terms',
   '/legal/cookies',
@@ -92,6 +93,7 @@ export const footerCompanyNav: readonly NavItem[] = [
 /** Footer "Products & operations" column. */
 export const footerOperationsNav: readonly NavItem[] = [
   make('/products', en.footer.links.products),
+  make('/packaging', en.footer.links.packaging),
   make('/logistics', en.footer.links.logistics),
   make('/samples', en.footer.links.samples),
   make('/quality', en.footer.links.quality),

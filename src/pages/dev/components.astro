@@ -9,6 +9,9 @@ import en from '~/i18n/en';
 import { company, portOfLoadingLabel } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 import Section from '~/components/layout/Section.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import VideoFacade from '~/components/packaging/VideoFacade.astro';
 
 const variants = ['primary', 'secondary', 'ghost', 'danger'] as const;
 const sizes = ['sm', 'md', 'lg'] as const;
@@ -223,6 +226,49 @@ const typeScale = [
             title="Need matching private label packaging?"
             subtitle="OEM print runs from 500 master cartons. Your artwork on our briquettes, shipped under your brand."
             secondaryCta={{ label: 'Packaging options', href: '/packaging' }}
+          />
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="pillar-content-heading" class="mb-16">
+      <h2 id="pillar-content-heading" class="text-2xl font-bold text-neutral-900">Pillar-content components</h2>
+      <p class="mt-2 text-sm text-neutral-600">
+        Shared by the /packaging cluster (and future pillars). See DESIGN.md § Pillar-content components.
+      </p>
+      <div class="mt-6 space-y-8">
+        <div>
+          <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">KeyFactsBox — rows with empty values drop automatically</p>
+          <KeyFactsBox
+            class="mt-3"
+            heading="Demo at a glance"
+            definition="A definition-form lead sentence renders here, above the extractable facts."
+            facts={[
+              { label: 'Master box', value: company.packaging.masterBox.weightOptionsKg.map((kg) => `${kg} kg`).join(' or ') },
+              { label: 'Inner box board', value: `${company.packaging.innerBox.paperGsm} gsm` },
+              { label: 'Empty value (dropped)', value: '' },
+            ]}
+          />
+        </div>
+        <div>
+          <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">PhotoGrid of Figures — placeholder mode (no src) at 4:3</p>
+          <PhotoGrid
+            class="mt-3"
+            photos={[
+              { alt: 'Closed branded master carton, three-quarter view', caption: 'Branded master carton (placeholder)' },
+              { alt: 'Open master carton showing packed inner boxes', caption: 'Open carton with inner boxes (placeholder)' },
+              { alt: 'Strapped master carton on a pallet', caption: 'Strapped carton (placeholder)' },
+            ]}
+          />
+        </div>
+        <div>
+          <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">VideoFacade — click loads the youtube-nocookie iframe in the same box (factory tour demo)</p>
+          <VideoFacade
+            class="mt-3 max-w-xl"
+            youtubeId={company.factoryTourVideo.youtubeId}
+            title={company.factoryTourVideo.name}
+            playLabel={`Play video: ${company.factoryTourVideo.name}`}
+            dataSourceComponent="dev-video-facade"
           />
         </div>
       </div>

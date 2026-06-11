@@ -421,57 +421,251 @@ collections:
             field: { name: country, label: 'Country', widget: string }
 
           - name: packaging
-            label: 'OEM / private-label packaging'
+            label: 'Packaging (pillar + homepage OEM section)'
             widget: object
             collapsed: true
-            hint: 'Surfaces on the homepage OEM Packaging section and the future /packaging pillar.'
+            hint: 'Single source for /packaging, its five cluster pages, and the homepage OEM section. Empty fields render "Available on request" or are omitted — fill them as facts are confirmed. See docs/build-prompts/packaging/packaging-cluster-golive-checklist-v2.md.'
             fields:
-              - name: innerPlastic
-                label: 'Inner plastic pouch'
-                widget: object
-                fields:
-                  - name: sizesGrams
-                    label: 'Sizes (grams of charcoal per pouch)'
-                    widget: list
-                    field: { name: g, label: 'Grams', widget: number, value_type: int, min: 1, max: 100000 }
-                  - { name: notes, label: 'Notes', widget: text }
-              - name: innerBox
-                label: 'Inner box'
-                widget: object
-                fields:
-                  - name: sizesGrams
-                    label: 'Sizes (grams per box)'
-                    widget: list
-                    field: { name: g, label: 'Grams', widget: number, value_type: int, min: 1, max: 100000 }
-                  - { name: gsm, label: 'Board GSM', widget: number, value_type: int, min: 100, max: 1000 }
-                  - { name: notes, label: 'Notes', widget: text }
-              - name: masterBox
-                label: 'Master / shipper carton'
-                widget: object
-                fields:
-                  - name: sizesKg
-                    label: 'Sizes (kilograms gross per master box)'
-                    widget: list
-                    field: { name: kg, label: 'Kg', widget: number, value_type: int, min: 1, max: 1000 }
-                  - name: wallOptions
-                    label: 'Wall options'
-                    widget: list
-                    field: { name: wall, label: 'Wall', widget: select, options: ['single', 'double'] }
-                  - { name: notes, label: 'Notes', widget: text }
-              - name: acceptedArtworkFormats
-                label: 'Accepted source artwork formats'
-                widget: list
-                field: { name: ext, label: 'Format (e.g. AI, PDF)', widget: string }
-              - { name: proofTimeDays, label: 'Working days from artwork to physical print proof', widget: number, value_type: int, min: 1, max: 90 }
-              - name: tiers
-                label: 'Published packaging tiers'
+              - name: configurations
+                label: 'Packaging configurations (standard combinations)'
                 widget: list
                 fields:
-                  - { name: key, label: 'Key (slug, e.g. full / standard / minimal)', widget: string }
-                  - name: contents
-                    label: 'Contents (display list)'
+                  - { name: id, label: 'Key (slug, e.g. full / standard / minimal)', widget: string }
+                  - name: components
+                    label: 'Components included (display list)'
                     widget: list
                     field: { name: item, label: 'Component', widget: string }
+                  - { name: protectionLevel, label: 'Protection level', widget: select, options: ['high', 'medium', 'low'] }
+              - name: masterBox
+                label: 'Master box (master carton)'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: material, label: 'Material', widget: string, required: false }
+                  - name: wallTypes
+                    label: 'Wall types'
+                    widget: list
+                    field: { name: wall, label: 'Wall', widget: select, options: ['single', 'double'] }
+                  - { name: outerDimsMm, label: 'Outer dimensions (mm, e.g. 600 × 400 × 400)', widget: string, required: false }
+                  - name: weightOptionsKg
+                    label: 'Net charcoal per box (kg)'
+                    widget: list
+                    field: { name: kg, label: 'Kg', widget: number, value_type: int, min: 1, max: 1000 }
+                  - { name: grossWeightKg, label: 'Gross weight per box (kg; per option if it varies)', widget: string, required: false }
+                  - { name: holdsExample, label: 'Representative holds example (shared reference SKU)', widget: string, required: false, hint: 'e.g. "a 10 kg master box holds ten 1 kg inner boxes of 25 mm cubes" — must match the inner-box and plastic examples.' }
+                  - name: printOptions
+                    label: 'Print options (e.g. b/w, 3-color, full-color)'
+                    widget: list
+                    required: false
+                    field: { name: opt, label: 'Option', widget: string }
+                  - { name: printableFaces, label: 'Printable faces (e.g. all faces / top + 2 long sides)', widget: string, required: false }
+                  - { name: whiteTopLinerAvailable, label: 'White-top liner available (vivid color on kraft)?', widget: boolean, required: false }
+                  - name: cartonStrength
+                    label: 'Carton strength'
+                    widget: object
+                    collapsed: true
+                    fields:
+                      - { name: ect, label: 'ECT (e.g. 32 ECT)', widget: string, required: false }
+                      - { name: burstKpa, label: 'Burst / Mullen (kPa)', widget: string, required: false }
+                      - { name: fluteType, label: 'Flute type (B / C / BC)', widget: string, required: false }
+                      - { name: corrugateGsm, label: 'Corrugate GSM', widget: string, required: false }
+                  - { name: maxStackHeight, label: 'Max stack height (e.g. 8 boxes)', widget: string, required: false }
+                  - { name: notes, label: 'Notes', widget: text }
+              - name: innerBox
+                label: 'Inner box (retail box)'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: paperType, label: 'Paper type (e.g. duplex)', widget: string, required: false }
+                  - { name: paperGsm, label: 'Board GSM', widget: number, value_type: int, min: 100, max: 1000 }
+                  - { name: coating, label: 'Base coating (matte / gloss)', widget: string, required: false }
+                  - name: boxStyles
+                    label: 'Box styles (tuck-end / tray+lid / sleeve)'
+                    widget: list
+                    required: false
+                    field: { name: style, label: 'Style', widget: string }
+                  - { name: dimensionsMm, label: 'Outer dimensions (mm; per size option)', widget: string, required: false }
+                  - name: weightOptionsKg
+                    label: 'Net charcoal per inner box (kg)'
+                    widget: list
+                    field: { name: kg, label: 'Kg', widget: number, value_type: float, min: 0.05, max: 50 }
+                  - { name: grossWeightKg, label: 'Gross weight per box (kg; per option if it varies)', widget: string, required: false }
+                  - { name: holdsExample, label: 'Representative holds example (shared reference SKU)', widget: string, required: false }
+                  - name: finishes
+                    label: 'Finishes (lamination / emboss / uv-spot / foil)'
+                    widget: list
+                    required: false
+                    field: { name: finish, label: 'Finish', widget: string }
+                  - { name: notes, label: 'Notes', widget: text }
+              - name: primaryPlastic
+                label: 'Inner plastic (primary packaging)'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: type, label: 'Type (e.g. heat-sealed poly bag)', widget: string, required: false }
+                  - { name: material, label: 'Material (PE / PP / laminated)', widget: string, required: false }
+                  - { name: thicknessMicrons, label: 'Thickness (microns)', widget: number, value_type: int, min: 1, max: 1000, required: false }
+                  - { name: sealType, label: 'Seal type (e.g. heat-sealed)', widget: string, required: false }
+                  - { name: printable, label: 'Printable?', widget: boolean }
+                  - { name: clearOrPrinted, label: 'Clear / printed / both', widget: select, options: ['clear', 'printed', 'both'], required: false }
+                  - name: weightOptionsG
+                    label: 'Net charcoal per pack (grams)'
+                    widget: list
+                    field: { name: g, label: 'Grams', widget: number, value_type: int, min: 1, max: 100000 }
+                  - { name: holdsExample, label: 'Representative holds example (shared reference SKU)', widget: string, required: false }
+                  - { name: function, label: 'Function (e.g. moisture and dust barrier)', widget: string, required: false }
+                  - { name: foilBarrier, label: 'Foil / metallized barrier film offered?', widget: boolean, required: false }
+                  - { name: notes, label: 'Notes', widget: text }
+              - name: ancillary
+                label: 'Add-ons / branded consumables (offered?)'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: stickers, label: 'Branded stickers', widget: boolean, required: false }
+                  - { name: stickers3d, label: '3D domed stickers', widget: boolean, required: false }
+                  - { name: qrStickers, label: 'QR / authenticity stickers', widget: boolean, required: false }
+                  - { name: hologramStickers, label: 'Hologram / security stickers', widget: boolean, required: false }
+                  - { name: inserts, label: 'Inserts / leaflets / cards', widget: boolean, required: false }
+                  - { name: boxLabels, label: 'Printed box labels (on the master carton)', widget: boolean, required: false }
+                  - { name: brandedTape, label: 'Branded sealing tape', widget: boolean, required: false }
+                  - { name: brandedSilicaGel, label: 'Branded silica gel sachets', widget: boolean, required: false }
+                  - { name: desiccantIncluded, label: 'Plain desiccant standard in every order?', widget: boolean, required: false }
+                  - { name: containerDesiccant, label: 'Container-level desiccant (poles/blankets)', widget: boolean, required: false }
+                  - { name: strapping, label: 'Strapping', widget: boolean, required: false }
+                  - { name: edgeProtectors, label: 'Edge protectors / corner boards', widget: boolean, required: false }
+                  - { name: pallets, label: 'Palletization offered', widget: boolean, required: false }
+                  - { name: palletType, label: 'Pallet type (wood / plastic / both)', widget: string, required: false }
+                  - { name: ispm15, label: 'Wood pallets ISPM-15 certified', widget: boolean, required: false }
+                  - { name: thermalBlanket, label: 'Thermal blanket / container film wrap', widget: boolean, required: false }
+                  - { name: fscPaper, label: 'FSC paper available', widget: boolean, required: false }
+              - name: customPrint
+                label: 'Custom print (white-label) terms'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: moqUnits, label: 'Custom-print MOQ (units, per design)', widget: string, required: false }
+                  - { name: moqBasis, label: 'MOQ basis', widget: string, hint: 'per-design — counts per printed design, not per container.' }
+                  - { name: leadTimeAddDays, label: 'Added lead time for printing (days)', widget: string, required: false }
+                  - name: finishesAvailable
+                    label: 'Finishes available'
+                    widget: list
+                    required: false
+                    field: { name: finish, label: 'Finish', widget: string }
+              - name: containerLoad
+                label: 'Container loading (box counts; net kg lives under Commercial)'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: masterBoxesPer20ft, label: 'Master boxes per 20ft (loose)', widget: string, required: false }
+                  - { name: masterBoxesPer20ftPalletized, label: 'Master boxes per 20ft (palletized)', widget: string, required: false }
+              - name: compliance
+                label: 'Compliance markings (printed on every export carton)'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: un1361Marking, label: 'UN 1361 marking', widget: boolean, required: false }
+                  - { name: dgLabels, label: 'Dangerous-goods (Class 4.2) labels', widget: boolean, required: false }
+                  - { name: countryOfOrigin, label: 'Country of origin (Made in Indonesia)', widget: boolean, required: false }
+                  - { name: netWeightMark, label: 'Net weight mark', widget: boolean, required: false }
+                  - { name: batchLot, label: 'Batch / lot code', widget: boolean, required: false }
+              - name: retail
+                label: 'Retail channel'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: available, label: 'Retail-ready packaging available', widget: boolean }
+                  - { name: barcodeEanByBuyer, label: 'Barcode/EAN is buyer-supplied (factory-printed)', widget: boolean }
+                  - { name: shelfReadyBox, label: 'Shelf-ready boxes offered', widget: boolean, required: false }
+              - name: pricing
+                label: 'White-label / custom-print add-on prices (USD; empty = "Available on request")'
+                widget: object
+                collapsed: true
+                hint: 'NEVER the charcoal per-ton price. Leave strapping + box-label prices empty for a consistent "Available on request" sitewide (additional-packaging publishes no prices).'
+                fields:
+                  - { name: currency, label: 'Currency', widget: string }
+                  - { name: priceBasis, label: 'Price basis (empty = FOB port of loading)', widget: string, required: false }
+                  - { name: pricesLastUpdated, label: 'Prices last updated (YYYY-MM-DD)', widget: string, required: false }
+                  - { name: innerBoxPrintingPerKgUsd, label: 'Inner-box printing (USD per kg)', widget: string, required: false }
+                  - { name: laminationSurchargePerTonUsd, label: 'Lamination surcharge (USD per ton)', widget: string, required: false }
+                  - { name: embossSurchargePerTonUsd, label: 'Emboss surcharge (USD per ton)', widget: string, required: false }
+                  - { name: uvSpotSurchargePerTonUsd, label: 'UV spot surcharge (USD per ton)', widget: string, required: false }
+                  - { name: foilSurchargePerTonUsd, label: 'Foil surcharge (USD per ton)', widget: string, required: false }
+                  - { name: strappingPerTonUsd, label: 'Strapping (USD per ton) — see hint above', widget: string, required: false }
+                  - { name: labelPrintingPerTonUsd, label: 'Box-label printing (USD per ton) — see hint above', widget: string, required: false }
+                  - { name: doubleWallMasterBoxSurchargePerTonUsd, label: 'Double-wall master box surcharge (USD per ton)', widget: string, required: false }
+                  - { name: plasticPrintingPerKgUsd, label: 'Plastic printing (USD per kg)', widget: string, required: false }
+              - name: editorial
+                label: 'Editorial dates (author/reviewer come from Governance)'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: datePublished, label: 'Date published (YYYY-MM-DD)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+                  - { name: dateModified, label: 'Date modified (YYYY-MM-DD; bump on price changes)', widget: string, pattern: ['^\d{4}-\d{2}-\d{2}$', 'Use YYYY-MM-DD'] }
+              - name: branding
+                label: 'Branding / artwork'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: neutralAvailable, label: 'Neutral (unbranded) packaging available', widget: boolean }
+                  - { name: whiteLabelAvailable, label: 'White-label packaging available', widget: boolean }
+                  - { name: neutralScope, label: 'Neutral scope (what plain looks like per layer)', widget: text, required: false }
+                  - name: artworkFormats
+                    label: 'Accepted artwork formats'
+                    widget: list
+                    field: { name: ext, label: 'Format (e.g. AI, PDF)', widget: string }
+                  - { name: colorMode, label: 'Color mode (e.g. CMYK)', widget: string, required: false }
+                  - { name: pantoneSpot, label: 'Pantone / spot color matching', widget: boolean, required: false }
+                  - { name: bleedSafeArea, label: 'Bleed / safe area spec', widget: string, required: false }
+                  - { name: prepressBy, label: 'Prepress handled by', widget: string, required: false }
+                  - { name: customSizesAvailable, label: 'Custom box sizes available', widget: boolean, required: false }
+                  - { name: foodSafeInks, label: 'Food-safe inks (ONLY with a certificate)', widget: boolean, required: false }
+                  - { name: foodSafeInksCert, label: 'Food-safe inks certificate (reference/URL)', widget: string, required: false }
+                  - { name: artworkOnFileForReorder, label: 'Artwork kept on file for reorders', widget: boolean, required: false }
+              - name: proofing
+                label: 'Proof & sample flow'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: digitalProof, label: 'Digital proof provided', widget: boolean }
+                  - { name: physicalSample, label: 'Physical pre-production sample provided', widget: boolean }
+                  - { name: proofLeadTimeDays, label: 'Digital proof lead time (working days)', widget: number, value_type: int, min: 1, max: 90 }
+                  - { name: sampleLeadTimeDays, label: 'Physical sample lead time (days)', widget: number, value_type: int, min: 1, max: 90, required: false }
+                  - { name: sampleCost, label: 'Sample cost (USD or note)', widget: string, required: false }
+                  - { name: sampleCreditedToOrder, label: 'Sample cost credited to the order', widget: boolean, required: false }
+              - name: whiteLabel
+                label: 'White-label / OEM terms'
+                widget: object
+                collapsed: true
+                fields:
+                  - { name: designByBuyer, label: 'Design supplied by buyer (we print, we do not design)', widget: boolean }
+                  - { name: dielineProvided, label: 'Die-line / template provided', widget: boolean }
+                  - { name: ndaAvailable, label: 'NDA available', widget: boolean }
+                  - { name: designExclusive, label: 'Buyer artwork/design exclusive (never reused)', widget: boolean }
+                  - { name: territoryExclusivityNegotiable, label: 'Territory exclusivity negotiable (not automatic)', widget: boolean }
+                  - { name: platesKeptForReorder, label: 'Plates/files kept for reorder consistency', widget: boolean, required: false }
+                  - { name: singleContainerOk, label: 'Single branded container OK (no recurring commitment)', widget: boolean }
+                  - { name: printMethod, label: 'Print method (e.g. offset)', widget: string, required: false }
+                  - { name: printingEquipment, label: 'Printing equipment (credibility, e.g. 6-color press)', widget: string, required: false }
+                  - { name: colorCapability, label: 'Color capability (e.g. CMYK + Pantone spot)', widget: string, required: false }
+                  - name: brandableSurfaces
+                    label: 'Brandable surfaces'
+                    widget: list
+                    field: { name: surface, label: 'Surface (inner-box / master-box / plastic / consumables)', widget: string }
+                  - { name: brandsProducedCount, label: 'Brands produced (social proof, e.g. 80+)', widget: string, required: false }
+              - name: media
+                label: 'Packaging videos (YouTube; empty ID = slot omitted)'
+                widget: object
+                collapsed: true
+                fields:
+                  - name: videos
+                    label: 'Videos (one per packaging area)'
+                    widget: list
+                    fields:
+                      - { name: id, label: 'Area (master-box / inner-box / plastic / additional-packaging / white-label)', widget: string }
+                      - { name: youtubeId, label: 'YouTube video ID', widget: string, required: false }
+                      - { name: posterAsset, label: 'Poster asset path (16:9, local)', widget: string, required: false }
+                      - { name: uploadDate, label: 'Upload date (YYYY-MM-DD)', widget: string, required: false }
+                      - { name: durationISO, label: 'Duration (ISO 8601, e.g. PT2M30S)', widget: string, required: false }
 
           - name: factoryTourVideo
             label: 'Factory tour video (homepage About section)'

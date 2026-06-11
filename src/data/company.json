@@ -317,28 +317,154 @@
   ],
 
   "packaging": {
-    "innerPlastic": {
-      "sizesGrams": [250, 500, 1000],
-      "micron": null,
-      "notes": "Printed inner plastic film; your logo + lot code per buyer requirements."
-    },
-    "innerBox": {
-      "sizesGrams": [250, 500, 1000, 2000, 3000, 5000],
-      "gsm": 230,
-      "notes": "Full-colour CMYK printing on 230 gsm board; matte or gloss finish."
-    },
+    "configurations": [
+      { "id": "full", "components": ["Inner plastic", "Inner box", "Master box"], "protectionLevel": "high" },
+      { "id": "standard", "components": ["Inner plastic", "Inner box"], "protectionLevel": "medium" },
+      { "id": "minimal", "components": ["Inner plastic", "Master box"], "protectionLevel": "medium" }
+    ],
     "masterBox": {
-      "sizesKg": [10, 20],
-      "wallOptions": ["single", "double"],
+      "material": "corrugated kraft board",
+      "wallTypes": ["single", "double"],
+      "outerDimsMm": "",
+      "weightOptionsKg": [10, 20],
+      "grossWeightKg": "",
+      "holdsExample": "",
+      "printOptions": [],
+      "printableFaces": "",
+      "whiteTopLinerAvailable": null,
+      "cartonStrength": { "ect": "", "burstKpa": "", "fluteType": "", "corrugateGsm": "" },
+      "maxStackHeight": "",
       "notes": "Single- or double-wall corrugated; printed or kraft."
     },
-    "acceptedArtworkFormats": ["AI", "PDF"],
-    "proofTimeDays": 7,
-    "tiers": [
-      { "key": "full", "contents": ["Inner plastic", "Inner box", "Master box"] },
-      { "key": "standard", "contents": ["Inner plastic", "Inner box"] },
-      { "key": "minimal", "contents": ["Inner plastic", "Master box"] }
-    ]
+    "innerBox": {
+      "paperType": "",
+      "paperGsm": 230,
+      "coating": "matte or gloss",
+      "boxStyles": [],
+      "dimensionsMm": "",
+      "weightOptionsKg": [0.25, 0.5, 1, 2, 3, 5],
+      "grossWeightKg": "",
+      "holdsExample": "",
+      "finishes": [],
+      "notes": "Full-colour CMYK printing on 230 gsm board; matte or gloss finish."
+    },
+    "primaryPlastic": {
+      "type": "",
+      "material": "",
+      "thicknessMicrons": null,
+      "sealType": "",
+      "printable": true,
+      "clearOrPrinted": "both",
+      "weightOptionsG": [250, 500, 1000],
+      "holdsExample": "",
+      "function": "moisture and dust barrier",
+      "foilBarrier": null,
+      "notes": "Printed inner plastic film; your logo + lot code per buyer requirements."
+    },
+    "ancillary": {
+      "stickers": null,
+      "stickers3d": null,
+      "qrStickers": null,
+      "hologramStickers": null,
+      "inserts": null,
+      "boxLabels": null,
+      "brandedTape": null,
+      "brandedSilicaGel": null,
+      "desiccantIncluded": null,
+      "containerDesiccant": null,
+      "strapping": null,
+      "edgeProtectors": null,
+      "pallets": true,
+      "palletType": "",
+      "ispm15": true,
+      "thermalBlanket": null,
+      "fscPaper": null
+    },
+    "customPrint": {
+      "moqUnits": "",
+      "moqBasis": "per-design",
+      "leadTimeAddDays": "",
+      "finishesAvailable": []
+    },
+    "containerLoad": {
+      "masterBoxesPer20ft": "",
+      "masterBoxesPer20ftPalletized": ""
+    },
+    "compliance": {
+      "un1361Marking": true,
+      "dgLabels": true,
+      "countryOfOrigin": true,
+      "netWeightMark": null,
+      "batchLot": true
+    },
+    "retail": {
+      "available": true,
+      "barcodeEanByBuyer": true,
+      "shelfReadyBox": null
+    },
+    "pricing": {
+      "currency": "USD",
+      "priceBasis": "",
+      "pricesLastUpdated": "",
+      "innerBoxPrintingPerKgUsd": "",
+      "laminationSurchargePerTonUsd": "",
+      "embossSurchargePerTonUsd": "",
+      "uvSpotSurchargePerTonUsd": "",
+      "foilSurchargePerTonUsd": "",
+      "strappingPerTonUsd": "",
+      "labelPrintingPerTonUsd": "",
+      "doubleWallMasterBoxSurchargePerTonUsd": "",
+      "plasticPrintingPerKgUsd": ""
+    },
+    "editorial": {
+      "datePublished": "2026-06-11",
+      "dateModified": "2026-06-11"
+    },
+    "branding": {
+      "neutralAvailable": true,
+      "whiteLabelAvailable": true,
+      "neutralScope": "",
+      "artworkFormats": ["AI", "PDF"],
+      "colorMode": "CMYK",
+      "pantoneSpot": null,
+      "bleedSafeArea": "",
+      "prepressBy": "",
+      "customSizesAvailable": null,
+      "foodSafeInks": null,
+      "foodSafeInksCert": "",
+      "artworkOnFileForReorder": null
+    },
+    "proofing": {
+      "digitalProof": true,
+      "physicalSample": true,
+      "proofLeadTimeDays": 7,
+      "sampleLeadTimeDays": null,
+      "sampleCost": "",
+      "sampleCreditedToOrder": null
+    },
+    "whiteLabel": {
+      "designByBuyer": true,
+      "dielineProvided": true,
+      "ndaAvailable": true,
+      "designExclusive": true,
+      "territoryExclusivityNegotiable": true,
+      "platesKeptForReorder": null,
+      "singleContainerOk": true,
+      "printMethod": "",
+      "printingEquipment": "",
+      "colorCapability": "",
+      "brandableSurfaces": ["inner-box", "master-box", "plastic"],
+      "brandsProducedCount": ""
+    },
+    "media": {
+      "videos": [
+        { "id": "master-box", "youtubeId": "", "posterAsset": "", "uploadDate": "", "durationISO": "" },
+        { "id": "inner-box", "youtubeId": "", "posterAsset": "", "uploadDate": "", "durationISO": "" },
+        { "id": "plastic", "youtubeId": "", "posterAsset": "", "uploadDate": "", "durationISO": "" },
+        { "id": "additional-packaging", "youtubeId": "", "posterAsset": "", "uploadDate": "", "durationISO": "" },
+        { "id": "white-label", "youtubeId": "", "posterAsset": "", "uploadDate": "", "durationISO": "" }
+      ]
+    }
   },
 
   "factoryTourVideo": {

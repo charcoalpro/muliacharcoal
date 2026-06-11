@@ -463,6 +463,17 @@ Build in this order, and create a visual test page for each as you go (at `/dev/
 
 After these 16 components exist and are verified on the test page, you can assemble any page on the site with minimal new component work.
 
+### Pillar-content components (added with the /packaging build)
+
+Shared by the packaging cluster and intended for reuse on later pillars (logistics, quality). All live in `src/components/packaging/`:
+
+| Component | Purpose | Rules |
+|---|---|---|
+| `KeyFactsBox` | Extractable "at a glance" `<dl>` summary under the hero — the page's primary GEO surface. | Zero JS, pure HTML. Drops rows with empty values (graceful degradation off `company.ts`). Styled like the /products at-a-glance block (rounded-2xl, `brand-primary` tint). |
+| `Figure` | Captioned photo slot: `<figure>` + processed image + spec-rich `<figcaption>`. | `alt` ≠ caption (alt targets image-search queries; the caption adds spec context); both are i18n strings. Omit `src` while the asset is pending → renders `ImagePlaceholder` at the same ratio (no CLS when the real photo lands). Packaging photos are 4:3. |
+| `PhotoGrid` | Static responsive grid of `Figure`s. | Everything in the DOM — no carousel, no lightbox, no JS. All photos lazy-load. Hubs show a curated subset; cluster pages the exhaustive set, interleaved per section. |
+| `VideoFacade` | YouTube nocookie click-to-load facade in a fixed 16:9 box. | Local poster only (CSP blocks i.ytimg.com). JS off → real link to the YouTube watch page. One deferred event-delegated loader for all instances; iframe fills the same box (no CLS); no autoplay under `prefers-reduced-motion`; focus moves into the player. Empty `youtubeId` → slot renders nothing (never fake a video). The on-page title + key-points text lives in the page next to the facade, not inside it. |
+
 ---
 
 ## Process Rules

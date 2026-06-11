@@ -35,14 +35,14 @@ const tokens = companyTokens(company);
 
 const intro = fill(t.intro, tokens);
 
-const tiers = company.packaging.tiers.map((tier) => {
-  const tierCopy = t.tiers[tier.key as keyof typeof t.tiers];
+const tiers = company.packaging.configurations.map((cfg) => {
+  const tierCopy = t.tiers[cfg.id as keyof typeof t.tiers];
   return {
-    key: tier.key,
-    name: tierCopy?.name ?? tier.key,
+    key: cfg.id,
+    name: tierCopy?.name ?? cfg.id,
     summary: tierCopy?.summary ?? '',
     imageAlt: tierCopy?.imageAlt ?? '',
-    contents: tier.contents,
+    contents: cfg.components,
   };
 });
 

@@ -319,7 +319,7 @@
       "term": "White-label / OEM",
       "cluster": "packaging",
       "definitionTemplate": "White-label (also called OEM, Original Equipment Manufacturer) is private-label manufacturing — the buyer supplies a brand and artwork, and the factory produces the finished retail SKU under that brand. Our white-label workflow accepts {{acceptedArtworkFormats}} artwork, returns a digital proof in {{proofTimeDays}} days, and is included in standard MOQ ({{moqLabel}}) with no extra setup fee.",
-      "see": { "href": "/packaging/white-lable", "label": "White-label process and timeline" }
+      "see": { "href": "/packaging/white-label", "label": "White-label process and timeline" }
     },
 
     {
