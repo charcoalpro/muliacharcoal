@@ -37,7 +37,10 @@ The site follows a pillar-and-cluster structure. Every new piece of content must
       `/products/hexagonals`, 
       `/products/fingers`, 
       `/products/domes`, 
-      `/products/flats`
+      `/products/flats`, 
+      `/products/cloud`
+      (the category segment is the shape plural, with two remaps: shape
+      `stix` → `/products/fingers`, shape `lotus` → `/products/cloud`)
 `- Also: market category: 
 `/products/shisha-cafee/`, 
 `/products/shisha-shop/`
@@ -82,11 +85,11 @@ The site follows a pillar-and-cluster structure. Every new piece of content must
       
 6. **Packaging pillar** (`/packaging`) - all about packaging options and oem
        - Cluster: 
-          `/mpackaging/master-box`,
-          `/mpackaging/inner-box`,
-          `/mpackaging/plastic`,
-          `/mpackaging/additioal packaging`,
-          `/mpackaging/white-lable`,
+          `/packaging/master-box`,
+          `/packaging/inner-box`,
+          `/packaging/plastic`,
+          `/packaging/additional-packaging`,
+          `/packaging/white-label`,
 
 ### Supporting pages (not part of a cluster)
 - Home: `/`
@@ -96,7 +99,7 @@ The site follows a pillar-and-cluster structure. Every new piece of content must
 - Contact  `/contact`
 - About: `/about`
 - Careers: `/careers` (with JobPosting schema)
-- Legal: `/privacy`, `/terms`
+- Legal: `/legal/privacy-policy`, `/legal/terms`, `/legal/cookies`
 - Author: about author
   `/glossary`
   - llm.txt
@@ -296,7 +299,7 @@ Every event below must fire on both Google Analytics 4 and Meta Pixel.
 - Under 60 characters including the domain
 - Include primary keyword, exclude stop words where possible
 - No trailing slashes except the root (`/`)
-- Product (grade SKU) slugs: `{shape}-{size}-{grade}` → `cube-25mm-platinum`, `hexagonal-20x50-premium` (grade is `premium` / `super-premium` / `platinum`, kebab-case). Shape-category slugs are the plural `{shape-plural}` → `cubes`, `fingers`. The bare `{shape}-{size}` is not a routed page.
+- Product (grade SKU) slugs: `{shape}-{size}-{grade}` → `cube-25mm-platinum`, `hexagonal-20x50-premium` (grade is `premium` / `super-premium` / `platinum`, kebab-case). Shape-category slugs are the shape plural `{shape-plural}` → `cubes`, `flats`, with two remaps: shape `stix` → `fingers`, shape `lotus` → `cloud`. The bare `{shape}-{size}` is not a routed page.
 - Article slugs: keyword-rich, not clickbait
 - No dates in blog URLs (content stays evergreen; dates live in frontmatter)
 
@@ -336,6 +339,7 @@ Apply sitewide:
 
 ## Working Style (Claude Code Behavior)
 
+- Page build prompts live in `/docs/build-prompts/` — before building any page, read that folder's `README.md`, then the prompt for the page and ALL parent files its manifest row requires.
 - Always propose a plan before writing code for any change larger than a single file. Wait for approval before executing.
 - When editing shared components (Header, Footer, BaseLayout) or anything that affects every page, show a diff summary before applying.
 - Prefer creating new small components over growing existing ones.
