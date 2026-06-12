@@ -21,6 +21,7 @@ import careers from './careers.json';
 import glossary from './glossary.json';
 import faq from './faq.json';
 import products from './products.json';
+import packaging from './packaging.json';
 import productGrade from './productGrade.json';
 import productCategory from './productCategory.json';
 import productMarket from './productMarket.json';
@@ -35,6 +36,7 @@ const en = {
   glossary,
   faq,
   products,
+  packaging,
   productGrade,
   productCategory,
   productMarket,
