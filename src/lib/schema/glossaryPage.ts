@@ -24,6 +24,8 @@ export interface ResolvedTerm {
   slug: string;
   term: string;
   termCode?: string;
+  /** Synonyms (e.g. "master carton" for master box) → DefinedTerm.alternateName. */
+  alternateNames?: string[];
   definition: string;
 }
 
@@ -58,6 +60,7 @@ function termNode(t: ResolvedTerm) {
     url: id,
     inDefinedTermSet: { '@id': SET_ID },
     ...(t.termCode ? { termCode: t.termCode } : {}),
+    ...(t.alternateNames?.length ? { alternateName: t.alternateNames } : {}),
   };
 }
 
