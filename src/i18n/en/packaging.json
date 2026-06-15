@@ -2,7 +2,7 @@
   "breadcrumb": "Packaging",
   "meta": {
     "titleTemplate": "Shisha Charcoal Packaging — Export & White-Label Options",
-    "descriptionTemplate": "Three-layer export packaging for coconut shisha charcoal: sealed inner plastic, retail inner box, master carton. Neutral or white-label. MOQ {{moqTons}} tons {{portLabel}}."
+    "descriptionTemplate": "Three-layer export packaging for coconut shisha charcoal: inner plastic, retail inner box, master carton. Neutral or white-label. MOQ {{moqTons}} tons FOB."
   },
   "eyebrow": "Packaging",
   "h1": "Coconut Shisha Charcoal Packaging Options",
@@ -176,7 +176,7 @@
     },
     "whiteLabel": {
       "h3": "White-label (your brand)",
-      "body": "With white-label — also called private label or OEM — we print your artwork across the inner plastic, inner box, and master carton. You receive a die-line and template, sign an NDA if you want one, and your design stays exclusive to you.",
+      "body": "With white-label, we print your artwork across the inner plastic, inner box, and master carton. You receive a die-line and template, sign an NDA if you want one, and your design stays exclusive to you.",
       "artworkLineTemplate": "Artwork: print-ready vector files ({{acceptedArtworkFormats}}), CMYK.",
       "artworkLinkLabel": "Full artwork specs & process"
     },
