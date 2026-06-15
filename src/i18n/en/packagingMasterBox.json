@@ -1,0 +1,182 @@
+{
+  "breadcrumb": "Master box",
+  "meta": {
+    "titleTemplate": "Coconut Charcoal Master Box — Export Carton Specs",
+    "descriptionTemplate": "Master box (master carton) for coconut shisha charcoal: {{masterBoxSizes}} net, {{masterBoxWallOptions}}-wall corrugated kraft, {{unNumber}} markings, neutral or branded."
+  },
+  "eyebrow": "Packaging · Master box",
+  "h1": "Coconut Charcoal Master Box (Master Carton)",
+  "heroSubtitle": "A master box, also called a master carton, is the corrugated outer shipping carton that carries coconut shisha charcoal through container freight, stacking, and warehouse handling — {{masterBoxSizes}} of charcoal net per box, plain kraft or printed with your brand.",
+  "upLink": "Part of the shisha charcoal packaging system",
+  "hero": {
+    "ctaQuote": "Get a packaging quote",
+    "ctaQuoteAria": "Request a master-box quote on WhatsApp"
+  },
+  "atAGlance": {
+    "heading": "Master box at a glance",
+    "materialLabel": "Material",
+    "wallLabel": "Wall types",
+    "wallValueTemplate": "{{masterBoxWallOptions}}-wall",
+    "strengthLabel": "Carton strength",
+    "dimsLabel": "Outer dimensions",
+    "netLabel": "Net charcoal per box",
+    "grossLabel": "Gross weight per box",
+    "holdsLabel": "Holds (representative)",
+    "stackLabel": "Max stack height",
+    "printLabel": "Printing",
+    "printValue": "Plain kraft or printed with your brand",
+    "printableFacesLabel": "Printable faces",
+    "palletLabel": "Palletization",
+    "palletValue": "Optional — ISPM-15 heat-treated pallets",
+    "containerLabel": "20ft container payload",
+    "containerValueTemplate": "{{containerNetKg}} kg net ({{boxesPerContainerExample}} loose)",
+    "markingsLabel": "Markings",
+    "markingsValueTemplate": "{{unNumber}} / Class {{unClass}} DG, origin, net weight, lot",
+    "brandingLabel": "Branding",
+    "brandingValue": "Neutral and white-label both available",
+    "doubleWallPriceLabel": "Double-wall upgrade",
+    "strappingPriceLabel": "Strapping"
+  },
+  "construction": {
+    "h2": "Definition & construction",
+    "p1": "A master box is the structural layer of the packaging system: it takes the stacking load in the container and the warehouse, so its construction — not the retail print — decides whether cartons arrive square. Ours is corrugated kraft board, produced in {{masterBoxWallOptions}}-wall variants.",
+    "p2": "Carton strength is specified by edge-crush test (ECT) rating, burst strength, flute profile, and corrugate weight; these decide how high cartons stack safely during 4–8 weeks at sea. The exact strength specification for your order's box size is confirmed with the quote.",
+    "strengthSpecTemplate": "Current spec: {{ect}}, burst {{burstKpa}}, flute {{fluteType}}, {{corrugateGsm}} gsm corrugate.",
+    "photos": [
+      { "alt": "Closed branded coconut charcoal master box, three-quarter view", "caption": "Printed master carton, ready for container loading." },
+      { "alt": "Open coconut charcoal master carton showing packed inner boxes", "caption": "The master box carries the stacking load; inner boxes carry the brand." }
+    ]
+  },
+  "walls": {
+    "h2": "Single vs double wall",
+    "p1": "Single-wall corrugate is the standard for palletized loads and shorter routes; double-wall adds a second fluted layer for floor-stuffed containers, humid-season shipments, and high stacks — a heavier box that holds its edges under compression.",
+    "p2": "The double-wall upgrade is priced per ton as a white-label / custom-print add-on.",
+    "priceLineTemplate": "Double-wall surcharge: {{doubleWallPrice}}.",
+    "photos": [
+      { "alt": "Single-wall versus double-wall corrugated cross-section comparison", "caption": "Double wall adds a second fluted layer for stacking strength." }
+    ]
+  },
+  "dims": {
+    "h2": "Dimensions & weights",
+    "p1": "Net weight options per master box: {{masterBoxSizes}} of charcoal. Net weight counts the charcoal only; gross weight (charcoal plus packaging) is what freight calculations use, and is confirmed per configuration with the quote.",
+    "p2": "By net weight, {{holdsByWeightExample}}. Exact inner-box counts vary with the inner-box size and briquette shape — the per-SKU packing math lives on the product pages.",
+    "dimsLineTemplate": "Outer dimensions: {{outerDimsMm}} mm.",
+    "innerBoxLinkLabel": "Inner-box sizes",
+    "productsLinkLabel": "Product SKUs",
+    "photos": [
+      { "alt": "Coconut charcoal master box with measuring tape for scale", "caption": "Outer dimensions are confirmed per box size with the quote." }
+    ]
+  },
+  "printing": {
+    "h2": "Printing & branding on the master box",
+    "p1": "Master boxes ship plain kraft (neutral) or printed with your brand. Brown kraft mutes vivid colors, so full-color artwork is typically quoted with a white-top liner; which faces print is specified per design with the quote.",
+    "p2": "Or apply printed box labels as a lower-cost, fast-turnaround branding alternative to direct carton printing.",
+    "boxLabelsLinkLabel": "Printed box labels",
+    "artworkLineTemplate": "Artwork: print-ready vector files ({{acceptedArtworkFormats}}), CMYK.",
+    "artworkLinkLabel": "Full white-label & artwork specs",
+    "photos": [
+      { "alt": "Full-color print detail on a coconut charcoal master carton", "caption": "Full-color carton print; vivid color on kraft uses a white-top liner." }
+    ]
+  },
+  "loadSecuring": {
+    "h2": "Strapping & palletization",
+    "p1": "Cartons load two ways: floor-stuffed (maximum payload, manual unloading) or palletized on ISPM-15 heat-treated wood pallets (forklift handling, slightly lower payload). Load-securing options — strapping and edge protectors — are specified per order.",
+    "addonsLinkLabel": "All load-securing add-ons",
+    "logisticsLinkLabel": "Container loading rules",
+    "photos": [
+      { "alt": "PP-strapped coconut charcoal master carton, strapping detail", "caption": "Strapping keeps floor-stuffed stacks stable in transit." },
+      { "alt": "Shrink-wrapped pallet of coconut charcoal master cartons", "caption": "Palletized loading on ISPM-15 heat-treated pallets." }
+    ]
+  },
+  "container": {
+    "h2": "Container loading",
+    "p1": "A 20ft container loads {{containerNetKg}} kg of charcoal net — loose-loaded, that is {{boxesPerContainerExample}} master boxes. Palletized counts run lower and are quoted per order, since pallet footprint and box mix change the math.",
+    "hubFaqLinkLabel": "Container-count FAQ on the packaging hub",
+    "photos": [
+      { "alt": "Loose-loaded 20ft container stacked with coconut charcoal master boxes", "caption": "Floor-stuffed 20ft container: {{containerNetKg}} kg net payload." }
+    ]
+  },
+  "compliance": {
+    "h2": "Compliance & markings",
+    "p1": "Every export master box — neutral or branded — is printed with the {{unNumber}} marking and Class {{unClass}} dangerous-goods labels ({{imdgLabel}}), country of origin (Made in Indonesia), net weight, and a batch/lot code. Carriers check these markings before accepting the booking; missing marks strand cargo at the port.",
+    "unLinkLabel": "UN Transport of Dangerous Goods (UNECE)",
+    "un1361LinkLabel": "UN 1361 shipping rules",
+    "documentsLinkLabel": "Export documents",
+    "photos": [
+      { "alt": "UN 1361 dangerous goods and origin markings printed on a charcoal master carton", "caption": "DG, origin, net-weight, and lot markings — mandatory on every export carton." }
+    ]
+  },
+  "neutralVsBranded": {
+    "h2": "Neutral vs branded master box",
+    "p1": "The neutral master box is plain kraft with compliance markings only — no printing surcharge, fastest turnaround. The branded box carries your artwork; custom sizes are quoted per design. If your boxes need to match retail inner boxes, brand both layers in one white-label run.",
+    "p2": "Want to check the carton quality before ordering? Request a sample master box through the proof and sample flow.",
+    "whiteLabelLinkLabel": "White-label & artwork specs",
+    "inquiryLinkLabel": "Request via inquiry",
+    "samplesLinkLabel": "Request samples",
+    "photos": [
+      { "alt": "Neutral plain kraft coconut charcoal master box", "caption": "Neutral carton: plain kraft, compliance markings only." }
+    ]
+  },
+  "faq": {
+    "heading": "Master-box FAQ",
+    "items": [
+      {
+        "q": "What is a master box (master carton)?",
+        "a": "A master box — also called a master carton — is the corrugated outer shipping carton that carries packed inner boxes or bulk charcoal through container freight, stacking, and warehouse handling. It is the structural layer of the packaging system: the inner box presents the product, the master box protects it."
+      },
+      {
+        "q": "What is the master box made of, and how strong is it?",
+        "a": "Corrugated kraft board in {{masterBoxWallOptions}}-wall variants. Single wall is standard for palletized loads; double wall adds a second fluted layer for floor-stuffed containers and high stacks. Carton strength (ECT rating, burst strength, flute profile, corrugate gsm) is specified per box size and confirmed with the quote."
+      },
+      {
+        "q": "What master-box sizes and weights do you offer?",
+        "a": "Net charcoal per box: {{masterBoxSizes}}. Outer dimensions and gross weight (charcoal plus packaging, the figure freight uses) are confirmed per configuration with the quote, since wall type and inner-box mix change both."
+      },
+      {
+        "q": "How many inner boxes does a master box hold?",
+        "a": "By net weight, {{holdsByWeightExample}}. The exact count varies with the inner-box size and the briquette shape inside, so per-SKU packing math is confirmed on the product pages and with your quote."
+      },
+      {
+        "q": "Can the master box be printed with my brand?",
+        "a": "Yes. Boxes ship plain kraft or printed with your artwork ({{acceptedArtworkFormats}}, CMYK; die-line provided). Vivid full-color on brown kraft is typically quoted with a white-top liner, and which faces print is specified per design. A lower-cost alternative: printed box labels applied to plain cartons."
+      },
+      {
+        "q": "Do you offer plain or neutral master boxes?",
+        "a": "Yes — plain kraft with no printing surcharge and no extra minimum. Neutral is not blank: every export carton still carries the {{unNumber}} dangerous-goods marking, country of origin, net weight, and lot code, exactly like a branded box."
+      },
+      {
+        "q": "Are master boxes strapped, palletized, or loose-loaded?",
+        "a": "Both loading modes are standard: floor-stuffed (maximum payload) or palletized on ISPM-15 heat-treated wood pallets (forklift handling). Strapping and edge protectors are specified per order as load-securing add-ons."
+      },
+      {
+        "q": "What markings are printed on the master box?",
+        "a": "Every export box carries the {{unNumber}} marking with Class {{unClass}} dangerous-goods labels, country of origin (Made in Indonesia), net weight, and a batch/lot code. These are mandatory on neutral and branded cartons alike — carriers verify them before accepting the booking."
+      },
+      {
+        "q": "Can I order a custom master-box size, or request a sample?",
+        "a": "Custom sizes are quoted per design through the white-label flow. A sample master box can be requested through the inquiry form or the samples page, alongside the digital proof ({{proofTimeDays}} working days) and physical pre-production sample."
+      }
+    ],
+    "moreLine": "Container counts and custom-print costs are answered on the packaging hub FAQ; order MOQ and payment terms on the general FAQ.",
+    "hubFaqLinkLabel": "Packaging hub FAQ",
+    "generalFaqLinkLabel": "General FAQ"
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/packaging", "label": "Packaging pillar: all options" },
+      { "href": "/packaging/inner-box", "label": "Inner box (retail box)" },
+      { "href": "/packaging/plastic", "label": "Inner plastic (primary packaging)" },
+      { "href": "/packaging/white-label", "label": "White-label / OEM packaging" },
+      { "href": "/packaging/additional-packaging", "label": "Packaging add-ons & load securing" },
+      { "href": "/products", "label": "Products: shapes, sizes & grades" },
+      { "href": "/logistics/UN-1361", "label": "UN 1361 shipping compliance" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/logistics/rules", "label": "Container loading rules" },
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/glossary#master-box", "label": "Glossary: master box" },
+      { "href": "/samples", "label": "Request samples" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}
