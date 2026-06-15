@@ -23,6 +23,7 @@ import faq from './faq.json';
 import products from './products.json';
 import packaging from './packaging.json';
 import packagingMasterBox from './packagingMasterBox.json';
+import packagingInnerBox from './packagingInnerBox.json';
 import productGrade from './productGrade.json';
 import productCategory from './productCategory.json';
 import productMarket from './productMarket.json';
@@ -39,6 +40,7 @@ const en = {
   products,
   packaging,
   packagingMasterBox,
+  packagingInnerBox,
   productGrade,
   productCategory,
   productMarket,

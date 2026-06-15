@@ -1,0 +1,175 @@
+{
+  "breadcrumb": "Inner box",
+  "meta": {
+    "titleTemplate": "Coconut Charcoal Inner Box (Retail Box) Packaging",
+    "descriptionTemplate": "Printed retail inner box for coconut shisha charcoal: {{innerBoxSizes}} net, {{innerBoxGsm}} gsm board, full-color CMYK, matte/gloss, lamination & foil. Neutral or branded."
+  },
+  "eyebrow": "Packaging · Inner box",
+  "h1": "Coconut Charcoal Inner Box (Retail Box)",
+  "heroSubtitle": "An inner box is the printed retail box that holds plastic-wrapped coconut shisha charcoal and is presented to the end customer — {{innerBoxGsm}} gsm board, full-color CMYK, in sizes from {{innerBoxSizes}} net.",
+  "upLink": "Part of the shisha charcoal packaging system",
+  "hero": {
+    "ctaQuote": "Get a packaging quote",
+    "ctaQuoteAria": "Request an inner-box quote on WhatsApp"
+  },
+  "atAGlance": {
+    "heading": "Inner box at a glance",
+    "paperLabel": "Paper",
+    "paperValueTemplate": "{{innerBoxGsm}} gsm board",
+    "coatingLabel": "Base coating",
+    "stylesLabel": "Box styles",
+    "dimsLabel": "Dimensions",
+    "netLabel": "Net charcoal per box",
+    "grossLabel": "Gross weight per box",
+    "holdsLabel": "Holds (reference SKU)",
+    "finishesLabel": "Finishes",
+    "printLabel": "Printing",
+    "printValue": "Full-color CMYK on white duplex",
+    "shelfReadyLabel": "Shelf-ready",
+    "markingsLabel": "Retail markings",
+    "markingsValue": "Barcode/EAN (buyer-supplied), net weight, origin, lot",
+    "moqLabel": "Custom-print MOQ",
+    "leadTimeLabel": "Print lead time",
+    "leadTimeValueTemplate": "+{{customPrintLeadDays}} days",
+    "brandingLabel": "Branding",
+    "brandingValue": "Neutral and branded both available",
+    "printPriceLabel": "Inner-box printing"
+  },
+  "purpose": {
+    "h2": "Definition & purpose",
+    "p1": "An inner box is the retail and branding unit of the packaging system — the box the end customer picks up. The charcoal inside is always sealed in inner plastic first, so the moisture and dust barrier is the plastic, not the box; the inner box exists to present, protect in handling, and carry the brand and retail markings.",
+    "p2": "That division of labor matters when you spec an order: spend on the inner box for shelf appeal, and rely on the inner plastic for protection.",
+    "plasticLinkLabel": "How the inner plastic protects the charcoal",
+    "diagramHeading": "Packaging hierarchy",
+    "diagramCaption": "Each layer nests inside the next: charcoal → inner plastic → inner box → master box.",
+    "diagramSteps": ["Charcoal briquettes", "Inner plastic (barrier)", "Inner box (retail)", "Master box (shipping)"],
+    "photos": [
+      { "alt": "Open coconut charcoal inner box showing plastic-wrapped cubes inside", "caption": "Charcoal is sealed in inner plastic before it goes in the box." }
+    ]
+  },
+  "construction": {
+    "h2": "Box styles, construction & finishes",
+    "p1": "Inner boxes are produced in tuck-end, two-piece tray-and-lid, and sleeve styles on {{innerBoxGsm}} gsm white duplex board. White coated duplex prints vivid full-color directly — no white-top liner is needed, unlike the brown-kraft master box.",
+    "p2": "Finishes form a ladder, and each step is distinct: a base coating (matte or gloss aqueous varnish) comes standard; lamination (matte or gloss film) is an upgrade over the coating; and emboss, UV spot, and foil are add-ons layered on top. They are priced separately, so a quote never double-counts a coating as a lamination.",
+    "stylesLineTemplate": "Box styles: {{boxStyles}}.",
+    "finishesLineTemplate": "Finishes available: {{finishes}}.",
+    "photos": [
+      { "alt": "Coconut charcoal inner box style comparison: tuck-end, tray and lid, sleeve", "caption": "Tuck-end, tray-and-lid, and sleeve styles." },
+      { "alt": "Inner box finish macro showing matte versus gloss, lamination, emboss, UV, foil", "caption": "The finish ladder: coating, then lamination, then emboss/UV/foil." }
+    ]
+  },
+  "sizes": {
+    "h2": "Sizes & weights",
+    "p1": "Net charcoal per inner box: {{innerBoxSizes}}. Net weight counts the charcoal; gross weight (charcoal plus box) is confirmed per size with the quote.",
+    "p2": "As a reference, {{holdsRefExample}}. Exact counts vary by cube size and shape, so the per-SKU math lives on the product pages.",
+    "dimsLineTemplate": "Outer dimensions: {{innerBoxDimsMm}} mm.",
+    "productsLinkLabel": "Product SKUs & piece counts",
+    "photos": [
+      { "alt": "Coconut charcoal inner box size range side by side", "caption": "Inner-box range: {{innerBoxSizes}} net charcoal." }
+    ]
+  },
+  "printing": {
+    "h2": "Printing & branding",
+    "p1": "The inner box is your primary branding surface — full-color print across every face, plus the finish ladder above. Custom printing has a per-design minimum and adds to the production lead time; both are confirmed on inquiry.",
+    "moqLineTemplate": "Custom-print MOQ: {{customPrintMoq}} per design; print adds about {{customPrintLeadDays}} days.",
+    "pantoneLine": "For brand-color accuracy across reorders, we match Pantone/spot colors and keep your files on record.",
+    "artworkLineTemplate": "Artwork: print-ready vector files ({{acceptedArtworkFormats}}), CMYK; die-line provided.",
+    "artworkLinkLabel": "Full white-label & artwork specs",
+    "photos": [
+      { "alt": "Full-color branded coconut charcoal inner box, front three-quarter view", "caption": "The inner box is the primary branding surface." },
+      { "alt": "Print and branding detail on a coconut charcoal inner box", "caption": "Full-color CMYK with optional Pantone spot matching." }
+    ]
+  },
+  "retail": {
+    "h2": "Retail & consumer markings",
+    "p1": "The retail inner box carries your barcode/EAN — buyer-supplied, factory-printed — alongside net weight, country of origin, and a batch/lot code. Shelf-ready formats are available for direct retail display.",
+    "p2": "Anti-counterfeit options — QR, 3D domed, and holographic stickers — apply to the retail box too. Note that UN 1361 dangerous-goods markings live on the master box, not the retail inner box.",
+    "antiCounterfeitLinkLabel": "Anti-counterfeit stickers",
+    "masterBoxLinkLabel": "DG markings on the master box",
+    "un1361LinkLabel": "UN 1361 compliance",
+    "photos": [
+      { "alt": "Retail markings detail on a coconut charcoal inner box: barcode, net weight, origin", "caption": "Barcode/EAN is buyer-supplied; we print it with net weight and origin." }
+    ]
+  },
+  "packed": {
+    "h2": "Packed into the master box",
+    "p1": "Inner boxes pack into the corrugated master carton for freight. How many per master box follows the same reference SKU used above, so the figures chain consistently from pack to inner box to master box.",
+    "masterBoxLinkLabel": "Master-box specs & container math",
+    "photos": [
+      { "alt": "Coconut charcoal inner boxes packed inside a master carton", "caption": "Inner boxes nested in the master box for container loading." }
+    ]
+  },
+  "neutralVsBranded": {
+    "h2": "Neutral vs branded inner box",
+    "p1": "Neutral inner boxes are plain or generic; branded boxes carry your artwork and finishes. Custom box sizes for different retail markets are quoted per design.",
+    "p2": "Want to see the print and board quality first? Request a sample inner box through the proof and sample flow.",
+    "whiteLabelLinkLabel": "White-label & artwork specs",
+    "inquiryLinkLabel": "Request via inquiry",
+    "samplesLinkLabel": "Request samples",
+    "photos": [
+      { "alt": "Neutral plain coconut charcoal inner box", "caption": "Neutral inner box: generic, unbranded." },
+      { "alt": "Blank versus branded coconut charcoal inner box comparison", "caption": "Same box, your artwork: neutral or branded." }
+    ]
+  },
+  "faq": {
+    "heading": "Inner-box FAQ",
+    "items": [
+      {
+        "q": "What is an inner box (retail box)?",
+        "a": "An inner box — also called a retail box or consumer box — is the printed box the end customer sees. It holds plastic-wrapped coconut charcoal, carries your brand and the retail markings, and stacks into the master carton. It is the presentation and branding unit; the inner plastic is the moisture barrier."
+      },
+      {
+        "q": "What sizes, dimensions, and weights do you offer?",
+        "a": "Net charcoal per inner box: {{innerBoxSizes}}. Outer dimensions and gross weight (charcoal plus box) are confirmed per size with the quote, since box style and board weight change both."
+      },
+      {
+        "q": "What is the inner box made of, and what finishes are available?",
+        "a": "{{innerBoxGsm}} gsm white duplex board, full-color CMYK. The finish ladder is distinct: a base matte or gloss coating comes standard; lamination (matte or gloss film) is an upgrade; emboss, UV spot, and foil are add-ons on top. Each is priced separately."
+      },
+      {
+        "q": "What box styles are available?",
+        "a": "Tuck-end, two-piece tray-and-lid, and sleeve styles. The right style depends on the briquette size, the shelf format, and the unboxing experience you want; we advise per order."
+      },
+      {
+        "q": "How many cubes does an inner box hold?",
+        "a": "As a representative example, {{holdsRefExample}}. The charcoal is plastic-wrapped inside the box, and the exact count varies by cube size and shape — per-SKU figures are on the product pages."
+      },
+      {
+        "q": "Can the inner box be printed with my brand?",
+        "a": "Yes — the inner box is the primary branding surface. Full-color CMYK with the finish ladder, Pantone/spot matching for brand-color accuracy, a per-design minimum, and added print lead time. Artwork is print-ready vector ({{acceptedArtworkFormats}}); we provide the die-line."
+      },
+      {
+        "q": "Do you offer plain or neutral inner boxes?",
+        "a": "Yes — plain or generic inner boxes with no brand printing. Custom box sizes for different markets are quoted per design, and a sample box can be requested before you commit."
+      },
+      {
+        "q": "What retail markings go on the inner box?",
+        "a": "Your barcode/EAN (buyer-supplied, factory-printed), net weight, country of origin, and a batch/lot code. We print the EAN you supply; we don't issue the number. UN 1361 dangerous-goods markings go on the master box, not the retail inner box."
+      },
+      {
+        "q": "Can I order a custom inner-box size, and request a sample?",
+        "a": "Yes. Custom sizes are quoted per design through the white-label flow, and a physical sample inner box can be requested via the inquiry form or the samples page, alongside the digital proof ({{proofTimeDays}} working days)."
+      }
+    ],
+    "moreLine": "Container counts and custom-print costs are answered on the packaging hub FAQ; order MOQ and payment terms on the general FAQ.",
+    "hubFaqLinkLabel": "Packaging hub FAQ",
+    "generalFaqLinkLabel": "General FAQ"
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/packaging", "label": "Packaging pillar: all options" },
+      { "href": "/packaging/master-box", "label": "Master box (master carton)" },
+      { "href": "/packaging/plastic", "label": "Inner plastic (primary packaging)" },
+      { "href": "/packaging/white-label", "label": "White-label / OEM packaging" },
+      { "href": "/packaging/additional-packaging", "label": "Anti-counterfeit stickers & add-ons" },
+      { "href": "/products", "label": "Products: shapes, sizes & grades" },
+      { "href": "/logistics/UN-1361", "label": "UN 1361 shipping compliance" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/glossary#inner-box", "label": "Glossary: inner box" },
+      { "href": "/samples", "label": "Request samples" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}
