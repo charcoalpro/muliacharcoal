@@ -49,6 +49,7 @@ export const LIVE_ROUTES: ReadonlySet<string> = new Set([
   '/packaging/master-box',
   '/packaging/inner-box',
   '/packaging/plastic',
+  '/packaging/white-label',
   '/legal/privacy-policy',
   '/legal/terms',
   '/legal/cookies',
