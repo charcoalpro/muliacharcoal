@@ -1,0 +1,189 @@
+{
+  "breadcrumb": "Additional packaging",
+  "meta": {
+    "titleTemplate": "Coconut Charcoal Packaging Add-Ons & Branded Stickers",
+    "descriptionTemplate": "Branded consumables, load securing, and transit protection for coconut shisha charcoal: QR & hologram anti-counterfeit stickers, branded tape, strapping, pallets, desiccant, thermal blanket."
+  },
+  "eyebrow": "Packaging · Add-ons",
+  "h1": "Coconut Charcoal Packaging Add-Ons & Branded Stickers",
+  "heroSubtitle": "Packaging add-ons are the optional layers beyond the standard plastic–box–carton stack: branded consumables, load securing, and transit protection — ordered together with your container.",
+  "upLink": "Part of the shisha charcoal packaging system",
+  "hero": {
+    "ctaQuote": "Ask about add-ons",
+    "ctaQuoteAria": "Ask about packaging add-ons on WhatsApp"
+  },
+  "atAGlance": {
+    "heading": "Add-ons at a glance",
+    "groupsLabel": "Three groups",
+    "groupsValue": "Branding & anti-counterfeit · load securing · transit protection",
+    "antiCounterfeitLabel": "Anti-counterfeit set",
+    "antiCounterfeitValue": "QR, hologram, and 3D domed stickers",
+    "consumablesLabel": "Branded consumables",
+    "consumablesValue": "Stickers, tape, silica, box labels, inserts",
+    "loadLabel": "Load securing",
+    "loadValue": "Strapping, edge protectors",
+    "palletLabel": "Palletization",
+    "palletValue": "Wood or plastic; wood is ISPM-15 heat-treated",
+    "desiccantLabel": "Desiccant",
+    "desiccantValue": "Sachets in cartons + container-level",
+    "thermalLabel": "Transit protection",
+    "thermalValue": "Thermal blanket / container film lining",
+    "pricingLabel": "Pricing",
+    "pricingValue": "All add-ons quoted on request",
+    "specsLabel": "Specs",
+    "specsValue": "Made to order — confirmed on inquiry"
+  },
+  "groups": {
+    "h2": "The three groups",
+    "intro": "Add-ons fall into three jobs. Branding and anti-counterfeit consumables put your brand on the package and protect it; load securing keeps the stack stable; transit protection guards against moisture and condensation.",
+    "items": [
+      { "anchor": "#branded-consumables", "label": "Branding & anti-counterfeit consumables" },
+      { "anchor": "#load-securing", "label": "Load securing" },
+      { "anchor": "#transit-protection", "label": "Transit protection" }
+    ]
+  },
+  "group1": {
+    "h2": "Branding & anti-counterfeit consumables",
+    "note": "Consumable specs — sticker sizes and shapes, tape widths, label and insert dimensions — are made to your order; we describe the capability here and confirm specifics on inquiry. Every item in this group is printed from your supplied artwork (we provide templates where relevant; we print, we don't design).",
+    "stickers": {
+      "h3": "Branded stickers & labels",
+      "body": "Printed stickers and labels carrying your brand, applied to the inner box, master box, or product.",
+      "photo": { "alt": "Branded sticker and label sheet for coconut charcoal packaging", "caption": "Printed stickers from your artwork." }
+    },
+    "domed": {
+      "h3": "3D domed stickers",
+      "body": "Resin-domed stickers give a premium tactile brand mark that is hard to replicate cheaply — a quality cue and a soft anti-counterfeit signal.",
+      "photo": { "alt": "Macro of a 3D resin-domed sticker on coconut charcoal packaging", "caption": "3D domed stickers: a premium, hard-to-copy mark." }
+    },
+    "qr": {
+      "h3": "QR stickers (authenticity)",
+      "body": "QR stickers let your customers verify authenticity or reach your brand online. We print the QR codes you supply — the landing page and verification system are yours to run; we don't host or manage them.",
+      "photo": { "alt": "QR authenticity sticker applied to a coconut charcoal inner box", "caption": "We print your QR codes; the verification system is yours." }
+    },
+    "hologram": {
+      "h3": "Hologram / security stickers",
+      "body": "Tamper-evident holographic security stickers are difficult to counterfeit and show if a package has been opened.",
+      "photo": { "alt": "Holographic security sticker detail on coconut charcoal packaging", "caption": "Tamper-evident hologram security marks." }
+    },
+    "antiCounterfeitNote": "QR, hologram, and 3D domed stickers together form an anti-counterfeit set — a brand-protection toolkit for premium charcoal brands. Protecting a brand is part of owning one.",
+    "antiCounterfeitLinkLabel": "Build your brand with white-label",
+    "boxLabels": {
+      "h3": "Printed box labels",
+      "body": "Full-color labels applied to the master carton are the lower-cost, fast-turnaround branding alternative to printing the carton directly — well suited to smaller runs and mixed containers.",
+      "linkLabel": "Or print the carton directly",
+      "photo": { "alt": "Branded full-color label applied to a coconut charcoal master carton", "caption": "Box labels: lower-cost branding vs direct carton print." }
+    },
+    "tape": {
+      "h3": "Branded tape",
+      "body": "Printed sealing tape carries your brand along the carton seam; plain tape is the default.",
+      "photo": { "alt": "Branded printed sealing tape on a coconut charcoal master carton", "caption": "Branded sealing tape; plain is the default." }
+    },
+    "silica": {
+      "h3": "Branded silica gel",
+      "body": "Desiccant sachets can carry your brand; plain sachets are the default. The moisture function is covered under transit protection below.",
+      "photo": { "alt": "Branded silica gel desiccant sachet for coconut charcoal", "caption": "Branded silica sachets; plain is the default." }
+    },
+    "inserts": {
+      "h3": "Inserts, leaflets & cards",
+      "body": "Printed inserts inside the inner box — care and usage cards, brand story, warranty or authenticity cards — printed from your supplied artwork.",
+      "photo": { "alt": "Printed insert leaflet inside a coconut charcoal inner box", "caption": "Inserts and cards from your artwork." }
+    }
+  },
+  "group2": {
+    "h2": "Load securing",
+    "strapping": {
+      "h3": "Strapping",
+      "body": "PP strapping holds master cartons stable on the stack; functional plain strapping is the default.",
+      "photo": { "alt": "PP strapping detail on a coconut charcoal master carton", "caption": "PP strapping stabilizes the stack." }
+    },
+    "edgeProtectors": {
+      "h3": "Edge protectors / corner boards",
+      "body": "Corner boards protect carton edges under strapping and pallet loads, spreading compression away from the carton corners.",
+      "photo": { "alt": "Edge protectors and corner boards on a pallet of coconut charcoal cartons", "caption": "Edge protectors guard corners under load." }
+    },
+    "pallets": {
+      "h3": "Palletization",
+      "body": "Cartons can ship palletized rather than floor-stuffed — wood or plastic pallets. Wood pallets are ISPM-15 heat-treated and stamped for international trade. Loose-vs-palletized container counts live on the hub and master-box pages.",
+      "ispmLinkLabel": "IPPC ISPM-15 standard",
+      "rulesLinkLabel": "Container loading rules",
+      "photo": { "alt": "Shrink-wrapped pallet of coconut charcoal master cartons", "caption": "Palletized loading on ISPM-15 heat-treated pallets." }
+    }
+  },
+  "group3": {
+    "h2": "Transit protection",
+    "desiccant": {
+      "h3": "Desiccant / silica gel",
+      "body": "Desiccant absorbs residual humidity over sea transit at two levels: sachets inside the cartons, and container-level desiccant (poles or blankets hung in the container) for long or humid routes. The layered moisture story: the inner plastic is the primary barrier, desiccant absorbs what is left, and the thermal blanket handles condensation.",
+      "plasticLinkLabel": "How the inner plastic seals out moisture"
+    },
+    "thermal": {
+      "h3": "Thermal blanket / container film wrap",
+      "body": "A thermal blanket lines the container against condensation (\"container rain\") and temperature swings on long transits and climate transitions — recommended for long routes and humid seasons.",
+      "photo": { "alt": "Thermal-blanket-lined shipping container for coconut charcoal transit", "caption": "Thermal lining guards against container condensation." }
+    }
+  },
+  "ordering": {
+    "h2": "How to order add-ons",
+    "body": "Add-ons are ordered together with your container order, not standalone. All add-on pricing is quoted on request and confirmed on inquiry or WhatsApp."
+  },
+  "faq": {
+    "heading": "Add-ons FAQ",
+    "items": [
+      {
+        "q": "What packaging add-ons do you offer?",
+        "a": "Three groups: branding and anti-counterfeit consumables (stickers, 3D domed stickers, QR and hologram stickers, branded tape, branded silica, box labels, inserts), load securing (strapping, edge protectors, palletization), and transit protection (desiccant and thermal blanket). All are ordered with your container."
+      },
+      {
+        "q": "How can I protect my brand from counterfeits?",
+        "a": "Use the anti-counterfeit set: QR stickers for authenticity verification, holographic security stickers that are tamper-evident, and 3D domed stickers that are hard to replicate. We print the buyer-supplied QR codes; the landing page and verification system are yours to run."
+      },
+      {
+        "q": "Can the stickers, tape, and silica gel carry my brand?",
+        "a": "Yes — stickers, sealing tape, and silica sachets can all be printed with your brand from your supplied artwork. Plain tape and plain sachets are the defaults if you don't brand them."
+      },
+      {
+        "q": "Can you apply printed box labels instead of printing the carton?",
+        "a": "Yes. Full-color box labels applied to the master carton are the lower-cost, fast-turnaround branding route — well suited to smaller runs and mixed containers. If you'd rather print the carton directly, that's covered on the master-box page."
+      },
+      {
+        "q": "Do you include desiccant, and do you offer container-level desiccant?",
+        "a": "Desiccant works at two levels: silica sachets inside the cartons, and container-level desiccant (poles or blankets hung in the container) for long or humid routes. Whether sachets are standard in every order is confirmed on inquiry."
+      },
+      {
+        "q": "Can you add inserts, leaflets, or cards inside the boxes?",
+        "a": "Yes — care and usage cards, brand-story leaflets, and warranty or authenticity cards, printed from your supplied artwork and placed inside the inner box."
+      },
+      {
+        "q": "Do you palletize — wood or plastic, and is it ISPM-15 compliant?",
+        "a": "Both wood and plastic pallets are available. Wood pallets are ISPM-15 heat-treated and stamped, as required for international trade. Loose-vs-palletized container counts are on the hub and master-box pages."
+      },
+      {
+        "q": "What is the thermal blanket, and when do I need it?",
+        "a": "A thermal blanket lines the container against condensation (\"container rain\") and temperature swings. It's recommended for long routes and humid-season shipments, working alongside the sealed inner plastic and desiccant as the third moisture-protection layer."
+      },
+      {
+        "q": "How much do these add-ons cost?",
+        "a": "All add-on pricing is quoted on request and confirmed on inquiry, since specs are made to your order. Add-ons are ordered together with your container, not standalone."
+      }
+    ],
+    "moreLine": "Container counts and custom-print costs are answered on the packaging hub FAQ; order MOQ and payment terms on the general FAQ.",
+    "hubFaqLinkLabel": "Packaging hub FAQ",
+    "generalFaqLinkLabel": "General FAQ"
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/packaging", "label": "Packaging pillar: all options" },
+      { "href": "/packaging/master-box", "label": "Master box (master carton)" },
+      { "href": "/packaging/inner-box", "label": "Inner box (retail box)" },
+      { "href": "/packaging/plastic", "label": "Inner plastic (primary packaging)" },
+      { "href": "/packaging/white-label", "label": "White-label / OEM packaging" },
+      { "href": "/logistics/rules", "label": "Container loading rules" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/products", "label": "Products: shapes, sizes & grades" },
+      { "href": "/glossary#branded-consumables", "label": "Glossary: branded consumables" },
+      { "href": "/samples", "label": "Request samples" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}

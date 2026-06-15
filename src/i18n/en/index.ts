@@ -26,6 +26,7 @@ import packagingMasterBox from './packagingMasterBox.json';
 import packagingInnerBox from './packagingInnerBox.json';
 import packagingPlastic from './packagingPlastic.json';
 import packagingWhiteLabel from './packagingWhiteLabel.json';
+import packagingAdditional from './packagingAdditional.json';
 import productGrade from './productGrade.json';
 import productCategory from './productCategory.json';
 import productMarket from './productMarket.json';
@@ -45,6 +46,7 @@ const en = {
   packagingInnerBox,
   packagingPlastic,
   packagingWhiteLabel,
+  packagingAdditional,
   productGrade,
   productCategory,
   productMarket,
