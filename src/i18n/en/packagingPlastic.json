@@ -1,0 +1,135 @@
+{
+  "breadcrumb": "Inner plastic",
+  "meta": {
+    "titleTemplate": "Coconut Charcoal Inner Plastic (Primary Packaging)",
+    "descriptionTemplate": "Primary packaging for coconut shisha charcoal: heat-sealed inner plastic, the moisture and dust barrier. Pack sizes {{innerPlasticSizes}}, clear or printed."
+  },
+  "eyebrow": "Packaging · Inner plastic",
+  "h1": "Coconut Charcoal Inner Plastic (Primary Packaging)",
+  "heroSubtitle": "The inner plastic is the primary packaging — the first sealed layer that holds and protects coconut shisha charcoal from moisture and dust through four to eight weeks of sea transit. Pack sizes {{innerPlasticSizes}}, clear or printed with your brand.",
+  "upLink": "Part of the shisha charcoal packaging system",
+  "hero": {
+    "ctaQuote": "Get a packaging quote",
+    "ctaQuoteAria": "Request an inner-plastic quote on WhatsApp"
+  },
+  "atAGlance": {
+    "heading": "Inner plastic at a glance",
+    "materialLabel": "Material",
+    "thicknessLabel": "Thickness",
+    "thicknessValueTemplate": "{{plasticMicrons}} µm",
+    "sealLabel": "Seal type",
+    "printLabel": "Clear or printed",
+    "sizesLabel": "Pack sizes (net)",
+    "holdsLabel": "Holds (reference SKU)",
+    "functionLabel": "Function",
+    "foilLabel": "Foil/metallized barrier",
+    "brandingLabel": "Branding",
+    "brandingValue": "Clear or printed; neutral and branded both available"
+  },
+  "definition": {
+    "h2": "Definition & role in the packaging hierarchy",
+    "p1": "Primary packaging is the layer that touches the product. For coconut charcoal that is the inner plastic — a sealed film pack that is the moisture and dust barrier of the whole system. The inner box presents the product and the master box ships it, but the plastic is what protects it.",
+    "p2": "That is why the inner box defers protection to this layer: spend on the box for shelf appeal, and rely on the plastic for the barrier.",
+    "innerBoxLinkLabel": "Inner box (presentation)",
+    "masterBoxLinkLabel": "Master box (shipping)",
+    "diagramHeading": "Packaging hierarchy",
+    "diagramCaption": "Each layer nests inside the next: charcoal → inner plastic → inner box → master box.",
+    "diagramSteps": ["Charcoal briquettes", "Inner plastic (barrier)", "Inner box (retail)", "Master box (shipping)"],
+    "photos": [
+      { "alt": "Heat-sealed inner plastic pack of coconut shisha charcoal", "caption": "The sealed primary pack — the system's moisture barrier." },
+      { "alt": "Plastic-wrapped coconut charcoal going into an inner box", "caption": "The sealed pack nests inside the inner box." }
+    ]
+  },
+  "material": {
+    "h2": "Material, thickness & seal",
+    "p1": "The inner plastic is a heat-sealed film pack. Material, film gauge (thickness in microns), and seal type are specified per order; a heat seal gives a continuous, tamper-evident closure that keeps humidity out across the voyage.",
+    "specLineTemplate": "Current spec: {{plasticMaterial}}, {{plasticMicrons}} µm, {{plasticSeal}}.",
+    "photos": [
+      { "alt": "Heat-seal detail on a coconut charcoal inner plastic pack", "caption": "A continuous heat seal keeps moisture out." },
+      { "alt": "Clear inner plastic pack showing coconut charcoal cubes inside", "caption": "Clear film lets the product show through." }
+    ]
+  },
+  "sizes": {
+    "h2": "Sizes & what it holds",
+    "p1": "Net charcoal per pack: {{innerPlasticSizes}}. Film weight is negligible against the charcoal, so net pack size is the only weight that matters here — there is no separate gross figure for the plastic.",
+    "p2": "As a reference, {{holdsRefExample}}. Exact counts vary by cube size and shape; per-SKU figures are on the product pages.",
+    "productsLinkLabel": "Product SKUs & piece counts",
+    "photos": [
+      { "alt": "Coconut charcoal inner plastic pack with scale reference", "caption": "Pack sizes: {{innerPlasticSizes}} net charcoal." }
+    ]
+  },
+  "barrier": {
+    "h2": "Barrier performance & protection",
+    "p1": "Over four to eight weeks of ocean transit, charcoal can absorb ambient humidity that degrades the burn and lights. The sealed inner plastic is the primary barrier against that; the master box is structural, not a moisture barrier.",
+    "p2": "For long or humid routes the plastic is the first of three layers: the inner plastic seals the product, desiccant sachets absorb residual humidity, and a thermal blanket handles container condensation. The add-on layers are specified per order.",
+    "addonsLinkLabel": "Desiccant & thermal-blanket add-ons",
+    "documentsLinkLabel": "Transit & export documents",
+    "photos": [
+      { "alt": "Sealed coconut charcoal inner plastic pack emphasising the moisture barrier", "caption": "The sealed pack is the primary moisture barrier in transit." }
+    ]
+  },
+  "branding": {
+    "h2": "Branding on the plastic",
+    "p1": "The film ships clear or printed. Clear film shows the product for retail appeal; printed film carries your logo and lot code. Printed plastic is a white-label / custom-print add-on.",
+    "priceLineTemplate": "Plastic printing: {{plasticPrintPrice}}.",
+    "artworkLinkLabel": "Full white-label & artwork specs",
+    "photos": [
+      { "alt": "Printed-logo coconut charcoal inner plastic pack", "caption": "Printed film carries your logo and lot code." }
+    ]
+  },
+  "neutralVsBranded": {
+    "h2": "Neutral vs branded",
+    "p1": "Neutral is plain or clear film with no brand printing; branded is printed film with your artwork. Either way, request a sample to check the seal and film quality before you commit.",
+    "whiteLabelLinkLabel": "White-label & artwork specs",
+    "inquiryLinkLabel": "Request via inquiry",
+    "samplesLinkLabel": "Request samples"
+  },
+  "faq": {
+    "heading": "Inner-plastic FAQ",
+    "items": [
+      {
+        "q": "What is the inner plastic / primary packaging?",
+        "a": "The inner plastic is the primary packaging — the first sealed film layer around the coconut charcoal and the moisture and dust barrier of the whole packaging system. The inner box presents the product and the master box ships it, but the plastic is what protects it."
+      },
+      {
+        "q": "What material and thickness do you use?",
+        "a": "A heat-sealed film pack; the material, film gauge (thickness in microns), and seal type are specified per order. A continuous heat seal gives a tamper-evident closure that keeps humidity out across the voyage. The exact spec is confirmed with the quote."
+      },
+      {
+        "q": "Is the plastic clear, or can it be printed with my logo?",
+        "a": "Both. Clear film shows the product for retail appeal; printed film carries your logo and lot code. Printed plastic is a white-label / custom-print add-on, quoted on inquiry."
+      },
+      {
+        "q": "How much charcoal does each plastic pack hold?",
+        "a": "Pack sizes are {{innerPlasticSizes}} net charcoal. As a reference, {{holdsRefExample}}. The exact count varies by cube size and shape; per-SKU figures are on the product pages."
+      },
+      {
+        "q": "How does the inner plastic protect against moisture during shipping?",
+        "a": "The sealed film is the primary barrier against the ambient humidity charcoal can absorb over four to eight weeks at sea. For long or humid routes it works with two more layers — desiccant sachets inside the cartons and a thermal blanket lining the container."
+      },
+      {
+        "q": "Do you offer plain/clear or printed plastic (neutral vs branded)?",
+        "a": "Yes — clear or plain film (neutral) and printed film with your artwork (branded). A sample pack can be requested through the inquiry form or samples page so you can check the seal and film quality first."
+      }
+    ],
+    "moreLine": "Container counts and custom-print costs are answered on the packaging hub FAQ; order MOQ and payment terms on the general FAQ.",
+    "hubFaqLinkLabel": "Packaging hub FAQ",
+    "generalFaqLinkLabel": "General FAQ"
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/packaging", "label": "Packaging pillar: all options" },
+      { "href": "/packaging/inner-box", "label": "Inner box (retail box)" },
+      { "href": "/packaging/master-box", "label": "Master box (master carton)" },
+      { "href": "/packaging/white-label", "label": "White-label / OEM packaging" },
+      { "href": "/packaging/additional-packaging", "label": "Desiccant & transit protection" },
+      { "href": "/products", "label": "Products: shapes, sizes & grades" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/glossary#inner-plastic", "label": "Glossary: primary packaging" },
+      { "href": "/samples", "label": "Request samples" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}

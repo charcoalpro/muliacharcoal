@@ -1,0 +1,362 @@
+---
+/**
+ * /packaging/plastic — cluster page.
+ *
+ * Built from docs/build-prompts/packaging/packaging-plastic-build-
+ * prompt-v2.md.
+ *
+ * Cluster template (locked): WebPage + page-specific FAQPage(6) +
+ * DefinedTerm (@id → /glossary#inner-plastic, term "primary packaging")
+ * (+ VideoObject valid-or-omit). No gross-weight field (film weight is
+ * negligible). The foil/metallized-barrier section renders only when
+ * primaryPlastic.foilBarrier is true — omitted otherwise. Same
+ * cube-25mm reference SKU as the box pages for the holds chain.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import TextLink from '~/components/content/TextLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import VideoFacade from '~/components/packaging/VideoFacade.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact, portOfLoadingLabel } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { productShapes } from '~/config/products';
+import { packagingClusterPageSchema } from '~/lib/schema/packagingClusterPage';
+import { videoObjectSchema } from '~/lib/schema/videoObject';
+
+const t = en.packagingPlastic;
+const tShared = en.packaging.shared;
+const pk = company.packaging;
+const PATH = '/packaging/plastic';
+
+// Shared reference SKU (cube-25mm) — same source as the box pages.
+const refCube = productShapes.find((s) => s.key === 'cube')?.sizes.find((z) => z.slug === 'cube-25mm');
+const refPcsPerKg = refCube?.pcsPerKg;
+const holdsRefExample = hasFact(pk.primaryPlastic.holdsExample)
+  ? pk.primaryPlastic.holdsExample
+  : refPcsPerKg
+    ? `a 1 kg pack of 25 mm cubes holds about ${refPcsPerKg} cubes`
+    : 'each pack holds its labelled net weight of sealed charcoal';
+
+const priceValue = (v: string | number) =>
+  hasFact(v) ? `${pk.pricing.currency} ${v}` : tShared.availableOnRequest;
+
+const tokens = {
+  ...companyTokens(company),
+  holdsRefExample,
+  plasticMaterial: pk.primaryPlastic.material,
+  plasticMicrons: pk.primaryPlastic.thicknessMicrons ?? '',
+  plasticSeal: pk.primaryPlastic.sealType,
+  plasticPrintPrice: priceValue(pk.pricing.plasticPrintingPerKgUsd),
+  currency: pk.pricing.currency,
+  priceBasis: hasFact(pk.pricing.priceBasis) ? pk.pricing.priceBasis : portOfLoadingLabel(),
+};
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const clearOrPrintedValue =
+  pk.primaryPlastic.clearOrPrinted === 'both'
+    ? 'Clear or printed'
+    : hasFact(pk.primaryPlastic.clearOrPrinted)
+      ? pk.primaryPlastic.clearOrPrinted
+      : '';
+
+const atGlanceFacts = [
+  { label: t.atAGlance.materialLabel, value: pk.primaryPlastic.material },
+  { label: t.atAGlance.thicknessLabel, value: hasFact(pk.primaryPlastic.thicknessMicrons) ? fill(t.atAGlance.thicknessValueTemplate, tokens) : '' },
+  { label: t.atAGlance.sealLabel, value: pk.primaryPlastic.sealType },
+  { label: t.atAGlance.printLabel, value: clearOrPrintedValue },
+  { label: t.atAGlance.sizesLabel, value: tokens.innerPlasticSizes },
+  { label: t.atAGlance.holdsLabel, value: holdsRefExample },
+  { label: t.atAGlance.functionLabel, value: pk.primaryPlastic.function },
+  { label: t.atAGlance.foilLabel, value: pk.primaryPlastic.foilBarrier === true ? 'Available' : '' },
+  { label: t.atAGlance.brandingLabel, value: t.atAGlance.brandingValue },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const video = pk.media.videos.find((v) => v.id === 'plastic');
+const videoNode = video
+  ? videoObjectSchema({
+      id: `packaging-${video.id}`,
+      youtubeId: video.youtubeId,
+      name: t.h1,
+      description: pageDescription,
+      durationISO: video.durationISO,
+      uploadDate: video.uploadDate,
+      thumbnailUrl: video.posterAsset,
+    })
+  : null;
+
+const schema = packagingClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: PATH,
+  term: { anchor: 'inner-plastic', name: 'primary packaging', alternateName: ['inner plastic', 'poly bag'] },
+  faq: faqItems,
+  videos: [videoNode],
+});
+
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.definition.p1, t.definition.p2,
+    t.material.p1,
+    t.sizes.p1, t.sizes.p2,
+    t.barrier.p1, t.barrier.p2,
+    t.branding.p1,
+    t.neutralVsBranded.p1,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+
+const photos = (list: Array<{ alt: string; caption: string }>) =>
+  list.map((p) => ({ alt: fill(p.alt, tokens), caption: fill(p.caption, tokens) }));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path={PATH}
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/packaging', '/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.packaging.breadcrumb, href: '/packaging' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('oemLayout'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'plastic-hero-quote',
+    }}
+  >
+    <p class="mt-6 text-sm">
+      <TextLink href="/packaging" class="font-semibold" data-source-component="plastic-up-link">
+        {t.upLink} <span aria-hidden="true">→</span>
+      </TextLink>
+    </p>
+  </HeroSection>
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: en.packaging.metaBlock.authorRole,
+          reviewedBy: en.packaging.metaBlock.reviewerRole,
+          factCheckedBy: en.packaging.metaBlock.factCheckerRole,
+          lastUpdated: en.packaging.metaBlock.lastUpdatedLabel,
+          readTime: en.packaging.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={pk.editorial.dateModified}
+        readTimeValue={fill(en.packaging.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox id="plastic-at-a-glance" heading={t.atAGlance.heading} facts={atGlanceFacts} />
+    </div>
+  </div>
+
+  {/* Definition & role + hierarchy diagram. */}
+  <section id="definition" aria-labelledby="definition-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 pb-12 md:px-8">
+      <h2 id="definition-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.definition.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.definition.p1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.definition.p2, tokens)}</p>
+      <p class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/packaging/inner-box" class="font-semibold" data-source-component="plastic-inner-box">
+          {t.definition.innerBoxLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/packaging/master-box" class="font-semibold" data-source-component="plastic-master-box">
+          {t.definition.masterBoxLinkLabel}
+        </MaybeLink>
+      </p>
+
+      <figure class="mt-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+        <figcaption class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{t.definition.diagramHeading}</figcaption>
+        <ol class="mt-4 flex flex-wrap items-center gap-2 text-sm font-medium text-neutral-800" role="list">
+          {t.definition.diagramSteps.map((step, i) => (
+            <li class="flex items-center gap-2">
+              <span class:list={['rounded-lg border px-3 py-2', i === 1 ? 'border-brand-accent bg-brand-accent/10' : 'border-neutral-300 bg-white']}>{step}</span>
+              {i < t.definition.diagramSteps.length - 1 && <span aria-hidden="true" class="text-brand-accent">→</span>}
+            </li>
+          ))}
+        </ol>
+        <p class="mt-4 text-sm text-neutral-600">{t.definition.diagramCaption}</p>
+      </figure>
+
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.definition.photos)} />
+    </div>
+  </section>
+
+  {/* Material, thickness & seal. */}
+  <section id="material-seal" aria-labelledby="material-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="material-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.material.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.material.p1, tokens)}
+        {hasFact(pk.primaryPlastic.material) && hasFact(pk.primaryPlastic.thicknessMicrons) && ` ${fill(t.material.specLineTemplate, tokens)}`}
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.material.photos)} />
+    </div>
+  </section>
+
+  {/* Sizes & holds. */}
+  <section id="sizes" aria-labelledby="sizes-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="sizes-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.sizes.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.sizes.p1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.sizes.p2, tokens)}</p>
+      <p class="mt-3 text-sm">
+        <MaybeLink href="/products" class="font-semibold" data-source-component="plastic-products">
+          {t.sizes.productsLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.sizes.photos)} />
+    </div>
+  </section>
+
+  {/* Barrier performance. */}
+  <section id="barrier" aria-labelledby="barrier-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="barrier-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.barrier.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.barrier.p1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.barrier.p2, tokens)}</p>
+      <p class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/packaging/additional-packaging#transit-protection" class="font-semibold" data-source-component="plastic-addons">
+          {t.barrier.addonsLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/documents" class="font-semibold" data-source-component="plastic-documents">
+          {t.barrier.documentsLinkLabel}
+        </MaybeLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.barrier.photos)} />
+    </div>
+  </section>
+
+  {/* Foil / metallized barrier upgrade — renders ONLY if offered. */}
+  {pk.primaryPlastic.foilBarrier === true && (
+    <section id="foil-barrier" aria-labelledby="foil-heading" class="scroll-mt-24 bg-white">
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <h2 id="foil-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">Foil / metallized barrier</h2>
+        <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+          A metallized foil barrier film is available for premium moisture and light protection on demanding routes.
+        </p>
+      </div>
+    </section>
+  )}
+
+  {/* Branding on the plastic. */}
+  <section id="branding" aria-labelledby="branding-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="branding-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.branding.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.branding.p1, tokens)}
+        {hasFact(pk.pricing.plasticPrintingPerKgUsd) && ` ${fill(t.branding.priceLineTemplate, tokens)}`}
+      </p>
+      <p class="mt-3 text-sm">
+        <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="plastic-artwork">
+          {t.branding.artworkLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.branding.photos)} />
+    </div>
+  </section>
+
+  {/* Neutral vs branded (+ sample cross-link). */}
+  <section id="neutral-vs-branded" aria-labelledby="neutral-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="neutral-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.neutralVsBranded.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.neutralVsBranded.p1, tokens)}</p>
+      <p class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="plastic-white-label">
+          {t.neutralVsBranded.whiteLabelLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/contact" class="font-semibold" data-source-component="plastic-inquiry">
+          {t.neutralVsBranded.inquiryLinkLabel}
+        </MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/samples" class="font-semibold" data-source-component="plastic-samples">
+          {t.neutralVsBranded.samplesLinkLabel}
+        </MaybeLink>
+      </p>
+    </div>
+  </section>
+
+  {video && video.youtubeId && (
+    <section aria-label={t.h1} class="bg-white">
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <div class="max-w-xl">
+          <VideoFacade
+            youtubeId={video.youtubeId}
+            title={t.h1}
+            playLabel={fill(tShared.playVideoTemplate, { title: t.h1 })}
+            dataSourceComponent="plastic-video"
+          />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section aria-labelledby="plastic-faq" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="plastic-faq" heading={t.faq.heading} items={faqItems} />
+      <p class="mx-auto mt-6 max-w-3xl text-sm text-neutral-600">
+        {t.faq.moreLine}{' '}
+        <TextLink href="/packaging#packaging-faq" class="font-semibold" data-source-component="plastic-faq-hub">
+          {t.faq.hubFaqLinkLabel}
+        </TextLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <TextLink href="/faq" class="font-semibold" data-source-component="plastic-faq-general">
+          {t.faq.generalFaqLinkLabel}
+        </TextLink>
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`plastic-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.oemLayout} />
+</BaseLayout>
