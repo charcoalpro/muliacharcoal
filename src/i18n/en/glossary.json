@@ -32,6 +32,7 @@
     { "key": "production", "anchor": "cluster-production", "heading": "Production & Raw Material" },
     { "key": "packaging",  "anchor": "cluster-packaging",  "heading": "Packaging & OEM" },
     { "key": "incoterms",  "anchor": "cluster-incoterms",  "heading": "Incoterms & Payment" },
+    { "key": "freight",    "anchor": "cluster-freight",    "heading": "Freight, Charges & Container Movement" },
     { "key": "docs",       "anchor": "cluster-docs",       "heading": "Documentation & Shipping" },
     { "key": "indonesia",  "anchor": "cluster-indonesia",  "heading": "Indonesian Export Regime" },
     { "key": "markets",    "anchor": "cluster-markets",    "heading": "Destination-Market Regulations" },
@@ -44,8 +45,8 @@
       "term": "UN 1361",
       "termCode": "UN 1361",
       "cluster": "dg",
-      "definitionTemplate": "UN 1361 is the United Nations Recommendations on the Transport of Dangerous Goods identifier for \"Carbon, animal or vegetable origin\" — the classification under which coconut-shell shisha charcoal briquettes are shipped by sea. Cargo declared as UN 1361 is assigned to {{imdgLabel}}, requires a Dangerous Goods Declaration, and is subject to special provisions including a self-heating exemption test.",
-      "see": { "href": "/logistics/UN-1361", "label": "UN 1361 shipping rules and exemption test" }
+      "definitionTemplate": "UN 1361 is the United Nations dangerous-goods identifier for \"Carbon, animal or vegetable origin\" — the classification under which coconut-shell shisha charcoal briquettes are shipped by sea. Cargo declared as UN 1361 is assigned to {{imdgLabel}}, Packing Group III, and since IMDG Amendment 42-24 (mandatory 1 January 2026) must be carried as declared dangerous goods under Special Provision 978 — the self-heating test no longer exempts it.",
+      "see": { "href": "/logistics/un-1361", "label": "What UN 1361 means for your shipment" }
     },
     {
       "slug": "un-1362",
@@ -59,36 +60,38 @@
       "term": "Class 4.2 (spontaneously combustible)",
       "termCode": "IMDG Class 4.2",
       "cluster": "dg",
-      "definitionTemplate": "IMDG Class 4.2 is the hazard class for substances liable to spontaneous combustion — materials that may heat up in contact with air and ignite without an external ignition source. Coconut-shell briquettes are weathered ≥ 14 days post-carbonization and pass the UN Manual self-heating test (Test N.4) before loading; the test certificate is the document that converts a UN 1361 booking from \"restricted\" to \"accepted\" by container lines."
+      "definitionTemplate": "IMDG Class 4.2 is the hazard class for substances liable to spontaneous combustion — materials that may heat up in contact with air and ignite without an external ignition source. Coconut-shell UN 1361 briquettes ship in Class 4.2, Packing Group III; they are weathered after carbonization and a Self-Heating Test (UN Test N.4) is run as supporting hazard evidence — but since IMDG Amendment 42-24 a passing test no longer exempts the cargo from dangerous-goods carriage.",
+      "see": { "href": "/logistics/un-1361", "label": "Is charcoal dangerous goods?" }
     },
     {
       "slug": "packing-group",
       "term": "Packing Group",
       "cluster": "dg",
-      "definitionTemplate": "Packing Group is the IMDG severity tier (I = high, II = medium, III = low) assigned within a hazard class. UN 1361 coconut-shell charcoal ships as Packing Group III, the lowest severity within Class 4.2 — provided the consignment passes the self-heating exemption test.",
-      "see": { "href": "/logistics/rules", "label": "Booking checklist for UN 1361 PG III" }
+      "definitionTemplate": "Packing Group is the IMDG severity tier (I = high, II = medium, III = low) assigned within a hazard class. UN 1361 coconut-shell charcoal is assigned at least Packing Group III — the lowest severity within Class 4.2 — without testing; under Special Provision 978 it is carried as declared dangerous goods regardless of the self-heating test result.",
+      "see": { "href": "/logistics/un-1361", "label": "UN 1361 classification and cargo details" }
     },
     {
       "slug": "sp-978",
       "term": "SP 978 (Special Provision)",
       "termCode": "SP 978",
       "cluster": "dg",
-      "definitionTemplate": "SP 978 is the IMDG Code Special Provision that exempts certain carbon shipments from full Class 4.2 dangerous-goods rules when an accredited laboratory has verified the cargo passes the self-heating test under controlled conditions. SP 978 is the practical path most shisha-charcoal exports take — the cargo remains booked under UN 1361 but ships without DG surcharges when the SHT certificate and accompanying export declaration are in order.",
-      "see": { "href": "/logistics/UN-1361", "label": "How SP 978 exemption is obtained" }
+      "definitionTemplate": "SP 978 is the IMDG Code Special Provision, introduced by Amendment 42-24, that governs how UN 1361 carbon is carried by sea. It replaced the former Special Provisions 925 and 223 and removed the self-heating test-out: coconut-shell charcoal must now be declared as dangerous goods (Class 4.2, Packing Group III) and meet SP 978's weathering, packing-temperature, headspace, and declaration requirements. There is no compliant non-DG route.",
+      "see": { "href": "/logistics/charcoal-dg-regulation", "label": "What SP 978 requires" }
     },
     {
       "slug": "imdg-amendment-42-24",
       "term": "IMDG Amendment 42-24",
       "termCode": "IMDG 42-24",
       "cluster": "dg",
-      "definitionTemplate": "IMDG Amendment 42-24 is the biennial revision of the International Maritime Dangerous Goods Code published by the IMO, mandatory from 1 January 2026. It refines documentation requirements for self-heating substances including UN 1361 and tightens packaging and segregation rules for Class 4.2 cargo. Bookings on or after the effective date must reference the current amendment in the DG declaration."
+      "definitionTemplate": "IMDG Amendment 42-24 is the revision of the International Maritime Dangerous Goods Code adopted by the IMO and mandatory from 1 January 2026. For UN 1361 it withdrew Special Provisions 925 and 223, introduced Special Provision 978, and removed the self-heating test-out — so coconut-shell charcoal must now be carried as declared dangerous goods. Bookings from the effective date must comply with SP 978.",
+      "see": { "href": "/logistics/charcoal-dg-regulation", "label": "What changed for charcoal in 2026" }
     },
     {
       "slug": "self-heating-test-n4",
       "term": "Self-Heating Test (Test N.4)",
       "cluster": "dg",
-      "definitionTemplate": "Test N.4 is the United Nations Manual of Tests and Criteria procedure for measuring whether a substance is liable to self-heating. A 25 mm or 100 mm cube of the material is held at 140 °C in a circulating-air oven for 24 hours; passing the test (no auto-ignition and a maximum core-temperature rise below the threshold) is the prerequisite for SP 978 exemption and the document a carrier requires for every UN 1361 booking.",
-      "see": { "href": "/quality/testing-methods", "label": "Self-heating test protocol and certificate" }
+      "definitionTemplate": "Test N.4 is the United Nations Manual of Tests and Criteria procedure for measuring whether a substance is liable to self-heating: a sample is held at an elevated temperature in a circulating-air oven and observed for self-heating. Since IMDG Amendment 42-24, a passing Test N.4 result no longer exempts UN 1361 charcoal from dangerous-goods carriage — the report is supporting hazard evidence, not a route to non-DG status.",
+      "see": { "href": "/logistics/charcoal-dg-regulation", "label": "The self-heating test's role after 2026" }
     },
     {
       "slug": "dangerous-goods-declaration",
@@ -102,7 +105,7 @@
       "slug": "weathering",
       "term": "Weathering",
       "cluster": "dg",
-      "definitionTemplate": "Weathering is the controlled rest period — typically ≥ 14 days — between completion of carbonization and loading of finished briquettes, during which residual reactive carbon surface oxidizes and the material's self-heating tendency drops to safe levels. Weathering is recorded in the QC log and is the single biggest lever for passing the self-heating test.",
+      "definitionTemplate": "Weathering is the controlled rest period between completion of carbonization and loading of finished briquettes, during which the residual reactive carbon surface oxidizes and the material's self-heating tendency falls. It is recorded in the QC log and is one of the Special Provision 978 controls that reduce the self-heating risk at source.",
       "see": { "href": "/factory/production-process", "label": "Production process and weathering window" }
     },
     {
@@ -116,8 +119,8 @@
       "slug": "headspace-rule",
       "term": "Headspace Rule",
       "cluster": "dg",
-      "definitionTemplate": "The headspace rule is the IMDG packaging requirement that solid Class 4.2 cargo not completely fill its packaging — a 5–10% void volume must remain at the top of each inner box to prevent thermal pressure build-up and accommodate any residual outgassing during the voyage. Headspace is verified at vanning and is among the items a Vanning Certificate attests to.",
-      "see": { "href": "/logistics/rules", "label": "Headspace and packaging rules" }
+      "definitionTemplate": "The headspace rule is the Special Provision 978 requirement that a minimum void space be left in the container (CTU) above UN 1361 charcoal, so heat and any residual outgassing during the voyage are not confined. Headspace is verified at vanning and is among the items a Vanning Certificate attests to.",
+      "see": { "href": "/logistics/charcoal-dg-regulation", "label": "SP 978 headspace and stowage rules" }
     },
     {
       "slug": "fcl-vs-lcl",
@@ -581,6 +584,78 @@
       "term": "Shisha vs hookah",
       "cluster": "hookah",
       "definitionTemplate": "\"Shisha\" and \"hookah\" refer to the same water-pipe smoking device — \"hookah\" is the Anglicized form of the Indian word for the pipe itself, while \"shisha\" is the Arabic-rooted name common in the GCC, Levant, and Turkey for both the device and the flavoured tobacco. The product spec is identical regardless of which term the destination market uses."
+    },
+
+    {
+      "slug": "bill-of-lading",
+      "term": "Bill of Lading (B/L)",
+      "termCode": "B/L",
+      "cluster": "docs",
+      "definitionTemplate": "A bill of lading is the transport document a shipping line issues once it has received the cargo — at once the contract of carriage, a receipt for the goods, and the document of title the consignee needs to claim the container at the destination port. It is released as an original set, by telex release, or as a sea waybill.",
+      "see": { "href": "/logistics/documents", "label": "How the bill of lading is issued and released" }
+    },
+    {
+      "slug": "msds",
+      "term": "Material Safety Data Sheet (MSDS / SDS)",
+      "termCode": "MSDS / SDS",
+      "cluster": "dg",
+      "alternateNames": ["SDS", "Safety Data Sheet"],
+      "definitionTemplate": "A Material Safety Data Sheet — now commonly a Safety Data Sheet (SDS) — is a standardized document describing a product's hazards, safe handling, and emergency measures. For coconut-shell charcoal it supports the UN 1361 dangerous-goods classification and is requested by carriers as hazard evidence.",
+      "see": { "href": "/logistics/un-1361", "label": "What the MSDS supports for UN 1361" }
+    },
+    {
+      "slug": "verified-gross-mass",
+      "term": "Verified Gross Mass (VGM)",
+      "termCode": "VGM",
+      "cluster": "dg",
+      "definitionTemplate": "The Verified Gross Mass is the total weight of a packed container — cargo plus tare — that the shipper must declare to the carrier before loading under the SOLAS Convention. Charcoal's high density makes an accurate VGM critical to avoid overloading the container.",
+      "see": { "href": "/logistics/charcoal-dg-regulation", "label": "Container weight and stowage under SP 978" }
+    },
+    {
+      "slug": "terminal-handling-charge",
+      "term": "Terminal Handling Charge (THC)",
+      "termCode": "THC",
+      "cluster": "freight",
+      "definitionTemplate": "A Terminal Handling Charge is the fee a port terminal levies for moving a container between the vessel and the yard. It is charged separately at the origin port and at the destination port.",
+      "see": { "href": "/logistics/rules#booking", "label": "Booking and freight charges" }
+    },
+    {
+      "slug": "bunker-adjustment-factor",
+      "term": "Bunker Adjustment Factor (BAF)",
+      "termCode": "BAF",
+      "cluster": "freight",
+      "definitionTemplate": "The Bunker Adjustment Factor is a surcharge carriers apply to ocean freight to offset changes in marine fuel (bunker) prices.",
+      "see": { "href": "/logistics/import-to-usa", "label": "Freight surcharges on a charcoal lane" }
+    },
+    {
+      "slug": "merchandise-processing-fee",
+      "term": "Merchandise Processing Fee (MPF)",
+      "termCode": "MPF",
+      "cluster": "freight",
+      "definitionTemplate": "The Merchandise Processing Fee is a US Customs charge on formal import entries, calculated as a percentage of the entered value subject to a published per-entry minimum and maximum.",
+      "see": { "href": "/logistics/import-to-usa", "label": "US import duties and fees" }
+    },
+    {
+      "slug": "harbor-maintenance-fee",
+      "term": "Harbor Maintenance Fee (HMF)",
+      "termCode": "HMF",
+      "cluster": "freight",
+      "definitionTemplate": "The Harbor Maintenance Fee is a US fee assessed on the value of cargo arriving by vessel, funding the upkeep of US ports and harbors.",
+      "see": { "href": "/logistics/import-to-usa", "label": "US import duties and fees" }
+    },
+    {
+      "slug": "demurrage",
+      "term": "Demurrage",
+      "cluster": "freight",
+      "definitionTemplate": "Demurrage is a charge the carrier levies when a container remains at the destination port terminal beyond the agreed free-time period before the consignee collects it.",
+      "see": { "href": "/logistics/import-to-usa", "label": "Avoiding demurrage at the destination port" }
+    },
+    {
+      "slug": "drayage",
+      "term": "Drayage",
+      "cluster": "freight",
+      "definitionTemplate": "Drayage is the short-distance road transport of a container between the port and a nearby warehouse or rail terminal.",
+      "see": { "href": "/logistics/import-to-usa", "label": "Drayage at the US port of entry" }
     }
   ],
 
