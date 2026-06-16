@@ -1,0 +1,198 @@
+---
+/**
+ * /quality/specifications-explained (cocoon v4.2 §5.2).
+ * WebPage + FAQPage. Owns what each parameter MEANS and what a good value
+ * is (the buyer-facing "is this good?"); the laboratory procedure lives on
+ * testing-methods, linked at each parameter. Self-anchored per the locked
+ * anchor-slug map. The ash benchmark references the hub's three-tier
+ * framework (canonical there) rather than re-rendering the bands.
+ * dateModified bumps with quality.specsLastUpdated (renders the spec values).
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, qualityTokens } from '~/lib/interpolate';
+import { qualityClusterPageSchema } from '~/lib/schema/qualityClusterPage';
+
+const t = en.qualitySpecs;
+const tc = en.qualityCommon;
+const Q = company.quality;
+const s = Q.specs;
+const tokens = { ...companyTokens(company), ...qualityTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// KeyFacts echo — the headline parameters with typical values.
+const keyFacts = [
+  { label: tc.params.ashContent, value: hasFact(s.ashContentPct.typical) ? `${s.ashContentPct.typical}%` : '' },
+  { label: tc.params.fixedCarbon, value: hasFact(s.fixedCarbonPct.typical) ? `${s.fixedCarbonPct.typical}%` : '' },
+  { label: tc.params.moisture, value: hasFact(s.moistureContentPct.typical) ? `${s.moistureContentPct.typical}%` : '' },
+  { label: tc.params.volatileMatter, value: hasFact(s.volatileMatterPct.typical) ? `${s.volatileMatterPct.typical}%` : '' },
+  { label: tc.params.calorificValue, value: hasFact(s.calorificValueKcalKg.typical) ? `${tokens.calorificTypical} kcal/kg` : '' },
+  { label: tc.params.burnTime, value: hasFact(s.burnTimeMinutes.typical) ? `${s.burnTimeMinutes.typical} min` : '' },
+  { label: tc.params.ashColor, value: s.ashColor },
+];
+
+type ParamKey = 'ash' | 'fixedCarbon' | 'moisture' | 'volatileMatter' | 'calorific' | 'burnTime' | 'ashColor';
+const tierA: Array<{ key: ParamKey; anchor: string; test: string; label: string }> = [
+  { key: 'ash', anchor: 'ash-content', test: 'ash-content-test', label: tc.params.ashContent },
+  { key: 'fixedCarbon', anchor: 'fixed-carbon', test: 'fixed-carbon-test', label: tc.params.fixedCarbon },
+  { key: 'moisture', anchor: 'moisture-content', test: 'moisture-content-test', label: tc.params.moisture },
+  { key: 'volatileMatter', anchor: 'volatile-matter', test: 'volatile-matter-test', label: tc.params.volatileMatter },
+  { key: 'calorific', anchor: 'calorific-value', test: 'calorific-value-test', label: tc.params.calorificValue },
+];
+const tierB: Array<{ key: ParamKey; anchor: string; test: string; label: string }> = [
+  { key: 'burnTime', anchor: 'burn-time', test: 'burn-time-test', label: tc.params.burnTime },
+  { key: 'ashColor', anchor: 'ash-color', test: 'ash-color-test', label: tc.params.ashColor },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = qualityClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/quality/specifications-explained',
+  faq: faqItems,
+  dateModified: Q.specsLastUpdated,
+});
+
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    ...tierA.concat(tierB).flatMap((p) => [t.params[p.key].body, t.params[p.key].goodValue]),
+    t.readingCoa.body,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/quality/specifications-explained"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/quality/testing-methods', '/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.quality.breadcrumb, href: '/quality' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'specs-hero-quote',
+    }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'specs-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={Q.specsLastUpdated}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <p class="max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/quality" class="font-semibold" data-source-component="specs-up-hub">{t.intro.hubLinkLabel}</MaybeLink>{' '}
+      {t.intro.p1cont}
+    </p>
+    <p class="mt-3 text-sm text-neutral-700">
+      {t.intro.sampleNote}<MaybeLink href="/samples" class="font-semibold" data-source-component="specs-sample">{t.intro.sampleLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+    </p>
+
+    <KeyFactsBox class="mt-8" id="specs-at-a-glance" heading={t.keyFacts.heading} definition={t.keyFacts.definition} facts={keyFacts} />
+
+    {/* Tier A — laboratory-measured parameters. */}
+    <section aria-labelledby="tierA-heading" class="mt-12">
+      <h2 id="tierA-heading" class="text-xl font-semibold text-neutral-900">{t.tierA.heading}</h2>
+      <p class="mt-2 max-w-prose text-base text-neutral-700">{t.tierA.intro}</p>
+    </section>
+    {tierA.map((p) => (
+      <section id={p.anchor} aria-labelledby={`${p.anchor}-heading`} class="mt-10 scroll-mt-24">
+        <h3 id={`${p.anchor}-heading`} class="text-2xl font-bold text-neutral-900">{p.label}</h3>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.params[p.key].body, tokens)}</p>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-800">{fill(t.params[p.key].goodValue, tokens)}</p>
+        {p.key === 'ash' && (
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+            {t.params.ash.frameworkRefPre}{' '}
+            <MaybeLink href="/quality#ash-framework" class="font-semibold" data-source-component="specs-ash-framework">{t.params.ash.frameworkRefLink}</MaybeLink>{fill(t.params.ash.frameworkRefPost, tokens)}
+          </p>
+        )}
+        <p class="mt-3 text-sm">
+          <MaybeLink href={`/quality/testing-methods#${p.test}`} class="font-semibold" data-source-component={`specs-${p.anchor}-testing`}>{t.params[p.key].measureLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        </p>
+      </section>
+    ))}
+
+    {/* Tier B — observed performance indicators. */}
+    <section aria-labelledby="tierB-heading" class="mt-14">
+      <h2 id="tierB-heading" class="text-xl font-semibold text-neutral-900">{t.tierB.heading}</h2>
+      <p class="mt-2 max-w-prose text-base text-neutral-700">{t.tierB.intro}</p>
+    </section>
+    {tierB.map((p) => (
+      <section id={p.anchor} aria-labelledby={`${p.anchor}-heading`} class="mt-10 scroll-mt-24">
+        <h3 id={`${p.anchor}-heading`} class="text-2xl font-bold text-neutral-900">{p.label}</h3>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.params[p.key].body, tokens)}</p>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-800">{fill(t.params[p.key].goodValue, tokens)}</p>
+        <p class="mt-3 text-sm">
+          <MaybeLink href={`/quality/testing-methods#${p.test}`} class="font-semibold" data-source-component={`specs-${p.anchor}-testing`}>{t.params[p.key].measureLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        </p>
+      </section>
+    ))}
+
+    {/* Reading a COA — define here is certifications-canonical; here is how to READ it. */}
+    <section id="reading-a-coa" aria-labelledby="coa-heading" class="mt-14 scroll-mt-24 border-t border-neutral-200 pt-8">
+      <h2 id="coa-heading" class="text-2xl font-bold text-neutral-900">{t.readingCoa.heading}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.readingCoa.body, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {t.readingCoa.definitionLinkIntro}{' '}
+        <MaybeLink href="/quality/certifications" class="font-semibold" data-source-component="specs-coa-certifications">{t.readingCoa.definitionLinkLabel}</MaybeLink>.{' '}
+        {t.readingCoa.procedureLinkIntro}{' '}
+        <MaybeLink href="/quality/testing-methods" class="font-semibold" data-source-component="specs-coa-testing">{t.readingCoa.procedureLinkLabel}</MaybeLink>.
+      </p>
+    </section>
+
+    <section aria-labelledby="specs-faq" class="mt-14">
+      <FAQSection id="specs-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="specs-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="specs-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`specs-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

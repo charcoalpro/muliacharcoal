@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "titleTemplate": "How Coconut Charcoal Is Tested",
+    "descriptionTemplate": "How coconut shisha charcoal is tested: {{ashMethod}} ash, {{calorificMethod}} calorific value, oven-dry moisture, plus a third-party lab report on every container."
+  },
+  "breadcrumb": "Testing methods",
+  "eyebrow": "Quality",
+  "h1": "How Coconut Shisha Charcoal Is Tested",
+  "heroSubtitle": "Every specification is only as good as the method behind it. This page describes how {{brand}} measures each laboratory parameter, which indicators are observed rather than measured, and what an independent laboratory checks on every container.",
+  "hero": {
+    "ctaQuote": "Request a test report",
+    "ctaQuoteAria": "Request a test report or COA by WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Open the inquiry form to request test reports"
+  },
+  "intro": {
+    "p1": "This page sits under {{brand}}'s",
+    "hubLinkLabel": "shisha charcoal quality standards",
+    "p1cont": "pillar. It owns the laboratory procedure behind each figure; what each parameter means and what a good value is is covered on the specifications-explained page, linked at each method.",
+    "labelStandard": "Standard",
+    "labelEquipment": "Equipment",
+    "measureMeaningIntro": "What this value means:"
+  },
+  "keyFacts": {
+    "heading": "Testing at a glance",
+    "definition": "Which parameters are tested, by whom, to what methods, and what report ships with the order.",
+    "parametersLabel": "Parameters tested",
+    "parametersValue": "Ash, fixed carbon, moisture, volatile matter, calorific value (lab); burn time and ash color (observed)",
+    "inHouseLabel": "In-house lab",
+    "inHouseValue": "Yes — quality control on every batch",
+    "thirdPartyLabel": "Third-party lab",
+    "thirdPartyValueTemplate": "{{thirdPartyLabsList}} — {{thirdPartyScope}}, {{thirdPartyFrequency}}",
+    "methodsLabel": "Methods",
+    "reportsLabel": "Reports per order",
+    "reportsValue": "Certificate of Analysis + third-party laboratory report"
+  },
+  "groupA": {
+    "heading": "Laboratory test methods (Tier A)",
+    "intro": "Each parameter below is produced by a defined laboratory procedure. Where {{brand}} tests to a recognized standard, it is named; where a procedure is described generically, no specific standard is asserted."
+  },
+  "groupB": {
+    "heading": "Observed performance indicators (Tier B)",
+    "intro": "These are read under defined conditions, not measured to a laboratory standard. They are honest performance indicators — never assigned an ISO or ASTM method."
+  },
+  "methods": {
+    "ash": {
+      "body": "Ash content is measured by combusting a weighed sample in a furnace until only non-combustible mineral residue remains, then weighing that residue and expressing it as a percentage of the original sample mass.",
+      "equipment": "Muffle (ash) furnace and analytical balance",
+      "meaningLinkLabel": "what ash content means for your session"
+    },
+    "fixedCarbon": {
+      "body": "Fixed carbon is determined by proximate analysis: moisture, volatile matter, and ash are each measured, and fixed carbon is calculated as the remainder by difference. It is not weighed directly — it is what is left once the other three are accounted for.",
+      "equipment": "Furnace and analytical balance (proximate analysis)",
+      "meaningLinkLabel": "what fixed carbon means for heat output"
+    },
+    "moisture": {
+      "body": "Moisture is measured by the oven-dry method: a weighed sample is dried at a controlled temperature until its mass stops falling, and the mass lost to evaporation is reported as the moisture content.",
+      "equipment": "Drying oven or moisture analyzer and analytical balance",
+      "meaningLinkLabel": "what moisture means for lighting and shipping"
+    },
+    "volatileMatter": {
+      "body": "Volatile matter is measured by heating a sample in a covered crucible without air for a set time, so the gases driven off burn away; the mass lost (after subtracting moisture) is the volatile matter. It is the volatile-matter step of the same proximate analysis that yields fixed carbon.",
+      "equipment": "Furnace, covered crucible, and analytical balance",
+      "meaningLinkLabel": "what volatile matter means for smoke and odor"
+    },
+    "calorific": {
+      "body": "Calorific value is determined in a bomb calorimeter: a weighed sample is fully combusted in oxygen inside a sealed vessel, and the heat released is measured from the temperature rise of the surrounding water, then expressed per kilogram.",
+      "equipment": "Bomb calorimeter and analytical balance",
+      "meaningLinkLabel": "what calorific value means for heat"
+    },
+    "burnTime": {
+      "body": "Burn time is observed under defined session conditions — a set cube size, a consistent heat source, and a standard bowl setup — and timed until the coal no longer delivers usable heat. It is a performance indicator, not a standardized laboratory measurement, and is never assigned an ISO or ASTM method.",
+      "meaningLinkLabel": "what burn time means in practice"
+    },
+    "ashColor": {
+      "body": "Ash color is assessed visually after a coal burns out, against consistent lighting. A light, uniform ash is read as a sign of low mineral content and complete combustion. Like burn time, it is an observed indicator, not a laboratory measurement.",
+      "meaningLinkLabel": "what ash color indicates"
+    }
+  },
+  "independent": {
+    "heading": "Independent and third-party testing",
+    "body1": "Beyond in-house quality control on every batch, {{brand}} commissions independent verification. A third-party laboratory — {{thirdPartyLabsOr}} — tests {{thirdPartyScope}} on {{thirdPartyFrequency}}, and that report travels with the cargo so the buyer can confirm the specifications against an outside source.",
+    "body2": "Separately, the Self-Heating Test (SHT) is a test the charcoal undergoes at an accredited laboratory to characterize its self-heating behavior. {{brand}} provides the SHT report as a shipping deliverable.",
+    "shtCertIntro": "The SHT report as a deliverable is covered on",
+    "shtCertLinkLabel": "the certifications and test reports page",
+    "shtDgIntro": "and how the classification it supports works is covered under",
+    "shtDgLinkLabel": "the UN 1361 dangerous-goods classification"
+  },
+  "video": {
+    "heading": "Burn and ash test",
+    "body": "A short demonstration of a {{brand}} coal through a full burn — lighting, the working session, and the silver-white, low-residue ash it leaves. Recorded under the defined conditions described above."
+  },
+  "faq": {
+    "heading": "Testing methods — frequently asked questions",
+    "items": [
+      {
+        "q": "How is ash content tested?",
+        "a": "Ash content is measured by combusting a weighed sample of charcoal in a furnace until only mineral residue remains, then weighing that residue as a percentage of the starting mass. {{brand}} tests ash to {{ashMethod}}."
+      },
+      {
+        "q": "How is burn time measured?",
+        "a": "Burn time is observed, not measured to a laboratory standard. A coal of a set size is lit under consistent conditions and timed until it no longer delivers usable heat. Because it depends on cube size, heat management, and bowl setup, it is reported as a performance indicator rather than a fixed value."
+      },
+      {
+        "q": "How is calorific value determined?",
+        "a": "Calorific value is determined in a bomb calorimeter: a weighed sample is fully burned in oxygen inside a sealed vessel and the heat released is measured from the temperature rise of the surrounding water. {{brand}} tests calorific value to {{calorificMethod}}."
+      },
+      {
+        "q": "What standards do you test to?",
+        "a": "{{brand}} tests ash content to {{ashMethod}}, calorific value to {{calorificMethod}}, and fixed carbon and volatile matter by proximate analysis ({{proximateMethod}}); moisture is determined by the oven-dry method. Burn time and ash color are observed performance indicators and are not assigned a laboratory standard."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/quality", "label": "Shisha charcoal quality standards" },
+      { "href": "/quality/specifications-explained", "label": "What each measured value means" },
+      { "href": "/quality/certifications", "label": "Certifications and test reports" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous-goods classification" },
+      { "href": "/samples", "label": "Request a sample to test yourself" },
+      { "href": "/glossary", "label": "Charcoal glossary" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}

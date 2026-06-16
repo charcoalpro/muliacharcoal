@@ -1,0 +1,159 @@
+{
+  "meta": {
+    "titleTemplate": "Shisha Charcoal Quality Standards",
+    "descriptionTemplate": "How coconut shisha charcoal quality is defined, graded, and verified — ash {{ashTypical}}%, a three-grade ash framework, lab test methods, and a COA per container."
+  },
+  "breadcrumb": "Quality",
+  "eyebrow": "Quality",
+  "h1": "Shisha Charcoal Quality Standards",
+  "heroSubtitle": "There is no single formal standard that governs shisha charcoal quality. It resolves into three lenses — laboratory-measured composition (ash, fixed carbon, moisture, volatile matter, calorific value), observed performance (burn time and ash color), and independent verification (a Certificate of Analysis and third-party testing on every container).",
+  "hero": {
+    "ctaQuote": "Request full specifications",
+    "ctaQuoteAria": "Request the full specifications and a sample by WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Open the inquiry form to request quality documentation"
+  },
+  "heroTrust": {
+    "ashLabel": "Typical ash",
+    "testLabel": "Independently tested",
+    "certLabel": "Certifications",
+    "moqLabel": "Minimum order"
+  },
+  "atAGlance": {
+    "heading": "Quality at a glance",
+    "definition": "The headline numbers a wholesale buyer checks first — composition, burn, composition purity, the proof that ships with the order, and how to verify it yourself.",
+    "ashLabel": "Ash content",
+    "burnTimeLabel": "Burn time",
+    "calorificLabel": "Calorific value",
+    "moistureLabel": "Moisture",
+    "compositionLabel": "Composition",
+    "reportsLabel": "Reports per order",
+    "certsLabel": "Certifications held",
+    "halalLabel": "Halal",
+    "verifyLabel": "Verify it yourself",
+    "ashValueTemplate": "{{ashTypical}}% typ. (≤ {{ashTarget}}% target)",
+    "burnTimeValueTemplate": "{{burnTimeTypical}} min typ.",
+    "calorificValueTemplate": "{{calorificTypical}} kcal/kg typ.",
+    "moistureValueTemplate": "{{moistureTypical}}% typ. (≤ {{moistureTarget}}%)",
+    "reportsValueTemplate": "COA + third-party lab report, {{thirdPartyFrequency}}",
+    "verifyValue": "Request a sample to test the specs"
+  },
+  "intro": {
+    "heading": "How shisha charcoal quality is evaluated",
+    "p1": "Quality begins with the raw material. {{brand}} presses 100% coconut shell charcoal — no wood, no sawdust filler — carbonized and then briquetted with a {{binder}} binder. What the shell gives up in carbonization is what the lab later measures: how much non-combustible mineral is left (ash), how much carbon remains to burn (fixed carbon), and how much moisture and volatile matter went into the press.",
+    "p2": "From there, quality splits into three lenses. Laboratory-measured composition fixes the numbers — ash, fixed carbon, moisture, volatile matter, and calorific value. Observed performance describes how the coal behaves in a session — burn time and ash color — indicators read under defined conditions rather than to a laboratory standard. Independent verification closes the loop: a Certificate of Analysis and a third-party laboratory report accompany the shipment, so the buyer is not asked to take the numbers on trust.",
+    "p3": "Because no single document is the shisha-charcoal standard, the useful question is not \"which certificate\" but \"what is good, how is it measured, and how do I check it.\" The sections below answer each in turn — and {{brand}} grades its own ash content in three tiers so \"good\" has a number, not an adjective."
+  },
+  "framework": {
+    "heading": "The three-tier ash grading framework",
+    "intro": "Ash content is the single clearest differentiator in shisha charcoal — lower ash means a cleaner burn, less tray residue, and better airflow. {{brand}} grades its coconut shell charcoal into three ash tiers, named for its product grades:",
+    "selfAttribution": "This is {{brand}}'s own evaluation rubric, not an industry or ISO standard — there is no codified shisha-charcoal ash grade. The bands describe how our grades are positioned by ash content.",
+    "factoryBandSentence": "{{brand}}'s flagship grade sits in the {{factoryBand}} band, with a typical ash content of {{ashTypical}}% ({{factoryBandRange}}%). We produce all three grades — Platinum, Super Premium, and Premium — graded by ash content."
+  },
+  "specs": {
+    "heading": "Typical specifications",
+    "intro": "The factory-wide ranges below describe {{brand}}'s coconut shell shisha charcoal. Values are split into two tiers: Tier A is laboratory-measured; Tier B is observed under defined conditions. Per-SKU exact figures are confirmed on the product page and in the batch COA.",
+    "sentenceTemplate": "{{brand}}'s coconut shell shisha charcoal has a typical {{paramLabel}} of {{value}}.",
+    "tableCaption": "Typical specifications for {{brand}} coconut shell shisha charcoal",
+    "compositionHeading": "Composition",
+    "measureNote": "Each laboratory value is produced by a defined test method —",
+    "measureLinkLabel": "see how each parameter is measured",
+    "verifyNote": "Every container is independently verified —",
+    "verifyLinkLabel": "the certifications we hold and the reports we provide",
+    "sampleNote": "Prefer to check for yourself? ",
+    "sampleLinkLabel": "Request a sample and test the specs"
+  },
+  "children": {
+    "specifications": {
+      "h2": "What the numbers mean",
+      "definition": "Specifications explained covers what each parameter is, which direction is good, and what a strong value looks like for shisha use — the buyer-facing \"is this good?\" question.",
+      "facts": [
+        "Each of the eight parameters is defined in plain terms, grouped by laboratory-measured (Tier A) versus observed (Tier B).",
+        "The benchmark question — \"what is a good ash content?\" — is answered with the three-tier framework above, not a single number."
+      ],
+      "linkLabel": "Read the specifications explained"
+    },
+    "testing": {
+      "h2": "How it is measured",
+      "definition": "Testing methods covers the laboratory procedure behind every figure — the equipment, the standard where one is confirmed, and which parameters an independent lab checks on each shipment.",
+      "facts": [
+        "Laboratory parameters use defined methods: ash by {{ashMethod}}, proximate analysis by {{proximateMethod}}.",
+        "An independent third-party laboratory ({{thirdPartyLabsOr}}) tests {{thirdPartyScope}} on {{thirdPartyFrequency}}."
+      ],
+      "linkLabel": "See how we test"
+    },
+    "certifications": {
+      "h2": "How it is proven",
+      "definition": "Certifications separates what {{brand}} holds (formal third-party certifications) from what it provides per order (a Certificate of Analysis, an independent lab report, and the SHT) — a distinction competitors routinely blur.",
+      "facts": [
+        "Held: ISO 9001:2015 (audited by {{auditors}}) and Halal certification.",
+        "Provided per order: a Certificate of Analysis and a third-party laboratory report with {{thirdPartyFrequency}}."
+      ],
+      "linkLabel": "View certifications and reports"
+    }
+  },
+  "prove": {
+    "heading": "How we prove it",
+    "body1": "Quality is only as good as the proof behind it — and the most important distinction is between a certification a factory holds and a report it provides with your shipment. {{brand}} keeps the two separate. Held certifications — ISO 9001:2015, audited by {{auditors}}, and Halal — sit alongside the documents issued for your specific order.",
+    "body2": "Every container ships with a Certificate of Analysis stating the measured values for that batch, plus an independent third-party laboratory report. And before you commit, you can verify the specifications yourself.",
+    "ledgerLinkLabel": "See the full ledger of certifications held and reports provided",
+    "sampleLinkLabel": "Request a sample to test the specs yourself"
+  },
+  "media": {
+    "heading": "From the factory and the lab",
+    "photos": [
+      { "alt": "{{brand}} coconut shell shisha charcoal cubes with silver-white ash visible after burning", "caption": "Silver-white ash — the low-residue burn of a Platinum-band ash content ({{ashTypical}}%)." },
+      { "alt": "Burn-and-ash demonstration of {{brand}} coconut charcoal showing minimal tray residue", "caption": "A burn-and-ash demonstration under defined session conditions." },
+      { "alt": "Laboratory testing of {{brand}} coconut charcoal — furnace, calorimeter, and analytical scale", "caption": "Laboratory testing — ash furnace, bomb calorimeter, and analytical scale." },
+      { "alt": "Sample Certificate of Analysis for {{brand}} coconut shell shisha charcoal", "caption": "A Certificate of Analysis accompanies every container." }
+    ]
+  },
+  "faq": {
+    "heading": "Quality standards — frequently asked questions",
+    "items": [
+      {
+        "q": "What standards define shisha charcoal quality?",
+        "a": "There is no single formal standard for shisha charcoal. Quality is judged on three things: laboratory-measured composition (ash, fixed carbon, moisture, volatile matter, calorific value), observed performance (burn time and ash color), and independent verification — a Certificate of Analysis and third-party laboratory testing on every container."
+      },
+      {
+        "q": "What makes coconut shell charcoal high quality?",
+        "a": "High-quality coconut shell shisha charcoal is low in ash, high in fixed carbon, low in moisture, and free of chemical additives or igniting accelerants. {{brand}}'s charcoal is 100% coconut shell with a {{binder}} binder, a typical ash content of {{ashTypical}}%, and roughly {{fixedCarbonTypical}}% fixed carbon."
+      },
+      {
+        "q": "What is the ash content of your charcoal?",
+        "a": "{{brand}}'s coconut shell shisha charcoal has a typical ash content of {{ashTypical}}%, with a target of {{ashTarget}}% or lower. Lower ash means a cleaner burn and less tray residue; our flagship grade sits in the Platinum band of our three-tier ash framework."
+      },
+      {
+        "q": "How long does your charcoal burn?",
+        "a": "Burn time is typically around {{burnTimeTypical}} minutes per session, with a target of at least {{burnTimeTarget}} minutes. Burn time is an observed performance indicator read under defined session conditions, not a standardized laboratory measurement, so it varies with cube size, heat management, and bowl setup."
+      },
+      {
+        "q": "Is your charcoal third-party tested?",
+        "a": "Yes. Alongside in-house quality control, an independent third-party laboratory ({{thirdPartyLabsOr}}) tests {{thirdPartyScope}} on {{thirdPartyFrequency}}, and the report accompanies the shipment."
+      },
+      {
+        "q": "What certifications do you hold?",
+        "a": "{{brand}} holds ISO 9001:2015 (audited by {{auditors}}) and Halal certification. These are formal certifications the factory holds — distinct from the per-order reports, such as the Certificate of Analysis and the third-party lab report, that ship with each container."
+      },
+      {
+        "q": "Do you provide a Certificate of Analysis (COA)?",
+        "a": "Yes — a Certificate of Analysis accompanies every container, and a sample COA is provided on request. The certifications page explains what a COA contains and how to read each value."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/quality/testing-methods", "label": "Testing methods" },
+      { "href": "/quality/certifications", "label": "Certifications and test reports" },
+      { "href": "/products", "label": "The coconut charcoal product range" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous-goods classification" },
+      { "href": "/logistics/documents", "label": "Export document pack (COA, MSDS)" },
+      { "href": "/samples", "label": "Request a sample" },
+      { "href": "/faq", "label": "Wholesale buyer FAQ" },
+      { "href": "/glossary", "label": "Charcoal glossary" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}

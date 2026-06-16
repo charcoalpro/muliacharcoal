@@ -454,9 +454,100 @@ export interface LogisticsConfig {
   editorial: { datePublished: string; dateModified: string };
 }
 
-const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics'> & {
+// =======================================================================
+// Quality cocoon contract (v4.2) — hub + specifications-explained +
+// testing-methods + certifications.
+//
+// Single-source reuse (deliberate — facts that already live elsewhere are
+// NOT restated here; pages read the canonical home):
+//   - held certifications (ISO 9001:2015 + auditors, Halal/MUI) .. certifications.*
+//   - certification / COA document URLs ......................... legalDocuments[]
+//   - UN number / IMDG class (SHT context) ...................... certifications.imdg
+//   - author / reviewer / QC fact-checker (E-E-A-T) ............. governance.*
+// `quality` therefore holds ONLY the facts with no other home: the factory
+// spec RANGES, the three-tier ash grading rubric, the testing protocol
+// (methods + lab attribution), the per-order reports list, and the
+// testing-methods video. Empty string / null / [] → graceful degrade via
+// hasFact() (row drops, "—"). Spec values render "typical"/"target" — the
+// word "guaranteed" never appears (v4.2 §2). `density` empty → row omitted.
+//
+// `ashGradingFramework` is the factory's OWN self-attributed rubric (the
+// three product grades by ash band) — NEVER framed as an external/ISO
+// standard. `factoryBand` MUST agree with specs.ashContentPct.typical.
+//
+// Standards in `testing.*` that appear in prose are verified current
+// (ISO 1171:2024, ASTM D1762-84(2021)); `calorificMethod` carries no year
+// and `moistureMethod` is empty → both render generically (the factory's
+// stated editions were superseded / part unconfirmed). thirdPartyLabs set
+// → independent-testing framing is allowed; empty → in-house QC only.
+// =======================================================================
+export interface QualityConfig {
+  /** Factory-wide spec RANGES — authoritative for the quality pillar.
+   *  Per-SKU exact values are product data (Products cocoon, out of scope);
+   *  SKU values must fall within these ranges. `max`/`min` are TARGET
+   *  bounds (a stated aim), never a guarantee. */
+  specs: {
+    ashContentPct: { typical: string; max: string };
+    fixedCarbonPct: { typical: string; min: string };
+    moistureContentPct: { typical: string; max: string };
+    volatileMatterPct: { typical: string; max: string };
+    calorificValueKcalKg: { typical: string; min: string };
+    burnTimeMinutes: { typical: string; min: string };
+    /** Include unit in the value, or leave '' to omit the row. */
+    density: string;
+    ashColor: string;
+    /** Composed with `binder` into ONE statement at render — never a row. */
+    additives: string;
+    binder: string;
+  };
+  specsLastUpdated: string;
+  /** The factory's own evaluation rubric (self-attributed). Bands locked;
+   *  labels + notes + factoryBand are owner-supplied. */
+  ashGradingFramework: {
+    tiers: Array<{ grade: string; rangePct: string; note: string }>;
+    factoryBand: string;
+  };
+  testing: {
+    /** Only a CONFIRMED + verified-current standard string; else '' → generic. */
+    ashMethod: string;
+    calorificMethod: string;
+    moistureMethod: string;
+    proximateMethod: string;
+    inHouseLab: boolean | null;
+    /** Third-party labs; empty → all independent/named-lab framing suppressed. */
+    thirdPartyLabs: string[];
+    thirdPartyScope: string[];
+    thirdPartyFrequency: string;
+  };
+  /** Reports PROVIDED per order — DISTINCT from held certs; a third-party
+   *  entry renders only if testing.thirdPartyLabs is set. `documentRef`
+   *  keys into legalDocuments[] (single source for the file URL). */
+  testReportsProvided: Array<{
+    id: string;
+    name: string;
+    issuer: string;
+    perOrder: boolean;
+    documentRef?: string;
+  }>;
+  /** Burn/ash-test video → VideoObject canonical on testing-methods.
+   *  Empty youtubeId → node + facade omit cleanly (valid-or-omit). */
+  testingVideo: {
+    youtubeId: string;
+    name: string;
+    description: string;
+    durationISO: string;
+    uploadDate: string;
+  };
+  /** CTA hook: request a sample to test the specs. */
+  sampleToVerify: boolean;
+  /** Dates only — author/reviewer names come from governance.*. */
+  editorial: { datePublished: string; dateModified: string };
+}
+
+const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality'> & {
   packaging: PackagingConfig;
   logistics: LogisticsConfig;
+  quality: QualityConfig;
   social: Record<keyof typeof rawCompanyData.social, string | null>;
   production: typeof rawCompanyData.production & {
     carbonizationPlant: { city: string; region: string } | null;

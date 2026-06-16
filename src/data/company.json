@@ -637,6 +637,54 @@
     "editorial": { "datePublished": "2026-06-16", "dateModified": "2026-06-16" }
   },
 
+  "quality": {
+    "specs": {
+      "ashContentPct":        { "typical": "1.6–1.9", "max": "2.0" },
+      "fixedCarbonPct":       { "typical": "75", "min": "72" },
+      "moistureContentPct":   { "typical": "6", "max": "8" },
+      "volatileMatterPct":    { "typical": "12", "max": "14" },
+      "calorificValueKcalKg": { "typical": "7500", "min": "7200" },
+      "burnTimeMinutes":      { "typical": "120", "min": "90" },
+      "density": "",
+      "ashColor": "silver-white",
+      "additives": "none — no chemical additives or igniting agents",
+      "binder": "natural tapioca starch"
+    },
+    "specsLastUpdated": "2026-06-16",
+    "ashGradingFramework": {
+      "tiers": [
+        { "grade": "Platinum", "rangePct": "1.6–1.9", "note": "Cleanest burn — minimal tray residue and the best airflow; the premium tier for shisha use." },
+        { "grade": "Super Premium", "rangePct": "1.9–2.3", "note": "A clean, reliable burn for everyday shisha service." },
+        { "grade": "Premium", "rangePct": "2.3–2.5+", "note": "Higher residue than the upper tiers; a value option still within common quality bounds." }
+      ],
+      "factoryBand": "Platinum"
+    },
+    "testing": {
+      "ashMethod": "ISO 1171:2024",
+      "calorificMethod": "ISO 1928",
+      "moistureMethod": "",
+      "proximateMethod": "ASTM D1762-84(2021)",
+      "inHouseLab": true,
+      "thirdPartyLabs": ["Carsurin", "Beckjorindo", "SGS"],
+      "thirdPartyScope": ["ash content", "moisture", "fixed carbon", "volatile matter"],
+      "thirdPartyFrequency": "every container"
+    },
+    "testReportsProvided": [
+      { "id": "coa", "name": "Certificate of Analysis (COA)", "issuer": "", "perOrder": true, "documentRef": "coa-sample" },
+      { "id": "thirdParty", "name": "Third-party laboratory report", "issuer": "Carsurin / Beckjorindo / SGS", "perOrder": true },
+      { "id": "sht", "name": "Self-Heating Test (SHT) report", "issuer": "", "perOrder": true }
+    ],
+    "testingVideo": {
+      "youtubeId": "dummyVideoID",
+      "name": "Mulia Charcoal burn and ash test",
+      "description": "A short demonstration of a Mulia Charcoal coal through a full burn — lighting, the working session, and the silver-white, low-residue ash it leaves.",
+      "durationISO": "",
+      "uploadDate": ""
+    },
+    "sampleToVerify": true,
+    "editorial": { "datePublished": "2026-06-16", "dateModified": "2026-06-16" }
+  },
+
   "factoryTourVideo": {
     "youtubeId": "0u-TnY4wNAQ",
     "name": "Tour of Mulia Charcoal factory in Semarang, Indonesia (3 minutes)",

@@ -1,0 +1,49 @@
+{
+  "metaBlock": {
+    "authorRole": "Authored by",
+    "reviewerRole": "Reviewed by",
+    "factCheckerRole": "Fact-checked by",
+    "lastUpdatedLabel": "Last updated",
+    "readTimeLabel": "Reading time",
+    "readTimeValueTemplate": "{{minutes}} min"
+  },
+  "labels": {
+    "onRequest": "Available on request",
+    "relatedHeading": "Related topics",
+    "dash": "—",
+    "tierAHeading": "Laboratory-measured (Tier A)",
+    "tierBHeading": "Observed performance (Tier B)",
+    "tierATag": "Lab-measured",
+    "tierBTag": "Observed",
+    "colParameter": "Parameter",
+    "colValue": "Value",
+    "colUnit": "Unit",
+    "typicalAbbr": "typ.",
+    "targetAbbr": "target"
+  },
+  "params": {
+    "ashContent": "Ash content",
+    "fixedCarbon": "Fixed carbon",
+    "moisture": "Moisture content",
+    "volatileMatter": "Volatile matter",
+    "calorificValue": "Calorific value",
+    "burnTime": "Burn time",
+    "ashColor": "Ash color",
+    "density": "Density"
+  },
+  "units": {
+    "percent": "%",
+    "kcalKg": "kcal/kg",
+    "minutes": "min"
+  },
+  "composition": {
+    "withBinder": "No chemical additives or igniting accelerants — {{binder}} binder only.",
+    "binderless": "No chemical additives, accelerants, or binders."
+  },
+  "caveats": {
+    "specsTypical": "Typical values; they vary by production batch and grade, and each target bound is a stated aim, not a warranty. Last updated {{specsLastUpdated}}."
+  },
+  "video": {
+    "playLabel": "Play video: {{title}}"
+  }
+}

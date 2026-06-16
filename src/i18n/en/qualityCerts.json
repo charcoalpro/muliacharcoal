@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "titleTemplate": "Charcoal Certifications & COA",
+    "descriptionTemplate": "Certifications we hold (ISO 9001, Halal) vs. reports provided per order — Certificate of Analysis, third-party lab report, and SHT — on every container."
+  },
+  "breadcrumb": "Certifications",
+  "eyebrow": "Quality",
+  "h1": "Charcoal Certifications & Test Reports",
+  "heroSubtitle": "There is an important difference between a certification a factory holds and a report it provides with your shipment. {{brand}} keeps the two separate — held certifications below, per-order reports beneath them — so you know exactly what is verified and by whom.",
+  "hero": {
+    "ctaQuote": "Request documentation",
+    "ctaQuoteAria": "Request certifications or a sample COA by WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Open the inquiry form to request documentation"
+  },
+  "intro": {
+    "p1": "This page sits under {{brand}}'s",
+    "hubLinkLabel": "shisha charcoal quality standards",
+    "p1cont": "pillar, and it is the one place that draws the line clearly: what the factory is certified for, versus what it documents for each order. Both matter to a wholesale buyer; conflating them is how suppliers oversell."
+  },
+  "keyFacts": {
+    "heading": "Documentation at a glance",
+    "definition": "What {{brand}} holds, what it provides per order, and who verifies it.",
+    "heldLabel": "Certifications held",
+    "heldValue": "ISO 9001:2015 · Halal",
+    "reportsLabel": "Reports per order",
+    "reportsValue": "Certificate of Analysis + third-party lab report + SHT",
+    "halalLabel": "Halal",
+    "halalValue": "Certified",
+    "verificationLabel": "Verification",
+    "verificationValueTemplate": "In-house QC + third-party lab ({{thirdPartyFrequency}})"
+  },
+  "held": {
+    "heading": "Certifications & accreditations held",
+    "intro": "These are formal certifications {{brand}} holds. They are verified and third-party — and distinct from the per-order reports further down the page.",
+    "scopeLabel": "Scope",
+    "validityLabel": "Valid until",
+    "documentLabel": "View certificate",
+    "iso9001": {
+      "issuerLabel": "Audited by",
+      "scope": "Quality management system",
+      "desc": "A quality-management-system certification covering {{brand}}'s production and quality-control processes — the recognized framework for consistent, documented manufacturing quality."
+    },
+    "halal": {
+      "name": "Halal certification",
+      "issuerLabel": "Issued by",
+      "scope": "Product",
+      "desc": "Certifies the product as halal — relevant for Saudi Arabia, the wider Gulf, and Muslim-majority markets where halal status is a purchasing requirement."
+    }
+  },
+  "reports": {
+    "heading": "Test reports provided per order",
+    "procedureLinkIntro": "Every figure in these reports comes from a defined procedure —",
+    "procedureLinkLabel": "see the testing methods behind the values",
+    "intro": "These documents are issued for your specific shipment. They are not certifications the factory holds; they report the measured results for your batch and ship with the cargo.",
+    "perOrderLabel": "When you receive it",
+    "perOrderValue": "With every container",
+    "issuerLabel": "Issued by",
+    "coa": {
+      "definition": "A Certificate of Analysis (COA) is a document stating the measured specification values for a specific production batch — ash, fixed carbon, moisture, volatile matter, and calorific value — so a buyer can confirm the charcoal meets the agreed specifications for that exact lot.",
+      "readLinkIntro": "For how to read each value on a COA,",
+      "readLinkLabel": "see the specifications explained"
+    },
+    "thirdParty": {
+      "body": "An independent laboratory — {{thirdPartyLabsOr}} — tests {{thirdPartyScope}} on {{thirdPartyFrequency}} and issues its own report. Because the lab sits outside the factory, it gives the buyer verification from an independent source, not just the producer's own figures."
+    },
+    "sht": {
+      "body": "The Self-Heating Test (SHT) report documents the charcoal's self-heating behavior, tested at an accredited laboratory, and ships as a deliverable with the order.",
+      "dgLinkIntro": "The dangerous-goods classification this report supports is explained under",
+      "dgLinkLabel": "UN 1361 dangerous-goods classification"
+    }
+  },
+  "faq": {
+    "heading": "Certifications & reports — frequently asked questions",
+    "items": [
+      {
+        "q": "What is a Certificate of Analysis (COA)?",
+        "a": "A Certificate of Analysis (COA) is a document stating the measured specification values for a specific production batch — typically ash, fixed carbon, moisture, volatile matter, and calorific value. It lets a buyer confirm the charcoal meets the agreed specifications for that exact lot. {{brand}} provides a COA with every container, and a sample COA on request."
+      },
+      {
+        "q": "Is your charcoal halal certified?",
+        "a": "Yes. {{brand}} holds Halal certification, issued by {{halalBody}}. This matters for Saudi Arabia and the wider Gulf, where halal status is often a purchasing requirement."
+      },
+      {
+        "q": "What is a third-party lab report and what does it certify?",
+        "a": "A third-party lab report is testing performed by an independent laboratory — for {{brand}}, {{thirdPartyLabsOr}} — rather than by the factory itself. It reports measured values for {{thirdPartyScope}}, giving the buyer verification from a source outside the producer. It is a per-shipment report, not a certification the factory holds."
+      },
+      {
+        "q": "Are your test reports independent?",
+        "a": "Yes. Alongside in-house quality control, an independent third-party laboratory ({{thirdPartyLabsOr}}) tests {{thirdPartyScope}} on {{thirdPartyFrequency}}, and that report accompanies the shipment — so the verification does not rest on the factory's word alone."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/quality", "label": "Shisha charcoal quality standards" },
+      { "href": "/quality/testing-methods", "label": "The procedures behind the certified values" },
+      { "href": "/quality/specifications-explained", "label": "How to read the values in a COA" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous-goods classification" },
+      { "href": "/logistics/documents", "label": "Export document pack" },
+      { "href": "/samples", "label": "Request a sample with a COA" },
+      { "href": "/faq", "label": "Wholesale buyer FAQ" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}

@@ -1,0 +1,224 @@
+---
+/**
+ * /quality/testing-methods (cocoon v4.2 §5.3).
+ * WebPage + FAQPage (+ VideoObject, canonical here, when the video lands).
+ * Owns the laboratory PROCEDURE behind each figure; what each value means
+ * lives on specifications-explained, linked at each method. Two labeled
+ * groups (Tier A lab methods, Tier B observed indicators) covering all
+ * populated parameters so every specs→testing anchor resolves. A standard
+ * is named only when confirmed in config; otherwise the method is generic.
+ * Tier-B parameters carry NO laboratory method (v4.2 §2).
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import VideoFacade from '~/components/packaging/VideoFacade.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, qualityTokens } from '~/lib/interpolate';
+import { qualityClusterPageSchema } from '~/lib/schema/qualityClusterPage';
+
+const t = en.qualityTesting;
+const tc = en.qualityCommon;
+const Q = company.quality;
+const T = Q.testing;
+const tokens = { ...companyTokens(company), ...qualityTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const methodsList = [T.ashMethod, T.calorificMethod, T.proximateMethod].filter(hasFact).join(', ');
+
+const keyFacts = [
+  { label: t.keyFacts.parametersLabel, value: t.keyFacts.parametersValue },
+  { label: t.keyFacts.inHouseLabel, value: T.inHouseLab ? t.keyFacts.inHouseValue : '' },
+  { label: t.keyFacts.thirdPartyLabel, value: hasFact(T.thirdPartyLabs) ? fill(t.keyFacts.thirdPartyValueTemplate, tokens) : '' },
+  { label: t.keyFacts.methodsLabel, value: methodsList },
+  { label: t.keyFacts.reportsLabel, value: t.keyFacts.reportsValue },
+];
+
+type MethodKey = 'ash' | 'fixedCarbon' | 'moisture' | 'volatileMatter' | 'calorific';
+const group1: Array<{ key: MethodKey; anchor: string; spec: string; label: string; method: string }> = [
+  { key: 'ash', anchor: 'ash-content-test', spec: 'ash-content', label: tc.params.ashContent, method: T.ashMethod },
+  { key: 'fixedCarbon', anchor: 'fixed-carbon-test', spec: 'fixed-carbon', label: tc.params.fixedCarbon, method: T.proximateMethod },
+  { key: 'moisture', anchor: 'moisture-content-test', spec: 'moisture-content', label: tc.params.moisture, method: T.moistureMethod },
+  { key: 'volatileMatter', anchor: 'volatile-matter-test', spec: 'volatile-matter', label: tc.params.volatileMatter, method: T.proximateMethod },
+  { key: 'calorific', anchor: 'calorific-value-test', spec: 'calorific-value', label: tc.params.calorificValue, method: T.calorificMethod },
+];
+type ObservedKey = 'burnTime' | 'ashColor';
+const group2: Array<{ key: ObservedKey; anchor: string; spec: string; label: string }> = [
+  { key: 'burnTime', anchor: 'burn-time-test', spec: 'burn-time', label: tc.params.burnTime },
+  { key: 'ashColor', anchor: 'ash-color-test', spec: 'ash-color', label: tc.params.ashColor },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const video = Q.testingVideo;
+const hasVideo = hasFact(video.youtubeId);
+
+const schema = qualityClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/quality/testing-methods',
+  faq: faqItems,
+  video: {
+    id: 'quality-burn-test',
+    youtubeId: video.youtubeId,
+    name: video.name,
+    description: video.description,
+    durationISO: video.durationISO,
+    uploadDate: video.uploadDate,
+  },
+});
+
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    ...group1.map((m) => t.methods[m.key].body),
+    ...group2.map((m) => t.methods[m.key].body),
+    t.independent.body1, t.independent.body2,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/quality/testing-methods"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/quality/certifications', '/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.quality.breadcrumb, href: '/quality' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'testing-hero-quote',
+    }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'testing-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={Q.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <p class="max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/quality" class="font-semibold" data-source-component="testing-up-hub">{t.intro.hubLinkLabel}</MaybeLink>{' '}
+      {t.intro.p1cont}
+    </p>
+
+    <KeyFactsBox class="mt-8" id="testing-at-a-glance" heading={t.keyFacts.heading} definition={t.keyFacts.definition} facts={keyFacts} />
+
+    {/* Group 1 — laboratory test methods. */}
+    <section aria-labelledby="groupA-heading" class="mt-12">
+      <h2 id="groupA-heading" class="text-xl font-semibold text-neutral-900">{t.groupA.heading}</h2>
+      <p class="mt-2 max-w-prose text-base text-neutral-700">{fill(t.groupA.intro, tokens)}</p>
+    </section>
+    {group1.map((m) => (
+      <section id={m.anchor} aria-labelledby={`${m.anchor}-heading`} class="mt-10 scroll-mt-24">
+        <h3 id={`${m.anchor}-heading`} class="text-2xl font-bold text-neutral-900">{m.label}</h3>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.methods[m.key].body, tokens)}</p>
+        {hasFact(m.method) && (
+          <p class="mt-2 text-sm text-neutral-700"><strong class="font-semibold text-neutral-900">{t.intro.labelStandard}:</strong> {m.method}</p>
+        )}
+        <p class="mt-1 text-sm text-neutral-700"><strong class="font-semibold text-neutral-900">{t.intro.labelEquipment}:</strong> {t.methods[m.key].equipment}</p>
+        <p class="mt-3 text-sm">
+          {t.intro.measureMeaningIntro}{' '}
+          <MaybeLink href={`/quality/specifications-explained#${m.spec}`} class="font-semibold" data-source-component={`testing-${m.anchor}-specs`}>{t.methods[m.key].meaningLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        </p>
+      </section>
+    ))}
+
+    {/* Group 2 — observed performance indicators (no laboratory method). */}
+    <section aria-labelledby="groupB-heading" class="mt-14">
+      <h2 id="groupB-heading" class="text-xl font-semibold text-neutral-900">{t.groupB.heading}</h2>
+      <p class="mt-2 max-w-prose text-base text-neutral-700">{fill(t.groupB.intro, tokens)}</p>
+    </section>
+    {group2.map((m) => (
+      <section id={m.anchor} aria-labelledby={`${m.anchor}-heading`} class="mt-10 scroll-mt-24">
+        <h3 id={`${m.anchor}-heading`} class="text-2xl font-bold text-neutral-900">{m.label}</h3>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.methods[m.key].body, tokens)}</p>
+        <p class="mt-3 text-sm">
+          {t.intro.measureMeaningIntro}{' '}
+          <MaybeLink href={`/quality/specifications-explained#${m.spec}`} class="font-semibold" data-source-component={`testing-${m.anchor}-specs`}>{t.methods[m.key].meaningLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        </p>
+      </section>
+    ))}
+
+    {/* Independent & third-party testing (+ the SHT as a deliverable). */}
+    <section id="independent-testing" aria-labelledby="independent-heading" class="mt-14 scroll-mt-24 border-t border-neutral-200 pt-8">
+      <h2 id="independent-heading" class="text-2xl font-bold text-neutral-900">{t.independent.heading}</h2>
+      {hasFact(T.thirdPartyLabs) && (
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.independent.body1, tokens)}</p>
+      )}
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.independent.body2, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {t.independent.shtCertIntro}{' '}
+        <MaybeLink href="/quality/certifications" class="font-semibold" data-source-component="testing-sht-certifications">{t.independent.shtCertLinkLabel}</MaybeLink>{' '}
+        {t.independent.shtDgIntro}{' '}
+        <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="testing-sht-un1361">{t.independent.shtDgLinkLabel}</MaybeLink>.
+      </p>
+    </section>
+
+    {/* Burn/ash test video — VideoObject canonical here; omits until the asset lands. */}
+    {hasVideo && (
+      <section id="burn-test-video" aria-labelledby="video-heading" class="mt-14 scroll-mt-24">
+        <h2 id="video-heading" class="text-2xl font-bold text-neutral-900">{t.video.heading}</h2>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.video.body, tokens)}</p>
+        <VideoFacade
+          class="mt-6"
+          youtubeId={video.youtubeId}
+          title={video.name}
+          playLabel={fill(tc.video.playLabel, { title: video.name })}
+          dataSourceComponent="testing-video"
+        />
+      </section>
+    )}
+
+    <section aria-labelledby="testing-faq" class="mt-14">
+      <FAQSection id="testing-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="testing-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="testing-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`testing-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

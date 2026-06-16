@@ -36,6 +36,11 @@ import logisticsDgRegulation from './logisticsDgRegulation.json';
 import logisticsShippingLines from './logisticsShippingLines.json';
 import logisticsCargoProtection from './logisticsCargoProtection.json';
 import logisticsImportUsa from './logisticsImportUsa.json';
+import quality from './quality.json';
+import qualityCommon from './qualityCommon.json';
+import qualitySpecs from './qualitySpecs.json';
+import qualityTesting from './qualityTesting.json';
+import qualityCerts from './qualityCerts.json';
 import productGrade from './productGrade.json';
 import productCategory from './productCategory.json';
 import productMarket from './productMarket.json';
@@ -65,6 +70,11 @@ const en = {
   logisticsShippingLines,
   logisticsCargoProtection,
   logisticsImportUsa,
+  quality,
+  qualityCommon,
+  qualitySpecs,
+  qualityTesting,
+  qualityCerts,
   productGrade,
   productCategory,
   productMarket,

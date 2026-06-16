@@ -239,6 +239,71 @@ export function logisticsTokens(company: Company) {
 }
 
 /**
+ * Quality-cocoon token dictionary. Adds the spec scalars, ash-framework
+ * placement, and testing/lab strings the four `/quality` pages share, on
+ * top of `companyTokens()`. Reads `company.quality.*` (the canonical home
+ * for spec ranges + the rubric + the testing protocol) and the existing
+ * `certifications.*` for held-cert facts, so no value is duplicated.
+ * Spec table rows are built inline on the hub (like the logistics transit
+ * table); these tokens are for inline PROSE interpolation only.
+ *
+ * `factoryBandRange` resolves the band's % range from the rubric so the
+ * placement sentence never restates a number the config doesn't hold.
+ * `thirdPartyLabsList` is plain "a, b, c"; `thirdPartyLabsOr` is the
+ * Oxford "a, b, or c" form for "tested by one of …".
+ */
+export function qualityTokens(company: Company) {
+  const q = company.quality;
+  const s = q.specs;
+  const labs = q.testing.thirdPartyLabs;
+  const band = q.ashGradingFramework.factoryBand;
+  const bandTier = q.ashGradingFramework.tiers.find((t) => t.grade === band);
+  const oxfordOr = (xs: string[]) =>
+    xs.length <= 1
+      ? xs.join('')
+      : xs.length === 2
+        ? `${xs[0]} or ${xs[1]}`
+        : `${xs.slice(0, -1).join(', ')}, or ${xs[xs.length - 1]}`;
+  // Deterministic thousands separator (avoids locale-dependent toLocaleString
+  // at build time). Pure-integer strings only; ranges/blank pass through.
+  const grouped = (v: string) =>
+    /^\d+$/.test(v) ? v.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : v;
+
+  return {
+    // Spec scalars (render as typical/target; never "guaranteed").
+    ashTypical: s.ashContentPct.typical,
+    ashTarget: s.ashContentPct.max,
+    fixedCarbonTypical: s.fixedCarbonPct.typical,
+    fixedCarbonTarget: s.fixedCarbonPct.min,
+    moistureTypical: s.moistureContentPct.typical,
+    moistureTarget: s.moistureContentPct.max,
+    volatileTypical: s.volatileMatterPct.typical,
+    volatileTarget: s.volatileMatterPct.max,
+    calorificTypical: grouped(s.calorificValueKcalKg.typical),
+    calorificTarget: grouped(s.calorificValueKcalKg.min),
+    burnTimeTypical: s.burnTimeMinutes.typical,
+    burnTimeTarget: s.burnTimeMinutes.min,
+    ashColor: s.ashColor,
+    binder: s.binder,
+    // Ash framework placement (self-attributed rubric).
+    factoryBand: band,
+    factoryBandRange: bandTier ? bandTier.rangePct : '',
+    // Testing / lab attribution.
+    ashMethod: q.testing.ashMethod,
+    calorificMethod: q.testing.calorificMethod,
+    proximateMethod: q.testing.proximateMethod,
+    thirdPartyLabsList: labs.join(', '),
+    thirdPartyLabsOr: oxfordOr(labs),
+    thirdPartyLabCount: labs.length,
+    thirdPartyScope: q.testing.thirdPartyScope.join(', '),
+    thirdPartyFrequency: q.testing.thirdPartyFrequency,
+    specsLastUpdated: q.specsLastUpdated,
+    // Held-cert facts (reused from certifications.*; not duplicated).
+    halalBody: company.certifications.halal ? (company.certifications.halal.body ?? '') : '',
+  };
+}
+
+/**
  * The canonical token vocabulary returned by `companyTokens()`. Inferred from
  * the function's return literal so adding or renaming a token in one place
  * automatically updates the type — call sites referencing a removed token
