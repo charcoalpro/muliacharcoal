@@ -1,12 +1,12 @@
 {
   "meta": {
     "titleTemplate": "Shisha Charcoal FAQ: MOQ, Shipping, Payment, Specs — {{brand}}",
-    "descriptionTemplate": "Wholesale buyer FAQ from {{brand}}, {{port}}. {{moqLabel}}, {{paymentTerms}}, lead time {{leadTimeLabel}}, IMDG {{unNumber}}, OEM packaging, samples, and transit times to USA, UK, GCC, EU and CIS."
+    "descriptionTemplate": "Wholesale buyer FAQ from {{brand}}, {{port}}. {{moqLabel}}, {{paymentTerms}}, lead time {{leadTimeLabel}}, IMDG {{unNumber}}, OEM packaging, samples, quality specs and certifications."
   },
 
   "breadcrumb": "FAQ",
   "h1": "Buyer FAQ",
-  "introTemplate": "Cross-cutting questions a wholesale buyer asks before their first {{moqTons}}-ton container. Answer-first, with numbers. Specifications, payment process, shipping, samples, certifications, factory visits. If your question isn't here, send it on WhatsApp.",
+  "introTemplate": "Cross-cutting questions a wholesale buyer asks before their first {{moqTons}}-ton container. Answer-first, with numbers. Specifications, payment process, samples, certifications, factory visits — shipping and dangerous-goods detail lives on the logistics pillar. If your question isn't here, send it on WhatsApp.",
 
   "metaBlock": {
     "authorRole": "Authored by",
@@ -28,18 +28,20 @@
     "waPrefill": "Hello Mulia Charcoal — I have a question about a wholesale order of coconut shisha charcoal that wasn't covered in the FAQ. Could you help?"
   },
 
-  "transitTable": {
-    "heading": "Indicative ocean transit from {{port}}",
-    "captionTemplate": "Indicative carrier transit from {{port}} (Tanjung Emas, IDSRG) by route. Figures vary by carrier, rotation, and season — confirmed on each booking.",
-    "destinationHeader": "Destination",
-    "portHeader": "Port (UN/LOCODE)",
-    "transitHeader": "Transit (days)"
-  },
-
   "linkOuts": {
-    "heading": "Also covered in our glossary",
-    "intro": "These three questions live on the glossary so the term-definition stays the canonical answer. Tap through for the full breakdown.",
+    "heading": "Answered in depth on our pillar pages",
+    "intro": "These questions are answered where their topic lives — the glossary for definitions, the logistics pillar for shipping and customs. Tap through for the full breakdown.",
     "items": [
+      {
+        "q": "Which port do you ship from, and how long is transit?",
+        "summary": "We load FOB {{port}} (Tanjung Emas, IDSRG); indicative ocean transit runs by route, with the full per-market table on the logistics hub.",
+        "href": "/logistics#transit"
+      },
+      {
+        "q": "What export documents ship with each container?",
+        "summary": "Commercial invoice, packing list, B/L, COO, MSDS, dangerous-goods declaration and vanning certificate as standard; SHT and COA on request.",
+        "href": "/logistics/documents"
+      },
       {
         "q": "Is hookah charcoal activated carbon?",
         "summary": "Short answer: no. Shisha briquettes are pyrolyzed coconut shell carbon, not steam-activated adsorbent.",
@@ -185,31 +187,9 @@
     },
 
     {
-      "anchor": "shipping",
-      "heading": "Shipping & Logistics",
-      "items": [
-        {
-          "id": "port-of-loading",
-          "q": "Which port do you ship from?",
-          "a": "We load FOB {{port}} — Tanjung Emas (UN/LOCODE IDSRG), the principal sea port of Central Java — with weekly direct calls from {{shippingLines}} to all major hubs. Tanjung Priok (Jakarta) is available as an alternate on request when carrier rotations favor it for your destination. Both ports accept the IMDG {{unNumber}} declarations and Self-Heating Test reports we file with each booking."
-        },
-        {
-          "id": "transit-times",
-          "q": "How long is the ocean transit to my country?",
-          "a": "Ocean transit from {{port}} to major destination ports ranges from roughly 18 to 48 days, depending on the carrier, rotation, and transshipment hub. Indicative ranges by route: {{transitSummary}}. Carrier-confirmed transit and laycan windows are included in every quote — we book through {{shippingLines}} and pass the carrier's transit estimate through unmodified."
-        }
-      ]
-    },
-
-    {
       "anchor": "compliance",
       "heading": "Compliance & Documentation",
       "items": [
-        {
-          "id": "export-documents",
-          "q": "What export documents do you provide with each shipment?",
-          "a": "Each shipment carries a Bill of Lading (B/L), commercial invoice, packing list, Certificate of Origin (Form A / Form E / ASEAN-Korea where applicable), batch Certificate of Analysis from {{auditors}}, Self-Heating Test report, and the IMDG {{unNumber}} Class {{unClass}} Dangerous Goods Declaration. Fumigation, phytosanitary, and legalized invoices through the Indonesian Chamber of Commerce are issued where the destination customs broker requires them."
-        },
         {
           "id": "certifications",
           "q": "What certifications do you hold?",

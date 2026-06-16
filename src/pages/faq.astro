@@ -35,17 +35,10 @@ import { buildFaqPageGraph } from '~/lib/schema/faqPageGraph';
 
 const t = en.faq;
 
-// Build the destination-port phrase used inside the transit-times answer
-// so the on-page sentence and the JSON-LD answer match (Google's FAQ
-// rich-result requirement). Numbers come from
-// company.commercial.transitTimes — never hardcoded.
-const transitSummary = company.commercial.transitTimes
-  .map((row) => `${row.destination} ~${row.minDays}–${row.maxDays} days`)
-  .join('; ');
-
+// Shipping/transit questions and the transit table now live on the
+// /logistics pillar (canonical FAQPage home); /faq links out to them.
 const tokens = {
   ...companyTokens(company),
-  transitSummary,
 };
 
 // Resolve every Q & A. Categories preserve their original ordering and
@@ -81,15 +74,6 @@ const linkOuts = t.linkOuts.items.map((item) => ({
   summary: fill(item.summary, tokens),
   href: item.href,
 }));
-
-const transitTable = {
-  heading: fill(t.transitTable.heading, tokens),
-  caption: fill(t.transitTable.captionTemplate, tokens),
-  destinationHeader: t.transitTable.destinationHeader,
-  portHeader: t.transitTable.portHeader,
-  transitHeader: t.transitTable.transitHeader,
-  rows: company.commercial.transitTimes,
-};
 
 const stillTitle = t.stillHaveQuestions.heading;
 const stillSub = fill(t.stillHaveQuestions.subtitleTemplate, tokens);
@@ -192,36 +176,6 @@ const schema = buildFaqPageGraph(schemaItems);
             </details>
           ))}
         </dl>
-
-        {/* Transit-time table renders inside the Shipping category, right
-            after the FAQSection — gives sighted users a scannable lookup
-            for the same data the answer text describes. */}
-        {cat.anchor === 'shipping' && (
-          <div class="mt-10 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
-            <h3 class="text-base font-semibold text-neutral-900">{transitTable.heading}</h3>
-            <p class="mt-1 text-sm text-neutral-600">{transitTable.caption}</p>
-            <div class="mt-5 overflow-x-auto">
-              <table class="w-full text-start text-sm">
-                <thead>
-                  <tr class="border-b border-neutral-300 text-neutral-700">
-                    <th scope="col" class="py-2 pe-4 text-start font-semibold">{transitTable.destinationHeader}</th>
-                    <th scope="col" class="py-2 pe-4 text-start font-semibold">{transitTable.portHeader}</th>
-                    <th scope="col" class="py-2 text-start font-semibold">{transitTable.transitHeader}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {transitTable.rows.map((row) => (
-                    <tr class="border-b border-neutral-200 last:border-0">
-                      <td class="py-2 pe-4 text-neutral-800">{row.destination}</td>
-                      <td class="py-2 pe-4 font-mono text-xs text-neutral-600">{row.portCode}</td>
-                      <td class="py-2 text-neutral-800">{row.minDays}–{row.maxDays}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
 
         <p class="mt-8 text-sm">
           <a
