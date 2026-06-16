@@ -203,6 +203,7 @@
     "eyebrow": "Private label / OEM",
     "h2": "OEM and private-label packaging from your design files.",
     "h2LinkLabel": "Browse all packaging options",
+    "whiteLabelLinkLabel": "Start a private-label brand",
     "intro": "We print 1 kg inner boxes (full-colour, {{innerBoxGsm}} gsm), inner plastic with your logo, and {{masterBoxSizes}} master boxes (single- or double-wall) — from your {{acceptedArtworkFormats}} artwork, with a packaging proof inside {{proofTimeDays}} working days.",
     "tiersHeading": "Choose your packaging package",
     "tiers": {

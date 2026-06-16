@@ -1,0 +1,366 @@
+---
+/**
+ * /packaging/additional-packaging — cluster page.
+ *
+ * Built from docs/build-prompts/packaging/packaging-additional-
+ * packaging-build-prompt-v2.md. The uncontested-ground page: branded
+ * consumables, load securing, transit protection in three functional
+ * groups.
+ *
+ * Guards (from the prompt):
+ *   - NO prices anywhere on this page — every add-on cost routes to
+ *     inquiry ("Available on request").
+ *   - NO consumable spec tables — specs are made-to-order; capability
+ *     prose only.
+ *   - QR honesty guard: we print buyer-supplied QR codes; the
+ *     verification system is the buyer's.
+ *   - Container counts are NOT duplicated — link the hub/master-box.
+ *   - One authoritative outbound link (IPPC ISPM-15).
+ *   - /quality is deliberately omitted from related topics.
+ *
+ * Schema: WebPage + page-specific FAQPage(9) + DefinedTerm
+ * (@id → /glossary#branded-consumables). No Service, no Product.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import TextLink from '~/components/content/TextLink.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import VideoFacade from '~/components/packaging/VideoFacade.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { packagingClusterPageSchema } from '~/lib/schema/packagingClusterPage';
+import { videoObjectSchema } from '~/lib/schema/videoObject';
+
+const t = en.packagingAdditional;
+const tShared = en.packaging.shared;
+const pk = company.packaging;
+const PATH = '/packaging/additional-packaging';
+
+const ISPM15_URL = 'https://www.ippc.int/en/publications/640/';
+
+const tokens = { ...companyTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const atGlanceFacts = [
+  { label: t.atAGlance.groupsLabel, value: t.atAGlance.groupsValue },
+  { label: t.atAGlance.antiCounterfeitLabel, value: t.atAGlance.antiCounterfeitValue },
+  { label: t.atAGlance.consumablesLabel, value: t.atAGlance.consumablesValue },
+  { label: t.atAGlance.loadLabel, value: t.atAGlance.loadValue },
+  { label: t.atAGlance.palletLabel, value: t.atAGlance.palletValue },
+  { label: t.atAGlance.desiccantLabel, value: t.atAGlance.desiccantValue },
+  { label: t.atAGlance.thermalLabel, value: t.atAGlance.thermalValue },
+  { label: t.atAGlance.pricingLabel, value: t.atAGlance.pricingValue },
+  { label: t.atAGlance.specsLabel, value: t.atAGlance.specsValue },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const video = pk.media.videos.find((v) => v.id === 'additional-packaging');
+const videoNode = video
+  ? videoObjectSchema({
+      id: `packaging-${video.id}`,
+      youtubeId: video.youtubeId,
+      name: t.h1,
+      description: pageDescription,
+      durationISO: video.durationISO,
+      uploadDate: video.uploadDate,
+      thumbnailUrl: video.posterAsset,
+    })
+  : null;
+
+const schema = packagingClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: PATH,
+  term: { anchor: 'branded-consumables', name: 'branded consumables', alternateName: ['packaging add-ons'] },
+  faq: faqItems,
+  videos: [videoNode],
+});
+
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.groups.intro,
+    t.group1.note, t.group1.stickers.body, t.group1.domed.body, t.group1.qr.body, t.group1.hologram.body,
+    t.group1.antiCounterfeitNote, t.group1.boxLabels.body, t.group1.tape.body, t.group1.silica.body, t.group1.inserts.body,
+    t.group2.strapping.body, t.group2.edgeProtectors.body, t.group2.pallets.body,
+    t.group3.desiccant.body, t.group3.thermal.body,
+    t.ordering.body,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+
+const fig = (p: { alt: string; caption: string }) => ({ alt: fill(p.alt, tokens), caption: fill(p.caption, tokens) });
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path={PATH}
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/packaging', '/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.packaging.breadcrumb, href: '/packaging' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('oemLayout'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'additional-hero-quote',
+    }}
+  >
+    <p class="mt-6 text-sm">
+      <TextLink href="/packaging" class="font-semibold" data-source-component="additional-up-link">
+        {t.upLink} <span aria-hidden="true">→</span>
+      </TextLink>
+    </p>
+  </HeroSection>
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: en.packaging.metaBlock.authorRole,
+          reviewedBy: en.packaging.metaBlock.reviewerRole,
+          factCheckedBy: en.packaging.metaBlock.factCheckerRole,
+          lastUpdated: en.packaging.metaBlock.lastUpdatedLabel,
+          readTime: en.packaging.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={pk.editorial.dateModified}
+        readTimeValue={fill(en.packaging.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox id="additional-at-a-glance" heading={t.atAGlance.heading} facts={atGlanceFacts} />
+    </div>
+  </div>
+
+  {/* Three groups — orientation. */}
+  <section id="three-groups" aria-labelledby="groups-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 pb-12 md:px-8">
+      <h2 id="groups-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.groups.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.groups.intro}</p>
+      <ul class="mt-5 flex flex-wrap gap-2" role="list">
+        {t.groups.items.map((item) => (
+          <li>
+            <a href={item.anchor} class="inline-block rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2 text-sm font-medium text-neutral-900 transition-colors hover:border-brand-primary hover:bg-brand-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* Group 1 — branding & anti-counterfeit consumables. */}
+  <section id="branded-consumables" aria-labelledby="group1-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="group1-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.group1.h2}</h2>
+      <p class="mt-4 max-w-prose rounded-lg border border-neutral-200 bg-white p-4 text-sm leading-relaxed text-neutral-700">{t.group1.note}</p>
+
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group1.stickers.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group1.stickers.body}</p>
+          <Figure class="mt-4" {...fig(t.group1.stickers.photo)} />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group1.domed.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group1.domed.body}</p>
+          <Figure class="mt-4" {...fig(t.group1.domed.photo)} />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group1.qr.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group1.qr.body}</p>
+          <Figure class="mt-4" {...fig(t.group1.qr.photo)} />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group1.hologram.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group1.hologram.body}</p>
+          <Figure class="mt-4" {...fig(t.group1.hologram.photo)} />
+        </div>
+      </div>
+
+      <div class="mt-8 rounded-2xl border border-brand-accent/30 bg-brand-accent/5 p-6">
+        <p class="max-w-prose text-base leading-relaxed text-neutral-800">{t.group1.antiCounterfeitNote}</p>
+        <p class="mt-3 text-sm">
+          <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="additional-anti-counterfeit-wl">
+            {t.group1.antiCounterfeitLinkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group1.boxLabels.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group1.boxLabels.body}</p>
+          <p class="mt-2 text-sm">
+            <MaybeLink href="/packaging/master-box#printing-branding" class="font-semibold" data-source-component="additional-box-labels-master">
+              {t.group1.boxLabels.linkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </p>
+          <Figure class="mt-4" {...fig(t.group1.boxLabels.photo)} />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group1.tape.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group1.tape.body}</p>
+          <Figure class="mt-4" {...fig(t.group1.tape.photo)} />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group1.silica.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group1.silica.body}</p>
+          <Figure class="mt-4" {...fig(t.group1.silica.photo)} />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group1.inserts.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group1.inserts.body}</p>
+          <Figure class="mt-4" {...fig(t.group1.inserts.photo)} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Group 2 — load securing. */}
+  <section id="load-securing" aria-labelledby="group2-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="group2-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.group2.h2}</h2>
+      <div class="mt-8 grid gap-8 md:grid-cols-2">
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group2.strapping.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group2.strapping.body}</p>
+          <Figure class="mt-4" {...fig(t.group2.strapping.photo)} />
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-neutral-900">{t.group2.edgeProtectors.h3}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{t.group2.edgeProtectors.body}</p>
+          <Figure class="mt-4" {...fig(t.group2.edgeProtectors.photo)} />
+        </div>
+      </div>
+      <div class="mt-8">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.group2.pallets.h3}</h3>
+        <p class="mt-2 max-w-prose text-base leading-relaxed text-neutral-700">{t.group2.pallets.body}</p>
+        <p class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+          <ExternalLink href={ISPM15_URL} class="font-semibold" data-event="outbound_click" data-source-component="additional-ispm15">
+            {t.group2.pallets.ispmLinkLabel}
+          </ExternalLink>
+          <span aria-hidden="true" class="text-neutral-300">·</span>
+          <MaybeLink href="/logistics/rules" class="font-semibold" data-source-component="additional-logistics-rules">
+            {t.group2.pallets.rulesLinkLabel}
+          </MaybeLink>
+        </p>
+        <div class="mt-4 md:max-w-md">
+          <Figure {...fig(t.group2.pallets.photo)} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Group 3 — transit protection. */}
+  <section id="transit-protection" aria-labelledby="group3-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="group3-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.group3.h2}</h2>
+      <div class="mt-8">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.group3.desiccant.h3}</h3>
+        <p class="mt-2 max-w-prose text-base leading-relaxed text-neutral-700">{t.group3.desiccant.body}</p>
+        <p class="mt-3 text-sm">
+          <MaybeLink href="/packaging/plastic" class="font-semibold" data-source-component="additional-plastic">
+            {t.group3.desiccant.plasticLinkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+      <div class="mt-8">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.group3.thermal.h3}</h3>
+        <p class="mt-2 max-w-prose text-base leading-relaxed text-neutral-700">{t.group3.thermal.body}</p>
+        <div class="mt-4 md:max-w-md">
+          <Figure {...fig(t.group3.thermal.photo)} />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* How to order — single CTA line, NO price table. */}
+  <section id="how-to-order" aria-labelledby="ordering-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="ordering-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.ordering.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.ordering.body}</p>
+    </div>
+  </section>
+
+  {video && video.youtubeId && (
+    <section aria-label={t.h1} class="bg-neutral-50">
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <div class="max-w-xl">
+          <VideoFacade
+            youtubeId={video.youtubeId}
+            title={t.h1}
+            playLabel={fill(tShared.playVideoTemplate, { title: t.h1 })}
+            dataSourceComponent="additional-video"
+          />
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section aria-labelledby="additional-faq" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="additional-faq" heading={t.faq.heading} items={faqItems} />
+      <p class="mx-auto mt-6 max-w-3xl text-sm text-neutral-600">
+        {t.faq.moreLine}{' '}
+        <TextLink href="/packaging#packaging-faq" class="font-semibold" data-source-component="additional-faq-hub">
+          {t.faq.hubFaqLinkLabel}
+        </TextLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <TextLink href="/faq" class="font-semibold" data-source-component="additional-faq-general">
+          {t.faq.generalFaqLinkLabel}
+        </TextLink>
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`additional-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.oemLayout} />
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+/**
+ * Figure — captioned photo slot for the packaging cluster (and future
+ * pillars): `<figure>` + processed image + spec-rich `<figcaption>`.
+ *
+ * Per the packaging build prompts (§9.2): every photo carries a caption
+ * AND a distinct alt (alt ≠ caption — alt describes the image for
+ * image-search queries, the caption adds buyer-facing spec context).
+ * Both arrive as already-resolved i18n strings.
+ *
+ * Graceful degradation: while the real photo asset is pending, omit
+ * `src` and the slot renders the local `<ImagePlaceholder>` at the
+ * same aspect ratio — correct dimensions reserved, zero CLS when the
+ * real asset lands.
+ */
+
+import type { ImageMetadata } from 'astro';
+import ResponsiveImage from '~/components/media/ResponsiveImage.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+
+type Ratio = 'square' | '16/9' | '4/3' | '3/2';
+
+interface Props {
+  /** Imported asset from src/assets/packaging/…; omit while pending. */
+  src?: ImageMetadata;
+  /** Descriptive, query-aligned alt (NOT identical to the caption). */
+  alt: string;
+  /** Spec-rich visible caption. */
+  caption?: string;
+  /** Packaging photos are 4:3 by spec; video posters 16:9. */
+  ratio?: Ratio;
+  /** `sizes` for grid layouts, e.g. "(min-width: 1024px) 33vw, 100vw". */
+  sizes?: string;
+  class?: string;
+}
+
+const {
+  src,
+  alt,
+  caption,
+  ratio = '4/3',
+  sizes = '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw',
+  class: className,
+} = Astro.props;
+
+const ratioClass: Record<Ratio, string> = {
+  'square': 'aspect-square',
+  '16/9': 'aspect-video',
+  '4/3': 'aspect-[4/3]',
+  '3/2': 'aspect-[3/2]',
+};
+---
+{src ? (
+  <figure class:list={['flex flex-col', className]}>
+    <div class:list={['overflow-hidden rounded-xl border border-neutral-200', ratioClass[ratio]]}>
+      <ResponsiveImage
+        src={src}
+        alt={alt}
+        sizes={sizes}
+        widths={[400, 800]}
+        class="h-full w-full object-cover"
+      />
+    </div>
+    {caption && (
+      <figcaption class="mt-2 text-sm text-neutral-600">{caption}</figcaption>
+    )}
+  </figure>
+) : (
+  <ImagePlaceholder label={alt} caption={caption} ratio={ratio} class={className} />
+)}

@@ -1,0 +1,487 @@
+---
+/**
+ * /packaging — the Packaging pillar hub.
+ *
+ * Built from docs/build-prompts/packaging/packaging-hub-build-prompt-v6.md
+ * with the consolidated-revisions overlay applied:
+ *   - Overview that routes down: each of the five child-entity sections
+ *     stays SHORT (definition + a few facts + curated media + link) so
+ *     the cluster pages win their own queries.
+ *   - Schema: CollectionPage + FAQPage + DefinedTerm set. NO Service
+ *     (canonical on /packaging/white-label), NO VideoObject (canonical
+ *     on each cluster page), no Product/Offer. Breadcrumbs emits its
+ *     own BreadcrumbList.
+ *   - Pricing flag resolved as Option A: price fields left empty render
+ *     "Available on request" — consistent with /packaging/additional-
+ *     packaging publishing no prices.
+ *   - Every fact from ~/config/company.ts via fill(); i18n carries
+ *     labels/prose only. Missing facts degrade (rows drop, slots omit).
+ *   - Media: photo slots render local placeholders until the shoot
+ *     lands; video slots are omitted while `media.videos[*].youtubeId`
+ *     is empty (never fake a video) — tracked in the Data Gaps report.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import SpecsTable from '~/components/content/SpecsTable.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import VideoFacade from '~/components/packaging/VideoFacade.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact, portOfLoadingLabel } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { packagingHubSchema } from '~/lib/schema/packagingHub';
+import type { TermRef } from '~/lib/schema/definedTerm';
+
+const t = en.packaging;
+const pk = company.packaging;
+
+// Authoritative outbound references (≤2 per v6 §7; verify in the
+// preview deploy — tracked in the Data Gaps report).
+const UN_DG_URL = 'https://unece.org/transport/dangerous-goods';
+const ISPM15_URL = 'https://www.ippc.int/en/publications/640/';
+
+// Container math derives from commercial.containerCapacity (single
+// source) and the master-box net weights — never hardcoded counts.
+const containerNetKg = company.commercial.containerCapacity.ft20.fullKg;
+const boxesPerContainerExample = pk.masterBox.weightOptionsKg
+  .map((kg) => `${Math.floor(containerNetKg / kg).toLocaleString('en-US')} × ${kg} kg`)
+  .join(' or ');
+
+const tokens = {
+  ...companyTokens(company),
+  containerNetKg: containerNetKg.toLocaleString('en-US'),
+  boxesPerContainerExample,
+  currency: pk.pricing.currency,
+  priceBasis: hasFact(pk.pricing.priceBasis) ? pk.pricing.priceBasis : portOfLoadingLabel(),
+  pricesLastUpdated: pk.pricing.pricesLastUpdated,
+  innerBoxPrintingPerKg: pk.pricing.innerBoxPrintingPerKgUsd,
+};
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// --- Five child-entity sections (anchor, copy, media, down-link). ---
+const videoFor = (id: string) => pk.media.videos.find((v) => v.id === id);
+const children = [
+  { id: 'master-box', href: '/packaging/master-box', copy: t.children.masterBox },
+  { id: 'inner-box', href: '/packaging/inner-box', copy: t.children.innerBox },
+  { id: 'plastic', href: '/packaging/plastic', copy: t.children.plastic },
+  { id: 'additional-packaging', href: '/packaging/additional-packaging', copy: t.children.additional },
+  { id: 'white-label', href: '/packaging/white-label', copy: t.children.whiteLabel },
+];
+
+// --- Configurations comparison (single source: pk.configurations). ---
+const cfgCopy = (id: string) => t.configurations.items[id as keyof typeof t.configurations.items];
+const cfgColumns = pk.configurations.map((c) => ({ key: c.id, label: cfgCopy(c.id)?.label ?? c.id }));
+const protectionLabel = (level: string) =>
+  t.configurations.protection[level as keyof typeof t.configurations.protection] ?? level;
+const cfgCell = (fn: (c: (typeof pk.configurations)[number]) => string) =>
+  Object.fromEntries(pk.configurations.map((c) => [c.id, fn(c)]));
+const cfgRows = [
+  { name: t.configurations.colComponents, ...cfgCell((c) => c.components.join(' + ')) },
+  { name: t.configurations.colBestFor, ...cfgCell((c) => cfgCopy(c.id)?.bestFor ?? '') },
+  { name: t.configurations.colProtection, ...cfgCell((c) => protectionLabel(c.protectionLevel)) },
+];
+
+// --- KeyFactsBox (empty values drop automatically). ---
+const atGlanceFacts = [
+  { label: t.atAGlance.configurationsLabel, value: pk.configurations.map((c) => cfgCopy(c.id)?.label ?? c.id).join(' · ') },
+  { label: t.atAGlance.masterBoxLabel, value: fill(t.atAGlance.masterBoxValueTemplate, tokens) },
+  { label: t.atAGlance.innerBoxLabel, value: fill(t.atAGlance.innerBoxValueTemplate, tokens) },
+  { label: t.atAGlance.innerPlasticLabel, value: fill(t.atAGlance.innerPlasticValueTemplate, tokens) },
+  { label: t.atAGlance.coatingLabel, value: pk.innerBox.coating },
+  { label: t.atAGlance.containerLabel, value: fill(t.atAGlance.containerValueTemplate, tokens) },
+  { label: t.atAGlance.leadTimeLabel, value: fill(t.atAGlance.leadTimeValueTemplate, tokens) },
+  { label: t.atAGlance.complianceLabel, value: fill(t.atAGlance.complianceValueTemplate, tokens) },
+  { label: t.atAGlance.brandingLabel, value: t.atAGlance.brandingValue },
+  { label: t.atAGlance.retailLabel, value: t.atAGlance.retailValue },
+  { label: t.atAGlance.proofLabel, value: fill(t.atAGlance.proofValueTemplate, tokens) },
+  { label: t.atAGlance.artworkLabel, value: fill(t.atAGlance.artworkValueTemplate, tokens) },
+  {
+    label: t.atAGlance.pricesLabel,
+    value: hasFact(pk.pricing.innerBoxPrintingPerKgUsd)
+      ? fill(t.atAGlance.pricesValueTemplate, tokens)
+      : t.shared.availableOnRequest,
+  },
+];
+
+// --- White-label price table (Option A: empty → "Available on request"). ---
+const priceValue = (v: string | number) =>
+  hasFact(v) ? `${pk.pricing.currency} ${v}` : t.shared.availableOnRequest;
+const priceRows = [
+  { name: t.branding.prices.rows.innerBoxPrinting, price: priceValue(pk.pricing.innerBoxPrintingPerKgUsd) },
+  { name: t.branding.prices.rows.lamination, price: priceValue(pk.pricing.laminationSurchargePerTonUsd) },
+  { name: t.branding.prices.rows.emboss, price: priceValue(pk.pricing.embossSurchargePerTonUsd) },
+  { name: t.branding.prices.rows.uvSpot, price: priceValue(pk.pricing.uvSpotSurchargePerTonUsd) },
+  { name: t.branding.prices.rows.foil, price: priceValue(pk.pricing.foilSurchargePerTonUsd) },
+  { name: t.branding.prices.rows.doubleWall, price: priceValue(pk.pricing.doubleWallMasterBoxSurchargePerTonUsd) },
+  { name: t.branding.prices.rows.strapping, price: priceValue(pk.pricing.strappingPerTonUsd) },
+  { name: t.branding.prices.rows.boxLabels, price: priceValue(pk.pricing.labelPrintingPerTonUsd) },
+];
+const priceCaveat = hasFact(pk.pricing.pricesLastUpdated)
+  ? fill(t.shared.priceCaveatUpdatedTemplate, tokens)
+  : fill(t.shared.priceCaveatTemplate, tokens);
+
+// --- FAQ (hub-canonical set; schema lives in the page @graph below). ---
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+// --- DefinedTerm set → /glossary anchors (overlay §3a). ---
+const terms: TermRef[] = [
+  { anchor: 'master-box', name: 'master box', alternateName: ['master carton'] },
+  { anchor: 'inner-box', name: 'inner box', alternateName: ['retail box', 'consumer box'] },
+  { anchor: 'inner-plastic', name: 'primary packaging', alternateName: ['inner plastic', 'poly bag'] },
+  { anchor: 'neutral-packaging', name: 'neutral packaging', alternateName: ['unbranded packaging', 'plain packaging', 'generic packaging'] },
+  { anchor: 'white-label', name: 'white label', alternateName: ['private label', 'OEM'] },
+  { anchor: 'un-1361', name: 'UN 1361 marking', sameAs: UN_DG_URL },
+];
+
+const schema = packagingHubSchema({
+  pageTitle,
+  pageDescription,
+  path: '/packaging',
+  children: children.map((c) => ({ href: c.href, name: c.copy.h2 })),
+  faq: faqItems,
+  terms,
+});
+
+// --- Hero trust signals (above the fold). ---
+const heroTrust = [
+  { label: t.heroTrust.moqLabel, value: tokens.moqLabel },
+  { label: t.heroTrust.originLabel, value: tokens.portLabel },
+  { label: t.heroTrust.proofLabel, value: fill(t.heroTrust.proofValueTemplate, tokens) },
+  { label: t.heroTrust.complianceLabel, value: tokens.unNumber },
+];
+
+// --- Indicative reading time (~200 wpm over the page prose). ---
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.atAGlance.definition,
+    t.intro.p1,
+    t.intro.p2,
+    t.intro.p3,
+    ...children.flatMap((c) => [c.copy.definition, ...c.copy.facts]),
+    t.configurations.intro,
+    t.branding.intro,
+    t.branding.neutral.body,
+    t.branding.whiteLabel.body,
+    t.branding.proofSample.body,
+    t.compliance.mandatory.body1,
+    t.compliance.mandatory.body2,
+    t.compliance.retail.body,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/packaging"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  {/* Text-led hero (v6 §4.2) — no hero image, nothing eager-loaded. */}
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('oemLayout'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'packaging-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaLayout,
+      href: '/contact',
+      ariaLabel: t.hero.ctaLayoutAria,
+      dataSourceComponent: 'packaging-hero-inquiry',
+    }}
+  >
+    <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
+      {heroTrust.map((item) => (
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </HeroSection>
+
+  {/* E-E-A-T / freshness block (v6 §4.3). */}
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: t.metaBlock.authorRole,
+          reviewedBy: t.metaBlock.reviewerRole,
+          factCheckedBy: t.metaBlock.factCheckerRole,
+          lastUpdated: t.metaBlock.lastUpdatedLabel,
+          readTime: t.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={pk.editorial.dateModified}
+        readTimeValue={fill(t.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  {/* KeyFactsBox — "Packaging at a glance" (v6 §4.4). */}
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox
+        id="packaging-at-a-glance"
+        heading={t.atAGlance.heading}
+        definition={t.atAGlance.definition}
+        facts={atGlanceFacts}
+      />
+      <p class="mt-3 text-sm text-neutral-600">{t.atAGlance.pricesNote}</p>
+    </div>
+  </div>
+
+  {/* Intro / parent entity (v6 §4.5). */}
+  <section aria-label={t.h1} class="bg-white">
+    <div class="mx-auto max-w-5xl space-y-4 px-4 pb-12 md:px-8">
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p1, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p2, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p3, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Five child-entity sections — short by design (overlay §1): the
+      cluster pages are the ranking targets for their queries. */}
+  {children.map((child, i) => {
+    const video = videoFor(child.id);
+    return (
+      <section
+        id={child.id}
+        aria-labelledby={`${child.id}-heading`}
+        class:list={['scroll-mt-24', i % 2 === 0 ? 'bg-neutral-50' : 'bg-white']}
+      >
+        <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+          <h2 id={`${child.id}-heading`} class="text-2xl font-bold text-neutral-900 md:text-3xl">
+            {child.copy.h2}
+          </h2>
+          <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+            {fill(child.copy.definition, tokens)}
+          </p>
+          <ul class="mt-4 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+            {child.copy.facts.map((fact) => (
+              <li class="flex gap-2">
+                <span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span>
+                <span>{fill(fact, tokens)}</span>
+              </li>
+            ))}
+          </ul>
+          <PhotoGrid
+            class="mt-8"
+            photos={child.copy.photos.map((p) => ({
+              alt: fill(p.alt, tokens),
+              caption: fill(p.caption, tokens),
+            }))}
+          />
+          {video && video.youtubeId && (
+            <div class="mt-8 max-w-xl">
+              {/* Poster assets are imported per-video once filmed; until
+                  then the facade renders its titled fallback box. The
+                  hub carries NO VideoObject schema (overlay §1). */}
+              <VideoFacade
+                youtubeId={video.youtubeId}
+                title={child.copy.h2}
+                playLabel={fill(t.shared.playVideoTemplate, { title: child.copy.h2 })}
+                dataSourceComponent={`packaging-hub-video-${child.id}`}
+              />
+            </div>
+          )}
+          <p class="mt-6 text-sm">
+            <MaybeLink href={child.href} class="font-semibold" data-source-component={`packaging-hub-${child.id}`}>
+              {child.copy.linkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </p>
+        </div>
+      </section>
+    );
+  })}
+
+  {/* Configurations + comparison table (v6 §4.7). */}
+  <section id="configurations" aria-labelledby="configurations-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="configurations-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.configurations.h2}
+      </h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.configurations.intro}</p>
+      <SpecsTable
+        class="mt-8"
+        columns={cfgColumns}
+        rows={cfgRows}
+        caption={t.configurations.tableCaption}
+        propertyHeader={t.configurations.colConfiguration}
+        cardEyebrow={t.configurations.colConfiguration}
+      />
+    </div>
+  </section>
+
+  {/* Branding: neutral vs white-label, timeline, proof, prices (v6 §4.8). */}
+  <section id="branding" aria-labelledby="branding-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="branding-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.branding.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.branding.intro}</p>
+
+      <div class="mt-8 grid gap-10 md:grid-cols-2">
+        <div id="neutral-packaging-overview" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.branding.neutral.h3}</h3>
+          <p class="mt-3 text-base leading-relaxed text-neutral-700">{fill(t.branding.neutral.body, tokens)}</p>
+        </div>
+        <div id="white-label-overview" class="scroll-mt-24">
+          <h3 class="text-xl font-semibold text-neutral-900">{t.branding.whiteLabel.h3}</h3>
+          <p class="mt-3 text-base leading-relaxed text-neutral-700">{fill(t.branding.whiteLabel.body, tokens)}</p>
+          <p class="mt-3 text-base leading-relaxed text-neutral-700">
+            {fill(t.branding.whiteLabel.artworkLineTemplate, tokens)}{' '}
+            <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="packaging-branding-artwork">
+              {t.branding.whiteLabel.artworkLinkLabel} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </p>
+        </div>
+      </div>
+
+      {/* Compact custom-order timeline [B3]. */}
+      <div id="custom-order-timeline" class="mt-12 scroll-mt-24">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.branding.timeline.h3}</h3>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.branding.timeline.intro}</p>
+        <ol class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-5" role="list">
+          {t.branding.timeline.steps.map((step, i) => (
+            <li class="rounded-xl border border-neutral-200 bg-white p-4">
+              <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary">{i + 1}. {step.label}</span>
+              <p class="mt-1 text-sm text-neutral-700">{fill(step.durationTemplate, tokens)}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      {/* Proof & sample — routes via inquiry AND /samples [B2]. */}
+      <div id="proof-and-sample" class="mt-12 scroll-mt-24">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.branding.proofSample.h3}</h3>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+          {fill(t.branding.proofSample.body, tokens)}
+        </p>
+        <p class="mt-3 text-sm">
+          <MaybeLink href="/contact" class="font-semibold" data-source-component="packaging-proof-inquiry">
+            {t.branding.proofSample.inquiryLinkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+          <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+          <MaybeLink href="/samples" class="font-semibold" data-source-component="packaging-proof-samples">
+            {t.branding.proofSample.samplesLinkLabel}
+          </MaybeLink>
+        </p>
+      </div>
+
+      {/* White-label / custom-print add-on prices [A1] — Option A. */}
+      <div id="white-label-prices" class="mt-12 scroll-mt-24">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.branding.prices.h3}</h3>
+        <SpecsTable
+          class="mt-5"
+          columns={[{ key: 'price', label: t.branding.prices.colPrice }]}
+          rows={priceRows}
+          caption={priceCaveat}
+          propertyHeader={t.branding.prices.colItem}
+          cardEyebrow={t.branding.prices.colItem}
+        />
+        <p class="mt-3 text-sm">
+          <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="packaging-prices-white-label">
+            {t.branding.prices.linkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Compliance, shipping & retail markings (v6 §4.9). */}
+  <section id="compliance" aria-labelledby="compliance-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="compliance-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.compliance.h2}</h2>
+
+      <div id="mandatory-markings" class="mt-8 scroll-mt-24">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.compliance.mandatory.h3}</h3>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+          {fill(t.compliance.mandatory.body1, tokens)}
+        </p>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+          {fill(t.compliance.mandatory.body2, tokens)}
+        </p>
+        <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+          <ExternalLink href={UN_DG_URL} class="font-semibold" data-event="outbound_click" data-source-component="packaging-un-dg">
+            {t.compliance.mandatory.unLinkLabel}
+          </ExternalLink>
+          <span aria-hidden="true" class="text-neutral-300">·</span>
+          <ExternalLink href={ISPM15_URL} class="font-semibold" data-event="outbound_click" data-source-component="packaging-ispm15">
+            {t.compliance.mandatory.ispmLinkLabel}
+          </ExternalLink>
+        </p>
+        <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-neutral-600">
+          <MaybeLink href="/logistics/UN-1361" data-source-component="packaging-un1361">{en.packaging.related.items[6].label}</MaybeLink>
+          <span aria-hidden="true">·</span>
+          <MaybeLink href="/logistics/documents" data-source-component="packaging-logistics-docs">{en.packaging.related.items[7].label}</MaybeLink>
+        </p>
+      </div>
+
+      <div id="retail-markings" class="mt-10 scroll-mt-24">
+        <h3 class="text-xl font-semibold text-neutral-900">{t.compliance.retail.h3}</h3>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.compliance.retail.body, tokens)}</p>
+        <p class="mt-3 text-sm">
+          <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="packaging-retail-white-label">
+            {t.compliance.retail.linkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* Hub-canonical FAQ (v6 §10) — schema is in the page @graph, so the
+      visible component must NOT emit a second FAQPage. */}
+  <section aria-labelledby="packaging-faq" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="packaging-faq" heading={t.faq.heading} items={faqItems} />
+    </div>
+  </section>
+
+  {/* Related topics — down to all five cluster pages + across (v6 §7). */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {t.related.heading}
+      </h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`packaging-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.oemLayout} />
+</BaseLayout>

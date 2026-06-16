@@ -308,18 +308,52 @@
       "see": { "href": "/logistics/rules", "label": "ISPM-15 documentation" }
     },
     {
-      "slug": "master-box-and-inner-box",
-      "term": "Master box and inner box",
+      "slug": "master-box",
+      "term": "Master box",
       "cluster": "packaging",
-      "definitionTemplate": "The master box is the corrugated outer carton — {{masterBoxSizes}}, single- or double-wall — that holds inner boxes or briquettes for ocean freight and warehouse handling. The inner box is the retail-printed unit, typically {{innerBoxGsm}} gsm board, in sizes from {{innerBoxSizes}}. We accept artwork in {{acceptedArtworkFormats}} formats and supply a digital proof within {{proofTimeDays}} days of receiving final files.",
-      "see": { "href": "/packaging/master-box", "label": "Master and inner box specs" }
+      "alternateNames": ["master carton"],
+      "definitionTemplate": "A master box — also called a master carton — is the corrugated outer shipping carton that carries packed inner boxes or bulk briquettes through ocean freight, stacking, and warehouse handling. Ours is {{masterBoxWallOptions}}-wall corrugated kraft holding {{masterBoxSizes}} of charcoal net, plain or printed, and every export master box carries {{unNumber}} dangerous-goods, country-of-origin, and net-weight markings.",
+      "see": { "href": "/packaging/master-box", "label": "Master-box specifications" }
     },
     {
-      "slug": "white-label-oem",
-      "term": "White-label / OEM",
+      "slug": "inner-box",
+      "term": "Inner box",
       "cluster": "packaging",
-      "definitionTemplate": "White-label (also called OEM, Original Equipment Manufacturer) is private-label manufacturing — the buyer supplies a brand and artwork, and the factory produces the finished retail SKU under that brand. Our white-label workflow accepts {{acceptedArtworkFormats}} artwork, returns a digital proof in {{proofTimeDays}} days, and is included in standard MOQ ({{moqLabel}}) with no extra setup fee.",
-      "see": { "href": "/packaging/white-lable", "label": "White-label process and timeline" }
+      "alternateNames": ["retail box", "consumer box"],
+      "definitionTemplate": "An inner box — also called a retail box or consumer box — is the printed retail unit the end customer sees: it holds plastic-wrapped charcoal, carries the brand and the retail markings (buyer-supplied barcode/EAN, net weight, origin), and packs into the master carton. Ours is {{innerBoxGsm}} gsm board in sizes from {{innerBoxSizes}}, full-color CMYK with a matte or gloss coating. We accept artwork in {{acceptedArtworkFormats}} formats and supply a digital proof within {{proofTimeDays}} days of receiving final files.",
+      "see": { "href": "/packaging/inner-box", "label": "Inner-box specifications" }
+    },
+    {
+      "slug": "inner-plastic",
+      "term": "Primary packaging (inner plastic)",
+      "cluster": "packaging",
+      "alternateNames": ["inner plastic", "poly bag"],
+      "definitionTemplate": "Primary packaging — the inner plastic or poly bag — is the first sealed layer around the charcoal and the moisture and dust barrier of the packaging system over four to eight weeks of sea transit. We supply sealed packs of {{innerPlasticSizes}}, clear or printed with the buyer's logo and lot code. The retail box is presentation; the plastic is protection.",
+      "see": { "href": "/packaging/plastic", "label": "Inner-plastic specifications" }
+    },
+    {
+      "slug": "neutral-packaging",
+      "term": "Neutral packaging",
+      "cluster": "packaging",
+      "alternateNames": ["unbranded packaging", "plain packaging", "generic packaging"],
+      "definitionTemplate": "Neutral packaging — also called unbranded, plain, or generic — is export packaging with no brand printing: plain kraft master cartons, generic inner boxes, and clear plastic. It carries no printing surcharge and no minimum beyond the standard order MOQ ({{moqLabel}}). Neutral is not blank: every export carton still carries the mandatory {{unNumber}} dangerous-goods, country-of-origin, and net-weight markings.",
+      "see": { "href": "/packaging#branding", "label": "Neutral vs white-label" }
+    },
+    {
+      "slug": "white-label",
+      "term": "White label",
+      "cluster": "packaging",
+      "alternateNames": ["private label", "OEM"],
+      "definitionTemplate": "White-label (also called private label or OEM, Original Equipment Manufacturer) is private-label manufacturing — the buyer supplies a brand and artwork, and the factory produces the finished retail SKU under that brand. Our white-label workflow accepts {{acceptedArtworkFormats}} artwork, returns a digital proof in {{proofTimeDays}} days, and is included in standard MOQ ({{moqLabel}}) with no extra setup fee.",
+      "see": { "href": "/packaging/white-label", "label": "White-label process and timeline" }
+    },
+    {
+      "slug": "branded-consumables",
+      "term": "Branded consumables",
+      "cluster": "packaging",
+      "alternateNames": ["packaging add-ons"],
+      "definitionTemplate": "Branded consumables are the packaging add-ons that carry a buyer's brand beyond the printed box itself: stickers, 3D domed stickers, QR authenticity stickers, hologram security stickers, branded sealing tape, branded silica-gel sachets, printed box labels, and inserts — all printed from buyer-supplied artwork and ordered together with a container order.",
+      "see": { "href": "/packaging/additional-packaging", "label": "Packaging add-ons & anti-counterfeit set" }
     },
 
     {

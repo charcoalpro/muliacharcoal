@@ -1,0 +1,52 @@
+---
+/**
+ * PhotoGrid — static responsive grid of captioned `<Figure>`s.
+ *
+ * Per the packaging build prompts (§9): every photo is in the DOM —
+ * no carousel, no lightbox, no JS, nothing hidden from crawlers. All
+ * images lazy-load (the page hero is the only eager asset) and carry
+ * explicit dimensions via the aspect-ratio box, so CLS stays at 0.
+ *
+ * Hub pages pass a curated subset (2–3 strongest shots); cluster pages
+ * pass the exhaustive set, usually interleaved per section in smaller
+ * grids rather than one big wall.
+ */
+
+import type { ImageMetadata } from 'astro';
+import Figure from '~/components/packaging/Figure.astro';
+
+type Ratio = 'square' | '16/9' | '4/3' | '3/2';
+
+interface Photo {
+  src?: ImageMetadata;
+  alt: string;
+  caption?: string;
+}
+
+interface Props {
+  photos: Photo[];
+  /** Max columns on large screens. */
+  columns?: 2 | 3;
+  ratio?: Ratio;
+  class?: string;
+}
+
+const { photos, columns = 3, ratio = '4/3', class: className } = Astro.props;
+
+const gridClass =
+  columns === 2 ? 'grid-cols-1 gap-6 sm:grid-cols-2' : 'grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3';
+
+const sizes =
+  columns === 2
+    ? '(min-width: 640px) 50vw, 100vw'
+    : '(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw';
+---
+{photos.length > 0 && (
+  <ul class:list={['grid', gridClass, className]} role="list">
+    {photos.map((photo) => (
+      <li>
+        <Figure src={photo.src} alt={photo.alt} caption={photo.caption} ratio={ratio} sizes={sizes} />
+      </li>
+    ))}
+  </ul>
+)}

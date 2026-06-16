@@ -1,0 +1,62 @@
+---
+/**
+ * KeyFactsBox — extractable "at a glance" summary block (zero JS).
+ *
+ * The single highest-value GEO surface on a pillar/cluster page: a
+ * heading, an optional definition-form lead sentence, and a `<dl>` of
+ * label → value pairs that AI engines and crawlers can lift verbatim.
+ * Pure HTML — no tabs, no accordions, nothing hidden.
+ *
+ * Graceful degradation is built in: rows whose `value` is empty/null
+ * are dropped, so callers can map straight off `company.ts` packaging
+ * fields without per-row `hasFact()` guards. (Callers may still gate
+ * rows that need composite logic.)
+ *
+ * Visual style mirrors the /products "at a glance" block (rounded-2xl,
+ * brand-primary tint) so buyers get the same pattern on every pillar.
+ */
+
+interface Fact {
+  label: string;
+  value: string | number | null | undefined;
+}
+
+interface Props {
+  /** Small-caps box heading, e.g. "Packaging at a glance". */
+  heading: string;
+  /** Optional definition-form lead sentence rendered above the facts. */
+  definition?: string;
+  facts: Fact[];
+  id?: string;
+  class?: string;
+}
+
+const { heading, definition, facts, id, class: className } = Astro.props;
+
+const rows = facts.filter(
+  (f) => f.value !== null && f.value !== undefined && String(f.value).trim() !== '',
+);
+---
+<section id={id} aria-labelledby={id ? `${id}-heading` : undefined} class:list={[className]}>
+  <div class="rounded-2xl border border-brand-primary/20 bg-brand-primary/5 p-6 md:p-8">
+    <h2
+      id={id ? `${id}-heading` : undefined}
+      class="text-sm font-semibold uppercase tracking-wide text-brand-primary"
+    >
+      {heading}
+    </h2>
+    {definition && (
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-800">
+        {definition}
+      </p>
+    )}
+    <dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
+      {rows.map((item) => (
+        <div class="border-t border-brand-primary/15 pt-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>

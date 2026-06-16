@@ -29,7 +29,10 @@ export interface VideoObjectInput {
 }
 
 export function videoObjectSchema(input: VideoObjectInput) {
-  if (!hasFact(input.youtubeId) || !hasFact(input.uploadDate)) return null;
+  // Valid-or-omit: a VideoObject missing its duration draws Rich Results
+  // warnings, so an unset duration suppresses the node entirely (same
+  // rule as youtubeId/uploadDate — see packaging hub prompt v6 §6 [A6]).
+  if (!hasFact(input.youtubeId) || !hasFact(input.uploadDate) || !hasFact(input.durationISO)) return null;
   const id = input.id ?? 'factory-tour';
 
   const thumbnail = input.thumbnailUrl

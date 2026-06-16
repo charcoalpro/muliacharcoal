@@ -1,0 +1,307 @@
+{
+  "breadcrumb": "Packaging",
+  "meta": {
+    "titleTemplate": "Shisha Charcoal Packaging — Export & White-Label Options",
+    "descriptionTemplate": "Three-layer export packaging for coconut shisha charcoal: inner plastic, retail inner box, master carton. Neutral or white-label. MOQ {{moqTons}} tons FOB."
+  },
+  "eyebrow": "Packaging",
+  "h1": "Coconut Shisha Charcoal Packaging Options",
+  "heroSubtitle": "Export packaging for coconut shisha charcoal is a three-layer system — a sealed inner plastic, a printed retail inner box, and a corrugated master carton — supplied neutral or printed with your brand, with {{unNumber}} dangerous-goods and origin markings on every export carton.",
+  "hero": {
+    "ctaQuote": "Get a packaging quote",
+    "ctaQuoteAria": "Request a packaging quote on WhatsApp",
+    "ctaLayout": "Request layouts & sizes",
+    "ctaLayoutAria": "Request OEM packaging layouts and sizes on WhatsApp"
+  },
+  "heroTrust": {
+    "moqLabel": "MOQ",
+    "originLabel": "Origin",
+    "proofLabel": "Print proof",
+    "proofValueTemplate": "{{proofTimeDays}} working days",
+    "complianceLabel": "DG compliance"
+  },
+  "metaBlock": {
+    "authorRole": "Written by",
+    "reviewerRole": "Reviewed by",
+    "factCheckerRole": "Fact-checked by",
+    "lastUpdatedLabel": "Last updated",
+    "readTimeLabel": "Reading time",
+    "readTimeValueTemplate": "{{minutes}} min"
+  },
+  "shared": {
+    "availableOnRequest": "Available on request",
+    "fullDetails": "Full details",
+    "videoPending": "Production video coming soon — photos below show the current line.",
+    "priceCaveatTemplate": "White-label / custom-print add-ons, quoted in {{currency}} {{priceBasis}}. Indicative; confirmed on inquiry.",
+    "priceCaveatUpdatedTemplate": "White-label / custom-print add-ons, quoted in {{currency}} {{priceBasis}}. Indicative; last updated {{pricesLastUpdated}}; confirmed on inquiry.",
+    "playVideoTemplate": "Play video: {{title}}"
+  },
+  "atAGlance": {
+    "heading": "Packaging at a glance",
+    "definition": "Every container is packed to order from three layers — inner plastic, inner box, master box — in one of three standard configurations, neutral or white-label.",
+    "configurationsLabel": "Configurations",
+    "masterBoxLabel": "Master box",
+    "masterBoxValueTemplate": "{{masterBoxSizes}} net, {{masterBoxWallOptions}}-wall",
+    "innerBoxLabel": "Inner box",
+    "innerBoxValueTemplate": "{{innerBoxSizes}}, {{innerBoxGsm}} gsm board",
+    "innerPlasticLabel": "Inner plastic",
+    "innerPlasticValueTemplate": "{{innerPlasticSizes}} sealed packs",
+    "coatingLabel": "Box coating",
+    "containerLabel": "20ft container payload",
+    "containerValueTemplate": "{{containerNetKg}} kg net ({{boxesPerContainerExample}})",
+    "leadTimeLabel": "Production lead time",
+    "leadTimeValueTemplate": "{{leadTimeLabel}} ({{repeatBrandLeadTime}} days repeat orders)",
+    "complianceLabel": "Compliance markings",
+    "complianceValueTemplate": "{{unNumber}} / Class {{unClass}} DG, origin, lot code",
+    "brandingLabel": "Branding",
+    "brandingValue": "Neutral and white-label both available",
+    "retailLabel": "Retail-ready",
+    "retailValue": "Buyer-supplied barcode/EAN, factory-printed",
+    "proofLabel": "Proof & sample",
+    "proofValueTemplate": "Digital proof in {{proofTimeDays}} working days + physical sample",
+    "artworkLabel": "Artwork",
+    "artworkValueTemplate": "{{acceptedArtworkFormats}}, print-ready",
+    "pricesLabel": "Custom-print prices",
+    "pricesValueTemplate": "From {{currency}} {{innerBoxPrintingPerKg}} per kg (inner-box printing)",
+    "pricesNote": "White-label / custom-print add-on prices are indicative and confirmed on inquiry. Neutral packaging carries no printing surcharge."
+  },
+  "intro": {
+    "p1": "Export packaging for coconut shisha charcoal is the three-layer system that moves briquettes from the factory floor to a retail shelf: a heat-sealed inner plastic that protects the charcoal from moisture, a printed inner box that presents it to the end customer, and a corrugated master box that carries it through ocean freight.",
+    "p2": "You choose two things independently: the configuration (which layers your order uses) and the branding (neutral or white-label). A neutral full configuration and a fully branded plastic-only order are both standard production — branding never restricts which layers you can combine.",
+    "p3": "Compliance is not optional in either case: every export master box carries {{unNumber}} dangerous-goods markings, country of origin, and lot coding, whether the carton is plain kraft or printed with your brand."
+  },
+  "children": {
+    "heading": "The five packaging building blocks",
+    "masterBox": {
+      "h2": "Master box (master carton)",
+      "definition": "A master box — also called a master carton — is the corrugated outer shipping carton that holds packed inner boxes or bulk briquettes through container freight, stacking, and warehouse handling.",
+      "facts": [
+        "Net charcoal per box: {{masterBoxSizes}}",
+        "{{masterBoxWallOptions}}-wall corrugated kraft board",
+        "Plain kraft or printed with your brand",
+        "Carries {{unNumber}} DG, origin, and net-weight markings"
+      ],
+      "linkLabel": "Full master-box details",
+      "photos": [
+        { "alt": "Closed branded coconut charcoal master box, three-quarter view", "caption": "Printed master carton — {{masterBoxSizes}} net charcoal per box." },
+        { "alt": "Open coconut charcoal master carton showing packed inner boxes", "caption": "Inner boxes packed inside a master carton for container loading." },
+        { "alt": "Strapped coconut charcoal master carton ready for export", "caption": "PP-strapped carton — stack-stable through {{containerType}} container transit." }
+      ]
+    },
+    "innerBox": {
+      "h2": "Inner box (retail box)",
+      "definition": "An inner box is the printed retail box the end customer sees — it holds plastic-wrapped charcoal, carries your brand and the retail markings, and stacks into the master carton.",
+      "facts": [
+        "Sizes: {{innerBoxSizes}} net charcoal",
+        "{{innerBoxGsm}} gsm board, full-color CMYK print",
+        "Matte or gloss coating as standard",
+        "Carries barcode/EAN (buyer-supplied), net weight, origin"
+      ],
+      "linkLabel": "Full inner-box details",
+      "photos": [
+        { "alt": "Branded coconut shisha charcoal inner box, front three-quarter view", "caption": "Full-color retail inner box on {{innerBoxGsm}} gsm board." },
+        { "alt": "Open inner box showing plastic-wrapped coconut charcoal cubes", "caption": "Charcoal is always sealed in inner plastic before boxing." },
+        { "alt": "Coconut charcoal inner box size range side by side", "caption": "Inner-box range: {{innerBoxSizes}} net." }
+      ]
+    },
+    "plastic": {
+      "h2": "Inner plastic (primary packaging)",
+      "definition": "The inner plastic is the primary packaging — the first sealed layer around the charcoal and its moisture and dust barrier over four to eight weeks of sea transit.",
+      "facts": [
+        "Pack sizes: {{innerPlasticSizes}}",
+        "Clear or printed with your logo and lot code",
+        "The moisture barrier of the system — the box is presentation, the plastic is protection"
+      ],
+      "linkLabel": "Full inner-plastic details",
+      "photos": [
+        { "alt": "Heat-sealed inner plastic pack of coconut shisha charcoal", "caption": "Sealed primary pack — {{innerPlasticSizes}} options." },
+        { "alt": "Clear plastic pack showing coconut charcoal cubes inside", "caption": "Clear film shows the product; printed film carries your brand." },
+        { "alt": "Printed inner plastic pack with logo and lot code", "caption": "Printed film with buyer logo and lot code." }
+      ]
+    },
+    "additional": {
+      "h2": "Additional & branded packaging",
+      "definition": "Packaging add-ons are the optional layers beyond the plastic–box–carton stack: branded consumables, load securing, and transit protection.",
+      "facts": [
+        "Anti-counterfeit set: QR, hologram, and 3D domed stickers",
+        "Branded tape, silica gel, box labels, and inserts from your artwork",
+        "Strapping, ISPM-15 palletization, thermal container lining",
+        "All add-on pricing on request"
+      ],
+      "linkLabel": "Full add-ons details",
+      "photos": [
+        { "alt": "Branded sticker and label sheet for coconut charcoal packaging", "caption": "Branded consumables print from buyer-supplied artwork." },
+        { "alt": "Shrink-wrapped pallet of coconut charcoal master cartons", "caption": "Palletized loading on ISPM-15 heat-treated pallets." },
+        { "alt": "Thermal blanket lined container for charcoal transit protection", "caption": "Thermal lining protects against container condensation." }
+      ]
+    },
+    "whiteLabel": {
+      "h2": "White-label / OEM packaging",
+      "definition": "White-label production — also called private label or OEM — lets you sell our coconut shisha charcoal under your own brand: you supply the artwork, we provide the die-line and print it across every layer.",
+      "facts": [
+        "Artwork in {{acceptedArtworkFormats}}; die-line and template provided",
+        "Digital proof in {{proofTimeDays}} working days, then a physical sample",
+        "Your design stays exclusive — NDA available",
+        "A single branded container is fine; no recurring commitment"
+      ],
+      "linkLabel": "Full white-label details",
+      "photos": [
+        { "alt": "Complete branded coconut charcoal packaging set: plastic, inner box, master carton", "caption": "One brand across all three layers." },
+        { "alt": "Blank kraft packaging next to fully branded coconut charcoal packaging", "caption": "Neutral vs white-label: same layers, your choice of print." },
+        { "alt": "Die-line template render for a coconut charcoal inner box", "caption": "We supply the die-line; you supply print-ready artwork." }
+      ]
+    }
+  },
+  "configurations": {
+    "h2": "Packaging configurations compared",
+    "intro": "Three standard configurations cover the common buying scenarios. Mixed orders are normal — for example, part of a container in the full retail configuration and part in plastic-only bulk cartons.",
+    "tableCaption": "Standard packaging configurations. Branding (neutral or white-label) is independent of configuration.",
+    "colConfiguration": "Configuration",
+    "colComponents": "Components included",
+    "colBestFor": "Best for",
+    "colProtection": "Protection level",
+    "protection": { "high": "High", "medium": "Medium", "low": "Low" },
+    "items": {
+      "full": { "label": "Full", "bestFor": "Retail shelves and distributors — shelf-ready in the destination market" },
+      "standard": { "label": "Standard", "bestFor": "Buyers who repack into their own master cartons or floor displays" },
+      "minimal": { "label": "Minimal", "bestFor": "Cafés, lounges, and bulk buyers who don't need a retail box" }
+    }
+  },
+  "branding": {
+    "h2": "Branding: neutral vs white-label",
+    "intro": "Branding is a choice you make per order, independent of configuration. Both paths ship with full export compliance markings.",
+    "neutral": {
+      "h3": "Neutral (unbranded) packaging",
+      "body": "Neutral packaging — also called unbranded, plain, or generic — is plain kraft master cartons, generic inner boxes, and clear plastic. There is no printing surcharge and no extra minimum beyond the standard {{moqLabel}} order MOQ. Neutral is not blank: every export carton still carries the mandatory {{unNumber}} dangerous-goods, country-of-origin, and net-weight markings. It is the fastest, lowest-cost path to a loaded container."
+    },
+    "whiteLabel": {
+      "h3": "White-label (your brand)",
+      "body": "With white-label, we print your artwork across the inner plastic, inner box, and master carton. You receive a die-line and template, sign an NDA if you want one, and your design stays exclusive to you.",
+      "artworkLineTemplate": "Artwork: print-ready vector files ({{acceptedArtworkFormats}}), CMYK.",
+      "artworkLinkLabel": "Full artwork specs & process"
+    },
+    "timeline": {
+      "h3": "Custom-order timeline",
+      "intro": "Why neutral ships faster: a branded first order adds proofing and print setup ahead of production.",
+      "steps": [
+        { "label": "Digital proof", "durationTemplate": "{{proofTimeDays}} working days" },
+        { "label": "Physical sample", "durationTemplate": "on request" },
+        { "label": "Approval", "durationTemplate": "you control" },
+        { "label": "Print & production", "durationTemplate": "{{newBrandLeadTime}} days first order, {{repeatBrandLeadTime}} days repeat" },
+        { "label": "Ship", "durationTemplate": "{{portLabel}}" }
+      ]
+    },
+    "proofSample": {
+      "h3": "Proof & sample before the run",
+      "body": "Every branded order is approved twice before mass printing: a digital proof in {{proofTimeDays}} working days, then a physical pre-production sample of your packaging. Request both through the inquiry form or the samples page.",
+      "inquiryLinkLabel": "Start an inquiry",
+      "samplesLinkLabel": "Request samples"
+    },
+    "prices": {
+      "h3": "White-label printing prices",
+      "colItem": "Add-on",
+      "colPrice": "Price",
+      "rows": {
+        "innerBoxPrinting": "Inner-box printing (per kg)",
+        "lamination": "Lamination (per ton)",
+        "emboss": "Emboss (per ton)",
+        "uvSpot": "UV spot (per ton)",
+        "foil": "Foil (per ton)",
+        "doubleWall": "Double-wall master box (per ton)",
+        "strapping": "Strapping (per ton)",
+        "boxLabels": "Printed box labels (per ton)"
+      },
+      "linkLabel": "White-label pricing in depth"
+    }
+  },
+  "compliance": {
+    "h2": "Compliance, shipping & retail markings",
+    "mandatory": {
+      "h3": "Mandatory on every export (neutral or branded)",
+      "body1": "Coconut charcoal ships as {{imdgLabel}} cargo. Carriers require the {{unNumber}} marking and Class {{unClass}} dangerous-goods labels on every master carton before they accept the booking — plain kraft and fully branded cartons carry exactly the same markings.",
+      "body2": "Alongside the DG set, every carton is printed with country of origin (Made in Indonesia), net weight, and a batch/lot code for traceability. Wood pallets, when palletization is requested, are ISPM-15 heat-treated and stamped.",
+      "unLinkLabel": "UN Transport of Dangerous Goods (UNECE)",
+      "ispmLinkLabel": "IPPC ISPM-15 standard"
+    },
+    "retail": {
+      "h3": "Retail channel markings",
+      "body": "Retail inner boxes carry your barcode/EAN — buyer-supplied, factory-printed — plus net weight and origin. Shelf-ready formats are quoted per order.",
+      "linkLabel": "Retail-print options"
+    }
+  },
+  "faq": {
+    "heading": "Packaging FAQ",
+    "items": [
+      {
+        "q": "What packaging options do you offer for shisha charcoal?",
+        "a": "Three layers — sealed inner plastic ({{innerPlasticSizes}}), printed inner box ({{innerBoxSizes}}, {{innerBoxGsm}} gsm), and a {{masterBoxWallOptions}}-wall master carton ({{masterBoxSizes}} net) — combined in three standard configurations: Full (all three layers), Standard (plastic + inner box), and Minimal (plastic + master box). Each ships neutral or white-label."
+      },
+      {
+        "q": "Can you produce shisha charcoal under my own brand (white label / OEM)?",
+        "a": "Yes. White-label (private label / OEM) production is standard: you supply print-ready artwork ({{acceptedArtworkFormats}}, CMYK), we provide the die-line and template, print your brand across the plastic, inner box, and master carton, and ship under your name. Your design stays exclusive to you and an NDA is available."
+      },
+      {
+        "q": "Do you offer neutral or unbranded packaging?",
+        "a": "Yes. Neutral packaging — plain kraft master cartons, generic inner boxes, clear plastic — carries no printing surcharge and no minimum beyond the standard {{moqLabel}} order MOQ. Note that neutral is not blank: {{unNumber}} dangerous-goods markings, country of origin, and net weight are still printed on every export carton, as carriers require."
+      },
+      {
+        "q": "How much does custom-printed packaging cost?",
+        "a": "Custom-print costs are add-ons on top of the charcoal FOB price — inner-box printing is priced per kg, and finish upgrades (lamination, emboss, UV spot, foil) and a double-wall master-box upgrade are priced per ton. Current rates are quoted on inquiry, {{portLabel}}. Neutral packaging carries no printing surcharge."
+      },
+      {
+        "q": "What is the minimum order for custom-printed packaging?",
+        "a": "The custom-print minimum counts per printed design, on top of the standard order MOQ of {{moqLabel}}. A single branded container is fine — there is no recurring-order commitment, and you can run multiple designs or sizes in one container. The exact per-design minimum is confirmed on inquiry."
+      },
+      {
+        "q": "Do you send a digital proof and physical sample before printing?",
+        "a": "Yes, both. You receive a digital proof within {{proofTimeDays}} working days of final artwork, and a physical pre-production sample of your packaging before the production run. Nothing is mass-printed until you approve both."
+      },
+      {
+        "q": "How long does a custom packaging order take?",
+        "a": "A first branded order runs about {{newBrandLeadTime}} days from approved artwork: digital proof in {{proofTimeDays}} working days, physical sample, then print and production. Repeat orders with artwork on file run about {{repeatBrandLeadTime}} days. Neutral orders skip proofing entirely and follow the standard {{leadTimeLabel}} production window."
+      },
+      {
+        "q": "How many master boxes fit in a 20ft container?",
+        "a": "A 20ft container loads {{containerNetKg}} kg of charcoal net. Loose-loaded, that is {{boxesPerContainerExample}} master boxes. Palletized counts are lower and quoted per order, since pallet size and box mix change the math."
+      },
+      {
+        "q": "Do you provide a die-line or packaging template?",
+        "a": "Yes. We supply the die-line and template for every printed item — you place your artwork on it and return print-ready files ({{acceptedArtworkFormats}}). We print your design; we don't design it."
+      },
+      {
+        "q": "What finishes are available on the inner box?",
+        "a": "Inner boxes ship on {{innerBoxGsm}} gsm board with a matte or gloss coating as standard. Upgrade finishes — lamination, emboss, UV spot, foil — are available per design and quoted on inquiry."
+      },
+      {
+        "q": "Can you print my retail barcode, country of origin, and net weight?",
+        "a": "Yes. Retail inner boxes are printed with your barcode/EAN — you supply the number, we print it — plus net weight, country of origin, and batch/lot code. We don't issue EAN numbers; registration stays with your brand."
+      },
+      {
+        "q": "Are UN 1361 dangerous-goods markings printed on the packaging?",
+        "a": "Yes, on every master carton without exception. Coconut charcoal ships as {{imdgLabel}} cargo, and carriers require the {{unNumber}} marking and Class {{unClass}} DG labels before accepting the booking — on neutral and branded cartons alike."
+      },
+      {
+        "q": "Is my packaging design kept confidential?",
+        "a": "Yes. Your artwork and design are exclusive to you — never reused or sold to another buyer — and we sign an NDA on request. Product or territory exclusivity is a separate arrangement, available by negotiation."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/packaging/master-box", "label": "Master box (master carton)" },
+      { "href": "/packaging/inner-box", "label": "Inner box (retail box)" },
+      { "href": "/packaging/plastic", "label": "Inner plastic (primary packaging)" },
+      { "href": "/packaging/additional-packaging", "label": "Packaging add-ons & branded consumables" },
+      { "href": "/packaging/white-label", "label": "White-label / OEM packaging" },
+      { "href": "/products", "label": "Products: shapes, sizes & grades" },
+      { "href": "/logistics/UN-1361", "label": "UN 1361 shipping compliance" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/samples", "label": "Request samples" },
+      { "href": "/glossary", "label": "Glossary of trade terms" },
+      { "href": "/faq", "label": "Buyer FAQ" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}

@@ -52,11 +52,24 @@ const tokens = {
   platinumCalorific: platinum.calorieValue.display,
 };
 
-// Resolve every term's body once; group by cluster key.
-const resolvedTerms: Array<ResolvedTerm & { cluster: string; see?: { href: string; label: string } }> = t.terms.map((term) => ({
+// Resolve every term's body once; group by cluster key. (`termCode`,
+// `see`, and `alternateNames` are optional per entry, so the JSON union
+// type needs the explicit widening cast.)
+const resolvedTerms: Array<ResolvedTerm & { cluster: string; see?: { href: string; label: string } }> = (
+  t.terms as Array<{
+    slug: string;
+    term: string;
+    termCode?: string;
+    cluster: string;
+    alternateNames?: string[];
+    definitionTemplate: string;
+    see?: { href: string; label: string };
+  }>
+).map((term) => ({
   slug: term.slug,
   term: term.term,
   termCode: term.termCode,
+  alternateNames: term.alternateNames,
   cluster: term.cluster,
   definition: fill(term.definitionTemplate, tokens),
   see: term.see,
@@ -95,10 +108,11 @@ const pageDescription = fill(t.meta.descriptionTemplate, tokens);
 const schema = glossaryPageSchema({
   pageTitle,
   pageDescription,
-  terms: resolvedTerms.map(({ slug, term, termCode, definition }) => ({
+  terms: resolvedTerms.map(({ slug, term, termCode, alternateNames, definition }) => ({
     slug,
     term,
     termCode,
+    alternateNames,
     definition,
   })),
   faq: resolvedFaq,

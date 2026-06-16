@@ -94,7 +94,191 @@ export interface Person {
 // are the fields most likely to receive real values in the future.
 // =======================================================================
 
-const companyData = rawCompanyData as typeof rawCompanyData & {
+// =======================================================================
+// Packaging contract — the full data shape behind the /packaging pillar
+// (hub + five cluster pages). Defined explicitly (rather than inferred
+// from JSON) so empty slots carry their future-fill types: pages render
+// every field through graceful degradation (`hasFact()` gates), and the
+// owner fills values in `/src/data/company.json` (or via Sveltia at
+// /admin/) with zero page edits.
+//
+// Single-source notes (deviations from the build-prompt contract,
+// deliberate — see docs/build-prompts/packaging/):
+//   - editorial holds DATES only; author/reviewer names come from
+//     `governance.*` (already the sitewide E-E-A-T source).
+//   - containerLoad holds box COUNTS only; net kg per container reads
+//     from `commercial.containerCapacity` (already defined there).
+//   - pricing.priceBasis: '' falls back to `portOfLoadingLabel()` at
+//     render so "FOB Semarang" is never duplicated.
+// =======================================================================
+
+export interface PackagingConfig {
+  /** Standard component combinations; single source for the comparison
+   *  table, KeyFactsBox, and the homepage OEM tier cards. Labels and
+   *  "best for" prose live in i18n keyed by `id`. */
+  configurations: Array<{
+    id: string;
+    components: string[];
+    protectionLevel: 'high' | 'medium' | 'low' | string;
+  }>;
+  masterBox: {
+    material: string;
+    wallTypes: string[];
+    outerDimsMm: string;
+    /** NET charcoal per box, kg. */
+    weightOptionsKg: number[];
+    grossWeightKg: string | number;
+    /** Representative example tied to the shared reference SKU. */
+    holdsExample: string;
+    printOptions: string[];
+    printableFaces: string;
+    whiteTopLinerAvailable: boolean | null;
+    cartonStrength: { ect: string; burstKpa: string; fluteType: string; corrugateGsm: string | number };
+    maxStackHeight: string;
+    notes: string;
+  };
+  innerBox: {
+    paperType: string;
+    paperGsm: number;
+    /** Base coating (matte/gloss aqueous) — distinct from lamination. */
+    coating: string;
+    boxStyles: string[];
+    dimensionsMm: string;
+    /** NET charcoal per inner box, kg. */
+    weightOptionsKg: number[];
+    grossWeightKg: string | number;
+    holdsExample: string;
+    /** Upgrades over the base coating: lamination / emboss / uv-spot / foil. */
+    finishes: string[];
+    notes: string;
+  };
+  primaryPlastic: {
+    type: string;
+    material: string;
+    thicknessMicrons: number | null;
+    sealType: string;
+    printable: boolean;
+    clearOrPrinted: string;
+    /** NET charcoal per pack, grams. */
+    weightOptionsG: number[];
+    holdsExample: string;
+    function: string;
+    foilBarrier: boolean | null;
+    notes: string;
+  };
+  /** Add-ons / branded consumables. `null` = unconfirmed → section omits. */
+  ancillary: {
+    stickers: boolean | null;
+    stickers3d: boolean | null;
+    qrStickers: boolean | null;
+    hologramStickers: boolean | null;
+    inserts: boolean | null;
+    boxLabels: boolean | null;
+    brandedTape: boolean | null;
+    brandedSilicaGel: boolean | null;
+    desiccantIncluded: boolean | null;
+    containerDesiccant: boolean | null;
+    strapping: boolean | null;
+    edgeProtectors: boolean | null;
+    pallets: boolean | null;
+    palletType: string;
+    ispm15: boolean | null;
+    thermalBlanket: boolean | null;
+    fscPaper: boolean | null;
+  };
+  customPrint: {
+    moqUnits: string | number;
+    /** Custom-print MOQ counts per printed design, not per container. */
+    moqBasis: string;
+    leadTimeAddDays: string | number;
+    finishesAvailable: string[];
+  };
+  containerLoad: {
+    masterBoxesPer20ft: string | number;
+    masterBoxesPer20ftPalletized: string | number;
+  };
+  /** Markings printed on every export carton (neutral or branded). */
+  compliance: {
+    un1361Marking: boolean | null;
+    dgLabels: boolean | null;
+    countryOfOrigin: boolean | null;
+    netWeightMark: boolean | null;
+    batchLot: boolean | null;
+  };
+  retail: {
+    available: boolean;
+    /** Barcode/EAN is buyer-supplied, factory-printed — never issued here. */
+    barcodeEanByBuyer: boolean;
+    shelfReadyBox: boolean | null;
+  };
+  /** White-label / custom-print add-on prices ONLY. Never the charcoal
+   *  per-ton price. Empty string → "Available on request" sitewide. */
+  pricing: {
+    currency: string;
+    priceBasis: string;
+    pricesLastUpdated: string;
+    innerBoxPrintingPerKgUsd: string | number;
+    laminationSurchargePerTonUsd: string | number;
+    embossSurchargePerTonUsd: string | number;
+    uvSpotSurchargePerTonUsd: string | number;
+    foilSurchargePerTonUsd: string | number;
+    strappingPerTonUsd: string | number;
+    labelPrintingPerTonUsd: string | number;
+    doubleWallMasterBoxSurchargePerTonUsd: string | number;
+    plasticPrintingPerKgUsd: string | number;
+  };
+  /** Dates only — author/reviewer names come from `governance.*`. */
+  editorial: { datePublished: string; dateModified: string };
+  branding: {
+    neutralAvailable: boolean;
+    whiteLabelAvailable: boolean;
+    neutralScope: string;
+    artworkFormats: string[];
+    colorMode: string;
+    pantoneSpot: boolean | null;
+    bleedSafeArea: string;
+    prepressBy: string;
+    customSizesAvailable: boolean | null;
+    foodSafeInks: boolean | null;
+    foodSafeInksCert: string;
+    artworkOnFileForReorder: boolean | null;
+  };
+  proofing: {
+    digitalProof: boolean;
+    physicalSample: boolean;
+    proofLeadTimeDays: number;
+    sampleLeadTimeDays: number | null;
+    sampleCost: string | number;
+    sampleCreditedToOrder: boolean | null;
+  };
+  whiteLabel: {
+    designByBuyer: boolean;
+    dielineProvided: boolean;
+    ndaAvailable: boolean;
+    designExclusive: boolean;
+    territoryExclusivityNegotiable: boolean;
+    platesKeptForReorder: boolean | null;
+    singleContainerOk: boolean;
+    printMethod: string;
+    printingEquipment: string;
+    colorCapability: string;
+    brandableSurfaces: string[];
+    brandsProducedCount: string;
+  };
+  media: {
+    /** One slot per packaging area. Empty `youtubeId` → slot omitted. */
+    videos: Array<{
+      id: string;
+      youtubeId: string;
+      posterAsset: string;
+      uploadDate: string;
+      durationISO: string;
+    }>;
+  };
+}
+
+const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging'> & {
+  packaging: PackagingConfig;
   social: Record<keyof typeof rawCompanyData.social, string | null>;
   production: typeof rawCompanyData.production & {
     carbonizationPlant: { city: string; region: string } | null;
@@ -137,12 +321,6 @@ const companyData = rawCompanyData as typeof rawCompanyData & {
   };
   bank: typeof rawCompanyData.bank & {
     iban: string | null;
-  };
-  packaging: typeof rawCompanyData.packaging & {
-    // Inner-plastic film gauge, pending confirmation → widens to number | null.
-    innerPlastic: typeof rawCompanyData.packaging.innerPlastic & {
-      micron: number | null;
-    };
   };
   phones: Array<{ label: string; display: string; e164: string }>;
 };

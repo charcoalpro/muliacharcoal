@@ -1,0 +1,245 @@
+{
+  "breadcrumb": "White label",
+  "meta": {
+    "titleTemplate": "White-Label & Private-Label Coconut Shisha Charcoal",
+    "descriptionTemplate": "Sell coconut shisha charcoal under your own brand: OEM print across plastic, inner box, master box. Per-design MOQ, single container OK, NDA, proof + sample."
+  },
+  "eyebrow": "Packaging · White label",
+  "h1": "White-Label & Private-Label Coconut Shisha Charcoal",
+  "heroSubtitle": "White-label production — also called private-label or OEM — lets you sell our coconut shisha charcoal under your own brand. You supply the artwork; we provide the die-line and print it across every layer of the packaging.",
+  "upLink": "Part of the shisha charcoal packaging system",
+  "service": {
+    "name": "White-label coconut shisha charcoal manufacturing",
+    "description": "Private-label (OEM) manufacturing of coconut shisha charcoal: the buyer supplies brand artwork and we print it across the inner plastic, inner box, and master carton, with a die-line provided, an NDA available, and exclusive artwork. Per-design custom-print MOQ; a single branded container is accepted."
+  },
+  "hero": {
+    "ctaQuote": "Start your brand",
+    "ctaQuoteAria": "Start a white-label inquiry on WhatsApp"
+  },
+  "atAGlance": {
+    "heading": "White-label at a glance",
+    "surfacesLabel": "What you can brand",
+    "printMethodLabel": "Print method",
+    "fscLabel": "FSC paper",
+    "fscValue": "Available",
+    "finishesLabel": "Finishes",
+    "moqLabel": "Custom-print MOQ",
+    "moqValueTemplate": "{{customPrintMoq}} per design",
+    "singleContainerLabel": "Commitment",
+    "singleContainerValue": "A single branded container is fine",
+    "leadTimeLabel": "Print lead time",
+    "leadTimeValueTemplate": "+{{customPrintLeadDays}} days",
+    "dielineLabel": "Die-line",
+    "dielineValue": "Provided",
+    "exclusiveLabel": "Design exclusivity",
+    "exclusiveValue": "Exclusive + NDA (territory negotiable)",
+    "proofLabel": "Proof & sample",
+    "proofValueTemplate": "Digital proof in {{proofTimeDays}} days + physical sample",
+    "retailLabel": "Retail markings",
+    "retailValue": "Buyer-supplied barcode/EAN, factory-printed",
+    "brandsLabel": "Brands produced",
+    "pricesLabel": "Headline price",
+    "pricesValueTemplate": "From {{currency}} {{innerBoxPrintingPerKg}}/kg (add-on)"
+  },
+  "meaning": {
+    "h2": "What white-label means",
+    "p1": "White-label means we manufacture the charcoal and you sell it under your brand. The buyer supplies the artwork — we print your design, we don't design it — and we provide the die-line and template so your artwork drops onto the right cutting and fold lines.",
+    "p2": "That is the difference from neutral packaging: neutral is unbranded plain stock, white-label is your brand printed across the layers.",
+    "neutralLinkLabel": "Compare neutral vs white-label",
+    "photos": [
+      { "alt": "Blank versus branded coconut charcoal packaging, before and after", "caption": "Neutral plain stock vs your brand printed across the set." }
+    ]
+  },
+  "surfaces": {
+    "h2": "What you can brand",
+    "p1": "Your brand can run across every layer: the inner box (your primary branding surface), the master box, the inner plastic, and branded consumables like stickers, tape, and silica sachets.",
+    "items": [
+      { "href": "/packaging/inner-box", "label": "Inner box — primary branding surface" },
+      { "href": "/packaging/master-box", "label": "Master box — printed or labelled" },
+      { "href": "/packaging/plastic", "label": "Inner plastic — clear or printed" },
+      { "href": "/packaging/additional-packaging", "label": "Branded consumables — stickers, tape, silica" }
+    ],
+    "photos": [
+      { "alt": "Complete branded coconut charcoal set: plastic, inner box, master carton together", "caption": "One brand, printed consistently across all layers." }
+    ]
+  },
+  "production": {
+    "h2": "Print methods & quality",
+    "p1": "Branded packaging is printed to commercial standards. Print method, press capability, and paper stock are specified per order; FSC-certified paper is available on request.",
+    "methodLineTemplate": "Print method: {{printMethod}}.",
+    "equipmentLineTemplate": "Press capability: {{printingEquipment}}, {{colorCapability}}.",
+    "photos": [
+      { "alt": "Offset printing press running coconut charcoal packaging", "caption": "Commercial offset printing for consistent color." },
+      { "alt": "FSC certification mark on coconut charcoal packaging board", "caption": "FSC-certified board available on request." }
+    ]
+  },
+  "finishes": {
+    "h2": "Finishes",
+    "p1": "Finishes form a ladder: a base coating (matte or gloss) comes standard, lamination (matte or gloss film) is an upgrade, and emboss, UV spot, and foil are add-ons layered on top. Each is priced separately.",
+    "finishesLineTemplate": "Available: {{finishesAvailable}}.",
+    "photos": [
+      { "alt": "Finish macro on coconut charcoal packaging: lamination, emboss, UV spot, foil", "caption": "Lamination, emboss, UV spot, and foil add-ons." }
+    ]
+  },
+  "artwork": {
+    "h2": "Artwork specs & file requirements",
+    "p1": "We print buyer-supplied artwork to print-ready standards. Supply vector files in {{acceptedArtworkFormats}}, set up in {{colorMode}}; we provide the die-line and template for placement.",
+    "pantoneLine": "Pantone/spot color matching is available for brand-color accuracy across reorders.",
+    "bleedLineTemplate": "Bleed & safe area: {{bleedSafeArea}}.",
+    "prepressLineTemplate": "Prepress: {{prepressBy}}.",
+    "photos": [
+      { "alt": "Die-line template render for a coconut charcoal inner box", "caption": "We supply the die-line; you place your artwork on it." },
+      { "alt": "Pantone color proof sheet for coconut charcoal packaging", "caption": "Pantone matching keeps brand color consistent across runs." }
+    ]
+  },
+  "exclusivity": {
+    "h2": "Design ownership, exclusivity & confidentiality",
+    "p1": "Your artwork and design are exclusive to you: we never reuse or sell your design to another buyer, and we sign an NDA on request. Printing files and plates are kept on record so reorders match the first run exactly.",
+    "p2": "Product or territorial exclusivity — restricting the same charcoal to competitors in your market — is a separate arrangement, available by negotiation, not automatic. Artwork exclusivity is the default; territory is a negotiated term.",
+    "photos": []
+  },
+  "moq": {
+    "h2": "Minimum to start your brand",
+    "p1": "The custom-print minimum is framed per printed design, distinct from the general order MOQ of {{moqLabel}}. A single branded container is fine — there is no recurring-order commitment — and you can run multiple designs or sizes within one container.",
+    "moqLineTemplate": "Custom-print MOQ: {{customPrintMoq}} per design."
+  },
+  "proofSample": {
+    "h2": "Proof & sample approval",
+    "p1": "Before any production run, your packaging is approved twice: artwork → a digital proof → a physical pre-production sample → your approval → production. Nothing is mass-printed until you sign off on the physical sample.",
+    "sampleCostLineTemplate": "Sample cost: {{sampleCost}}.",
+    "sampleCreditedLine": "The sample cost is credited to your first order.",
+    "inquiryLinkLabel": "Request via inquiry",
+    "samplesLinkLabel": "Request samples",
+    "photos": [
+      { "alt": "Physical pre-production sample of branded coconut charcoal packaging being reviewed", "caption": "A physical sample is approved before the production run." }
+    ]
+  },
+  "timeline": {
+    "h2": "Custom-order timeline",
+    "p1": "A first branded order and a reorder run on different clocks.",
+    "firstOrderLabel": "First branded order",
+    "firstOrderTemplate": "artwork → digital proof ({{proofTimeDays}} days) → physical sample → approval → print → production → ship, about {{newBrandLeadTime}} days from approved artwork.",
+    "reorderLabel": "Reorders",
+    "reorderTemplate": "artwork on file, plates kept — skip design and proof, about {{repeatBrandLeadTime}} days.",
+    "midCtaTitle": "Ready to put your brand on the box?",
+    "midCtaText": "Send your artwork or ask for the die-line — we'll return a digital proof and a quote.",
+    "midCtaLabel": "Start your brand"
+  },
+  "retail": {
+    "h2": "Retail-ready & market markings",
+    "p1": "Retail packaging carries your barcode/EAN (buyer-supplied, factory-printed), country of origin, net weight, and batch/lot code; shelf-ready formats are available.",
+    "p2": "You own your market's labeling and regulatory compliance — EU CLP, US requirements, health and usage warnings — and supply that artwork; we print it and advise on the UN 1361 dangerous-goods transport markings, which go on the master box.",
+    "masterBoxLinkLabel": "DG markings on the master box",
+    "un1361LinkLabel": "UN 1361 compliance",
+    "photos": [
+      { "alt": "Retail-ready branded coconut charcoal inner box with barcode and origin markings", "caption": "Buyer-supplied EAN, origin, and net weight, factory-printed." }
+    ]
+  },
+  "whyPrivateLabel": {
+    "h2": "Why private-label",
+    "p1": "A private label turns a commodity into your brand. Instead of reselling anonymous charcoal, you build brand equity, earn repeat customers who ask for your name, differentiate on packaging and positioning, and control how the product is presented in your market.",
+    "p2": "These are durable, qualitative advantages — brand recognition compounds with every container — and they are the reason most serious importers move from neutral to branded once volume is established."
+  },
+  "howToStart": {
+    "h2": "How to start your own brand",
+    "intro": "Seven steps from first contact to a branded container:",
+    "steps": [
+      { "label": "Inquiry & samples", "text": "Contact us and request product samples to verify the charcoal." },
+      { "label": "Choose products & packaging", "text": "Pick the grades, shapes, sizes, and packaging configuration." },
+      { "label": "Submit artwork", "text": "Send print-ready artwork; we provide the die-line and template." },
+      { "label": "Digital proof", "text": "We return a digital proof within {{proofTimeDays}} working days." },
+      { "label": "Physical sample", "text": "We produce a physical pre-production sample for your approval." },
+      { "label": "Approve & produce", "text": "On approval, we print and produce your branded order." },
+      { "label": "Ship", "text": "We ship {{portLabel}} with full export documents." }
+    ]
+  },
+  "brands": {
+    "h2": "Brands we produce",
+    "p1": "We manufacture for established coconut-charcoal brands across our priority markets. Specific brand examples are shared privately, with permission, or anonymized — we never display a buyer's brand without written consent.",
+    "countLineTemplate": "Brands produced: {{brandsProducedCount}}.",
+    "photos": [
+      { "alt": "Anonymized examples of branded coconut charcoal packaging", "caption": "Anonymized brand examples — shown with permission only." },
+      { "alt": "Branded consumables applied to coconut charcoal packaging", "caption": "Branded consumables complete the private-label set." }
+    ]
+  },
+  "prices": {
+    "h2": "White-label printing prices",
+    "intro": "Custom-print prices are add-ons on top of the charcoal FOB price — they are not the total. The charcoal price is quoted per SKU on inquiry.",
+    "colItem": "Add-on",
+    "colPrice": "Price",
+    "rows": {
+      "innerBoxPrinting": "Inner-box printing (per kg)",
+      "lamination": "Lamination (per ton)",
+      "emboss": "Emboss (per ton)",
+      "uvSpot": "UV spot (per ton)",
+      "foil": "Foil (per ton)",
+      "doubleWall": "Double-wall master box (per ton)",
+      "plasticPrinting": "Plastic printing (per kg)"
+    }
+  },
+  "faq": {
+    "heading": "White-label FAQ",
+    "items": [
+      {
+        "q": "What is white-label / private-label / OEM production?",
+        "a": "White-label (also called private label or OEM) means we manufacture the coconut charcoal and you sell it under your own brand. You supply print-ready artwork; we provide the die-line, print your brand across the packaging layers, and ship the finished SKU under your name."
+      },
+      {
+        "q": "What is the minimum to start my own brand?",
+        "a": "The custom-print minimum is framed per printed design, on top of the general order MOQ of {{moqLabel}}. A single branded container is fine — no recurring commitment — and multiple designs or sizes can share one container. The exact per-design minimum is confirmed on inquiry."
+      },
+      {
+        "q": "Do I keep my design exclusive, and do you sign an NDA?",
+        "a": "Yes — your artwork and design are exclusive to you, never reused or sold to another buyer, and we sign an NDA on request. Plates and files are kept for reorder consistency. Product or territorial exclusivity can be arranged separately, by negotiation; it is not automatic."
+      },
+      {
+        "q": "What can I brand?",
+        "a": "Every layer: the inner box (your primary branding surface), the master box, the inner plastic, and branded consumables — stickers, tape, and silica sachets. You can brand all of them or just the layers that matter for your channel."
+      },
+      {
+        "q": "What print methods and finishes do you offer?",
+        "a": "Commercial printing with FSC paper available. Finishes form a distinct ladder: a base matte or gloss coating comes standard, lamination is an upgrade, and emboss, UV spot, and foil are add-ons. Print method and press capability are specified per order."
+      },
+      {
+        "q": "What artwork files do you need?",
+        "a": "Print-ready vector files in {{acceptedArtworkFormats}}, set up in {{colorMode}}. We provide the die-line and template for placement, and we match Pantone/spot colors for brand-color accuracy across reorders."
+      },
+      {
+        "q": "Do you send a digital proof and physical sample, and is the sample credited?",
+        "a": "Yes to both. You receive a digital proof within {{proofTimeDays}} working days, then a physical pre-production sample before the run. Sample cost and whether it is credited to your order are confirmed on inquiry. Nothing is mass-printed until you approve the physical sample."
+      },
+      {
+        "q": "How long does the first branded order take, and are reorders faster?",
+        "a": "A first branded order runs about {{newBrandLeadTime}} days from approved artwork (proof → sample → approval → print → production → ship). Reorders are faster — about {{repeatBrandLeadTime}} days — because artwork and plates are on file, so design and proofing are skipped."
+      },
+      {
+        "q": "Who is responsible for my market's labeling and regulatory compliance?",
+        "a": "You do. The buyer owns and supplies the market labeling and regulatory artwork (e.g. EU CLP, US requirements, health and usage warnings). We print your supplied artwork and advise on the UN 1361 dangerous-goods transport markings, which go on the master box."
+      },
+      {
+        "q": "How do I get started?",
+        "a": "Seven steps: inquiry and samples, choose products and packaging, submit artwork (we provide the die-line), digital proof, physical sample, approve and produce, then ship {{portLabel}}. Start with an inquiry or a WhatsApp message and we'll send the die-line and a quote."
+      }
+    ],
+    "moreLine": "Container counts and general custom-print cost questions are answered on the packaging hub FAQ; order MOQ and payment terms on the general FAQ.",
+    "hubFaqLinkLabel": "Packaging hub FAQ",
+    "generalFaqLinkLabel": "General FAQ"
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/packaging", "label": "Packaging pillar: all options" },
+      { "href": "/packaging/inner-box", "label": "Inner box (retail box)" },
+      { "href": "/packaging/master-box", "label": "Master box (master carton)" },
+      { "href": "/packaging/plastic", "label": "Inner plastic (primary packaging)" },
+      { "href": "/packaging/additional-packaging", "label": "Branded consumables & add-ons" },
+      { "href": "/products", "label": "Products: shapes, sizes & grades" },
+      { "href": "/logistics/UN-1361", "label": "UN 1361 shipping compliance" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/glossary#white-label", "label": "Glossary: white label" },
+      { "href": "/samples", "label": "Request samples" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}

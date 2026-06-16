@@ -82,7 +82,7 @@ const tokens = {
   fobLow: grade.fobRange?.low ?? '',
   fobHigh: grade.fobRange?.high ?? '',
   fobUnit: grade.fobRange?.unit ?? '',
-  innerPlasticMicron: company.packaging.innerPlastic.micron ?? '',
+  innerPlasticMicron: company.packaging.primaryPlastic.thicknessMicrons ?? '',
 };
 
 const pageTitle = fill(t.meta.titleTemplate, tokens);
@@ -132,7 +132,7 @@ const pk = company.packaging;
 const packTech = [
   {
     label: t.packaging.tech.plasticLabel,
-    value: hasFact(pk.innerPlastic.micron)
+    value: hasFact(pk.primaryPlastic.thicknessMicrons)
       ? fill(t.packaging.tech.plasticValueTemplate, tokens)
       : fill(t.packaging.tech.plasticPending, tokens),
   },
@@ -307,7 +307,7 @@ const linkP = 'mt-4 text-sm';
       <p class={linkP}>
         <MaybeLink href="/packaging" class="font-semibold" data-source-component="grade-packaging">{t.packaging.linkPackaging} <span aria-hidden="true">→</span></MaybeLink>
         <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
-        <MaybeLink href="/packaging/white-lable" class="font-semibold" data-source-component="grade-white-label">{t.packaging.linkWhiteLabel} <span aria-hidden="true">→</span></MaybeLink>
+        <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="grade-white-label">{t.packaging.linkWhiteLabel} <span aria-hidden="true">→</span></MaybeLink>
       </p>
     </section>
 

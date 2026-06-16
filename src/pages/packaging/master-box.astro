@@ -1,0 +1,420 @@
+---
+/**
+ * /packaging/master-box — cluster page.
+ *
+ * Built from docs/build-prompts/packaging/packaging-master-box-build-
+ * prompt-v2.md (delta on hub v6) + the consolidated-revisions §2
+ * addendum (printed box labels as the lower-cost branding alternative).
+ *
+ * Cluster template (locked): WebPage primary + page-specific FAQPage +
+ * DefinedTerm (@id → /glossary#master-box) (+ VideoObject when the
+ * video lands — valid-or-omit). The "boxes per 20ft container" FAQ is
+ * HUB-canonical: prose here links the hub FAQ, no duplicate schema.
+ * Photos interleave within their sections as captioned placeholders
+ * until the shoot lands; the video slot is omitted while
+ * media.videos[master-box].youtubeId is empty (Data Gaps).
+ *
+ * Representative "holds" example: derived from net weights (master ÷
+ * inner box) until the owner fills masterBox.holdsExample — never an
+ * invented fixed count [A1].
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import TextLink from '~/components/content/TextLink.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import VideoFacade from '~/components/packaging/VideoFacade.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact, portOfLoadingLabel } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { packagingClusterPageSchema } from '~/lib/schema/packagingClusterPage';
+import { videoObjectSchema } from '~/lib/schema/videoObject';
+
+const t = en.packagingMasterBox;
+const tShared = en.packaging.shared;
+const pk = company.packaging;
+const PATH = '/packaging/master-box';
+
+// Authoritative outbound reference (≤1 here; verify in preview).
+const UN_DG_URL = 'https://unece.org/transport/dangerous-goods';
+
+// Container math derives from commercial.containerCapacity + master-box
+// net weights (single source — no hardcoded counts).
+const containerNetKg = company.commercial.containerCapacity.ft20.fullKg;
+const boxesPerContainerExample = pk.masterBox.weightOptionsKg
+  .map((kg) => `${Math.floor(containerNetKg / kg).toLocaleString('en-US')} × ${kg} kg`)
+  .join(' or ');
+
+// Representative holds example [A1]: owner-supplied when present,
+// otherwise derived BY NET WEIGHT from the configured size lists.
+const biggestBox = Math.max(...pk.masterBox.weightOptionsKg);
+const innerRefs = [1, 0.5]
+  .filter((kg) => pk.innerBox.weightOptionsKg.includes(kg))
+  .map((kg) => `${biggestBox / kg} × ${kg >= 1 ? `${kg} kg` : `${kg * 1000} g`}`);
+const holdsByWeightExample = hasFact(pk.masterBox.holdsExample)
+  ? pk.masterBox.holdsExample
+  : `a ${biggestBox} kg master box corresponds to ${innerRefs.join(' or ')} inner boxes`;
+
+const priceValue = (v: string | number) =>
+  hasFact(v) ? `${pk.pricing.currency} ${v}` : tShared.availableOnRequest;
+
+const tokens = {
+  ...companyTokens(company),
+  containerNetKg: containerNetKg.toLocaleString('en-US'),
+  boxesPerContainerExample,
+  holdsByWeightExample,
+  outerDimsMm: pk.masterBox.outerDimsMm,
+  ect: pk.masterBox.cartonStrength.ect,
+  burstKpa: pk.masterBox.cartonStrength.burstKpa,
+  fluteType: pk.masterBox.cartonStrength.fluteType,
+  corrugateGsm: pk.masterBox.cartonStrength.corrugateGsm,
+  doubleWallPrice: priceValue(pk.pricing.doubleWallMasterBoxSurchargePerTonUsd),
+  currency: pk.pricing.currency,
+  priceBasis: hasFact(pk.pricing.priceBasis) ? pk.pricing.priceBasis : portOfLoadingLabel(),
+};
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const atGlanceFacts = [
+  { label: t.atAGlance.materialLabel, value: pk.masterBox.material },
+  { label: t.atAGlance.wallLabel, value: fill(t.atAGlance.wallValueTemplate, tokens) },
+  {
+    label: t.atAGlance.strengthLabel,
+    value: hasFact(pk.masterBox.cartonStrength.ect)
+      ? [pk.masterBox.cartonStrength.ect, pk.masterBox.cartonStrength.fluteType, pk.masterBox.cartonStrength.corrugateGsm && `${pk.masterBox.cartonStrength.corrugateGsm} gsm`]
+          .filter(Boolean)
+          .join(' · ')
+      : '',
+  },
+  { label: t.atAGlance.dimsLabel, value: hasFact(pk.masterBox.outerDimsMm) ? `${pk.masterBox.outerDimsMm} mm` : '' },
+  { label: t.atAGlance.netLabel, value: tokens.masterBoxSizes },
+  { label: t.atAGlance.grossLabel, value: hasFact(pk.masterBox.grossWeightKg) ? `${pk.masterBox.grossWeightKg} kg` : '' },
+  { label: t.atAGlance.holdsLabel, value: holdsByWeightExample },
+  { label: t.atAGlance.stackLabel, value: pk.masterBox.maxStackHeight },
+  { label: t.atAGlance.printLabel, value: hasFact(pk.masterBox.printOptions) ? pk.masterBox.printOptions.join(' / ') : t.atAGlance.printValue },
+  { label: t.atAGlance.printableFacesLabel, value: pk.masterBox.printableFaces },
+  { label: t.atAGlance.palletLabel, value: pk.ancillary.pallets && pk.ancillary.ispm15 ? t.atAGlance.palletValue : '' },
+  { label: t.atAGlance.containerLabel, value: fill(t.atAGlance.containerValueTemplate, tokens) },
+  { label: t.atAGlance.markingsLabel, value: fill(t.atAGlance.markingsValueTemplate, tokens) },
+  { label: t.atAGlance.brandingLabel, value: t.atAGlance.brandingValue },
+  { label: t.atAGlance.doubleWallPriceLabel, value: priceValue(pk.pricing.doubleWallMasterBoxSurchargePerTonUsd) },
+  { label: t.atAGlance.strappingPriceLabel, value: priceValue(pk.pricing.strappingPerTonUsd) },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const video = pk.media.videos.find((v) => v.id === 'master-box');
+const videoNode = video
+  ? videoObjectSchema({
+      id: `packaging-${video.id}`,
+      youtubeId: video.youtubeId,
+      name: t.h1,
+      description: pageDescription,
+      durationISO: video.durationISO,
+      uploadDate: video.uploadDate,
+      thumbnailUrl: video.posterAsset,
+    })
+  : null;
+
+const schema = packagingClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: PATH,
+  term: { anchor: 'master-box', name: 'master box', alternateName: ['master carton'] },
+  faq: faqItems,
+  videos: [videoNode],
+});
+
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.construction.p1,
+    t.construction.p2,
+    t.walls.p1,
+    t.walls.p2,
+    t.dims.p1,
+    t.dims.p2,
+    t.printing.p1,
+    t.printing.p2,
+    t.loadSecuring.p1,
+    t.container.p1,
+    t.compliance.p1,
+    t.neutralVsBranded.p1,
+    t.neutralVsBranded.p2,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+
+const photos = (list: Array<{ alt: string; caption: string }>) =>
+  list.map((p) => ({ alt: fill(p.alt, tokens), caption: fill(p.caption, tokens) }));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path={PATH}
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/packaging', '/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.packaging.breadcrumb, href: '/packaging' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('oemLayout'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'master-box-hero-quote',
+    }}
+  >
+    {/* Up-link to the pillar in the first viewport (cluster rule). */}
+    <p class="mt-6 text-sm">
+      <TextLink href="/packaging" class="font-semibold" data-source-component="master-box-up-link">
+        {t.upLink} <span aria-hidden="true">→</span>
+      </TextLink>
+    </p>
+  </HeroSection>
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: en.packaging.metaBlock.authorRole,
+          reviewedBy: en.packaging.metaBlock.reviewerRole,
+          factCheckedBy: en.packaging.metaBlock.factCheckerRole,
+          lastUpdated: en.packaging.metaBlock.lastUpdatedLabel,
+          readTime: en.packaging.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={pk.editorial.dateModified}
+        readTimeValue={fill(en.packaging.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox id="master-box-at-a-glance" heading={t.atAGlance.heading} facts={atGlanceFacts} />
+      <p class="mt-3 text-sm text-neutral-600">{fill(tShared.priceCaveatTemplate, tokens)}</p>
+    </div>
+  </div>
+
+  {/* Definition & construction (incl. carton strength). */}
+  <section id="construction" aria-labelledby="construction-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 pb-12 md:px-8">
+      <h2 id="construction-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.construction.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.construction.p1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.construction.p2, tokens)}
+        {hasFact(pk.masterBox.cartonStrength.ect) && ` ${fill(t.construction.strengthSpecTemplate, tokens)}`}
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.construction.photos)} />
+    </div>
+  </section>
+
+  {/* Single vs double wall. */}
+  <section id="single-vs-double-wall" aria-labelledby="walls-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="walls-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.walls.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.walls.p1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.walls.p2, tokens)}
+        {hasFact(pk.pricing.doubleWallMasterBoxSurchargePerTonUsd) && ` ${fill(t.walls.priceLineTemplate, tokens)}`}
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.walls.photos)} />
+    </div>
+  </section>
+
+  {/* Dimensions & weights (+ representative holds example). */}
+  <section id="dimensions-weights" aria-labelledby="dims-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="dims-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.dims.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.dims.p1, tokens)}
+        {hasFact(pk.masterBox.outerDimsMm) && ` ${fill(t.dims.dimsLineTemplate, tokens)}`}
+      </p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.dims.p2, tokens)}</p>
+      <p class="mt-3 text-sm">
+        <MaybeLink href="/packaging/inner-box" class="font-semibold" data-source-component="master-box-inner-box">
+          {t.dims.innerBoxLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <MaybeLink href="/products" class="font-semibold" data-source-component="master-box-products">
+          {t.dims.productsLinkLabel}
+        </MaybeLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.dims.photos)} />
+    </div>
+  </section>
+
+  {/* Printing & branding (+ revisions §2 box-labels addendum). */}
+  <section id="printing-branding" aria-labelledby="printing-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="printing-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.printing.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.printing.p1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.printing.p2, tokens)}{' '}
+        <MaybeLink href="/packaging/additional-packaging#branded-consumables" class="font-semibold" data-source-component="master-box-box-labels">
+          {t.printing.boxLabelsLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {fill(t.printing.artworkLineTemplate, tokens)}{' '}
+        <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="master-box-artwork">
+          {t.printing.artworkLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.printing.photos)} />
+    </div>
+  </section>
+
+  {/* Strapping & palletization. */}
+  <section id="strapping-palletization" aria-labelledby="load-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="load-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.loadSecuring.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.loadSecuring.p1, tokens)}</p>
+      <p class="mt-3 text-sm">
+        <MaybeLink href="/packaging/additional-packaging#load-securing" class="font-semibold" data-source-component="master-box-load-addons">
+          {t.loadSecuring.addonsLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <MaybeLink href="/logistics/rules" class="font-semibold" data-source-component="master-box-logistics-rules">
+          {t.loadSecuring.logisticsLinkLabel}
+        </MaybeLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.loadSecuring.photos)} />
+    </div>
+  </section>
+
+  {/* Container loading — the count FAQ stays hub-canonical (link only). */}
+  <section id="container-loading" aria-labelledby="container-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="container-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.container.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.container.p1, tokens)}</p>
+      <p class="mt-3 text-sm">
+        <TextLink href="/packaging#packaging-faq" class="font-semibold" data-source-component="master-box-hub-faq">
+          {t.container.hubFaqLinkLabel} <span aria-hidden="true">→</span>
+        </TextLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.container.photos)} />
+    </div>
+  </section>
+
+  {/* Compliance & markings. */}
+  <section id="compliance-markings" aria-labelledby="compliance-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="compliance-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.compliance.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.compliance.p1, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <ExternalLink href={UN_DG_URL} class="font-semibold" data-event="outbound_click" data-source-component="master-box-un-dg">
+          {t.compliance.unLinkLabel}
+        </ExternalLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/UN-1361" class="font-semibold" data-source-component="master-box-un1361">
+          {t.compliance.un1361LinkLabel}
+        </MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/documents" class="font-semibold" data-source-component="master-box-documents">
+          {t.compliance.documentsLinkLabel}
+        </MaybeLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.compliance.photos)} />
+    </div>
+  </section>
+
+  {/* Neutral vs branded (+ sample-carton cross-link into proof flow). */}
+  <section id="neutral-vs-branded" aria-labelledby="neutral-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="neutral-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.neutralVsBranded.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.neutralVsBranded.p1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.neutralVsBranded.p2, tokens)}</p>
+      <p class="mt-3 text-sm">
+        <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="master-box-white-label">
+          {t.neutralVsBranded.whiteLabelLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <MaybeLink href="/contact" class="font-semibold" data-source-component="master-box-inquiry">
+          {t.neutralVsBranded.inquiryLinkLabel}
+        </MaybeLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <MaybeLink href="/samples" class="font-semibold" data-source-component="master-box-samples">
+          {t.neutralVsBranded.samplesLinkLabel}
+        </MaybeLink>
+      </p>
+      <PhotoGrid class="mt-8" columns={2} photos={photos(t.neutralVsBranded.photos)} />
+    </div>
+  </section>
+
+  {/* Video — canonical home for the master-box VideoObject; slot omits
+      while media.videos[master-box].youtubeId is empty (Data Gaps). */}
+  {video && video.youtubeId && (
+    <section aria-label={t.h1} class="bg-white">
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <div class="max-w-xl">
+          <VideoFacade
+            youtubeId={video.youtubeId}
+            title={t.h1}
+            playLabel={fill(tShared.playVideoTemplate, { title: t.h1 })}
+            dataSourceComponent="master-box-video"
+          />
+        </div>
+      </div>
+    </section>
+  )}
+
+  {/* Page-specific FAQ (schema in the page @graph; no double emission). */}
+  <section aria-labelledby="master-box-faq" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="master-box-faq" heading={t.faq.heading} items={faqItems} />
+      <p class="mx-auto mt-6 max-w-3xl text-sm text-neutral-600">
+        {t.faq.moreLine}{' '}
+        <TextLink href="/packaging#packaging-faq" class="font-semibold" data-source-component="master-box-faq-hub">
+          {t.faq.hubFaqLinkLabel}
+        </TextLink>
+        <span class="mx-2 text-neutral-300" aria-hidden="true">·</span>
+        <TextLink href="/faq" class="font-semibold" data-source-component="master-box-faq-general">
+          {t.faq.generalFaqLinkLabel}
+        </TextLink>
+      </p>
+    </div>
+  </section>
+
+  {/* Related topics — up to the pillar, across to all four siblings. */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`master-box-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.oemLayout} />
+</BaseLayout>

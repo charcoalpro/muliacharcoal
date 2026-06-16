@@ -1,0 +1,128 @@
+---
+/**
+ * VideoFacade — YouTube nocookie click-to-load facade.
+ *
+ * Per packaging hub build prompt v6 §9.3 ([A6]/[Y1]):
+ *   - Ships ZERO third-party requests on first paint: a local poster
+ *     (Astro-processed `<Image />`, lazy, explicit dims) inside a fixed
+ *     16:9 aspect box, wrapped in a REAL link to the YouTube watch page.
+ *   - With JS on, one deferred event-delegated listener (shared across
+ *     every instance via Astro's hoisted-script dedupe) intercepts the
+ *     click and swaps in the `youtube-nocookie.com` embed iframe. The
+ *     iframe fills the SAME aspect box → no CLS on play.
+ *   - With JS off, the link simply opens the video on YouTube — no dead
+ *     elements.
+ *   - No autoplay on load; after the click, playback starts unless the
+ *     user prefers reduced motion. Focus moves into the player on
+ *     activation.
+ *   - Absent `youtubeId` → renders nothing. Callers omit the slot and
+ *     log it in the Data Gaps report; never fake a video.
+ *
+ * The on-page title + key-points text (the GEO surface) is rendered by
+ * the calling page NEXT TO this component — it is deliberately not part
+ * of the media box so it stays extractable with JS disabled.
+ *
+ * CSP: `frame-src https://www.youtube-nocookie.com` (public/_headers).
+ * The poster must be a LOCAL asset — `img-src` does not allow i.ytimg.com.
+ */
+
+import type { ImageMetadata } from 'astro';
+import ResponsiveImage from '~/components/media/ResponsiveImage.astro';
+
+interface Props {
+  youtubeId: string;
+  /** Video title — used for the iframe title attribute. */
+  title: string;
+  /** Accessible label for the play link, e.g. "Play video: …" (i18n). */
+  playLabel: string;
+  /** Local poster asset (16:9). Omit to render a titled dark box. */
+  posterSrc?: ImageMetadata;
+  /** Poster alt text (i18n; distinct from the title). */
+  posterAlt?: string;
+  dataEvent?: string;
+  dataSourceComponent?: string;
+  class?: string;
+}
+
+const {
+  youtubeId,
+  title,
+  playLabel,
+  posterSrc,
+  posterAlt,
+  dataEvent = 'video_play',
+  dataSourceComponent = 'video-facade',
+  class: className,
+} = Astro.props;
+---
+{youtubeId && (
+  <div
+    class:list={[
+      'relative aspect-video w-full overflow-hidden rounded-xl border border-neutral-200 bg-neutral-900',
+      className,
+    ]}
+    data-video-facade
+    data-yt-id={youtubeId}
+    data-yt-title={title}
+  >
+    <a
+      href={`https://www.youtube.com/watch?v=${youtubeId}`}
+      target="_blank"
+      rel="noopener"
+      aria-label={playLabel}
+      data-event={dataEvent}
+      data-source-component={dataSourceComponent}
+      class="group absolute inset-0 flex h-full w-full items-center justify-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+    >
+      {posterSrc ? (
+        <ResponsiveImage
+          src={posterSrc}
+          alt={posterAlt ?? ''}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          widths={[400, 800, 1200]}
+          class="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
+      ) : (
+        <span class="absolute inset-x-0 bottom-0 p-4 text-start text-sm font-medium text-white/90">
+          {title}
+        </span>
+      )}
+      <span
+        aria-hidden="true"
+        class="relative z-10 grid h-16 w-16 place-items-center rounded-full bg-black/60 ring-1 ring-white/20 transition group-hover:bg-black/80"
+      >
+        <svg viewBox="0 0 24 24" class="h-8 w-8 translate-x-[2px] text-white" fill="currentColor">
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </span>
+    </a>
+  </div>
+)}
+
+<script>
+  /**
+   * One deferred, event-delegated loader for every VideoFacade on the
+   * page (Astro dedupes this hoisted script). Click → swap the poster
+   * link for the youtube-nocookie iframe inside the same aspect box.
+   */
+  document.addEventListener('click', (event) => {
+    const target = event.target as Element | null;
+    const facade = target?.closest<HTMLElement>('[data-video-facade]');
+    if (!facade || facade.querySelector('iframe')) return;
+
+    const id = facade.dataset.ytId;
+    if (!id) return;
+    event.preventDefault();
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube-nocookie.com/embed/${id}?${reduced ? 'rel=0' : 'autoplay=1&rel=0'}`;
+    iframe.title = facade.dataset.ytTitle ?? 'Video';
+    iframe.allow =
+      'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.className = 'absolute inset-0 h-full w-full border-0';
+    facade.replaceChildren(iframe);
+    iframe.focus();
+  });
+</script>

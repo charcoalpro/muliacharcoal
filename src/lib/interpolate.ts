@@ -155,20 +155,23 @@ export function companyTokens(company: Company) {
     // Lower-bound lead time used by the homepage CTA banner sub-headline
     // ("Production from {{leadTimeDays}} days").
     leadTimeDays: company.commercial.leadTime.repeatBrandDays,
-    // Packaging — formatted size lists for use in i18n templates.
-    innerPlasticSizes: company.packaging.innerPlastic.sizesGrams
+    // Packaging — formatted size lists for use in i18n templates. Net
+    // weights per layer come from the packaging contract (weightOptions*);
+    // token names predate the contract migration and stay stable so no
+    // i18n template changes.
+    innerPlasticSizes: company.packaging.primaryPlastic.weightOptionsG
       .map((g) => (g >= 1000 ? `${g / 1000} kg` : `${g} g`))
       .join(' / '),
-    innerBoxSizes: company.packaging.innerBox.sizesGrams
-      .map((g) => (g >= 1000 ? `${g / 1000} kg` : `${g} g`))
+    innerBoxSizes: company.packaging.innerBox.weightOptionsKg
+      .map((kg) => (kg >= 1 ? `${kg} kg` : `${kg * 1000} g`))
       .join(' / '),
-    innerBoxGsm: company.packaging.innerBox.gsm,
-    masterBoxSizes: company.packaging.masterBox.sizesKg
+    innerBoxGsm: company.packaging.innerBox.paperGsm,
+    masterBoxSizes: company.packaging.masterBox.weightOptionsKg
       .map((kg) => `${kg} kg`)
       .join(' or '),
-    masterBoxWallOptions: company.packaging.masterBox.wallOptions.join('- or '),
-    acceptedArtworkFormats: company.packaging.acceptedArtworkFormats.join(' / '),
-    proofTimeDays: company.packaging.proofTimeDays,
+    masterBoxWallOptions: company.packaging.masterBox.wallTypes.join('- or '),
+    acceptedArtworkFormats: company.packaging.branding.artworkFormats.join(' / '),
+    proofTimeDays: company.packaging.proofing.proofLeadTimeDays,
     // Certifications
     iso9001Short: company.certifications.iso9001.shortName,
     isoStandard: company.certifications.iso9001.standard,
