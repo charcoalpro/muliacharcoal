@@ -1,0 +1,163 @@
+---
+/**
+ * /logistics/rules — shipping rules & incoterms (cocoon v3.3 §5.2).
+ * WebPage + FAQPage + supplementary HowTo (the order process). Sibling
+ * links per §3.1 woven into the section bodies. Facts from company.ts;
+ * payment renders commercial.paymentTerms prose — never banking or a
+ * per-ton price.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, logisticsTokens } from '~/lib/interpolate';
+import { logisticsClusterPageSchema } from '~/lib/schema/logisticsClusterPage';
+
+const t = en.logisticsRules;
+const tc = en.logisticsCommon;
+const L = company.logistics;
+const tokens = { ...companyTokens(company), ...logisticsTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const keyFacts = [
+  { label: t.keyFacts.incotermDefaultLabel, value: `${tokens.incotermDefault} ${tokens.port}` },
+  { label: t.keyFacts.incotermsLabel, value: tokens.incotermsList },
+  { label: t.keyFacts.paymentLabel, value: tokens.paymentTerms },
+  { label: t.keyFacts.fclLabel, value: t.keyFacts.fclValue },
+  { label: t.keyFacts.mixedSizesLabel, value: hasFact(L.loading.mixedSizesPolicy) ? L.loading.mixedSizesPolicy : t.loading.mixedSizesNote },
+  { label: t.keyFacts.moqLabel, value: tokens.moqLabel },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+const steps = t.payment.steps.map((s) => ({ name: s.name, text: fill(s.text, tokens) }));
+
+const schema = logisticsClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/logistics/rules',
+  faq: faqItems,
+  howTo: { name: t.payment.h2, steps },
+});
+
+const proseForReadTime = fill(
+  [t.heroSubtitle, t.intro.p1, t.loading.body, t.incoterms.body, t.payment.body, t.booking.body, ...steps.map((s) => s.text), ...t.faq.items.flatMap((f) => [f.q, f.a])].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/logistics/rules"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.logistics.breadcrumb, href: '/logistics' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'rules-hero-quote',
+    }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'rules-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={L.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <p class="max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/logistics" class="font-semibold" data-source-component="rules-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+    </p>
+
+    <KeyFactsBox class="mt-8" id="rules-at-a-glance" heading={t.keyFacts.heading} definition={t.keyFacts.definition} facts={keyFacts} />
+
+    <section id="loading" aria-labelledby="loading-heading" class="mt-12 scroll-mt-24">
+      <h2 id="loading-heading" class="text-2xl font-bold text-neutral-900">{t.loading.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.loading.body, tokens)}</p>
+      <p class="mt-3 text-sm"><MaybeLink href="/packaging" class="font-semibold" data-source-component="rules-loading-packaging">{t.loading.palletLinkLabel} <span aria-hidden="true">→</span></MaybeLink></p>
+    </section>
+
+    <section id="incoterms" aria-labelledby="incoterms-heading" class="mt-12 scroll-mt-24">
+      <h2 id="incoterms-heading" class="text-2xl font-bold text-neutral-900">{t.incoterms.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.incoterms.body, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.incoterms.cifNote}{' '}
+        <MaybeLink href="/logistics/cargo-protection-and-insurance" class="font-semibold" data-source-component="rules-incoterms-cargo">{t.incoterms.cifLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    <section id="payment" aria-labelledby="payment-heading" class="mt-12 scroll-mt-24">
+      <h2 id="payment-heading" class="text-2xl font-bold text-neutral-900">{t.payment.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.payment.body, tokens)}</p>
+      <p class="mt-3 text-base text-neutral-700">{t.payment.stepsIntro}</p>
+      <ol class="mt-3 max-w-prose space-y-2 text-base text-neutral-700" role="list">
+        {steps.map((s, i) => (
+          <li class="flex gap-3">
+            <span aria-hidden="true" class="font-semibold text-brand-primary">{i + 1}.</span>
+            <span><strong class="font-semibold text-neutral-900">{s.name}.</strong> {s.text}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-4 text-sm"><MaybeLink href="/logistics/documents" class="font-semibold" data-source-component="rules-payment-documents">{t.payment.documentsLinkLabel} <span aria-hidden="true">→</span></MaybeLink></p>
+    </section>
+
+    <section id="booking" aria-labelledby="booking-heading" class="mt-12 scroll-mt-24">
+      <h2 id="booking-heading" class="text-2xl font-bold text-neutral-900">{t.booking.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.booking.body, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/logistics/charcoal-dg-regulation" class="font-semibold" data-source-component="rules-booking-regulation">{t.booking.regulationLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/charcoal-shipping-lines" class="font-semibold" data-source-component="rules-booking-carriers">{t.booking.carriersLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/import-to-usa" class="font-semibold" data-source-component="rules-booking-import">{t.booking.importLinkLabel}</MaybeLink>
+      </p>
+    </section>
+
+    <section aria-labelledby="rules-faq" class="mt-14">
+      <FAQSection id="rules-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="rules-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="rules-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`rules-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

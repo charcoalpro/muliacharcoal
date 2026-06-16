@@ -192,6 +192,53 @@ export function companyTokens(company: Company) {
 }
 
 /**
+ * Logistics-cocoon token dictionary. Adds the shipping/DG/customs scalars
+ * the eight `/logistics` pages share, on top of `companyTokens()`. Reads
+ * the canonical homes (commercial.* for port/transit/containers/hsCode,
+ * certifications.imdg via companyTokens, logistics.* for the SP-978
+ * reframe and document counts) so no fact is duplicated. Page-specific
+ * computations (transit table, combined order→port total, duty stack)
+ * stay inline on each page.
+ */
+export function logisticsTokens(company: Company) {
+  const L = company.logistics;
+  const pol = company.commercial.portOfLoading;
+  const cc = company.commercial.containerCapacity;
+  const toTons = (kg: number | null) => (kg ? `${Math.round(kg / 1000)} tons` : '');
+  const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  const fmtDate = (iso: string) => {
+    const [y, mo, d] = String(iso).split('-').map(Number);
+    return y && mo && d ? `${d} ${months[mo - 1]} ${y}` : String(iso);
+  };
+  return {
+    portUnlocode: pol.unLocode,
+    portFullName: pol.fullName,
+    portWithCode: `${pol.name} (${pol.unLocode})`,
+    incotermsList: L.incoterms.join(' / '),
+    incotermDefault: pol.incoterm,
+    net20ftTons: toTons(cc.ft20.fullKg),
+    net40ftTons: toTons(cc.ft40.fullKg),
+    packingGroup: L.dg.packingGroup,
+    properShippingName: L.dg.properShippingName,
+    dgAmendment: L.dg.amendment,
+    dgMandatoryFrom: L.dg.mandatoryFrom,
+    dgMandatoryYear: String(L.dg.mandatoryFrom).slice(0, 4),
+    dgMandatoryDate: fmtDate(L.dg.mandatoryFrom),
+    dgVoluntaryDate: fmtDate(L.dg.voluntaryFrom),
+    dgLabellingGraceDate: fmtDate(L.dg.labellingGrace),
+    sp978Headspace: L.dg.sp978.headspaceCm,
+    sp978PackTemp: L.dg.sp978.packingTempMaxC,
+    sp978Weathering: L.dg.sp978.weatheringDays,
+    carriersAudited: L.dg.carriersAudited.join(', '),
+    carriersNotAccepting: L.dg.carriersNotAccepting.join(', '),
+    documentsStandardCount: L.documentsStandard.length,
+    documentsAdditionalCount: L.documentsAdditional.length,
+    transitLastUpdated: L.transitTimesLastUpdated,
+    hsCode6: company.commercial.hsCode ?? '',
+  };
+}
+
+/**
  * The canonical token vocabulary returned by `companyTokens()`. Inferred from
  * the function's return literal so adding or renaming a token in one place
  * automatically updates the type — call sites referencing a removed token

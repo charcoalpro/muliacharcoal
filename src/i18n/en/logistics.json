@@ -1,0 +1,223 @@
+{
+  "meta": {
+    "titleTemplate": "Coconut Charcoal Shipping & Logistics from {{port}}",
+    "descriptionTemplate": "How we ship UN 1361 coconut charcoal from {{portWithCode}}: incoterms, export documents, transit times, dangerous-goods rules, and US import — MOQ {{moqLabel}}."
+  },
+
+  "breadcrumb": "Logistics",
+  "eyebrow": "Export logistics",
+  "h1": "Shipping coconut charcoal from {{port}}",
+  "heroSubtitle": "Logistics is the discipline of moving your container from our factory to your port. We load full 20ft containers {{portLabel}}, ship UN 1361 coconut charcoal as declared dangerous goods (Class {{unClass}}, Packing Group {{packingGroup}}), and hand your broker a complete export-document pack. Minimum order is {{moqLabel}}.",
+
+  "hero": {
+    "ctaQuote": "Request a shipping quote",
+    "ctaQuoteAria": "Request a shipping quote on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Open the inquiry form"
+  },
+
+  "heroTrust": {
+    "portLabel": "Port of loading",
+    "moqLabel": "Minimum order",
+    "incotermsLabel": "Incoterms",
+    "dgLabel": "Dangerous goods"
+  },
+
+  "atAGlance": {
+    "heading": "Shipping at a glance",
+    "definition": "These are the load-bearing facts for planning an import: where the cargo loads, how it is classified, what documents travel with it, and how long it takes to reach your port.",
+    "portLabel": "Port of loading",
+    "altPortsLabel": "Alternate ports",
+    "containerLabel": "Container payload",
+    "containerValueTemplate": "20ft {{net20ftTons}} net; 40HQ {{net40ftTons}}",
+    "incotermsLabel": "Incoterms",
+    "incotermsValueTemplate": "{{incotermsList}} (default {{incotermDefault}})",
+    "dgLabel": "Dangerous goods",
+    "dgValueTemplate": "{{unNumber}} Class {{unClass}}, Packing Group {{packingGroup}}",
+    "shtLabel": "SHT & COA",
+    "shtValue": "On request (paid add-on)",
+    "documentsLabel": "Export documents",
+    "documentsValueTemplate": "{{documentsStandardCount}} standard + {{documentsAdditionalCount}} on request",
+    "productionLabel": "Production lead time",
+    "productionValueTemplate": "{{leadTimeLabel}}",
+    "insuranceLabel": "Cargo insurance",
+    "insuranceValue": "Buyer-arranged; covers external perils",
+    "customsLabel": "Customs clearance",
+    "customsValue": "Arranged by the buyer",
+    "transitLabel": "Ocean transit"
+  },
+
+  "intro": {
+    "p1": "This is the Logistics pillar for {{brand}}. It explains every stage between a confirmed order and a container on your dock: production, trucking to {{portFullName}}, dangerous-goods booking, the ocean voyage, and the import clearance your broker handles at destination.",
+    "p2": "Coconut shell charcoal is regulated cargo. Since IMDG Amendment 42-24 became mandatory on {{dgMandatoryDate}}, UN 1361 must be shipped as declared dangerous goods — there is no compliant non-DG route. Every page below treats that as the starting point, not a surprise at the port.",
+    "p3": "Customs clearance at destination is the buyer's responsibility. We load {{portLabel}}, issue the export documents, and the cargo crosses to your account at the ship's rail; your customs broker takes it from there."
+  },
+
+  "children": {
+    "rules": {
+      "h2": "Shipping rules & incoterms",
+      "definition": "The commercial rules of a charcoal order: how containers are loaded, which incoterms we offer, how payment is structured, and how a dangerous-goods sailing is booked.",
+      "facts": [
+        "Full-container load (FCL) only — Class {{unClass}} cannot share an LCL groupage box.",
+        "Incoterms: {{incotermsList}}; our default is {{incotermDefault}} {{port}}.",
+        "Mixed sizes in one container are accommodated within a single grade order."
+      ],
+      "linkLabel": "Read the shipping rules"
+    },
+    "documents": {
+      "h2": "Export documents",
+      "definition": "The paper that travels with your container. We issue {{documentsStandardCount}} standard documents with every shipment and {{documentsAdditionalCount}} more on request.",
+      "facts": [
+        "Standard pack includes the commercial invoice, packing list, bill of lading, COO, MSDS, DGD and vanning certificate.",
+        "SHT and COA reports are available on request as paid add-ons.",
+        "Originals follow by courier; scans are sent first so your broker can pre-clear."
+      ],
+      "linkLabel": "See the export documents"
+    },
+    "un1361": {
+      "h2": "UN 1361: is charcoal dangerous goods?",
+      "definition": "UN 1361 \"Carbon, animal or vegetable origin\" is the classification under which coconut charcoal ships by sea — {{imdgLabel}}, Packing Group {{packingGroup}}.",
+      "facts": [
+        "Class {{unClass}} means the cargo can self-heat; the SP 978 controls exist to prevent that.",
+        "The Self-Heating Test is supporting hazard evidence — no longer a route to non-DG status.",
+        "Self-heating fire is inherent vice and is not insurable — it is prevented, not insured."
+      ],
+      "linkLabel": "What UN 1361 means for your shipment"
+    },
+    "dgRegulation": {
+      "h2": "2026 charcoal shipping rules (IMDG 42-24 / SP 978)",
+      "definition": "What changed on 1 January {{dgMandatoryYear}}: IMDG Amendment 42-24 withdrew the old exemptions and introduced Special Provision 978, making declared dangerous goods the only lawful way to ship charcoal.",
+      "facts": [
+        "Withdrew Special Provisions 925 and 223; the self-heating test no longer exempts.",
+        "SP 978 sets weathering, ≤ {{sp978PackTemp}} °C packing temperature, and {{sp978Headspace}} cm container headspace.",
+        "Any supplier quoting non-DG freight is offering a misdeclaration that exposes you to liability."
+      ],
+      "linkLabel": "What changed for charcoal in 2026"
+    },
+    "shippingLines": {
+      "h2": "Carriers that ship charcoal",
+      "definition": "Not every line carries Class {{unClass}} charcoal. We book directly with carriers that accept declared UN 1361 dangerous goods and hold the factory audits they require.",
+      "facts": [
+        "Carriers we book directly: {{carriersAudited}}.",
+        "Several major lines have declined charcoal bookings — we name them so you can plan.",
+        "You may use your own forwarder under EXW or {{incotermDefault}}."
+      ],
+      "linkLabel": "Which carriers accept charcoal"
+    },
+    "cargoProtection": {
+      "h2": "Cargo protection & insurance",
+      "definition": "How the cargo is protected on the voyage, and what marine insurance does — and does not — cover. Insurance is arranged by the buyer under the incoterms we offer.",
+      "facts": [
+        "Insurance covers external perils: water ingress, theft, general average, vessel casualty, external fire.",
+        "Self-heating fire is excluded (inherent vice) — prevention, not a policy, is the safeguard.",
+        "Moisture, thermal and breakage protection are explained; packaging holds the specs."
+      ],
+      "linkLabel": "Is your shipment insured?"
+    },
+    "importUsa": {
+      "h2": "Importing charcoal to the USA",
+      "definition": "US import mechanics for HS {{hsCode6}} coconut charcoal: classification, the current duty stack, the entry process, and the FDA position on hookah charcoal.",
+      "facts": [
+        "HTS candidates carry a Free base duty; a layered surcharge applies on top (date-stamped).",
+        "ISF 10+2, a customs bond, and CBP Form 7501 govern the entry.",
+        "Hookah charcoal is FDA-regulated as a tobacco-product component — read before you ship."
+      ],
+      "linkLabel": "Import charcoal to the USA"
+    }
+  },
+
+  "transit": {
+    "heading": "Transit times from {{port}}",
+    "intro": "Indicative ocean transit to the main buyer markets, ex-{{portWithCode}}. Day-ranges vary by line, routing, and season; confirm with the carrier at booking.",
+    "sentenceTemplate": "Typical ocean transit from {{portWithCode}} to {{destPort}} ({{unlocode}}) is {{min}}–{{max}} days.",
+    "headlineLabelTemplate": "{{min}}–{{max}} days across priority markets"
+  },
+
+  "timeline": {
+    "heading": "From order to your port",
+    "body": "Total time has three parts. Production of a 20ft container runs {{leadTimeLabel}}. Once the cargo is ready it waits for the next dangerous-goods-capable sailing, then the ocean voyage to your port (see the transit table above). Booking is arranged during production, so it does not add to the front of the timeline.",
+    "productionLabel": "Production",
+    "bufferLabel": "Wait for next DG sailing",
+    "transitLabel": "Ocean transit",
+    "bufferValue": "Next available sailing"
+  },
+
+  "dgOverview": {
+    "heading": "Dangerous goods, in one paragraph",
+    "body1": "Coconut charcoal is {{imdgLabel}}, Packing Group {{packingGroup}}. Since {{dgMandatoryDate}} it must ship as declared dangerous goods under Special Provision 978 — there is no compliant non-DG route.",
+    "body2": "Class {{unClass}} means the cargo can self-heat. The SP 978 controls — weathering, ≤ {{sp978PackTemp}} °C packing, {{sp978Headspace}} cm headspace — exist to prevent that, and incidents are rare. Self-heating fire is inherent vice and is not insurable, which is exactly why prevention, not a policy, is the safeguard.",
+    "un1361LinkLabel": "What UN 1361 is",
+    "regulationLinkLabel": "What SP 978 requires",
+    "cargoLinkLabel": "How the cargo is protected",
+    "markingsLinkLabel": "Dangerous-goods markings on the box"
+  },
+
+  "outbound": {
+    "intro": "Authoritative references:",
+    "imoLabel": "IMO IMDG Code overview",
+    "exportAuthorityLabel": "Indonesian export authority (Bea Cukai)"
+  },
+
+  "media": {
+    "heading": "From factory floor to vessel",
+    "photos": [
+      { "alt": "20ft container being floor-stuffed with master boxes of {{brand}} coconut charcoal at {{port}}", "caption": "Floor-stuffing a 20ft container at {{portFullName}} ({{portUnlocode}})." },
+      { "alt": "Truck departing the {{brand}} factory with a sealed export container of coconut charcoal", "caption": "Trucking the sealed container from the factory to {{portFullName}}." },
+      { "alt": "Sealed container door bearing a Class {{unClass}} dangerous-goods placard for UN 1361 charcoal", "caption": "Every UN 1361 container carries Class {{unClass}} placards and {{unNumber}} markings." },
+      { "alt": "Export document pack for a UN 1361 coconut charcoal shipment from {{port}}", "caption": "The standard export-document pack that travels with each shipment." }
+    ]
+  },
+
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What port do you ship from?",
+        "a": "We load full containers {{portLabel}} — {{portWithCode}}. Surabaya (IDSUB) and Jakarta / Tanjung Priok (IDJKT) are available on request."
+      },
+      {
+        "q": "How long is transit to my port?",
+        "a": "Indicative ocean transit ex-{{portWithCode}} ranges by destination — see the transit table above. Times vary by line and season; we confirm the current schedule with the carrier at booking."
+      },
+      {
+        "q": "How long from order to my port?",
+        "a": "Production of a 20ft container runs {{leadTimeLabel}}. The cargo then waits for the next dangerous-goods-capable sailing before the ocean voyage to your port. Booking is arranged during production, so it does not add to the front of the timeline."
+      },
+      {
+        "q": "FCL only, or do you offer LCL?",
+        "a": "Full-container load (FCL) only. UN 1361 is Class {{unClass}} dangerous goods and cannot be co-loaded with other cargo in an LCL groupage container — which is why the minimum order is {{moqLabel}}."
+      },
+      {
+        "q": "What incoterms do you offer?",
+        "a": "We offer {{incotermsList}}; our default basis is {{incotermDefault}} {{port}}. Under all three the buyer arranges marine insurance — we do not offer CIF."
+      },
+      {
+        "q": "Who handles customs clearance?",
+        "a": "Customs clearance at the destination is the buyer's responsibility, handled by your customs broker. We load {{portLabel}}, issue the export-document pack, and the cargo transfers to your account at the ship's rail."
+      },
+      {
+        "q": "Do you offer 40ft containers?",
+        "a": "Yes — a 40HQ carries {{net40ftTons}} net versus {{net20ftTons}} in a 20ft. Most buyers start with a 20ft container at the {{moqLabel}} minimum."
+      }
+    ]
+  },
+
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics/rules", "label": "Shipping rules & incoterms" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous goods" },
+      { "href": "/logistics/charcoal-dg-regulation", "label": "2026 charcoal shipping rules" },
+      { "href": "/logistics/charcoal-shipping-lines", "label": "Carriers that ship charcoal" },
+      { "href": "/logistics/cargo-protection-and-insurance", "label": "Cargo protection & insurance" },
+      { "href": "/logistics/import-to-usa", "label": "Import to the USA" },
+      { "href": "/packaging", "label": "Packaging & OEM" },
+      { "href": "/quality/certifications", "label": "Certifications" },
+      { "href": "/samples", "label": "Order a sample" },
+      { "href": "/faq", "label": "Buyer FAQ" },
+      { "href": "/glossary", "label": "Glossary" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

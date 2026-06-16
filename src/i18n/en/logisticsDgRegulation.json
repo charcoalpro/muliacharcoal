@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "titleTemplate": "Charcoal Shipping Rules {{dgMandatoryYear}}: IMDG 42-24 & SP 978",
+    "descriptionTemplate": "What changed for shipping coconut charcoal in {{dgMandatoryYear}}: IMDG Amendment 42-24 withdrew the test-out, introduced SP 978, and made declared dangerous goods mandatory."
+  },
+  "breadcrumb": "2026 shipping rules",
+  "eyebrow": "Logistics · Regulation",
+  "h1": "Charcoal shipping rules in {{dgMandatoryYear}}: IMDG 42-24 & SP 978",
+  "heroSubtitle": "On {{dgMandatoryDate}}, IMDG Amendment 42-24 changed how coconut charcoal ships by sea. The self-heating test-out is gone; declared dangerous goods is now the only lawful route.",
+  "hero": {
+    "ctaQuote": "Ask a compliance question",
+    "ctaQuoteAria": "Ask a compliance question on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Open the inquiry form"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar and tracks what changed in {{dgMandatoryYear}}. For the timeless classification — what UN 1361 and Class {{unClass}} are — see the UN 1361 page; here we cover the new rules.",
+    "hubLinkLabel": "Logistics overview"
+  },
+  "keyFacts": {
+    "heading": "What changed, at a glance",
+    "definition": "The IMDG Amendment 42-24 changes that govern coconut charcoal from {{dgMandatoryDate}}.",
+    "mandatoryLabel": "Mandatory from",
+    "mandatoryValue": "{{dgMandatoryDate}}",
+    "withdrawnLabel": "Withdrawn",
+    "withdrawnValue": "Special Provisions 925 and 223",
+    "introducedLabel": "Introduced",
+    "introducedValue": "Special Provision 978",
+    "basisLabel": "Lawful basis",
+    "basisValue": "Declared dangerous goods only",
+    "packTempLabel": "Packing temperature",
+    "packTempValue": "≤ {{sp978PackTemp}} °C",
+    "headspaceLabel": "Container headspace",
+    "headspaceValue": "≥ {{sp978Headspace}} cm"
+  },
+  "whatChanged": {
+    "h2": "What changed in {{dgMandatoryYear}}",
+    "body": "IMDG Amendment 42-24 became mandatory on {{dgMandatoryDate}}. For UN 1361 it withdrew Special Provisions 925 and 223 and introduced Special Provision 978. The practical effect: the self-heating test no longer exempts charcoal from dangerous-goods rules. The cargo must be declared and carried as {{imdgLabel}}, Packing Group {{packingGroup}}.",
+    "un1361LinkLabel": "What UN 1361 and Class 4.2 are"
+  },
+  "sp978": {
+    "h2": "What SP 978 requires",
+    "body": "Special Provision 978 is not just paperwork — its controls exist because contained self-heating fires have happened. Complying means the cargo is managed for that risk at source. Self-heating fire is inherent vice and is not insurable, so these prevention controls, not a policy, are the safeguard.",
+    "controlsIntro": "SP 978 requires:",
+    "controls": {
+      "weathering": "Weathering",
+      "packTemp": "Packing temperature",
+      "packTempTemplate": "≤ {{sp978PackTemp}} °C on the day of packing, recorded and declared",
+      "headspace": "Container headspace",
+      "headspaceTemplate": "≥ {{sp978Headspace}} cm in the container (CTU)",
+      "packaging": "Packaging",
+      "packagingTemplate": "{{packingInstruction}} — UN-approved, sift-proof",
+      "dgd": "Declaration data",
+      "bulk": "Bulk",
+      "bulkValue": "Containerized bulk without packaging is not allowed",
+      "stowage": "Stowage"
+    },
+    "cargoLinkLabel": "How prevention and insurance fit together",
+    "documentsLinkLabel": "The DGD data fields in the document pack"
+  },
+  "nonDg": {
+    "h2": "Can charcoal still ship non-DG?",
+    "body": "No. Since {{dgMandatoryDate}} there is no compliant non-DG route for UN 1361 charcoal. Any supplier quoting non-DG freight is offering a misdeclaration — and the exposure lands on the importer: carrier blacklisting, port-state detention, and liability if the cargo self-heats. We ship declared, every time.",
+    "shippingLinesLinkLabel": "Carriers that enforce SP 978 and audits"
+  },
+  "cost": {
+    "h2": "What it costs, and why payload drops",
+    "body": "Declared dangerous goods carries surcharges — a DG premium, IMO surcharge, and DG container handling — quoted by the carrier at booking. The {{sp978Headspace}} cm headspace and stowage limits also reduce how much cargo fits, so a compliant container carries less than a brim-full one. That trade-off is the price of a cargo that arrives.",
+    "rulesLinkLabel": "Booking and the surcharge structure",
+    "importLinkLabel": "Worked landed-cost example (US)",
+    "packagingLinkLabel": "Headspace and box specs"
+  },
+  "media": {
+    "alt": "Class {{unClass}} dangerous-goods placard on a sealed UN 1361 charcoal container",
+    "caption": "SP 978 governs how UN 1361 charcoal is packed, declared, and stowed."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What changed in 2026 / what is IMDG Amendment 42-24?",
+        "a": "IMDG Amendment 42-24 became mandatory on {{dgMandatoryDate}}. For UN 1361 coconut charcoal it withdrew Special Provisions 925 and 223 and introduced Special Provision 978, removing the self-heating test-out. Charcoal must now be carried as declared dangerous goods."
+      },
+      {
+        "q": "What is SP 978?",
+        "a": "Special Provision 978 is the IMDG provision that now governs UN 1361 carbon. It requires weathering, a packing-temperature limit of ≤ {{sp978PackTemp}} °C recorded on the day of packing, at least {{sp978Headspace}} cm of container headspace, UN-approved sift-proof packaging, and specific declaration data — and it prohibits unpackaged containerized bulk."
+      },
+      {
+        "q": "Can charcoal still ship non-DG?",
+        "a": "No. Since {{dgMandatoryDate}} there is no compliant non-DG route. A supplier quoting non-DG freight is proposing a misdeclaration that exposes the importer to carrier blacklisting, port-state detention, and liability. We always ship declared UN 1361."
+      },
+      {
+        "q": "What are the weathering, packing-temperature, and headspace rules?",
+        "a": "Charcoal is weathered after carbonization to lower its self-heating tendency; it is packed at no more than {{sp978PackTemp}} °C with the temperature recorded and declared; and at least {{sp978Headspace}} cm of headspace is left in the container. These SP 978 controls are designed to prevent self-heating in transit."
+      },
+      {
+        "q": "Does the new rule reduce container payload?",
+        "a": "Yes, somewhat. The {{sp978Headspace}} cm headspace and stowage limits mean a compliant container is not packed brim-full, so net payload is lower than an unregulated load. The trade-off buys a cargo that ships legally and arrives safely."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics", "label": "Logistics overview" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous goods" },
+      { "href": "/logistics/charcoal-shipping-lines", "label": "Carriers that ship charcoal" },
+      { "href": "/logistics/cargo-protection-and-insurance", "label": "Cargo protection & insurance" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/packaging", "label": "Packaging & markings" },
+      { "href": "/glossary", "label": "Glossary" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

@@ -27,6 +27,15 @@ import packagingInnerBox from './packagingInnerBox.json';
 import packagingPlastic from './packagingPlastic.json';
 import packagingWhiteLabel from './packagingWhiteLabel.json';
 import packagingAdditional from './packagingAdditional.json';
+import logistics from './logistics.json';
+import logisticsCommon from './logisticsCommon.json';
+import logisticsRules from './logisticsRules.json';
+import logisticsDocuments from './logisticsDocuments.json';
+import logisticsUn1361 from './logisticsUn1361.json';
+import logisticsDgRegulation from './logisticsDgRegulation.json';
+import logisticsShippingLines from './logisticsShippingLines.json';
+import logisticsCargoProtection from './logisticsCargoProtection.json';
+import logisticsImportUsa from './logisticsImportUsa.json';
 import productGrade from './productGrade.json';
 import productCategory from './productCategory.json';
 import productMarket from './productMarket.json';
@@ -47,6 +56,15 @@ const en = {
   packagingPlastic,
   packagingWhiteLabel,
   packagingAdditional,
+  logistics,
+  logisticsCommon,
+  logisticsRules,
+  logisticsDocuments,
+  logisticsUn1361,
+  logisticsDgRegulation,
+  logisticsShippingLines,
+  logisticsCargoProtection,
+  logisticsImportUsa,
   productGrade,
   productCategory,
   productMarket,

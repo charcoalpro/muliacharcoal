@@ -277,8 +277,186 @@ export interface PackagingConfig {
   };
 }
 
-const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging'> & {
+// =======================================================================
+// Logistics cocoon contract (v3.3)
+//
+// Single-source reuse (deliberate — facts that already live elsewhere are
+// NOT restated here; pages read the canonical home):
+//   - port of loading, UN/LOCODE, alternates ........ commercial.portOfLoading
+//   - transit rows (destPort/unlocode/country/days) .. commercial.transitTimes
+//   - 20ft/40ft net tonnage .......................... commercial.containerCapacity
+//   - default Incoterm ............................... commercial.portOfLoading.incoterm
+//   - production lead time ........................... commercial.leadTime
+//   - international HS-6 heading ...................... commercial.hsCode
+//   - UN number / IMDG class / class description ..... certifications.imdg
+//   - author / reviewer / fact-checker (E-E-A-T) ..... governance.*
+//   - thermal blanket / container desiccant .......... packaging.ancillary
+// `logistics` therefore holds ONLY the facts that have no other home:
+// the SP-978 dangerous-goods reframe, the export-document set, the US
+// import/duty/FDA stack, the COO regime, insurance & cargo-protection
+// posture, the freight surcharge stack, and the editorial dates.
+// Every gated regulatory field carries provenance in `dg.sourceUrls` /
+// `*.sourceUrl` + a `lastVerified` date. Empty string / null / [] →
+// graceful degrade via hasFact() (row drops, "—", "on request").
+// =======================================================================
+export interface LogisticsConfig {
+  // — operational (port/transit/containers reuse commercial.*) —
+  truckingFactoryToPortHours: string | number;
+  vesselBookingLeadDays: string | number;
+  departureDays: string[];
+  transshipmentVia: string[];
+  /** hq40Available + per-shape note; tonnage derives from commercial.containerCapacity. */
+  containers: { hq40Available: boolean | null; perShapeYieldNote: string };
+  lcl: { available: boolean | null; marketsServed: string[]; minTons: string | number };
+  /** Incoterms offered; default reads commercial.portOfLoading.incoterm. No CIF (v3.3). */
+  incoterms: string[];
+  /** Reserved structured breakdown; pages render commercial.paymentTerms prose. */
+  payment: { methods: string[]; currencies: string[]; downPaymentPct: string | number; balanceTrigger: string };
+
+  // — DG (SP 978 reframe); UN number / class read from certifications.imdg —
+  dg: {
+    shippedAsUn1361: boolean;
+    packingGroup: string; // VERIFIED — render it
+    properShippingName: string;
+    ems: string; // render only if verified
+    shtProvided: boolean; // supporting evidence, NOT an exemption
+    dgFreightNote: string;
+    compliantSince: string; // "compliant before mandatory" renders only if < 2026-01-01
+    carriersAudited: string[]; // drives shipping-lines; degrades if empty (no invented names)
+    carriersNotAccepting: string[];
+    amendment: string;
+    voluntaryFrom: string;
+    mandatoryFrom: string;
+    labellingGrace: string;
+    sp925Withdrawn: boolean | null;
+    sp223Withdrawn: boolean | null;
+    sp979scope: string;
+    rationale: string;
+    carrierEnforcementNote: string;
+    sht: { onRequest: boolean | null; cost: string; processingTime: string; note: string };
+    sp978: {
+      weatheringDays: string | number;
+      weatheringMethod: string;
+      packingTempMaxC: string | number;
+      packingTempLogged: boolean | null;
+      unPackagingMark: boolean | null;
+      packingInstruction: string; // 'P002' — render only if verified
+      headspaceCm: string | number;
+      dgdFields: string[];
+      n4Note: string;
+      bulkProhibited: boolean | null;
+      stowageNote: string;
+    };
+    sourceUrls: Record<string, string>;
+    lastVerified: string;
+  };
+
+  transitTimesLastUpdated: string;
+  customsClearanceByBuyer: boolean;
+  brokerReferralAvailable: boolean | null;
+  /** production20ft reads commercial.leadTime; production40ft is the only new value. */
+  leadTimes: { production20ft: string | number; production40ft: string | number };
+  samplesShipping: { couriers: string[]; paidBy: string };
+
+  // — documents (build-blocking; empty list = STOP on /documents) —
+  documentsStandard: Array<{ id: string; name: string; issuer: string; buyerUse: string; providedWhen: string }>;
+  documentsAdditional: Array<{
+    id: string;
+    name: string;
+    issuer: string;
+    buyerUse: string;
+    providedWhen: string;
+    cost?: string;
+    processingTime?: string;
+  }>;
+  docsDelivery: { originalsByCourier: boolean | null; scansFirst: boolean | null };
+
+  // — rules —
+  loading: { method: string; palletizedAvailable: boolean | null; mixedSizesPolicy: string };
+
+  // — cargo protection & insurance (new node) —
+  insurance: {
+    arrangedBy: string; // 'buyer' — EXW/FOB/CFR include no seller cover; no CIF
+    basis: string;
+    coverage: string[]; // external perils ONLY
+    exclusions: string[]; // includes self-heating / inherent vice — NEVER claim it is covered
+    coverageNote: string;
+    sumInsuredBasis: string;
+    claimsNote: string;
+  };
+  cargoProtection: {
+    desiccantsPerContainer: string | number;
+    thermalLiner: boolean | null;
+    boxesCleanedBeforeLoading: boolean | null;
+    moistureNote: string;
+    breakageNote: string;
+  };
+
+  // — COO / export side —
+  coo: { issuer: string; regulation: string; types: string };
+  export: { licensing: string };
+
+  // — cost / freight layer stack —
+  freight: {
+    publishMode: 'inquiry' | 'indicative' | 'actual';
+    illustrativeFobNote: string;
+    surchargeStack: Array<{ id: string; label: string; range: string; asOf: string; note: string }>;
+    lanes: Array<{
+      originUnlocode: string;
+      destPort: string;
+      unlocode: string;
+      country: string;
+      oceanFreightRange: string;
+      published: boolean;
+      asOf: string;
+    }>;
+  };
+
+  // — import-to-usa (every regulatory fact needs sourceUrl + lastVerified) —
+  usaImport: {
+    htsCode: string;
+    htsSourceUrl: string;
+    htsCandidates: Array<{ code: string; sourceUrl: string; note: string }>;
+    htsNotes: string;
+    dutyLayers: Array<{
+      id: string;
+      label: string;
+      rate: string;
+      basis: string;
+      sourceUrl: string;
+      asOf: string;
+      legalStatus?: string;
+    }>;
+    dutyHistory: string;
+    adcvd: string;
+    entryNotes: { isf: string; bond: string; entrySummary: string };
+    entrySourceUrl: string;
+    usPortsServed: string[];
+    fda: {
+      deemingApplies: boolean | null;
+      deemingSourceUrl: string;
+      deemingRule: string;
+      scope: string;
+      requirements: string;
+      pmtaStatus: string;
+      stnNote: string;
+      enforcementDiscretionStatus: string;
+      enforcementSourceUrl: string;
+      importAlert: string;
+      mislabeling: string;
+      pending: string;
+      lastVerified: string;
+    };
+    lastVerified: string;
+  };
+
+  /** Dates only — author/reviewer names come from governance.*. */
+  editorial: { datePublished: string; dateModified: string };
+}
+
+const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics'> & {
   packaging: PackagingConfig;
+  logistics: LogisticsConfig;
   social: Record<keyof typeof rawCompanyData.social, string | null>;
   production: typeof rawCompanyData.production & {
     carbonizationPlant: { city: string; region: string } | null;

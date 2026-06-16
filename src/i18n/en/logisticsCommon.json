@@ -1,0 +1,30 @@
+{
+  "metaBlock": {
+    "authorRole": "Authored by",
+    "reviewerRole": "Reviewed by",
+    "factCheckerRole": "Fact-checked by",
+    "lastUpdatedLabel": "Last updated",
+    "readTimeLabel": "Reading time",
+    "readTimeValueTemplate": "{{minutes}} min"
+  },
+  "caveats": {
+    "transit": "Indicative; varies by line and season. Last updated {{transitLastUpdated}}.",
+    "freight": "Indicative estimate; surcharges and tariffs change without notice. Quoted at booking.",
+    "insurance": "Coverage summary only; confirm scope and exclusions in the policy or certificate.",
+    "duty": "Verified as of the date shown; duties and tariffs change without notice — confirm with your customs broker at booking."
+  },
+  "labels": {
+    "onRequest": "Available on request",
+    "quotedOnRequest": "Quoted on request",
+    "relatedHeading": "Related topics",
+    "transitDestHeader": "Destination port",
+    "transitDaysHeader": "Transit (days)",
+    "transitDaysTemplate": "{{min}}–{{max}}",
+    "dash": "—"
+  },
+  "fdaDisclaimer": {
+    "heading": "Regulatory information, not legal advice",
+    "body": "This page summarizes US import and FDA requirements for general information only and is not legal advice. Tobacco-product regulation changes without notice and enforcement is fact-specific. Confirm your obligations with a licensed US customs broker and qualified counsel before importing."
+  },
+  "playVideoTemplate": "Play video: {{title}}"
+}
