@@ -61,7 +61,7 @@
       "directorIntro": "Hello Mr. Sinno — I would like to discuss a wholesale order of coconut shisha charcoal directly with you.",
       "videoCallRequest": "Hello, I would like to schedule a WhatsApp video call to see your factory and discuss a wholesale order. What times work for you in GMT+7?",
       "piRequest": "Hello, I would like to request a Proforma Invoice for coconut shisha charcoal briquettes. Please share your bank details and payment terms after KYC.",
-      "sampleRequest": "Hello, I would like to request a paid sample of your coconut shisha charcoal briquettes shipped to my address. Please confirm sample fee and shipping cost.",
+      "sampleRequest": "Hello Mulia Charcoal — I would like to request free samples of your coconut shisha charcoal shipped to my address. Please confirm the courier cost to my country.",
       "samplesHero": "Hello Mulia Charcoal — please send free samples of your coconut shisha charcoal so I can verify the burn specs in our lab before placing a wholesale order.",
       "samplesProducts": "Hello Mulia Charcoal — I would like free samples of the {{product}} coconut shisha charcoal to evaluate before placing a wholesale order.",
       "quoteSpecs": "Hello Mulia Charcoal — please send your latest USD price list FOB Semarang for the Premium, Super Premium, and Platinum grades, including MOQ and lead time.",
@@ -201,14 +201,38 @@
   },
 
   "samples": {
-    "paid": true,
+    "isFree": true,
+    "buyerPaysCourier": true,
     "freeWeightGrams": 1000,
+    "typicalSizeKg": 1,
+    "maxSizeKg": 20,
+    "sampleableScope": "standard-catalog",
+    "representativeOfProduction": true,
+    "maxComparisonItems": 3,
+    "dispatch": "same-day",
     "transitChannel": "air courier",
     "carrier": "DHL / FedEx",
     "transitDays": 5,
     "includesCOA": true,
+    "documentsWithSample": ["COA", "SHT", "MSDS"],
     "quotedPerDestination": true,
-    "sampleNote": "Lab-grade 1 kg samples include a batch Certificate of Analysis (COA) so you can verify the burn specifications independently before the wholesale order."
+    "shipping": {
+      "declaredDangerousGoods": true,
+      "handledByFactory": true,
+      "mode": "express-courier-air",
+      "iataRegulated": true,
+      "arrangedBy": ["factory", "buyer"]
+    },
+    "indicativeCourierCostUsd": [
+      { "country": "US", "label": "USA", "forWeightKg": 1, "priceUsd": null },
+      { "country": "GB", "label": "UK", "forWeightKg": 1, "priceUsd": null },
+      { "country": "SA", "label": "Saudi Arabia", "forWeightKg": 1, "priceUsd": null },
+      { "country": "DE", "label": "Germany", "forWeightKg": 1, "priceUsd": null },
+      { "country": "RU", "label": "Russia / CIS", "forWeightKg": 1, "priceUsd": null }
+    ],
+    "courierCostLastUpdated": "",
+    "sampleNote": "Lab-grade 1 kg samples include a batch Certificate of Analysis (COA) so you can verify the burn specifications independently before the wholesale order.",
+    "editorial": { "datePublished": "2026-06-17", "dateModified": "2026-06-17" }
   },
 
   "certifications": {

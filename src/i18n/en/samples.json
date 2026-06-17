@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "titleTemplate": "Free Coconut Charcoal Samples — Factory Direct",
+    "descriptionTemplate": "Free coconut shisha charcoal samples from {{brand}}, {{port}}: real production stock, same-day dispatch — you pay only the courier. MOQ {{moqTons}} tons."
+  },
+  "breadcrumb": "Samples",
+  "eyebrow": "Free samples · {{city}}, {{country}}",
+  "h1": "Free coconut charcoal samples, shipped from the factory",
+  "heroSubtitle": "Request real, lab-grade samples of our coconut shell shisha charcoal — drawn from current production, dispatched the same day. The sample is free; you pay only the courier to your door.",
+  "heroTrust": {
+    "countriesLabel": "Exporting to",
+    "countriesValueTemplate": "{{countriesExportedCount}} countries",
+    "dispatchLabel": "Dispatch",
+    "dispatchValue": "Same day, from stock",
+    "replyLabel": "Typical reply",
+    "replyValueTemplate": "within {{responseHours}} hours"
+  },
+  "moqQualifier": "A sample is the first step toward a wholesale order — our minimum is {{moqLabel}}. Test the coals in your own lab and on your own customers first; order the container once you are sure.",
+  "cta": {
+    "waLabel": "Request samples on WhatsApp",
+    "emailLabel": "Request by email",
+    "leadPhotoAlt": "A {{sampleTypicalKgLabel}} sample pack of coconut shell shisha charcoal briquettes ready for courier dispatch"
+  },
+  "email": {
+    "subjectTemplate": "Free sample request — {{brand}} coconut shisha charcoal",
+    "bodyTemplate": "Hello {{brand}},\n\nI would like to request free samples of your coconut shisha charcoal. My details:\n\nCompany:\nDestination country:\nShape(s) / grade(s) wanted: {{sampleSelection}}\nTarget order quantity (containers / tons):\n\nPlease confirm the courier cost to my country.\n\nThank you."
+  },
+  "metaBlock": {
+    "authorRole": "Written by",
+    "reviewerRole": "Reviewed by",
+    "factCheckerRole": "Fact-checked by",
+    "lastUpdatedLabel": "Last updated",
+    "readTimeLabel": "Read time",
+    "readTimeValueTemplate": "{{minutes}} min"
+  },
+  "atAGlance": {
+    "heading": "Free samples at a glance",
+    "definition": "A sample is a small, free quantity of our standard production charcoal — typically {{sampleTypicalKgLabel}}, up to {{sampleMaxKg}} kg for at-scale testing — shipped by air courier so you can verify the burn before committing to a {{containerType}} container.",
+    "costLabel": "Cost",
+    "costValue": "Free — you pay only the courier",
+    "sizeLabel": "Typical size",
+    "sizeValueTemplate": "{{sampleTypicalKgLabel}} (up to {{sampleMaxKg}} kg)",
+    "dispatchLabel": "Dispatch",
+    "dispatchValue": "Same day, from current stock",
+    "chooseLabel": "What you can sample",
+    "chooseValueTemplate": "Any standard shape & grade ({{shapeCount}} shapes, {{gradeCount}} grades)",
+    "compareLabel": "Compare side by side",
+    "compareValueTemplate": "Up to {{sampleComparisonMax}} shapes or grades in one shipment",
+    "documentsLabel": "Documents included",
+    "documentsValueTemplate": "{{sampleDocsList}} on request",
+    "shippingLabel": "Shipping",
+    "shippingValueTemplate": "Declared dangerous goods ({{unNumber}}) — we handle the paperwork",
+    "moqLabel": "Toward your order",
+    "moqValueTemplate": "{{moqLabel}}"
+  },
+  "intro": {
+    "p1": "Serious buyers verify before they import. We make that easy: tell us the shape and grade you want, and we send real coals from current production — identical to what ships in your container — free of charge. You cover only the courier.",
+    "p2": "Below: proof that the samples are real, what you can request, how compliant dangerous-goods shipping works (we handle it), and the only cost involved."
+  },
+  "video": {
+    "heading": "See a real sample shipment",
+    "posterAlt": "Short video: coconut charcoal samples being packed, the dangerous-goods carton, and a burn test",
+    "label": "Video: how a free coconut charcoal sample is packed and shipped",
+    "fallbackText": "Your browser cannot play this video. Message us on WhatsApp and we will send it directly.",
+    "summaryHeading": "What the video shows",
+    "summary": "A 60–90 second walkthrough of a real sample shipment: a {{sampleTypicalKgLabel}} sample drawn from current production and sealed, the dangerous-goods carton marked and declared as {{unNumber}} Class {{unClass}}, and a burn test showing the silver-white, low-residue ash. The same process applies to every sample we dispatch.",
+    "points": [
+      "A {{sampleTypicalKgLabel}} sample sealed straight from current production",
+      "The declared {{unNumber}} dangerous-goods export carton",
+      "A burn test: light-up, working session, and the ash left behind"
+    ]
+  },
+  "gallery": {
+    "heading": "Real samples, real packing",
+    "intro": "Every photo below is the actual sample product and packing — not stock imagery. A sample is what you receive; this is what it looks like.",
+    "photos": [
+      { "alt": "A sealed {{sampleTypicalKgLabel}} sample pack of coconut shell shisha charcoal briquettes", "caption": "A {{sampleTypicalKgLabel}} sample pack — the typical free quantity, drawn from current production stock." },
+      { "alt": "Dangerous-goods declared export carton marked {{unNumber}} Class {{unClass}}", "caption": "The declared-DG sample carton, marked {{unNumber}} Class {{unClass}} — we prepare the paperwork." },
+      { "alt": "Assortment of coconut charcoal shapes laid out for a comparison sample", "caption": "Mix up to {{sampleComparisonMax}} shapes or grades in one sample to benchmark side by side." },
+      { "alt": "Coconut shell charcoal cube briquette, top view", "caption": "Cube — the most-requested shisha format; uniform edges, no first-light cracking." },
+      { "alt": "Hexagonal coconut shell charcoal briquettes for shisha lounges", "caption": "Hexagonal briquettes — long, even burn for café and lounge service." },
+      { "alt": "Finger coconut shell charcoal briquettes in a sample tray", "caption": "Finger / stix — fast light-up for quick table turnaround." },
+      { "alt": "Certificate of Analysis document accompanying a charcoal sample", "caption": "The batch {{sampleDocsList}} can travel with the sample so you can evaluate on paper too." },
+      { "alt": "Coconut charcoal sample box prepared for {{sampleCarrier}} air courier", "caption": "Packed for {{sampleCarrier}} air courier — typical transit about {{sampleTransitDays}} days." }
+    ]
+  },
+  "whatYouCanSample": {
+    "h2": "What you can sample",
+    "intro": "Sample any item from our standard catalog — your choice of shape and grade. Pick what matches your market.",
+    "goldenSample": "Samples are drawn from current production and standard stock — they are identical to what ships in your container, not a hand-picked \"golden sample.\" What you test is what you get.",
+    "comparisonTemplate": "Benchmarking? Request up to {{sampleComparisonMax}} shapes or grades in a single shipment and compare them side by side before you decide.",
+    "shapesHeading": "Standard shapes",
+    "sizesLabel": "Sizes",
+    "gradesNote": "Each shape is available in all {{gradeCount}} grades — {{gradeNames}}.",
+    "requestShapeLabelTemplate": "Request a {{shape}} sample",
+    "customNote": "Custom shapes and bespoke sizes are produced at container scale and are not sampled individually. Browse the full catalog to choose a standard format to test.",
+    "productsLinkLabel": "See all products & shapes"
+  },
+  "shipping": {
+    "h2": "How sample shipping works — we handle it",
+    "body1": "Coconut shell charcoal is classified as {{unNumber}}, Class {{unClass}} (self-heating). That sounds like a hurdle — it isn't, for you. We prepare the Class {{unClass}} dangerous-goods declaration and documentation and dispatch the same day. You simply receive the box.",
+    "body2": "Sent by air, this material moves as declared dangerous goods under the IATA Dangerous Goods Regulations through an approved courier account. We handle that declaration; or, if you prefer, you can book the pickup on your own courier account and we hand over a compliant, labelled package.",
+    "linksIntro": "More on the regulation:",
+    "un1361LinkLabel": "{{unNumber}} explained",
+    "rulesLinkLabel": "Dangerous-goods shipping rules",
+    "glossaryLinkLabel": "Glossary: {{unNumber}}"
+  },
+  "cost": {
+    "h2": "Indicative sample courier cost",
+    "intro": "The sample is free. The only cost is the air courier to your door, billed at cost and confirmed when you request — it scales with weight up to {{sampleMaxKg}} kg.",
+    "colDestination": "Destination",
+    "costColLabel": "Indicative courier (per {{sampleTypicalKg}} kg)",
+    "tableCaption": "Indicative only · dangerous-goods handling included · confirmed at request · scales with weight up to {{sampleMaxKg}} kg.",
+    "tableCaptionUpdatedTemplate": "Indicative only · DG handling included · confirmed at request · scales with weight up to {{sampleMaxKg}} kg · last updated {{courierCostLastUpdated}}.",
+    "availableOnRequest": "Available on request",
+    "proportionLine": "Seen against a full {{moqTons}}-tonne container, a modest courier charge to verify the coals first is cheap insurance — the same layered cost discipline you would apply to any sea-freight quote."
+  },
+  "documents": {
+    "h2": "Documents with your sample",
+    "body": "Ask for the lab paperwork alongside the physical sample and you can start evaluating on paper while the courier is still in transit: the {{sampleDocsList}}. Lower risk, faster yes.",
+    "ctaNote": "Request the sample and the documents together:",
+    "linkLabel": "See our certifications & testing"
+  },
+  "whyFactory": {
+    "h2": "Why request from us — and what happens next",
+    "body": "We are the factory in {{city}}, not a trader: {{isoStandard}} production, third-party lab testing, and exports to {{countriesExportedCount}} countries. The sample you test is our standard output.",
+    "whatNextHeading": "What happens next",
+    "replyTemplate": "Send your request and we typically reply within {{responseHours}} hours during office hours ({{officeHours}}, {{timezone}}). We confirm the courier cost, you approve, and we dispatch the same day from stock.",
+    "signalCertLabel": "Quality system",
+    "signalCertValueTemplate": "{{isoStandard}}",
+    "signalCountriesLabel": "Markets served",
+    "signalCountriesValueTemplate": "{{countriesExportedCount}} countries",
+    "signalReplyLabel": "Reply time",
+    "signalReplyValueTemplate": "Within {{responseHours}} hours"
+  },
+  "faq": {
+    "heading": "Sample questions, answered",
+    "items": [
+      { "q": "Are the samples really free?", "a": "Yes. The charcoal sample itself is free. You pay only the air courier to your country, billed at cost and confirmed before we ship." },
+      { "q": "How big is a sample?", "a": "Typically {{sampleTypicalKgLabel}} — enough to run a full burn test — and up to {{sampleMaxKg}} kg if you need to test at scale." },
+      { "q": "How fast do samples ship?", "a": "Same day, from current stock. By {{sampleCarrier}} air courier, transit is typically about {{sampleTransitDays}} days depending on destination." },
+      { "q": "Is the sample the same as my container?", "a": "Yes. Samples are drawn from current production and standard stock — identical to container output, not a hand-picked showpiece." },
+      { "q": "Can I sample a custom shape?", "a": "Custom shapes and bespoke sizes are produced only at container scale, so they are not sampled individually. Any standard shape and grade can be sampled — across {{shapeCount}} shapes and {{gradeCount}} grades." },
+      { "q": "Why is there a courier cost, and who handles the dangerous-goods paperwork?", "a": "The coals are free; only the air courier is charged. Coconut charcoal ships as declared dangerous goods ({{unNumber}}, Class {{unClass}}) — we prepare the declaration and documentation and dispatch the same day." },
+      { "q": "Can I get the lab reports too?", "a": "Yes. Ask for the {{sampleDocsList}} and we send them alongside the sample so you can evaluate on paper while the courier is in transit." },
+      { "q": "Do you ship samples everywhere?", "a": "We export to {{countriesExportedCount}} countries. Send your destination and we confirm courier availability and cost when you request." }
+    ]
+  },
+  "finalCta": {
+    "title": "Request your free samples",
+    "subtitleTemplate": "Real coals from current production, dispatched the same day — your first step toward a {{moqLabel}} order. You pay only the courier."
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/products", "label": "All products & shapes" },
+      { "href": "/quality/certifications", "label": "Certifications & testing" },
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 explained" },
+      { "href": "/logistics/rules", "label": "Dangerous-goods shipping rules" },
+      { "href": "/packaging", "label": "Packaging & OEM options" }
+    ]
+  }
+}

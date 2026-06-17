@@ -1,0 +1,88 @@
+---
+/**
+ * SampleCtaPair — the dual-channel sample request CTA (WhatsApp + email),
+ * repeated at every persuasion beat on /samples so buyers get the same
+ * pattern each time (CLAUDE.md § UX — one CTA component sitewide).
+ *
+ * Channels (build prompt §9):
+ *   - WhatsApp (primary): a wa.me deep link with a prefilled message. Fires
+ *     `sample_request` + `whatsapp_click` (the CLAUDE.md contract names, same
+ *     as the grade-page sample CTA — NOT WhatsAppButton's `samples_*_click_*`).
+ *   - Email (fallback for desk/procurement buyers): a `mailto:` with a
+ *     prefilled subject + fill-in-the-blanks body that recaptures company /
+ *     destination / shape(s) / quantity — the fields the WhatsApp path can't.
+ *     Fires `sample_request` + `outbound_click`.
+ *
+ * Both carry `data-param-product-sku` (the card SKU, or "unspecified" at
+ * page level) so the SKU rides along on GA4 + Meta Pixel. The sitewide
+ * delegated listener in Analytics.astro reads these `data-*` attributes;
+ * this component fires nothing itself (zero JS).
+ *
+ * All visible strings arrive already-resolved from i18n (facts via tokens).
+ * No `aria-label` override: the visible button text IS the accessible name,
+ * which keeps WCAG 2.5.3 (Label in Name) satisfied no matter what label a
+ * caller passes (a divergent aria-label would drop the visible words).
+ */
+import Button from '~/components/cta/Button.astro';
+import { waLink, mailto } from '~/config/company';
+
+interface Props {
+  /** Prefilled WhatsApp message body (i18n, SKU already interpolated). */
+  waMessage: string;
+  /** Prefilled email subject + body (i18n, already resolved). */
+  emailSubject: string;
+  emailBody: string;
+  waLabel: string;
+  emailLabel: string;
+  /** Card SKU for the analytics param; page-level CTAs pass "unspecified". */
+  sku?: string;
+  /** Analytics source, e.g. "samples-hero". The email path appends "-email". */
+  sourceComponent: string;
+  size?: 'sm' | 'md' | 'lg';
+  align?: 'start' | 'center';
+  class?: string;
+}
+
+const {
+  waMessage,
+  emailSubject,
+  emailBody,
+  waLabel,
+  emailLabel,
+  sku = 'unspecified',
+  sourceComponent,
+  size = 'lg',
+  align = 'start',
+  class: className,
+} = Astro.props;
+---
+<div
+  class:list={[
+    'flex flex-wrap items-center gap-3',
+    align === 'center' && 'justify-center',
+    className,
+  ]}
+>
+  <Button
+    href={waLink(waMessage)}
+    variant="whatsapp"
+    size={size}
+    target="_blank"
+    rel="noopener"
+    data-event="sample_request,whatsapp_click"
+    data-source-component={sourceComponent}
+    data-param-product-sku={sku}
+  >
+    {waLabel}
+  </Button>
+  <Button
+    href={mailto(emailSubject, emailBody)}
+    variant="secondary"
+    size={size}
+    data-event="sample_request,outbound_click"
+    data-source-component={`${sourceComponent}-email`}
+    data-param-product-sku={sku}
+  >
+    {emailLabel}
+  </Button>
+</div>

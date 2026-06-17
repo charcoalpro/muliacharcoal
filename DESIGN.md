@@ -471,8 +471,19 @@ Shared by the packaging cluster and intended for reuse on later pillars (logisti
 |---|---|---|
 | `KeyFactsBox` | Extractable "at a glance" `<dl>` summary under the hero — the page's primary GEO surface. | Zero JS, pure HTML. Drops rows with empty values (graceful degradation off `company.ts`). Styled like the /products at-a-glance block (rounded-2xl, `brand-primary` tint). |
 | `Figure` | Captioned photo slot: `<figure>` + processed image + spec-rich `<figcaption>`. | `alt` ≠ caption (alt targets image-search queries; the caption adds spec context); both are i18n strings. Omit `src` while the asset is pending → renders `ImagePlaceholder` at the same ratio (no CLS when the real photo lands). Packaging photos are 4:3. |
-| `PhotoGrid` | Static responsive grid of `Figure`s. | Everything in the DOM — no carousel, no lightbox, no JS. All photos lazy-load. Hubs show a curated subset; cluster pages the exhaustive set, interleaved per section. |
+| `PhotoGrid` | Static responsive grid of `Figure`s. | Everything in the DOM — no carousel, no lightbox, no JS. All photos lazy-load. Hubs show a curated subset; cluster pages the exhaustive set, interleaved per section. `mobileCols` (default 1) sets the sub-`sm` column count; pass `2` for a 2-up mobile grid (e.g. the /samples gallery, which must never render 8 photos stacked). |
 | `VideoFacade` | YouTube nocookie click-to-load facade in a fixed 16:9 box. | Local poster only (CSP blocks i.ytimg.com). JS off → real link to the YouTube watch page. One deferred event-delegated loader for all instances; iframe fills the same box (no CLS); no autoplay under `prefers-reduced-motion`; focus moves into the player. Empty `youtubeId` → slot renders nothing (never fake a video). The on-page title + key-points text lives in the page next to the facade, not inside it. |
+
+### Samples-page components
+
+Used by `/samples` (the free-sample conversion page). All live in `src/components/samples/`:
+
+| Component | Purpose | Rules |
+|---|---|---|
+| `SampleCtaPair` | The dual-channel sample CTA (WhatsApp + email), repeated at every persuasion beat so buyers get one recognisable pattern. | Two `Button`s only (WhatsApp `variant="whatsapp"` + email `secondary`); zero JS. Fires the canonical `sample_request` + `whatsapp_click` (WhatsApp path) and `sample_request` + `outbound_click` (email path) via `data-*` attributes, plus `data-param-product-sku`. WhatsApp text reads `company.whatsapp.presetMessages`; email subject/body come from i18n via `mailto(subject, body)`. |
+| `SampleVideo` | Self-hosted, native `<video>` explainer — deliberately NOT the YouTube `VideoFacade`. | `controls playsinline preload="none"` + a local `poster` in a fixed 16:9 box, so only the poster paints on load; no `autoplay`/`loop`, no iframe, no player library (CSP-safe, same-origin `media-src`). A captions `<track>` slot is reserved. Omit `src` while the file is pending → renders `ImagePlaceholder` at 16:9 (never fake a play affordance); the crawlable summary lives on the page next to it. The real file later lives on Cloudflare R2/Stream, off the static bundle. |
+
+Schema: the self-hosted sample video uses `selfHostedVideoObjectSchema()` (gated on a real file); the page graph is `samplesPageSchema()` (WebPage + slim Organization, with `ImageObject`/`VideoObject` emitted only once real assets are deployed). No `FAQPage` (canonical at /faq) and no `Product`/`Offer`.
 
 ---
 

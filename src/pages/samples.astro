@@ -1,0 +1,476 @@
+---
+/**
+ * /samples — free-sample conversion page (supporting page, not a pillar).
+ *
+ * Built from docs/build-prompts (samples v3). Hook-first: the offer (free,
+ * real, same-day) leads; the MOQ qualifier reassures below it. A dual-channel
+ * sample CTA (WhatsApp + email — `SampleCtaPair`) appears at every persuasion
+ * beat: hero, after the video, after the gallery, after the DG reassurance, in
+ * the documents block, and at the end (the CTABanner).
+ *
+ * Single-source rules honoured:
+ *   - Every fact via ~/config/company.ts (tokens); i18n carries labels/prose
+ *     only. WhatsApp prefilled messages use the existing company.json presets
+ *     (samplesHero / samplesProducts).
+ *   - Media is placeholder now (Figure/PhotoGrid → ImagePlaceholder; SampleVideo
+ *     → poster placeholder). Schema ImageObject/VideoObject stay omitted until
+ *     real assets land (samplesPageSchema gates on real contentUrl) — only
+ *     WebPage + Organization emit. BreadcrumbList comes from <Breadcrumbs>.
+ *   - No FAQPage schema here (canonical at /faq): FAQSection without emitSchema.
+ *   - No Product/Offer: the free sample is not an offer.
+ *
+ * PRE-COMMIT GATE: the DG section states UN 1361 / Class 4.2 (S1) and air
+ * transport under IATA DGR (S2) — both gated facts. Verify with the issuing
+ * authority and get owner sign-off before committing (build prompt §2).
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import SpecsTable from '~/components/content/SpecsTable.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import SampleCtaPair from '~/components/samples/SampleCtaPair.astro';
+import SampleVideo from '~/components/samples/SampleVideo.astro';
+import en from '~/i18n/en';
+import { company, waLink, mailto, hasFact } from '~/config/company';
+import { fill, companyTokens, samplesTokens } from '~/lib/interpolate';
+import { productShapes } from '~/config/products';
+import { grades } from '~/config/grades';
+import { samplesPageSchema } from '~/lib/schema/samplesPage';
+
+const t = en.samples;
+const s = company.samples;
+
+// Grade names joined Oxford-style ("Premium, Super Premium and Platinum"),
+// sourced from the grades config so the copy never restates the names.
+const gradeNames =
+  grades.length <= 1
+    ? grades.map((g) => g.name).join('')
+    : `${grades.slice(0, -1).map((g) => g.name).join(', ')} and ${grades[grades.length - 1].name}`;
+
+const tokens = {
+  ...companyTokens(company),
+  ...samplesTokens(company),
+  shapeCount: productShapes.length,
+  gradeCount: grades.length,
+  gradeNames,
+  courierCostLastUpdated: s.courierCostLastUpdated,
+  // Page-level email body leaves the "shape(s)/grade(s)" field blank for the
+  // buyer; per-shape CTAs below override `sampleSelection` with the shape name.
+  sampleSelection: '',
+};
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// --- Dual-channel CTA shared inputs (page level). ---
+const emailSubject = fill(t.email.subjectTemplate, tokens);
+const pageEmailBody = fill(t.email.bodyTemplate, tokens);
+const heroWaMessage = company.whatsapp.presetMessages.samplesHero;
+
+// --- Hero trust anchors (only-if-true; all three are real facts today). ---
+const heroTrust = [
+  hasFact(company.commercial.countriesExportedCount) && {
+    label: t.heroTrust.countriesLabel,
+    value: fill(t.heroTrust.countriesValueTemplate, tokens),
+  },
+  { label: t.heroTrust.dispatchLabel, value: t.heroTrust.dispatchValue },
+  hasFact(company.hours.responseHours) && {
+    label: t.heroTrust.replyLabel,
+    value: fill(t.heroTrust.replyValueTemplate, tokens),
+  },
+].filter(Boolean) as { label: string; value: string }[];
+
+// --- KeyFactsBox (empty values drop automatically). ---
+const atGlanceFacts = [
+  { label: t.atAGlance.costLabel, value: t.atAGlance.costValue },
+  { label: t.atAGlance.sizeLabel, value: fill(t.atAGlance.sizeValueTemplate, tokens) },
+  { label: t.atAGlance.dispatchLabel, value: t.atAGlance.dispatchValue },
+  { label: t.atAGlance.chooseLabel, value: fill(t.atAGlance.chooseValueTemplate, tokens) },
+  { label: t.atAGlance.compareLabel, value: fill(t.atAGlance.compareValueTemplate, tokens) },
+  { label: t.atAGlance.documentsLabel, value: fill(t.atAGlance.documentsValueTemplate, tokens) },
+  { label: t.atAGlance.shippingLabel, value: fill(t.atAGlance.shippingValueTemplate, tokens) },
+  { label: t.atAGlance.moqLabel, value: fill(t.atAGlance.moqValueTemplate, tokens) },
+];
+
+// --- Gallery photos (placeholders until the shoot lands → ImagePlaceholder). ---
+const galleryPhotos = t.gallery.photos.map((p) => ({
+  alt: fill(p.alt, tokens),
+  caption: fill(p.caption, tokens),
+}));
+
+// --- "What you can sample" — driven by product config, not hardcoded. ---
+const sampleableShapes = productShapes.map((shape) => ({
+  shape,
+  sizes: shape.sizes.map((sz) => sz.label).join(' · '),
+  waMessage: fill(company.whatsapp.presetMessages.samplesProducts, { product: shape.name }),
+  emailBody: fill(t.email.bodyTemplate, { ...tokens, sampleSelection: shape.name }),
+}));
+
+// --- Indicative courier cost (null → "Available on request"). ---
+const currency = company.commercial.currency;
+const costRows = s.indicativeCourierCostUsd.map((d) => ({
+  name: d.label,
+  cost: hasFact(d.priceUsd) ? `${currency} ${d.priceUsd}` : t.cost.availableOnRequest,
+}));
+const costCaption = hasFact(s.courierCostLastUpdated)
+  ? fill(t.cost.tableCaptionUpdatedTemplate, tokens)
+  : fill(t.cost.tableCaption, tokens);
+
+// --- FAQ (visible only — no FAQPage schema here; canonical at /faq). ---
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+// --- Schema: WebPage (+ gated ImageObject/VideoObject; none real yet). ---
+const schema = samplesPageSchema({ pageTitle, pageDescription, images: [], video: null });
+
+// --- Indicative reading time (~200 wpm over the page prose). ---
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.moqQualifier,
+    t.atAGlance.definition,
+    t.intro.p1,
+    t.intro.p2,
+    t.video.summary,
+    t.whatYouCanSample.intro,
+    t.whatYouCanSample.goldenSample,
+    t.whatYouCanSample.comparisonTemplate,
+    t.whatYouCanSample.customNote,
+    t.shipping.body1,
+    t.shipping.body2,
+    t.cost.intro,
+    t.cost.proportionLine,
+    t.documents.body,
+    t.whyFactory.body,
+    t.whyFactory.replyTemplate,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/samples"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/products', '/quality/certifications']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  {/* Hero — hook first, then trust anchor + real sample photo, then the MOQ
+      qualifier, then CTA #1. */}
+  <HeroSection eyebrow={fill(t.eyebrow, tokens)} title={t.h1} subtitle={t.heroSubtitle}>
+    <dl class="mt-8 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-3">
+      {heroTrust.map((item) => (
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+
+    <div class="mt-8 max-w-md">
+      <Figure alt={fill(t.cta.leadPhotoAlt, tokens)} ratio="4/3" />
+    </div>
+
+    <p class="mt-8 max-w-prose text-base leading-relaxed text-neutral-600">{fill(t.moqQualifier, tokens)}</p>
+
+    <SampleCtaPair
+      class="mt-8"
+      waMessage={heroWaMessage}
+      emailSubject={emailSubject}
+      emailBody={pageEmailBody}
+      waLabel={t.cta.waLabel}
+      emailLabel={t.cta.emailLabel}
+      sourceComponent="samples-hero"
+      size="lg"
+    />
+  </HeroSection>
+
+  {/* E-E-A-T / freshness block. */}
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: t.metaBlock.authorRole,
+          reviewedBy: t.metaBlock.reviewerRole,
+          factCheckedBy: t.metaBlock.factCheckerRole,
+          lastUpdated: t.metaBlock.lastUpdatedLabel,
+          readTime: t.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={s.editorial.dateModified}
+        readTimeValue={fill(t.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  {/* KeyFactsBox — "Free samples at a glance" (primary GEO surface). */}
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox
+        id="samples-at-a-glance"
+        heading={t.atAGlance.heading}
+        definition={fill(t.atAGlance.definition, tokens)}
+        facts={atGlanceFacts}
+      />
+    </div>
+  </div>
+
+  {/* Intro. */}
+  <section aria-label={t.h1} class="bg-white">
+    <div class="mx-auto max-w-5xl space-y-4 px-4 pb-12 md:px-8">
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p1, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p2, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Explainer video (proof) + crawlable text summary + CTA #2. */}
+  <section id="sample-video" aria-labelledby="video-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="video-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.video.heading}</h2>
+      <div class="mt-8 grid gap-8 md:grid-cols-2 md:items-start">
+        <SampleVideo posterAlt={t.video.posterAlt} label={t.video.label} fallbackText={t.video.fallbackText} />
+        <div>
+          <h3 class="text-lg font-semibold text-neutral-900">{t.video.summaryHeading}</h3>
+          <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.video.summary, tokens)}</p>
+          <ul class="mt-4 space-y-1.5 text-base text-neutral-700" role="list">
+            {t.video.points.map((point) => (
+              <li class="flex gap-2">
+                <span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span>
+                <span>{fill(point, tokens)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <SampleCtaPair
+        class="mt-8"
+        waMessage={heroWaMessage}
+        emailSubject={emailSubject}
+        emailBody={pageEmailBody}
+        waLabel={t.cta.waLabel}
+        emailLabel={t.cta.emailLabel}
+        sourceComponent="samples-video"
+        size="md"
+      />
+    </div>
+  </section>
+
+  {/* Sample photo gallery (proof) — 2-up on mobile per §8 + CTA #3. */}
+  <section id="sample-gallery" aria-labelledby="gallery-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="gallery-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.gallery.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.gallery.intro}</p>
+      <PhotoGrid class="mt-8" photos={galleryPhotos} columns={3} mobileCols={2} ratio="4/3" />
+      <SampleCtaPair
+        class="mt-10"
+        waMessage={heroWaMessage}
+        emailSubject={emailSubject}
+        emailBody={pageEmailBody}
+        waLabel={t.cta.waLabel}
+        emailLabel={t.cta.emailLabel}
+        sourceComponent="samples-gallery"
+        size="md"
+      />
+    </div>
+  </section>
+
+  {/* What you can sample — representativeness, comparison, per-shape links. */}
+  <section id="what-you-can-sample" aria-labelledby="choose-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="choose-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.whatYouCanSample.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.whatYouCanSample.intro}</p>
+
+      <div class="mt-6 rounded-2xl border border-brand-primary/20 bg-brand-primary/5 p-6">
+        <p class="max-w-prose text-base leading-relaxed text-neutral-800">{t.whatYouCanSample.goldenSample}</p>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-800">{fill(t.whatYouCanSample.comparisonTemplate, tokens)}</p>
+      </div>
+
+      <h3 class="mt-10 text-xl font-semibold text-neutral-900">{t.whatYouCanSample.shapesHeading}</h3>
+      <p class="mt-2 max-w-prose text-sm text-neutral-600">{fill(t.whatYouCanSample.gradesNote, tokens)}</p>
+      <ul class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {sampleableShapes.map(({ shape, sizes, waMessage, emailBody }) => (
+          <li class="flex flex-col rounded-2xl border border-neutral-200 bg-white p-5">
+            <h4 class="text-lg font-semibold text-neutral-900">{shape.name}</h4>
+            <p class="mt-1 text-sm text-neutral-600">
+              <span class="font-medium text-neutral-700">{t.whatYouCanSample.sizesLabel}:</span> {sizes}
+            </p>
+            <div class="mt-3">
+              <MaybeLink href={shape.href} class="text-sm font-semibold" data-source-component={`samples-shape-link-${shape.key}`}>
+                {shape.shortName} <span aria-hidden="true">→</span>
+              </MaybeLink>
+            </div>
+            <SampleCtaPair
+              class="mt-4"
+              waMessage={waMessage}
+              emailSubject={emailSubject}
+              emailBody={emailBody}
+              waLabel={fill(t.whatYouCanSample.requestShapeLabelTemplate, { shape: shape.shortName })}
+              emailLabel={t.cta.emailLabel}
+              sku={shape.key}
+              sourceComponent="samples-shape"
+              size="sm"
+            />
+          </li>
+        ))}
+      </ul>
+
+      <p class="mt-8 max-w-prose text-base leading-relaxed text-neutral-700">{t.whatYouCanSample.customNote}</p>
+      <p class="mt-3 text-sm">
+        <MaybeLink href="/products" class="font-semibold" data-source-component="samples-products">
+          {t.whatYouCanSample.productsLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+    </div>
+  </section>
+
+  {/* How sample shipping works — "we handle it" + CTA #4. */}
+  <section id="how-shipping-works" aria-labelledby="shipping-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="shipping-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.shipping.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.shipping.body1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.shipping.body2, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-neutral-600">
+        <span>{t.shipping.linksIntro}</span>
+        <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="samples-un1361">{fill(t.shipping.un1361LinkLabel, tokens)}</MaybeLink>
+        <span aria-hidden="true">·</span>
+        <MaybeLink href="/logistics/rules" class="font-semibold" data-source-component="samples-rules">{t.shipping.rulesLinkLabel}</MaybeLink>
+        <span aria-hidden="true">·</span>
+        <MaybeLink href="/glossary#un-1361" class="font-semibold" data-source-component="samples-glossary">{fill(t.shipping.glossaryLinkLabel, tokens)}</MaybeLink>
+      </p>
+      <SampleCtaPair
+        class="mt-8"
+        waMessage={heroWaMessage}
+        emailSubject={emailSubject}
+        emailBody={pageEmailBody}
+        waLabel={t.cta.waLabel}
+        emailLabel={t.cta.emailLabel}
+        sourceComponent="samples-shipping"
+        size="md"
+      />
+    </div>
+  </section>
+
+  {/* Indicative courier cost — in proportion. */}
+  <section id="sample-cost" aria-labelledby="cost-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="cost-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.cost.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.cost.intro, tokens)}</p>
+      <SpecsTable
+        class="mt-8"
+        columns={[{ key: 'cost', label: fill(t.cost.costColLabel, tokens) }]}
+        rows={costRows}
+        caption={costCaption}
+        propertyHeader={t.cost.colDestination}
+        cardEyebrow={t.cost.colDestination}
+      />
+      <p class="mt-6 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.cost.proportionLine, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Documents with your sample + CTA #5. */}
+  <section id="documents" aria-labelledby="documents-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="documents-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.documents.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.documents.body, tokens)}</p>
+      <p class="mt-3 text-sm">
+        <MaybeLink href="/quality/certifications" class="font-semibold" data-source-component="samples-certifications">
+          {t.documents.linkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+      <p class="mt-6 text-sm font-medium text-neutral-700">{t.documents.ctaNote}</p>
+      <SampleCtaPair
+        class="mt-3"
+        waMessage={heroWaMessage}
+        emailSubject={emailSubject}
+        emailBody={pageEmailBody}
+        waLabel={t.cta.waLabel}
+        emailLabel={t.cta.emailLabel}
+        sourceComponent="samples-documents"
+        size="md"
+      />
+    </div>
+  </section>
+
+  {/* Why this factory + what happens next. */}
+  <section id="why-us" aria-labelledby="why-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="why-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.whyFactory.h2}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.whyFactory.body, tokens)}</p>
+      <dl class="mt-6 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-3">
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{t.whyFactory.signalCertLabel}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{fill(t.whyFactory.signalCertValueTemplate, tokens)}</dd>
+        </div>
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{t.whyFactory.signalCountriesLabel}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{fill(t.whyFactory.signalCountriesValueTemplate, tokens)}</dd>
+        </div>
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{t.whyFactory.signalReplyLabel}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{fill(t.whyFactory.signalReplyValueTemplate, tokens)}</dd>
+        </div>
+      </dl>
+      <h3 class="mt-8 text-xl font-semibold text-neutral-900">{t.whyFactory.whatNextHeading}</h3>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.whyFactory.replyTemplate, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Extractable Q&A — visible only, NO FAQPage schema (canonical at /faq). */}
+  <section aria-labelledby="samples-faq" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="samples-faq" heading={t.faq.heading} items={faqItems} />
+    </div>
+  </section>
+
+  {/* Related topics. */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`samples-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  {/* MOQ + final dual-channel CTA (the inherited sitewide closer). */}
+  <CTABanner
+    title={t.finalCta.title}
+    subtitle={fill(t.finalCta.subtitleTemplate, tokens)}
+    primaryCta={{
+      label: t.cta.waLabel,
+      href: waLink(heroWaMessage),
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'sample_request,whatsapp_click',
+      dataSourceComponent: 'samples-final',
+    }}
+    secondaryCta={{
+      label: t.cta.emailLabel,
+      href: mailto(emailSubject, pageEmailBody),
+      dataEvent: 'sample_request,outbound_click',
+      dataSourceComponent: 'samples-final-email',
+    }}
+  />
+</BaseLayout>
