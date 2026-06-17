@@ -11,7 +11,7 @@
     "ctaQuote": "Ask a compliance question",
     "ctaQuoteAria": "Ask a compliance question on WhatsApp",
     "ctaContact": "Send an inquiry",
-    "ctaContactAria": "Open the inquiry form"
+    "ctaContactAria": "Send an inquiry about dangerous-goods compliance"
   },
   "intro": {
     "p1": "This page sits under the {{brand}} Logistics pillar and tracks what changed in {{dgMandatoryYear}}. For the timeless classification — what UN 1361 and Class {{unClass}} are — see the UN 1361 page; here we cover the new rules.",

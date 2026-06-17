@@ -152,7 +152,7 @@ const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length 
               <tr class="border-b border-neutral-200 align-top">
                 <th scope="row" class="py-2 pe-4 font-medium text-neutral-800">
                   {d.label}
-                  <span class="block font-normal text-neutral-500">{d.basis}</span>
+                  <span class="block font-normal text-neutral-600">{d.basis}</span>
                   {hasFact(d.sourceUrl) && (
                     <span class="block"><ExternalLink href={d.sourceUrl} class="text-xs" data-event="outbound_click" data-source-component={`importusa-duty-${d.id}`}>{t.duty.sourceLabel}</ExternalLink></span>
                   )}

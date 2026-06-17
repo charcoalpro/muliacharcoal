@@ -172,7 +172,7 @@ const mediaPhotos = t.media.photos.map((p) => ({ alt: fill(p.alt, tokens), capti
     <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
       {heroTrust.map((item) => (
         <div class="border-s-2 border-brand-accent ps-3">
-          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
           <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
         </div>
       ))}
@@ -274,7 +274,7 @@ const mediaPhotos = t.media.photos.map((p) => ({ alt: fill(p.alt, tokens), capti
             <tbody>
               {tierARows.length > 0 && (
                 <tr class="bg-neutral-50">
-                  <th scope="colgroup" colspan="3" class="py-2 pe-4 text-start text-xs font-semibold uppercase tracking-wide text-neutral-500">{tc.labels.tierAHeading}</th>
+                  <th scope="colgroup" colspan="3" class="py-2 pe-4 text-start text-xs font-semibold uppercase tracking-wide text-neutral-600">{tc.labels.tierAHeading}</th>
                 </tr>
               )}
               {tierARows.map((r) => (
@@ -288,7 +288,7 @@ const mediaPhotos = t.media.photos.map((p) => ({ alt: fill(p.alt, tokens), capti
               ))}
               {tierBRows.length > 0 && (
                 <tr class="bg-neutral-50">
-                  <th scope="colgroup" colspan="3" class="py-2 pe-4 text-start text-xs font-semibold uppercase tracking-wide text-neutral-500">{tc.labels.tierBHeading}</th>
+                  <th scope="colgroup" colspan="3" class="py-2 pe-4 text-start text-xs font-semibold uppercase tracking-wide text-neutral-600">{tc.labels.tierBHeading}</th>
                 </tr>
               )}
               {tierBRows.map((r) => (

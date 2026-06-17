@@ -138,8 +138,8 @@ const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length 
           <h3 class="text-lg font-semibold text-neutral-900">{company.certifications.iso9001.standard}</h3>
           <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.held.iso9001.desc, tokens)}</p>
           <dl class="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
-            <div class="flex gap-2"><dt class="font-medium text-neutral-500">{t.held.iso9001.issuerLabel}:</dt><dd class="text-neutral-800">{tokens.auditors}</dd></div>
-            <div class="flex gap-2"><dt class="font-medium text-neutral-500">{t.held.scopeLabel}:</dt><dd class="text-neutral-800">{t.held.iso9001.scope}</dd></div>
+            <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.held.iso9001.issuerLabel}:</dt><dd class="text-neutral-800">{tokens.auditors}</dd></div>
+            <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.held.scopeLabel}:</dt><dd class="text-neutral-800">{t.held.iso9001.scope}</dd></div>
           </dl>
           {isoDoc && (
             <p class="mt-3 text-sm">
@@ -155,9 +155,9 @@ const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length 
             <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.held.halal.desc, tokens)}</p>
             <dl class="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
               {hasFact(halal.body) && (
-                <div class="flex gap-2"><dt class="font-medium text-neutral-500">{t.held.halal.issuerLabel}:</dt><dd class="text-neutral-800">{halal.body}</dd></div>
+                <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.held.halal.issuerLabel}:</dt><dd class="text-neutral-800">{halal.body}</dd></div>
               )}
-              <div class="flex gap-2"><dt class="font-medium text-neutral-500">{t.held.scopeLabel}:</dt><dd class="text-neutral-800">{t.held.halal.scope}</dd></div>
+              <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.held.scopeLabel}:</dt><dd class="text-neutral-800">{t.held.halal.scope}</dd></div>
             </dl>
           </div>
         )}
@@ -179,7 +179,7 @@ const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length 
           <div class="rounded-2xl border border-neutral-200 bg-white p-5">
             <h3 class="text-lg font-semibold text-neutral-900">{coa.name}</h3>
             <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.reports.coa.definition, tokens)}</p>
-            <p class="mt-2 text-sm text-neutral-700"><strong class="font-medium text-neutral-500">{t.reports.perOrderLabel}:</strong> {t.reports.perOrderValue}</p>
+            <p class="mt-2 text-sm text-neutral-700"><strong class="font-medium text-neutral-600">{t.reports.perOrderLabel}:</strong> {t.reports.perOrderValue}</p>
             <p class="mt-2 text-sm">
               {t.reports.coa.readLinkIntro}{' '}
               <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="certs-coa-specs">{t.reports.coa.readLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
@@ -198,8 +198,8 @@ const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length 
             <h3 class="text-lg font-semibold text-neutral-900">{thirdParty!.name}</h3>
             <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.reports.thirdParty.body, tokens)}</p>
             <dl class="mt-2 text-sm">
-              <div class="flex gap-2"><dt class="font-medium text-neutral-500">{t.reports.issuerLabel}:</dt><dd class="text-neutral-800">{thirdParty!.issuer}</dd></div>
-              <div class="mt-1 flex gap-2"><dt class="font-medium text-neutral-500">{t.reports.perOrderLabel}:</dt><dd class="text-neutral-800">{t.reports.perOrderValue}</dd></div>
+              <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.reports.issuerLabel}:</dt><dd class="text-neutral-800">{thirdParty!.issuer}</dd></div>
+              <div class="mt-1 flex gap-2"><dt class="font-medium text-neutral-600">{t.reports.perOrderLabel}:</dt><dd class="text-neutral-800">{t.reports.perOrderValue}</dd></div>
             </dl>
           </div>
         )}
@@ -209,7 +209,7 @@ const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length 
           <div class="rounded-2xl border border-neutral-200 bg-white p-5">
             <h3 class="text-lg font-semibold text-neutral-900">{sht.name}</h3>
             <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.reports.sht.body, tokens)}</p>
-            <p class="mt-2 text-sm text-neutral-700"><strong class="font-medium text-neutral-500">{t.reports.perOrderLabel}:</strong> {t.reports.perOrderValue}</p>
+            <p class="mt-2 text-sm text-neutral-700"><strong class="font-medium text-neutral-600">{t.reports.perOrderLabel}:</strong> {t.reports.perOrderValue}</p>
             <p class="mt-2 text-sm">
               {t.reports.sht.dgLinkIntro}{' '}
               <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="certs-sht-un1361">{t.reports.sht.dgLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
