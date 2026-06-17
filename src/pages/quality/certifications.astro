@@ -10,6 +10,7 @@
  * is omitted until /markets/saudi-arabia exists.
  */
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
@@ -77,7 +78,7 @@ const proseForReadTime = fill(
   ].join(' '),
   tokens,
 );
-const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+const readMinutes = readingTime(proseForReadTime);
 ---
 <BaseLayout
   title={pageTitle}

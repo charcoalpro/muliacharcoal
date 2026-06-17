@@ -23,6 +23,7 @@
  * filled in. The payment-terms answer describes the process only.
  */
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
@@ -66,7 +67,7 @@ const totalWords = schemaItems.reduce(
   (sum, item) => sum + item.q.split(/\s+/).length + item.a.split(/\s+/).length,
   0,
 );
-const readMinutes = Math.max(1, Math.round(totalWords / 200));
+const readMinutes = readingTime(totalWords);
 
 // Link-out stubs (visible on the page; deliberately not in schema).
 const linkOuts = t.linkOuts.items.map((item) => ({

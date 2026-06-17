@@ -13,6 +13,7 @@
  * cube-25mm reference SKU as the box pages for the holds chain.
  */
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
@@ -117,7 +118,7 @@ const proseForReadTime = fill(
   ].join(' '),
   tokens,
 );
-const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+const readMinutes = readingTime(proseForReadTime);
 
 const photos = (list: Array<{ alt: string; caption: string }>) =>
   list.map((p) => ({ alt: fill(p.alt, tokens), caption: fill(p.caption, tokens) }));

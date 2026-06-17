@@ -8,6 +8,7 @@
  * the config list is populated (seeded — owner to confirm).
  */
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
@@ -50,7 +51,7 @@ const proseForReadTime = fill(
   [t.heroSubtitle, t.intro.p1, ...L.documentsStandard.map((d) => d.buyerUse), ...L.documentsAdditional.map((d) => d.buyerUse), t.countryReq.body, ...t.faq.items.flatMap((f) => [f.q, f.a])].join(' '),
   tokens,
 );
-const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+const readMinutes = readingTime(proseForReadTime);
 ---
 <BaseLayout
   title={pageTitle}

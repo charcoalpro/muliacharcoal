@@ -8,6 +8,7 @@
  * mandatory" claim renders only if dg.compliantSince < 2026-01-01.
  */
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
@@ -66,7 +67,7 @@ const proseForReadTime = fill(
   [t.heroSubtitle, t.intro.p1, t.whatChanged.body, t.sp978.body, t.nonDg.body, t.cost.body, ...controls.map((x) => x.value), ...t.faq.items.flatMap((f) => [f.q, f.a])].join(' '),
   tokens,
 );
-const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+const readMinutes = readingTime(proseForReadTime);
 ---
 <BaseLayout
   title={pageTitle}
