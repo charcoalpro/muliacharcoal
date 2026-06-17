@@ -98,8 +98,8 @@ export function buildHomepageGraph() {
               .filter(Boolean),
             imageGallerySchema({
               id: 'home-gallery',
-              name: 'Mulia Charcoal factory and container-loading gallery',
-              description: `Photographs and short vertical videos taken on the production floor and loading bay of the Mulia Charcoal coconut shell briquetting factory in Semarang, Central Java — refreshed ${galleryLastUpdated}.`,
+              name: `${company.brand} factory and container-loading gallery`,
+              description: `Photographs and short vertical videos taken on the production floor and loading bay of the ${company.brand} coconut shell briquetting factory in ${company.address.city}, ${company.address.region} — refreshed ${galleryLastUpdated}.`,
               url: `${siteOrigin}/#home-gallery-section`,
               images: galleryPhotos.map((p) => ({
                 id: p.id,
