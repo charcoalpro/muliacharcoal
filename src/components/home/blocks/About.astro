@@ -29,6 +29,7 @@
 import en from '~/i18n/en';
 import { company, hasFact, moqLabel } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
+import { isLive } from '~/config/nav';
 import SectionHeading from '~/components/content/SectionHeading.astro';
 import DataTable from '~/components/content/DataTable.astro';
 import YouTubeLite from '~/components/content/YouTubeLite.astro';
@@ -87,15 +88,17 @@ const legalDocs: DocItem[] = (Object.keys(t.docs.items) as Array<keyof typeof t.
       title={h2}
       id="home-about-h2"
     />
-    <p class="mt-3">
-      <a
-        href="/factory"
-        class="text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-        data-source-component="about-h2-link"
-      >
-        {t.h2LinkLabel} <span aria-hidden="true">→</span>
-      </a>
-    </p>
+    {isLive('/factory') && (
+      <p class="mt-3">
+        <a
+          href="/factory"
+          class="text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          data-source-component="about-h2-link"
+        >
+          {t.h2LinkLabel} <span aria-hidden="true">→</span>
+        </a>
+      </p>
+    )}
 
     {/* Two-column on lg+: text + table on the left, video on the right.
         Stacks on <lg. */}

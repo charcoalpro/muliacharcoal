@@ -4,7 +4,7 @@
  * optional public-standard code chip, optional "Detail" link down to the
  * pillar that owns the topic.
  */
-import TextLink from '~/components/content/TextLink.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
 
 interface Props {
   slug: string;
@@ -28,7 +28,7 @@ const { slug, term, termCode, definition, see } = Astro.props;
   <p class="mt-2 leading-relaxed text-neutral-700">{definition}</p>
   {see && (
     <p class="mt-2 text-sm">
-      <TextLink href={see.href}>Detail: {see.label} →</TextLink>
+      <MaybeLink href={see.href}>Detail: {see.label} →</MaybeLink>
     </p>
   )}
 </article>

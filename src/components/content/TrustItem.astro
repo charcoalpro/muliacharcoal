@@ -11,6 +11,8 @@
  * analytics event via the sitewide [data-event] dispatcher.
  */
 
+import { isLive } from '~/config/nav';
+
 interface Props {
   /** Stable identifier; surfaces as `data-source-component`. */
   itemKey: string;
@@ -59,7 +61,7 @@ const {
   </summary>
   <div class="border-t border-neutral-100 px-4 py-4 text-start text-sm leading-relaxed text-neutral-700">
     <p>{definition}</p>
-    {href && (
+    {href && isLive(href) && (
       <a
         href={href}
         data-event="trust_item_click"

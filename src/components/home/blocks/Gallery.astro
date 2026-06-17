@@ -29,6 +29,7 @@
 import en from '~/i18n/en';
 import { company } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
+import { isLive } from '~/config/nav';
 import {
   galleryItems,
   galleryLastUpdated,
@@ -64,15 +65,17 @@ const sectionId = 'home-gallery-section';
       subtitle={intro}
       id="home-gallery-h2"
     />
-    <p class="mt-3">
-      <a
-        href="/factory#gallery"
-        class="text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
-        data-source-component="gallery-h2-link"
-      >
-        {t.h2LinkLabel} <span aria-hidden="true">→</span>
-      </a>
-    </p>
+    {isLive('/factory') && (
+      <p class="mt-3">
+        <a
+          href="/factory#gallery"
+          class="text-sm font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          data-source-component="gallery-h2-link"
+        >
+          {t.h2LinkLabel} <span aria-hidden="true">→</span>
+        </a>
+      </p>
+    )}
 
     {/*
       Masonry-ish grid. Photos render at 4:3 in a 1×1 cell; vertical
