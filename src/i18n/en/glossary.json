@@ -367,6 +367,13 @@
       "see": { "href": "/logistics/rules", "label": "Incoterms summary table" }
     },
     {
+      "slug": "exw",
+      "term": "EXW (Ex Works)",
+      "termCode": "EXW",
+      "cluster": "incoterms",
+      "definitionTemplate": "EXW (Ex Works) is the Incoterm under which the seller's only obligation is to make the goods available at its own premises — not loaded onto the collecting vehicle and not cleared for export; both cost and risk pass to the buyer at that single point, leaving the buyer to arrange loading, origin haulage, export clearance, ocean freight, insurance, and import clearance. EXW (an any-mode rule) places the maximum obligation on the buyer; for container exports from {{port}} we quote FOB rather than EXW, because in practice the seller handles the Indonesian export-customs formalities."
+    },
+    {
       "slug": "fob",
       "term": "FOB (Free On Board)",
       "termCode": "FOB",
@@ -386,6 +393,13 @@
       "termCode": "DAP",
       "cluster": "incoterms",
       "definitionTemplate": "DAP (Delivered at Place) is the Incoterm under which the seller delivers cargo to a named place in the destination country, ready for unloading — covering ocean freight, destination port charges, and inland trucking, but excluding import duties and VAT. DAP is suitable for buyers without an established import broker."
+    },
+    {
+      "slug": "ddp",
+      "term": "DDP (Delivered Duty Paid)",
+      "termCode": "DDP",
+      "cluster": "incoterms",
+      "definitionTemplate": "DDP (Delivered Duty Paid) is the Incoterm under which the seller delivers the goods cleared for import at a named destination, ready for unloading — bearing all cost and risk including ocean freight, destination terminal charges, import customs clearance, duty, and any VAT or GST; risk passes when the goods are placed at the buyer's disposal at the destination, ready for unloading. DDP is the mirror image of EXW and places the maximum obligation on the seller; it differs from DAP only in that DAP stops short of import duties and taxes. We rarely quote DDP on charcoal, because destination duty and tax exposure is managed more efficiently by the buyer's local customs broker."
     },
     {
       "slug": "letter-of-credit",
@@ -445,6 +459,13 @@
       "cluster": "docs",
       "definitionTemplate": "A Certificate of Origin (COO) names the country in which goods were manufactured — the basis on which the destination customs authority applies the applicable import duty. Indonesia issues several variants: the generic COO, Form A (for GSP preferences in markets that recognize it), and the various FTA-specific forms (Form D for ASEAN, Form E for ASEAN–China, etc.). Choosing the right form can eliminate the duty entirely.",
       "see": { "href": "/logistics/documents", "label": "COO variants and FTA eligibility" }
+    },
+    {
+      "slug": "hs-code",
+      "term": "HS / HTS code",
+      "termCode": "HS / HTS",
+      "cluster": "docs",
+      "definitionTemplate": "An HS code (Harmonized System code) is the World Customs Organization classification number that customs authorities worldwide use to identify a traded product and set its import duty. The HS is a six-digit international base shared by more than 200 countries; each destination then extends it nationally — the United States to a ten-digit HTS (Harmonized Tariff Schedule) code, the European Union to a ten-digit TARIC code. Duty rate, free-trade-agreement eligibility, and any import controls are all looked up against this number; the specific code under which coconut-shell charcoal is declared is defined separately."
     },
     {
       "slug": "hs-code-4402-90",
@@ -656,6 +677,19 @@
       "cluster": "freight",
       "definitionTemplate": "Drayage is the short-distance road transport of a container between the port and a nearby warehouse or rail terminal.",
       "see": { "href": "/logistics/import-to-usa", "label": "Drayage at the US port of entry" }
+    },
+    {
+      "slug": "customs-duty",
+      "term": "Customs duty (import duty)",
+      "cluster": "freight",
+      "alternateNames": ["import duty"],
+      "definitionTemplate": "Customs duty — also called import duty — is the tax a destination country levies on imported goods, charged as a percentage of the customs value and set by the goods' tariff classification (its HS/HTS code). The rate on coconut-shell charcoal depends on the destination country and on any free-trade-agreement preference the importer can claim; it is paid by the importer of record, not the exporter, under every Incoterm except DDP."
+    },
+    {
+      "slug": "landed-cost",
+      "term": "Landed cost",
+      "cluster": "freight",
+      "definitionTemplate": "Landed cost is the total delivered cost of an imported consignment once every line item is summed: the FOB product price plus ocean freight, marine insurance, import duty, destination taxes such as VAT or GST, customs-brokerage and terminal handling, and inland drayage to the buyer's warehouse. Because freight and duty vary by lane and destination, comparing suppliers on FOB price alone is misleading — landed cost per kilogram is the figure that reflects the true cost of a container."
     }
   ],
 
