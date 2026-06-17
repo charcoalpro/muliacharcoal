@@ -10,6 +10,10 @@
  * arrays, finite string unions), and re-exports the assembled
  * `company` object plus all helper functions.
  *
+ * This is NOT a second copy of the data: the JSON files in `/src/data/` are
+ * the single editable source, and this module only types and assembles them.
+ * Treat the `.ts` + `.json` pair as one source of truth, not two.
+ *
  * Editing options:
  *   • For editors: open `/admin/` in a browser, log in with GitHub,
  *     edit a field, click save. Sveltia commits the JSON change and
