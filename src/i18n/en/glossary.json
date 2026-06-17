@@ -378,7 +378,7 @@
       "term": "FOB (Free On Board)",
       "termCode": "FOB",
       "cluster": "incoterms",
-      "definitionTemplate": "FOB (Free On Board) is the Incoterm under which the seller delivers cargo on board the vessel at the named port of loading — ownership and risk transfer when the goods cross the ship's rail. Our default sales basis is {{portLabel}}: we cover origin trucking, customs export clearance, terminal handling, and vanning; the buyer arranges the ocean freight, insurance, and destination clearance."
+      "definitionTemplate": "FOB (Free On Board) is the Incoterm under which the seller delivers cargo on board the vessel at the named port of loading — risk transfers to the buyer once the goods are on board. Our default sales basis is {{portLabel}}: we cover origin trucking, customs export clearance, terminal handling, and vanning; the buyer arranges the ocean freight, insurance, and destination clearance."
     },
     {
       "slug": "cfr-cif",
@@ -707,7 +707,7 @@
       },
       {
         "q": "What does FOB {{port}} include and exclude?",
-        "a": "Our FOB {{port}} price includes origin trucking from the factory, Indonesian customs export clearance, container vanning, port terminal handling, and a vanning certificate. It excludes ocean freight, marine insurance, destination port charges, destination customs clearance, and destination duties or VAT — all of which the buyer or buyer's broker arranges separately. Risk and title transfer when the cargo crosses the ship's rail at Tanjung Emas."
+        "a": "Our FOB {{port}} price includes origin trucking from the factory, Indonesian customs export clearance, container vanning, port terminal handling, and a vanning certificate. It excludes ocean freight, marine insurance, destination port charges, destination customs clearance, and destination duties or VAT — all of which the buyer or buyer's broker arranges separately. Risk transfers to the buyer once the cargo is loaded on board at Tanjung Emas."
       },
       {
         "q": "Coconut vs bamboo vs wood charcoal — which lasts longer in a shisha bowl?",
