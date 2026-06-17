@@ -20,9 +20,12 @@ docs/build-prompts/
 │   ├── packaging-additional-packaging-build-prompt-v2.md
 │   ├── packaging-cluster-consolidated-revisions.md
 │   └── packaging-cluster-golive-checklist-v2.md
-└── logistics/
-    ├── logistics-hub-build-prompt-v1.md
-    └── logistics-research-prompt-v1.md
+├── logistics/
+│   ├── logistics-hub-build-prompt-v1.md
+│   └── logistics-research-prompt-v1.md
+└── factory/
+    ├── factory-hub-build-prompt-v1.md
+    └── factory-research-prompt-v1.md
 ```
 
 ---
@@ -41,6 +44,8 @@ docs/build-prompts/
 | `packaging/packaging-cluster-golive-checklist-v2.md` | v2 | checklist (owner-facing) | Data/asset gathering for the whole cluster; paste into a session only when populating `company.ts` | — |
 | `logistics/logistics-hub-build-prompt-v1.md` | v1 | build | `/logistics` hub; creates the `company.ts` `logistics` contract incl. `transitTimes[]` | packaging hub v6 (conventions + components) |
 | `logistics/logistics-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Gathers verified UN-1361/DG + USA-import facts; output feeds the two pending child prompts | — |
+| `factory/factory-hub-build-prompt-v1.md` | v1 | build | `/factory` hub **+ all 4 children** (production-process, capacity, virtual-tour, raw-materials); reuses `company.ts` `production`/`factoryTourVideo`, adds a small `factory` object; adding its routes to `LIVE_ROUTES` self-heals the gated/muted `/factory*` links sitewide | packaging hub v6 + logistics hub v1 (pillar-hub pattern) |
+| `factory/factory-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Verifies coconut-charcoal manufacturing-process science + sourcing context + competitor teardown; routes owner-only facts to a checklist; feeds the factory build prompt | — |
 
 **Pending (will be added here):** `/logistics/UN-1361` and `/logistics/import-to-usa` (await `logistics-research-findings.md`), `/logistics/rules`, `/logistics/documents`. Each will declare its required parents in its own header using repo paths.
 
@@ -54,6 +59,7 @@ docs/build-prompts/
 8. **Consistency pass** — revisions §5 checkpoints across all built pages.
 9. **`/logistics` hub.**
 10+. **Logistics children** as their prompts land.
+11. **`/factory` pillar** — hub + 4 children (single prompt); add the 5 routes to `LIVE_ROUTES` to self-heal the gated/muted `/factory*` links across home, glossary, products, and grade pages.
 Cross-site touches (`/samples` packaging accommodation, homepage OEM → white-label link) whenever those pages are next edited; guide-pillar redirects when that pillar is built.
 
 ---
