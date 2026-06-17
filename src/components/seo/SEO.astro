@@ -52,7 +52,9 @@ const ogLocale = localeOgMap[locale];
 ---
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
-<link rel="canonical" href={canonical} />
+{/* Canonical + hreflang only matter for indexable URLs — a noindex page
+    (404, dev) should not advertise itself as a canonical target. */}
+{!noIndex && <link rel="canonical" href={canonical} />}
 {noIndex
   ? <meta name="robots" content="noindex, nofollow" />
   : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -71,11 +73,15 @@ const ogLocale = localeOgMap[locale];
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
 
-{ACTIVE_LOCALES.map((code) => (
-  <link
-    rel="alternate"
-    hreflang={code}
-    href={`${siteBase}${normalizePath(localePath(code, path))}`}
-  />
-))}
-<link rel="alternate" hreflang="x-default" href={canonical} />
+{!noIndex && (
+  <Fragment>
+    {ACTIVE_LOCALES.map((code) => (
+      <link
+        rel="alternate"
+        hreflang={code}
+        href={`${siteBase}${normalizePath(localePath(code, path))}`}
+      />
+    ))}
+    <link rel="alternate" hreflang="x-default" href={canonical} />
+  </Fragment>
+)}
