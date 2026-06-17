@@ -713,11 +713,11 @@
   },
 
   "legalDocuments": [
-    { "key": "nib", "title": "Business registration (NIB)", "href": "/legal/nib.pdf", "dated": "2026-05-26" },
-    { "key": "npwp", "title": "Tax registration (NPWP)", "href": "/legal/npwp.pdf", "dated": "2026-05-26" },
-    { "key": "factory-audit", "title": "Factory Audit (Beckjorindo)", "href": "/legal/factory-audit.pdf", "dated": "2026-01-12" },
-    { "key": "coa-sample", "title": "Sample Certificate of Analysis", "href": "/quality/coa-sample.pdf", "dated": "2026-05-10" },
-    { "key": "iso-9001", "title": "ISO 9001:2015 certificate", "href": "/legal/iso-9001.pdf", "dated": "2025-12-05" }
+    { "key": "nib", "title": "Business registration (NIB)", "href": "/documents/nib.pdf", "dated": "2026-05-26" },
+    { "key": "npwp", "title": "Tax registration (NPWP)", "href": "/documents/npwp.pdf", "dated": "2026-05-26" },
+    { "key": "factory-audit", "title": "Factory Audit (Beckjorindo)", "href": "/documents/factory-audit.pdf", "dated": "2026-01-12" },
+    { "key": "coa-sample", "title": "Sample Certificate of Analysis", "href": "/documents/coa-sample.pdf", "dated": "2026-05-10" },
+    { "key": "iso-9001", "title": "ISO 9001:2015 certificate", "href": "/documents/iso-9001.pdf", "dated": "2025-12-05" }
   ],
 
   "analytics": {
