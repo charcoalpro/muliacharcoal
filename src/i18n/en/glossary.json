@@ -45,7 +45,7 @@
       "termCode": "UN 1361",
       "cluster": "dg",
       "definitionTemplate": "UN 1361 is the United Nations Recommendations on the Transport of Dangerous Goods identifier for \"Carbon, animal or vegetable origin\" — the classification under which coconut-shell shisha charcoal briquettes are shipped by sea. Cargo declared as UN 1361 is assigned to {{imdgLabel}}, requires a Dangerous Goods Declaration, and is subject to special provisions including a self-heating exemption test.",
-      "see": { "href": "/logistics/UN-1361", "label": "UN 1361 shipping rules and exemption test" }
+      "see": { "href": "/logistics/un-1361", "label": "UN 1361 shipping rules and exemption test" }
     },
     {
       "slug": "un-1362",
@@ -74,7 +74,7 @@
       "termCode": "SP 978",
       "cluster": "dg",
       "definitionTemplate": "SP 978 is the IMDG Code Special Provision that exempts certain carbon shipments from full Class 4.2 dangerous-goods rules when an accredited laboratory has verified the cargo passes the self-heating test under controlled conditions. SP 978 is the practical path most shisha-charcoal exports take — the cargo remains booked under UN 1361 but ships without DG surcharges when the SHT certificate and accompanying export declaration are in order.",
-      "see": { "href": "/logistics/UN-1361", "label": "How SP 978 exemption is obtained" }
+      "see": { "href": "/logistics/un-1361", "label": "How SP 978 exemption is obtained" }
     },
     {
       "slug": "imdg-amendment-42-24",

@@ -322,7 +322,7 @@ const linkP = 'mt-4 text-sm';
       </div>
       <p class={proseP}>{fill(t.pricing.body, tokens)}</p>
       <DataTable class="mt-6" headers={discountHeaders} rows={discountRows} striped />
-      <p class="mt-3 text-sm text-neutral-500">{fill(t.pricing.disclaimer, tokens)}</p>
+      <p class="mt-3 text-sm text-neutral-600">{fill(t.pricing.disclaimer, tokens)}</p>
     </section>
 
     <GradeLogistics shape={shape} size={size} grade={grade} tokens={tokens} />
@@ -442,7 +442,7 @@ const linkP = 'mt-4 text-sm';
 
       {otherSizes.length > 0 && (
         <div class="mt-6">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-500">{fill(t.related.otherSizesHeading, tokens)}</h3>
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-600">{fill(t.related.otherSizesHeading, tokens)}</h3>
           <ul class="mt-2 flex flex-wrap gap-2" role="list">
             {otherSizes.map((z) => (
               <li>
@@ -461,7 +461,7 @@ const linkP = 'mt-4 text-sm';
       )}
 
       <div class="mt-6">
-        <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-500">{t.related.otherShapesHeading}</h3>
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-600">{t.related.otherShapesHeading}</h3>
         <ul class="mt-2 flex flex-wrap gap-2" role="list">
           {siblingShapes.map((s) => (
             <li>
@@ -483,7 +483,7 @@ const linkP = 'mt-4 text-sm';
     <section id="request-a-quote" aria-labelledby="inquiry-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
       <h2 id="inquiry-heading" class={sectionH2}>{fill(t.inquiry.heading, tokens)}</h2>
       <p class={proseP}>{t.inquiry.whatToInclude}</p>
-      <p class="mt-2 text-sm text-neutral-500">{fill(t.inquiry.responseTime, tokens)}</p>
+      <p class="mt-2 text-sm text-neutral-600">{fill(t.inquiry.responseTime, tokens)}</p>
       <div class="mt-8">
         <InquiryForm prefill={{ productId: productOptionId[shape.key], sku: slug, note: fill(t.inquiry.heading, tokens) }} />
       </div>

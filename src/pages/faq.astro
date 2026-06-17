@@ -138,7 +138,7 @@ const schema = buildFaqPageGraph(schemaItems);
     class="border-b border-neutral-200 bg-white"
   >
     <div class="mx-auto max-w-4xl px-4 py-8 md:px-8">
-      <h2 id="faq-toc-heading" class="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+      <h2 id="faq-toc-heading" class="text-sm font-semibold uppercase tracking-wide text-neutral-600">
         {t.tocHeading}
       </h2>
       <ul class="mt-4 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
@@ -173,12 +173,12 @@ const schema = buildFaqPageGraph(schemaItems);
           {cat.heading}
         </h2>
 
-        <dl class="mt-8 divide-y divide-neutral-200 border-y border-neutral-200">
+        <div class="mt-8 divide-y divide-neutral-200 border-y border-neutral-200">
           {cat.items.map((item, i) => (
             <details id={item.id} class="group scroll-mt-20" open={i === 0}>
               <summary class="flex min-h-11 cursor-pointer list-none items-start justify-between gap-4 py-4 marker:hidden hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2">
                 <h3 class="flex-1 text-start text-base font-semibold text-neutral-900">
-                  <dt>{item.q}</dt>
+                  {item.q}
                 </h3>
                 <span aria-hidden="true" class="mt-1 flex-shrink-0 text-brand-primary transition-transform duration-200 group-open:rotate-180">
                   <svg viewBox="0 0 20 20" class="h-5 w-5" fill="currentColor" aria-hidden="true">
@@ -186,12 +186,12 @@ const schema = buildFaqPageGraph(schemaItems);
                   </svg>
                 </span>
               </summary>
-              <dd class="pb-5 pe-9 text-base leading-relaxed text-neutral-700">
+              <div class="pb-5 pe-9 text-base leading-relaxed text-neutral-700">
                 {item.a}
-              </dd>
+              </div>
             </details>
           ))}
-        </dl>
+        </div>
 
         {/* Transit-time table renders inside the Shipping category, right
             after the FAQSection — gives sighted users a scannable lookup
@@ -288,6 +288,7 @@ const schema = buildFaqPageGraph(schemaItems);
           data-source-component="faq-still-have-questions"
         >
           {t.stillHaveQuestions.ctaWhatsapp}
+          <span class="sr-only"> {en.contact.newTabSr}</span>
         </Button>
         <Button
           href="/contact"

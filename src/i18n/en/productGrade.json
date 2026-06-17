@@ -50,14 +50,14 @@
 
   "cta": {
     "sample": "Request a free sample",
-    "sampleAria": "Request a free sample of {{grade}} {{size}} {{shape}} on WhatsApp",
+    "sampleAria": "Request a free sample of {{grade}} {{size}} {{shape}} on WhatsApp (opens in new tab)",
     "quote": "Get a quote on WhatsApp",
-    "quoteAria": "Get a wholesale quote for {{grade}} {{size}} {{shape}} on WhatsApp",
+    "quoteAria": "Get a wholesale quote for {{grade}} {{size}} {{shape}} on WhatsApp (opens in new tab)",
     "chat": "Chat with our expert on WhatsApp",
-    "chatAria": "Chat with our charcoal expert on WhatsApp",
+    "chatAria": "Chat with our charcoal expert on WhatsApp (opens in new tab)",
     "downloadSpec": "Download the spec sheet",
     "tour": "Book a video factory tour",
-    "tourAria": "Book a WhatsApp video call to tour the factory"
+    "tourAria": "Book a WhatsApp video call to tour the factory (opens in new tab)"
   },
 
   "specHighlights": {

@@ -15,6 +15,10 @@ export default {
           primary: brand.primary,
           'primary-hover': brand.primaryHover,
           accent: brand.accent,
+          // Darker gold for accent-colored TEXT on light backgrounds: the
+          // placeholder `accent` (#c9a24b) is ~2:1 on white and fails WCAG AA.
+          // `accent-strong` (#8a6d1f, ~4.9:1) keeps the gold identity at AA.
+          'accent-strong': brand.accentStrong,
           dark: brand.dark,
         },
         neutral: colors.slate,
