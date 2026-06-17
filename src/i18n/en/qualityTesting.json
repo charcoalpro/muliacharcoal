@@ -11,7 +11,7 @@
     "ctaQuote": "Request a test report",
     "ctaQuoteAria": "Request a test report or COA by WhatsApp",
     "ctaContact": "Send an inquiry",
-    "ctaContactAria": "Open the inquiry form to request test reports"
+    "ctaContactAria": "Send an inquiry about test reports"
   },
   "intro": {
     "p1": "This page sits under {{brand}}'s",

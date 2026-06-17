@@ -9,9 +9,9 @@
   "heroSubtitle": "Every number on a spec sheet answers a buyer's question: is this good? This page defines each parameter of {{brand}}'s coconut shell shisha charcoal, says which direction is better, and shows what a strong value looks like.",
   "hero": {
     "ctaQuote": "Request full specifications",
-    "ctaQuoteAria": "Request the full specifications by WhatsApp",
+    "ctaQuoteAria": "Request full specifications by WhatsApp",
     "ctaContact": "Send an inquiry",
-    "ctaContactAria": "Open the inquiry form to request specifications"
+    "ctaContactAria": "Send an inquiry about specifications"
   },
   "intro": {
     "p1": "This page sits under {{brand}}'s",

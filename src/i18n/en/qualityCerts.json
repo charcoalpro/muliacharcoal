@@ -9,9 +9,9 @@
   "heroSubtitle": "There is an important difference between a certification a factory holds and a report it provides with your shipment. {{brand}} keeps the two separate — held certifications below, per-order reports beneath them — so you know exactly what is verified and by whom.",
   "hero": {
     "ctaQuote": "Request documentation",
-    "ctaQuoteAria": "Request certifications or a sample COA by WhatsApp",
+    "ctaQuoteAria": "Request documentation — certifications or a sample COA — by WhatsApp",
     "ctaContact": "Send an inquiry",
-    "ctaContactAria": "Open the inquiry form to request documentation"
+    "ctaContactAria": "Send an inquiry about documentation"
   },
   "intro": {
     "p1": "This page sits under {{brand}}'s",
