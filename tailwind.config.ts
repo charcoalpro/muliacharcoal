@@ -22,7 +22,9 @@ export default {
           dark: brand.dark,
         },
         neutral: colors.slate,
-        success: '#16a34a',
+        // Darkened from #16a34a so white text on bg-success buttons and the
+        // success toast meets WCAG AA (white on #15803d = 5.0:1, was 3.3:1).
+        success: '#15803d',
         error: '#dc2626',
         warning: '#ea580c',
         info: '#2563eb',
