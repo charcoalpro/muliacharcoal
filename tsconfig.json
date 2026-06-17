@@ -6,6 +6,6 @@
       "~/*": ["src/*"]
     }
   },
-  "include": ["src/**/*", "astro.config.ts", "tailwind.config.ts"],
+  "include": [".astro/types.d.ts", "src/**/*", "astro.config.ts", "tailwind.config.ts"],
   "exclude": ["dist", "node_modules"]
 }
