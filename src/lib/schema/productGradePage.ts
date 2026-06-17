@@ -27,22 +27,13 @@
  */
 
 import { company, hasFact } from '~/config/company';
-import { grades, gradePropertyKeys, type Grade, type SpecValue, type GradePropertyKey } from '~/config/grades';
+import { grades, gradePropertyKeys, type Grade, type SpecValue } from '~/config/grades';
 import type { ProductShape, ProductSize } from '~/config/products';
-import { ORG_ID, WEBSITE_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, WEBSITE_ID, siteOrigin } from '~/lib/schema/ids';
+import { PROPERTY_LABELS } from '~/lib/schema/grades';
 import { productGroupSchema, productGroupId } from '~/lib/schema/productGroup';
 import { videoObjectSchema } from '~/lib/schema/videoObject';
 import { personSchema, personRef } from '~/lib/schema/person';
-
-const PROPERTY_LABELS: Record<GradePropertyKey, string> = {
-  ash: 'Ash content',
-  moisture: 'Moisture',
-  fixedCarbon: 'Fixed carbon',
-  burnTime: 'Burn time',
-  burnTemp: 'Burn temperature',
-  calorieValue: 'Calorific value',
-  dropTest: 'Drop test',
-};
 
 interface PropertyValueNode {
   '@type': 'PropertyValue';

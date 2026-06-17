@@ -1,0 +1,405 @@
+---
+/**
+ * /logistics — the Logistics pillar hub (cocoon v3.3 §5.1).
+ *
+ *   - Text-led hero, full E-E-A-T block, "Shipping at a glance" KeyFactsBox,
+ *     parent-entity intro, seven short child-entity sections (each links
+ *     down with an entity anchor), the transit table with per-market
+ *     extractable sentences above it, the combined order→port timeline, a
+ *     short DG overview that closes the safety loop, hub-canonical FAQ,
+ *     related topics, CTABanner.
+ *   - Schema: CollectionPage + FAQPage only (logisticsHubSchema). No
+ *     DefinedTerm here — /glossary is the only term home (v3.3 §3.3).
+ *   - Every fact from ~/config/company.ts via fill(); commercial.* is the
+ *     canonical home for port/transit/containers/lead-time/HS code, read
+ *     through logisticsTokens(). Missing facts degrade (rows drop, "—").
+ *   - Media: photo slots render local placeholders until the shoot lands;
+ *     no video schema on the hub.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor } from '~/config/company';
+import { fill, companyTokens, logisticsTokens } from '~/lib/interpolate';
+import { logisticsHubSchema } from '~/lib/schema/logisticsHub';
+
+const t = en.logistics;
+const tc = en.logisticsCommon;
+const L = company.logistics;
+
+// Authoritative outbound references (≤2 per §5.1; verify in preview).
+const IMO_IMDG_URL = 'https://www.imo.org/en/OurWork/Safety/Pages/DangerousGoods-default.aspx';
+const EXPORT_AUTHORITY_URL = 'https://www.beacukai.go.id/';
+
+// Transit rows read commercial.transitTimes (single source) and adapt the
+// shape the cocoon needs. portCode → UN/LOCODE; min/max → day range.
+const transitRows = company.commercial.transitTimes.map((r) => ({
+  destPort: r.destination,
+  unlocode: r.portCode,
+  min: r.minDays,
+  max: r.maxDays,
+}));
+const transitSpanMin = transitRows.length ? Math.min(...transitRows.map((r) => r.min)) : 0;
+const transitSpanMax = transitRows.length ? Math.max(...transitRows.map((r) => r.max)) : 0;
+
+// Alternate ports from commercial.portOfLoading.alternates (enriched with
+// UN/LOCODE). Degrades to "" if none.
+const altPorts = company.commercial.portOfLoading.alternates
+  .map((a) => `${a.name} (${a.unLocode})`)
+  .join(', ');
+
+const tokens = {
+  ...companyTokens(company),
+  ...logisticsTokens(company),
+  altPorts,
+  transitSpanMin,
+  transitSpanMax,
+};
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// --- Hero trust signals (above the fold). ---
+const heroTrust = [
+  { label: t.heroTrust.portLabel, value: tokens.portWithCode },
+  { label: t.heroTrust.moqLabel, value: tokens.moqLabel },
+  { label: t.heroTrust.incotermsLabel, value: tokens.incotermsList },
+  { label: t.heroTrust.dgLabel, value: `${tokens.unNumber} Class ${tokens.unClass}` },
+];
+
+// --- KeyFactsBox (empty values drop automatically). ---
+const atGlanceFacts = [
+  { label: t.atAGlance.portLabel, value: tokens.portWithCode },
+  { label: t.atAGlance.altPortsLabel, value: altPorts },
+  { label: t.atAGlance.containerLabel, value: fill(t.atAGlance.containerValueTemplate, tokens) },
+  { label: t.atAGlance.incotermsLabel, value: fill(t.atAGlance.incotermsValueTemplate, tokens) },
+  { label: t.atAGlance.dgLabel, value: fill(t.atAGlance.dgValueTemplate, tokens) },
+  { label: t.atAGlance.shtLabel, value: t.atAGlance.shtValue },
+  { label: t.atAGlance.documentsLabel, value: fill(t.atAGlance.documentsValueTemplate, tokens) },
+  { label: t.atAGlance.productionLabel, value: fill(t.atAGlance.productionValueTemplate, tokens) },
+  {
+    label: t.atAGlance.transitLabel,
+    value: transitRows.length ? `${transitSpanMin}–${transitSpanMax} days` : '',
+  },
+  { label: t.atAGlance.insuranceLabel, value: t.atAGlance.insuranceValue },
+  { label: t.atAGlance.customsLabel, value: t.atAGlance.customsValue },
+];
+
+// --- Seven child-entity sections (short by design; cluster pages rank). ---
+const childOrder = [
+  'rules',
+  'documents',
+  'un1361',
+  'dgRegulation',
+  'shippingLines',
+  'cargoProtection',
+  'importUsa',
+] as const;
+const childHref: Record<(typeof childOrder)[number], string> = {
+  rules: '/logistics/rules',
+  documents: '/logistics/documents',
+  un1361: '/logistics/un-1361',
+  dgRegulation: '/logistics/charcoal-dg-regulation',
+  shippingLines: '/logistics/charcoal-shipping-lines',
+  cargoProtection: '/logistics/cargo-protection-and-insurance',
+  importUsa: '/logistics/import-to-usa',
+};
+const children = childOrder.map((key) => ({
+  id: childHref[key].split('/').pop()!,
+  href: childHref[key],
+  copy: t.children[key],
+}));
+
+// --- FAQ (hub-canonical; schema lives in the page @graph below). ---
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = logisticsHubSchema({
+  pageTitle,
+  pageDescription,
+  path: '/logistics',
+  children: children.map((c) => ({ href: c.href, name: c.copy.h2 })),
+  faq: faqItems,
+});
+
+// --- Indicative reading time (~200 wpm over the page prose). ---
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.atAGlance.definition,
+    t.intro.p1,
+    t.intro.p2,
+    t.intro.p3,
+    ...children.flatMap((c) => [c.copy.definition, ...c.copy.facts]),
+    t.transit.intro,
+    t.timeline.body,
+    t.dgOverview.body1,
+    t.dgOverview.body2,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+
+const mediaPhotos = t.media.photos.map((p) => ({
+  alt: fill(p.alt, tokens),
+  caption: fill(p.caption, tokens),
+}));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/logistics"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'logistics-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaContact,
+      href: '/contact',
+      ariaLabel: t.hero.ctaContactAria,
+      dataSourceComponent: 'logistics-hero-inquiry',
+    }}
+  >
+    <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
+      {heroTrust.map((item) => (
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </HeroSection>
+
+  {/* E-E-A-T / freshness block. */}
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: tc.metaBlock.authorRole,
+          reviewedBy: tc.metaBlock.reviewerRole,
+          factCheckedBy: tc.metaBlock.factCheckerRole,
+          lastUpdated: tc.metaBlock.lastUpdatedLabel,
+          readTime: tc.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={L.transitTimesLastUpdated}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  {/* KeyFactsBox — "Shipping at a glance". */}
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox
+        id="logistics-at-a-glance"
+        heading={t.atAGlance.heading}
+        definition={t.atAGlance.definition}
+        facts={atGlanceFacts}
+      />
+    </div>
+  </div>
+
+  {/* Intro / parent entity. */}
+  <section aria-label={fill(t.h1, tokens)} class="bg-white">
+    <div class="mx-auto max-w-5xl space-y-4 px-4 pb-12 md:px-8">
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p1, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p2, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p3, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Media strip (placeholders until the shoot lands). */}
+  <section aria-label={t.media.heading} class="bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <h2 class="text-xl font-semibold text-neutral-900">{t.media.heading}</h2>
+      <PhotoGrid class="mt-6" photos={mediaPhotos} />
+    </div>
+  </section>
+
+  {/* Seven child-entity sections — short by design. */}
+  {children.map((child, i) => (
+    <section
+      id={child.id}
+      aria-labelledby={`${child.id}-heading`}
+      class:list={['scroll-mt-24', i % 2 === 0 ? 'bg-white' : 'bg-neutral-50']}
+    >
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <h2 id={`${child.id}-heading`} class="text-2xl font-bold text-neutral-900 md:text-3xl">
+          {fill(child.copy.h2, tokens)}
+        </h2>
+        <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+          {fill(child.copy.definition, tokens)}
+        </p>
+        <ul class="mt-4 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+          {child.copy.facts.map((fact) => (
+            <li class="flex gap-2">
+              <span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span>
+              <span>{fill(fact, tokens)}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-sm">
+          <MaybeLink href={child.href} class="font-semibold" data-source-component={`logistics-hub-${child.id}`}>
+            {child.copy.linkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+    </section>
+  ))}
+
+  {/* Transit times — per-market extractable sentences above the table. */}
+  <section id="transit" aria-labelledby="transit-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="transit-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {fill(t.transit.heading, tokens)}
+      </h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.transit.intro, tokens)}</p>
+
+      {transitRows.length > 0 && (
+        <>
+          <ul class="mt-6 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+            {transitRows.map((r) => (
+              <li>
+                {fill(t.transit.sentenceTemplate, {
+                  ...tokens,
+                  destPort: r.destPort,
+                  unlocode: r.unlocode,
+                  min: r.min,
+                  max: r.max,
+                })}
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-8 overflow-x-auto">
+            <table class="w-full border-collapse text-start text-sm">
+              <caption class="sr-only">{fill(t.transit.heading, tokens)}</caption>
+              <thead>
+                <tr class="border-b border-neutral-300">
+                  <th scope="col" class="py-2 pe-4 font-semibold text-neutral-900">{tc.labels.transitDestHeader}</th>
+                  <th scope="col" class="py-2 pe-4 font-semibold text-neutral-900">UN/LOCODE</th>
+                  <th scope="col" class="py-2 font-semibold text-neutral-900">{tc.labels.transitDaysHeader}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {transitRows.map((r) => (
+                  <tr class="border-b border-neutral-200">
+                    <th scope="row" class="py-2 pe-4 font-medium text-neutral-800">{r.destPort}</th>
+                    <td class="py-2 pe-4 text-neutral-700">{r.unlocode}</td>
+                    <td class="py-2 text-neutral-700">{fill(tc.labels.transitDaysTemplate, { min: r.min, max: r.max })}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
+      <p class="mt-4 text-sm text-neutral-600">{fill(tc.caveats.transit, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Combined order → port timeline (G3). */}
+  <section id="timeline" aria-labelledby="timeline-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="timeline-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">
+        {fill(t.timeline.heading, tokens)}
+      </h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.timeline.body, tokens)}</p>
+      <ol class="mt-6 grid gap-3 sm:grid-cols-3" role="list">
+        <li class="rounded-xl border border-neutral-200 bg-white p-4">
+          <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary">1. {t.timeline.productionLabel}</span>
+          <p class="mt-1 text-sm text-neutral-700">{tokens.leadTimeLabel}</p>
+        </li>
+        <li class="rounded-xl border border-neutral-200 bg-white p-4">
+          <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary">2. {t.timeline.bufferLabel}</span>
+          <p class="mt-1 text-sm text-neutral-700">{t.timeline.bufferValue}</p>
+        </li>
+        <li class="rounded-xl border border-neutral-200 bg-white p-4">
+          <span class="text-xs font-semibold uppercase tracking-wide text-brand-primary">3. {t.timeline.transitLabel}</span>
+          <p class="mt-1 text-sm text-neutral-700">{transitSpanMin}–{transitSpanMax} days</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  {/* Short DG overview — closes the safety loop. */}
+  <section id="dangerous-goods" aria-labelledby="dg-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="dg-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.dgOverview.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.dgOverview.body1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.dgOverview.body2, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="logistics-dg-un1361">{t.dgOverview.un1361LinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/charcoal-dg-regulation" class="font-semibold" data-source-component="logistics-dg-regulation">{t.dgOverview.regulationLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/cargo-protection-and-insurance" class="font-semibold" data-source-component="logistics-dg-cargo">{t.dgOverview.cargoLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/packaging" class="font-semibold" data-source-component="logistics-dg-packaging">{t.dgOverview.markingsLinkLabel}</MaybeLink>
+      </p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-neutral-600">
+        <span>{t.outbound.intro}</span>
+        <ExternalLink href={IMO_IMDG_URL} class="font-semibold" data-event="outbound_click" data-source-component="logistics-imo">{t.outbound.imoLabel}</ExternalLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <ExternalLink href={EXPORT_AUTHORITY_URL} class="font-semibold" data-event="outbound_click" data-source-component="logistics-bea-cukai">{t.outbound.exportAuthorityLabel}</ExternalLink>
+      </p>
+    </div>
+  </section>
+
+  {/* Hub-canonical FAQ — schema is in the page @graph, so no second FAQPage. */}
+  <section aria-labelledby="logistics-faq" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="logistics-faq" heading={t.faq.heading} items={faqItems} />
+    </div>
+  </section>
+
+  {/* Related topics. */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`logistics-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

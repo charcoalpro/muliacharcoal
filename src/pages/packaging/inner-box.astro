@@ -16,6 +16,7 @@
  * pages so the pack → inner box → master box numbers can't contradict.
  */
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
@@ -121,7 +122,7 @@ const proseForReadTime = fill(
   ].join(' '),
   tokens,
 );
-const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+const readMinutes = readingTime(proseForReadTime);
 
 const photos = (list: Array<{ alt: string; caption: string }>) =>
   list.map((p) => ({ alt: fill(p.alt, tokens), caption: fill(p.caption, tokens) }));
@@ -196,7 +197,7 @@ const photos = (list: Array<{ alt: string; caption: string }>) =>
       </p>
 
       <figure class="mt-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
-        <figcaption class="text-xs font-semibold uppercase tracking-wide text-neutral-500">{t.purpose.diagramHeading}</figcaption>
+        <figcaption class="text-xs font-semibold uppercase tracking-wide text-neutral-600">{t.purpose.diagramHeading}</figcaption>
         <ol class="mt-4 flex flex-wrap items-center gap-2 text-sm font-medium text-neutral-800" role="list">
           {t.purpose.diagramSteps.map((step, i) => (
             <li class="flex items-center gap-2">
@@ -280,7 +281,7 @@ const photos = (list: Array<{ alt: string; caption: string }>) =>
           {t.retail.masterBoxLinkLabel}
         </MaybeLink>
         <span aria-hidden="true" class="text-neutral-300">·</span>
-        <MaybeLink href="/logistics/UN-1361" class="font-semibold" data-source-component="inner-box-un1361">
+        <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="inner-box-un1361">
           {t.retail.un1361LinkLabel}
         </MaybeLink>
       </p>

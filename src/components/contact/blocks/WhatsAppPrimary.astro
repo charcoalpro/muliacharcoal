@@ -44,7 +44,7 @@ const cards = [
           const telDigits = wa.e164Digits.startsWith('+') ? wa.e164Digits : '+' + wa.e164Digits;
           return (
             <article class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6">
-              <p class="text-xs font-medium uppercase tracking-wide text-neutral-500">{heading}</p>
+              <p class="text-xs font-medium uppercase tracking-wide text-neutral-600">{heading}</p>
               <h3 class="mt-2 text-lg font-semibold text-neutral-900">{person.name}</h3>
               <p class="text-sm text-neutral-600">{person.role}</p>
               <TextLink href={`tel:${telDigits}`} class="mt-4 text-sm">

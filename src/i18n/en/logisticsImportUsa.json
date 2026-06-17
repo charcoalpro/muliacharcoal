@@ -1,0 +1,145 @@
+{
+  "meta": {
+    "titleTemplate": "Import Coconut Charcoal to the USA: HTS, Duty, FDA",
+    "descriptionTemplate": "Importing UN 1361 coconut charcoal to the USA: HTS classification, the current duty stack, ISF 10+2 entry, and the FDA position on hookah charcoal."
+  },
+  "breadcrumb": "Import to the USA",
+  "eyebrow": "Logistics · US import",
+  "h1": "Importing coconut charcoal to the USA",
+  "heroSubtitle": "The US import mechanics for UN 1361 coconut charcoal from {{port}}: how it is classified, the duties and fees, the entry process, and the FDA position on hookah charcoal.",
+  "hero": {
+    "ctaQuote": "Ask about US import",
+    "ctaQuoteAria": "Ask about US import on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about US import"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar and is the template for our import-by-country guides. It covers the customs mechanics; the commercial case for the US market lives on the market page.",
+    "hubLinkLabel": "Logistics overview",
+    "marketsLinkLabel": "USA market page"
+  },
+  "keyFacts": {
+    "heading": "US import at a glance",
+    "definition": "Classification, headline duty, and who clears the cargo.",
+    "htsLabel": "HTS classification",
+    "htsValue": "Candidates under heading 4402 (both Free base duty)",
+    "dutyLabel": "Headline duty",
+    "dutyValue": "MFN Free + a Section 122 surcharge (≈10%, contested)",
+    "docsLabel": "Entry documents",
+    "docsValue": "ISF 10+2, customs bond, CBP Form 7501",
+    "customsLabel": "Customs clearance",
+    "customsValue": "Buyer's licensed customs broker",
+    "fdaLabel": "FDA",
+    "fdaValue": "Hookah charcoal is a regulated tobacco-product component"
+  },
+  "hts": {
+    "h2": "HTS classification",
+    "body": "Coconut shell charcoal falls under HTS heading 4402. Two 10-digit codes are candidates; both carry a Free base (MFN) duty, so the exact code does not change the base rate. A CBP binding-ruling request would settle it — confirm classification with your customs broker.",
+    "candidatesIntro": "Candidate codes:",
+    "notesLabel": "Note"
+  },
+  "duty": {
+    "h2": "Duties & fees",
+    "body": "US duty on heading 4402 is a layered stack, and the reciprocal-tariff layer is in active legal flux. Read it as a dated stack with a legal-status flag, not a single number.",
+    "layerHeader": "Layer",
+    "rateHeader": "Rate",
+    "basisHeader": "Basis",
+    "asOfHeader": "As of",
+    "statusHeader": "Legal status",
+    "sourceLabel": "Source",
+    "historyHeading": "How the reciprocal layer moved",
+    "adcvdHeading": "Anti-dumping / countervailing"
+  },
+  "landed": {
+    "h2": "Landed-cost worked example",
+    "body": "Landed cost is the sum of the goods, the freight, and the import charges. The structure below holds for any lane; the duty components are public verified figures, while the FOB and freight are illustrative and quoted at booking.",
+    "fobLabel": "FOB goods value",
+    "fobValue": "Illustrative only — your actual FOB applies",
+    "freightLabel": "Ocean freight + DG surcharges",
+    "freightValue": "Quoted on request (indicative)",
+    "dutyLabel": "Duties & fees",
+    "dutyValue": "From the duty stack above (MFN Free + Section 122 + MPF + HMF)",
+    "totalLabel": "Landed cost",
+    "totalValue": "FOB + freight + duties & fees",
+    "note": "No charcoal per-ton price is published. The formula is shown so you can plug in your own figures; we quote the live numbers at booking.",
+    "rulesLinkLabel": "What your incoterm covers (FOB and the freight split)"
+  },
+  "entry": {
+    "h2": "The entry process",
+    "body": "US entry for a UN 1361 container follows the standard CBP sequence, handled by the buyer's customs broker with data we supply.",
+    "stepsIntro": "Step by step:",
+    "steps": [
+      { "name": "ISF 10+2", "field": "isf" },
+      { "name": "Customs bond", "field": "bond" },
+      { "name": "Entry summary", "field": "entrySummary" }
+    ],
+    "documentsLinkLabel": "The export documents we supply"
+  },
+  "dgHandling": {
+    "h2": "Dangerous-goods handling at US ports",
+    "body": "The cargo arrives as declared UN 1361, Class {{unClass}} dangerous goods, and is handled accordingly at the US port. The classification and the prevention controls are covered on the dangerous-goods pages.",
+    "un1361LinkLabel": "What UN 1361 is",
+    "regulationLinkLabel": "The 2026 rules",
+    "cargoLinkLabel": "Insured arrival & cargo protection"
+  },
+  "fda": {
+    "h2": "FDA: hookah charcoal as a tobacco-product component",
+    "intro": "This is regulatory information, not legal advice — see the disclaimer below.",
+    "deemingLabel": "Deeming Rule",
+    "scopeLabel": "Scope",
+    "requirementsLabel": "Requirements",
+    "enforcementLabel": "Enforcement discretion",
+    "importAlertLabel": "Import enforcement",
+    "mislabelLabel": "Do not mislabel",
+    "practicalLabel": "Practical steps",
+    "practicalBody": "Work with US counsel and a customs broker experienced in tobacco-product entries before you ship; confirm registration, listing, and marketing-authorization status for your specific product."
+  },
+  "ports": {
+    "h2": "US ports & routing",
+    "body": "Indicative ocean transit from {{portWithCode}} to the main US gateways:",
+    "sentenceTemplate": "{{destPort}} ({{unlocode}}): about {{min}}–{{max}} days.",
+    "empty": "US transit times available on request."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What is the HTS code for coconut charcoal?",
+        "a": "It falls under HTS heading 4402. Two 10-digit codes are candidates — 4402.20.00.00 (\"of shell or nut\") and 4402.90.01.00 (\"other\") — and both carry a Free base duty, so the exact code does not change the base rate. A CBP binding ruling would settle it; confirm with your broker."
+      },
+      {
+        "q": "What duty or tariff applies in the USA?",
+        "a": "The MFN base duty is Free. On top sits a reciprocal layer that is in legal flux — currently a Section 122 surcharge reported at about 10%, which a court struck down (party-specific, on appeal) and which is set to sunset around July 2026. Plus MPF and HMF. Treat it as a dated stack and confirm the live rate with your broker at booking."
+      },
+      {
+        "q": "Do I need a customs broker?",
+        "a": "Yes. Customs clearance is the importer's responsibility, handled by a licensed US customs broker. They file the ISF 10+2, post the customs bond, and submit the entry summary (CBP Form 7501) using data we supply."
+      },
+      {
+        "q": "Which US ports do you ship to?",
+        "a": "We model the lane ex-{{portWithCode}} to the main US gateways — see the transit list above. Other US ports are available; confirm routing with the carrier at booking."
+      },
+      {
+        "q": "Is hookah charcoal FDA-regulated / do I need a PMTA?",
+        "a": "Hookah charcoal is regulated by the FDA as a component or part of a tobacco product when it maintains combustion of waterpipe tobacco. That brings establishment registration, product listing, and a premarket tobacco product application (PMTA) into scope. This is general information — confirm your obligations with US counsel."
+      },
+      {
+        "q": "What is Enforcement Discretion?",
+        "a": "The FDA has not adopted a broad enforcement-discretion policy for hookah charcoal. A pending application is not a safe harbor, the posture is not codified, and it can change without notice. Import Alert 98-06 is the live enforcement mechanism, under which CBP may detain or refuse entry."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics", "label": "Logistics overview" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous goods" },
+      { "href": "/logistics/charcoal-dg-regulation", "label": "2026 charcoal shipping rules" },
+      { "href": "/logistics/cargo-protection-and-insurance", "label": "Cargo protection & insurance" },
+      { "href": "/logistics/rules", "label": "Incoterms & rules" },
+      { "href": "/markets/usa", "label": "USA market page" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

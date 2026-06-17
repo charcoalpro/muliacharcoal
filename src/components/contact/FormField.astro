@@ -57,7 +57,7 @@ const {
 // component so the inquiry form stops re-declaring four near-identical
 // Tailwind constants at the top of its frontmatter.
 const inputClass =
-  'w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-400 focus:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary aria-[invalid=true]:border-error';
+  'w-full rounded-md border border-neutral-300 bg-white px-4 py-3 text-base text-neutral-900 placeholder:text-neutral-500 focus:border-brand-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary aria-[invalid=true]:border-error';
 const labelClass = 'block text-sm font-medium text-neutral-800';
 const errClass = 'mt-1 text-sm text-error';
 const reqMark = '<span aria-hidden="true" class="text-error"> *</span>';
@@ -114,7 +114,7 @@ const controlClass =
     />
   )}
   {hint && (
-    <p id={hintId} class="mt-1 text-xs text-neutral-500">{hint}</p>
+    <p id={hintId} class="mt-1 text-xs text-neutral-600">{hint}</p>
   )}
   <p id={errId} class={`${errClass} hidden`}></p>
 </div>

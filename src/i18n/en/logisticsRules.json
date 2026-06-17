@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "titleTemplate": "Charcoal Shipping Rules & Incoterms | {{port}}",
+    "descriptionTemplate": "How a coconut charcoal order ships: FCL only, {{incotermsList}} incoterms (default {{incotermDefault}}), payment terms, and dangerous-goods booking from {{portWithCode}}."
+  },
+  "breadcrumb": "Shipping rules",
+  "eyebrow": "Logistics",
+  "h1": "Shipping rules & incoterms for coconut charcoal",
+  "heroSubtitle": "The commercial rules of a container order — loading, incoterms, payment, and booking — for UN 1361 coconut charcoal shipped {{portLabel}}.",
+  "hero": {
+    "ctaQuote": "Request a shipping quote",
+    "ctaQuoteAria": "Request a shipping quote on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about shipping rules"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar and covers the rules of placing and shipping an order. Coconut charcoal moves as full containers only, on the incoterms below, against staged payment, on a dangerous-goods booking.",
+    "hubLinkLabel": "Logistics overview"
+  },
+  "keyFacts": {
+    "heading": "Ordering at a glance",
+    "definition": "The commercial parameters of a container order.",
+    "incotermDefaultLabel": "Default incoterm",
+    "incotermsLabel": "Incoterms offered",
+    "paymentLabel": "Payment terms",
+    "fclLabel": "Container",
+    "fclValue": "Full-container load (FCL) only",
+    "mixedSizesLabel": "Mixed sizes",
+    "moqLabel": "Minimum order"
+  },
+  "loading": {
+    "h2": "How containers are loaded",
+    "body": "UN 1361 coconut charcoal ships as a full-container load only. Class {{unClass}} dangerous goods cannot be co-loaded with other cargo in a shared LCL groupage box, which is why the minimum order is {{moqLabel}}. Master boxes are floor-stuffed for maximum payload, or palletized on ISPM-15 wood where forklift handling is needed.",
+    "palletLinkLabel": "Packaging & loading specs",
+    "mixedSizesNote": "Within a single grade, more than one briquette size can be combined in one container — confirm the split at quotation."
+  },
+  "incoterms": {
+    "h2": "Incoterms we offer",
+    "body": "Our default sales basis is {{incotermDefault}} {{port}}: we cover origin trucking, export clearance, terminal handling, and vanning, and risk transfers when the cargo crosses the ship's rail. We also quote {{incotermsList}}. Under every basis we offer, the buyer arranges marine insurance — we do not offer CIF.",
+    "cifNote": "Because insurance is buyer-arranged under each incoterm we offer, cover and exclusions are the buyer's to confirm.",
+    "cifLinkLabel": "Cargo protection & insurance",
+    "fobGlossaryLabel": "What FOB includes"
+  },
+  "payment": {
+    "h2": "Payment terms & process",
+    "body": "Default terms: {{paymentTerms}}. We publish terms only — never bank details on the website. Bank details are shared after KYC on a proforma invoice.",
+    "stepsIntro": "The order process, step by step:",
+    "steps": [
+      { "name": "Proforma invoice & KYC", "text": "We issue a proforma invoice; bank details follow after KYC." },
+      { "name": "Deposit", "text": "The deposit confirms the order and schedules production (per the terms above)." },
+      { "name": "Production", "text": "Production runs {{leadTimeLabel}} for a 20ft container." },
+      { "name": "Balance before loading", "text": "The balance is settled before loading, per the terms above." },
+      { "name": "Documents released", "text": "On cleared payment, the bill of lading and export-document pack are released." }
+    ],
+    "documentsLinkLabel": "The export documents we issue"
+  },
+  "booking": {
+    "h2": "Booking & vessel schedule",
+    "body": "Charcoal must be booked as declared dangerous goods on a DG-capable carrier, which adds lead time over a non-DG booking and limits sailings. Booking is arranged during production so it does not delay the front of the timeline.",
+    "regulationLinkLabel": "Why the 2026 rules require DG booking",
+    "carriersLinkLabel": "Which carriers accept charcoal",
+    "importLinkLabel": "What FOB means for your US entry"
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Are master boxes loaded loose or palletized?",
+        "a": "Both. Floor-stuffing master boxes by hand maximizes payload (about {{net20ftTons}} net in a 20ft); palletizing on ISPM-15 wood reduces payload but enables forklift handling. Tell us your preference at quotation."
+      },
+      {
+        "q": "How is a dangerous-goods sailing booked?",
+        "a": "Coconut charcoal is booked as declared UN 1361, Class {{unClass}} dangerous goods on a DG-capable carrier. That limits which lines and sailings are available and adds booking lead time, which is arranged during production so it does not delay the front of the timeline."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics", "label": "Logistics overview" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/logistics/charcoal-dg-regulation", "label": "2026 charcoal shipping rules" },
+      { "href": "/logistics/charcoal-shipping-lines", "label": "Carriers that ship charcoal" },
+      { "href": "/logistics/cargo-protection-and-insurance", "label": "Cargo protection & insurance" },
+      { "href": "/logistics/import-to-usa", "label": "Import to the USA" },
+      { "href": "/packaging", "label": "Packaging & loading" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

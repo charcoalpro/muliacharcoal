@@ -1,0 +1,409 @@
+---
+/**
+ * /quality — the Quality pillar hub (cocoon v4.2 §5.1, "standards" query).
+ *
+ *   - Text-led hero whose lead IS the extractable answer (the synthesis-gap
+ *     opener), full E-E-A-T block (QC reviewer prioritized), "Quality at a
+ *     glance" KeyFactsBox, the standards-framework narrative intro, the
+ *     three-tier ash grading framework (CANONICAL here — the head-query lead
+ *     asset), the typical-spec table (Tier A lab / Tier B observed, linked
+ *     parameter labels), three child-entity sections, the held-vs-provided
+ *     "how we prove it" preview, hub-canonical FAQ, related topics, CTABanner.
+ *   - Schema: CollectionPage + FAQPage only (qualityHubSchema). dateModified
+ *     bumps with quality.specsLastUpdated.
+ *   - Every fact from ~/config/company.ts via tokens; quality.* is the
+ *     canonical home for spec ranges + the rubric + the testing protocol.
+ *     Held certs reuse certifications.*. Missing facts degrade ("—", row drops).
+ *   - Spec values render typical/target — the word "guaranteed" never appears.
+ *     density is empty in config → its row omits cleanly.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, qualityTokens } from '~/lib/interpolate';
+import { qualityHubSchema } from '~/lib/schema/qualityHub';
+
+const t = en.quality;
+const tc = en.qualityCommon;
+const Q = company.quality;
+const s = Q.specs;
+const tokens = { ...companyTokens(company), ...qualityTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const cap = (v: string) => (v ? v.charAt(0).toUpperCase() + v.slice(1) : v);
+
+// Hero trust signals (above the fold).
+const heroTrust = [
+  { label: t.heroTrust.ashLabel, value: hasFact(s.ashContentPct.typical) ? `${s.ashContentPct.typical}%` : tc.labels.dash },
+  { label: t.heroTrust.testLabel, value: cap(Q.testing.thirdPartyFrequency) },
+  { label: t.heroTrust.certLabel, value: `${company.certifications.iso9001.shortName} · Halal` },
+  { label: t.heroTrust.moqLabel, value: tokens.moqLabel },
+];
+
+// Composition — composed into ONE statement (hard render rule, v4.2 §2).
+const composition = hasFact(s.binder)
+  ? fill(tc.composition.withBinder, tokens)
+  : tc.composition.binderless;
+const halal = company.certifications.halal;
+
+const atGlanceFacts = [
+  { label: t.atAGlance.ashLabel, value: hasFact(s.ashContentPct.typical) ? fill(t.atAGlance.ashValueTemplate, tokens) : '' },
+  { label: t.atAGlance.burnTimeLabel, value: hasFact(s.burnTimeMinutes.typical) ? fill(t.atAGlance.burnTimeValueTemplate, tokens) : '' },
+  { label: t.atAGlance.calorificLabel, value: hasFact(s.calorificValueKcalKg.typical) ? fill(t.atAGlance.calorificValueTemplate, tokens) : '' },
+  { label: t.atAGlance.moistureLabel, value: hasFact(s.moistureContentPct.typical) ? fill(t.atAGlance.moistureValueTemplate, tokens) : '' },
+  { label: t.atAGlance.compositionLabel, value: composition },
+  { label: t.atAGlance.reportsLabel, value: fill(t.atAGlance.reportsValueTemplate, tokens) },
+  { label: t.atAGlance.certsLabel, value: `${company.certifications.iso9001.standard} · Halal` },
+  { label: t.atAGlance.halalLabel, value: halal && halal.certified ? (halal.body ?? '') : '' },
+  { label: t.atAGlance.verifyLabel, value: Q.sampleToVerify ? t.atAGlance.verifyValue : '' },
+];
+
+// Three-tier ash framework (canonical here). Cards from config; band marked.
+const tiers = Q.ashGradingFramework.tiers;
+const factoryBand = Q.ashGradingFramework.factoryBand;
+
+// Typical-spec table — grouped Tier A (lab) / Tier B (observed). density omits.
+const TYP = tc.labels.typicalAbbr;
+const TGT = tc.labels.targetAbbr;
+const tierARows = [
+  { id: 'ash-content', label: tc.params.ashContent, value: `${s.ashContentPct.typical} ${TYP} · ≤ ${s.ashContentPct.max} ${TGT}`, unit: tc.units.percent, has: hasFact(s.ashContentPct.typical) },
+  { id: 'fixed-carbon', label: tc.params.fixedCarbon, value: `${s.fixedCarbonPct.typical} ${TYP} · ≥ ${s.fixedCarbonPct.min} ${TGT}`, unit: tc.units.percent, has: hasFact(s.fixedCarbonPct.typical) },
+  { id: 'moisture-content', label: tc.params.moisture, value: `${s.moistureContentPct.typical} ${TYP} · ≤ ${s.moistureContentPct.max} ${TGT}`, unit: tc.units.percent, has: hasFact(s.moistureContentPct.typical) },
+  { id: 'volatile-matter', label: tc.params.volatileMatter, value: `${s.volatileMatterPct.typical} ${TYP} · ≤ ${s.volatileMatterPct.max} ${TGT}`, unit: tc.units.percent, has: hasFact(s.volatileMatterPct.typical) },
+  { id: 'calorific-value', label: tc.params.calorificValue, value: `${tokens.calorificTypical} ${TYP} · ≥ ${tokens.calorificTarget} ${TGT}`, unit: tc.units.kcalKg, has: hasFact(s.calorificValueKcalKg.typical) },
+].filter((r) => r.has);
+const tierBRows = [
+  { id: 'burn-time', label: tc.params.burnTime, value: `${s.burnTimeMinutes.typical} ${TYP} · ≥ ${s.burnTimeMinutes.min} ${TGT}`, unit: tc.units.minutes, has: hasFact(s.burnTimeMinutes.typical) },
+  { id: 'ash-color', label: tc.params.ashColor, value: s.ashColor, unit: tc.labels.dash, has: hasFact(s.ashColor) },
+  { id: 'density', label: tc.params.density, value: s.density, unit: tc.labels.dash, has: hasFact(s.density) },
+].filter((r) => r.has);
+const hasTable = tierARows.length + tierBRows.length > 0;
+
+// Definition-form sentences above the table (generated, never hand-written).
+const defSentences = [
+  { label: tc.params.ashContent.toLowerCase(), value: hasFact(s.ashContentPct.typical) ? `${s.ashContentPct.typical}%` : '' },
+  { label: tc.params.fixedCarbon.toLowerCase(), value: hasFact(s.fixedCarbonPct.typical) ? `${s.fixedCarbonPct.typical}%` : '' },
+  { label: tc.params.moisture.toLowerCase(), value: hasFact(s.moistureContentPct.typical) ? `${s.moistureContentPct.typical}%` : '' },
+  { label: tc.params.volatileMatter.toLowerCase(), value: hasFact(s.volatileMatterPct.typical) ? `${s.volatileMatterPct.typical}%` : '' },
+  { label: tc.params.calorificValue.toLowerCase(), value: hasFact(s.calorificValueKcalKg.typical) ? `${tokens.calorificTypical} kcal/kg` : '' },
+  { label: tc.params.burnTime.toLowerCase(), value: hasFact(s.burnTimeMinutes.typical) ? `${s.burnTimeMinutes.typical} minutes` : '' },
+  { label: tc.params.ashColor.toLowerCase(), value: s.ashColor },
+].filter((x) => hasFact(x.value));
+
+// Three child-entity sections.
+const childOrder = ['specifications', 'testing', 'certifications'] as const;
+const childHref: Record<(typeof childOrder)[number], string> = {
+  specifications: '/quality/specifications-explained',
+  testing: '/quality/testing-methods',
+  certifications: '/quality/certifications',
+};
+const children = childOrder.map((key) => ({ id: key, href: childHref[key], copy: t.children[key] }));
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = qualityHubSchema({
+  pageTitle,
+  pageDescription,
+  path: '/quality',
+  children: children.map((c) => ({ href: c.href, name: fill(c.copy.h2, tokens) })),
+  faq: faqItems,
+});
+
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.intro.p1, t.intro.p2, t.intro.p3,
+    t.framework.intro, t.framework.factoryBandSentence, t.framework.selfAttribution,
+    ...tiers.map((tier) => tier.note),
+    t.specs.intro,
+    ...children.flatMap((c) => [c.copy.definition, ...c.copy.facts]),
+    t.prove.body1, t.prove.body2,
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+
+const mediaPhotos = t.media.photos.map((p) => ({ alt: fill(p.alt, tokens), caption: fill(p.caption, tokens) }));
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/quality"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/quality/specifications-explained', '/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'quality-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaContact,
+      href: '/contact',
+      ariaLabel: t.hero.ctaContactAria,
+      dataSourceComponent: 'quality-hero-inquiry',
+    }}
+  >
+    <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
+      {heroTrust.map((item) => (
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </HeroSection>
+
+  {/* E-E-A-T / freshness block (QC reviewer prioritized — trust query). */}
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: tc.metaBlock.authorRole,
+          reviewedBy: tc.metaBlock.reviewerRole,
+          factCheckedBy: tc.metaBlock.factCheckerRole,
+          lastUpdated: tc.metaBlock.lastUpdatedLabel,
+          readTime: tc.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={Q.specsLastUpdated}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  {/* KeyFactsBox — "Quality at a glance". */}
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox
+        id="quality-at-a-glance"
+        heading={t.atAGlance.heading}
+        definition={t.atAGlance.definition}
+        facts={atGlanceFacts}
+      />
+    </div>
+  </div>
+
+  {/* Standards-framework narrative intro (positioning; not the FAQ answer). */}
+  <section aria-labelledby="evaluated-heading" class="bg-white">
+    <div class="mx-auto max-w-5xl space-y-4 px-4 pb-12 md:px-8">
+      <h2 id="evaluated-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.intro.heading}</h2>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p1, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p2, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p3, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Three-tier ash grading framework — CANONICAL here (cards, not the table). */}
+  {hasFact(tiers) && (
+    <section id="ash-framework" aria-labelledby="framework-heading" class="scroll-mt-24 border-y border-neutral-200 bg-neutral-50">
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+        <h2 id="framework-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.framework.heading}</h2>
+        <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.framework.intro, tokens)}</p>
+        <ul class="mt-6 grid gap-4 sm:grid-cols-3" role="list">
+          {tiers.map((tier) => (
+            <li
+              class:list={[
+                'rounded-2xl border bg-white p-5',
+                tier.grade === factoryBand ? 'border-brand-accent ring-1 ring-brand-accent' : 'border-neutral-200',
+              ]}
+            >
+              <div class="flex items-baseline justify-between gap-2">
+                <span class="text-base font-semibold text-neutral-900">{tier.grade}</span>
+                <span class="text-sm font-medium text-brand-primary">{tier.rangePct}%</span>
+              </div>
+              <p class="mt-2 text-sm leading-relaxed text-neutral-700">{tier.note}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 max-w-prose text-base leading-relaxed text-neutral-800">{fill(t.framework.factoryBandSentence, tokens)}</p>
+        <p class="mt-3 max-w-prose text-sm leading-relaxed text-neutral-600">{fill(t.framework.selfAttribution, tokens)}</p>
+      </div>
+    </section>
+  )}
+
+  {/* Typical-spec table — definition sentences above, table grouped by tier. */}
+  <section id="specifications" aria-labelledby="specs-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="specs-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.specs.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.specs.intro, tokens)}</p>
+
+      {defSentences.length > 0 && (
+        <ul class="mt-6 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+          {defSentences.map((d) => (
+            <li>{fill(t.specs.sentenceTemplate, { ...tokens, paramLabel: d.label, value: d.value })}</li>
+          ))}
+        </ul>
+      )}
+
+      {hasTable ? (
+        <div class="mt-8 overflow-x-auto">
+          <table class="w-full border-collapse text-start text-sm">
+            <caption class="sr-only">{fill(t.specs.tableCaption, tokens)}</caption>
+            <thead>
+              <tr class="border-b border-neutral-300">
+                <th scope="col" class="py-2 pe-4 font-semibold text-neutral-900">{tc.labels.colParameter}</th>
+                <th scope="col" class="py-2 pe-4 font-semibold text-neutral-900">{tc.labels.colValue}</th>
+                <th scope="col" class="py-2 font-semibold text-neutral-900">{tc.labels.colUnit}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tierARows.length > 0 && (
+                <tr class="bg-neutral-50">
+                  <th scope="colgroup" colspan="3" class="py-2 pe-4 text-start text-xs font-semibold uppercase tracking-wide text-neutral-600">{tc.labels.tierAHeading}</th>
+                </tr>
+              )}
+              {tierARows.map((r) => (
+                <tr class="border-b border-neutral-200">
+                  <th scope="row" id={r.id} class="scroll-mt-24 py-2 pe-4 font-medium text-neutral-800">
+                    <MaybeLink href={`/quality/specifications-explained#${r.id}`} class="font-medium" data-source-component={`quality-spec-${r.id}`}>{r.label}</MaybeLink>
+                  </th>
+                  <td class="py-2 pe-4 text-neutral-700">{r.value}</td>
+                  <td class="py-2 text-neutral-700">{r.unit}</td>
+                </tr>
+              ))}
+              {tierBRows.length > 0 && (
+                <tr class="bg-neutral-50">
+                  <th scope="colgroup" colspan="3" class="py-2 pe-4 text-start text-xs font-semibold uppercase tracking-wide text-neutral-600">{tc.labels.tierBHeading}</th>
+                </tr>
+              )}
+              {tierBRows.map((r) => (
+                <tr class="border-b border-neutral-200">
+                  <th scope="row" id={r.id} class="scroll-mt-24 py-2 pe-4 font-medium text-neutral-800">
+                    <MaybeLink href={`/quality/specifications-explained#${r.id}`} class="font-medium" data-source-component={`quality-spec-${r.id}`}>{r.label}</MaybeLink>
+                  </th>
+                  <td class="py-2 pe-4 text-neutral-700">{r.value}</td>
+                  <td class="py-2 text-neutral-700">{r.unit}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p class="mt-6 max-w-prose text-base text-neutral-700">{tc.labels.onRequest}</p>
+      )}
+
+      {/* Composition — the single composed statement, never a table row. */}
+      <p class="mt-6 max-w-prose text-base text-neutral-800">
+        <strong class="font-semibold">{t.specs.compositionHeading}:</strong> {composition}
+      </p>
+
+      <p class="mt-6 text-sm text-neutral-700">
+        {t.specs.measureNote}{' '}
+        <MaybeLink href="/quality/testing-methods" class="font-semibold" data-source-component="quality-specs-testing">{t.specs.measureLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+      <p class="mt-2 text-sm text-neutral-700">
+        {t.specs.verifyNote}{' '}
+        <MaybeLink href="/quality/certifications" class="font-semibold" data-source-component="quality-specs-certifications">{t.specs.verifyLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+      <p class="mt-2 text-sm text-neutral-700">
+        {t.specs.sampleNote}<MaybeLink href="/samples" class="font-semibold" data-source-component="quality-specs-samples">{t.specs.sampleLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+      <p class="mt-4 text-sm text-neutral-600">{fill(tc.caveats.specsTypical, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Media strip (placeholders until the shoot lands). */}
+  <section aria-label={t.media.heading} class="bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <h2 class="text-xl font-semibold text-neutral-900">{t.media.heading}</h2>
+      <PhotoGrid class="mt-6" photos={mediaPhotos} />
+    </div>
+  </section>
+
+  {/* Three child-entity sections. */}
+  {children.map((child, i) => (
+    <section
+      id={child.id === 'specifications' ? 'specifications-child' : child.id}
+      aria-labelledby={`${child.id}-heading`}
+      class:list={['scroll-mt-24', i % 2 === 0 ? 'bg-white' : 'bg-neutral-50']}
+    >
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <h2 id={`${child.id}-heading`} class="text-2xl font-bold text-neutral-900 md:text-3xl">{fill(child.copy.h2, tokens)}</h2>
+        <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(child.copy.definition, tokens)}</p>
+        <ul class="mt-4 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+          {child.copy.facts.map((fact) => (
+            <li class="flex gap-2">
+              <span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span>
+              <span>{fill(fact, tokens)}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-sm">
+          <MaybeLink href={child.href} class="font-semibold" data-source-component={`quality-hub-${child.id}`}>
+            {child.copy.linkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+    </section>
+  ))}
+
+  {/* "How we prove it" — held-vs-provided ledger preview (#1 differentiator). */}
+  <section id="how-we-prove-it" aria-labelledby="prove-heading" class="scroll-mt-24 border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="prove-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.prove.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.prove.body1, tokens)}</p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.prove.body2, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/quality/certifications" class="font-semibold" data-source-component="quality-prove-ledger">{t.prove.ledgerLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/samples" class="font-semibold" data-source-component="quality-prove-samples">{t.prove.sampleLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </div>
+  </section>
+
+  {/* Hub-canonical FAQ — schema is in the page @graph, so no second FAQPage. */}
+  <section aria-labelledby="quality-faq" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="quality-faq" heading={t.faq.heading} items={faqItems} />
+    </div>
+  </section>
+
+  {/* Related topics. */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`quality-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

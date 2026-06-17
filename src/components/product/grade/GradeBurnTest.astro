@@ -10,6 +10,7 @@
  * page @graph).
  */
 import DataTable from '~/components/content/DataTable.astro';
+import type { GradeTokens } from '~/lib/product/gradeTokens';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 import en from '~/i18n/en';
 import { hasFact } from '~/config/company';
@@ -21,7 +22,7 @@ interface Props {
   shape: ProductShape;
   size: ProductSize;
   grade: Grade;
-  tokens: Record<string, string | number>;
+  tokens: GradeTokens;
 }
 const { grade, tokens } = Astro.props;
 

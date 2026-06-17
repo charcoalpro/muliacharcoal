@@ -157,6 +157,7 @@ const glossaryItems = (t.glossary?.items ?? []).map((item) => ({
           class="inline-flex min-h-14 items-center justify-center gap-2 rounded-md bg-brand-primary px-8 py-4 text-lg font-semibold text-white transition-colors hover:bg-brand-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
         >
           <span data-specs-cta-label>{initialCtaLabel}</span>
+          <span class="sr-only"> {en.contact.newTabSr}</span>
           <span aria-hidden="true">→</span>
         </a>
       </div>

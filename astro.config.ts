@@ -33,7 +33,10 @@ export default defineConfig({
   trailingSlash: 'never',
   integrations: [
     sitemap({
-      filter: (page) => !page.includes('/dev/'),
+      // Mirror the robots.txt disallow set so internal surfaces never leak
+      // into the sitemap (today only /dev/ is a real route; /admin/ + /api/
+      // are future-proofing against an accidentally-routed admin/api page).
+      filter: (page) => !['/dev/', '/admin/', '/api/'].some((p) => page.includes(p)),
       // Image-sitemap extension: attaches the brand og default to
       // every URL so Google Images can discover at least one image
       // per page from day one. When a page ships a real hero, swap

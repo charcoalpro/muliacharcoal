@@ -37,7 +37,7 @@ const embedSrc = `https://www.google.com/maps?q=${latitude},${longitude}&z=14&ou
     type="button"
     data-mapslite-trigger
     data-embed-src={embedSrc}
-    aria-label={label}
+    aria-label={`${label} ${addressLine}`}
     data-event="maps_load_click"
     data-source-component="maps-lite"
     class="group relative grid aspect-[16/10] w-full place-items-center overflow-hidden rounded-xl border border-neutral-200 bg-gradient-to-br from-neutral-100 via-neutral-100 to-neutral-200 text-neutral-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
@@ -47,7 +47,7 @@ const embedSrc = `https://www.google.com/maps?q=${latitude},${longitude}&z=14&ou
         <path d="M12 2a8 8 0 0 0-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 0 0-8-8zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
       </svg>
       <span class="text-sm font-semibold text-neutral-700">{label}</span>
-      <span class="text-xs text-neutral-500">{addressLine}</span>
+      <span class="text-xs text-neutral-600">{addressLine}</span>
     </span>
   </button>
 

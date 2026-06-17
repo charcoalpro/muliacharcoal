@@ -10,6 +10,7 @@
  * Facts come from config via `tokens`; prose from `en.productGrade`.
  */
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import type { GradeTokens } from '~/lib/product/gradeTokens';
 import YouTubeLite from '~/components/content/YouTubeLite.astro';
 import Button from '~/components/cta/Button.astro';
 import en from '~/i18n/en';
@@ -23,7 +24,7 @@ interface Props {
   shape: ProductShape;
   size: ProductSize;
   grade: Grade;
-  tokens: Record<string, string | number>;
+  tokens: GradeTokens;
 }
 const { shape, size, grade, tokens } = Astro.props;
 
@@ -97,7 +98,7 @@ const highlights = [
     {/* Insight + key facts + CTAs + highlights */}
     <div class="lg:ps-2">
       <aside class="rounded-2xl border-s-4 border-brand-accent bg-brand-accent/5 p-5">
-        <p class="text-xs font-semibold uppercase tracking-wide text-brand-accent">{t.microInsightLabel}</p>
+        <p class="text-xs font-semibold uppercase tracking-wide text-brand-accent-strong">{t.microInsightLabel}</p>
         <p class="mt-2 text-base italic leading-relaxed text-neutral-800">{fill(gt.microInsight, tokens)}</p>
       </aside>
 
@@ -106,7 +107,7 @@ const highlights = [
         <dl class="mt-4 grid grid-cols-1 gap-x-8 gap-y-3 sm:grid-cols-2">
           {atGlance.map((item) => (
             <div class="border-t border-brand-primary/15 pt-2">
-              <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+              <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
               <dd class="mt-0.5 text-sm font-semibold text-neutral-900">{item.value}</dd>
             </div>
           ))}
@@ -150,6 +151,7 @@ const highlights = [
               <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
             </svg>
             {t.cta.tour}
+            <span class="sr-only"> {en.contact.newTabSr}</span>
           </a>
         </p>
       </div>
@@ -165,7 +167,7 @@ const highlights = [
               {h.icon === 'coconut' && <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 110-18 9 9 0 010 18zM9 9h.01M15 9h.01M9.5 14a3 3 0 005 0" />}
             </svg>
             <p class="mt-1.5 text-xs font-semibold text-neutral-900">{h.value}</p>
-            <p class="text-xs text-neutral-500">{h.sub}</p>
+            <p class="text-xs text-neutral-600">{h.sub}</p>
           </li>
         ))}
       </ul>

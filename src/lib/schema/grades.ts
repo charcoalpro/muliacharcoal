@@ -18,16 +18,16 @@
  * `value` so the schema text matches what a reader sees.
  */
 
-import { ORG_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
 import { grades, gradePropertyKeys, type Grade, type SpecValue, type GradePropertyKey } from '~/config/grades';
 import { company } from '~/config/company';
 
 const SHARED_CATEGORY = 'Shisha charcoal briquette';
 const SHARED_MATERIAL = 'Coconut shell';
 
-/** Human-readable label for each property — kept here so the schema is
- * self-contained (the visible label lives in i18n for translation). */
-const PROPERTY_LABELS: Record<GradePropertyKey, string> = {
+/** Human-readable label for each measured grade property. Shared with
+ * `~/lib/schema/productGradePage.ts`; the visible label lives in i18n. */
+export const PROPERTY_LABELS: Record<GradePropertyKey, string> = {
   ash: 'Ash content',
   moisture: 'Moisture',
   fixedCarbon: 'Fixed carbon',

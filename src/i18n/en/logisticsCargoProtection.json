@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "titleTemplate": "Is Your Charcoal Shipment Insured? Cargo Protection",
+    "descriptionTemplate": "Marine cargo insurance and transit protection for coconut charcoal: what's covered, why self-heating fire is excluded, and how the cargo is protected on the voyage."
+  },
+  "breadcrumb": "Cargo protection & insurance",
+  "eyebrow": "Logistics · Trust",
+  "h1": "Is your charcoal shipment insured? Cargo protection & marine insurance",
+  "heroSubtitle": "Marine insurance covers the external risks of an ocean voyage — but not self-heating, which is prevented, not insured. Here is exactly what is covered, what is not, and how the cargo is protected in transit.",
+  "hero": {
+    "ctaQuote": "Ask about cargo protection",
+    "ctaQuoteAria": "Ask about cargo protection on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about cargo protection"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar. It answers the buyer's real question about a Class {{unClass}} cargo — \"is my money safe?\" — honestly: through prevention and the right insurance, not a false promise of coverage.",
+    "hubLinkLabel": "Logistics overview"
+  },
+  "keyFacts": {
+    "heading": "Protection at a glance",
+    "definition": "Who insures the cargo, what the cover includes, and what it excludes.",
+    "arrangedLabel": "Insurance arranged by",
+    "arrangedValue": "The buyer (EXW / FOB / CFR — no seller cover)",
+    "coverageLabel": "Covered (external perils)",
+    "excludedLabel": "Excluded",
+    "thermalLabel": "Thermal protection",
+    "thermalValue": "Thermal blanket loaded in the container",
+    "desiccantLabel": "Moisture control",
+    "desiccantValue": "Container desiccant loaded"
+  },
+  "insurance": {
+    "h2": "Marine cargo insurance",
+    "body1": "Honesty first: self-heating fire arising from the cargo's own nature is inherent vice, and standard marine cargo insurance does not cover it. That is not a gap to hide — it is the reason prevention matters. You cannot insure your way out of self-heating; you prevent it with the SP 978 controls and a documented compliance record.",
+    "coverageIntro": "What marine cargo insurance does cover — the external perils of the voyage:",
+    "body2": "Insurance is arranged and held by the buyer. The incoterms we offer — EXW, FOB, and CFR — include no seller-arranged cover, so the factory never insures the cargo. Confirm the scope, sum insured, and exclusions in your policy or certificate.",
+    "rulesLinkLabel": "How the incoterm sets who insures",
+    "regulationLinkLabel": "The SP 978 controls that prevent self-heating"
+  },
+  "condition": {
+    "h2": "Cargo condition in transit",
+    "body": "Over four to eight weeks at sea the cargo has to stay dry, intact, and stable. Sealed primary packaging plus container desiccant manage moisture (working with the SP 978 headspace), a thermal blanket buffers temperature swings, boxes are clean and dust-free before loading, and the master-box stacking protects against breakage. The physical specifications live on the packaging page.",
+    "packagingLinkLabel": "Cargo-protection specs (packaging)"
+  },
+  "safetyLoop": {
+    "h2": "The safety loop, stated plainly",
+    "body": "Put together: the SP 978 controls reduce the self-heating risk at source, the factory's compliance record backs that up, and marine insurance covers the external perils — water, theft, general average, vessel casualty, external fire. The cargo is protected against external risk by insurance, and against self-heating by prevention, not a policy. Saying so is the trust signal.",
+    "un1361LinkLabel": "The self-heating risk explained",
+    "regulationLinkLabel": "How SP 978 prevents it"
+  },
+  "media": {
+    "alt": "Container desiccant and a thermal liner inside a loaded coconut charcoal container",
+    "caption": "Moisture and thermal protection inside a loaded container."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Is my charcoal shipment insured?",
+        "a": "Marine cargo insurance is arranged and held by the buyer — the incoterms we offer (EXW, FOB, CFR) include no seller-arranged cover. The policy covers the external perils of the voyage; confirm the scope and sum insured with your insurer."
+      },
+      {
+        "q": "Does the insurance cover self-heating fire?",
+        "a": "No. Self-heating fire arising from the cargo's own nature is inherent vice and is excluded from standard marine cargo insurance. That is exactly why the SP 978 prevention controls matter — you cannot insure self-heating, you prevent it. Insurance covers wetting, theft, general average, vessel casualty, and external fire."
+      },
+      {
+        "q": "How is the charcoal protected from moisture and damage in transit?",
+        "a": "Sealed primary packaging plus container desiccant manage moisture, a thermal blanket buffers temperature swings, boxes are clean before loading, and master-box stacking limits breakage. The exact desiccant and liner specifications are on the packaging page."
+      },
+      {
+        "q": "What happens if the container is damaged?",
+        "a": "Damage from an external peril — water ingress, an accident, general average, vessel casualty, or external fire — is what the buyer's marine cargo policy is for. File the claim with the insurer against the policy or certificate; self-heating damage, being inherent vice, is not covered."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics", "label": "Logistics overview" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 & self-heating" },
+      { "href": "/logistics/charcoal-dg-regulation", "label": "SP 978 prevention controls" },
+      { "href": "/packaging/additional-packaging", "label": "Cargo-protection specs" },
+      { "href": "/logistics/rules", "label": "Incoterms & who insures" },
+      { "href": "/logistics/documents", "label": "Insurance certificate" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

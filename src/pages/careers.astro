@@ -27,7 +27,7 @@ import Button from '~/components/cta/Button.astro';
 import en from '~/i18n/en';
 import { fill } from '~/lib/interpolate';
 import { company, careersMailto } from '~/config/company';
-import { jobPostingSchemas } from '~/lib/schema/jobPosting';
+import { jobPostingGraph } from '~/lib/schema/jobPosting';
 
 const t = en.careers;
 
@@ -60,7 +60,7 @@ const roles = [
   path="/careers"
   type="website"
   includeOrgSchema={true}
-  schema={jobPostingSchemas}
+  schema={jobPostingGraph}
 >
   <div class="mx-auto max-w-7xl px-4 pt-6 md:px-8">
     <Breadcrumbs items={[{ label: t.breadcrumb }]} />

@@ -19,8 +19,7 @@
  */
 
 import { company } from '~/config/company';
-
-const siteOrigin = (company.siteUrl ?? '').replace(/\/$/, '');
+import { siteOrigin } from '~/lib/schema/ids';
 
 // Build-time clock. Astro is fully static, so these dates freeze on
 // every deploy and refresh on the next one — exactly what JobPosting
@@ -56,7 +55,6 @@ interface RoleSeed {
 
 function buildPosting(role: RoleSeed): Record<string, unknown> {
   return {
-    '@context': 'https://schema.org',
     '@type': 'JobPosting',
     '@id': `${siteOrigin}/careers#${role.slug}`,
     title: role.title,
@@ -77,13 +75,18 @@ function buildPosting(role: RoleSeed): Record<string, unknown> {
 // strings live in /src/i18n/en.json. JSON-LD is i18n-blind — the spec
 // expects one canonical title per JobPosting graph — so duplicating
 // the literal avoids an unnecessary i18n coupling for structured data.
-export const jobPostingSchemas: Array<Record<string, unknown>> = [
-  buildPosting({
-    slug: 'head-of-production',
-    title: 'Head of Production — Shisha Charcoal',
-  }),
-  buildPosting({
-    slug: 'sales-manager',
-    title: 'Sales Manager (Arabic-speaking)',
-  }),
-];
+// Single @graph envelope (consistent with every other multi-node page on
+// the site) rather than a bare array with @context repeated per element.
+export const jobPostingGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    buildPosting({
+      slug: 'head-of-production',
+      title: 'Head of Production — Shisha Charcoal',
+    }),
+    buildPosting({
+      slug: 'sales-manager',
+      title: 'Sales Manager (Arabic-speaking)',
+    }),
+  ],
+};

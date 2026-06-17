@@ -3,10 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": "^18.20.8 || ^20.3.0 || >=22.0.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "check": "astro check",
+    "build": "astro check && astro build",
+    "build:only": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -16,5 +21,9 @@
     "astro": "^5.0.0",
     "sharp": "^0.33.5",
     "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "typescript": "^5.9.3"
   }
 }

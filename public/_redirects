@@ -1,0 +1,7 @@
+# Cloudflare Pages redirect rules. One rule per line:
+#   <source> <destination> <status>
+# Example:
+#   /old-product-slug  /products/cube-25mm-platinum  301
+#
+# No redirects yet — add slug-change / legacy-URL rules here as the site
+# evolves. Trailing-slash handling is configured in wrangler.jsonc, not here.

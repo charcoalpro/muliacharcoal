@@ -43,30 +43,30 @@ const updated = lastUpdated ?? gov.author.lastReviewed;
   ]}
 >
   <div>
-    <dt class="text-neutral-500">{labels.authoredBy}</dt>
+    <dt class="text-neutral-600">{labels.authoredBy}</dt>
     <dd class="mt-0.5 font-medium text-neutral-900">{gov.author.name}</dd>
     <dd class="text-neutral-600">{gov.author.role}</dd>
   </div>
   <div>
-    <dt class="text-neutral-500">{labels.reviewedBy}</dt>
+    <dt class="text-neutral-600">{labels.reviewedBy}</dt>
     <dd class="mt-0.5 font-medium text-neutral-900">{gov.reviewer.name}</dd>
     <dd class="text-neutral-600">{gov.reviewer.role}</dd>
   </div>
   {showFactChecker && (
     <div>
-      <dt class="text-neutral-500">{labels.factCheckedBy}</dt>
+      <dt class="text-neutral-600">{labels.factCheckedBy}</dt>
       <dd class="mt-0.5 font-medium text-neutral-900">{gov.factChecker.name}</dd>
       <dd class="text-neutral-600">{gov.factChecker.role}</dd>
     </div>
   )}
   <div>
-    <dt class="text-neutral-500">{labels.lastUpdated}</dt>
+    <dt class="text-neutral-600">{labels.lastUpdated}</dt>
     <dd class="mt-0.5 font-medium text-neutral-900">
       <time datetime={updated}>{updated}</time>
     </dd>
   </div>
   <div>
-    <dt class="text-neutral-500">{labels.readTime}</dt>
+    <dt class="text-neutral-600">{labels.readTime}</dt>
     <dd class="mt-0.5 font-medium text-neutral-900">{readTimeValue}</dd>
   </div>
 </dl>

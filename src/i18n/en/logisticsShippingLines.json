@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "titleTemplate": "Which Shipping Lines Carry Charcoal? | UN 1361 DG",
+    "descriptionTemplate": "Not every carrier ships Class {{unClass}} charcoal. The lines we book directly for declared UN 1361 dangerous goods, the lines that have declined it, and the audit they require."
+  },
+  "breadcrumb": "Shipping lines",
+  "eyebrow": "Logistics · Carriers",
+  "h1": "Which shipping lines carry coconut charcoal?",
+  "heroSubtitle": "Coconut charcoal is Class {{unClass}} dangerous goods, and not every carrier will take it. Here are the lines we book directly, the lines that have declined charcoal, and what booking requires.",
+  "hero": {
+    "ctaQuote": "Ask about current carriers",
+    "ctaQuoteAria": "Ask about current carriers on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about shipping lines"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar. Because charcoal is declared dangerous goods, carrier choice is a compliance decision, not just a freight one.",
+    "hubLinkLabel": "Logistics overview"
+  },
+  "keyFacts": {
+    "heading": "Carriers at a glance",
+    "definition": "How coconut charcoal is booked onto a vessel.",
+    "bookedLabel": "Booked directly with",
+    "dgLabel": "DG booking",
+    "dgValue": "Declared UN 1361, Class 4.2",
+    "auditLabel": "Factory audit",
+    "auditValue": "Held per carrier, where required",
+    "forwarderLabel": "Own forwarder",
+    "forwarderValue": "Welcome under EXW / {{incotermDefault}}"
+  },
+  "whyDg": {
+    "h2": "Why charcoal needs a DG-capable carrier",
+    "body": "Since the 2026 rules, UN 1361 must be carried as declared dangerous goods. A carrier has to be set up to accept Class {{unClass}} self-heating cargo, apply the SP 978 handling, and — increasingly — audit the factory it loads from. Lines that are not, simply decline the cargo.",
+    "regulationLinkLabel": "Why the 2026 rules require DG booking",
+    "un1361LinkLabel": "The Class 4.2 cargo they handle"
+  },
+  "carriers": {
+    "h2": "Carriers that accept charcoal — and those that have declined",
+    "acceptIntro": "We book coconut charcoal directly with carriers that accept declared UN 1361 dangerous goods:",
+    "acceptEmpty": "Contact us for the current list of carriers.",
+    "declineIntro": "Several major lines have declined charcoal bookings. We name them so you can plan your routing:",
+    "declineNote": "Carrier acceptance changes; we confirm the current line and schedule at booking."
+  },
+  "audit": {
+    "h2": "Do you need a factory audit to book?",
+    "body": "Some carriers require a dangerous-goods or fire-safety audit of the producing factory before they will load its UN 1361 cargo. Where a carrier requires it, we hold that audit — the buyer does not have to arrange anything. It is part of why we can book the lines we do."
+  },
+  "forwarder": {
+    "h2": "Can I use my own forwarder?",
+    "body": "Yes. Under EXW or {{incotermDefault}} you are free to nominate your own freight forwarder; we hand them a fully declared, document-complete UN 1361 container. Many buyers prefer this to consolidate their own ocean contracts.",
+    "rulesLinkLabel": "Booking lead time and schedule"
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Which shipping lines accept charcoal?",
+        "a": "We book coconut charcoal directly with carriers that accept declared UN 1361, Class {{unClass}} dangerous goods — currently {{carriersAudited}}. Acceptance changes over time, so we confirm the line and schedule at booking."
+      },
+      {
+        "q": "Do I need a factory audit to book?",
+        "a": "Where a carrier requires a dangerous-goods or fire-safety audit of the producing factory, we hold it — the buyer does not arrange anything. It is one reason we can book the carriers we do for Class {{unClass}} charcoal."
+      },
+      {
+        "q": "Can I use my own freight forwarder?",
+        "a": "Yes. Under EXW or {{incotermDefault}} you can nominate your own forwarder, and we hand them a fully declared, document-complete UN 1361 container ready to load."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics", "label": "Logistics overview" },
+      { "href": "/logistics/charcoal-dg-regulation", "label": "2026 charcoal shipping rules" },
+      { "href": "/logistics/rules", "label": "Shipping rules & booking" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous goods" },
+      { "href": "/logistics/import-to-usa", "label": "Import to the USA" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

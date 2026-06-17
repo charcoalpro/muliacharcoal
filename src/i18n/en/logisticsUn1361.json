@@ -1,0 +1,121 @@
+{
+  "meta": {
+    "titleTemplate": "UN 1361: Is Coconut Charcoal Dangerous Goods?",
+    "descriptionTemplate": "UN 1361 coconut charcoal is {{imdgLabel}}, Packing Group {{packingGroup}}. What the classification means, the self-heating risk, and why it is prevented — not insured."
+  },
+  "breadcrumb": "UN 1361",
+  "eyebrow": "Logistics · Dangerous goods",
+  "h1": "UN 1361: is coconut charcoal dangerous goods?",
+  "heroSubtitle": "Yes. Coconut shell charcoal ships as UN 1361 — {{imdgLabel}}, Packing Group {{packingGroup}}. This page explains what that classification is and what it means for your shipment.",
+  "hero": {
+    "ctaQuote": "Ask a compliance question",
+    "ctaQuoteAria": "Ask a compliance question on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about UN 1361 classification"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar. UN 1361 is the dangerous-goods classification for coconut charcoal by sea — a timeless definition. For what changed under the 2026 rules, see the regulation page; here we define the cargo itself.",
+    "hubLinkLabel": "Logistics overview"
+  },
+  "keyFacts": {
+    "heading": "Classification at a glance",
+    "definition": "The dangerous-goods identity of coconut shell charcoal.",
+    "unLabel": "UN number",
+    "classLabel": "IMDG class",
+    "classValueTemplate": "Class {{unClass}} ({{imdgClassDescription}})",
+    "psnLabel": "Proper shipping name",
+    "pgLabel": "Packing group",
+    "governsLabel": "Governing code",
+    "governsValue": "IMDG Code (sea transport)",
+    "shtLabel": "Self-Heating Test",
+    "shtValue": "On request — supporting evidence, not an exemption",
+    "markingsLabel": "Markings"
+  },
+  "whatIs": {
+    "h2": "What UN 1361 is",
+    "body": "UN 1361 is the United Nations dangerous-goods identifier for \"Carbon, animal or vegetable origin\" — the entry that covers coconut shell charcoal, wood charcoal, and similar carbonized organic materials shipped by sea. Cargo declared as UN 1361 is {{imdgLabel}}, and the IMDG Code governs how it is packed, marked, documented, and stowed.",
+    "glossaryLinkLabel": "UN 1361 in the glossary"
+  },
+  "cargoTable": {
+    "h2": "Cargo details",
+    "intro": "The dangerous-goods data your carrier and broker need, in one place.",
+    "propertyHeader": "Property",
+    "valueHeader": "Value",
+    "rows": {
+      "substance": "Substance",
+      "substanceValue": "Coconut shell charcoal briquettes",
+      "un": "UN number",
+      "class": "IMDG class",
+      "pg": "Packing group",
+      "psn": "Proper shipping name",
+      "ems": "EMS",
+      "flash": "Flash point",
+      "flashValue": "Not applicable (self-heating solid)",
+      "hs": "HS code (international)"
+    }
+  },
+  "selfHeating": {
+    "h2": "Self-heating, fire risk — and how it is managed",
+    "body1": "Class {{unClass}} means the material can self-heat: it may warm in contact with air and, in the wrong conditions, ignite without an external spark. Contained-cargo self-heating fires have occurred days after loading, which is why the classification exists and why carriers take it seriously.",
+    "body2": "The answer is prevention. The Special Provision 978 controls — weathering, a packing-temperature limit, and container headspace — are designed to stop self-heating before it starts, and incidents are rare. Honesty matters here: self-heating fire is inherent vice and is not covered by marine cargo insurance. You cannot insure your way out of it — you prevent it, with the controls and a documented compliance record.",
+    "regulationLinkLabel": "The SP 978 controls in detail",
+    "cargoLinkLabel": "What insurance does and does not cover"
+  },
+  "sht": {
+    "h2": "The Self-Heating Test, after 2026",
+    "body": "The Self-Heating Test (UN Test N.4) measures whether a substance self-heats. We provide the report on request as supporting hazard evidence. Since IMDG Amendment 42-24 it no longer exempts UN 1361 from dangerous-goods carriage — a point the regulation page explains in full.",
+    "documentsLinkLabel": "The SHT in the document pack",
+    "certificationsLinkLabel": "Testing depth & certifications"
+  },
+  "whyRefuse": {
+    "h2": "Why some lines refuse charcoal",
+    "body": "Because it is Class {{unClass}} self-heating cargo, charcoal needs a carrier that accepts declared dangerous goods and the factory audits that go with it. Several major lines have stopped carrying it altogether, which is why we book with carriers that do.",
+    "shippingLinesLinkLabel": "Carriers that ship charcoal"
+  },
+  "markings": {
+    "body": "Every export carton and container carries the {{unNumber}}, Class {{unClass}} dangerous-goods markings and placards.",
+    "packagingLinkLabel": "Dangerous-goods markings on the packaging"
+  },
+  "media": {
+    "alt": "Sealed shipping container bearing a Class {{unClass}} dangerous-goods placard for UN 1361 coconut charcoal",
+    "caption": "A sealed UN 1361 container with Class {{unClass}} placards."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Is charcoal dangerous goods?",
+        "a": "Yes. Coconut shell charcoal is shipped as UN 1361, {{imdgLabel}}, Packing Group {{packingGroup}}. Since {{dgMandatoryDate}} it must be carried as declared dangerous goods — there is no compliant non-DG route by sea."
+      },
+      {
+        "q": "What is UN 1361 / Class 4.2?",
+        "a": "UN 1361 is the dangerous-goods entry for \"Carbon, animal or vegetable origin\". Class {{unClass}} is the hazard class for substances liable to spontaneous combustion — materials that can self-heat in air. Coconut charcoal is assigned Packing Group {{packingGroup}}, the lowest severity within the class."
+      },
+      {
+        "q": "What is the Self-Heating Test and what does it test?",
+        "a": "The Self-Heating Test (UN Test N.4) holds a sample at an elevated temperature in a circulating-air oven and observes whether it self-heats. We provide the report on request as supporting hazard evidence. Since IMDG Amendment 42-24 a passing result no longer exempts the cargo from dangerous-goods rules."
+      },
+      {
+        "q": "Will my charcoal catch fire in the container?",
+        "a": "It is very unlikely when the cargo is handled correctly. The risk is real — Class {{unClass}} cargo can self-heat — but the SP 978 controls (weathering, a packing-temperature limit, and container headspace) are designed to prevent exactly that, and incidents are rare. Self-heating fire is not insurable, so prevention and a documented compliance record are the real safeguard."
+      },
+      {
+        "q": "Why do some shipping lines refuse charcoal or charge more?",
+        "a": "Because it is Class {{unClass}} self-heating dangerous goods. Some lines have stopped carrying it; those that do require declared DG booking and, often, a factory audit, and apply dangerous-goods surcharges. We book with carriers that accept it."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics", "label": "Logistics overview" },
+      { "href": "/logistics/charcoal-dg-regulation", "label": "2026 charcoal shipping rules" },
+      { "href": "/logistics/cargo-protection-and-insurance", "label": "Cargo protection & insurance" },
+      { "href": "/logistics/documents", "label": "Export documents" },
+      { "href": "/logistics/charcoal-shipping-lines", "label": "Carriers that ship charcoal" },
+      { "href": "/quality/certifications", "label": "Certifications" },
+      { "href": "/glossary", "label": "Glossary" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

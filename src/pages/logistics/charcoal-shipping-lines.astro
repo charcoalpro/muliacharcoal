@@ -1,0 +1,163 @@
+---
+/**
+ * /logistics/charcoal-shipping-lines — long-tail carrier intent
+ * (cocoon v3.3 §5.6). Renders the accept-list (dg.carriersAudited) and the
+ * refuse-list (dg.carriersNotAccepting) from config — names only, degrades
+ * to "contact us" if empty, never invents names. WebPage + FAQPage.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, logisticsTokens } from '~/lib/interpolate';
+import { logisticsClusterPageSchema } from '~/lib/schema/logisticsClusterPage';
+
+const t = en.logisticsShippingLines;
+const tc = en.logisticsCommon;
+const L = company.logistics;
+const tokens = { ...companyTokens(company), ...logisticsTokens(company) };
+
+const accept = L.dg.carriersAudited;
+const decline = L.dg.carriersNotAccepting;
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const keyFacts = [
+  { label: t.keyFacts.bookedLabel, value: accept.length ? tokens.carriersAudited : '' },
+  { label: t.keyFacts.dgLabel, value: t.keyFacts.dgValue },
+  { label: t.keyFacts.auditLabel, value: t.keyFacts.auditValue },
+  { label: t.keyFacts.forwarderLabel, value: fill(t.keyFacts.forwarderValue, tokens) },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = logisticsClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/logistics/charcoal-shipping-lines',
+  faq: faqItems,
+});
+
+const proseForReadTime = fill(
+  [t.heroSubtitle, t.intro.p1, t.whyDg.body, t.carriers.acceptIntro, t.carriers.declineIntro, t.audit.body, t.forwarder.body, ...t.faq.items.flatMap((f) => [f.q, f.a])].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/logistics/charcoal-shipping-lines"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.logistics.breadcrumb, href: '/logistics' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{ label: t.hero.ctaQuote, href: waLinkFor('salesGeneral'), ariaLabel: t.hero.ctaQuoteAria, target: '_blank', rel: 'noopener', dataEvent: 'whatsapp_click', dataSourceComponent: 'lines-hero-quote' }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'lines-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={L.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <p class="max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/logistics" class="font-semibold" data-source-component="lines-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+    </p>
+
+    <KeyFactsBox class="mt-8" id="lines-at-a-glance" heading={t.keyFacts.heading} definition={t.keyFacts.definition} facts={keyFacts} />
+
+    <section id="why-dg" aria-labelledby="whydg-h" class="mt-12 scroll-mt-24">
+      <h2 id="whydg-h" class="text-2xl font-bold text-neutral-900">{t.whyDg.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.whyDg.body, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/logistics/charcoal-dg-regulation" class="font-semibold" data-source-component="lines-whydg-regulation">{t.whyDg.regulationLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="lines-whydg-un1361">{t.whyDg.un1361LinkLabel}</MaybeLink>
+      </p>
+    </section>
+
+    <section id="carriers" aria-labelledby="carriers-h" class="mt-12 scroll-mt-24">
+      <h2 id="carriers-h" class="text-2xl font-bold text-neutral-900">{t.carriers.h2}</h2>
+      <div class="mt-4 grid gap-6 sm:grid-cols-2">
+        <div class="rounded-xl border border-neutral-200 bg-white p-5">
+          <p class="text-base text-neutral-700">{t.carriers.acceptIntro}</p>
+          {accept.length > 0 ? (
+            <ul class="mt-3 space-y-1.5 text-base font-medium text-neutral-900" role="list">
+              {accept.map((name) => (
+                <li class="flex gap-2"><span aria-hidden="true" class="text-brand-accent">✓</span><span>{name}</span></li>
+              ))}
+            </ul>
+          ) : (
+            <p class="mt-3 text-base text-neutral-700">{t.carriers.acceptEmpty}</p>
+          )}
+        </div>
+        {decline.length > 0 && (
+          <div class="rounded-xl border border-neutral-200 bg-white p-5">
+            <p class="text-base text-neutral-700">{t.carriers.declineIntro}</p>
+            <ul class="mt-3 space-y-1.5 text-base font-medium text-neutral-900" role="list">
+              {decline.map((name) => (
+                <li class="flex gap-2"><span aria-hidden="true" class="text-neutral-400">✕</span><span>{name}</span></li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+      <p class="mt-4 text-sm text-neutral-600">{t.carriers.declineNote}</p>
+    </section>
+
+    <section id="audit" aria-labelledby="audit-h" class="mt-12 scroll-mt-24">
+      <h2 id="audit-h" class="text-2xl font-bold text-neutral-900">{t.audit.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.audit.body, tokens)}</p>
+    </section>
+
+    <section id="forwarder" aria-labelledby="forwarder-h" class="mt-12 scroll-mt-24">
+      <h2 id="forwarder-h" class="text-2xl font-bold text-neutral-900">{t.forwarder.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.forwarder.body, tokens)}</p>
+      <p class="mt-3 text-sm"><MaybeLink href="/logistics/rules" class="font-semibold" data-source-component="lines-forwarder-rules">{t.forwarder.rulesLinkLabel} <span aria-hidden="true">→</span></MaybeLink></p>
+    </section>
+
+    <section aria-labelledby="lines-faq" class="mt-14">
+      <FAQSection id="lines-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="lines-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="lines-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`lines-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

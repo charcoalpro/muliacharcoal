@@ -234,7 +234,7 @@
       { "href": "/packaging/plastic", "label": "Inner plastic (primary packaging)" },
       { "href": "/packaging/additional-packaging", "label": "Branded consumables & add-ons" },
       { "href": "/products", "label": "Products: shapes, sizes & grades" },
-      { "href": "/logistics/UN-1361", "label": "UN 1361 shipping compliance" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 shipping compliance" },
       { "href": "/logistics/documents", "label": "Export documents" },
       { "href": "/quality/specifications-explained", "label": "Specifications explained" },
       { "href": "/glossary#white-label", "label": "Glossary: white label" },

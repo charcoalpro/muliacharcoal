@@ -13,6 +13,7 @@
  * `~/config/gallery.ts`.
  */
 
+import { company } from '~/config/company';
 import { ORG_ID, siteOrigin } from '~/lib/schema/organization';
 
 export interface ImageObjectInput {
@@ -45,7 +46,7 @@ export function imageObjectSchema(input: ImageObjectInput) {
     ...(input.thumbnailUrl ? { thumbnailUrl: abs(input.thumbnailUrl) } : {}),
     datePublished: input.datePublished,
     creator: { '@id': ORG_ID },
-    creditText: 'Mulia Charcoal',
+    creditText: company.brand,
     copyrightHolder: { '@id': ORG_ID },
   };
 }

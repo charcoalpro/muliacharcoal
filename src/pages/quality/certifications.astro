@@ -1,0 +1,242 @@
+---
+/**
+ * /quality/certifications (cocoon v4.2 §5.4).
+ * WebPage + FAQPage. The integrity page and the cocoon's #1 differentiation
+ * surface: it LEADS with the held-vs-provided ledger. Every cert/lab/report
+ * claim traces to company.ts (certifications.* held; quality.testReportsProvided
+ * per order) — never web-sourced, never implied. The COA definition is
+ * canonical here; the third-party report renders only because thirdPartyLabs
+ * is configured. No Product/Offer/credential schema. Halal → Saudi cross-link
+ * is omitted until /markets/saudi-arabia exists.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, qualityTokens } from '~/lib/interpolate';
+import { qualityClusterPageSchema } from '~/lib/schema/qualityClusterPage';
+
+const t = en.qualityCerts;
+const tc = en.qualityCommon;
+const Q = company.quality;
+const T = Q.testing;
+const tokens = { ...companyTokens(company), ...qualityTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// Held certifications — sourced from certifications.* (single source).
+const halal = company.certifications.halal;
+const isoDoc = company.legalDocuments.find((d) => d.key === 'iso-9001');
+
+// Per-order reports — from quality.testReportsProvided (by id).
+const reports = Q.testReportsProvided;
+const coa = reports.find((r) => r.id === 'coa');
+const thirdParty = reports.find((r) => r.id === 'thirdParty');
+const sht = reports.find((r) => r.id === 'sht');
+const coaDoc = coa && coa.documentRef ? company.legalDocuments.find((d) => d.key === coa.documentRef) : undefined;
+// Third-party report renders ONLY when a third-party lab is configured (v4.2 §2/§7).
+const showThirdParty = !!thirdParty && hasFact(T.thirdPartyLabs);
+
+const keyFacts = [
+  { label: t.keyFacts.heldLabel, value: t.keyFacts.heldValue },
+  { label: t.keyFacts.reportsLabel, value: t.keyFacts.reportsValue },
+  { label: t.keyFacts.halalLabel, value: halal && halal.certified ? t.keyFacts.halalValue : '' },
+  { label: t.keyFacts.verificationLabel, value: fill(t.keyFacts.verificationValueTemplate, tokens) },
+];
+
+const faqRaw = t.faq.items;
+const faqItems = faqRaw
+  .filter((item) => {
+    if (item.q.includes('halal')) return !!(halal && halal.certified);
+    if (item.q.includes('third-party') || item.q.includes('independent')) return hasFact(T.thirdPartyLabs);
+    return true;
+  })
+  .map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = qualityClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/quality/certifications',
+  faq: faqItems,
+});
+
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.held.intro, t.held.iso9001.desc, t.held.halal.desc,
+    t.reports.intro, t.reports.coa.definition, t.reports.thirdParty.body, t.reports.sht.body,
+    ...faqRaw.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/quality/certifications"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.quality.breadcrumb, href: '/quality' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'certs-hero-quote',
+    }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'certs-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={Q.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <p class="max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/quality" class="font-semibold" data-source-component="certs-up-hub">{t.intro.hubLinkLabel}</MaybeLink>{' '}
+      {t.intro.p1cont}
+    </p>
+
+    <KeyFactsBox class="mt-8" id="certs-at-a-glance" heading={t.keyFacts.heading} definition={fill(t.keyFacts.definition, tokens)} facts={keyFacts} />
+
+    {/* Held certifications — formal, third-party, distinct from per-order reports. */}
+    <section id="certifications-held" aria-labelledby="held-heading" class="mt-12 scroll-mt-24">
+      <h2 id="held-heading" class="text-2xl font-bold text-neutral-900">{t.held.heading}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.held.intro, tokens)}</p>
+
+      <div class="mt-6 space-y-4">
+        {/* ISO 9001 — name from config; audited-by from certifications.auditors. */}
+        <div class="rounded-2xl border border-neutral-200 bg-white p-5">
+          <h3 class="text-lg font-semibold text-neutral-900">{company.certifications.iso9001.standard}</h3>
+          <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.held.iso9001.desc, tokens)}</p>
+          <dl class="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
+            <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.held.iso9001.issuerLabel}:</dt><dd class="text-neutral-800">{tokens.auditors}</dd></div>
+            <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.held.scopeLabel}:</dt><dd class="text-neutral-800">{t.held.iso9001.scope}</dd></div>
+          </dl>
+          {isoDoc && (
+            <p class="mt-3 text-sm">
+              <ExternalLink href={isoDoc.href} class="font-semibold" data-event="outbound_click" data-source-component="certs-iso-document">{t.held.documentLabel} <span aria-hidden="true">→</span></ExternalLink>
+            </p>
+          )}
+        </div>
+
+        {/* Halal — single source (certifications.halal); render flag gates it. */}
+        {halal && halal.certified && (
+          <div class="rounded-2xl border border-neutral-200 bg-white p-5">
+            <h3 class="text-lg font-semibold text-neutral-900">{t.held.halal.name}</h3>
+            <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.held.halal.desc, tokens)}</p>
+            <dl class="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 text-sm sm:grid-cols-2">
+              {hasFact(halal.body) && (
+                <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.held.halal.issuerLabel}:</dt><dd class="text-neutral-800">{halal.body}</dd></div>
+              )}
+              <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.held.scopeLabel}:</dt><dd class="text-neutral-800">{t.held.halal.scope}</dd></div>
+            </dl>
+          </div>
+        )}
+      </div>
+    </section>
+
+    {/* Per-order reports — opens with the certifications → testing-methods sibling link. */}
+    <section id="reports-provided" aria-labelledby="reports-heading" class="mt-14 scroll-mt-24 border-t border-neutral-200 pt-8">
+      <h2 id="reports-heading" class="text-2xl font-bold text-neutral-900">{t.reports.heading}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {t.reports.procedureLinkIntro}{' '}
+        <MaybeLink href="/quality/testing-methods" class="font-semibold" data-source-component="certs-reports-testing">{t.reports.procedureLinkLabel}</MaybeLink>.
+      </p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.reports.intro, tokens)}</p>
+
+      <div class="mt-6 space-y-4">
+        {/* COA — definition-form (COA-canonical home) + link to read the values. */}
+        {coa && (
+          <div class="rounded-2xl border border-neutral-200 bg-white p-5">
+            <h3 class="text-lg font-semibold text-neutral-900">{coa.name}</h3>
+            <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.reports.coa.definition, tokens)}</p>
+            <p class="mt-2 text-sm text-neutral-700"><strong class="font-medium text-neutral-600">{t.reports.perOrderLabel}:</strong> {t.reports.perOrderValue}</p>
+            <p class="mt-2 text-sm">
+              {t.reports.coa.readLinkIntro}{' '}
+              <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="certs-coa-specs">{t.reports.coa.readLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+            </p>
+            {coaDoc && (
+              <p class="mt-2 text-sm">
+                <ExternalLink href={coaDoc.href} class="font-semibold" data-event="outbound_click" data-source-component="certs-coa-document">{t.held.documentLabel} <span aria-hidden="true">→</span></ExternalLink>
+              </p>
+            )}
+          </div>
+        )}
+
+        {/* Third-party lab report — renders ONLY if a third-party lab is configured. */}
+        {showThirdParty && (
+          <div class="rounded-2xl border border-neutral-200 bg-white p-5">
+            <h3 class="text-lg font-semibold text-neutral-900">{thirdParty!.name}</h3>
+            <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.reports.thirdParty.body, tokens)}</p>
+            <dl class="mt-2 text-sm">
+              <div class="flex gap-2"><dt class="font-medium text-neutral-600">{t.reports.issuerLabel}:</dt><dd class="text-neutral-800">{thirdParty!.issuer}</dd></div>
+              <div class="mt-1 flex gap-2"><dt class="font-medium text-neutral-600">{t.reports.perOrderLabel}:</dt><dd class="text-neutral-800">{t.reports.perOrderValue}</dd></div>
+            </dl>
+          </div>
+        )}
+
+        {/* SHT report — deliverable framing; classification lives on un-1361. */}
+        {sht && (
+          <div class="rounded-2xl border border-neutral-200 bg-white p-5">
+            <h3 class="text-lg font-semibold text-neutral-900">{sht.name}</h3>
+            <p class="mt-2 text-base leading-relaxed text-neutral-700">{fill(t.reports.sht.body, tokens)}</p>
+            <p class="mt-2 text-sm text-neutral-700"><strong class="font-medium text-neutral-600">{t.reports.perOrderLabel}:</strong> {t.reports.perOrderValue}</p>
+            <p class="mt-2 text-sm">
+              {t.reports.sht.dgLinkIntro}{' '}
+              <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="certs-sht-un1361">{t.reports.sht.dgLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
+            </p>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <section aria-labelledby="certs-faq" class="mt-14">
+      <FAQSection id="certs-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="certs-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="certs-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`certs-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

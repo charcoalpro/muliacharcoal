@@ -19,6 +19,7 @@
  * qualitative (no invented margins); brand examples anonymized/permitted.
  */
 import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
@@ -158,7 +159,7 @@ const proseForReadTime = fill(
   ].join(' '),
   tokens,
 );
-const readMinutes = Math.max(1, Math.round(proseForReadTime.split(/\s+/).length / 200));
+const readMinutes = readingTime(proseForReadTime);
 
 const photos = (list: Array<{ alt: string; caption: string }>) =>
   list.map((p) => ({ alt: fill(p.alt, tokens), caption: fill(p.caption, tokens) }));
@@ -372,6 +373,7 @@ const photos = (list: Array<{ alt: string; caption: string }>) =>
             data-source-component="white-label-mid-cta"
           >
             {t.timeline.midCtaLabel}
+            <span class="sr-only"> {en.contact.newTabSr}</span>
           </Button>
         </div>
       </div>
@@ -389,7 +391,7 @@ const photos = (list: Array<{ alt: string; caption: string }>) =>
           {t.retail.masterBoxLinkLabel} <span aria-hidden="true">→</span>
         </MaybeLink>
         <span aria-hidden="true" class="text-neutral-300">·</span>
-        <MaybeLink href="/logistics/UN-1361" class="font-semibold" data-source-component="white-label-un1361">
+        <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="white-label-un1361">
           {t.retail.un1361LinkLabel}
         </MaybeLink>
       </p>

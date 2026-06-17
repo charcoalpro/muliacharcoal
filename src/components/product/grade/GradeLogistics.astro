@@ -9,6 +9,7 @@
  * "On request" until weighed.
  */
 import DataTable from '~/components/content/DataTable.astro';
+import type { GradeTokens } from '~/lib/product/gradeTokens';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import en from '~/i18n/en';
@@ -21,7 +22,7 @@ interface Props {
   shape: ProductShape;
   size: ProductSize;
   grade: Grade;
-  tokens: Record<string, string | number>;
+  tokens: GradeTokens;
 }
 const { tokens } = Astro.props;
 
@@ -69,6 +70,6 @@ const proseP = 'mt-4 max-w-prose text-base leading-relaxed text-neutral-700';
     <span aria-hidden="true" class="text-neutral-300">·</span>
     <MaybeLink href="/logistics/documents" data-source-component="grade-logistics-docs">{t.logistics.linkDocuments}</MaybeLink>
     <span aria-hidden="true" class="text-neutral-300">·</span>
-    <MaybeLink href="/logistics/UN-1361" data-source-component="grade-un1361">{fill(t.logistics.linkUn, tokens)}</MaybeLink>
+    <MaybeLink href="/logistics/un-1361" data-source-component="grade-un1361">{fill(t.logistics.linkUn, tokens)}</MaybeLink>
   </p>
 </section>

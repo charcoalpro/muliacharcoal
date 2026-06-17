@@ -9,9 +9,9 @@
   "heroSubtitle": "Export packaging for coconut shisha charcoal is a three-layer system — a sealed inner plastic, a printed retail inner box, and a corrugated master carton — supplied neutral or printed with your brand, with {{unNumber}} dangerous-goods and origin markings on every export carton.",
   "hero": {
     "ctaQuote": "Get a packaging quote",
-    "ctaQuoteAria": "Request a packaging quote on WhatsApp",
+    "ctaQuoteAria": "Get a packaging quote on WhatsApp",
     "ctaLayout": "Request layouts & sizes",
-    "ctaLayoutAria": "Request OEM packaging layouts and sizes on WhatsApp"
+    "ctaLayoutAria": "Request layouts & sizes — OEM packaging on WhatsApp"
   },
   "heroTrust": {
     "moqLabel": "MOQ",
@@ -295,7 +295,7 @@
       { "href": "/packaging/additional-packaging", "label": "Packaging add-ons & branded consumables" },
       { "href": "/packaging/white-label", "label": "White-label / OEM packaging" },
       { "href": "/products", "label": "Products: shapes, sizes & grades" },
-      { "href": "/logistics/UN-1361", "label": "UN 1361 shipping compliance" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 shipping compliance" },
       { "href": "/logistics/documents", "label": "Export documents" },
       { "href": "/quality/specifications-explained", "label": "Specifications explained" },
       { "href": "/samples", "label": "Request samples" },

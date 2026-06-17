@@ -9,6 +9,7 @@
       "primary": "#0f3d2e",
       "primaryHover": "#0a2a1f",
       "accent": "#c9a24b",
+      "accentStrong": "#8a6d1f",
       "dark": "#0a1f17"
     },
     "images": {
@@ -101,7 +102,8 @@
       "unLocode": "IDSRG",
       "incoterm": "FOB",
       "alternates": [
-        { "name": "Tanjung Priok", "city": "Jakarta", "condition": "on request" }
+        { "name": "Surabaya", "city": "Surabaya", "unLocode": "IDSUB", "condition": "on request" },
+        { "name": "Tanjung Priok", "city": "Jakarta", "unLocode": "IDJKT", "condition": "on request" }
       ]
     },
     "leadTime": {
@@ -155,12 +157,12 @@
     "countriesExportedCount": 32,
     "lcMinContainers": 1,
     "transitTimes": [
-      { "destination": "Jeddah, Saudi Arabia", "portCode": "SAJED", "minDays": 18, "maxDays": 25 },
-      { "destination": "Felixstowe, United Kingdom", "portCode": "GBFXT", "minDays": 30, "maxDays": 38 },
-      { "destination": "Hamburg, Germany", "portCode": "DEHAM", "minDays": 30, "maxDays": 38 },
-      { "destination": "Los Angeles, USA (West Coast)", "portCode": "USLAX", "minDays": 25, "maxDays": 32 },
-      { "destination": "New York / New Jersey, USA (East Coast)", "portCode": "USNYC", "minDays": 35, "maxDays": 45 },
-      { "destination": "St Petersburg, Russia", "portCode": "RULED", "minDays": 38, "maxDays": 48 }
+      { "destination": "Jeddah, Saudi Arabia", "portCode": "SAJED", "country": "Saudi Arabia", "minDays": 18, "maxDays": 25 },
+      { "destination": "Felixstowe, United Kingdom", "portCode": "GBFXT", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
+      { "destination": "Hamburg, Germany", "portCode": "DEHAM", "country": "Germany", "minDays": 30, "maxDays": 38 },
+      { "destination": "Los Angeles, USA (West Coast)", "portCode": "USLAX", "country": "USA", "minDays": 25, "maxDays": 32 },
+      { "destination": "New York / New Jersey, USA (East Coast)", "portCode": "USNYC", "country": "USA", "minDays": 35, "maxDays": 45 },
+      { "destination": "St Petersburg, Russia", "portCode": "RULED", "country": "Russia", "minDays": 38, "maxDays": 48 }
     ],
     "containerCapacity": {
       "ft20": { "fullKg": 18000, "bulkKg": null },
@@ -465,6 +467,223 @@
         { "id": "white-label", "youtubeId": "", "posterAsset": "", "uploadDate": "", "durationISO": "" }
       ]
     }
+  },
+
+  "logistics": {
+    "truckingFactoryToPortHours": "",
+    "vesselBookingLeadDays": "",
+    "departureDays": [],
+    "transshipmentVia": ["Singapore", "Pasir Gudang"],
+    "containers": { "hq40Available": true, "perShapeYieldNote": "" },
+    "lcl": { "available": null, "marketsServed": [], "minTons": "" },
+    "incoterms": ["EXW", "FOB", "CFR"],
+    "payment": { "methods": [], "currencies": [], "downPaymentPct": "", "balanceTrigger": "" },
+
+    "dg": {
+      "shippedAsUn1361": true,
+      "packingGroup": "III",
+      "properShippingName": "CARBON, animal or vegetable origin",
+      "ems": "",
+      "shtProvided": true,
+      "dgFreightNote": "",
+      "compliantSince": "",
+      "carriersAudited": ["MSC", "Maersk", "CMA CGM", "Emirates", "Asyad"],
+      "carriersNotAccepting": ["Hapag-Lloyd", "ONE", "Cosco", "ZIM"],
+      "amendment": "IMDG Amendment 42-24 (Res. MSC.556(108))",
+      "voluntaryFrom": "2025-01-01",
+      "mandatoryFrom": "2026-01-01",
+      "labellingGrace": "2026-12-31",
+      "sp925Withdrawn": true,
+      "sp223Withdrawn": true,
+      "sp979scope": "SP 979 applies to UN 1362 (CARBON, ACTIVATED) only — not to non-activated coconut shell charcoal.",
+      "rationale": "Carriers link 68 container-vessel fires to charcoal between 2015 and 2022, with ignition often occurring days after loading.",
+      "carrierEnforcementNote": "Several lines enforced SP 978 early; some have since declined charcoal bookings altogether. Confirm current acceptance at booking.",
+      "sht": {
+        "onRequest": true,
+        "cost": "",
+        "processingTime": "",
+        "note": "A Self-Heating Test (UN Test N.4) report is available on request as supporting hazard evidence; since IMDG Amendment 42-24 it no longer exempts UN 1361 from dangerous-goods carriage."
+      },
+      "sp978": {
+        "weatheringDays": "14",
+        "weatheringMethod": "14 days under cover in open air, or inert gas after pyrolysis plus 24 hours of storage",
+        "packingTempMaxC": "40",
+        "packingTempLogged": true,
+        "unPackagingMark": true,
+        "packingInstruction": "P002",
+        "headspaceCm": "30",
+        "dgdFields": ["date of production", "date of packing", "temperature on the day of packing"],
+        "n4Note": "Since IMDG Amendment 42-24, a passing UN N.4 self-heating test no longer exempts UN 1361 charcoal from dangerous-goods carriage — it is supporting evidence only.",
+        "bulkProhibited": true,
+        "stowageNote": "Stack height no more than 1.5 m, or a maximum block of 16 m³ with at least 15 cm between blocks."
+      },
+      "sourceUrls": {
+        "amendment": "https://www.imo.org/en/publications/Pages/IMDG%20Code.aspx",
+        "mandatoryFrom": "https://www.imo.org",
+        "sp978": "https://www.hapag-lloyd.com",
+        "packingGroup": "https://biochareurope.eu",
+        "weathering": "https://www.britanniapandi.com",
+        "stowageNote": "https://www.shashikallada.com"
+      },
+      "lastVerified": "2026-06-15"
+    },
+
+    "transitTimesLastUpdated": "2026-06-15",
+    "customsClearanceByBuyer": true,
+    "brokerReferralAvailable": null,
+    "leadTimes": { "production20ft": "", "production40ft": "" },
+    "samplesShipping": { "couriers": [], "paidBy": "buyer" },
+
+    "documentsStandard": [
+      { "id": "commercial-invoice", "name": "Commercial Invoice", "issuer": "PT Coco Reina Global Charcoal Indonesia", "buyerUse": "Customs valuation and payment reconciliation", "providedWhen": "With every shipment" },
+      { "id": "packing-list", "name": "Packing List", "issuer": "PT Coco Reina Global Charcoal Indonesia", "buyerUse": "Customs and warehouse reconciliation against the container", "providedWhen": "With every shipment" },
+      { "id": "bill-of-lading", "name": "Bill of Lading (B/L)", "issuer": "Shipping line", "buyerUse": "Title document the consignee needs to claim the container at destination", "providedWhen": "After vessel departure" },
+      { "id": "certificate-of-origin", "name": "Certificate of Origin (COO)", "issuer": "Ministry of Trade via an appointed IPSKA agency (e-SKA)", "buyerUse": "Origin evidence and, where applicable, duty preference at destination", "providedWhen": "Per shipment" },
+      { "id": "msds", "name": "Material Safety Data Sheet (MSDS / SDS)", "issuer": "PT Coco Reina Global Charcoal Indonesia", "buyerUse": "Hazard evidence requested by the carrier and importer", "providedWhen": "With every shipment" },
+      { "id": "dangerous-goods-declaration", "name": "Dangerous Goods Declaration (DGD)", "issuer": "PT Coco Reina Global Charcoal Indonesia", "buyerUse": "Declares UN 1361, Class 4.2, Packing Group III and the SP 978 data fields to the carrier", "providedWhen": "Per dangerous-goods shipment" },
+      { "id": "vanning-certificate", "name": "Container Vanning / Stuffing Certificate", "issuer": "Marine surveyor (Carsurin / Beckjorindo)", "buyerUse": "Confirms the container is packed and secured per the IMDG Code", "providedWhen": "Per dangerous-goods shipment" },
+      { "id": "peb", "name": "Export Declaration (PEB)", "issuer": "Indonesian Customs (Bea Cukai)", "buyerUse": "Indonesian export clearance record", "providedWhen": "Per shipment" }
+    ],
+    "documentsAdditional": [
+      { "id": "self-heating-test", "name": "Self-Heating Test (SHT) report", "issuer": "Accredited laboratory", "buyerUse": "Supporting hazard evidence within the dangerous-goods shipment", "providedWhen": "On request (paid add-on)", "cost": "", "processingTime": "" },
+      { "id": "certificate-of-analysis", "name": "Certificate of Analysis (COA)", "issuer": "Accredited laboratory", "buyerUse": "Independent verification of the burn specifications", "providedWhen": "On request (paid add-on)", "cost": "", "processingTime": "" },
+      { "id": "fumigation-phytosanitary", "name": "Fumigation / Phytosanitary Certificate", "issuer": "Licensed fumigation provider or quarantine authority", "buyerUse": "Required by some destinations for wood packaging or plant-origin goods", "providedWhen": "On request, where the destination requires it" },
+      { "id": "insurance-certificate", "name": "Marine Insurance Certificate", "issuer": "Buyer's insurer", "buyerUse": "Evidence of cargo cover (buyer-arranged)", "providedWhen": "Buyer-arranged under EXW / FOB / CFR" }
+    ],
+    "docsDelivery": { "originalsByCourier": true, "scansFirst": true },
+
+    "loading": { "method": "", "palletizedAvailable": null, "mixedSizesPolicy": "" },
+
+    "insurance": {
+      "arrangedBy": "buyer",
+      "basis": "Buyer-arranged — the Incoterms offered (EXW / FOB / CFR) include no seller-arranged cover; the factory does not insure the cargo.",
+      "coverage": ["wetting / water ingress", "theft and pilferage", "general average", "vessel casualty", "external fire"],
+      "exclusions": ["self-heating / spontaneous combustion (inherent vice)"],
+      "coverageNote": "",
+      "sumInsuredBasis": "",
+      "claimsNote": ""
+    },
+    "cargoProtection": {
+      "desiccantsPerContainer": "",
+      "thermalLiner": null,
+      "boxesCleanedBeforeLoading": null,
+      "moistureNote": "",
+      "breakageNote": ""
+    },
+
+    "coo": {
+      "issuer": "Ministry of Trade via the e-SKA system, physically issued by appointed IPSKA agencies",
+      "regulation": "Permendag 19/2019 (cf. 24/2018)",
+      "types": "Preferential SKA (Form A / D / E — secures a reduced duty under a trade agreement at destination) or non-preferential (Form B — origin evidence only)"
+    },
+    "export": { "licensing": "" },
+
+    "freight": {
+      "publishMode": "indicative",
+      "illustrativeFobNote": "",
+      "surchargeStack": [
+        { "id": "ocean-base", "label": "Ocean base freight", "range": "", "asOf": "", "note": "Quoted by the carrier at booking." },
+        { "id": "dg-premium", "label": "Dangerous-goods (Class 4.2) premium", "range": "", "asOf": "", "note": "" },
+        { "id": "imo-surcharge", "label": "IMO surcharge", "range": "", "asOf": "", "note": "" },
+        { "id": "thc", "label": "Terminal handling charge (origin + destination)", "range": "", "asOf": "", "note": "" },
+        { "id": "baf", "label": "Bunker Adjustment Factor (BAF)", "range": "", "asOf": "", "note": "" },
+        { "id": "isps", "label": "ISPS security surcharge", "range": "", "asOf": "", "note": "" },
+        { "id": "documentation", "label": "Documentation", "range": "", "asOf": "", "note": "" },
+        { "id": "dg-cleaning", "label": "DG container cleaning", "range": "", "asOf": "", "note": "" }
+      ],
+      "lanes": []
+    },
+
+    "usaImport": {
+      "htsCode": "",
+      "htsSourceUrl": "",
+      "htsCandidates": [
+        { "code": "4402.20.00.00", "sourceUrl": "https://hts.usitc.gov", "note": "\"Of shell or nut\" — most precise for coconut shell charcoal; base duty Free." },
+        { "code": "4402.90.01.00", "sourceUrl": "https://hts.usitc.gov", "note": "Residual \"Other\"; base duty Free. Legacy CBP ruling N306942 (2014) cited 4402.90.0000 before the post-2022 renumbering." }
+      ],
+      "htsNotes": "Both candidates carry a Free base (MFN) duty, so the exact 10-digit code does not change the rate; a CBP binding-ruling request would settle it. Confirm classification with your customs broker.",
+      "dutyLayers": [
+        { "id": "mfn", "label": "Base MFN duty (heading 4402)", "rate": "Free", "basis": "Most-favored-nation; applies to all candidates", "sourceUrl": "https://hts.usitc.gov", "asOf": "2026-06-15", "legalStatus": "" },
+        { "id": "section122", "label": "Section 122 balance-of-payments surcharge", "rate": "10%", "basis": "Flat global surcharge (Trade Act 1974, Proclamation 11012), assessed in addition to MFN", "sourceUrl": "https://www.congress.gov/crs-product/LSB11398", "asOf": "2026-06-15", "legalStatus": "Struck by the Court of International Trade on 7 May 2026 (party-specific; on appeal to the Federal Circuit) — collection continues for non-plaintiff importers; statutory sunset around 24 July 2026. Most sources report 10%; confirm at booking." },
+        { "id": "mpf", "label": "Merchandise Processing Fee (MPF)", "rate": "0.3464%", "basis": "Formal entry; minimum $33.58, maximum $651.50 per entry (FY2026)", "sourceUrl": "https://www.ecfr.gov", "asOf": "2025-10-01", "legalStatus": "" },
+        { "id": "hmf", "label": "Harbor Maintenance Fee (HMF)", "rate": "0.125%", "basis": "Vessel imports only; assessed on cargo value", "sourceUrl": "https://www.cbp.gov", "asOf": "2026-06-15", "legalStatus": "" }
+      ],
+      "dutyHistory": "The MFN base is Free. The reciprocal layer has moved fast: +32% (IEEPA, EO 14257, April 2025) → about 19% (US–Indonesia agreement, February 2026) → the IEEPA basis was voided by the Supreme Court on 20 February 2026 and collection halted from about 24 February 2026 → replaced by a 10% Section 122 surcharge (effective 24 February 2026), itself struck by the CIT on 7 May 2026 (party-specific, on appeal) and set to sunset around 24 July 2026. The effective rate is roughly 10% ad valorem today, heavily caveated; a Section 301 investigation opened 11 March 2026 may succeed it.",
+      "adcvd": "No anti-dumping or countervailing-duty order was found for Chapter 44 charcoal from Indonesia in the ITA database; confirm with your customs broker.",
+      "entryNotes": {
+        "isf": "The Importer Security Filing (ISF, \"10+2\") must be transmitted at least 24 hours before the cargo is laden aboard the vessel at the origin port. The importer files ten data elements: seller; buyer; importer-of-record number; consignee number; manufacturer or supplier; ship-to party; country of origin; HTSUS number; container stuffing location; and consolidator.",
+        "bond": "A continuous or single-entry customs bond is required and must include ISF provisions; ISF penalties run to $5,000 per violation, up to $10,000 per filing.",
+        "entrySummary": "Entry is finalized on CBP Form 7501; the data is reusable between the ISF and the 7501."
+      },
+      "entrySourceUrl": "https://www.cbp.gov",
+      "usPortsServed": [],
+      "fda": {
+        "deemingApplies": true,
+        "deemingSourceUrl": "https://www.federalregister.gov",
+        "deemingRule": "FDA Deeming Rule, 81 FR 28974 (10 May 2016; effective 8 August 2016).",
+        "scope": "Hookah charcoal is regulated as a component or part of a tobacco product when it maintains combustion of waterpipe tobacco (81 FR 28974 at 29019), regardless of the material it is made from.",
+        "requirements": "Establishment registration, product listing, and a premarket tobacco product application (PMTA) before lawful US introduction — hookah charcoal is a new tobacco product, not grandfathered before 15 February 2007.",
+        "pmtaStatus": "PMTA required before lawful US introduction.",
+        "stnNote": "",
+        "enforcementDiscretionStatus": "The FDA has not adopted a broad enforcement-discretion policy for hookah charcoal; a pending application is not a safe harbor, the posture is not codified, and it can change without notice.",
+        "enforcementSourceUrl": "https://www.fda.gov",
+        "importAlert": "Import Alert 98-06 (detention without physical examination of new tobacco products without marketing authorization); CBP may detain or refuse entry.",
+        "mislabeling": "Labeling the product as BBQ or general-purpose charcoal does not change FDA jurisdiction; misbranded or adulterated tobacco products are subject to detention or refusal, and misdeclaration is separately actionable.",
+        "pending": "",
+        "lastVerified": "2026-06-15"
+      },
+      "lastVerified": "2026-06-15"
+    },
+
+    "editorial": { "datePublished": "2026-06-16", "dateModified": "2026-06-16" }
+  },
+
+  "quality": {
+    "specs": {
+      "ashContentPct":        { "typical": "1.6–1.9", "max": "2.0" },
+      "fixedCarbonPct":       { "typical": "75", "min": "72" },
+      "moistureContentPct":   { "typical": "6", "max": "8" },
+      "volatileMatterPct":    { "typical": "12", "max": "14" },
+      "calorificValueKcalKg": { "typical": "7500", "min": "7200" },
+      "burnTimeMinutes":      { "typical": "120", "min": "90" },
+      "density": "",
+      "ashColor": "silver-white",
+      "additives": "none — no chemical additives or igniting agents",
+      "binder": "natural tapioca starch"
+    },
+    "specsLastUpdated": "2026-06-16",
+    "ashGradingFramework": {
+      "tiers": [
+        { "grade": "Platinum", "rangePct": "1.6–1.9", "note": "Cleanest burn — minimal tray residue and the best airflow; the premium tier for shisha use." },
+        { "grade": "Super Premium", "rangePct": "1.9–2.3", "note": "A clean, reliable burn for everyday shisha service." },
+        { "grade": "Premium", "rangePct": "2.3–2.5+", "note": "Higher residue than the upper tiers; a value option still within common quality bounds." }
+      ],
+      "factoryBand": "Platinum"
+    },
+    "testing": {
+      "ashMethod": "ISO 1171:2024",
+      "calorificMethod": "ISO 1928",
+      "moistureMethod": "",
+      "proximateMethod": "ASTM D1762-84(2021)",
+      "inHouseLab": true,
+      "thirdPartyLabs": ["Carsurin", "Beckjorindo", "SGS"],
+      "thirdPartyScope": ["ash content", "moisture", "fixed carbon", "volatile matter"],
+      "thirdPartyFrequency": "every container"
+    },
+    "testReportsProvided": [
+      { "id": "coa", "name": "Certificate of Analysis (COA)", "issuer": "", "perOrder": true, "documentRef": "coa-sample" },
+      { "id": "thirdParty", "name": "Third-party laboratory report", "issuer": "Carsurin / Beckjorindo / SGS", "perOrder": true },
+      { "id": "sht", "name": "Self-Heating Test (SHT) report", "issuer": "", "perOrder": true }
+    ],
+    "testingVideo": {
+      "youtubeId": "dummyVideoID",
+      "name": "Mulia Charcoal burn and ash test",
+      "description": "A short demonstration of a Mulia Charcoal coal through a full burn — lighting, the working session, and the silver-white, low-residue ash it leaves.",
+      "durationISO": "",
+      "uploadDate": ""
+    },
+    "sampleToVerify": true,
+    "editorial": { "datePublished": "2026-06-16", "dateModified": "2026-06-16" }
   },
 
   "factoryTourVideo": {

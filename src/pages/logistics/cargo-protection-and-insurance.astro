@@ -1,0 +1,151 @@
+---
+/**
+ * /logistics/cargo-protection-and-insurance — trust + reassurance node
+ * (cocoon v3.3 §5.7). Honesty is load-bearing: self-heating fire is
+ * inherent vice and EXCLUDED — stated plainly, never as covered. Insurance
+ * is buyer-arranged (EXW/FOB/CFR, no CIF). Cargo-condition narrative links
+ * to /packaging/additional-packaging for the physical specs (not restated).
+ * WebPage + FAQPage + TechArticle.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor } from '~/config/company';
+import { fill, companyTokens, logisticsTokens } from '~/lib/interpolate';
+import { logisticsClusterPageSchema } from '~/lib/schema/logisticsClusterPage';
+
+const t = en.logisticsCargoProtection;
+const tc = en.logisticsCommon;
+const L = company.logistics;
+const anc = company.packaging.ancillary;
+const tokens = { ...companyTokens(company), ...logisticsTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const keyFacts = [
+  { label: t.keyFacts.arrangedLabel, value: t.keyFacts.arrangedValue },
+  { label: t.keyFacts.coverageLabel, value: L.insurance.coverage.join(', ') },
+  { label: t.keyFacts.excludedLabel, value: L.insurance.exclusions.join(', ') },
+  { label: t.keyFacts.thermalLabel, value: anc.thermalBlanket === true ? t.keyFacts.thermalValue : '' },
+  { label: t.keyFacts.desiccantLabel, value: anc.containerDesiccant === true ? t.keyFacts.desiccantValue : '' },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = logisticsClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/logistics/cargo-protection-and-insurance',
+  faq: faqItems,
+  techArticle: { headline: fill(t.h1, tokens), description: pageDescription },
+});
+
+const proseForReadTime = fill(
+  [t.heroSubtitle, t.intro.p1, t.insurance.body1, t.insurance.body2, t.condition.body, t.safetyLoop.body, ...t.faq.items.flatMap((f) => [f.q, f.a])].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/logistics/cargo-protection-and-insurance"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.logistics.breadcrumb, href: '/logistics' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{ label: t.hero.ctaQuote, href: waLinkFor('salesGeneral'), ariaLabel: t.hero.ctaQuoteAria, target: '_blank', rel: 'noopener', dataEvent: 'whatsapp_click', dataSourceComponent: 'cargo-hero-quote' }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'cargo-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={L.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <p class="max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/logistics" class="font-semibold" data-source-component="cargo-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+    </p>
+
+    <KeyFactsBox class="mt-8" id="cargo-at-a-glance" heading={t.keyFacts.heading} definition={t.keyFacts.definition} facts={keyFacts} />
+
+    <section id="insurance" aria-labelledby="insurance-h" class="mt-12 scroll-mt-24">
+      <h2 id="insurance-h" class="text-2xl font-bold text-neutral-900">{t.insurance.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.insurance.body1, tokens)}</p>
+      <p class="mt-4 text-base font-medium text-neutral-800">{t.insurance.coverageIntro}</p>
+      <ul class="mt-2 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+        {L.insurance.coverage.map((peril) => (
+          <li class="flex gap-2"><span aria-hidden="true" class="mt-0.5 text-brand-accent">✓</span><span>{peril}</span></li>
+        ))}
+      </ul>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.insurance.body2, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/logistics/rules" class="font-semibold" data-source-component="cargo-insurance-rules">{t.insurance.rulesLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/charcoal-dg-regulation" class="font-semibold" data-source-component="cargo-insurance-regulation">{t.insurance.regulationLinkLabel}</MaybeLink>
+      </p>
+      <p class="mt-3 text-sm text-neutral-600">{fill(tc.caveats.insurance, tokens)}</p>
+    </section>
+
+    <section id="condition" aria-labelledby="condition-h" class="mt-12 scroll-mt-24">
+      <h2 id="condition-h" class="text-2xl font-bold text-neutral-900">{t.condition.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.condition.body, tokens)}</p>
+      <figure class="mt-6"><Figure alt={fill(t.media.alt, tokens)} caption={fill(t.media.caption, tokens)} ratio="16/9" /></figure>
+      <p class="mt-4 text-sm"><MaybeLink href="/packaging/additional-packaging" class="font-semibold" data-source-component="cargo-condition-packaging">{t.condition.packagingLinkLabel} <span aria-hidden="true">→</span></MaybeLink></p>
+    </section>
+
+    <section id="safety-loop" aria-labelledby="loop-h" class="mt-12 scroll-mt-24">
+      <h2 id="loop-h" class="text-2xl font-bold text-neutral-900">{t.safetyLoop.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.safetyLoop.body, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="cargo-loop-un1361">{t.safetyLoop.un1361LinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/charcoal-dg-regulation" class="font-semibold" data-source-component="cargo-loop-regulation">{t.safetyLoop.regulationLinkLabel}</MaybeLink>
+      </p>
+    </section>
+
+    <section aria-labelledby="cargo-faq" class="mt-14">
+      <FAQSection id="cargo-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="cargo-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="cargo-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`cargo-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

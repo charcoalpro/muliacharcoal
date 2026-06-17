@@ -1,0 +1,176 @@
+---
+/**
+ * /logistics/charcoal-dg-regulation — the 2026 freshness page
+ * (cocoon v3.3 §5.5). Year + amendment in title/H1; evergreen slug.
+ * Carries the SP 978 *requirements* (values from config); holds no UN 1361
+ * *definitional* paragraph (links to /logistics/un-1361). WebPage +
+ * FAQPage + TechArticle (about → glossary #sp-978). The "compliant before
+ * mandatory" claim renders only if dg.compliantSince < 2026-01-01.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, logisticsTokens } from '~/lib/interpolate';
+import { logisticsClusterPageSchema } from '~/lib/schema/logisticsClusterPage';
+
+const t = en.logisticsDgRegulation;
+const tc = en.logisticsCommon;
+const L = company.logistics;
+const sp = L.dg.sp978;
+const tokens = { ...companyTokens(company), ...logisticsTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const keyFacts = [
+  { label: t.keyFacts.mandatoryLabel, value: fill(t.keyFacts.mandatoryValue, tokens) },
+  { label: t.keyFacts.withdrawnLabel, value: t.keyFacts.withdrawnValue },
+  { label: t.keyFacts.introducedLabel, value: t.keyFacts.introducedValue },
+  { label: t.keyFacts.basisLabel, value: t.keyFacts.basisValue },
+  { label: t.keyFacts.packTempLabel, value: fill(t.keyFacts.packTempValue, tokens) },
+  { label: t.keyFacts.headspaceLabel, value: fill(t.keyFacts.headspaceValue, tokens) },
+];
+
+// SP 978 controls — values from config, dropping any that are unverified.
+const c = t.sp978.controls;
+const controls = [
+  { label: c.weathering, value: sp.weatheringMethod },
+  { label: c.packTemp, value: fill(c.packTempTemplate, tokens) },
+  { label: c.headspace, value: fill(c.headspaceTemplate, tokens) },
+  { label: c.packaging, value: hasFact(sp.packingInstruction) ? fill(c.packagingTemplate, { packingInstruction: sp.packingInstruction }) : '' },
+  { label: c.dgd, value: sp.dgdFields.join(', ') },
+  { label: c.bulk, value: sp.bulkProhibited ? c.bulkValue : '' },
+  { label: c.stowage, value: sp.stowageNote },
+].filter((x) => hasFact(x.value));
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = logisticsClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/logistics/charcoal-dg-regulation',
+  faq: faqItems,
+  aboutAnchor: 'sp-978',
+  techArticle: { headline: fill(t.h1, tokens), description: pageDescription },
+});
+
+const proseForReadTime = fill(
+  [t.heroSubtitle, t.intro.p1, t.whatChanged.body, t.sp978.body, t.nonDg.body, t.cost.body, ...controls.map((x) => x.value), ...t.faq.items.flatMap((f) => [f.q, f.a])].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/logistics/charcoal-dg-regulation"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.logistics.breadcrumb, href: '/logistics' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{ label: t.hero.ctaQuote, href: waLinkFor('salesGeneral'), ariaLabel: t.hero.ctaQuoteAria, target: '_blank', rel: 'noopener', dataEvent: 'whatsapp_click', dataSourceComponent: 'dgreg-hero-quote' }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'dgreg-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={L.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <p class="max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/logistics" class="font-semibold" data-source-component="dgreg-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+    </p>
+
+    <KeyFactsBox class="mt-8" id="dgreg-at-a-glance" heading={t.keyFacts.heading} definition={fill(t.keyFacts.definition, tokens)} facts={keyFacts} />
+
+    <section id="what-changed" aria-labelledby="changed-h" class="mt-12 scroll-mt-24">
+      <h2 id="changed-h" class="text-2xl font-bold text-neutral-900">{fill(t.whatChanged.h2, tokens)}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.whatChanged.body, tokens)}</p>
+      <p class="mt-3 text-sm"><MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="dgreg-changed-un1361">{t.whatChanged.un1361LinkLabel} <span aria-hidden="true">→</span></MaybeLink></p>
+    </section>
+
+    <section id="sp-978" aria-labelledby="sp978-h" class="mt-12 scroll-mt-24">
+      <h2 id="sp978-h" class="text-2xl font-bold text-neutral-900">{t.sp978.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.sp978.body, tokens)}</p>
+      <p class="mt-4 text-base font-medium text-neutral-800">{t.sp978.controlsIntro}</p>
+      <dl class="mt-3 grid gap-3 sm:grid-cols-2">
+        {controls.map((x) => (
+          <div class="rounded-lg border border-neutral-200 bg-white p-4">
+            <dt class="text-xs font-semibold uppercase tracking-wide text-brand-primary">{x.label}</dt>
+            <dd class="mt-1 text-sm text-neutral-700">{x.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/logistics/cargo-protection-and-insurance" class="font-semibold" data-source-component="dgreg-sp978-cargo">{t.sp978.cargoLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/documents" class="font-semibold" data-source-component="dgreg-sp978-documents">{t.sp978.documentsLinkLabel}</MaybeLink>
+      </p>
+      <figure class="mt-8">
+        <Figure alt={fill(t.media.alt, tokens)} caption={fill(t.media.caption, tokens)} ratio="16/9" />
+      </figure>
+    </section>
+
+    <section id="non-dg" aria-labelledby="nondg-h" class="mt-12 scroll-mt-24">
+      <h2 id="nondg-h" class="text-2xl font-bold text-neutral-900">{t.nonDg.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.nonDg.body, tokens)}</p>
+      <p class="mt-3 text-sm"><MaybeLink href="/logistics/charcoal-shipping-lines" class="font-semibold" data-source-component="dgreg-nondg-lines">{t.nonDg.shippingLinesLinkLabel} <span aria-hidden="true">→</span></MaybeLink></p>
+    </section>
+
+    <section id="cost" aria-labelledby="cost-h" class="mt-12 scroll-mt-24">
+      <h2 id="cost-h" class="text-2xl font-bold text-neutral-900">{t.cost.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.cost.body, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/logistics/rules" class="font-semibold" data-source-component="dgreg-cost-rules">{t.cost.rulesLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/logistics/import-to-usa" class="font-semibold" data-source-component="dgreg-cost-import">{t.cost.importLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/packaging" class="font-semibold" data-source-component="dgreg-cost-packaging">{t.cost.packagingLinkLabel}</MaybeLink>
+      </p>
+    </section>
+
+    <section aria-labelledby="dgreg-faq" class="mt-14">
+      <FAQSection id="dgreg-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="dgreg-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="dgreg-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`dgreg-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

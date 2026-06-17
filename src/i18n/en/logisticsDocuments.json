@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "titleTemplate": "Export Documents for Coconut Charcoal | {{port}}",
+    "descriptionTemplate": "The export-document pack for UN 1361 coconut charcoal from {{port}}: commercial invoice, B/L, COO, MSDS, DGD, vanning certificate, plus SHT & COA on request."
+  },
+  "breadcrumb": "Export documents",
+  "eyebrow": "Logistics",
+  "h1": "Export documents for coconut charcoal",
+  "heroSubtitle": "Every UN 1361 shipment travels with a document pack. We issue {{documentsStandardCount}} standard documents with each container and {{documentsAdditionalCount}} more on request.",
+  "hero": {
+    "ctaQuote": "Request the document list",
+    "ctaQuoteAria": "Request the document list on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about export documents"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar. It lists the export documents we issue for a coconut charcoal shipment, who issues each one, and what your customs broker uses it for.",
+    "hubLinkLabel": "Logistics overview"
+  },
+  "keyFacts": {
+    "heading": "Documents at a glance",
+    "definition": "What ships with your container, and how the originals reach you.",
+    "standardCountLabel": "Standard documents",
+    "standardCountTemplate": "{{documentsStandardCount}} with every shipment",
+    "additionalCountLabel": "On request",
+    "additionalCountTemplate": "{{documentsAdditionalCount}} paid add-ons",
+    "dgdLabel": "DG declaration",
+    "dgdValue": "Included on every DG shipment",
+    "deliveryLabel": "Delivery",
+    "deliveryValue": "Scans first; originals by courier",
+    "shtLabel": "SHT & COA",
+    "shtValue": "On request (paid add-on)"
+  },
+  "standardHeading": "Standard documents (every shipment)",
+  "additionalHeading": "On request (paid add-ons)",
+  "doc": {
+    "issuerLabel": "Issued by",
+    "providedLabel": "Provided",
+    "costLabel": "Lab cost",
+    "processingLabel": "Processing time",
+    "seeTemplate": "See {{label}}"
+  },
+  "glossaryAnchors": {
+    "bill-of-lading": { "anchor": "bill-of-lading", "label": "the bill of lading defined" },
+    "certificate-of-origin": { "anchor": "coo-form-a-fta", "label": "COO, Form A and FTA forms" },
+    "msds": { "anchor": "msds", "label": "the MSDS / SDS defined" },
+    "dangerous-goods-declaration": { "anchor": "dangerous-goods-declaration", "label": "the Dangerous Goods Declaration" },
+    "vanning-certificate": { "anchor": "vanning-certificate", "label": "the vanning certificate" },
+    "peb": { "anchor": "peb-npe", "label": "PEB and NPE export clearance" },
+    "self-heating-test": { "anchor": "self-heating-test-n4", "label": "the self-heating test" },
+    "certificate-of-analysis": { "anchor": "coa-roa", "label": "the COA / ROA defined" },
+    "fumigation-phytosanitary": { "anchor": "phytosanitary", "label": "the phytosanitary certificate" }
+  },
+  "dgdNote": {
+    "body": "The Dangerous Goods Declaration must carry the SP 978 data fields — production date, packing date, and the temperature on the day of packing.",
+    "linkLabel": "What SP 978 requires"
+  },
+  "shtNote": {
+    "body": "The Self-Heating Test report is supporting hazard evidence, not a route to non-DG status.",
+    "linkLabel": "The self-heating test after 2026"
+  },
+  "insuranceNote": {
+    "body": "A marine insurance certificate is buyer-arranged evidence of cover.",
+    "linkLabel": "Cargo protection & insurance"
+  },
+  "countryReq": {
+    "h2": "Documents your destination requires",
+    "body": "Destination requirements vary: GCC and African markets often add chamber-of-commerce and consular legalization; the EU and Australia require a phytosanitary certificate. US entries need ISF data from us up front.",
+    "rulesLinkLabel": "How the incoterm sets the document split",
+    "importLinkLabel": "US import document pack",
+    "un1361LinkLabel": "The DG paperwork context"
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What export documents do you provide?",
+        "a": "Every shipment travels with {{documentsStandardCount}} standard documents — the commercial invoice, packing list, bill of lading, certificate of origin, MSDS, dangerous goods declaration, container vanning certificate, and the Indonesian export declaration (PEB). A further {{documentsAdditionalCount}} are available on request as paid add-ons, including the Self-Heating Test report and a Certificate of Analysis."
+      },
+      {
+        "q": "Do you provide a Self-Heating Test report and a COA?",
+        "a": "Yes, both on request as paid lab add-ons. The SHT report is supporting hazard evidence for the dangerous-goods shipment (it no longer exempts the cargo from DG rules), and the COA independently verifies the burn specifications. Ask for the current lab cost and processing time at quotation."
+      },
+      {
+        "q": "Which documents does my country require?",
+        "a": "It depends on the destination. GCC and several African markets require chamber-of-commerce and consular legalization on top of the standard pack; the EU and Australia require a phytosanitary certificate; US entries require ISF data from us before the cargo loads. Tell us your destination and we will confirm the exact pack."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics", "label": "Logistics overview" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous goods" },
+      { "href": "/logistics/charcoal-dg-regulation", "label": "2026 charcoal shipping rules" },
+      { "href": "/logistics/rules", "label": "Shipping rules & incoterms" },
+      { "href": "/logistics/cargo-protection-and-insurance", "label": "Cargo protection & insurance" },
+      { "href": "/logistics/import-to-usa", "label": "Import to the USA" },
+      { "href": "/glossary", "label": "Glossary" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

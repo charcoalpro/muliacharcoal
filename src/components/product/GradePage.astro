@@ -33,11 +33,12 @@ import GradeDropTest from '~/components/product/grade/GradeDropTest.astro';
 import GradeLogistics from '~/components/product/grade/GradeLogistics.astro';
 import GradeDocuments from '~/components/product/grade/GradeDocuments.astro';
 import en from '~/i18n/en';
-import { company, hasFact, yearsInBusiness } from '~/config/company';
-import { fill, companyTokens } from '~/lib/interpolate';
+import { company, hasFact } from '~/config/company';
+import { fill } from '~/lib/interpolate';
 import { grades, type Grade } from '~/config/grades';
 import { gradesForSize, gradeHref } from '~/config/productRoutes';
 import { gradeCtas } from '~/lib/productCta';
+import { gradeTokens } from '~/lib/product/gradeTokens';
 import { productShapes } from '~/config/products';
 import type { ProductShape, ProductSize } from '~/config/products';
 import { gradePageSchema } from '~/lib/schema/productGradePage';
@@ -56,34 +57,7 @@ const { productName, slug, sampleHref, chatHref, tourHref } = gradeCtas(shape, s
 const path = `/products/${slug}`;
 const weightG = size.pcsPerKg ? Math.round(1000 / size.pcsPerKg) : undefined;
 
-const tokens = {
-  ...companyTokens(company),
-  grade: grade.name,
-  gradeLower: grade.name.toLowerCase(),
-  size: size.label,
-  shape: shape.shortName,
-  shapeLower: shape.shortName.toLowerCase(),
-  product: productName,
-  ash: grade.ash.display,
-  burnTime: grade.burnTime.display,
-  burnTemp: grade.burnTemp.display,
-  fixedCarbon: grade.fixedCarbon.display,
-  calorieValue: grade.calorieValue.display,
-  moisture: grade.moisture.display,
-  dropTest: grade.dropTest.display,
-  pcsPerKg: size.pcsPerKg ?? '—',
-  pcsPerBox: size.pcsPerKg ? size.pcsPerKg * 20 : '—',
-  weightG: weightG ?? '—',
-  reviewer: company.governance.reviewer.name,
-  reviewerRole: company.governance.reviewer.role,
-  years: yearsInBusiness(),
-  gradeCount: grades.length,
-  currency: company.commercial.currency,
-  fobLow: grade.fobRange?.low ?? '',
-  fobHigh: grade.fobRange?.high ?? '',
-  fobUnit: grade.fobRange?.unit ?? '',
-  innerPlasticMicron: company.packaging.primaryPlastic.thicknessMicrons ?? '',
-};
+const tokens = gradeTokens(shape, size, grade, productName);
 
 const pageTitle = fill(t.meta.titleTemplate, tokens);
 const pageDescription = fill(gt.metaDescriptionTemplate, tokens);
@@ -322,7 +296,7 @@ const linkP = 'mt-4 text-sm';
       </div>
       <p class={proseP}>{fill(t.pricing.body, tokens)}</p>
       <DataTable class="mt-6" headers={discountHeaders} rows={discountRows} striped />
-      <p class="mt-3 text-sm text-neutral-500">{fill(t.pricing.disclaimer, tokens)}</p>
+      <p class="mt-3 text-sm text-neutral-600">{fill(t.pricing.disclaimer, tokens)}</p>
     </section>
 
     <GradeLogistics shape={shape} size={size} grade={grade} tokens={tokens} />
@@ -442,7 +416,7 @@ const linkP = 'mt-4 text-sm';
 
       {otherSizes.length > 0 && (
         <div class="mt-6">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-500">{fill(t.related.otherSizesHeading, tokens)}</h3>
+          <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-600">{fill(t.related.otherSizesHeading, tokens)}</h3>
           <ul class="mt-2 flex flex-wrap gap-2" role="list">
             {otherSizes.map((z) => (
               <li>
@@ -461,7 +435,7 @@ const linkP = 'mt-4 text-sm';
       )}
 
       <div class="mt-6">
-        <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-500">{t.related.otherShapesHeading}</h3>
+        <h3 class="text-sm font-semibold uppercase tracking-wide text-neutral-600">{t.related.otherShapesHeading}</h3>
         <ul class="mt-2 flex flex-wrap gap-2" role="list">
           {siblingShapes.map((s) => (
             <li>
@@ -483,7 +457,7 @@ const linkP = 'mt-4 text-sm';
     <section id="request-a-quote" aria-labelledby="inquiry-heading" class="scroll-mt-24 border-t border-neutral-200 py-12 md:py-16">
       <h2 id="inquiry-heading" class={sectionH2}>{fill(t.inquiry.heading, tokens)}</h2>
       <p class={proseP}>{t.inquiry.whatToInclude}</p>
-      <p class="mt-2 text-sm text-neutral-500">{fill(t.inquiry.responseTime, tokens)}</p>
+      <p class="mt-2 text-sm text-neutral-600">{fill(t.inquiry.responseTime, tokens)}</p>
       <div class="mt-8">
         <InquiryForm prefill={{ productId: productOptionId[shape.key], sku: slug, note: fill(t.inquiry.heading, tokens) }} />
       </div>

@@ -9,8 +9,9 @@
  * vector and offers no SEO value.
  */
 
-import { company, getDirector } from '~/config/company';
-import { getSameAs, siteOrigin } from '~/lib/schema/organization';
+import { company, getDirector, hasFact } from '~/config/company';
+import { buildPostalAddress, getSameAs } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
 
 interface OpeningHoursSpec {
   '@type': 'OpeningHoursSpecification';
@@ -76,19 +77,16 @@ export const localBusinessSchema = {
   image: `${siteOrigin}${company.brandAssets.images.logo}`,
   telephone: company.phone.e164,
   email: company.email,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: company.address.street,
-    addressLocality: company.address.city,
-    addressRegion: company.address.region,
-    postalCode: company.address.postalCode,
-    addressCountry: company.address.countryCode,
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: company.address.latitude,
-    longitude: company.address.longitude,
-  },
+  address: buildPostalAddress(),
+  ...(hasFact(company.address.latitude) && hasFact(company.address.longitude)
+    ? {
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: company.address.latitude,
+          longitude: company.address.longitude,
+        },
+      }
+    : {}),
   openingHoursSpecification,
   contactPoint: contactPoints,
   vatID: company.registration.taxId,

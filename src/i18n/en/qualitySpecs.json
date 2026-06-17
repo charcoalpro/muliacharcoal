@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "titleTemplate": "Charcoal Specifications Explained",
+    "descriptionTemplate": "What each coconut charcoal spec means and what good looks like — ash, fixed carbon, calorific value, and moisture — with a three-tier ash benchmark."
+  },
+  "breadcrumb": "Specifications explained",
+  "eyebrow": "Quality",
+  "h1": "Shisha Charcoal Specifications Explained",
+  "heroSubtitle": "Every number on a spec sheet answers a buyer's question: is this good? This page defines each parameter of {{brand}}'s coconut shell shisha charcoal, says which direction is better, and shows what a strong value looks like.",
+  "hero": {
+    "ctaQuote": "Request full specifications",
+    "ctaQuoteAria": "Request full specifications by WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about specifications"
+  },
+  "intro": {
+    "p1": "This page sits under {{brand}}'s",
+    "hubLinkLabel": "shisha charcoal quality standards",
+    "p1cont": "pillar. It owns what each parameter means and what a good value is; the laboratory procedure behind each figure is covered on the testing methods page, linked at each parameter.",
+    "sampleNote": "These are specs you can test yourself — ",
+    "sampleLinkLabel": "request a sample"
+  },
+  "keyFacts": {
+    "heading": "The parameters, defined below",
+    "definition": "A compact echo of the typical values. Each is defined, given a direction-of-good, and benchmarked below."
+  },
+  "tierA": {
+    "heading": "Laboratory-measured parameters (Tier A)",
+    "intro": "These five are determined in a laboratory by a defined test method."
+  },
+  "tierB": {
+    "heading": "Observed performance indicators (Tier B)",
+    "intro": "These describe how the charcoal behaves and looks. They are read under defined conditions, not measured to a laboratory standard."
+  },
+  "params": {
+    "ash": {
+      "body": "Ash content is the percentage of non-combustible mineral residue left after charcoal fully burns. Lower is better: ash does not produce heat, so a high-ash coal leaves more tray residue, chokes airflow, and can dull a session.",
+      "goodValue": "{{brand}}'s coconut shell shisha charcoal has a typical ash content of {{ashTypical}}%, with a target of {{ashTarget}}% or lower.",
+      "frameworkRefPre": "What counts as a \"good\" ash content is best answered as a graded framework, not a single number — see",
+      "frameworkRefLink": "the three-tier ash grading framework",
+      "frameworkRefPost": ", where {{brand}}'s flagship grade sits in the {{factoryBand}} band.",
+      "measureLinkLabel": "How ash content is measured"
+    },
+    "fixedCarbon": {
+      "body": "Fixed carbon is the share of solid combustible carbon that remains after moisture and volatile matter are driven off — the fuel that actually delivers sustained, even heat. Higher is better, and it tracks closely with burn time and heat output.",
+      "goodValue": "{{brand}}'s charcoal has a typical fixed carbon of {{fixedCarbonTypical}}%, with a target of {{fixedCarbonTarget}}% or higher.",
+      "measureLinkLabel": "How fixed carbon is measured"
+    },
+    "moisture": {
+      "body": "Moisture content is the percentage of water held in the charcoal. Lower is better: damp coal is slow to light, can smoke or spit, wastes shipped weight, and is more prone to mold in transit.",
+      "goodValue": "{{brand}}'s charcoal has a typical moisture content of {{moistureTypical}}%, with a target of {{moistureTarget}}% or lower.",
+      "measureLinkLabel": "How moisture is measured"
+    },
+    "volatileMatter": {
+      "body": "Volatile matter is the portion that vaporizes and burns off as gas when the charcoal is heated, rather than burning as solid carbon. For shisha, lower is better — high volatile matter is associated with more smoke and off-odors that can carry into the session.",
+      "goodValue": "{{brand}}'s charcoal has a typical volatile matter of {{volatileTypical}}%, with a target of {{volatileTarget}}% or lower.",
+      "measureLinkLabel": "How volatile matter is measured"
+    },
+    "calorific": {
+      "body": "Calorific value is the gross heat released per kilogram when the charcoal is fully combusted, expressed in kcal/kg. Higher means more heat per coal — it underpins how quickly a bowl reaches temperature and how steadily it holds.",
+      "goodValue": "{{brand}}'s charcoal has a typical calorific value of {{calorificTypical}} kcal/kg, with a target of {{calorificTarget}} kcal/kg or higher.",
+      "measureLinkLabel": "How calorific value is measured"
+    },
+    "burnTime": {
+      "body": "Burn time is how long a single coal sustains usable heat in a session. It is an observed performance indicator, not a standardized laboratory measurement, so it varies with cube size, heat management, and bowl setup.",
+      "goodValue": "{{brand}}'s cubes typically deliver around {{burnTimeTypical}} minutes per session, with a target of at least {{burnTimeTarget}} minutes.",
+      "measureLinkLabel": "How burn time is observed"
+    },
+    "ashColor": {
+      "body": "Ash color is the color of the residue left after a coal burns out — a visual indicator of mineral content and how completely the carbon combusted. A light, uniform ash generally signals low mineral content and a clean burn; dark or sooty ash signals the opposite.",
+      "goodValue": "{{brand}}'s charcoal burns to a {{ashColor}} ash.",
+      "measureLinkLabel": "How ash color is observed"
+    }
+  },
+  "readingCoa": {
+    "heading": "Reading a Certificate of Analysis",
+    "body": "When the Certificate of Analysis for your batch arrives, read it line by line against the parameters above: ash, moisture, and volatile matter should sit at or below their target bounds; fixed carbon and calorific value at or above theirs. A figure outside a target bound is your cue to ask about the batch before shipment.",
+    "definitionLinkIntro": "For what a Certificate of Analysis is and who issues it, see",
+    "definitionLinkLabel": "what a Certificate of Analysis contains",
+    "procedureLinkIntro": "For the procedures that produce each figure, see",
+    "procedureLinkLabel": "the testing methods behind the values"
+  },
+  "faq": {
+    "heading": "Specifications — frequently asked questions",
+    "items": [
+      {
+        "q": "What is a good ash content for shisha charcoal?",
+        "a": "Lower ash is better, because ash does not burn. {{brand}} grades its coconut shell charcoal in three ash tiers: Platinum (1.6–1.9%), Super Premium (1.9–2.3%), and Premium (2.3–2.5+%). Our flagship grade sits in the Platinum band with a typical ash content of {{ashTypical}}%. This three-tier framework — the factory's own rubric, not an industry standard — is the clearest way to judge \"good\"."
+      },
+      {
+        "q": "What does low ash mean?",
+        "a": "Low ash means a higher share of the coal is combustible carbon and less is non-combustible mineral. In practice that means a cleaner burn, less residue in the tray, better airflow through the bowl, and lighter, more uniform ash. {{brand}}'s typical ash content is {{ashTypical}}%."
+      },
+      {
+        "q": "What is calorific value (kcal/kg)?",
+        "a": "Calorific value is the gross heat released per kilogram of charcoal when fully combusted, measured in kilocalories per kilogram. Higher means more heat per coal. {{brand}}'s coconut shell charcoal has a typical calorific value of {{calorificTypical}} kcal/kg."
+      },
+      {
+        "q": "What burn time should I expect?",
+        "a": "{{brand}}'s cubes typically sustain around {{burnTimeTypical}} minutes of usable heat per session, targeting at least {{burnTimeTarget}} minutes. Burn time is observed under defined conditions rather than measured to a lab standard, so real-world results depend on cube size, heat management, and bowl setup."
+      },
+      {
+        "q": "What do the numbers on a COA mean?",
+        "a": "Read each measured value against its target: ash, moisture, and volatile matter should sit at or below their bound; fixed carbon and calorific value at or above. A figure outside its target is your cue to ask about the batch before shipment. The certifications page explains what a Certificate of Analysis is and who issues it."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/quality", "label": "Shisha charcoal quality standards" },
+      { "href": "/quality/testing-methods", "label": "How each parameter is tested" },
+      { "href": "/quality/certifications", "label": "Certifications and test reports" },
+      { "href": "/products", "label": "The coconut charcoal product range" },
+      { "href": "/samples", "label": "Request a sample to test the specs" },
+      { "href": "/glossary", "label": "Charcoal glossary" },
+      { "href": "/contact", "label": "Contact the export desk" }
+    ]
+  }
+}
