@@ -22,7 +22,8 @@
   },
   "cta": {
     "whatsapp": "WhatsApp us",
-    "whatsappAria": "Chat with us on WhatsApp",
+    "whatsappAria": "WhatsApp us (opens in new tab)",
+    "newTab": "(opens in new tab)",
     "inquire": "Request a quote",
     "requestSample": "Request a sample",
     "viewProducts": "View products",

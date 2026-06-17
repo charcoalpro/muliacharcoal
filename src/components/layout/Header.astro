@@ -3,7 +3,6 @@ import en from '~/i18n/en';
 import Logo from '~/components/layout/Logo.astro';
 import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
 import OnlineIndicator from '~/components/layout/OnlineIndicator.astro';
-import { company } from '~/config/company';
 import { headerNav } from '~/config/nav';
 
 // Render only links whose destination exists today. When `/products`
@@ -18,7 +17,6 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
     <a
       href="/"
       class="rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
-      aria-label={company.brand}
     >
       <Logo />
     </a>

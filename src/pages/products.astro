@@ -221,7 +221,7 @@ const schema = collectionPageSchema({
     <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
       {heroTrust.map((item) => (
         <div class="border-s-2 border-brand-accent ps-3">
-          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
           <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
         </div>
       ))}
@@ -257,7 +257,7 @@ const schema = collectionPageSchema({
         <dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-3">
           {atGlance.map((item) => (
             <div class="border-t border-brand-primary/15 pt-3">
-              <dt class="text-xs font-medium uppercase tracking-wide text-neutral-500">{item.label}</dt>
+              <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
               <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
             </div>
           ))}
@@ -269,7 +269,7 @@ const schema = collectionPageSchema({
   {/* On-page jump navigation — pure HTML, no JS. */}
   <nav aria-labelledby="products-toc-heading" class="border-y border-neutral-200 bg-neutral-50">
     <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
-      <h2 id="products-toc-heading" class="text-sm font-semibold uppercase tracking-wide text-neutral-500">
+      <h2 id="products-toc-heading" class="text-sm font-semibold uppercase tracking-wide text-neutral-600">
         {t.toc.heading}
       </h2>
       <ul class="mt-3 flex flex-wrap gap-2">
@@ -310,7 +310,7 @@ const schema = collectionPageSchema({
                   <p class="mt-2 text-sm leading-relaxed text-neutral-600">{shape.description}</p>
                 </div>
                 <div>
-                  <p class="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+                  <p class="text-xs font-semibold uppercase tracking-wide text-neutral-600">
                     {t.shapes.sizesHeading}
                   </p>
                   <ul class="mt-2 space-y-1.5 text-sm" role="list">
@@ -323,7 +323,7 @@ const schema = collectionPageSchema({
                         >
                           {shape.name} {size.label}
                         </MaybeLink>
-                        <span class="shrink-0 text-neutral-500">
+                        <span class="shrink-0 text-neutral-600">
                           {size.pcsPerKg ? `≈ ${size.pcsPerKg} ${t.shapes.pcsLabel}` : '—'}
                         </span>
                       </li>

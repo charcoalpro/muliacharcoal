@@ -17,10 +17,7 @@ interface Props {
 const { showWordmark = true, class: className } = Astro.props;
 const brand = company.brandAssets.colors;
 ---
-<span
-  class:list={['inline-flex items-center gap-2', className]}
-  aria-label={company.brand}
->
+<span class:list={['inline-flex items-center gap-2', className]}>
   <svg
     aria-hidden="true"
     viewBox="0 0 64 64"
