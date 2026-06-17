@@ -21,6 +21,7 @@ import careers from './careers.json';
 import glossary from './glossary.json';
 import faq from './faq.json';
 import products from './products.json';
+import samples from './samples.json';
 import packaging from './packaging.json';
 import packagingMasterBox from './packagingMasterBox.json';
 import packagingInnerBox from './packagingInnerBox.json';
@@ -55,6 +56,7 @@ const en = {
   glossary,
   faq,
   products,
+  samples,
   packaging,
   packagingMasterBox,
   packagingInnerBox,

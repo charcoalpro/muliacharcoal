@@ -1,0 +1,63 @@
+---
+/**
+ * SampleVideo — native, self-hosted explainer video (build prompt §8).
+ *
+ * Deliberately NOT the YouTube `VideoFacade` used elsewhere: this page's
+ * spec requires a self-hosted `<video>` with no iframe, no embed, and no
+ * player library (the real file later lives on Cloudflare R2/Stream, off
+ * the static bundle). Self-hosted, same-origin media is already allowed by
+ * the strict CSP (`default-src 'self'` covers `media-src`).
+ *
+ * Performance: `preload="none"` + a `poster` means only the poster paints
+ * on load — the video bytes never threaten LCP or the 500 KB budget; they
+ * download only when the user presses play. No `autoplay`, no `loop`. A
+ * fixed 16:9 box reserves space so CLS stays 0 whether the real file is in
+ * yet or not.
+ *
+ * Graceful degradation: while the file/poster are pending, the box renders
+ * `<ImagePlaceholder>` at 16:9 (no fake play affordance — never imply a
+ * video that isn't there). The crawlable text summary lives on the page
+ * NEXT TO this component (the GEO surface), not inside it.
+ *
+ * A11y: a `<track kind="captions">` slot is reserved; pass `captionsSrc`
+ * once a real .vtt exists. Until then the text summary carries the content.
+ */
+import type { ImageMetadata } from 'astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+
+interface Props {
+  /** Public path to the self-hosted file (e.g. "/media/sample-explainer.mp4"). Omit while pending. */
+  src?: string;
+  /** Local poster asset (16:9). Omit while pending → placeholder box. */
+  posterSrc?: ImageMetadata;
+  /** Poster / placeholder alt text (i18n). */
+  posterAlt: string;
+  /** Accessible label on the <video> (i18n). */
+  label: string;
+  /** Public path to a captions .vtt; omit until real captions exist. */
+  captionsSrc?: string;
+  /** Fallback text shown if the browser can't play the file (i18n). */
+  fallbackText?: string;
+  class?: string;
+}
+
+const { src, posterSrc, posterAlt, label, captionsSrc, fallbackText, class: className } = Astro.props;
+---
+{src ? (
+  <div class:list={['overflow-hidden rounded-xl border border-neutral-200 bg-neutral-900', className]}>
+    <video
+      class="aspect-video h-full w-full"
+      controls
+      playsinline
+      preload="none"
+      poster={posterSrc?.src}
+      aria-label={label}
+    >
+      <source src={src} type="video/mp4" />
+      {captionsSrc && <track kind="captions" src={captionsSrc} srclang="en" label="English" default />}
+      {fallbackText && <p class="p-4 text-sm text-white">{fallbackText}</p>}
+    </video>
+  </div>
+) : (
+  <ImagePlaceholder label={posterAlt} ratio="16/9" class={className} />
+)}

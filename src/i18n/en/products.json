@@ -176,6 +176,7 @@
       { "href": "/factory/raw-materials", "label": "Raw materials & sourcing" },
       { "href": "/packaging", "label": "Packaging & OEM options" },
       { "href": "/logistics", "label": "Logistics & shipping" },
+      { "href": "/samples", "label": "Request free samples" },
       { "href": "/guide/coconut-vs-bamboo-vs-wood-charcoal", "label": "Coconut vs. bamboo vs. wood charcoal" }
     ]
   }

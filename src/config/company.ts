@@ -548,7 +548,7 @@ export interface QualityConfig {
   editorial: { datePublished: string; dateModified: string };
 }
 
-const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality'> & {
+const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality' | 'samples'> & {
   packaging: PackagingConfig;
   logistics: LogisticsConfig;
   quality: QualityConfig;
@@ -596,6 +596,19 @@ const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 
     iban: string | null;
   };
   phones: Array<{ label: string; display: string; e164: string }>;
+  // Indicative per-destination courier costs for free samples. Every
+  // `priceUsd` starts `null` ("Available on request") and widens here so
+  // the owner can fill numbers in `/src/data/company.json` with no type
+  // error. UN number / IMDG class are NOT restated under `samples` — the
+  // /samples page reads them from `certifications.imdg` (single source).
+  samples: Omit<typeof rawCompanyData.samples, 'indicativeCourierCostUsd'> & {
+    indicativeCourierCostUsd: Array<{
+      country: string;
+      label: string;
+      forWeightKg: number;
+      priceUsd: number | null;
+    }>;
+  };
 };
 
 // The four list-of-objects JSON files are object-wrapped (e.g.
@@ -645,16 +658,28 @@ export function waLink(text: string = company.whatsapp.defaultMessage): string {
  * @param subject Optional subject line. URL-encoded into the query string.
  *                When omitted the bare `mailto:` form is returned so the
  *                user's mail client does not prefill an empty subject.
- * @returns       `mailto:export@charcoal.pro` or
- *                `mailto:export@charcoal.pro?subject=…`.
+ * @param body    Optional message body, URL-encoded into the `body` param.
+ *                Used by the /samples dual-channel CTA to prefill a
+ *                fill-in-the-blanks template (company / destination /
+ *                shape(s) / quantity) so the buyer's reply carries the
+ *                fields the WhatsApp path can't capture.
+ * @returns       `mailto:export@muliacharcoal.com`, optionally with
+ *                `?subject=…` and/or `&body=…`.
  *
  * @example
  *   <a href={mailto()}>Email us</a>
  *   <a href={mailto('Quote: 20ft container to Jeddah')}>Request a quote</a>
+ *   <a href={mailto('Free sample request', 'Company:\nDestination:')}>…</a>
  */
-export function mailto(subject?: string): string {
-  if (!subject) return `mailto:${company.email}`;
-  return `mailto:${company.email}?subject=${encodeURIComponent(subject)}`;
+export function mailto(subject?: string, body?: string): string {
+  const params = new URLSearchParams();
+  if (subject) params.set('subject', subject);
+  if (body) params.set('body', body);
+  const query = params.toString();
+  // URLSearchParams encodes spaces as "+"; mail clients want %20 in the
+  // body/subject, so normalise.
+  const normalised = query.replace(/\+/g, '%20');
+  return normalised ? `mailto:${company.email}?${normalised}` : `mailto:${company.email}`;
 }
 
 /**

@@ -304,6 +304,33 @@ export function qualityTokens(company: Company) {
 }
 
 /**
+ * Samples-page token dictionary. Adds only the sample-specific scalars the
+ * `/samples` page needs, on top of `companyTokens()` (which already exposes
+ * `sampleWeightG`, `sampleCarrier`, `sampleTransitChannel`,
+ * `sampleTransitDays`, `countriesExportedCount`, `responseHours`,
+ * `officeHours`, `moqLabel`, `portLabel`, `unNumber`, `imdgLabel`, …). Reads
+ * `company.samples.*` (the canonical home extended for the /samples build)
+ * so no fact is duplicated. Per-destination courier costs and the gallery
+ * are rendered inline on the page, not via tokens.
+ */
+export function samplesTokens(company: Company) {
+  const s = company.samples;
+  return {
+    sampleTypicalKg: s.typicalSizeKg,
+    sampleMaxKg: s.maxSizeKg,
+    sampleComparisonMax: s.maxComparisonItems,
+    /** Free weight expressed in kg ("1 kg") for prose; companyTokens keeps the grams form. */
+    sampleTypicalKgLabel: `${s.typicalSizeKg} kg`,
+    /** "COA, SHT and MSDS" — Oxford-joined document list. */
+    sampleDocsList:
+      s.documentsWithSample.length <= 1
+        ? s.documentsWithSample.join('')
+        : `${s.documentsWithSample.slice(0, -1).join(', ')} and ${s.documentsWithSample[s.documentsWithSample.length - 1]}`,
+    sampleDocsCount: s.documentsWithSample.length,
+  };
+}
+
+/**
  * The canonical token vocabulary returned by `companyTokens()`. Inferred from
  * the function's return literal so adding or renaming a token in one place
  * automatically updates the type — call sites referencing a removed token

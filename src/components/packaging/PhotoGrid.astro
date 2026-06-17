@@ -27,14 +27,21 @@ interface Props {
   photos: Photo[];
   /** Max columns on large screens. */
   columns?: 2 | 3;
+  /**
+   * Columns below `sm`. Defaults to 1 (the packaging-cluster default —
+   * single-column stack). Pass 2 for a 2-up mobile grid (e.g. the
+   * /samples gallery, which must never render 8 photos stacked — §8).
+   */
+  mobileCols?: 1 | 2;
   ratio?: Ratio;
   class?: string;
 }
 
-const { photos, columns = 3, ratio = '4/3', class: className } = Astro.props;
+const { photos, columns = 3, mobileCols = 1, ratio = '4/3', class: className } = Astro.props;
 
-const gridClass =
-  columns === 2 ? 'grid-cols-1 gap-6 sm:grid-cols-2' : 'grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3';
+const mobileBase = mobileCols === 2 ? 'grid-cols-2' : 'grid-cols-1';
+const upBase = columns === 2 ? 'sm:grid-cols-2' : 'sm:grid-cols-2 lg:grid-cols-3';
+const gridClass = `${mobileBase} gap-6 ${upBase}`;
 
 const sizes =
   columns === 2

@@ -53,3 +53,49 @@ export function videoObjectSchema(input: VideoObjectInput) {
     duration: input.durationISO,
   };
 }
+
+export interface SelfHostedVideoInput {
+  /** Stable kebab-case id → `${siteOrigin}/#video-${id}`. */
+  id: string;
+  name: string;
+  description: string;
+  /** Public path or absolute URL to the self-hosted file (e.g. /media/…mp4). */
+  contentUrl: string;
+  /** Local poster path or absolute URL. */
+  thumbnailUrl: string;
+  /** ISO 8601 date ("YYYY-MM-DD"). */
+  uploadDate: string;
+  /** ISO 8601 duration (e.g. "PT75S"). */
+  durationISO: string;
+}
+
+/**
+ * VideoObject for a SELF-HOSTED video (no YouTube). Used by the /samples
+ * explainer, which ships as a native `<video>` rather than a YouTube
+ * facade. Same valid-or-omit rule as `videoObjectSchema`: returns `null`
+ * until the real file, poster, upload date and duration all exist, so a
+ * placeholder video never emits a broken VideoObject node.
+ */
+export function selfHostedVideoObjectSchema(input: SelfHostedVideoInput) {
+  if (
+    !hasFact(input.contentUrl) ||
+    !hasFact(input.thumbnailUrl) ||
+    !hasFact(input.uploadDate) ||
+    !hasFact(input.durationISO)
+  ) {
+    return null;
+  }
+  const abs = (p: string) =>
+    p.startsWith('http') ? p : `${siteOrigin}${p.startsWith('/') ? p : `/${p}`}`;
+
+  return {
+    '@type': 'VideoObject' as const,
+    '@id': `${siteOrigin}/#video-${input.id}`,
+    name: input.name,
+    description: input.description,
+    thumbnailUrl: abs(input.thumbnailUrl),
+    uploadDate: input.uploadDate,
+    contentUrl: abs(input.contentUrl),
+    duration: input.durationISO,
+  };
+}
