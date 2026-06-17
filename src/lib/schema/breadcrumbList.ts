@@ -7,12 +7,13 @@
  * search engines treat as the canonical entry point.
  */
 
-import { siteOrigin } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
 
 export interface BreadcrumbItem {
   name: string;
-  /** Root-relative path (e.g. '/', '/products'). */
-  path: string;
+  /** Root-relative path (e.g. '/', '/products'). Omit for the current page
+   *  (the last crumb), which renders without a link / `item` URL. */
+  path?: string;
 }
 
 export function breadcrumbListSchema(items: BreadcrumbItem[]) {
@@ -22,10 +23,15 @@ export function breadcrumbListSchema(items: BreadcrumbItem[]) {
       '@type': 'ListItem',
       position: i + 1,
       name: item.name,
-      item:
-        item.path === '/'
-          ? siteOrigin
-          : `${siteOrigin}${item.path.startsWith('/') ? item.path : `/${item.path}`}`,
+      // Omit `item` for crumbs without a path (the current page).
+      ...(item.path
+        ? {
+            item:
+              item.path === '/'
+                ? siteOrigin
+                : `${siteOrigin}${item.path.startsWith('/') ? item.path : `/${item.path}`}`,
+          }
+        : {}),
     })),
   };
 }
