@@ -10,6 +10,7 @@
  * Facts come from config via `tokens`; prose from `en.productGrade`.
  */
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import type { GradeTokens } from '~/lib/product/gradeTokens';
 import YouTubeLite from '~/components/content/YouTubeLite.astro';
 import Button from '~/components/cta/Button.astro';
 import en from '~/i18n/en';
@@ -23,7 +24,7 @@ interface Props {
   shape: ProductShape;
   size: ProductSize;
   grade: Grade;
-  tokens: Record<string, string | number>;
+  tokens: GradeTokens;
 }
 const { shape, size, grade, tokens } = Astro.props;
 

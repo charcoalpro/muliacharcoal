@@ -33,11 +33,12 @@ import GradeDropTest from '~/components/product/grade/GradeDropTest.astro';
 import GradeLogistics from '~/components/product/grade/GradeLogistics.astro';
 import GradeDocuments from '~/components/product/grade/GradeDocuments.astro';
 import en from '~/i18n/en';
-import { company, hasFact, yearsInBusiness } from '~/config/company';
-import { fill, companyTokens } from '~/lib/interpolate';
+import { company, hasFact } from '~/config/company';
+import { fill } from '~/lib/interpolate';
 import { grades, type Grade } from '~/config/grades';
 import { gradesForSize, gradeHref } from '~/config/productRoutes';
 import { gradeCtas } from '~/lib/productCta';
+import { gradeTokens } from '~/lib/product/gradeTokens';
 import { productShapes } from '~/config/products';
 import type { ProductShape, ProductSize } from '~/config/products';
 import { gradePageSchema } from '~/lib/schema/productGradePage';
@@ -56,34 +57,7 @@ const { productName, slug, sampleHref, chatHref, tourHref } = gradeCtas(shape, s
 const path = `/products/${slug}`;
 const weightG = size.pcsPerKg ? Math.round(1000 / size.pcsPerKg) : undefined;
 
-const tokens = {
-  ...companyTokens(company),
-  grade: grade.name,
-  gradeLower: grade.name.toLowerCase(),
-  size: size.label,
-  shape: shape.shortName,
-  shapeLower: shape.shortName.toLowerCase(),
-  product: productName,
-  ash: grade.ash.display,
-  burnTime: grade.burnTime.display,
-  burnTemp: grade.burnTemp.display,
-  fixedCarbon: grade.fixedCarbon.display,
-  calorieValue: grade.calorieValue.display,
-  moisture: grade.moisture.display,
-  dropTest: grade.dropTest.display,
-  pcsPerKg: size.pcsPerKg ?? '—',
-  pcsPerBox: size.pcsPerKg ? size.pcsPerKg * 20 : '—',
-  weightG: weightG ?? '—',
-  reviewer: company.governance.reviewer.name,
-  reviewerRole: company.governance.reviewer.role,
-  years: yearsInBusiness(),
-  gradeCount: grades.length,
-  currency: company.commercial.currency,
-  fobLow: grade.fobRange?.low ?? '',
-  fobHigh: grade.fobRange?.high ?? '',
-  fobUnit: grade.fobRange?.unit ?? '',
-  innerPlasticMicron: company.packaging.primaryPlastic.thicknessMicrons ?? '',
-};
+const tokens = gradeTokens(shape, size, grade, productName);
 
 const pageTitle = fill(t.meta.titleTemplate, tokens);
 const pageDescription = fill(gt.metaDescriptionTemplate, tokens);

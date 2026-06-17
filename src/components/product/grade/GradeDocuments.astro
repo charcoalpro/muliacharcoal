@@ -8,13 +8,14 @@
  * certifications cluster page.
  */
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import type { GradeTokens } from '~/lib/product/gradeTokens';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import en from '~/i18n/en';
 import { company } from '~/config/company';
 import { fill } from '~/lib/interpolate';
 
 interface Props {
-  tokens: Record<string, string | number>;
+  tokens: GradeTokens;
 }
 const { tokens } = Astro.props;
 
