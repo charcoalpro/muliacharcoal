@@ -321,7 +321,7 @@ const schema = collectionPageSchema({
                           data-source-component={`products-sku-${size.slug}`}
                           aria-label={fill(t.shapes.skuAriaTemplate, { name: `${shape.name} ${size.label}` })}
                         >
-                          {shape.name} {size.label}
+                          {`${shape.name} ${size.label}`}
                         </MaybeLink>
                         <span class="shrink-0 text-neutral-600">
                           {size.pcsPerKg ? `≈ ${size.pcsPerKg} ${t.shapes.pcsLabel}` : '—'}
@@ -435,7 +435,7 @@ const schema = collectionPageSchema({
               <li>
                 <span
                   data-coming-soon
-                  class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-400"
+                  class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-500"
                 >
                   <span>{fill(t.grades.docs.labReportPendingTitle, { grade: g.name })}</span>
                   <span aria-hidden="true">·</span>
@@ -445,7 +445,7 @@ const schema = collectionPageSchema({
             <li>
               <span
                 data-coming-soon
-                class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-400"
+                class="flex items-center justify-between gap-3 rounded-xl border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm text-neutral-500"
               >
                 <span>{t.grades.docs.msdsPendingTitle}</span>
                 <span aria-hidden="true">·</span>
@@ -545,7 +545,7 @@ const schema = collectionPageSchema({
                 <MaybeLink href={m.href} class="font-semibold" data-source-component={`products-market-${m.key}`}>
                   {m.label}
                 </MaybeLink>
-                <span class="text-neutral-400"> — </span>{m.note}
+                <span class="text-neutral-500"> — </span>{m.note}
               </li>
             ))}
           </ul>
