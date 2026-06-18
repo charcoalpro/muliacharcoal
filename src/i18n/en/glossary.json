@@ -299,7 +299,7 @@
       "slug": "floor-stuffing-vs-palletized",
       "term": "Floor-stuffing vs palletized",
       "cluster": "packaging",
-      "definitionTemplate": "Floor-stuffing is loading master boxes directly onto the container floor by hand, maximizing the cubic capacity (≈ 18 tons in a 20ft) but requiring manual unloading at destination. Palletized loading places master boxes on heat-treated wooden pallets compliant with ISPM-15, reducing per-container weight (≈ 16 tons in a 20ft) but enabling forklift handling. We offer both.",
+      "definitionTemplate": "Floor-stuffing is loading master boxes directly onto the container floor by hand, maximizing the cubic capacity (≈ {{containerFloorTons}} tons in a 20ft) but requiring manual unloading at destination. Palletized loading places master boxes on heat-treated wooden pallets compliant with ISPM-15, reducing per-container weight (≈ {{containerPalletizedTons}} tons in a 20ft) but enabling forklift handling. We offer both.",
       "see": { "href": "/logistics/rules", "label": "Container loading options" }
     },
     {
@@ -509,7 +509,7 @@
       "term": "PPJK (Customs Broker)",
       "termCode": "PPJK",
       "cluster": "indonesia",
-      "definitionTemplate": "PPJK (Pengusaha Pengurusan Jasa Kepabeanan) is the licensed Indonesian customs broker who files the PEB on the exporter's behalf and shepherds the consignment through Customs at Tanjung Emas ({{port}}) or the alternate port. We retain a licensed PPJK; the broker's reference appears on the bill of lading."
+      "definitionTemplate": "PPJK (Pengusaha Pengurusan Jasa Kepabeanan) is the licensed Indonesian customs broker who files the PEB on the exporter's behalf and shepherds the consignment through Customs at {{portFullName}} ({{port}}) or the alternate port. We retain a licensed PPJK; the broker's reference appears on the bill of lading."
     },
     {
       "slug": "halal-mui-bpjph",
@@ -707,7 +707,7 @@
       },
       {
         "q": "What does FOB {{port}} include and exclude?",
-        "a": "Our FOB {{port}} price includes origin trucking from the factory, Indonesian customs export clearance, container vanning, port terminal handling, and a vanning certificate. It excludes ocean freight, marine insurance, destination port charges, destination customs clearance, and destination duties or VAT — all of which the buyer or buyer's broker arranges separately. Risk transfers to the buyer once the cargo is loaded on board at Tanjung Emas."
+        "a": "Our FOB {{port}} price includes origin trucking from the factory, Indonesian customs export clearance, container vanning, port terminal handling, and a vanning certificate. It excludes ocean freight, marine insurance, destination port charges, destination customs clearance, and destination duties or VAT — all of which the buyer or buyer's broker arranges separately. Risk transfers to the buyer once the cargo is loaded on board at {{portFullName}}."
       },
       {
         "q": "Coconut vs bamboo vs wood charcoal — which lasts longer in a shisha bowl?",

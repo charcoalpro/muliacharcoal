@@ -1,7 +1,7 @@
 {
   "meta": {
-    "title": "Contact PT Coco Reina Global Charcoal Indonesia — Coconut Shisha Charcoal Factory",
-    "description": "Contact our coconut shell charcoal briquette factory in Semarang, Indonesia. WhatsApp, phone, email, WeChat, Telegram, video call. Sales team, factory address, bank details, holidays."
+    "title": "Contact {{legalName}} — Coconut Shisha Charcoal Factory",
+    "description": "Contact our coconut shell charcoal briquette factory in {{city}}, {{country}}. WhatsApp, phone, email, WeChat, Telegram, video call. Sales team, factory address, bank details, holidays."
   },
   "breadcrumb": "Contact",
   "hero": {
@@ -149,7 +149,7 @@
   },
   "map": {
     "heading": "Factory location map",
-    "iframeTitle": "Map showing PT Coco Reina Global Charcoal Indonesia factory in Semarang",
+    "iframeTitle": "Map showing {{legalName}} factory in {{city}}",
     "openInGoogleMaps": "Open in Google Maps",
     "captionTemplate": "{{addressShort}} — exact pin pending GPS confirmation."
   },

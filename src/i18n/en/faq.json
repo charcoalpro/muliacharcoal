@@ -34,7 +34,7 @@
     "items": [
       {
         "q": "Which port do you ship from, and how long is transit?",
-        "summary": "We load FOB {{port}} (Tanjung Emas, IDSRG); indicative ocean transit runs by route, with the full per-market table on the logistics hub.",
+        "summary": "We load FOB {{port}} ({{portFullName}}, {{portUnlocode}}); indicative ocean transit runs by route, with the full per-market table on the logistics hub.",
         "href": "/logistics#transit"
       },
       {
@@ -105,7 +105,7 @@
         {
           "id": "price-basis",
           "q": "On what basis are your prices quoted?",
-          "a": "Prices are quoted FOB {{port}}, {{country}}, in USD per metric ton. FOB ({{port}}) means we deliver to the rail of the vessel at Tanjung Emas: trucking to port, customs export clearance, IMDG documentation, vanning, and loading are on our side; ocean freight, insurance, destination clearance, and import duties are on yours. We can issue CIF or DAP quotes on request when your forwarder cannot book the freight leg. Detail at /glossary#fob."
+          "a": "Prices are quoted FOB {{port}}, {{country}}, in USD per metric ton. FOB ({{port}}) means we deliver to the rail of the vessel at {{portFullName}}: trucking to port, customs export clearance, IMDG documentation, vanning, and loading are on our side; ocean freight, insurance, destination clearance, and import duties are on yours. We can issue CIF or DAP quotes on request when your forwarder cannot book the freight leg. Detail at /glossary#fob."
         }
       ]
     },

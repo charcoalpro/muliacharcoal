@@ -124,6 +124,18 @@ export function companyTokens(company: Company) {
     containerType: company.commercial.moq.containerType,
     port: company.commercial.portOfLoading.name,
     portLabel: portOfLoadingLabel(),
+    // Port full name / UN-LOCODE — promoted here from logisticsTokens() so
+    // cross-cocoon pages (/faq, /, /glossary) can reference the official
+    // port facts instead of hardcoding "Tanjung Emas"/"IDSRG" literals.
+    portFullName: company.commercial.portOfLoading.fullName,
+    portUnlocode: company.commercial.portOfLoading.unLocode,
+    portWithCode: `${company.commercial.portOfLoading.name} (${company.commercial.portOfLoading.unLocode})`,
+    // 20ft net payload, floor-loaded vs palletized (ISPM-15 pallets cut
+    // capacity). Both derive from commercial.containerCapacity (SSoT).
+    containerFloorTons: Math.round(company.commercial.containerCapacity.ft20.fullKg / 1000),
+    containerPalletizedTons: company.commercial.containerCapacity.ft20.palletizedKg
+      ? Math.round(company.commercial.containerCapacity.ft20.palletizedKg / 1000)
+      : '',
     leadTimeLabel: leadTimeLabel(),
     shippingLines: company.commercial.shippingLines.join(' · '),
     salesLanguages: company.commercial.salesLanguages.join(' · '),
@@ -211,9 +223,9 @@ export function logisticsTokens(company: Company) {
     return y && mo && d ? `${d} ${months[mo - 1]} ${y}` : String(iso);
   };
   return {
-    portUnlocode: pol.unLocode,
-    portFullName: pol.fullName,
-    portWithCode: `${pol.name} (${pol.unLocode})`,
+    // portUnlocode / portFullName / portWithCode now live in companyTokens()
+    // (every logistics page already spreads companyTokens, so they remain
+    // available here without duplicating the derivation).
     incotermsList: L.incoterms.join(' / '),
     incotermDefault: pol.incoterm,
     net20ftTons: toTons(cc.ft20.fullKg),

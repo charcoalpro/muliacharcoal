@@ -165,7 +165,7 @@
       { "destination": "St Petersburg, Russia", "portCode": "RULED", "country": "Russia", "minDays": 38, "maxDays": 48 }
     ],
     "containerCapacity": {
-      "ft20": { "fullKg": 18000, "bulkKg": null },
+      "ft20": { "fullKg": 18000, "bulkKg": null, "palletizedKg": 16000 },
       "ft40": { "fullKg": 26000, "bulkKg": null }
     },
     "volumeDiscountTiers": [

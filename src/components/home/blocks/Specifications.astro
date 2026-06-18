@@ -30,7 +30,10 @@ import FAQSection from '~/components/content/FAQSection.astro';
 import { grades, gradePropertyKeys, type Grade, type GradePropertyKey } from '~/config/grades';
 
 const t = en.home.specs;
-const tokens = companyTokens(company);
+// platinumFC sourced from grades.ts (SSoT) so the "fixed carbon" glossary
+// answer never hardcodes the spec value in i18n.
+const platinum = grades.find((g) => g.key === 'platinum')!;
+const tokens = { ...companyTokens(company), platinumFC: platinum.fixedCarbon.display };
 
 const intro = fill(t.intro, tokens);
 const lastVerified = fill(t.lastVerifiedTemplate, tokens);
@@ -78,7 +81,7 @@ const glossaryItems = (t.glossary?.items ?? []).map((item) => ({
   <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
     <SectionHeading
       eyebrow={t.eyebrow}
-      title={t.h2}
+      title={fill(t.h2, tokens)}
       subtitle={intro}
       id="home-specs-h2"
     />

@@ -99,7 +99,7 @@
   },
   "specs": {
     "eyebrow": "Decision-stage specifications",
-    "h2": "Three quality grades, batch-tested, ready for 18-ton FCL.",
+    "h2": "Three quality grades, batch-tested, ready for {{moqTons}}-ton FCL.",
     "intro": "All three grades are 100% natural coconut shell charcoal — no chemicals, no fillers — produced under {{isoStandard}} and IMDG {{unNumber}} transport classification. Per-batch certificates of analysis are issued by {{auditors}} independent labs.",
     "h2LinkLabel": "Read the specifications guide",
     "propertyHeader": "Property",
@@ -130,7 +130,7 @@
         },
         {
           "q": "Why does fixed carbon matter?",
-          "a": "Fixed carbon is the share of pure carbon left after volatile matter and moisture have burned off. Higher fixed carbon means a longer, hotter burn at lower ash. Our Platinum grade hits ≥ 82% fixed carbon."
+          "a": "Fixed carbon is the share of pure carbon left after volatile matter and moisture have burned off. Higher fixed carbon means a longer, hotter burn at lower ash. Our Platinum grade hits {{platinumFC}} fixed carbon."
         },
         {
           "q": "How long does Platinum grade burn?",
@@ -165,7 +165,7 @@
       "leadTime": "Lead time",
       "leadTimeValue": "{{newBrandLeadTime}} days for new brand · {{repeatBrandLeadTime}} days for repeat",
       "port": "Port of loading",
-      "portValue": "Tanjung Emas ({{city}}), Tanjung Priok (Jakarta) on request",
+      "portValue": "{{portFullName}} ({{city}}), Tanjung Priok (Jakarta) on request",
       "payment": "Payment",
       "moq": "MOQ",
       "moqValue": "{{moqLabel}} · 20-ft FCL only",
@@ -247,7 +247,7 @@
         },
         {
           "q": "Minimum order to start a private label?",
-          "a": "{{moqLabel}} FOB {{port}}. The 18-ton minimum is a single 20-ft FCL — you can mix shapes and grades inside one container, but we do not split containers across buyers."
+          "a": "{{moqLabel}} FOB {{port}}. The {{moqTons}}-ton minimum is a single 20-ft FCL — you can mix shapes and grades inside one container, but we do not split containers across buyers."
         }
       ]
     }
@@ -309,7 +309,7 @@
   },
   "cta": {
     "headline": "Ready to load your first container? Sample 1 kg ships free.",
-    "subTemplate": "Production from {{leadTimeDays}} days, Tanjung Emas ({{city}}) loading.",
+    "subTemplate": "Production from {{leadTimeDays}} days, {{portFullName}} ({{city}}) loading.",
     "ctaLabel": "Request samples + price",
     "waPrefill": "Hello Mulia Charcoal — please send a free 1 kg sample and your latest USD price list FOB Semarang for coconut shisha charcoal briquettes."
   },
