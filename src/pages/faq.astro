@@ -233,7 +233,7 @@ const schema = buildFaqPageGraph(schemaItems);
 
       <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
         <Button
-          href={waLink(t.stillHaveQuestions.waPrefill)}
+          href={waLink(fill(t.stillHaveQuestions.waPrefill, tokens))}
           variant="primary"
           size="lg"
           target="_blank"

@@ -49,7 +49,7 @@ const un1361Value = fill(t.trust.un1361Value, tokens);
 const isoValue = fill(t.trust.isoValue, tokens);
 const capacityValue = fill(t.trust.capacityValue, tokens);
 
-const waHref = waLink(t.waPrefill);
+const waHref = waLink(fill(t.waPrefill, tokens));
 const samplesHref = '/#contact?intent=samples';
 ---
 <section

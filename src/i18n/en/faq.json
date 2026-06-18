@@ -25,7 +25,7 @@
     "subtitleTemplate": "We answer wholesale inquiries within {{responseHours}} business hours in {{salesLanguages}}.",
     "ctaWhatsapp": "Ask on WhatsApp",
     "ctaInquiry": "Send a written inquiry",
-    "waPrefill": "Hello Mulia Charcoal — I have a question about a wholesale order of coconut shisha charcoal that wasn't covered in the FAQ. Could you help?"
+    "waPrefill": "Hello {{brand}} — I have a question about a wholesale order of coconut shisha charcoal that wasn't covered in the FAQ. Could you help?"
   },
 
   "linkOuts": {

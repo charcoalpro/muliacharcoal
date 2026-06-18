@@ -363,7 +363,7 @@
       "slug": "incoterms-2020",
       "term": "Incoterms 2020",
       "cluster": "incoterms",
-      "definitionTemplate": "Incoterms 2020 is the International Chamber of Commerce's eleven-rule glossary that defines who pays for and bears risk over each leg of an international shipment — from the seller's gate to the buyer's warehouse. Every commercial invoice should name an Incoterm followed by a place (e.g. FOB Semarang); the absence of an Incoterm is the most common cause of freight disputes.",
+      "definitionTemplate": "Incoterms 2020 is the International Chamber of Commerce's eleven-rule glossary that defines who pays for and bears risk over each leg of an international shipment — from the seller's gate to the buyer's warehouse. Every commercial invoice should name an Incoterm followed by a place (e.g. FOB {{port}}); the absence of an Incoterm is the most common cause of freight disputes.",
       "see": { "href": "/logistics/rules", "label": "Incoterms summary table" }
     },
     {
