@@ -33,13 +33,31 @@ import en from '~/i18n/en';
 import { company, waLink } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 import { buildFaqPageGraph } from '~/lib/schema/faqPageGraph';
+import { grades } from '~/config/grades';
 
 const t = en.faq;
 
 // Shipping/transit questions and the transit table now live on the
 // /logistics pillar (canonical FAQPage home); /faq links out to them.
+// Per-grade spec displays sourced from grades.ts (SSoT) so the grade-
+// comparison answer never hardcodes the spec values in i18n.
+const premium = grades.find((g) => g.key === 'premium')!;
+const superPremium = grades.find((g) => g.key === 'super-premium')!;
+const platinum = grades.find((g) => g.key === 'platinum')!;
 const tokens = {
   ...companyTokens(company),
+  premiumFC: premium.fixedCarbon.display,
+  superPremiumFC: superPremium.fixedCarbon.display,
+  platinumFC: platinum.fixedCarbon.display,
+  premiumAsh: premium.ash.display,
+  superPremiumAsh: superPremium.ash.display,
+  platinumAsh: platinum.ash.display,
+  premiumBurnTime: premium.burnTime.display,
+  superPremiumBurnTime: superPremium.burnTime.display,
+  platinumBurnTime: platinum.burnTime.display,
+  premiumBurnTemp: premium.burnTemp.display,
+  superPremiumBurnTemp: superPremium.burnTemp.display,
+  platinumBurnTemp: platinum.burnTemp.display,
 };
 
 // Resolve every Q & A. Categories preserve their original ordering and

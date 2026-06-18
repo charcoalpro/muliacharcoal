@@ -33,7 +33,14 @@ const t = en.home.specs;
 // platinumFC sourced from grades.ts (SSoT) so the "fixed carbon" glossary
 // answer never hardcodes the spec value in i18n.
 const platinum = grades.find((g) => g.key === 'platinum')!;
-const tokens = { ...companyTokens(company), platinumFC: platinum.fixedCarbon.display };
+const premium = grades.find((g) => g.key === 'premium')!;
+const tokens = {
+  ...companyTokens(company),
+  platinumFC: platinum.fixedCarbon.display,
+  platinumBurnTime: platinum.burnTime.display,
+  platinumBurnTemp: platinum.burnTemp.display,
+  premiumBurnTime: premium.burnTime.display,
+};
 
 const intro = fill(t.intro, tokens);
 const lastVerified = fill(t.lastVerifiedTemplate, tokens);

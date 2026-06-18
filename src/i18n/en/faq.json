@@ -139,7 +139,7 @@
         {
           "id": "grades-offered",
           "q": "What grades do you offer and how do they differ?",
-          "a": "We offer three grades: Premium (≥75% fixed carbon, 2.5–2.8% ash, 2+ hour burn at 600°C), Super Premium (≥80% fixed carbon, 2.0–2.5% ash, 2+ hours at 650°C), and Platinum (≥82% fixed carbon, 1.6–2.0% ash, 2.5+ hours at 680°C). All three are 100% natural coconut shell carbon bound with food-grade tapioca starch under {{isoStandard}}. Moisture stays ≤6%, calorific value is 7000–7500 kcal/kg, and the drop-test result is consistent across grades. Background at /glossary#ash-content."
+          "a": "We offer three grades: Premium ({{premiumFC}} fixed carbon, {{premiumAsh}} ash, {{premiumBurnTime}} burn at {{premiumBurnTemp}}), Super Premium ({{superPremiumFC}} fixed carbon, {{superPremiumAsh}} ash, {{superPremiumBurnTime}} at {{superPremiumBurnTemp}}), and Platinum ({{platinumFC}} fixed carbon, {{platinumAsh}} ash, {{platinumBurnTime}} at {{platinumBurnTemp}}). All three are 100% natural coconut shell carbon bound with food-grade tapioca starch under {{isoStandard}}. Moisture stays ≤6%, calorific value is 7000–7500 kcal/kg, and the drop-test result is consistent across grades. Background at /glossary#ash-content."
         },
         {
           "id": "batch-testing",

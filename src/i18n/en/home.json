@@ -134,7 +134,7 @@
         },
         {
           "q": "How long does Platinum grade burn?",
-          "a": "Platinum grade burns 2.5+ hours per cube on a standard shisha bowl at a peak surface temperature near 680 °C. Premium and Super Premium burn 2+ hours per cube."
+          "a": "Platinum grade burns {{platinumBurnTime}} per cube on a standard shisha bowl at a peak surface temperature near {{platinumBurnTemp}}. Premium and Super Premium burn {{premiumBurnTime}} per cube."
         }
       ]
     }
