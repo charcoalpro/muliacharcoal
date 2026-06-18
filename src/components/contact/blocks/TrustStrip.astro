@@ -23,7 +23,7 @@ const trustItems = [
   {
     iconText: '✓',
     label: t.isoLabel,
-    value: `Audited by ${company.certifications.iso9001.auditors.join(' & ')}`,
+    value: fill(t.auditedByTemplate, { auditors: company.certifications.iso9001.auditors.join(' & ') }),
   },
   {
     iconText: '⚓',

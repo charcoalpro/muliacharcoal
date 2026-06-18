@@ -266,6 +266,8 @@
     "introTemplate": "We answer enquiries within {{responseHours}} hours, in {{salesLanguages}} — by WhatsApp, email, or this form. Office hours: {{officeHours}} Asia/Jakarta ({{timezone}}).",
     "formHeading": "Wholesale inquiry",
     "mapHeading": "Factory location",
+    "mapPlaceholder": "View factory location on the map",
+    "mapOpenLink": "Open factory location in Google Maps",
     "whatsappHeading": "Or chat now",
     "whatsappCta": "Chat on WhatsApp now",
     "directHeading": "Direct contact",

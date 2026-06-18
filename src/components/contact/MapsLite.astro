@@ -13,6 +13,8 @@ import { company } from '~/config/company';
 
 interface Props {
   label?: string;
+  /** noscript / reveal-link text (caller supplies from i18n). */
+  openLabel?: string;
   /** Override default lat/lng from company config. */
   latitude?: number;
   longitude?: number;
@@ -22,7 +24,8 @@ interface Props {
 }
 
 const {
-  label = 'View factory location on the map',
+  label = '',
+  openLabel = '',
   latitude = company.address.latitude,
   longitude = company.address.longitude,
   addressLine = company.address.short,
@@ -59,7 +62,7 @@ const embedSrc = `https://www.google.com/maps?q=${latitude},${longitude}&z=14&ou
         rel="noopener"
         class="font-semibold text-brand-primary underline"
       >
-        Open factory location in Google Maps
+        {openLabel}
       </a>
     </p>
   </noscript>
