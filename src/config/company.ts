@@ -339,7 +339,6 @@ export interface LogisticsConfig {
     carrierEnforcementNote: string;
     sht: { onRequest: boolean | null; cost: string; processingTime: string; note: string };
     sp978: {
-      weatheringDays: string | number;
       weatheringMethod: string;
       packingTempMaxC: string | number;
       packingTempLogged: boolean | null;
@@ -548,10 +547,56 @@ export interface QualityConfig {
   editorial: { datePublished: string; dateModified: string };
 }
 
-const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality' | 'samples'> & {
+// =======================================================================
+// Factory pillar contract (/factory hub + 4 children).
+//
+// DRAFT NOTICE: processSteps, qcSteps, equipment, ovenType, the boolean
+// gates, and the narrative strings (sourcingAshNarrative, ownerNote,
+// laborStatement, ramadanLeadNote) were DRAFTED on 2026-06-19 from typical
+// coconut-shell briquette manufacturing and MUST be verified by the owner
+// before production. Empty string / false / [] → the gated block omits.
+//
+// Single-source reuse (NOT restated here — pages read the canonical home):
+//   - export destinations ........ commercial.exportMarkets
+//   - weathering window .......... production.weatheringDays
+//   - oven count / batch / cycle . production.ovens
+//   - team / people .............. people.json (company.people)
+//   - ISO 9001 / Halal / labs .... certifications.* / quality.testing
+// =======================================================================
+export interface FactoryConfig {
+  /** Dates only — author/reviewer names come from governance.*. */
+  editorial: { datePublished: string; dateModified: string };
+  /** Stepped how-it's-made; drives the HowTo on /production-process.
+   *  `durationOrTemp` may carry a `{{weatheringDays}}` token (single-sourced
+   *  from production.weatheringDays); '' renders no duration cell. */
+  processSteps: Array<{ key: string; title: string; durationOrTemp: string; note: string }>;
+  /** Our OWN named in-process QC framework (real stages; not a copied "8-step"). */
+  qcSteps: Array<{ step: number; title: string; checks: string }>;
+  /** Machinery list corroborating capacity. Kilns live in production.ovens. */
+  equipment: Array<{ name: string; qty: number | string; spec: string }>;
+  /** e.g. 'gas and electric' — gates the oven-type / temp-stability narrative. '' → omit. */
+  ovenType: string;
+  /** Reference sample retained per batch? gates the retention-sample block. */
+  batchRetention: boolean;
+  /** Produce to a buyer performance spec (ash/density/burn)? gates develop-to-spec. */
+  developToSpec: boolean;
+  /** Sign an NDA on client designs? gates the OEM-confidentiality block. */
+  ndaAvailable: boolean;
+  /** Region→ash narrative (typical language); may carry `{{sourcingRegion}}`. '' → omit. */
+  sourcingAshNarrative: string;
+  /** First-person owner pull-quote (production-framed). '' → omit. Full note canonical to /about. */
+  ownerNote: string;
+  /** Honest one-paragraph labor / environmental statement. '' → omit. */
+  laborStatement: string;
+  /** Advance-order / seasonal-surge guidance. '' → omit. */
+  ramadanLeadNote: string;
+}
+
+const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality' | 'samples' | 'factory'> & {
   packaging: PackagingConfig;
   logistics: LogisticsConfig;
   quality: QualityConfig;
+  factory: FactoryConfig;
   social: Record<keyof typeof rawCompanyData.social, string | null>;
   production: typeof rawCompanyData.production & {
     carbonizationPlant: { city: string; region: string } | null;
