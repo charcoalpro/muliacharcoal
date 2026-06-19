@@ -46,15 +46,22 @@ interface PropertyValueNode {
   unitText?: string;
 }
 
-function propertyValueFor(key: GradePropertyKey, spec: SpecValue): PropertyValueNode {
+/** Project a SpecValue into a schema.org PropertyValue node. Shared with
+ *  `~/lib/schema/productGradePage.ts` so the homepage grade Products and the
+ *  grade-page Products advertise identical structured specs. */
+export function specProperty(label: string, spec: SpecValue): PropertyValueNode {
   return {
     '@type': 'PropertyValue',
-    name: PROPERTY_LABELS[key],
+    name: label,
     value: spec.display,
     ...(typeof spec.min === 'number' ? { minValue: spec.min } : {}),
     ...(typeof spec.max === 'number' ? { maxValue: spec.max } : {}),
     ...(spec.unit ? { unitText: spec.unit } : {}),
   };
+}
+
+function propertyValueFor(key: GradePropertyKey, spec: SpecValue): PropertyValueNode {
+  return specProperty(PROPERTY_LABELS[key], spec);
 }
 
 export function gradeProductsSchema(input: Grade[] = grades) {

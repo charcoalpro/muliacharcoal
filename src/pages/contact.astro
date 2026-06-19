@@ -25,11 +25,12 @@ import Hours from '~/components/contact/blocks/Hours.astro';
 import Hotels from '~/components/contact/blocks/Hotels.astro';
 import Payment from '~/components/contact/blocks/Payment.astro';
 import en from '~/i18n/en';
-import { fill } from '~/lib/interpolate';
+import { fill, companyTokens } from '~/lib/interpolate';
 import { company, mailto, waLinkFor } from '~/config/company';
 import { localBusinessSchema } from '~/lib/schema/localBusiness';
 
 const t = en.contact;
+const tokens = companyTokens(company);
 
 const heroWaHref = waLinkFor('heroCta');
 const heroEmailHref = mailto('Wholesale inquiry');
@@ -37,8 +38,8 @@ const heroEmailHref = mailto('Wholesale inquiry');
 const addr = company.address;
 ---
 <BaseLayout
-  title={t.meta.title}
-  description={t.meta.description}
+  title={fill(t.meta.title, tokens)}
+  description={fill(t.meta.description, tokens)}
   path="/contact"
   type="website"
   includeOrgSchema={true}
@@ -106,7 +107,7 @@ const addr = company.address;
       <MapEmbed
         latitude={addr.latitude}
         longitude={addr.longitude}
-        title={t.map.iframeTitle}
+        title={fill(t.map.iframeTitle, tokens)}
       />
     </div>
     <p class="mt-3 text-sm text-neutral-600">

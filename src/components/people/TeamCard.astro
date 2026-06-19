@@ -80,7 +80,7 @@ const isSales = variant === 'sales';
     <dl class="mt-4 space-y-1 text-sm">
       {telHref && (
         <div class="flex flex-wrap gap-x-2">
-          <dt class="font-medium text-neutral-700">Phone:</dt>
+          <dt class="font-medium text-neutral-700">{tSales.phoneLabel}:</dt>
           <dd>
             <TextLink href={telHref}>{phoneDisplay}</TextLink>
           </dd>
@@ -88,7 +88,7 @@ const isSales = variant === 'sales';
       )}
       {mailHref && member.email && (
         <div class="flex flex-wrap gap-x-2">
-          <dt class="font-medium text-neutral-700">Email:</dt>
+          <dt class="font-medium text-neutral-700">{tSales.emailLabel}:</dt>
           <dd>
             <TextLink href={mailHref} class="break-all">{member.email}</TextLink>
           </dd>

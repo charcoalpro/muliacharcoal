@@ -22,8 +22,10 @@ import SectionHeading from '~/components/content/SectionHeading.astro';
 import ProductCard from '~/components/product/ProductCard.astro';
 import Button from '~/components/cta/Button.astro';
 import { productShapes } from '~/config/products';
+import { fill, companyTokens } from '~/lib/interpolate';
 
 const t = en.home.products;
+const tokens = companyTokens(company);
 const formId = 'home-products-samples';
 const waNumber = company.whatsapp.e164Digits;
 const brand = company.brand;
@@ -32,7 +34,7 @@ const brand = company.brand;
   <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
     <SectionHeading
       eyebrow={t.eyebrow}
-      title={t.h2}
+      title={fill(t.h2, tokens)}
       subtitle={t.intro}
       id="home-products-h2"
     />

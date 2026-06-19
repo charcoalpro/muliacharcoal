@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Button from '~/components/cta/Button.astro';
+import WhatsAppButton from '~/components/cta/WhatsAppButton.astro';
+import { footerOperationsNav } from '~/config/nav';
 import en from '~/i18n/en';
 ---
 <BaseLayout
@@ -26,6 +28,28 @@ import en from '~/i18n/en';
       <Button href="/products" variant="secondary">
         {en.cta.viewProducts}
       </Button>
+    </div>
+
+    <nav aria-label={en.notFound.popularHeading} class="mt-12">
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-neutral-600">
+        {en.notFound.popularHeading}
+      </h2>
+      <ul class="mt-4 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm">
+        {footerOperationsNav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="font-medium text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="mt-10 flex justify-center">
+      <WhatsAppButton context="contact" />
     </div>
   </section>
 </BaseLayout>

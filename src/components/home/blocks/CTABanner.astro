@@ -24,7 +24,7 @@ import Button from '~/components/cta/Button.astro';
 const t = en.home.cta;
 const tokens = companyTokens(company);
 const sub = fill(t.subTemplate, tokens);
-const href = waLink(t.waPrefill);
+const href = waLink(fill(t.waPrefill, tokens));
 ---
 <section
   aria-labelledby="home-cta-h2"

@@ -562,7 +562,7 @@ const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 
     // Container payload by box type. `bulkKg` (loose, no inner box) is
     // pending a weigh-in, so it widens to `number | null`.
     containerCapacity: {
-      ft20: { fullKg: number; bulkKg: number | null };
+      ft20: { fullKg: number; bulkKg: number | null; palletizedKg: number | null };
       ft40: { fullKg: number; bulkKg: number | null };
     };
     // Single source for the volume-discount tier table. `maxTons: null`

@@ -21,6 +21,8 @@
 
 import en from '~/i18n/en';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
 import type { ProductShape, ProductSize } from '~/config/products';
 
 interface Props {
@@ -31,9 +33,10 @@ const { shape } = Astro.props;
 const t = en.home.products;
 const i = t.items[shape.key as keyof typeof t.items];
 
+const tokens = companyTokens(company);
 const name = i?.name ?? shape.name;
 const description = i?.description ?? shape.description;
-const imageAlt = i?.imageAlt ?? `${name} coconut shell briquette`;
+const imageAlt = fill(i?.imageAlt ?? `${name} coconut shell briquette`, tokens);
 const detailsHref = shape.href;
 const checkboxId = `product-include-${shape.slug}`;
 ---

@@ -14,7 +14,8 @@
  */
 
 import { hasFact } from '~/config/company';
-import { siteOrigin } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
+import { absoluteUrl } from '~/lib/url';
 
 export interface VideoObjectInput {
   /** Stable kebab-case id; defaults to 'factory-tour'. */
@@ -36,9 +37,7 @@ export function videoObjectSchema(input: VideoObjectInput) {
   const id = input.id ?? 'factory-tour';
 
   const thumbnail = input.thumbnailUrl
-    ? input.thumbnailUrl.startsWith('http')
-      ? input.thumbnailUrl
-      : `${siteOrigin}${input.thumbnailUrl.startsWith('/') ? input.thumbnailUrl : `/${input.thumbnailUrl}`}`
+    ? absoluteUrl(input.thumbnailUrl)
     : `https://i.ytimg.com/vi/${input.youtubeId}/hqdefault.jpg`;
 
   return {
@@ -85,17 +84,14 @@ export function selfHostedVideoObjectSchema(input: SelfHostedVideoInput) {
   ) {
     return null;
   }
-  const abs = (p: string) =>
-    p.startsWith('http') ? p : `${siteOrigin}${p.startsWith('/') ? p : `/${p}`}`;
-
   return {
     '@type': 'VideoObject' as const,
     '@id': `${siteOrigin}/#video-${input.id}`,
     name: input.name,
     description: input.description,
-    thumbnailUrl: abs(input.thumbnailUrl),
+    thumbnailUrl: absoluteUrl(input.thumbnailUrl),
     uploadDate: input.uploadDate,
-    contentUrl: abs(input.contentUrl),
+    contentUrl: absoluteUrl(input.contentUrl),
     duration: input.durationISO,
   };
 }

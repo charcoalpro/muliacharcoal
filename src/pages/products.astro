@@ -85,7 +85,7 @@ const shapeAnchor: Record<ProductShape['key'], string> = {
   lotus: 'lotus',
 };
 const shapeImageAlt = (shape: ProductShape) =>
-  en.home.products.items[shape.key]?.imageAlt ?? `${shape.name} coconut shell briquette`;
+  fill(en.home.products.items[shape.key]?.imageAlt ?? `${shape.name} coconut shell briquette`, tokens);
 
 // Grade comparison table — leads with ash + raw-material source.
 const gradeColumns = grades.map((g) => ({ key: g.key, label: g.name }));

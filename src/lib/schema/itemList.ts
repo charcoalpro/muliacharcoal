@@ -12,7 +12,9 @@
  * since `hasMeasurement` is reserved for physical dimensions.
  */
 
-import { ORG_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
+import { absoluteUrl } from '~/lib/url';
+import { company } from '~/config/company';
 import type { ProductSize } from '~/config/products';
 
 export interface ProductInput {
@@ -97,11 +99,7 @@ export function productItemListSchema(products: ProductInput[]) {
           name: p.name,
           description: p.description,
           url: `${siteOrigin}/products/${p.slug}`,
-          image: p.image
-            ? p.image.startsWith('http')
-              ? p.image
-              : `${siteOrigin}${p.image}`
-            : `${siteOrigin}/logo.png`,
+          image: absoluteUrl(p.image ?? company.brandAssets.images.logo),
           brand: { '@id': ORG_ID },
           manufacturer: { '@id': ORG_ID },
           ...(p.category ? { category: p.category } : {}),

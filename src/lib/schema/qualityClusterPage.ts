@@ -21,9 +21,10 @@
  */
 
 import { company } from '~/config/company';
-import { siteOrigin, WEBSITE_ID } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
 import { faqPageSchema, type QAPair } from '~/lib/schema/faqPage';
 import { videoObjectSchema, type VideoObjectInput } from '~/lib/schema/videoObject';
+import { webPageNode, techArticleNode } from '~/lib/schema/webPage';
 
 interface TechArticleInput {
   headline?: string;
@@ -57,26 +58,21 @@ export function qualityClusterPageSchema({
   dateModified,
 }: BuildArgs) {
   const pageUrl = `${siteOrigin}${path}`;
-  const webPageId = `${pageUrl}#webpage`;
   const faqId = `${pageUrl}#faq`;
   const { editorial } = company.quality;
   const modified = dateModified || editorial.dateModified;
   const aboutRef = aboutAnchor ? { '@id': `${siteOrigin}/glossary#${aboutAnchor}` } : undefined;
 
-  const webPage = {
-    '@type': 'WebPage' as const,
-    '@id': webPageId,
-    url: pageUrl,
+  const webPage = webPageNode({
+    pageUrl,
     name: pageTitle,
     description: pageDescription,
-    inLanguage: 'en',
-    isPartOf: { '@id': WEBSITE_ID },
-    mainEntity: { '@id': faqId },
-    author: { '@type': 'Person' as const, name: company.governance.author.name },
+    mainEntityId: faqId,
+    aboutRef,
+    authorName: company.governance.author.name,
     datePublished: editorial.datePublished,
     dateModified: modified,
-    ...(aboutRef ? { about: aboutRef } : {}),
-  };
+  });
 
   const faqPage = {
     ...faqPageSchema(faq),
@@ -86,19 +82,15 @@ export function qualityClusterPageSchema({
   const graph: Array<Record<string, unknown>> = [webPage, faqPage];
 
   if (techArticle) {
-    graph.push({
-      '@type': 'TechArticle',
-      '@id': `${pageUrl}#techarticle`,
+    graph.push(techArticleNode({
+      pageUrl,
       headline: techArticle.headline ?? pageTitle,
       description: techArticle.description ?? pageDescription,
-      inLanguage: 'en',
-      isPartOf: { '@id': WEBSITE_ID },
-      mainEntityOfPage: { '@id': webPageId },
-      author: { '@type': 'Person', name: company.governance.author.name },
+      authorName: company.governance.author.name,
       datePublished: editorial.datePublished,
       dateModified: modified,
-      ...(aboutRef ? { about: aboutRef } : {}),
-    });
+      aboutRef,
+    }));
   }
 
   if (video) {

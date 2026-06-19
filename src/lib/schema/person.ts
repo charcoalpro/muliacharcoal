@@ -12,7 +12,7 @@
  * reads as "staff of the manufacturer", not an unaffiliated reviewer.
  */
 
-import { ORG_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
 
 export interface PersonInput {
   /** Display name (e.g. "Ahmet Bassam"). */

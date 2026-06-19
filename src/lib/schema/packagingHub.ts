@@ -20,9 +20,10 @@
  */
 
 import { company } from '~/config/company';
-import { siteOrigin, WEBSITE_ID } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
 import { faqPageSchema, type QAPair } from '~/lib/schema/faqPage';
 import { definedTermNode, type TermRef } from '~/lib/schema/definedTerm';
+import { webPageNode, childWebPageRef } from '~/lib/schema/webPage';
 
 export interface ChildPageRef {
   /** Root-relative cluster path, e.g. `/packaging/master-box`. */
@@ -44,24 +45,16 @@ export function packagingHubSchema({ pageTitle, pageDescription, path, children,
   const pageUrl = `${siteOrigin}${path}`;
   const faqId = `${pageUrl}#faq`;
 
-  const collectionPage = {
-    '@type': 'CollectionPage' as const,
-    '@id': `${pageUrl}#webpage`,
-    url: pageUrl,
+  const collectionPage = webPageNode({
+    type: 'CollectionPage',
+    pageUrl,
     name: pageTitle,
     description: pageDescription,
-    inLanguage: 'en',
-    isPartOf: { '@id': WEBSITE_ID },
-    mainEntity: { '@id': faqId },
+    mainEntityId: faqId,
     datePublished: company.packaging.editorial.datePublished,
     dateModified: company.packaging.editorial.dateModified,
-    hasPart: children.map((child) => ({
-      '@type': 'WebPage' as const,
-      '@id': `${siteOrigin}${child.href}#webpage`,
-      url: `${siteOrigin}${child.href}`,
-      name: child.name,
-    })),
-  };
+    hasPart: children.map((child) => childWebPageRef(child.href, child.name)),
+  });
 
   const faqPage = {
     ...faqPageSchema(faq),

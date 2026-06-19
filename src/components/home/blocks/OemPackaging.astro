@@ -41,7 +41,7 @@ const tiers = company.packaging.configurations.map((cfg) => {
     key: cfg.id,
     name: tierCopy?.name ?? cfg.id,
     summary: tierCopy?.summary ?? '',
-    imageAlt: tierCopy?.imageAlt ?? '',
+    imageAlt: tierCopy?.imageAlt ? fill(tierCopy.imageAlt, tokens) : '',
     contents: cfg.components,
   };
 });

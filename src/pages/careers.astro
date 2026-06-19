@@ -25,11 +25,12 @@ import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import Button from '~/components/cta/Button.astro';
 import en from '~/i18n/en';
-import { fill } from '~/lib/interpolate';
+import { fill, companyTokens } from '~/lib/interpolate';
 import { company, careersMailto } from '~/config/company';
 import { jobPostingGraph } from '~/lib/schema/jobPosting';
 
 const t = en.careers;
+const tokens = companyTokens(company);
 
 // Roles displayed on the page. The order here drives the visible order
 // in the grid; the JSON-LD order matches via /src/lib/schema/jobPosting.
@@ -55,8 +56,8 @@ const roles = [
 ] as const;
 ---
 <BaseLayout
-  title={t.meta.title}
-  description={t.meta.description}
+  title={fill(t.meta.title, tokens)}
+  description={fill(t.meta.description, tokens)}
   path="/careers"
   type="website"
   includeOrgSchema={true}
@@ -66,7 +67,7 @@ const roles = [
     <Breadcrumbs items={[{ label: t.breadcrumb }]} />
   </div>
 
-  <HeroSection title={t.hero.title} subtitle={t.hero.subtitle} />
+  <HeroSection title={t.hero.title} subtitle={fill(t.hero.subtitle, tokens)} />
 
   <section
     aria-labelledby="careers-apply-heading"
@@ -110,7 +111,7 @@ const roles = [
             <dl class="mt-3 space-y-1 text-sm text-neutral-600">
               <div class="flex flex-wrap gap-x-2">
                 <dt class="font-medium text-neutral-700">{t.openPositions.locationLabel}:</dt>
-                <dd>{t.openPositions.locationValue}</dd>
+                <dd>{fill(t.openPositions.locationValue, tokens)}</dd>
               </div>
               <div class="flex flex-wrap gap-x-2">
                 <dt class="font-medium text-neutral-700">{t.openPositions.employmentLabel}:</dt>

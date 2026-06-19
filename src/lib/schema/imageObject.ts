@@ -14,7 +14,8 @@
  */
 
 import { company } from '~/config/company';
-import { ORG_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
+import { absoluteUrl } from '~/lib/url';
 
 export interface ImageObjectInput {
   /** Stable id; becomes `${siteOrigin}/#image-${id}`. */
@@ -31,19 +32,14 @@ export interface ImageObjectInput {
   datePublished: string;
 }
 
-function abs(path: string): string {
-  if (path.startsWith('http')) return path;
-  return `${siteOrigin}${path.startsWith('/') ? path : `/${path}`}`;
-}
-
 export function imageObjectSchema(input: ImageObjectInput) {
   return {
     '@type': 'ImageObject' as const,
     '@id': `${siteOrigin}/#image-${input.id}`,
     name: input.name,
     description: input.description,
-    contentUrl: abs(input.contentUrl),
-    ...(input.thumbnailUrl ? { thumbnailUrl: abs(input.thumbnailUrl) } : {}),
+    contentUrl: absoluteUrl(input.contentUrl),
+    ...(input.thumbnailUrl ? { thumbnailUrl: absoluteUrl(input.thumbnailUrl) } : {}),
     datePublished: input.datePublished,
     creator: { '@id': ORG_ID },
     creditText: company.brand,
@@ -74,7 +70,7 @@ export function imageGallerySchema(input: ImageGalleryInput) {
     '@id': `${siteOrigin}/#${input.id}`,
     name: input.name,
     ...(input.description ? { description: input.description } : {}),
-    url: abs(input.url),
+    url: absoluteUrl(input.url),
     ...(associatedMediaRefs.length
       ? { associatedMedia: associatedMediaRefs }
       : {}),

@@ -20,7 +20,7 @@
       "capacityLabel": "Capacity",
       "capacityValue": "{{capacityMonth}} t/month · since {{year}}"
     },
-    "waPrefill": "Hello Mulia Charcoal — please share your USD price list, MOQ details, and current lead time for coconut shisha charcoal briquettes."
+    "waPrefill": "Hello {{brand}} — please share your USD price list, MOQ details, and current lead time for coconut shisha charcoal briquettes."
   },
   "trustStrip": {
     "aria": "Proof signals from REACH compliance to shipping partners",
@@ -68,38 +68,38 @@
       "cube": {
         "name": "Cube",
         "description": "The reference shisha format. Five edge sizes from 22 to 28 mm; uniform edges and no first-light cracking.",
-        "imageAlt": "Mulia Charcoal coconut shell cube briquettes (25×25 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        "imageAlt": "{{brand}} coconut shell cube briquettes (25×25 mm), photographed on a white seamless background with the {{brand}} logo visible on the inner box."
       },
       "stix": {
         "name": "Stix / Finger",
         "description": "Slim finger briquettes for kaloud and HMD-style heat-management devices. Long burn at low surface temperature.",
-        "imageAlt": "Mulia Charcoal coconut shell stix / finger briquettes (20×50 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        "imageAlt": "{{brand}} coconut shell stix / finger briquettes (20×50 mm), photographed on a white seamless background with the {{brand}} logo visible on the inner box."
       },
       "hexagonal": {
         "name": "Hexagonal",
         "description": "Six-sided briquettes with a centre hole — preferred by retail tobacco brands for shelf appeal and even ignition.",
-        "imageAlt": "Mulia Charcoal coconut shell hexagonal briquettes (20×50 mm) with centre hole, photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        "imageAlt": "{{brand}} coconut shell hexagonal briquettes (20×50 mm) with centre hole, photographed on a white seamless background with the {{brand}} logo visible on the inner box."
       },
       "dome": {
         "name": "D-shape / Dome",
         "description": "Hemisphere briquettes shaped to seat flush against ceramic and silicone shisha bowls.",
-        "imageAlt": "Mulia Charcoal coconut shell dome / D-shape briquettes (25 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        "imageAlt": "{{brand}} coconut shell dome / D-shape briquettes (25 mm), photographed on a white seamless background with the {{brand}} logo visible on the inner box."
       },
       "flat": {
         "name": "Flat / Slab",
         "description": "Flat slab cut for kaloud, foil and large-bowl applications. Maximum heat-management surface area.",
-        "imageAlt": "Mulia Charcoal coconut shell flat slab briquettes (25×25×17 mm), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        "imageAlt": "{{brand}} coconut shell flat slab briquettes (25×25×17 mm), photographed on a white seamless background with the {{brand}} logo visible on the inner box."
       },
       "lotus": {
         "name": "Lotus / Cloud",
         "description": "Decorative profile briquettes for premium shisha lounges. Same coconut shell formulation, distinctive shape.",
-        "imageAlt": "Mulia Charcoal coconut shell lotus / cloud briquette (3-piece set), photographed on a white seamless background with the Mulia Charcoal logo visible on the inner box."
+        "imageAlt": "{{brand}} coconut shell lotus / cloud briquette (3-piece set), photographed on a white seamless background with the {{brand}} logo visible on the inner box."
       }
     }
   },
   "specs": {
     "eyebrow": "Decision-stage specifications",
-    "h2": "Three quality grades, batch-tested, ready for 18-ton FCL.",
+    "h2": "Three quality grades, batch-tested, ready for {{moqTons}}-ton FCL.",
     "intro": "All three grades are 100% natural coconut shell charcoal — no chemicals, no fillers — produced under {{isoStandard}} and IMDG {{unNumber}} transport classification. Per-batch certificates of analysis are issued by {{auditors}} independent labs.",
     "h2LinkLabel": "Read the specifications guide",
     "propertyHeader": "Property",
@@ -120,7 +120,7 @@
     "gradePickerLegend": "Choose the grade you want a price for",
     "gradePickerHelp": "Pick a grade — the CTA below pre-fills the WhatsApp message accordingly.",
     "ctaLabelTemplate": "Get price for {{grade}}",
-    "ctaMessageTemplate": "Hello Mulia Charcoal — please share your USD price list FOB {{port}} for {{grade}} grade coconut shisha charcoal, including MOQ and current lead time.",
+    "ctaMessageTemplate": "Hello {{brand}} — please share your USD price list FOB {{port}} for {{grade}} grade coconut shisha charcoal, including MOQ and current lead time.",
     "glossary": {
       "heading": "How to read these numbers",
       "items": [
@@ -130,11 +130,11 @@
         },
         {
           "q": "Why does fixed carbon matter?",
-          "a": "Fixed carbon is the share of pure carbon left after volatile matter and moisture have burned off. Higher fixed carbon means a longer, hotter burn at lower ash. Our Platinum grade hits ≥ 82% fixed carbon."
+          "a": "Fixed carbon is the share of pure carbon left after volatile matter and moisture have burned off. Higher fixed carbon means a longer, hotter burn at lower ash. Our Platinum grade hits {{platinumFC}} fixed carbon."
         },
         {
           "q": "How long does Platinum grade burn?",
-          "a": "Platinum grade burns 2.5+ hours per cube on a standard shisha bowl at a peak surface temperature near 680 °C. Premium and Super Premium burn 2+ hours per cube."
+          "a": "Platinum grade burns {{platinumBurnTime}} per cube on a standard shisha bowl at a peak surface temperature near {{platinumBurnTemp}}. Premium and Super Premium burn {{premiumBurnTime}} per cube."
         }
       ]
     }
@@ -165,7 +165,7 @@
       "leadTime": "Lead time",
       "leadTimeValue": "{{newBrandLeadTime}} days for new brand · {{repeatBrandLeadTime}} days for repeat",
       "port": "Port of loading",
-      "portValue": "Tanjung Emas ({{city}}), Tanjung Priok (Jakarta) on request",
+      "portValue": "{{portFullName}} ({{city}}), Tanjung Priok (Jakarta) on request",
       "payment": "Payment",
       "moq": "MOQ",
       "moqValue": "{{moqLabel}} · 20-ft FCL only",
@@ -210,17 +210,17 @@
       "full": {
         "name": "Full packaging",
         "summary": "Inner plastic + inner box + master box. Retail-ready out of the container.",
-        "imageAlt": "Mulia Charcoal full packaging tier — printed inner plastic pouch, full-colour 1 kg inner box and 20 kg master carton, photographed at the Semarang factory."
+        "imageAlt": "{{brand}} full packaging tier — printed inner plastic pouch, full-colour 1 kg inner box and 20 kg master carton, photographed at the {{city}} factory."
       },
       "standard": {
         "name": "Standard packaging",
         "summary": "Inner plastic + inner box. The most common SKU for retail and lounge accounts.",
-        "imageAlt": "Mulia Charcoal standard packaging tier — printed inner plastic pouch and full-colour 1 kg inner box, photographed at the Semarang factory."
+        "imageAlt": "{{brand}} standard packaging tier — printed inner plastic pouch and full-colour 1 kg inner box, photographed at the {{city}} factory."
       },
       "minimal": {
         "name": "Pouch in master",
         "summary": "Inner plastic + master box. Wholesale bulk for distributors who repack locally.",
-        "imageAlt": "Mulia Charcoal minimal packaging tier — printed inner plastic pouches inside a 10 kg master carton, photographed at the Semarang factory."
+        "imageAlt": "{{brand}} minimal packaging tier — printed inner plastic pouches inside a 10 kg master carton, photographed at the {{city}} factory."
       }
     },
     "sizes": {
@@ -247,7 +247,7 @@
         },
         {
           "q": "Minimum order to start a private label?",
-          "a": "{{moqLabel}} FOB {{port}}. The 18-ton minimum is a single 20-ft FCL — you can mix shapes and grades inside one container, but we do not split containers across buyers."
+          "a": "{{moqLabel}} FOB {{port}}. The {{moqTons}}-ton minimum is a single 20-ft FCL — you can mix shapes and grades inside one container, but we do not split containers across buyers."
         }
       ]
     }
@@ -266,6 +266,8 @@
     "introTemplate": "We answer enquiries within {{responseHours}} hours, in {{salesLanguages}} — by WhatsApp, email, or this form. Office hours: {{officeHours}} Asia/Jakarta ({{timezone}}).",
     "formHeading": "Wholesale inquiry",
     "mapHeading": "Factory location",
+    "mapPlaceholder": "View factory location on the map",
+    "mapOpenLink": "Open factory location in Google Maps",
     "whatsappHeading": "Or chat now",
     "whatsappCta": "Chat on WhatsApp now",
     "directHeading": "Direct contact",
@@ -309,9 +311,9 @@
   },
   "cta": {
     "headline": "Ready to load your first container? Sample 1 kg ships free.",
-    "subTemplate": "Production from {{leadTimeDays}} days, Tanjung Emas ({{city}}) loading.",
+    "subTemplate": "Production from {{leadTimeDays}} days, {{portFullName}} ({{city}}) loading.",
     "ctaLabel": "Request samples + price",
-    "waPrefill": "Hello Mulia Charcoal — please send a free 1 kg sample and your latest USD price list FOB Semarang for coconut shisha charcoal briquettes."
+    "waPrefill": "Hello {{brand}} — please send a free 1 kg sample and your latest USD price list FOB {{port}} for coconut shisha charcoal briquettes."
   },
   "faqTeaser": {
     "label": "See the full buyer FAQ",

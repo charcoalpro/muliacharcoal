@@ -6,7 +6,7 @@
  * to pass into `BaseLayout.schema`.
  */
 
-import { ORG_ID, WEBSITE_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, WEBSITE_ID, siteOrigin } from '~/lib/schema/ids';
 
 interface BuildArgs {
   /** URL path of the page, e.g. `/legal/privacy-policy`. */

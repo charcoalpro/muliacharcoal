@@ -31,7 +31,7 @@ import {
   galleryLastUpdated,
   hasAssets as hasGalleryAssets,
 } from '~/config/gallery';
-import { siteOrigin } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
 
 export function buildHomepageGraph() {
   return {
