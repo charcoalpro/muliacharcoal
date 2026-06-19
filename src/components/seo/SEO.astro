@@ -67,11 +67,13 @@ const ogLocale = localeOgMap[locale];
 <meta property="og:locale" content={ogLocale} />
 <meta property="og:site_name" content={company.brand} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:alt" content={fullTitle} />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
+<meta name="twitter:image:alt" content={fullTitle} />
 
 {!noIndex && (
   <Fragment>

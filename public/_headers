@@ -1,3 +1,7 @@
+# CSP note: script-src keeps 'unsafe-inline' because the GA4 + Meta Pixel
+# bootstraps in Analytics.astro are inline <script> snippets. Deliberate
+# trade-off on a static, no-user-content site — revisit with hashed/nonce
+# scripts (or routing analytics through GTM) to drop 'unsafe-inline'.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
