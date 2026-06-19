@@ -6,19 +6,15 @@
  * always see at least one expanded answer (some crawlers don't render
  * collapsed `<details>` content).
  *
- * FAQPage JSON-LD is NOT emitted from here — the homepage emits a single
- * `@graph` containing every schema node, so callers compose the schema
- * via `~/lib/schema/faqPage.ts` separately. Set `emitSchema` to opt in
- * on standalone pages that don't already build a graph.
+ * FAQPage JSON-LD is NOT emitted from here — every page composes its FAQPage
+ * node into its own `@graph` via `~/lib/schema/faqPage.ts`. This component is
+ * purely presentational.
  */
-
-import { faqPageSchema } from '~/lib/schema/faqPage';
 
 interface Props {
   heading?: string;
   items: { q: string; a: string }[];
   id?: string;
-  emitSchema?: boolean;
   class?: string;
 }
 
@@ -26,7 +22,6 @@ const {
   heading,
   items,
   id,
-  emitSchema = false,
   class: className,
 } = Astro.props;
 ---
@@ -52,10 +47,3 @@ const {
     ))}
   </div>
 </section>
-
-{emitSchema && (
-  <script
-    type="application/ld+json"
-    set:html={JSON.stringify({ '@context': 'https://schema.org', ...faqPageSchema(items) })}
-  />
-)}
