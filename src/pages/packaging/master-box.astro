@@ -32,6 +32,7 @@ import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
 import VideoFacade from '~/components/packaging/VideoFacade.astro';
 import en from '~/i18n/en';
+import { pillarCrumb } from '~/lib/breadcrumb';
 import { company, waLinkFor, hasFact, portOfLoadingLabel } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
 import { packagingClusterPageSchema } from '~/lib/schema/packagingClusterPage';
@@ -168,7 +169,7 @@ const photos = (list: Array<{ alt: string; caption: string }>) =>
   prefetch={['/packaging', '/contact']}
 >
   <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
-    <Breadcrumbs items={[{ label: en.packaging.breadcrumb, href: '/packaging' }, { label: t.breadcrumb }]} />
+    <Breadcrumbs items={[pillarCrumb('packaging'), { label: t.breadcrumb }]} />
   </div>
 
   <HeroSection

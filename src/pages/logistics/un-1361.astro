@@ -17,6 +17,7 @@ import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import Figure from '~/components/packaging/Figure.astro';
 import en from '~/i18n/en';
+import { pillarCrumb } from '~/lib/breadcrumb';
 import { company, waLinkFor, hasFact } from '~/config/company';
 import { fill, companyTokens, logisticsTokens } from '~/lib/interpolate';
 import { logisticsClusterPageSchema } from '~/lib/schema/logisticsClusterPage';
@@ -77,7 +78,7 @@ const readMinutes = readingTime(proseForReadTime);
   prefetch={['/contact']}
 >
   <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
-    <Breadcrumbs items={[{ label: en.logistics.breadcrumb, href: '/logistics' }, { label: t.breadcrumb }]} />
+    <Breadcrumbs items={[pillarCrumb('logistics'), { label: t.breadcrumb }]} />
   </div>
 
   <HeroSection

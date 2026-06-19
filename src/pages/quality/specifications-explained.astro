@@ -18,6 +18,7 @@ import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import en from '~/i18n/en';
+import { pillarCrumb } from '~/lib/breadcrumb';
 import { company, waLinkFor, hasFact } from '~/config/company';
 import { fill, companyTokens, qualityTokens } from '~/lib/interpolate';
 import { qualityClusterPageSchema } from '~/lib/schema/qualityClusterPage';
@@ -86,7 +87,7 @@ const readMinutes = readingTime(proseForReadTime);
   prefetch={['/quality/testing-methods', '/contact']}
 >
   <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
-    <Breadcrumbs items={[{ label: en.quality.breadcrumb, href: '/quality' }, { label: t.breadcrumb }]} />
+    <Breadcrumbs items={[pillarCrumb('quality'), { label: t.breadcrumb }]} />
   </div>
 
   <HeroSection
