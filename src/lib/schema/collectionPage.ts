@@ -21,7 +21,8 @@
  * taxonomy to crawlers ahead of those pages shipping.
  */
 
-import { siteOrigin, WEBSITE_ID, ORG_ID } from '~/lib/schema/ids';
+import { siteOrigin, ORG_ID } from '~/lib/schema/ids';
+import { webPageNode } from '~/lib/schema/webPage';
 
 export interface SkuListEntry {
   /** Detail-page path (root-relative, e.g. `/products/cube-25mm`). */
@@ -57,17 +58,14 @@ export function collectionPageSchema({ pageTitle, pageDescription, path, skus }:
     })),
   };
 
-  const collectionPage = {
-    '@type': 'CollectionPage' as const,
-    '@id': `${pageUrl}#webpage`,
-    url: pageUrl,
+  const collectionPage = webPageNode({
+    type: 'CollectionPage',
+    pageUrl,
     name: pageTitle,
     description: pageDescription,
-    inLanguage: 'en',
-    isPartOf: { '@id': WEBSITE_ID },
-    about: { '@id': ORG_ID },
-    mainEntity: { '@id': listId },
-  };
+    aboutRef: { '@id': ORG_ID },
+    mainEntityId: listId,
+  });
 
   return {
     '@context': 'https://schema.org',

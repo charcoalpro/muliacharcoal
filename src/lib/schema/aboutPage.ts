@@ -12,7 +12,8 @@
  */
 
 import { buildOrganization } from '~/lib/schema/organization';
-import { ORG_ID, WEBSITE_ID, siteOrigin } from '~/lib/schema/ids';
+import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
+import { webPageNode } from '~/lib/schema/webPage';
 
 interface BuildArgs {
   pageTitle: string;
@@ -20,21 +21,17 @@ interface BuildArgs {
 }
 
 export function aboutPageSchema({ pageTitle, pageDescription }: BuildArgs) {
-  const aboutId = `${siteOrigin}/about#aboutpage`;
-
   return {
     '@context': 'https://schema.org',
     '@graph': [
-      {
-        '@type': 'AboutPage',
-        '@id': aboutId,
-        url: `${siteOrigin}/about`,
+      webPageNode({
+        type: 'AboutPage',
+        idFragment: 'aboutpage',
+        pageUrl: `${siteOrigin}/about`,
         name: pageTitle,
         description: pageDescription,
-        inLanguage: 'en',
-        isPartOf: { '@id': WEBSITE_ID },
-        mainEntity: { '@id': ORG_ID },
-      },
+        mainEntityId: ORG_ID,
+      }),
       buildOrganization({ mode: 'rich' }),
     ],
   };

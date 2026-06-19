@@ -23,6 +23,7 @@
 import { company } from '~/config/company';
 import { siteOrigin, WEBSITE_ID } from '~/lib/schema/ids';
 import { faqPageSchema, type QAPair } from '~/lib/schema/faqPage';
+import { webPageNode } from '~/lib/schema/webPage';
 
 interface TechArticleInput {
   headline?: string;
@@ -68,20 +69,16 @@ export function logisticsClusterPageSchema({
   const { editorial } = company.logistics;
   const aboutRef = aboutAnchor ? { '@id': `${siteOrigin}/glossary#${aboutAnchor}` } : undefined;
 
-  const webPage = {
-    '@type': 'WebPage' as const,
-    '@id': webPageId,
-    url: pageUrl,
+  const webPage = webPageNode({
+    pageUrl,
     name: pageTitle,
     description: pageDescription,
-    inLanguage: 'en',
-    isPartOf: { '@id': WEBSITE_ID },
-    mainEntity: { '@id': faqId },
-    author: { '@type': 'Person' as const, name: company.governance.author.name },
+    mainEntityId: faqId,
+    aboutRef,
+    authorName: company.governance.author.name,
     datePublished: editorial.datePublished,
     dateModified: editorial.dateModified,
-    ...(aboutRef ? { about: aboutRef } : {}),
-  };
+  });
 
   const faqPage = {
     ...faqPageSchema(faq),

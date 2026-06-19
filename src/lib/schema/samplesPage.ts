@@ -22,7 +22,8 @@
  */
 
 import { buildOrganization } from '~/lib/schema/organization';
-import { WEBSITE_ID, siteOrigin } from '~/lib/schema/ids';
+import { siteOrigin } from '~/lib/schema/ids';
+import { webPageNode } from '~/lib/schema/webPage';
 import { imageObjectSchema, type ImageObjectInput } from '~/lib/schema/imageObject';
 import { selfHostedVideoObjectSchema, type SelfHostedVideoInput } from '~/lib/schema/videoObject';
 
@@ -36,15 +37,11 @@ interface BuildArgs {
 }
 
 export function samplesPageSchema({ pageTitle, pageDescription, images = [], video = null }: BuildArgs) {
-  const webPage = {
-    '@type': 'WebPage',
-    '@id': `${siteOrigin}/samples#webpage`,
-    url: `${siteOrigin}/samples`,
+  const webPage = webPageNode({
+    pageUrl: `${siteOrigin}/samples`,
     name: pageTitle,
     description: pageDescription,
-    inLanguage: 'en',
-    isPartOf: { '@id': WEBSITE_ID },
-  };
+  });
 
   const videoNode = video ? selfHostedVideoObjectSchema(video) : null;
 

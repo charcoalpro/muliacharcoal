@@ -20,9 +20,10 @@
  */
 
 import { company } from '~/config/company';
-import { siteOrigin, WEBSITE_ID } from '~/lib/schema/ids';
+import { siteOrigin } from '~/lib/schema/ids';
 import { faqPageSchema, type QAPair } from '~/lib/schema/faqPage';
 import { definedTermNode, type TermRef } from '~/lib/schema/definedTerm';
+import { webPageNode } from '~/lib/schema/webPage';
 
 interface BuildArgs {
   pageTitle: string;
@@ -50,23 +51,16 @@ export function packagingClusterPageSchema({
   const pageUrl = `${siteOrigin}${path}`;
   const faqId = `${pageUrl}#faq`;
 
-  const webPage = {
-    '@type': 'WebPage' as const,
-    '@id': `${pageUrl}#webpage`,
-    url: pageUrl,
+  const webPage = webPageNode({
+    pageUrl,
     name: pageTitle,
     description: pageDescription,
-    inLanguage: 'en',
-    isPartOf: { '@id': WEBSITE_ID },
-    about: { '@id': `${siteOrigin}/glossary#${term.anchor}` },
-    mainEntity: { '@id': faqId },
-    author: {
-      '@type': 'Person' as const,
-      name: company.governance.author.name,
-    },
+    aboutRef: { '@id': `${siteOrigin}/glossary#${term.anchor}` },
+    mainEntityId: faqId,
+    authorName: company.governance.author.name,
     datePublished: company.packaging.editorial.datePublished,
     dateModified: company.packaging.editorial.dateModified,
-  };
+  });
 
   const faqPage = {
     ...faqPageSchema(faq),
