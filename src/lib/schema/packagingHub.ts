@@ -20,7 +20,7 @@
  */
 
 import { company } from '~/config/company';
-import { siteOrigin, WEBSITE_ID } from '~/lib/schema/organization';
+import { siteOrigin, WEBSITE_ID } from '~/lib/schema/ids';
 import { faqPageSchema, type QAPair } from '~/lib/schema/faqPage';
 import { definedTermNode, type TermRef } from '~/lib/schema/definedTerm';
 

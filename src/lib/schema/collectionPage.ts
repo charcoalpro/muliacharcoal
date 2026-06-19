@@ -21,7 +21,7 @@
  * taxonomy to crawlers ahead of those pages shipping.
  */
 
-import { siteOrigin, WEBSITE_ID, ORG_ID } from '~/lib/schema/organization';
+import { siteOrigin, WEBSITE_ID, ORG_ID } from '~/lib/schema/ids';
 
 export interface SkuListEntry {
   /** Detail-page path (root-relative, e.g. `/products/cube-25mm`). */

@@ -21,7 +21,8 @@
  * automatically when the real assets land.
  */
 
-import { buildOrganization, WEBSITE_ID, siteOrigin } from '~/lib/schema/organization';
+import { buildOrganization } from '~/lib/schema/organization';
+import { WEBSITE_ID, siteOrigin } from '~/lib/schema/ids';
 import { imageObjectSchema, type ImageObjectInput } from '~/lib/schema/imageObject';
 import { selfHostedVideoObjectSchema, type SelfHostedVideoInput } from '~/lib/schema/videoObject';
 

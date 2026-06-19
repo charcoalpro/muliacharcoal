@@ -14,7 +14,7 @@
  */
 
 import { hasFact } from '~/config/company';
-import { siteOrigin } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
 
 export interface VideoObjectInput {
   /** Stable kebab-case id; defaults to 'factory-tour'. */

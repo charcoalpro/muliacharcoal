@@ -15,7 +15,7 @@
  * node only, so it carries no `url` (its variants carry the canonical URLs).
  */
 
-import { ORG_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
 
 /** Canonical `@id` for a size's ProductGroup, so refs and the node agree. */
 export function productGroupId(sizeSlug: string): string {

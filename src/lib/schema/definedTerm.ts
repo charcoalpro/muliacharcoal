@@ -9,7 +9,7 @@
  * the full definition text.
  */
 
-import { siteOrigin } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
 
 export interface TermRef {
   /** Glossary anchor slug, e.g. 'master-box' → /glossary#master-box. */

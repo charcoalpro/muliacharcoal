@@ -19,11 +19,6 @@
 import { company, getOwner, hasFact } from '~/config/company';
 import { siteOrigin, ORG_ID, WEBSITE_ID } from '~/lib/schema/ids';
 
-// Identity constants now live in `~/lib/schema/ids` so non-Organization
-// builders can import them without depending on this module. Re-exported
-// here for the existing call sites that still read them from `organization`.
-export { siteOrigin, ORG_ID, WEBSITE_ID };
-
 /** Live (non-null) social profile URLs, suitable for `sameAs`. */
 export function getSameAs(): string[] {
   return Object.values(company.social).filter(

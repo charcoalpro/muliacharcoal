@@ -30,7 +30,7 @@ import { company, hasFact } from '~/config/company';
 import { grades, gradePropertyKeys, type Grade, type SpecValue } from '~/config/grades';
 import type { ProductShape, ProductSize } from '~/config/products';
 import { ORG_ID, WEBSITE_ID, siteOrigin } from '~/lib/schema/ids';
-import { PROPERTY_LABELS } from '~/lib/schema/grades';
+import { PROPERTY_LABELS, specProperty } from '~/lib/schema/grades';
 import { productGroupSchema, productGroupId } from '~/lib/schema/productGroup';
 import { videoObjectSchema } from '~/lib/schema/videoObject';
 import { personSchema, personRef } from '~/lib/schema/person';
@@ -42,17 +42,6 @@ interface PropertyValueNode {
   minValue?: number;
   maxValue?: number;
   unitText?: string;
-}
-
-function specProperty(label: string, spec: SpecValue): PropertyValueNode {
-  return {
-    '@type': 'PropertyValue',
-    name: label,
-    value: spec.display,
-    ...(typeof spec.min === 'number' ? { minValue: spec.min } : {}),
-    ...(typeof spec.max === 'number' ? { maxValue: spec.max } : {}),
-    ...(spec.unit ? { unitText: spec.unit } : {}),
-  };
 }
 
 function dimensionProperties(size: ProductSize): PropertyValueNode[] {

@@ -8,7 +8,7 @@
  * node is always warning-free (valid-or-omit).
  */
 
-import { siteOrigin } from '~/lib/schema/organization';
+import { siteOrigin } from '~/lib/schema/ids';
 
 export interface HowToStepInput {
   name: string;

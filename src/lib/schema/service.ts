@@ -8,7 +8,7 @@
  */
 
 import { company } from '~/config/company';
-import { siteOrigin, ORG_ID } from '~/lib/schema/organization';
+import { siteOrigin, ORG_ID } from '~/lib/schema/ids';
 
 interface ServiceArgs {
   /** Canonical page path, e.g. /packaging/white-label. */

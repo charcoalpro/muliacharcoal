@@ -14,7 +14,7 @@
  */
 
 import { company } from '~/config/company';
-import { ORG_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
 
 export interface ImageObjectInput {
   /** Stable id; becomes `${siteOrigin}/#image-${id}`. */

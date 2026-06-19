@@ -5,7 +5,8 @@
  * which forced every schema builder (breadcrumbs, video, glossary terms,
  * how-to, …) to depend on the Organization module just to reach a constant.
  * They live here now so non-Organization builders import a tiny constants
- * module instead. `organization.ts` re-exports them for back-compat.
+ * module instead of depending on the Organization module just to reach a
+ * constant. Every builder imports them directly from here.
  */
 import { siteOrigin as resolveSiteOrigin } from '~/lib/url';
 

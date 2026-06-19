@@ -11,7 +11,8 @@
  * BaseLayout does NOT also emit the slim Organization graph.
  */
 
-import { buildOrganization, ORG_ID, WEBSITE_ID, siteOrigin } from '~/lib/schema/organization';
+import { buildOrganization } from '~/lib/schema/organization';
+import { ORG_ID, WEBSITE_ID, siteOrigin } from '~/lib/schema/ids';
 
 interface BuildArgs {
   pageTitle: string;

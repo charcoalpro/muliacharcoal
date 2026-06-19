@@ -12,7 +12,7 @@
  * since `hasMeasurement` is reserved for physical dimensions.
  */
 
-import { ORG_ID, siteOrigin } from '~/lib/schema/organization';
+import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
 import type { ProductSize } from '~/config/products';
 
 export interface ProductInput {

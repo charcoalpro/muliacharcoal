@@ -17,7 +17,7 @@
  * passing them in), so this module is pure formatting.
  */
 
-import { siteOrigin, WEBSITE_ID } from '~/lib/schema/organization';
+import { siteOrigin, WEBSITE_ID } from '~/lib/schema/ids';
 import { faqPageSchema, type QAPair } from '~/lib/schema/faqPage';
 
 export interface ResolvedTerm {
