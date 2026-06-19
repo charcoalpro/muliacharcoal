@@ -89,3 +89,37 @@ export function childWebPageRef(href: string, name: string) {
     name,
   };
 }
+
+interface TechArticleNodeOpts {
+  /** Absolute page URL; `@id` = `${pageUrl}#techarticle`, mainEntityOfPage
+   *  → `${pageUrl}#webpage`. */
+  pageUrl: string;
+  headline: string;
+  description: string;
+  authorName: string;
+  datePublished: string;
+  dateModified: string;
+  /** `about` reference object (emitted only when provided). */
+  aboutRef?: Ref;
+}
+
+/**
+ * Optional `TechArticle` node shared verbatim by the logistics and quality
+ * cluster pages (signals depth for AI extraction; HowTo/TechArticle are not
+ * rich-result types — the visible HTML is the real signal).
+ */
+export function techArticleNode(opts: TechArticleNodeOpts): Record<string, unknown> {
+  return {
+    '@type': 'TechArticle',
+    '@id': `${opts.pageUrl}#techarticle`,
+    headline: opts.headline,
+    description: opts.description,
+    inLanguage: 'en',
+    isPartOf: { '@id': WEBSITE_ID },
+    mainEntityOfPage: { '@id': `${opts.pageUrl}#webpage` },
+    author: { '@type': 'Person', name: opts.authorName },
+    datePublished: opts.datePublished,
+    dateModified: opts.dateModified,
+    ...(opts.aboutRef ? { about: opts.aboutRef } : {}),
+  };
+}
