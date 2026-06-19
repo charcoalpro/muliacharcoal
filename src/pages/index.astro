@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '~/layouts/BaseLayout.astro';
-import Hero from '~/components/home/blocks/Hero.astro';
+import HomeHero from '~/components/home/blocks/HomeHero.astro';
 import TrustStrip from '~/components/home/blocks/TrustStrip.astro';
 import Products from '~/components/home/blocks/Products.astro';
 import Specifications from '~/components/home/blocks/Specifications.astro';
@@ -9,7 +9,7 @@ import OEMPackaging from '~/components/home/blocks/OemPackaging.astro';
 import Gallery from '~/components/home/blocks/Gallery.astro';
 import Contact from '~/components/home/blocks/Contact.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
-import CTABanner from '~/components/home/blocks/CTABanner.astro';
+import HomeFinalCta from '~/components/home/blocks/HomeFinalCta.astro';
 import en from '~/i18n/en';
 import { company } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
@@ -36,7 +36,7 @@ const faqItems = en.home.faq.items.map((item) => ({
   schema={schema}
   prefetch={['/products', '/contact', '/about']}
 >
-  <Hero />
+  <HomeHero />
   <TrustStrip />
   <Products />
   <Specifications />
@@ -58,5 +58,5 @@ const faqItems = en.home.faq.items.map((item) => ({
       </p>
     </div>
   </section>
-  <CTABanner />
+  <HomeFinalCta />
 </BaseLayout>

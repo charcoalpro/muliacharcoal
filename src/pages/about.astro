@@ -14,7 +14,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
-import Hero from '~/components/about/blocks/Hero.astro';
+import AboutHero from '~/components/about/blocks/AboutHero.astro';
 import CompanyOverview from '~/components/about/blocks/CompanyOverview.astro';
 import LegalInformation from '~/components/about/blocks/LegalInformation.astro';
 import Banking from '~/components/about/blocks/Banking.astro';
@@ -53,7 +53,7 @@ const aboutSchema = aboutPageSchema({ pageTitle, pageDescription });
     <Breadcrumbs items={[{ label: t.breadcrumb }]} />
   </div>
 
-  <Hero />
+  <AboutHero />
   <CompanyOverview />
   <LegalInformation />
   <Banking />
