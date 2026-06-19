@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { productShapes } from '~/config/products';
 
 /**
  * Legal collection — privacy policy, terms, cookies policy.
@@ -39,7 +40,11 @@ const products = defineCollection({
   schema: z.object({
     title: z.string().min(1),
     description: z.string().min(1).max(155),
-    shape: z.enum(['cube', 'hexagonal', 'finger', 'dome', 'flat']),
+    // Single source: shape keys come from ~/config/products so this schema
+    // can never drift from the live catalogue (cube/stix/hexagonal/dome/
+    // flat/lotus). Re-declaring the list inline is what let it go stale
+    // (it used "finger" and omitted stix/lotus, so a real SKU would fail).
+    shape: z.enum(productShapes.map((s) => s.key) as [string, ...string[]]),
     /** Size token used in the slug, e.g. "25mm" or "22x50". */
     size: z.string().min(1),
     /** Stock-keeping unit identifier, distinct from the slug. */

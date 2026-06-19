@@ -58,6 +58,7 @@
   "notFound": {
     "code": "404",
     "title": "Page not found",
-    "description": "The page you were looking for doesn't exist, or it may have moved."
+    "description": "The page you were looking for doesn't exist, or it may have moved.",
+    "popularHeading": "Popular pages"
   }
 }
