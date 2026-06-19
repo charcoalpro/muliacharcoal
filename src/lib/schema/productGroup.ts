@@ -16,6 +16,7 @@
  */
 
 import { ORG_ID, siteOrigin } from '~/lib/schema/ids';
+import { absoluteUrl } from '~/lib/url';
 
 /** Canonical `@id` for a size's ProductGroup, so refs and the node agree. */
 export function productGroupId(sizeSlug: string): string {
@@ -45,7 +46,7 @@ export function productGroupSchema(input: ProductGroupInput) {
     manufacturer: { '@id': ORG_ID },
     category: input.category,
     material: input.material,
-    image: input.image.startsWith('http') ? input.image : `${siteOrigin}${input.image}`,
+    image: absoluteUrl(input.image),
     productGroupID: input.sizeSlug,
     variesBy: [{ '@type': 'DefinedTerm', name: 'Grade' }],
     hasVariant: input.variantIds.map((id) => ({ '@id': id })),
