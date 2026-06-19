@@ -10,6 +10,7 @@ import { company, getOwner, waLinkFor } from '~/config/company';
 import BankDetailsTable from '~/components/payment/BankDetailsTable.astro';
 import Section from '~/components/layout/Section.astro';
 import SectionHeading from '~/components/content/SectionHeading.astro';
+import Button from '~/components/cta/Button.astro';
 
 const t = en.contact;
 const isBankPublic = company.payment.mode === 'public';
@@ -61,18 +62,19 @@ const paymentWarningBody = fill(t.payment.warningBodyTemplate, {
           <p class="mt-3 text-sm text-neutral-600">
             {fill(t.payment.lastVerifiedTemplate, { date: bank.lastVerified })}
           </p>
-          <a
+          <Button
             href={piHref}
+            variant="whatsapp"
             target="_blank"
             rel="noopener noreferrer"
             aria-label={t.payment.piButtonAria}
             data-event="whatsapp_click"
             data-source-component="payment-pi"
-            class="mt-5 inline-flex items-center justify-center gap-2 rounded-md bg-success px-6 py-3 text-base font-semibold text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
+            class="mt-5"
           >
             {t.payment.piButton}
             <span class="sr-only">{t.newTabSr}</span>
-          </a>
+          </Button>
         </div>
       )}
     </div>

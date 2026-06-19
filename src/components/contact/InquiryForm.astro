@@ -26,6 +26,7 @@ import {
 } from '~/lib/forms/inquiryValidation';
 import type { InquirySubmitConfig } from '~/lib/forms/inquirySubmit';
 import FormField from '~/components/contact/FormField.astro';
+import Button from '~/components/cta/Button.astro';
 
 interface Props {
   /**
@@ -272,17 +273,18 @@ const inquiryConfig: InquirySubmitConfig = {
     <div class="sticky top-6 space-y-4 rounded-xl border border-neutral-200 bg-neutral-50 p-6">
       <h3 class="text-lg font-semibold text-neutral-900">{t.sidebarHeading}</h3>
       <p class="text-sm text-neutral-700">{t.sidebarLead}</p>
-      <a
+      <Button
         href={sidebarWaHref}
+        variant="whatsapp"
         target="_blank"
         rel="noopener noreferrer"
         data-event="whatsapp_click"
         data-source-component="form-sidebar"
-        class="inline-flex w-full items-center justify-center gap-2 rounded-md bg-success px-6 py-3 text-base font-semibold text-white transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
+        class="w-full"
       >
         {t.sidebarCtaWhatsapp}
         <span class="sr-only">{en.contact.newTabSr}</span>
-      </a>
+      </Button>
     </div>
   </aside>
 </div>

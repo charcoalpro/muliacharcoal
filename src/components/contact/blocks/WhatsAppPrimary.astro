@@ -8,6 +8,7 @@ import { getDirector, getSales, waLinkFor } from '~/config/company';
 import TextLink from '~/components/content/TextLink.astro';
 import Section from '~/components/layout/Section.astro';
 import SectionHeading from '~/components/content/SectionHeading.astro';
+import Button from '~/components/cta/Button.astro';
 
 const t = en.contact;
 const cards = [
@@ -51,17 +52,19 @@ const cards = [
                 {wa.display}
               </TextLink>
               <div class="mt-auto flex flex-wrap gap-2 pt-4">
-                <a
+                <Button
                   href={waHref}
+                  variant="whatsapp"
+                  size="sm"
                   target="_blank"
                   rel="noopener noreferrer"
                   data-event="whatsapp_click"
                   data-source-component="whatsapp-primary"
-                  class="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
+                  class="flex-1"
                 >
                   {t.whatsappPrimary.buttonOpenWhatsapp}
                   <span class="sr-only">{t.newTabSr}</span>
-                </a>
+                </Button>
                 <a
                   href={`tel:${telDigits}`}
                   class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
