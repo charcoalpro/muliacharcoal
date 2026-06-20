@@ -19,6 +19,7 @@ import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
+import Figure from '~/components/packaging/Figure.astro';
 import SpecsTable from '~/components/content/SpecsTable.astro';
 import en from '~/i18n/en';
 import { pillarCrumb } from '~/lib/breadcrumb';
@@ -104,6 +105,8 @@ const readMinutes = readingTime(proseForReadTime);
       {fill(t.intro.p1, tokens)}{' '}
       <MaybeLink href="/factory" class="font-semibold" data-source-component="raw-materials-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
     </p>
+
+    <Figure class="mt-8" alt={fill(t.figure.alt, tokens)} caption={t.figure.caption} />
 
     <section id="sourcing" aria-labelledby="sourcing-heading" class="mt-12 scroll-mt-24">
       <h2 id="sourcing-heading" class="text-2xl font-bold text-neutral-900">{t.sourcing.h2}</h2>

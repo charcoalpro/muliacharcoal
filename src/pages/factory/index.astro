@@ -32,6 +32,7 @@ import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import Figure from '~/components/packaging/Figure.astro';
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
 import en from '~/i18n/en';
 import { company, waLinkFor, getOwner, hasFact } from '~/config/company';
@@ -285,6 +286,7 @@ const readMinutes = readingTime(proseForReadTime);
             </li>
           ))}
         </ul>
+        <Figure class="mt-6" ratio="16/9" alt={fill(child.copy.figureAlt, tokens)} caption={child.copy.figureCaption} />
         <p class="mt-6 text-sm">
           <MaybeLink href={child.href} class="font-semibold" data-source-component={`factory-hub-${child.id}`}>
             {child.copy.linkLabel} <span aria-hidden="true">→</span>

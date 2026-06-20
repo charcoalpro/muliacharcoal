@@ -73,7 +73,9 @@
         "Binder is food-grade tapioca starch and water — no chemical accelerants",
         "Briquettes are weathered for at least {{weatheringDays}} days before packing"
       ],
-      "linkLabel": "See our full coconut charcoal production process"
+      "linkLabel": "See our full coconut charcoal production process",
+      "figureAlt": "Coconut charcoal briquettes on the production line at the {{brand}} factory in {{city}}.",
+      "figureCaption": "On the production line"
     },
     "capacity": {
       "h2": "Production capacity & lead times",
@@ -83,7 +85,9 @@
         "One 20ft container is roughly {{oneContainerPctOfMonthly}}% of monthly output — you won't be deprioritized",
         "Production lead time {{leadTimeLabel}}"
       ],
-      "linkLabel": "View our production capacity & container lead times"
+      "linkLabel": "View our production capacity & container lead times",
+      "figureAlt": "Carbonization ovens and briquetting lines at the {{brand}} factory in {{city}}.",
+      "figureCaption": "Our production floor"
     },
     "rawMaterials": {
       "h2": "Raw materials & sourcing",
@@ -93,7 +97,9 @@
         "We own the carbonization plant in {{carbonizationCity}} — vertical integration, not a broker",
         "A renewable byproduct: no tree is felled to make the charcoal"
       ],
-      "linkLabel": "Where we source our coconut shell"
+      "linkLabel": "Where we source our coconut shell",
+      "figureAlt": "Mature coconut shells staged for carbonization at the {{brand}} factory.",
+      "figureCaption": "Coconut shell raw material"
     },
     "virtualTour": {
       "h2": "Virtual tour & factory visits",
@@ -103,7 +109,9 @@
         "Visit in person — we welcome buyers to see production and container stuffing",
         "Appoint SGS, Intertek, or BV at your cost for pre-shipment inspection"
       ],
-      "linkLabel": "Take a virtual tour or schedule a factory visit"
+      "linkLabel": "Take a virtual tour or schedule a factory visit",
+      "figureAlt": "The quality-control bench at the {{brand}} factory in {{city}}.",
+      "figureCaption": "Inside the factory"
     }
   },
   "customization": {

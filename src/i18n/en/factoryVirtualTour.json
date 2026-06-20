@@ -1,9 +1,10 @@
 {
   "meta": {
     "titleTemplate": "Factory Virtual Tour & Visits — {{city}}",
-    "descriptionTemplate": "See the {{brand}} coconut charcoal factory in {{city}}: a video walkthrough, in-person visits, and buyer-appointed pre-shipment inspection. Verify the factory before you commit."
+    "descriptionTemplate": "See the {{brand}} coconut charcoal factory in {{city}}: video walkthrough, in-person visits, and buyer-appointed pre-shipment inspection."
   },
   "breadcrumb": "Virtual tour",
+  "figure": { "alt": "The {{brand}} production floor — ovens, presses, drying, and packing.", "caption": "What the tour covers" },
   "eyebrow": "Factory",
   "h1": "Factory Virtual Tour & Visits",
   "heroSubtitle": "Don't take our word for it — see the {{brand}} factory for yourself. Watch the walkthrough, schedule an in-person visit, or send your own inspector.",
@@ -50,8 +51,8 @@
   },
   "audit": {
     "h2": "Third-party factory audit",
-    "body": "Our factory has been audited by an independent inspection body. We can share the audit summary on request as part of your due diligence.",
-    "linkLabelTemplate": "{{title}}"
+    "body": "Our factory has been independently audited by a third-party inspection body. We share the audit summary with serious buyers on request as part of due diligence — just ask.",
+    "linkLabel": "Request the audit summary"
   },
   "orientation": {
     "h2": "From first contact to shipment",

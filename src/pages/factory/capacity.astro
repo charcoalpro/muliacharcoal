@@ -18,6 +18,7 @@ import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
+import Figure from '~/components/packaging/Figure.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import SpecsTable from '~/components/content/SpecsTable.astro';
 import EquipmentList from '~/components/factory/EquipmentList.astro';
@@ -124,6 +125,8 @@ const readMinutes = readingTime(proseForReadTime);
       {fill(t.intro.p1, tokens)}{' '}
       <MaybeLink href="/factory" class="font-semibold" data-source-component="capacity-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
     </p>
+
+    <Figure class="mt-8" alt={fill(t.figure.alt, tokens)} caption={t.figure.caption} />
 
     <KeyFactsBox class="mt-8" id="capacity-at-a-glance" heading={t.atAGlance.heading} definition={fill(t.atAGlance.definition, tokens)} facts={atGlanceFacts} />
 

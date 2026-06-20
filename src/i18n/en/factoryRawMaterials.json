@@ -1,9 +1,10 @@
 {
   "meta": {
     "titleTemplate": "Coconut Shell Sourcing & Raw Materials | {{brand}}",
-    "descriptionTemplate": "Where {{brand}} sources coconut shell — {{sourcingRegion}} — and why coconut shell beats wood and bamboo for shisha charcoal: lower ash, neutral taste, and a renewable, upcycled raw material."
+    "descriptionTemplate": "Where {{brand}} sources coconut shell ({{sourcingRegion}}) and why it beats wood and bamboo for shisha: lower ash, neutral taste, renewable."
   },
   "breadcrumb": "Raw materials",
+  "figure": { "alt": "Mature coconut shells from {{sourcingRegion}} staged for carbonization.", "caption": "Coconut shell feedstock" },
   "eyebrow": "Factory",
   "h1": "Coconut Shell Sourcing & Raw Materials",
   "heroSubtitle": "Our single raw material is coconut shell — an upcycled byproduct sourced from {{sourcingRegion}} and carbonized at our own plant in {{carbonizationCity}}.",

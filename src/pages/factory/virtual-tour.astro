@@ -19,6 +19,7 @@ import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
+import Figure from '~/components/packaging/Figure.astro';
 import YouTubeLite from '~/components/content/YouTubeLite.astro';
 import en from '~/i18n/en';
 import { pillarCrumb } from '~/lib/breadcrumb';
@@ -103,6 +104,8 @@ const readMinutes = readingTime(proseForReadTime);
       <MaybeLink href="/factory" class="font-semibold" data-source-component="virtual-tour-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
     </p>
 
+    <Figure class="mt-8" alt={fill(t.figure.alt, tokens)} caption={t.figure.caption} />
+
     {/* Video — facade renders only when the video is real; otherwise the
         written walkthrough below carries the page. */}
     <section id="video" aria-labelledby="video-heading" class="mt-12 scroll-mt-24">
@@ -140,9 +143,9 @@ const readMinutes = readingTime(proseForReadTime);
         <h2 id="audit-heading" class="text-2xl font-bold text-neutral-900">{t.audit.h2}</h2>
         <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.audit.body, tokens)}</p>
         <p class="mt-3 text-sm">
-          <a href={auditDoc.href} class="font-semibold text-brand-primary hover:underline" data-event="outbound_click" data-source-component="virtual-tour-audit-doc">
-            {fill(t.audit.linkLabelTemplate, { title: auditDoc.title })} <span aria-hidden="true">→</span>
-          </a>
+          <MaybeLink href="/contact" class="font-semibold" data-source-component="virtual-tour-audit-request">
+            {t.audit.linkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
         </p>
       </section>
     )}

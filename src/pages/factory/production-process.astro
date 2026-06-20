@@ -20,6 +20,7 @@ import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
+import Figure from '~/components/packaging/Figure.astro';
 import ProcessSteps from '~/components/factory/ProcessSteps.astro';
 import en from '~/i18n/en';
 import { pillarCrumb } from '~/lib/breadcrumb';
@@ -128,6 +129,8 @@ const readMinutes = readingTime(proseForReadTime);
       {fill(t.intro.p1, tokens)}{' '}
       <MaybeLink href="/factory" class="font-semibold" data-source-component="production-process-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
     </p>
+
+    <Figure class="mt-8" alt={fill(t.figure.alt, tokens)} caption={t.figure.caption} />
 
     {/* Process at a glance — config-driven steps (lockstep with HowTo). */}
     <section id="overview" aria-labelledby="overview-heading" class="mt-12 scroll-mt-24">

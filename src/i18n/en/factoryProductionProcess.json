@@ -1,9 +1,10 @@
 {
   "meta": {
     "titleTemplate": "How Coconut Shell Charcoal Is Made | {{brand}}",
-    "descriptionTemplate": "How {{brand}} makes coconut shisha charcoal: carbonization, milling, {{binder}} binding, pressing, drying, and a {{weatheringDays}}-day weathering window, with in-process QC on every batch."
+    "descriptionTemplate": "How {{brand}} makes coconut shisha charcoal: carbonization, milling, tapioca binding, pressing, drying, and {{weatheringDays}}-day weathering, with QC on every batch."
   },
   "breadcrumb": "Production process",
+  "figure": { "alt": "Carbonization ovens turning coconut shell into char at the {{brand}} factory.", "caption": "Carbonization in progress" },
   "eyebrow": "Factory",
   "h1": "How Our Coconut Shell Charcoal Is Made",
   "heroSubtitle": "The full {{brand}} production process — from coconut shell to a finished shisha briquette — carbonized, milled, bound with {{binder}}, pressed, dried, and weathered in our own factory.",
