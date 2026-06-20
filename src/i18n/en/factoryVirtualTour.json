@@ -1,0 +1,103 @@
+{
+  "meta": {
+    "titleTemplate": "Factory Virtual Tour & Visits — {{city}}",
+    "descriptionTemplate": "See the {{brand}} coconut charcoal factory in {{city}}: a video walkthrough, in-person visits, and buyer-appointed pre-shipment inspection. Verify the factory before you commit."
+  },
+  "breadcrumb": "Virtual tour",
+  "eyebrow": "Factory",
+  "h1": "Factory Virtual Tour & Visits",
+  "heroSubtitle": "Don't take our word for it — see the {{brand}} factory for yourself. Watch the walkthrough, schedule an in-person visit, or send your own inspector.",
+  "hero": {
+    "ctaVisit": "Schedule a visit",
+    "ctaVisitAria": "Schedule a factory visit on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about visiting the factory"
+  },
+  "tldr": {
+    "heading": "In short",
+    "body": "You can verify the {{brand}} factory in {{city}} three ways: watch a short video walkthrough of the production floor, schedule an in-person visit to see production and container stuffing, or appoint your own independent surveyor for pre-shipment inspection. We welcome all three."
+  },
+  "intro": {
+    "p1": "Verification is the whole point of this page. It is part of our",
+    "hubLinkLabel": "coconut charcoal factory overview"
+  },
+  "video": {
+    "h2": "Video walkthrough",
+    "body": "A short walkthrough of the production floor — carbonization ovens, the briquetting lines, the drying tunnel, the QC station, and packing.",
+    "playLabel": "Play the factory walkthrough",
+    "placeholder": "The video walkthrough is being finalized. In the meantime, the written walkthrough below covers what the tour shows, and you're welcome to request a live WhatsApp video call."
+  },
+  "walkthrough": {
+    "h2": "What the tour covers",
+    "body": "Whether you watch the video, visit in person, or join a live WhatsApp video call, here is what you'll see across the {{facilityAreaGrouped}} m² factory:",
+    "stages": [
+      "Carbonization ovens turning coconut shell into char",
+      "Milling and sieving the char to a uniform powder",
+      "Mixing with the natural binder and pressing into shape",
+      "The temperature-controlled drying tunnels",
+      "The weathering area where briquettes rest before packing",
+      "The QC bench running moisture and burn/ash tests",
+      "Packing and container stuffing for export"
+    ]
+  },
+  "visit": {
+    "h2": "Visit the factory in person",
+    "body": "We welcome serious buyers to visit. Come and see production, the QC bench, and a container being stuffed and sealed. We can also arrange a live WhatsApp video call if travel isn't practical right now. Tell us your timeline and we'll set it up."
+  },
+  "inspection": {
+    "h2": "Send your own inspector",
+    "body": "You don't have to rely on our word, or even our video. You may appoint an independent pre-shipment surveyor at your cost — for example SGS, Intertek, or Bureau Veritas — to inspect the goods and the loading before the container sails. We coordinate access and the timing around your booking."
+  },
+  "audit": {
+    "h2": "Third-party factory audit",
+    "body": "Our factory has been audited by an independent inspection body. We can share the audit summary on request as part of your due diligence.",
+    "linkLabelTemplate": "{{title}}"
+  },
+  "orientation": {
+    "h2": "From first contact to shipment",
+    "body": "Here is the path a typical order follows, so you know what each step looks like before you start:",
+    "steps": [
+      "Contact us with your target specs and destination",
+      "Free samples to verify the burn in your own lab",
+      "Quotation — price, MOQ, and lead time",
+      "Purchase order and proforma invoice",
+      "Deposit confirms the order and schedules production",
+      "Production in our factory",
+      "Inspection — ours, and yours if you appoint a surveyor",
+      "Container stuffing, sealing, and shipment"
+    ]
+  },
+  "guarantee": {
+    "body": "Our specification guarantee and exchange/refund remedy are covered under Quality.",
+    "linkLabel": "Our quality guarantee"
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Can I visit or see the factory?",
+        "a": "Yes. We welcome serious buyers to visit our {{city}} factory to see production, QC, and container stuffing. If travel isn't practical, we'll arrange a live WhatsApp video call."
+      },
+      {
+        "q": "Can I send my own inspector?",
+        "a": "Yes. You may appoint an independent pre-shipment surveyor — for example SGS, Intertek, or Bureau Veritas — at your cost. We coordinate access and timing around your booking."
+      },
+      {
+        "q": "Do you offer a video tour or audit?",
+        "a": "Yes. There is a video walkthrough of the production floor, and our factory has been independently audited — we can share the audit summary on request."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/factory", "label": "Factory overview" },
+      { "href": "/factory/production-process", "label": "How it's made" },
+      { "href": "/factory/capacity", "label": "Production capacity" },
+      { "href": "/factory/raw-materials", "label": "Raw materials & sourcing" },
+      { "href": "/quality/certifications", "label": "Certifications" },
+      { "href": "/samples", "label": "Request samples" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

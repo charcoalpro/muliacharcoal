@@ -384,6 +384,12 @@ export function factoryTokens(company: Company) {
     qcStepCount: f.qcSteps.length,
     processStepCount: f.processSteps.length,
     equipmentCount: f.equipment.length,
+    // Binder / additives / ash colour — canonical home is quality.specs;
+    // exposed here for the production-process binder-disclosure section and
+    // the raw-materials sourcing narrative (no value duplicated).
+    binder: company.quality.specs.binder,
+    additives: company.quality.specs.additives,
+    ashColor: company.quality.specs.ashColor,
   };
 }
 

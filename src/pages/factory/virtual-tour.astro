@@ -1,0 +1,186 @@
+---
+/**
+ * /factory/virtual-tour — verification: video, visits, buyer inspection.
+ *
+ *   - Ships with MANDATORY non-video content (written walkthrough + visit
+ *     invitation + audit summary + buyer-appointed inspection + the
+ *     production-to-ship orientation + CTA), independent of the video.
+ *   - The video facade renders only when factoryTourVideo is real; the
+ *     VideoObject is gated the same way (valid-or-omit), keeping the
+ *     rich-result target. Guarantee/refund remedy is linked to /quality
+ *     (canonical there), not restated.
+ *   - Schema: WebPage (isPartOf → hub) + gated VideoObject. NO FAQPage.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import YouTubeLite from '~/components/content/YouTubeLite.astro';
+import en from '~/i18n/en';
+import { pillarCrumb } from '~/lib/breadcrumb';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, factoryTokens } from '~/lib/interpolate';
+import { factoryClusterPageSchema } from '~/lib/schema/factoryClusterPage';
+
+const t = en.factoryVirtualTour;
+const tc = en.factoryCommon;
+const f = company.factory;
+const tokens = { ...companyTokens(company), ...factoryTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const video = company.factoryTourVideo;
+const hasVideo = hasFact(video.youtubeId);
+const auditDoc = company.legalDocuments.find((d) => d.key === 'factory-audit');
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = factoryClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/factory/virtual-tour',
+  video: { ...video, id: 'factory-tour' },
+});
+
+const proseForReadTime = fill(
+  [t.heroSubtitle, t.tldr.body, t.intro.p1, t.video.body, t.walkthrough.body, ...t.walkthrough.stages, t.visit.body, t.inspection.body, t.audit.body, t.orientation.body, ...t.orientation.steps, ...t.faq.items.flatMap((q) => [q.q, q.a])].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/factory/virtual-tour"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[pillarCrumb('factory'), { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaVisit,
+      href: waLinkFor('videoCallRequest'),
+      ariaLabel: t.hero.ctaVisitAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'virtual-tour-hero-visit',
+    }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'virtual-tour-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={f.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <div class="rounded-xl border-s-4 border-brand-accent bg-neutral-50 p-5">
+      <p class="text-xs font-semibold uppercase tracking-wide text-brand-accent-strong">{t.tldr.heading}</p>
+      <p class="mt-2 text-base leading-relaxed text-neutral-800">{fill(t.tldr.body, tokens)}</p>
+    </div>
+
+    <p class="mt-8 max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/factory" class="font-semibold" data-source-component="virtual-tour-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
+    </p>
+
+    {/* Video — facade renders only when the video is real; otherwise the
+        written walkthrough below carries the page. */}
+    <section id="video" aria-labelledby="video-heading" class="mt-12 scroll-mt-24">
+      <h2 id="video-heading" class="text-2xl font-bold text-neutral-900">{t.video.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.video.body}</p>
+      {hasVideo ? (
+        <YouTubeLite class="mt-6" videoId={video.youtubeId} title={video.name} aspect="16/9" dataSourceComponent="virtual-tour-video" />
+      ) : (
+        <p class="mt-6 rounded-xl border border-dashed border-neutral-300 bg-neutral-50 p-5 text-sm text-neutral-600">{t.video.placeholder}</p>
+      )}
+    </section>
+
+    <section id="walkthrough" aria-labelledby="walkthrough-heading" class="mt-12 scroll-mt-24">
+      <h2 id="walkthrough-heading" class="text-2xl font-bold text-neutral-900">{t.walkthrough.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.walkthrough.body, tokens)}</p>
+      <ul class="mt-4 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+        {t.walkthrough.stages.map((stage) => (
+          <li class="flex gap-2"><span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span><span>{stage}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="visit" aria-labelledby="visit-heading" class="mt-12 scroll-mt-24">
+      <h2 id="visit-heading" class="text-2xl font-bold text-neutral-900">{t.visit.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.visit.body, tokens)}</p>
+    </section>
+
+    <section id="inspection" aria-labelledby="inspection-heading" class="mt-12 scroll-mt-24">
+      <h2 id="inspection-heading" class="text-2xl font-bold text-neutral-900">{t.inspection.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.inspection.body, tokens)}</p>
+    </section>
+
+    {auditDoc && (
+      <section id="audit" aria-labelledby="audit-heading" class="mt-12 scroll-mt-24">
+        <h2 id="audit-heading" class="text-2xl font-bold text-neutral-900">{t.audit.h2}</h2>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.audit.body, tokens)}</p>
+        <p class="mt-3 text-sm">
+          <a href={auditDoc.href} class="font-semibold text-brand-primary hover:underline" data-event="outbound_click" data-source-component="virtual-tour-audit-doc">
+            {fill(t.audit.linkLabelTemplate, { title: auditDoc.title })} <span aria-hidden="true">→</span>
+          </a>
+        </p>
+      </section>
+    )}
+
+    <section id="orientation" aria-labelledby="orientation-heading" class="mt-12 scroll-mt-24">
+      <h2 id="orientation-heading" class="text-2xl font-bold text-neutral-900">{t.orientation.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.orientation.body}</p>
+      <ol class="mt-4 max-w-prose space-y-2 text-base text-neutral-700" role="list">
+        {t.orientation.steps.map((step, i) => (
+          <li class="flex gap-3">
+            <span aria-hidden="true" class="font-semibold text-brand-primary">{i + 1}.</span>
+            <span>{step}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="mt-6 max-w-prose text-base leading-relaxed text-neutral-700">
+        {t.guarantee.body}{' '}
+        <MaybeLink href="/quality" class="font-semibold" data-source-component="virtual-tour-guarantee-quality">{t.guarantee.linkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    <section aria-labelledby="vt-faq" class="mt-14">
+      <FAQSection id="vt-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="vt-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="vt-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`virtual-tour-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

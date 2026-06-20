@@ -44,6 +44,10 @@ import qualityTesting from './qualityTesting.json';
 import qualityCerts from './qualityCerts.json';
 import factory from './factory.json';
 import factoryCommon from './factoryCommon.json';
+import factoryProductionProcess from './factoryProductionProcess.json';
+import factoryCapacity from './factoryCapacity.json';
+import factoryRawMaterials from './factoryRawMaterials.json';
+import factoryVirtualTour from './factoryVirtualTour.json';
 import productGrade from './productGrade.json';
 import productCategory from './productCategory.json';
 import productMarket from './productMarket.json';
@@ -81,6 +85,10 @@ const en = {
   qualityCerts,
   factory,
   factoryCommon,
+  factoryProductionProcess,
+  factoryCapacity,
+  factoryRawMaterials,
+  factoryVirtualTour,
   productGrade,
   productCategory,
   productMarket,

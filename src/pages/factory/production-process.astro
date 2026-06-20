@@ -1,0 +1,206 @@
+---
+/**
+ * /factory/production-process — how coconut shell charcoal is made.
+ *
+ *   - Extractable TL;DR, a 7-step ProcessSteps overview (from
+ *     factory.processSteps), and five detailed sub-sections whose ids match
+ *     the glossary "see" fragments VERBATIM (#carbonization, #pyrolysis,
+ *     #kiln, #binder, #weathering) — each links back to its /glossary
+ *     DefinedTerm. Then the named in-process QC framework (factory.qcSteps)
+ *     + batch retention, binder disclosure, oven-type narrative, and a
+ *     develop-to-spec note.
+ *   - Schema: WebPage (isPartOf → hub) + HowTo (steps/supply/tool from
+ *     config). NO FAQPage (visible FAQ only). Most internally-linked child.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import ProcessSteps from '~/components/factory/ProcessSteps.astro';
+import en from '~/i18n/en';
+import { pillarCrumb } from '~/lib/breadcrumb';
+import { company, waLinkFor } from '~/config/company';
+import { fill, companyTokens, factoryTokens } from '~/lib/interpolate';
+import { factoryClusterPageSchema } from '~/lib/schema/factoryClusterPage';
+
+const t = en.factoryProductionProcess;
+const tc = en.factoryCommon;
+const f = company.factory;
+const tokens = { ...companyTokens(company), ...factoryTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// Process steps (token-filled) feed both the visible ProcessSteps list and
+// the HowTo schema, so the two stay in lockstep.
+const steps = f.processSteps.map((s) => ({
+  key: s.key,
+  title: s.title,
+  durationOrTemp: fill(s.durationOrTemp, tokens),
+  note: fill(s.note, tokens),
+}));
+
+const qcSteps = f.qcSteps.map((s) => ({ step: s.step, title: s.title, checks: fill(s.checks, tokens) }));
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = factoryClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/factory/production-process',
+  aboutAnchor: 'pyrolysis',
+  howTo: {
+    name: fill(t.h1, tokens),
+    description: fill(t.tldr.body, tokens),
+    steps: steps.map((s) => ({ name: s.title, text: s.note })),
+    supply: ['Coconut shell', tokens.binder],
+    tool: f.equipment.map((e) => e.name),
+  },
+});
+
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.tldr.body,
+    t.intro.p1,
+    t.overview.body,
+    ...steps.map((s) => s.note),
+    ...t.sections.map((s) => s.body),
+    t.qc.body,
+    ...qcSteps.map((s) => s.checks),
+    t.developToSpec.body,
+    ...t.faq.items.flatMap((q) => [q.q, q.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/factory/production-process"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[pillarCrumb('factory'), { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'production-process-hero-quote',
+    }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'production-process-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={f.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    {/* Extractable TL;DR / definition block. */}
+    <div class="rounded-xl border-s-4 border-brand-accent bg-neutral-50 p-5">
+      <p class="text-xs font-semibold uppercase tracking-wide text-brand-accent-strong">{t.tldr.heading}</p>
+      <p class="mt-2 text-base leading-relaxed text-neutral-800">{fill(t.tldr.body, tokens)}</p>
+    </div>
+
+    <p class="mt-8 max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/factory" class="font-semibold" data-source-component="production-process-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
+    </p>
+
+    {/* Process at a glance — config-driven steps (lockstep with HowTo). */}
+    <section id="overview" aria-labelledby="overview-heading" class="mt-12 scroll-mt-24">
+      <h2 id="overview-heading" class="text-2xl font-bold text-neutral-900">{t.overview.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.overview.body}</p>
+      <ProcessSteps class="mt-6" steps={steps} />
+      <p class="mt-6 max-w-prose text-sm text-neutral-600">{fill(t.overview.supplyNote, tokens)}</p>
+    </section>
+
+    {/* Detailed sub-sections — ids match the glossary see-link fragments. */}
+    {t.sections.map((s) => (
+      <section id={s.id} aria-labelledby={`${s.id}-heading`} class="mt-12 scroll-mt-24">
+        <h2 id={`${s.id}-heading`} class="text-2xl font-bold text-neutral-900">{s.h2}</h2>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(s.body, tokens)}</p>
+        {s.links && s.links.length > 0 && (
+          <p class="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+            {s.links.map((lnk, i) => (
+              <>
+                {i > 0 && <span aria-hidden="true" class="text-neutral-300">·</span>}
+                <MaybeLink href={lnk.href} class="font-semibold" data-source-component={`production-process-${s.id}-link`}>{lnk.label} <span aria-hidden="true">→</span></MaybeLink>
+              </>
+            ))}
+          </p>
+        )}
+      </section>
+    ))}
+
+    {/* Named in-process QC framework + batch retention. */}
+    <section id="quality-control" aria-labelledby="qc-heading" class="mt-12 scroll-mt-24">
+      <h2 id="qc-heading" class="text-2xl font-bold text-neutral-900">{t.qc.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.qc.body, tokens)}</p>
+      <ol class="mt-4 max-w-prose space-y-2 text-base text-neutral-700" role="list">
+        {qcSteps.map((s) => (
+          <li class="flex gap-3">
+            <span aria-hidden="true" class="font-semibold text-brand-primary">{s.step}.</span>
+            <span><strong class="font-semibold text-neutral-900">{s.title}.</strong> {s.checks}</span>
+          </li>
+        ))}
+      </ol>
+      {f.batchRetention && (
+        <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.qc.retentionNote}</p>
+      )}
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+        {t.qc.coaBody}{' '}
+        <MaybeLink href="/quality/testing-methods" class="font-semibold" data-source-component="production-process-qc-quality">{t.qc.coaLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    {/* Develop-to-spec (gated). */}
+    {f.developToSpec && (
+      <section id="develop-to-spec" aria-labelledby="dts-heading" class="mt-12 scroll-mt-24">
+        <h2 id="dts-heading" class="text-2xl font-bold text-neutral-900">{t.developToSpec.h2}</h2>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.developToSpec.body, tokens)}</p>
+      </section>
+    )}
+
+    <section aria-labelledby="pp-faq" class="mt-14">
+      <FAQSection id="pp-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="pp-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="pp-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`production-process-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>
