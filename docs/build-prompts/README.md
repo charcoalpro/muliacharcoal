@@ -20,10 +20,15 @@ docs/build-prompts/
 │   ├── packaging-additional-packaging-build-prompt-v2.md
 │   ├── packaging-cluster-consolidated-revisions.md
 │   └── packaging-cluster-golive-checklist-v2.md
-└── logistics/
-    ├── logistics-hub-build-prompt-v1.md
-    └── logistics-research-prompt-v1.md
+├── logistics/
+│   ├── logistics-hub-build-prompt-v1.md
+│   └── logistics-research-prompt-v1.md
+└── guide/
+    ├── guide-hub-build-prompt-v1.md
+    └── guide-research-prompt-v1.md
 ```
+
+> Note: a sibling docs PR adds a `factory/` folder + manifest rows in these same spots; trivial to reconcile at merge.
 
 ---
 
@@ -41,6 +46,8 @@ docs/build-prompts/
 | `packaging/packaging-cluster-golive-checklist-v2.md` | v2 | checklist (owner-facing) | Data/asset gathering for the whole cluster; paste into a session only when populating `company.ts` | — |
 | `logistics/logistics-hub-build-prompt-v1.md` | v1 | build | `/logistics` hub; creates the `company.ts` `logistics` contract incl. `transitTimes[]` | packaging hub v6 (conventions + components) |
 | `logistics/logistics-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Gathers verified UN-1361/DG + USA-import facts; output feeds the two pending child prompts | — |
+| `guide/guide-hub-build-prompt-v1.md` | v1 | build | `/guide` Buyer's Guide hub **+ 4 guides** (how-to-choose-shisha-charcoal-factory, coconut-vs-bamboo-vs-wood-charcoal, how-to-start-your-own-brand, private-label-options); reconciles the GradePage guide slug; reuses `grades`/`editorial` facts; self-heals the muted `/guide*` links sitewide | packaging hub v6 + logistics hub v1 + factory hub v1 (pillar-hub pattern) |
+| `guide/guide-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Verifies coconut-vs-bamboo-vs-wood comparison data + supplier-vetting/private-label norms + SERP teardown; routes owner/site facts to a checklist; feeds the guide build prompt | — |
 
 **Pending (will be added here):** `/logistics/UN-1361` and `/logistics/import-to-usa` (await `logistics-research-findings.md`), `/logistics/rules`, `/logistics/documents`. Each will declare its required parents in its own header using repo paths.
 
@@ -54,6 +61,7 @@ docs/build-prompts/
 8. **Consistency pass** — revisions §5 checkpoints across all built pages.
 9. **`/logistics` hub.**
 10+. **Logistics children** as their prompts land.
+11. **`/guide` pillar** — hub + 4 guides (single prompt); fully unblocked (cross-links existing pillars); add the 5 routes to `LIVE_ROUTES` and reconcile the GradePage guide slug.
 Cross-site touches (`/samples` packaging accommodation, homepage OEM → white-label link) whenever those pages are next edited; guide-pillar redirects when that pillar is built.
 
 ---
