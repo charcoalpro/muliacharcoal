@@ -20,6 +20,7 @@
  */
 
 import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import Button from '~/components/cta/Button.astro';
 import TextLink from '~/components/content/TextLink.astro';
 import ExternalLink from '~/components/content/ExternalLink.astro';
 import en from '~/i18n/en';
@@ -133,17 +134,19 @@ const isSales = variant === 'sales';
   {isSales && (
     <div class="mt-auto pt-5 flex flex-wrap gap-2">
       {waHref && (
-        <a
+        <Button
           href={waHref}
+          variant="whatsapp"
+          size="sm"
           target="_blank"
           rel="noopener noreferrer"
           data-event="whatsapp_click"
           data-source-component="team-card"
-          class="inline-flex flex-1 items-center justify-center gap-2 rounded-md bg-success px-4 py-2 text-sm font-semibold text-white transition-colors hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-success"
+          class="flex-1"
         >
           {tSales.buttonWhatsapp}
           <span class="sr-only"> {en.contact.newTabSr}</span>
-        </a>
+        </Button>
       )}
       {telHref && (
         <a

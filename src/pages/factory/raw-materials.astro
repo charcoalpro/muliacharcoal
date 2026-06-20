@@ -1,0 +1,178 @@
+---
+/**
+ * /factory/raw-materials — coconut-shell sourcing & raw materials.
+ *
+ *   - Extractable TL;DR, the #sourcing section (the glossary see-link
+ *     target), vertical-integration narrative (own carbonization plant),
+ *     sustainability / waste-to-value, gated geography-as-quality
+ *     (factory.sourcingAshNarrative) and labor/CSR (factory.laborStatement),
+ *     and an on-page shell-vs-wood-vs-bamboo comparison SpecsTable. The
+ *     Guide cross-link stays MaybeLink-muted until that pillar ships.
+ *   - Schema: WebPage (isPartOf → hub, about → glossary feedstock term).
+ *     NO FAQPage (visible FAQ only).
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import SpecsTable from '~/components/content/SpecsTable.astro';
+import en from '~/i18n/en';
+import { pillarCrumb } from '~/lib/breadcrumb';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, factoryTokens } from '~/lib/interpolate';
+import { factoryClusterPageSchema } from '~/lib/schema/factoryClusterPage';
+
+const t = en.factoryRawMaterials;
+const tc = en.factoryCommon;
+const f = company.factory;
+const tokens = { ...companyTokens(company), ...factoryTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+const comparisonColumns = [
+  { key: 'coconut', label: t.comparison.colCoconut },
+  { key: 'wood', label: t.comparison.colWood },
+  { key: 'bamboo', label: t.comparison.colBamboo },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = factoryClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/factory/raw-materials',
+  aboutAnchor: 'tempurung-kelapa-feedstock',
+});
+
+const proseForReadTime = fill(
+  [t.heroSubtitle, t.tldr.body, t.intro.p1, t.sourcing.body, t.verticalIntegration.body, t.sustainability.body, f.sourcingAshNarrative, f.laborStatement, ...t.faq.items.flatMap((q) => [q.q, q.a])].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/factory/raw-materials"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[pillarCrumb('factory'), { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'raw-materials-hero-quote',
+    }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'raw-materials-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={f.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <div class="rounded-xl border-s-4 border-brand-accent bg-neutral-50 p-5">
+      <p class="text-xs font-semibold uppercase tracking-wide text-brand-accent-strong">{t.tldr.heading}</p>
+      <p class="mt-2 text-base leading-relaxed text-neutral-800">{fill(t.tldr.body, tokens)}</p>
+    </div>
+
+    <p class="mt-8 max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/factory" class="font-semibold" data-source-component="raw-materials-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
+    </p>
+
+    <Figure class="mt-8" alt={fill(t.figure.alt, tokens)} caption={t.figure.caption} />
+
+    <section id="sourcing" aria-labelledby="sourcing-heading" class="mt-12 scroll-mt-24">
+      <h2 id="sourcing-heading" class="text-2xl font-bold text-neutral-900">{t.sourcing.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.sourcing.body, tokens)}</p>
+      <p class="mt-3 text-sm">
+        {t.sourcing.links.map((lnk) => (
+          <MaybeLink href={lnk.href} class="font-semibold" data-source-component="raw-materials-sourcing-glossary">{lnk.label} <span aria-hidden="true">→</span></MaybeLink>
+        ))}
+      </p>
+    </section>
+
+    <section id="vertical-integration" aria-labelledby="vi-heading" class="mt-12 scroll-mt-24">
+      <h2 id="vi-heading" class="text-2xl font-bold text-neutral-900">{t.verticalIntegration.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.verticalIntegration.body, tokens)}</p>
+    </section>
+
+    <section id="sustainability" aria-labelledby="sustainability-heading" class="mt-12 scroll-mt-24">
+      <h2 id="sustainability-heading" class="text-2xl font-bold text-neutral-900">{t.sustainability.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.sustainability.body, tokens)}</p>
+    </section>
+
+    {hasFact(f.sourcingAshNarrative) && (
+      <section id="geography" aria-labelledby="geography-heading" class="mt-12 scroll-mt-24">
+        <h2 id="geography-heading" class="text-2xl font-bold text-neutral-900">{t.geography.h2}</h2>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(f.sourcingAshNarrative, tokens)}</p>
+      </section>
+    )}
+
+    <section id="comparison" aria-labelledby="comparison-heading" class="mt-12 scroll-mt-24">
+      <h2 id="comparison-heading" class="text-2xl font-bold text-neutral-900">{t.comparison.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.comparison.body}</p>
+      <SpecsTable class="mt-6" id="comparison-table" columns={comparisonColumns} rows={t.comparison.rows} caption={t.comparison.caption} propertyHeader={t.comparison.propertyHeader} cardEyebrow={t.comparison.propertyHeader} />
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+        {t.comparison.guideBody}{' '}
+        <MaybeLink href="/guide/coconut-vs-bamboo-vs-wood-charcoal" class="font-semibold" mutedClass="font-semibold text-neutral-400" data-source-component="raw-materials-comparison-guide">{t.comparison.guideLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">
+        {t.comparison.qualityBody}{' '}
+        <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="raw-materials-comparison-quality">{t.comparison.qualityLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    {hasFact(f.laborStatement) && (
+      <section id="labor" aria-labelledby="labor-heading" class="mt-12 scroll-mt-24">
+        <h2 id="labor-heading" class="text-2xl font-bold text-neutral-900">{t.labor.h2}</h2>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{f.laborStatement}</p>
+      </section>
+    )}
+
+    <section aria-labelledby="rm-faq" class="mt-14">
+      <FAQSection id="rm-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="rm-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="rm-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`raw-materials-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

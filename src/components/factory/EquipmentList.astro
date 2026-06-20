@@ -1,0 +1,38 @@
+---
+/**
+ * EquipmentList — machinery cards corroborating the capacity figures.
+ *
+ * Renders `factory.equipment` ({ name, qty, spec }) as a card grid. Each
+ * card shows the machine name, an optional "×qty" count, and a one-line
+ * spec. Kilns/ovens live in `production.ovens` (shown separately), not
+ * here, to avoid duplicating that fact. Zero JS.
+ */
+
+interface Item {
+  name: string;
+  qty?: number | string;
+  spec?: string;
+}
+
+interface Props {
+  items: Item[];
+  class?: string;
+}
+
+const { items, class: className } = Astro.props;
+
+const hasQty = (q: Item['qty']) => q !== undefined && q !== null && q !== '';
+---
+<ul class:list={['grid grid-cols-1 gap-3 sm:grid-cols-2', className]} role="list">
+  {items.map((it) => (
+    <li class="rounded-xl border border-neutral-200 bg-white p-4">
+      <p class="font-semibold text-neutral-900">
+        {it.name}
+        {hasQty(it.qty) && (
+          <span class="ms-2 text-sm font-medium text-brand-accent-strong">×{it.qty}</span>
+        )}
+      </p>
+      {it.spec && <p class="mt-1 text-sm leading-relaxed text-neutral-600">{it.spec}</p>}
+    </li>
+  ))}
+</ul>

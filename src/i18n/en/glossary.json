@@ -106,7 +106,7 @@
       "term": "Weathering",
       "cluster": "dg",
       "definitionTemplate": "Weathering is the controlled rest period between completion of carbonization and loading of finished briquettes, during which the residual reactive carbon surface oxidizes and the material's self-heating tendency falls. It is recorded in the QC log and is one of the Special Provision 978 controls that reduce the self-heating risk at source.",
-      "see": { "href": "/factory/production-process", "label": "Production process and weathering window" }
+      "see": { "href": "/factory/production-process#weathering", "label": "Production process and weathering window" }
     },
     {
       "slug": "vanning-certificate",
@@ -168,7 +168,7 @@
       "term": "Carbonization level",
       "cluster": "specs",
       "definitionTemplate": "Carbonization level is a qualitative classification of how completely the raw coconut shell has been pyrolyzed, expressed on a 0–100% scale where 100% denotes complete conversion to charcoal. Under-carbonized briquettes smoke, smell, and shed soot; over-carbonized briquettes lose structural integrity. We target ≥ 95% carbonization level on every batch.",
-      "see": { "href": "/factory/production-process", "label": "Carbonization in our ovens" }
+      "see": { "href": "/factory/production-process#carbonization", "label": "Carbonization in our ovens" }
     },
     {
       "slug": "white-ash-grading",
@@ -244,28 +244,28 @@
       "term": "Pyrolysis",
       "cluster": "production",
       "definitionTemplate": "Pyrolysis is the thermal decomposition of organic matter at high temperature in the absence of oxygen — the chemical process that converts coconut shell into charcoal. Industrial coconut-shell pyrolysis is carried out at 400–700 °C over several hours; the resulting char is the raw material for the briquetting press.",
-      "see": { "href": "/factory/production-process", "label": "Pyrolysis step by step" }
+      "see": { "href": "/factory/production-process#pyrolysis", "label": "Pyrolysis step by step" }
     },
     {
       "slug": "carbonization-kiln",
       "term": "Carbonization kiln",
       "cluster": "production",
       "definitionTemplate": "A carbonization kiln is the sealed thermal vessel — typically a brick or steel drum kiln — in which raw coconut shell is pyrolyzed into charcoal at controlled temperature and oxygen starvation. Our factory operates {{ovenCount}} kilns running in parallel to feed {{productionLines}} briquetting lines at a sustained {{capacity}} tons per day.",
-      "see": { "href": "/factory/production-process", "label": "Kiln operation and cycle" }
+      "see": { "href": "/factory/production-process#kiln", "label": "Kiln operation and cycle" }
     },
     {
       "slug": "tempurung-kelapa-feedstock",
       "term": "Tempurung kelapa (coconut shell feedstock)",
       "cluster": "production",
       "definitionTemplate": "Tempurung kelapa is the Indonesian term for coconut shell — the hard, fibrous endocarp left over after the flesh and water are extracted. It is the highest-density natural feedstock available for charcoal: roughly 1.4 g/cm³ raw, versus around 0.5 g/cm³ for wood, which is why coconut briquettes burn longer and produce less ash than wood-based equivalents.",
-      "see": { "href": "/factory/raw-materials", "label": "How we source coconut shell" }
+      "see": { "href": "/factory/raw-materials#sourcing", "label": "How we source coconut shell" }
     },
     {
       "slug": "tapioca-binder",
       "term": "Tapioca binder",
       "cluster": "production",
       "definitionTemplate": "Tapioca binder is the food-grade starch added at the briquetting stage to hold pulverized coconut charcoal into a coherent cube. Tapioca is preferred over synthetic binders because it carbonizes cleanly during drying, contributes no foreign odour or smoke, and meets food-contact regulations in destination markets. Binder content is typically 3–6% by mass.",
-      "see": { "href": "/factory/production-process", "label": "Binder and pressing step" }
+      "see": { "href": "/factory/production-process#binder", "label": "Binder and pressing step" }
     },
     {
       "slug": "briquetting-press",

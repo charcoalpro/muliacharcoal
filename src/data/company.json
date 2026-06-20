@@ -154,7 +154,7 @@
       "Australia"
     ],
     "salesLanguages": ["EN", "AR", "RU", "DE", "TR"],
-    "countriesExportedCount": 32,
+    "countriesExportedCount": 35,
     "lcMinContainers": 1,
     "transitTimes": [
       { "destination": "Jeddah, Saudi Arabia", "portCode": "SAJED", "country": "Saudi Arabia", "minDays": 18, "maxDays": 25 },
@@ -187,7 +187,8 @@
       "capacityTonsPerBatch": 1.5,
       "cycleHours": 24
     },
-    "rawMaterial": "Coconut shell charcoal (sourced from Java and Sumatra)",
+    "rawMaterial": "Coconut shell",
+    "weatheringDays": 14,
     "factoryAreaSqm": 4200,
     "palmTreesCount": 28000,
     "sourcingVillages": 11,
@@ -198,6 +199,43 @@
     },
     "shelfLifeMonths": 24,
     "storageNote": "Store sealed in a cool, dry place away from direct sunlight and humidity. Re-sealable inner packaging preserves the burn profile over the full shelf life."
+  },
+
+  "factory": {
+    "editorial": { "datePublished": "2026-06-19", "dateModified": "2026-06-19" },
+    "processSteps": [
+      { "key": "carbonization", "title": "Carbonization", "durationOrTemp": "≈400–700°C", "note": "Raw coconut shells are carbonized in our kilns, driving off volatiles and leaving high-fixed-carbon charcoal." },
+      { "key": "milling", "title": "Milling & sieving", "durationOrTemp": "", "note": "Carbonized shell is crushed and milled to a fine powder, then sieved to a controlled, uniform particle size." },
+      { "key": "mixing", "title": "Mixing & binder", "durationOrTemp": "", "note": "Charcoal powder is blended with food-grade tapioca starch and water — no chemical accelerants — into a homogeneous paste." },
+      { "key": "pressing", "title": "Pressing & forming", "durationOrTemp": "", "note": "The paste is pressed and extruded into cubes, hexagonals, or fingers at high pressure for a dense, consistent briquette." },
+      { "key": "drying", "title": "Drying", "durationOrTemp": "≈18–24 h", "note": "Formed briquettes are dried in temperature-controlled tunnels to a low, stable moisture content." },
+      { "key": "weathering", "title": "Weathering", "durationOrTemp": "≥{{weatheringDays}} days", "note": "Briquettes are weathered under cover before packing — a dangerous-goods safety step that also stabilizes the burn." },
+      { "key": "qc", "title": "Quality control & packing", "durationOrTemp": "", "note": "Every batch passes our in-process quality checks and a burn/ash test before packing; a reference sample is retained." }
+    ],
+    "qcSteps": [
+      { "step": 1, "title": "Raw shell intake", "checks": "Incoming coconut shell is inspected for moisture and contamination before carbonization." },
+      { "step": 2, "title": "Carbonization control", "checks": "Kiln temperature and burn time are monitored to hold fixed carbon within target." },
+      { "step": 3, "title": "Powder consistency", "checks": "Milled charcoal is sieved and checked for particle-size uniformity." },
+      { "step": 4, "title": "Mix & density check", "checks": "Binder ratio and paste density are verified before pressing." },
+      { "step": 5, "title": "In-line dimensional check", "checks": "Pressed briquettes are sampled for size, weight, and edge integrity." },
+      { "step": 6, "title": "Finished-batch burn test", "checks": "Each batch undergoes a moisture reading and a burn/ash test; a reference sample is retained." }
+    ],
+    "equipment": [
+      { "name": "Coconut shell crushers", "qty": 4, "spec": "primary size reduction of carbonized shell" },
+      { "name": "Hammer mills", "qty": 4, "spec": "fine milling to a uniform charcoal powder" },
+      { "name": "Sieving & grading units", "qty": 2, "spec": "particle-size control before mixing" },
+      { "name": "Ribbon mixers", "qty": 4, "spec": "charcoal powder + tapioca binder blending" },
+      { "name": "Hydraulic briquette presses", "qty": 4, "spec": "one press per production line" },
+      { "name": "Temperature-controlled drying tunnels", "qty": 4, "spec": "moisture reduction to a low, stable level" }
+    ],
+    "ovenType": "gas and electric",
+    "batchRetention": true,
+    "developToSpec": true,
+    "ndaAvailable": true,
+    "sourcingAshNarrative": "Coconut shells from {{sourcingRegion}} are mature and thick-walled, which typically supports a denser charcoal with low, light-grey ash. Exact ash content is confirmed per order, not guaranteed by region alone.",
+    "ownerNote": "We built this factory in Semarang to do one thing exceptionally well — coconut shisha charcoal. I'm on the floor with my team every week, because consistency is something you supervise, not something you outsource.",
+    "laborStatement": "Our workforce is employed on formal terms, with wages at or above the regional minimum and a factory run to local occupational health-and-safety standards. We use no child labor, and our coconut-shell sourcing supports smallholder farming communities across eastern Indonesia.",
+    "ramadanLeadNote": "Demand peaks ahead of Ramadan and the summer shisha season. To hold your delivery window through these surges, place confirmed orders 6–8 weeks earlier than usual; we schedule production slots on a first-confirmed basis."
   },
 
   "samples": {
@@ -529,7 +567,6 @@
         "note": "A Self-Heating Test (UN Test N.4) report is available on request as supporting hazard evidence; since IMDG Amendment 42-24 it no longer exempts UN 1361 from dangerous-goods carriage."
       },
       "sp978": {
-        "weatheringDays": "14",
         "weatheringMethod": "14 days under cover in open air, or inert gas after pyrolysis plus 24 hours of storage",
         "packingTempMaxC": "40",
         "packingTempLogged": true,

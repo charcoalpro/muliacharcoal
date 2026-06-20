@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "titleTemplate": "Coconut Shell Sourcing & Raw Materials | {{brand}}",
+    "descriptionTemplate": "Where {{brand}} sources coconut shell ({{sourcingRegion}}) and why it beats wood and bamboo for shisha: lower ash, neutral taste, renewable."
+  },
+  "breadcrumb": "Raw materials",
+  "figure": { "alt": "Mature coconut shells from {{sourcingRegion}} staged for carbonization.", "caption": "Coconut shell feedstock" },
+  "eyebrow": "Factory",
+  "h1": "Coconut Shell Sourcing & Raw Materials",
+  "heroSubtitle": "Our single raw material is coconut shell — an upcycled byproduct sourced from {{sourcingRegion}} and carbonized at our own plant in {{carbonizationCity}}.",
+  "hero": {
+    "ctaQuote": "Request a quote",
+    "ctaQuoteAria": "Request a wholesale quote on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about our raw materials"
+  },
+  "tldr": {
+    "heading": "In short",
+    "body": "{{brand}} charcoal is made from one raw material: mature coconut shell, an upcycled byproduct of the copra and coconut-food industry. We source it from {{sourcingVillages}} villages across {{sourcingRegion}} and carbonize it ourselves in {{carbonizationCity}}. Coconut shell makes a denser, lower-ash, neutral-tasting coal than wood or bamboo, and no tree is felled to produce it."
+  },
+  "intro": {
+    "p1": "This page covers what our charcoal is made from, where the shell comes from, and why coconut shell is the right raw material for shisha. It is part of our",
+    "hubLinkLabel": "coconut charcoal factory overview"
+  },
+  "sourcing": {
+    "h2": "Where we source coconut shell",
+    "body": "We source mature coconut shell from {{sourcingVillages}} villages across {{sourcingRegion}}, drawing on a supply base of around {{palmTreesGrouped}} coconut palms. Eastern Indonesia's older, thick-walled coconuts give a hard, dense shell — the best starting material for a long-burning, low-ash coal.",
+    "links": [{ "href": "/glossary#tempurung-kelapa-feedstock", "label": "Coconut shell feedstock, defined" }]
+  },
+  "verticalIntegration": {
+    "h2": "We own our carbonization",
+    "body": "Most charcoal exporters buy ready-made char on the open market and never see the kiln. We don't. We run our own carbonization plant in {{carbonizationCity}}, {{carbonizationRegion}}, so the raw char that feeds our briquettes is made to our standard — not bought to whatever quality the spot market offers that week. That vertical integration is what gives us both consistent raw-material quality and supply security at scale."
+  },
+  "sustainability": {
+    "h2": "A renewable, upcycled raw material",
+    "body": "Coconut shell is a byproduct: the shell is left over after the coconut's flesh and water are used for food. Turning it into charcoal upcycles waste that would otherwise be burned or dumped. No forest is cleared and no tree is felled for our charcoal — unlike lump wood charcoal, which is made by cutting and burning trees. For buyers who need a defensible sustainability story, coconut shell is the strongest position in the category."
+  },
+  "geography": {
+    "h2": "How the region shapes quality"
+  },
+  "comparison": {
+    "h2": "Coconut shell vs wood vs bamboo",
+    "body": "Why coconut shell is the standard for premium shisha charcoal, compared with wood (lump/sawdust) and bamboo:",
+    "caption": "Typical characteristics by charcoal raw material for shisha use.",
+    "propertyHeader": "Property",
+    "colCoconut": "Coconut shell",
+    "colWood": "Wood",
+    "colBamboo": "Bamboo",
+    "rows": [
+      { "name": "Ash content", "coconut": "Low (under ~2.5%)", "wood": "Higher (often 3–6%)", "bamboo": "Moderate to high" },
+      { "name": "Burn time", "coconut": "Long — dense, slow burn", "wood": "Shorter", "bamboo": "Short to medium" },
+      { "name": "Odor / taste", "coconut": "Neutral, low smoke", "wood": "Woody, smoky", "bamboo": "Mild, can be acrid" },
+      { "name": "Renewability", "coconut": "Upcycled byproduct — no tree felled", "wood": "Trees cut and burned", "bamboo": "Fast-growing grass" },
+      { "name": "Density / breakage", "coconut": "High density, low breakage", "wood": "Variable", "bamboo": "Lower density, more breakage" }
+    ],
+    "guideBody": "For the full breakdown of how these materials compare, see our buyer's guide.",
+    "guideLinkLabel": "Coconut vs bamboo vs wood charcoal",
+    "qualityBody": "Lower ash and a neutral taste are quality outcomes we measure and document.",
+    "qualityLinkLabel": "Our specifications & ash content"
+  },
+  "labor": {
+    "h2": "Labor & environmental standards"
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "Where do you source your coconut shell?",
+        "a": "From {{sourcingVillages}} villages across {{sourcingRegion}}, drawing on around {{palmTreesGrouped}} coconut palms. The mature, thick-walled coconuts of eastern Indonesia give a hard, dense shell ideal for low-ash charcoal."
+      },
+      {
+        "q": "Do you run your own carbonization?",
+        "a": "Yes. We operate our own carbonization plant in {{carbonizationCity}}, {{carbonizationRegion}}, so the raw char is made to our standard rather than bought on the spot market. That vertical integration gives us consistent quality and supply security."
+      },
+      {
+        "q": "Why coconut shell instead of wood or bamboo?",
+        "a": "Coconut shell burns longer with lower ash and a neutral taste, and it is an upcycled byproduct — no tree is felled to make it. Wood charcoal cuts and burns trees; bamboo is lower density and can taste acrid."
+      },
+      {
+        "q": "Does the raw material affect ash content?",
+        "a": "Yes. Denser, more mature shell typically yields a lower-ash coal. Region and maturity set the ceiling on quality; our carbonization and milling then hold it consistent. Exact ash is confirmed per order, not by region alone."
+      },
+      {
+        "q": "Is coconut-shell charcoal sustainable?",
+        "a": "It is the most defensible position in the category: the shell is a food-industry byproduct that would otherwise be waste, and no forest is cleared to produce it — unlike lump wood charcoal."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/factory", "label": "Factory overview" },
+      { "href": "/factory/production-process", "label": "How it's made" },
+      { "href": "/factory/capacity", "label": "Production capacity" },
+      { "href": "/factory/virtual-tour", "label": "Virtual tour & visits" },
+      { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+      { "href": "/products", "label": "Products" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

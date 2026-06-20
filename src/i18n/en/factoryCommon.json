@@ -1,0 +1,15 @@
+{
+  "metaBlock": {
+    "authorRole": "Authored by",
+    "reviewerRole": "Reviewed by",
+    "factCheckerRole": "Fact-checked by",
+    "lastUpdatedLabel": "Last updated",
+    "readTimeLabel": "Reading time",
+    "readTimeValueTemplate": "{{minutes}} min read"
+  },
+  "labels": {
+    "dash": "—",
+    "typicalCaveat": "Figures are typical, not a guarantee; exact values are confirmed per order.",
+    "backToHubTemplate": "Part of our {{hubLabel}} overview"
+  }
+}

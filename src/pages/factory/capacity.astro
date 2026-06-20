@@ -1,0 +1,191 @@
+---
+/**
+ * /factory/capacity — production capacity, container throughput, headroom.
+ *
+ *   - Extractable TL;DR, a capacity KeyFactsBox, a container-throughput
+ *     SpecsTable (read from commercial.containerCapacity — not redefined),
+ *     the headroom framing (one 20ft ≈ a few % of monthly output), the
+ *     EquipmentList (factory.equipment) + ovens note, the gated Ramadan
+ *     guidance, and lead times. Cross-links the batch-retention consistency
+ *     story on production-process, /logistics, and /products.
+ *   - Schema: WebPage (isPartOf → hub). NO FAQPage (visible FAQ only).
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import SpecsTable from '~/components/content/SpecsTable.astro';
+import EquipmentList from '~/components/factory/EquipmentList.astro';
+import en from '~/i18n/en';
+import { pillarCrumb } from '~/lib/breadcrumb';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, factoryTokens } from '~/lib/interpolate';
+import { factoryClusterPageSchema } from '~/lib/schema/factoryClusterPage';
+
+const t = en.factoryCapacity;
+const tc = en.factoryCommon;
+const f = company.factory;
+const tokens = { ...companyTokens(company), ...factoryTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// --- Capacity KeyFactsBox. ---
+const atGlanceFacts = [
+  { label: t.atAGlance.perDayLabel, value: fill(t.atAGlance.perDayValueTemplate, tokens) },
+  { label: t.atAGlance.perMonthLabel, value: fill(t.atAGlance.perMonthValueTemplate, tokens) },
+  { label: t.atAGlance.perYearLabel, value: fill(t.atAGlance.perYearValueTemplate, tokens) },
+  { label: t.atAGlance.linesLabel, value: fill(t.atAGlance.linesValueTemplate, tokens) },
+  { label: t.atAGlance.ovensLabel, value: fill(t.atAGlance.ovensValueTemplate, tokens) },
+  { label: t.atAGlance.workforceLabel, value: fill(t.atAGlance.workforceValueTemplate, tokens) },
+];
+
+// --- Container throughput (read commercial.containerCapacity; don't redefine). ---
+const cc = company.commercial.containerCapacity;
+const ft20Tons = Math.round(cc.ft20.fullKg / 1000);
+const ft40Tons = Math.round(cc.ft40.fullKg / 1000);
+const ft20Pct = Math.round((ft20Tons / company.production.capacityTonsPerMonth) * 100);
+const ft40Pct = Math.round((ft40Tons / company.production.capacityTonsPerMonth) * 100);
+const throughputColumns = [
+  { key: 'ft20', label: t.throughput.col20Label },
+  { key: 'ft40', label: t.throughput.col40Label },
+];
+const throughputRows = [
+  { name: t.throughput.rowPayload, ft20: fill(t.throughput.tonsTemplate, { tons: ft20Tons }), ft40: fill(t.throughput.tonsTemplate, { tons: ft40Tons }) },
+  { name: t.throughput.rowShare, ft20: fill(t.throughput.pctTemplate, { pct: ft20Pct }), ft40: fill(t.throughput.pctTemplate, { pct: ft40Pct }) },
+  { name: t.throughput.rowLead, ft20: tokens.leadTimeLabel, ft40: tokens.leadTimeLabel },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = factoryClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/factory/capacity',
+});
+
+const proseForReadTime = fill(
+  [t.heroSubtitle, t.tldr.body, t.intro.p1, t.throughput.body, t.headroom.body, t.equipment.body, t.leadTime.body, ...t.faq.items.flatMap((q) => [q.q, q.a])].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/factory/capacity"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[pillarCrumb('factory'), { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'capacity-hero-quote',
+    }}
+    secondaryCta={{ label: t.hero.ctaContact, href: '/contact', ariaLabel: t.hero.ctaContactAria, dataSourceComponent: 'capacity-hero-inquiry' }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{ authoredBy: tc.metaBlock.authorRole, reviewedBy: tc.metaBlock.reviewerRole, factCheckedBy: tc.metaBlock.factCheckerRole, lastUpdated: tc.metaBlock.lastUpdatedLabel, readTime: tc.metaBlock.readTimeLabel }}
+        lastUpdated={f.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-10 md:px-8">
+    <div class="rounded-xl border-s-4 border-brand-accent bg-neutral-50 p-5">
+      <p class="text-xs font-semibold uppercase tracking-wide text-brand-accent-strong">{t.tldr.heading}</p>
+      <p class="mt-2 text-base leading-relaxed text-neutral-800">{fill(t.tldr.body, tokens)}</p>
+    </div>
+
+    <p class="mt-8 max-w-prose text-base leading-relaxed text-neutral-700">
+      {fill(t.intro.p1, tokens)}{' '}
+      <MaybeLink href="/factory" class="font-semibold" data-source-component="capacity-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
+    </p>
+
+    <Figure class="mt-8" alt={fill(t.figure.alt, tokens)} caption={t.figure.caption} />
+
+    <KeyFactsBox class="mt-8" id="capacity-at-a-glance" heading={t.atAGlance.heading} definition={fill(t.atAGlance.definition, tokens)} facts={atGlanceFacts} />
+
+    <section id="throughput" aria-labelledby="throughput-heading" class="mt-12 scroll-mt-24">
+      <h2 id="throughput-heading" class="text-2xl font-bold text-neutral-900">{t.throughput.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.throughput.body, tokens)}</p>
+      <SpecsTable class="mt-6" id="throughput-table" columns={throughputColumns} rows={throughputRows} caption={t.throughput.caption} />
+    </section>
+
+    <section id="headroom" aria-labelledby="headroom-heading" class="mt-12 scroll-mt-24">
+      <h2 id="headroom-heading" class="text-2xl font-bold text-neutral-900">{t.headroom.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.headroom.body, tokens)}</p>
+      <p class="mt-2 max-w-prose text-sm text-neutral-600">{t.headroom.caveat}</p>
+      <p class="mt-3 text-sm">
+        <MaybeLink href="/factory/production-process#quality-control" class="font-semibold" data-source-component="capacity-headroom-consistency">{t.headroom.consistencyLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    <section id="equipment" aria-labelledby="equipment-heading" class="mt-12 scroll-mt-24">
+      <h2 id="equipment-heading" class="text-2xl font-bold text-neutral-900">{t.equipment.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.equipment.body, tokens)}</p>
+      <EquipmentList class="mt-6" items={f.equipment} />
+      <p class="mt-4 max-w-prose text-sm text-neutral-600">{fill(t.equipment.ovensNote, tokens)}</p>
+    </section>
+
+    {hasFact(f.ramadanLeadNote) && (
+      <section id="seasonal" aria-labelledby="seasonal-heading" class="mt-12 scroll-mt-24">
+        <h2 id="seasonal-heading" class="text-2xl font-bold text-neutral-900">{t.ramadan.h2}</h2>
+        <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{f.ramadanLeadNote}</p>
+      </section>
+    )}
+
+    <section id="lead-time" aria-labelledby="lead-time-heading" class="mt-12 scroll-mt-24">
+      <h2 id="lead-time-heading" class="text-2xl font-bold text-neutral-900">{t.leadTime.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.leadTime.body, tokens)}</p>
+      <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
+        <MaybeLink href="/logistics" class="font-semibold" data-source-component="capacity-lead-logistics">{t.leadTime.logisticsLinkLabel}</MaybeLink>
+        <span aria-hidden="true" class="text-neutral-300">·</span>
+        <MaybeLink href="/products" class="font-semibold" data-source-component="capacity-lead-products">{t.leadTime.productsLinkLabel}</MaybeLink>
+      </p>
+    </section>
+
+    <section aria-labelledby="capacity-faq" class="mt-14">
+      <FAQSection id="capacity-faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="capacity-related" class="mt-14 border-t border-neutral-200 pt-8">
+      <h2 id="capacity-related" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul class="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink href={item.href} class="font-medium" mutedClass="font-medium text-neutral-400" data-source-component={`capacity-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

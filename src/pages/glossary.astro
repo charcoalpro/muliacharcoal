@@ -16,7 +16,7 @@
 import BaseLayout from '~/layouts/BaseLayout.astro';
 import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
-import Hero from '~/components/glossary/blocks/Hero.astro';
+import GlossaryHero from '~/components/glossary/blocks/GlossaryHero.astro';
 import ThematicTOC from '~/components/glossary/blocks/ThematicTOC.astro';
 import AlphaJumpBar from '~/components/glossary/blocks/AlphaJumpBar.astro';
 import Cluster from '~/components/glossary/blocks/Cluster.astro';
@@ -131,7 +131,7 @@ const schema = glossaryPageSchema({
     <Breadcrumbs items={[{ label: t.breadcrumb }]} />
   </div>
 
-  <Hero />
+  <GlossaryHero />
 
   <div class="py-8">
     <ThematicTOC />

@@ -1,0 +1,119 @@
+{
+  "meta": {
+    "titleTemplate": "How Coconut Shell Charcoal Is Made | {{brand}}",
+    "descriptionTemplate": "How {{brand}} makes coconut shisha charcoal: carbonization, milling, tapioca binding, pressing, drying, and {{weatheringDays}}-day weathering, with QC on every batch."
+  },
+  "breadcrumb": "Production process",
+  "figure": { "alt": "Carbonization ovens turning coconut shell into char at the {{brand}} factory.", "caption": "Carbonization in progress" },
+  "eyebrow": "Factory",
+  "h1": "How Our Coconut Shell Charcoal Is Made",
+  "heroSubtitle": "The full {{brand}} production process — from coconut shell to a finished shisha briquette — carbonized, milled, bound with {{binder}}, pressed, dried, and weathered in our own factory.",
+  "hero": {
+    "ctaQuote": "Request a wholesale quote",
+    "ctaQuoteAria": "Request a wholesale quote on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about our production process"
+  },
+  "tldr": {
+    "heading": "In short",
+    "body": "Coconut shell charcoal is made by carbonizing coconut shells into char, milling the char to a fine powder, mixing it with a natural binder, pressing it into briquettes, then drying and weathering them. At {{brand}} the full sequence runs in-house in seven stages, and every batch passes in-process quality control before packing."
+  },
+  "intro": {
+    "p1": "Every briquette we ship is made in-house, start to finish. This page details that process, stage by stage, with the temperatures and durations that matter — part of our",
+    "hubLinkLabel": "coconut charcoal factory overview"
+  },
+  "overview": {
+    "h2": "The process at a glance",
+    "body": "Seven stages take coconut shell from a raw byproduct to a finished, low-ash briquette:",
+    "supplyNote": "The inputs are simple: coconut shell and {{binder}} — {{additives}}."
+  },
+  "sections": [
+    {
+      "id": "carbonization",
+      "h2": "1. Carbonization",
+      "body": "Carbonization heats coconut shells in a low-oxygen kiln to roughly 400–700°C, driving off moisture and volatile gases and leaving a hard char that is mostly fixed carbon. This is what gives coconut charcoal its high heat and long, even burn.",
+      "links": [{ "href": "/glossary#carbonization-level", "label": "What carbonization level means" }]
+    },
+    {
+      "id": "pyrolysis",
+      "h2": "2. Pyrolysis — the chemistry",
+      "body": "The reaction inside the kiln is pyrolysis: the thermal decomposition of organic material without flame. Pyrolysis converts the shell's cellulose and lignin into carbon, releasing wood gas and leaving the char that becomes charcoal.",
+      "links": [{ "href": "/glossary#pyrolysis", "label": "Pyrolysis, defined" }]
+    },
+    {
+      "id": "kiln",
+      "h2": "3. Kiln operation & cycle",
+      "body": "We run {{ovenCount}} carbonization ovens, each carbonizing about {{ovenBatchTons}} tons of shell per batch on a {{ovenCycleHours}}-hour cycle. Our {{ovenType}} ovens hold a stable, controlled temperature — and that temperature stability is what keeps fixed carbon, and therefore burn time and ash, consistent from one batch to the next.",
+      "links": [{ "href": "/glossary#carbonization-kiln", "label": "Kiln operation, defined" }]
+    },
+    {
+      "id": "binder",
+      "h2": "4. Binder & pressing",
+      "body": "The milled char is mixed with {{binder}} and water into a paste — {{additives}} — then pressed and extruded under high pressure into cubes, hexagonals, or fingers. A natural binder plus high compaction is what makes a briquette that lights cleanly and burns without an off-taste or chemical smell.",
+      "links": [{ "href": "/glossary#tapioca-binder", "label": "Tapioca binder, defined" }]
+    },
+    {
+      "id": "weathering",
+      "h2": "5. Weathering",
+      "body": "Before packing, the briquettes are weathered under cover for at least {{weatheringDays}} days. Weathering lets the reactive carbon surface oxidize and the material's self-heating tendency fall — it both stabilizes the burn and is a required dangerous-goods safety control for sea freight.",
+      "links": [
+        { "href": "/glossary#weathering", "label": "Weathering, defined" },
+        { "href": "/logistics/charcoal-dg-regulation", "label": "Why weathering is a shipping-safety step" }
+      ]
+    }
+  ],
+  "qc": {
+    "h2": "In-process quality control",
+    "body": "Quality is built in during production, not just checked at the end. Every batch moves through our {{qcStepCount}}-stage in-process control framework:",
+    "retentionNote": "We retain a reference sample from every batch, so any later query can be traced back to the exact production run.",
+    "coaBody": "Each order also ships with a batch Certificate of Analysis and an independent third-party lab report — the documentation side is covered under Quality.",
+    "coaLinkLabel": "How we test and document every batch"
+  },
+  "developToSpec": {
+    "h2": "Develop-to-spec & R&D",
+    "body": "Have a target ash, density, or burn profile? We can develop a recipe toward your spec and confirm it by sample before a production run — useful for private-label brands with a defined performance target."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "How is coconut shell charcoal made?",
+        "a": "In seven stages: coconut shells are carbonized into char, the char is milled to a powder, mixed with {{binder}}, pressed into briquettes, then dried and weathered for at least {{weatheringDays}} days before in-process QC and packing."
+      },
+      {
+        "q": "What is carbonization, and what is pyrolysis?",
+        "a": "Carbonization is heating coconut shell in a low-oxygen kiln (roughly 400–700°C) until it becomes char that is mostly fixed carbon. Pyrolysis is the underlying chemistry — thermal decomposition without flame that converts the shell into carbon."
+      },
+      {
+        "q": "Why are the briquettes weathered, and for how long?",
+        "a": "At least {{weatheringDays}} days. Weathering lets the reactive carbon surface oxidize so the self-heating tendency falls — it stabilizes the burn and is a dangerous-goods safety control for sea freight."
+      },
+      {
+        "q": "What binder do you use?",
+        "a": "{{binder}} and water — {{additives}}. The binder holds the briquette together without affecting taste or adding chemical smell."
+      },
+      {
+        "q": "What is your in-process quality-control process?",
+        "a": "A {{qcStepCount}}-stage in-process framework from raw-shell intake through carbonization, powder consistency, mix density, in-line dimensional checks, and a finished-batch burn and ash test — with a reference sample retained from every batch."
+      },
+      {
+        "q": "How do you keep quality consistent batch to batch?",
+        "a": "Temperature-controlled {{ovenType}} ovens hold fixed carbon steady, milled powder is sieved to a uniform particle size, and every batch is burn-tested with a sample retained. Per-order COA and third-party lab reports document it; see Quality."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/factory", "label": "Factory overview" },
+      { "href": "/factory/capacity", "label": "Production capacity" },
+      { "href": "/factory/raw-materials", "label": "Raw materials & sourcing" },
+      { "href": "/factory/virtual-tour", "label": "Virtual tour & visits" },
+      { "href": "/quality/testing-methods", "label": "Testing methods" },
+      { "href": "/quality/certifications", "label": "Certifications" },
+      { "href": "/products", "label": "Products" },
+      { "href": "/glossary", "label": "Charcoal glossary" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

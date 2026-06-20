@@ -15,7 +15,7 @@ export interface BreadcrumbItem {
   href?: string;
 }
 
-type Pillar = 'logistics' | 'packaging' | 'quality';
+type Pillar = 'logistics' | 'packaging' | 'quality' | 'factory';
 
 export function pillarCrumb(pillar: Pillar): BreadcrumbItem {
   switch (pillar) {
@@ -25,5 +25,7 @@ export function pillarCrumb(pillar: Pillar): BreadcrumbItem {
       return { label: en.packaging.breadcrumb, href: '/packaging' };
     case 'quality':
       return { label: en.quality.breadcrumb, href: '/quality' };
+    case 'factory':
+      return { label: en.factory.breadcrumb, href: '/factory' };
   }
 }

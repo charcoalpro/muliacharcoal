@@ -1,0 +1,49 @@
+---
+/**
+ * ProcessSteps — ordered, numbered manufacturing-step list.
+ *
+ * Renders `factory.processSteps` (already token-filled by the caller) as a
+ * semantic <ol> with a step number, title, optional duration/temperature
+ * badge, and a one-line note. The same array feeds the HowTo JSON-LD on
+ * /factory/production-process, so the visible list and the schema stay in
+ * lockstep. Zero JS.
+ */
+
+interface Step {
+  key?: string;
+  title: string;
+  /** Duration or temperature badge (e.g. "≈400–700°C"); '' renders nothing. */
+  durationOrTemp?: string;
+  note: string;
+}
+
+interface Props {
+  steps: Step[];
+  class?: string;
+}
+
+const { steps, class: className } = Astro.props;
+---
+<ol class:list={['space-y-5', className]} role="list">
+  {steps.map((s, i) => (
+    <li class="flex gap-4">
+      <span
+        aria-hidden="true"
+        class="flex h-8 w-8 flex-none items-center justify-center rounded-full bg-brand-primary text-sm font-semibold text-white"
+      >
+        {i + 1}
+      </span>
+      <div>
+        <p class="font-semibold text-neutral-900">
+          {s.title}
+          {s.durationOrTemp && (
+            <span class="ms-2 rounded bg-neutral-100 px-2 py-0.5 text-xs font-medium text-neutral-600">
+              {s.durationOrTemp}
+            </span>
+          )}
+        </p>
+        <p class="mt-1 max-w-prose text-base leading-relaxed text-neutral-700">{s.note}</p>
+      </div>
+    </li>
+  ))}
+</ol>

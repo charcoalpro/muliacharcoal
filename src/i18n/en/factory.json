@@ -1,0 +1,193 @@
+{
+  "meta": {
+    "titleTemplate": "Coconut Charcoal Factory in Indonesia | {{brand}}",
+    "descriptionTemplate": "Tour {{brand}}'s coconut shisha charcoal factory in {{city}}: {{capacityMonth}} tons/month, {{productionLines}} lines, {{ovenCount}} ovens, {{headcount}} staff. We are the manufacturer — MOQ {{moqTons}} tons."
+  },
+  "breadcrumb": "Factory",
+  "eyebrow": "Factory",
+  "h1": "Our Coconut Shisha Charcoal Factory in Semarang",
+  "heroSubtitle": "{{legalName}} is the manufacturer of {{brand}} coconut shisha charcoal — a {{facilityAreaGrouped}} m² factory in {{city}}, {{region}}, producing {{capacityMonth}} tons a month across {{productionLines}} lines. We are the factory, not a trading intermediary.",
+  "hero": {
+    "ctaQuote": "Request a wholesale quote",
+    "ctaQuoteAria": "Request a wholesale quote on WhatsApp (opens WhatsApp)",
+    "ctaContact": "Contact the factory",
+    "ctaContactAria": "Contact the factory"
+  },
+  "heroTrust": {
+    "locationLabel": "Location",
+    "locationValueTemplate": "{{city}}, {{region}}",
+    "capacityLabel": "Capacity",
+    "capacityValueTemplate": "{{capacityMonth}} t/month",
+    "workforceLabel": "Workforce",
+    "workforceValueTemplate": "{{headcount}} on staff",
+    "certLabel": "Certification",
+    "certValueTemplate": "{{iso9001Short}} certified"
+  },
+  "atAGlance": {
+    "heading": "Factory at a glance",
+    "definition": "{{brand}} is manufactured in-house at our {{city}} factory. These are the core facts buyers verify first.",
+    "locationLabel": "Location",
+    "locationValueTemplate": "{{city}}, {{region}}, {{country}}",
+    "areaLabel": "Facility area",
+    "areaValueTemplate": "{{facilityAreaGrouped}} m²",
+    "linesLabel": "Production lines",
+    "linesValueTemplate": "{{productionLines}}",
+    "ovensLabel": "Carbonization ovens",
+    "ovensValueTemplate": "{{ovenCount}} × {{ovenBatchTons}} t/batch, {{ovenCycleHours}} h cycle",
+    "capacityLabel": "Capacity",
+    "capacityValueTemplate": "{{capacity}} t/day · {{capacityMonth}} t/month",
+    "workforceLabel": "Workforce",
+    "workforceValueTemplate": "{{headcount}} employees",
+    "foundedLabel": "Established",
+    "foundedValueTemplate": "{{year}}",
+    "rawMaterialLabel": "Raw material",
+    "rawMaterialValueTemplate": "{{rawMaterial}}",
+    "moqPortLabel": "MOQ · port",
+    "moqPortValueTemplate": "{{moqLabel}} · {{portLabel}}"
+  },
+  "intro": {
+    "p1": "{{legalName}}, trading as {{brand}}, is a coconut shell charcoal factory in {{city}}, {{region}}, Indonesia. We are the manufacturer: every briquette is carbonized, milled, pressed, dried, and weathered in our own {{facilityAreaGrouped}} m² facility — not bought from a third party and re-labeled.",
+    "p2": "We make one product — coconut shisha charcoal — and nothing else. That focus is why our cube, hexagonal, and finger briquettes burn to a consistent, low-ash spec batch after batch: the whole factory is tuned for hookah coals, not split across unrelated product lines.",
+    "p3": "From our own carbonization plant in {{carbonizationCity}} through pressing, drying, and a {{weatheringDays}}-day weathering window, the process runs end-to-end under one roof. The sections below break down how it's made, how much we can ship, where we source the raw material, and how to verify it for yourself."
+  },
+  "ownerNote": {
+    "heading": "From the founder",
+    "attributionTemplate": "— {{name}}, {{role}}",
+    "linkLabel": "Read the founder's full note on our About page"
+  },
+  "team": {
+    "heading": "The people who make your charcoal",
+    "intro": "A trader can't show you an org chart. Here are three of the people on our floor — meet the full team on our About page.",
+    "linkLabel": "Meet the full {{brand}} team",
+    "photoOfTemplate": "Photo of {{name}}",
+    "ownerBio": "Founded the factory in {{year}} and still supervises production every week.",
+    "qcLeadBio": "Runs our in-process quality control and signs off every batch before packing.",
+    "productionLeadBio": "Leads crushing and milling — the first stage that sets particle consistency."
+  },
+  "children": {
+    "productionProcess": {
+      "h2": "How our coconut charcoal is made",
+      "definition": "Coconut shisha charcoal is made by carbonizing coconut shell, milling it to powder, binding it with tapioca starch, pressing it into shape, then drying and weathering the briquettes.",
+      "facts": [
+        "Seven stages: carbonization → milling → mixing → pressing → drying → weathering → QC",
+        "Binder is food-grade tapioca starch and water — no chemical accelerants",
+        "Briquettes are weathered for at least {{weatheringDays}} days before packing"
+      ],
+      "linkLabel": "See our full coconut charcoal production process",
+      "figureAlt": "Coconut charcoal briquettes on the production line at the {{brand}} factory in {{city}}.",
+      "figureCaption": "On the production line"
+    },
+    "capacity": {
+      "h2": "Production capacity & lead times",
+      "definition": "The factory runs {{productionLines}} production lines and {{ovenCount}} carbonization ovens, for {{capacity}} tons per day and {{capacityMonth}} tons per month.",
+      "facts": [
+        "{{capacityMonth}} tons/month — about {{containersPerMonth}} twenty-foot containers",
+        "One 20ft container is roughly {{oneContainerPctOfMonthly}}% of monthly output — you won't be deprioritized",
+        "Production lead time {{leadTimeLabel}}"
+      ],
+      "linkLabel": "View our production capacity & container lead times",
+      "figureAlt": "Carbonization ovens and briquetting lines at the {{brand}} factory in {{city}}.",
+      "figureCaption": "Our production floor"
+    },
+    "rawMaterials": {
+      "h2": "Raw materials & sourcing",
+      "definition": "Our single raw material is coconut shell — an upcycled byproduct — sourced from {{sourcingRegion}} and carbonized at our own plant in {{carbonizationCity}}.",
+      "facts": [
+        "Coconut shell from {{sourcingVillages}} sourcing villages across {{sourcingRegion}}",
+        "We own the carbonization plant in {{carbonizationCity}} — vertical integration, not a broker",
+        "A renewable byproduct: no tree is felled to make the charcoal"
+      ],
+      "linkLabel": "Where we source our coconut shell",
+      "figureAlt": "Mature coconut shells staged for carbonization at the {{brand}} factory.",
+      "figureCaption": "Coconut shell raw material"
+    },
+    "virtualTour": {
+      "h2": "Virtual tour & factory visits",
+      "definition": "You can verify the factory three ways: a video walkthrough, an in-person visit, or your own appointed inspector for pre-shipment inspection.",
+      "facts": [
+        "A short video walkthrough of the production floor",
+        "Visit in person — we welcome buyers to see production and container stuffing",
+        "Appoint SGS, Intertek, or BV at your cost for pre-shipment inspection"
+      ],
+      "linkLabel": "Take a virtual tour or schedule a factory visit",
+      "figureAlt": "The quality-control bench at the {{brand}} factory in {{city}}.",
+      "figureCaption": "Inside the factory"
+    }
+  },
+  "customization": {
+    "heading": "Customization & OEM",
+    "body": "Beyond our standard cube, hexagonal, and finger shapes, we produce to your requirements: custom sizes and shapes, and — when you have a target spec — we develop a recipe toward it.",
+    "developToSpecNote": "Develop-to-spec: give us a target ash, density, or burn time and we'll work a recipe toward it, confirmed by sample — not guaranteed by claim.",
+    "ndaNote": "We sign a non-disclosure agreement on your designs and brand before any artwork changes hands.",
+    "packagingLinkLabel": "See packaging & white-label options"
+  },
+  "countriesServed": {
+    "heading": "Countries we export to",
+    "definition": "{{brand}} coconut shisha charcoal ships to {{countriesServedCount}} countries across the Americas, Europe, the Middle East, CIS, and Asia-Pacific.",
+    "listIntro": "Markets we currently ship to:",
+    "antiFraudNote": "We are a registered Indonesian manufacturer (NIB {{nib}}, NPWP {{taxId}}). Payments are made only to our registered corporate account, shown on the proforma invoice — never to a personal account.",
+    "trackRecordTemplate": "Exporting coconut shisha charcoal since {{year}}."
+  },
+  "gallery": {
+    "heading": "Inside the factory",
+    "intro": "Photographs from the production floor — carbonization, milling, pressing, drying, and the QC bench. Professional photography is in progress; placeholders are shown until the shoot lands.",
+    "photos": [
+      { "alt": "Briquetting extrusion line in operation at the {{brand}} factory in {{city}}.", "caption": "Briquetting line" },
+      { "alt": "Carbonization kiln being charged with coconut shell at the {{brand}} factory in {{city}}.", "caption": "Carbonization kiln" },
+      { "alt": "Briquetting press shaping coconut charcoal cubes at the {{brand}} factory in {{city}}.", "caption": "Briquetting press" },
+      { "alt": "Coconut shell charcoal milling station at the {{brand}} factory in {{city}}.", "caption": "Milling station" },
+      { "alt": "Drying tunnel exit with stacked briquette trays at the {{brand}} factory in {{city}}.", "caption": "Drying tunnel" },
+      { "alt": "Quality-control technician running a burn and ash test at the {{brand}} factory in {{city}}.", "caption": "QC bench" }
+    ]
+  },
+  "faq": {
+    "heading": "Factory FAQ",
+    "items": [
+      {
+        "q": "Are you a factory or a trader?",
+        "a": "We are the factory. {{legalName}} manufactures {{brand}} coconut shisha charcoal in-house in {{city}} — carbonizing, pressing, drying, and weathering every briquette ourselves. We are not a trading intermediary."
+      },
+      {
+        "q": "Where is the factory?",
+        "a": "In {{city}}, {{region}}, Indonesia — a {{facilityAreaGrouped}} m² facility. The port of loading is {{portLabel}}."
+      },
+      {
+        "q": "What is your monthly production capacity?",
+        "a": "{{capacityMonth}} tons per month — {{capacity}} tons per day across {{productionLines}} lines and {{ovenCount}} carbonization ovens."
+      },
+      {
+        "q": "Can you fill a 20ft container every month?",
+        "a": "Easily. One 20ft container (about {{moqTons}} tons) is roughly {{oneContainerPctOfMonthly}}% of our monthly output, so a monthly container — or several — fits well within capacity. You won't be deprioritized."
+      },
+      {
+        "q": "Which countries do you export to?",
+        "a": "We ship to {{countriesServedCount}} countries across the Americas, Europe, the Middle East, CIS, and Asia-Pacific. Our priority markets are the USA, UK, Saudi Arabia, Germany, and Russia/CIS."
+      },
+      {
+        "q": "Do you only make shisha charcoal?",
+        "a": "Yes. Coconut shisha charcoal is our only product. That specialization is what keeps the burn and ash spec consistent from batch to batch."
+      },
+      {
+        "q": "Will you sign an NDA on my brand or design?",
+        "a": "Yes. We sign a non-disclosure agreement on your designs and brand before any artwork is shared, and we can keep your design exclusive to you."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/factory/production-process", "label": "How it's made" },
+      { "href": "/factory/capacity", "label": "Production capacity" },
+      { "href": "/factory/raw-materials", "label": "Raw materials & sourcing" },
+      { "href": "/factory/virtual-tour", "label": "Virtual tour & visits" },
+      { "href": "/products", "label": "What we make" },
+      { "href": "/quality/certifications", "label": "Certifications & testing" },
+      { "href": "/logistics", "label": "Shipping & logistics" },
+      { "href": "/packaging", "label": "Packaging & white-label" },
+      { "href": "/about", "label": "About the company" },
+      { "href": "/faq", "label": "Buyer FAQ" },
+      { "href": "/contact", "label": "Contact us" },
+      { "href": "/glossary", "label": "Charcoal glossary" }
+    ]
+  }
+}

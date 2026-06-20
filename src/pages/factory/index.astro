@@ -1,0 +1,374 @@
+---
+/**
+ * /factory — the Factory pillar hub (manufacturer trust / E-E-A-T pillar).
+ *
+ *   - Text-led hero + 4-signal trust grid, full E-E-A-T block, "Factory at
+ *     a glance" KeyFactsBox, parent-entity intro with the single-product
+ *     specialization wedge, a signed owner pull-quote (links to the full
+ *     note on /about), a production-framed team subset (QC + production lead
+ *     + owner, linking to /about for full bios), four short child-entity
+ *     sections with descriptive down-links, production-side customization /
+ *     OEM, the #countries-served export section (anti-fraud NIB/NPWP + track
+ *     record), the #gallery PhotoGrid, a hub-canonical VISIBLE FAQ, related
+ *     topics, CTABanner.
+ *   - Schema: CollectionPage (hasPart → 4 children) + Person nodes for the
+ *     named team (factoryHubSchema). NO FAQPage on any /factory page — /faq
+ *     is the sole FAQPage home. includeOrgSchema is on so the team Person
+ *     refs (worksFor → ORG_ID) resolve on-page.
+ *   - Every fact from ~/config/company via fill(); production.* + factory.*
+ *     are read through factoryTokens(); exportMarkets is the single source
+ *     for #countries-served. Missing facts degrade (KeyFactsBox rows drop;
+ *     gated blocks omit).
+ *   - #gallery + #countries-served exist with those exact ids — the homepage
+ *     links to /factory#gallery and /factory#countries-served land on them.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import ImagePlaceholder from '~/components/content/ImagePlaceholder.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, getOwner, hasFact } from '~/config/company';
+import { fill, companyTokens, factoryTokens } from '~/lib/interpolate';
+import { factoryHubSchema } from '~/lib/schema/factoryHub';
+
+const t = en.factory;
+const tc = en.factoryCommon;
+const f = company.factory;
+
+const tokens = { ...companyTokens(company), ...factoryTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// --- Hero trust signals (above the fold). ---
+const heroTrust = [
+  { label: t.heroTrust.locationLabel, value: fill(t.heroTrust.locationValueTemplate, tokens) },
+  { label: t.heroTrust.capacityLabel, value: fill(t.heroTrust.capacityValueTemplate, tokens) },
+  { label: t.heroTrust.workforceLabel, value: fill(t.heroTrust.workforceValueTemplate, tokens) },
+  { label: t.heroTrust.certLabel, value: fill(t.heroTrust.certValueTemplate, tokens) },
+];
+
+// --- KeyFactsBox — "Factory at a glance" (empty values drop automatically). ---
+const atGlanceFacts = [
+  { label: t.atAGlance.locationLabel, value: fill(t.atAGlance.locationValueTemplate, tokens) },
+  { label: t.atAGlance.areaLabel, value: fill(t.atAGlance.areaValueTemplate, tokens) },
+  { label: t.atAGlance.linesLabel, value: fill(t.atAGlance.linesValueTemplate, tokens) },
+  { label: t.atAGlance.ovensLabel, value: fill(t.atAGlance.ovensValueTemplate, tokens) },
+  { label: t.atAGlance.capacityLabel, value: fill(t.atAGlance.capacityValueTemplate, tokens) },
+  { label: t.atAGlance.workforceLabel, value: fill(t.atAGlance.workforceValueTemplate, tokens) },
+  { label: t.atAGlance.foundedLabel, value: fill(t.atAGlance.foundedValueTemplate, tokens) },
+  { label: t.atAGlance.rawMaterialLabel, value: fill(t.atAGlance.rawMaterialValueTemplate, tokens) },
+  { label: t.atAGlance.moqPortLabel, value: fill(t.atAGlance.moqPortValueTemplate, tokens) },
+];
+
+// --- Four child-entity sections (short by design; cluster pages rank). ---
+const childOrder = ['productionProcess', 'capacity', 'rawMaterials', 'virtualTour'] as const;
+const childHref: Record<(typeof childOrder)[number], string> = {
+  productionProcess: '/factory/production-process',
+  capacity: '/factory/capacity',
+  rawMaterials: '/factory/raw-materials',
+  virtualTour: '/factory/virtual-tour',
+};
+const childAnchorId: Record<(typeof childOrder)[number], string> = {
+  productionProcess: 'production-process',
+  capacity: 'capacity',
+  rawMaterials: 'raw-materials',
+  virtualTour: 'virtual-tour',
+};
+const children = childOrder.map((key) => ({
+  id: childAnchorId[key],
+  href: childHref[key],
+  copy: t.children[key],
+}));
+
+// --- Production-framed team subset (owner + QC lead + production lead). ---
+// Names come from people.json; one-line production bios from i18n. The full
+// team + bios are canonical to /about (we link there — no duplication).
+const owner = getOwner();
+const qcLead = company.people.find((p) => p.role === 'Quality Control Manager');
+const productionLead = company.people.find((p) => p.role === 'Head of Crusher Operations');
+const teamRaw = [
+  owner ? { person: owner, bio: fill(t.team.ownerBio, tokens), idSlug: 'mohamad-sinno' } : null,
+  qcLead ? { person: qcLead, bio: fill(t.team.qcLeadBio, tokens), idSlug: 'teguh-pranomo' } : null,
+  productionLead ? { person: productionLead, bio: fill(t.team.productionLeadBio, tokens), idSlug: 'antony-tan' } : null,
+];
+const team = teamRaw.filter((m): m is NonNullable<typeof m> => m !== null);
+
+// --- FAQ (hub-canonical; VISIBLE only — no FAQPage JSON-LD). ---
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+// --- Gallery (placeholders until the shoot lands). ---
+const galleryPhotos = t.gallery.photos.map((p) => ({
+  alt: fill(p.alt, tokens),
+  caption: fill(p.caption, tokens),
+}));
+
+const schema = factoryHubSchema({
+  pageTitle,
+  pageDescription,
+  path: '/factory',
+  children: children.map((c) => ({ href: c.href, name: fill(c.copy.h2, tokens) })),
+  team: team.map((m) => ({ name: m.person.name, role: m.person.role, idSlug: m.idSlug })),
+});
+
+// --- Indicative reading time (~200 wpm over the page prose). ---
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.atAGlance.definition,
+    t.intro.p1,
+    t.intro.p2,
+    t.intro.p3,
+    f.ownerNote,
+    t.team.intro,
+    ...children.flatMap((c) => [c.copy.definition, ...c.copy.facts]),
+    t.customization.body,
+    t.countriesServed.definition,
+    t.countriesServed.antiFraudNote,
+    ...t.faq.items.flatMap((q) => [q.q, q.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/factory"
+  type="website"
+  includeOrgSchema={true}
+  schema={schema}
+  prefetch={['/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={fill(t.h1, tokens)}
+    subtitle={fill(t.heroSubtitle, tokens)}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'factory-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaContact,
+      href: '/contact',
+      ariaLabel: t.hero.ctaContactAria,
+      dataSourceComponent: 'factory-hero-contact',
+    }}
+  >
+    <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
+      {heroTrust.map((item) => (
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </HeroSection>
+
+  {/* E-E-A-T / freshness block. */}
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: tc.metaBlock.authorRole,
+          reviewedBy: tc.metaBlock.reviewerRole,
+          factCheckedBy: tc.metaBlock.factCheckerRole,
+          lastUpdated: tc.metaBlock.lastUpdatedLabel,
+          readTime: tc.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={f.editorial.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  {/* KeyFactsBox — "Factory at a glance". */}
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox
+        id="factory-at-a-glance"
+        heading={t.atAGlance.heading}
+        definition={fill(t.atAGlance.definition, tokens)}
+        facts={atGlanceFacts}
+      />
+    </div>
+  </div>
+
+  {/* Intro / parent entity + specialization wedge. */}
+  <section aria-label={fill(t.h1, tokens)} class="bg-white">
+    <div class="mx-auto max-w-5xl space-y-4 px-4 pb-12 md:px-8">
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p1, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p2, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p3, tokens)}</p>
+    </div>
+  </section>
+
+  {/* Owner's note — short signed pull-quote; full note canonical to /about. */}
+  {hasFact(f.ownerNote) && owner && (
+    <section aria-label={t.ownerNote.heading} class="bg-neutral-50">
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <figure class="max-w-prose border-s-4 border-brand-accent ps-5">
+          <blockquote class="text-lg italic leading-relaxed text-neutral-800">“{f.ownerNote}”</blockquote>
+          <figcaption class="mt-3 text-sm font-semibold text-neutral-900">
+            {fill(t.ownerNote.attributionTemplate, { name: owner.name, role: owner.role })}
+          </figcaption>
+        </figure>
+        <p class="mt-4 text-sm">
+          <MaybeLink href="/about" class="font-semibold" data-source-component="factory-owner-note-about">
+            {t.ownerNote.linkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+    </section>
+  )}
+
+  {/* The people who make your charcoal — production-framed subset. */}
+  {team.length > 0 && (
+    <section aria-labelledby="team-heading" class="bg-white">
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <h2 id="team-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.team.heading}</h2>
+        <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.team.intro}</p>
+        <ul class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-3" role="list">
+          {team.map((m) => (
+            <li class="flex flex-col rounded-xl border border-neutral-200 bg-white p-6">
+              <ImagePlaceholder label={fill(t.team.photoOfTemplate, { name: m.person.name })} ratio="square" class="mb-4" />
+              <h3 class="text-lg font-semibold text-neutral-900">{m.person.name}</h3>
+              <p class="mt-1 text-sm text-neutral-600">{m.person.role}</p>
+              <p class="mt-3 text-sm leading-relaxed text-neutral-700">{m.bio}</p>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-sm">
+          <MaybeLink href="/about" class="font-semibold" data-source-component="factory-team-about">
+            {fill(t.team.linkLabel, tokens)} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+    </section>
+  )}
+
+  {/* Four child-entity sections — short by design, descriptive down-links. */}
+  {children.map((child, i) => (
+    <section
+      id={child.id}
+      aria-labelledby={`${child.id}-heading`}
+      class:list={['scroll-mt-24', i % 2 === 0 ? 'bg-neutral-50' : 'bg-white']}
+    >
+      <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+        <h2 id={`${child.id}-heading`} class="text-2xl font-bold text-neutral-900 md:text-3xl">
+          {fill(child.copy.h2, tokens)}
+        </h2>
+        <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+          {fill(child.copy.definition, tokens)}
+        </p>
+        <ul class="mt-4 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+          {child.copy.facts.map((fact) => (
+            <li class="flex gap-2">
+              <span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span>
+              <span>{fill(fact, tokens)}</span>
+            </li>
+          ))}
+        </ul>
+        <Figure class="mt-6" ratio="16/9" alt={fill(child.copy.figureAlt, tokens)} caption={child.copy.figureCaption} />
+        <p class="mt-6 text-sm">
+          <MaybeLink href={child.href} class="font-semibold" data-source-component={`factory-hub-${child.id}`}>
+            {child.copy.linkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+    </section>
+  ))}
+
+  {/* Customization & OEM (production-side; cross-link /packaging, no dup). */}
+  <section aria-labelledby="customization-heading" class="bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="customization-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.customization.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.customization.body, tokens)}</p>
+      <ul class="mt-4 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+        {f.developToSpec && (
+          <li class="flex gap-2"><span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span><span>{fill(t.customization.developToSpecNote, tokens)}</span></li>
+        )}
+        {f.ndaAvailable && (
+          <li class="flex gap-2"><span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span><span>{fill(t.customization.ndaNote, tokens)}</span></li>
+        )}
+      </ul>
+      <p class="mt-6 text-sm">
+        <MaybeLink href="/packaging" class="font-semibold" data-source-component="factory-customization-packaging">
+          {t.customization.packagingLinkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+    </div>
+  </section>
+
+  {/* #countries-served — actual export destinations + anti-fraud + track record. */}
+  <section id="countries-served" aria-labelledby="countries-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="countries-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.countriesServed.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.countriesServed.definition, tokens)}</p>
+      <p class="mt-2 max-w-prose text-sm text-neutral-600">{fill(t.countriesServed.trackRecordTemplate, tokens)}</p>
+      <p class="mt-6 text-sm font-medium text-neutral-700">{t.countriesServed.listIntro}</p>
+      <ul class="mt-3 flex flex-wrap gap-2" role="list">
+        {company.commercial.exportMarkets.map((countryName) => (
+          <li class="rounded-md border border-neutral-200 bg-neutral-50 px-2.5 py-1 text-sm text-neutral-700">{countryName}</li>
+        ))}
+      </ul>
+      <p class="mt-6 max-w-prose text-sm leading-relaxed text-neutral-600">{fill(t.countriesServed.antiFraudNote, tokens)}</p>
+    </div>
+  </section>
+
+  {/* #gallery — factory PhotoGrid (placeholders until real photos land). */}
+  <section id="gallery" aria-labelledby="gallery-heading" class="scroll-mt-24 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="gallery-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.gallery.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.gallery.intro}</p>
+      <PhotoGrid class="mt-8" photos={galleryPhotos} />
+    </div>
+  </section>
+
+  {/* Hub-canonical FAQ — VISIBLE only; NO FAQPage JSON-LD (/faq is sole home). */}
+  <section aria-labelledby="factory-faq" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="factory-faq" heading={t.faq.heading} items={faqItems} />
+    </div>
+  </section>
+
+  {/* Related topics. */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium"
+              data-source-component={`factory-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

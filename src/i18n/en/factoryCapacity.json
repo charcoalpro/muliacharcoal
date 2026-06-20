@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "titleTemplate": "Coconut Charcoal Production Capacity | {{brand}}",
+    "descriptionTemplate": "{{brand}}'s coconut charcoal production capacity: {{capacity}} tons/day, {{capacityMonth}} tons/month across {{productionLines}} lines and {{ovenCount}} ovens. One 20ft container is ~{{oneContainerPctOfMonthly}}% of output."
+  },
+  "breadcrumb": "Production capacity",
+  "figure": { "alt": "Briquetting presses and production lines at the {{brand}} factory in {{city}}.", "caption": "Four production lines" },
+  "eyebrow": "Factory",
+  "h1": "Our Coconut Charcoal Production Capacity",
+  "heroSubtitle": "{{capacity}} tons a day, {{capacityMonth}} tons a month, across {{productionLines}} production lines and {{ovenCount}} carbonization ovens — with headroom to scale your program.",
+  "hero": {
+    "ctaQuote": "Request a quote",
+    "ctaQuoteAria": "Request a wholesale quote on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about capacity and lead times"
+  },
+  "tldr": {
+    "heading": "In short",
+    "body": "{{brand}} produces about {{capacity}} tons of coconut shisha charcoal per day and {{capacityMonth}} tons per month — roughly {{annualTonsGrouped}} tons a year — across {{productionLines}} lines and {{ovenCount}} ovens. That is around {{containersPerMonth}} twenty-foot containers a month, so a single monthly container is a small share of output."
+  },
+  "intro": {
+    "p1": "This page covers how much we can make and how fast, so you can size your program with confidence. It is part of our",
+    "hubLinkLabel": "coconut charcoal factory overview"
+  },
+  "atAGlance": {
+    "heading": "Capacity at a glance",
+    "definition": "The output behind a {{brand}} order.",
+    "perDayLabel": "Output per day",
+    "perDayValueTemplate": "{{capacity}} tons",
+    "perMonthLabel": "Output per month",
+    "perMonthValueTemplate": "{{capacityMonth}} tons",
+    "perYearLabel": "Output per year",
+    "perYearValueTemplate": "≈ {{annualTonsGrouped}} tons",
+    "linesLabel": "Production lines",
+    "linesValueTemplate": "{{productionLines}}",
+    "ovensLabel": "Carbonization ovens",
+    "ovensValueTemplate": "{{ovenCount}} × {{ovenBatchTons}} t/batch, {{ovenCycleHours}} h cycle",
+    "workforceLabel": "Workforce",
+    "workforceValueTemplate": "{{headcount}} employees"
+  },
+  "throughput": {
+    "h2": "Container throughput",
+    "body": "What that capacity means per container. A 20-foot container holds about {{moqTons}} tons of coconut charcoal floor-loaded; a 40-foot container holds more by weight.",
+    "caption": "Net payload and share of monthly output per container size.",
+    "col20Label": "20ft container",
+    "col40Label": "40ft container",
+    "rowPayload": "Net payload",
+    "rowShare": "Share of monthly output",
+    "rowLead": "Production lead time",
+    "tonsTemplate": "{{tons}} tons",
+    "pctTemplate": "≈ {{pct}}%"
+  },
+  "headroom": {
+    "h2": "Headroom — you won't be deprioritized",
+    "body": "At {{capacityMonth}} tons a month, a single 20-foot container — about {{moqTons}} tons — is roughly {{oneContainerPctOfMonthly}}% of our output. A monthly container, or several, sits comfortably within capacity, with room to scale your program as it grows without us deprioritizing existing buyers.",
+    "caveat": "Capacity figures are typical, not a guarantee; available slots are confirmed at order.",
+    "consistencyLinkLabel": "How we keep every batch consistent"
+  },
+  "equipment": {
+    "h2": "Equipment behind the numbers",
+    "body": "The capacity figures are backed by real machinery, not a paper claim. Across {{productionLines}} production lines we run:",
+    "ovensNote": "Plus {{ovenCount}} carbonization ovens, each {{ovenBatchTons}} tons per batch on a {{ovenCycleHours}}-hour cycle."
+  },
+  "ramadan": {
+    "h2": "Seasonal peaks & Ramadan"
+  },
+  "leadTime": {
+    "h2": "Lead times",
+    "body": "Production runs {{leadTimeLabel}} for a 20-foot container — about {{repeatBrandLeadTime}} days for a repeat order and {{newBrandLeadTime}} days for a new brand. Sea freight is separate and depends on your destination.",
+    "logisticsLinkLabel": "Shipping times & container loading",
+    "productsLinkLabel": "Per-shape yield by product"
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "How many production lines and ovens do you have?",
+        "a": "{{productionLines}} production lines and {{ovenCount}} carbonization ovens. Together they produce {{capacity}} tons per day and {{capacityMonth}} tons per month."
+      },
+      {
+        "q": "How much can one oven produce?",
+        "a": "Each oven carbonizes about {{ovenBatchTons}} tons of coconut shell per batch on a {{ovenCycleHours}}-hour cycle. With {{ovenCount}} ovens, that scales to {{capacityMonth}} tons of finished charcoal a month."
+      },
+      {
+        "q": "What is the lead time to produce a container?",
+        "a": "{{leadTimeLabel}} for a 20-foot container — about {{repeatBrandLeadTime}} days for a repeat order and {{newBrandLeadTime}} days for a new brand. Shipping time is additional and depends on the destination port."
+      },
+      {
+        "q": "Will my order be deprioritized?",
+        "a": "No. One 20-foot container is roughly {{oneContainerPctOfMonthly}}% of our {{capacityMonth}}-ton monthly output, so there is ample headroom for monthly contracts and for scaling up without crowding out other buyers."
+      },
+      {
+        "q": "Can you handle a Ramadan or seasonal peak?",
+        "a": "Yes, with advance notice. Demand peaks before Ramadan and the summer shisha season; place confirmed orders 6–8 weeks earlier than usual to hold your delivery window, since slots are scheduled first-confirmed."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/factory", "label": "Factory overview" },
+      { "href": "/factory/production-process", "label": "How it's made" },
+      { "href": "/factory/raw-materials", "label": "Raw materials & sourcing" },
+      { "href": "/factory/virtual-tour", "label": "Virtual tour & visits" },
+      { "href": "/logistics", "label": "Shipping & logistics" },
+      { "href": "/products", "label": "Products" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}

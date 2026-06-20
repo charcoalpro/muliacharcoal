@@ -240,7 +240,7 @@ export function logisticsTokens(company: Company) {
     dgLabellingGraceDate: fmtDate(L.dg.labellingGrace),
     sp978Headspace: L.dg.sp978.headspaceCm,
     sp978PackTemp: L.dg.sp978.packingTempMaxC,
-    sp978Weathering: L.dg.sp978.weatheringDays,
+    sp978Weathering: company.production.weatheringDays,
     carriersAudited: L.dg.carriersAudited.join(', '),
     carriersNotAccepting: L.dg.carriersNotAccepting.join(', '),
     documentsStandardCount: L.documentsStandard.length,
@@ -339,6 +339,57 @@ export function samplesTokens(company: Company) {
         ? s.documentsWithSample.join('')
         : `${s.documentsWithSample.slice(0, -1).join(', ')} and ${s.documentsWithSample[s.documentsWithSample.length - 1]}`,
     sampleDocsCount: s.documentsWithSample.length,
+  };
+}
+
+/**
+ * Factory-cocoon token dictionary. Adds the manufacturing scalars the five
+ * `/factory` pages share, on top of `companyTokens()` (which already exposes
+ * capacity, ovens, lines, facility area, headcount, founding year, raw
+ * material, MOQ/port). Reads the canonical homes — `production.*` for
+ * sourcing / weathering / carbonization, `factory.*` for oven type, and
+ * `commercial.exportMarkets` for the served-countries count — so no fact is
+ * duplicated. The capacity-headroom figures are DERIVED from
+ * `production.capacityTonsPerMonth` and the MOQ container, not a new fact.
+ */
+export function factoryTokens(company: Company) {
+  const p = company.production;
+  const f = company.factory;
+  const moqTons = company.commercial.moq.tons;
+  const monthly = p.capacityTonsPerMonth;
+  // Deterministic thousands separator (no locale dependence at build time).
+  const grouped = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  return {
+    // Sourcing / raw material — origin is single-sourced (production.*).
+    rawMaterial: p.rawMaterial,
+    sourcingRegion: p.sourcingRegion,
+    sourcingVillages: p.sourcingVillages,
+    palmTrees: p.palmTreesCount,
+    palmTreesGrouped: grouped(p.palmTreesCount),
+    carbonizationCity: p.carbonizationPlant?.city ?? '',
+    carbonizationRegion: p.carbonizationPlant?.region ?? '',
+    // Process.
+    weatheringDays: p.weatheringDays,
+    ovenType: f.ovenType,
+    // Facility (grouped for the at-a-glance box).
+    facilityAreaGrouped: grouped(p.factoryAreaSqm),
+    // Capacity-headroom framing (derived — typical, not a guarantee).
+    annualTons: monthly * 12,
+    annualTonsGrouped: grouped(monthly * 12),
+    containersPerMonth: Math.round(monthly / moqTons),
+    oneContainerPctOfMonthly: Math.round((moqTons / monthly) * 100),
+    // Served-countries count — derived from the canonical export-markets list.
+    countriesServedCount: company.commercial.exportMarkets.length,
+    // Framework / list sizes.
+    qcStepCount: f.qcSteps.length,
+    processStepCount: f.processSteps.length,
+    equipmentCount: f.equipment.length,
+    // Binder / additives / ash colour — canonical home is quality.specs;
+    // exposed here for the production-process binder-disclosure section and
+    // the raw-materials sourcing narrative (no value duplicated).
+    binder: company.quality.specs.binder,
+    additives: company.quality.specs.additives,
+    ashColor: company.quality.specs.ashColor,
   };
 }
 
