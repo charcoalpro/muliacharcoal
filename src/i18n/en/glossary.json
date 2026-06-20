@@ -525,7 +525,7 @@
       "termCode": "EC 1907/2006",
       "cluster": "markets",
       "definitionTemplate": "REACH (EC Regulation 1907/2006 — Registration, Evaluation, Authorisation and Restriction of Chemicals) is the EU chemicals regulation under which any substance manufactured in or imported into the EU above one tonne per year must be registered with the European Chemicals Agency. Coconut shell charcoal is exempt from registration as a \"naturally occurring substance\" under REACH Annex V, but the safety data sheet (SDS) requirements still apply.",
-      "see": { "href": "/markets/germany", "label": "EU market requirements" }
+      "see": { "href": "/logistics/import-to-germany", "label": "EU import requirements" }
     },
     {
       "slug": "clp-eu",
@@ -540,7 +540,7 @@
       "termCode": "EU 2023/1115",
       "cluster": "markets",
       "definitionTemplate": "EUDR (EU Regulation 2023/1115 — Deforestation Regulation) is the EU rule that prohibits placement on the EU market of seven commodity groups — including \"wood\" and \"charcoal\" under HS 4402 — unless the operator can prove the product is deforestation-free, legally produced, and traceable to plot-level geolocation of origin. Effective for large operators from 30 December 2025.",
-      "see": { "href": "/markets/germany", "label": "EUDR compliance for our shipments" }
+      "see": { "href": "/logistics/import-to-germany", "label": "EUDR compliance for EU import" }
     },
     {
       "slug": "dds-eudr",
@@ -555,7 +555,7 @@
       "termCode": "SASO",
       "cluster": "markets",
       "definitionTemplate": "SASO (Saudi Standards, Metrology and Quality Organization) sets product standards and conformity-assessment requirements for goods entering Saudi Arabia. Shisha charcoal has no dedicated SASO standard, but the SABER product-conformity gateway routes every consignment for clearance — the buyer's broker handles SABER registration with our COA and packing list.",
-      "see": { "href": "/markets/saudi-arabia", "label": "Saudi Arabia import process" }
+      "see": { "href": "/logistics/import-to-saudi-arabia", "label": "Saudi Arabia import process" }
     },
     {
       "slug": "saber-gcc",
@@ -570,7 +570,7 @@
       "termCode": "EAC",
       "cluster": "markets",
       "definitionTemplate": "EAC (Eurasian Conformity) is the conformity mark required for goods entering the Eurasian Economic Union (Russia, Belarus, Kazakhstan, Armenia, Kyrgyzstan). Products under Technical Regulations of the Customs Union (TR CU) carry an EAC declaration; coconut shell charcoal falls outside any specific TR CU, but importers commonly request a voluntary EAC declaration to ease customs.",
-      "see": { "href": "/markets/russia", "label": "Russia / EAEU import process" }
+      "see": { "href": "/logistics/import-to-russia", "label": "Russia / EAEU import process" }
     },
     {
       "slug": "gost-r",
@@ -585,7 +585,7 @@
       "termCode": "21 CFR 1100",
       "cluster": "markets",
       "definitionTemplate": "The FDA Deeming Rule (21 CFR Part 1100, finalized 2016) extended FDA regulatory authority to \"all tobacco products\" including hookah and shisha tobacco and accessories. Charcoal itself is not a tobacco product and is not directly regulated, but the rule's adjacency means US importers commonly ask for our HS code, COA, and Lacey Act documentation up-front.",
-      "see": { "href": "/markets/usa", "label": "USA market requirements" }
+      "see": { "href": "/logistics/import-to-usa", "label": "USA import requirements" }
     },
 
     {
