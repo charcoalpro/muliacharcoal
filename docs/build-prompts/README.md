@@ -23,9 +23,12 @@ docs/build-prompts/
 ├── logistics/
 │   ├── logistics-hub-build-prompt-v1.md
 │   └── logistics-research-prompt-v1.md
-└── factory/
-    ├── factory-hub-build-prompt-v1.md
-    └── factory-research-prompt-v1.md
+├── factory/
+│   ├── factory-hub-build-prompt-v1.md
+│   └── factory-research-prompt-v1.md
+└── guide/
+    ├── guide-hub-build-prompt-v1.md
+    └── guide-research-prompt-v1.md
 ```
 
 ---
@@ -46,6 +49,8 @@ docs/build-prompts/
 | `logistics/logistics-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Gathers verified UN-1361/DG + USA-import facts; output feeds the two pending child prompts | — |
 | `factory/factory-hub-build-prompt-v1.md` | v1 | build | `/factory` hub **+ all 4 children** (production-process, capacity, virtual-tour, raw-materials); reuses `company.ts` `production`/`factoryTourVideo`, adds a small `factory` object; adding its routes to `LIVE_ROUTES` self-heals the gated/muted `/factory*` links sitewide | packaging hub v6 + logistics hub v1 (pillar-hub pattern) |
 | `factory/factory-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Verifies coconut-charcoal manufacturing-process science + sourcing context + competitor teardown; routes owner-only facts to a checklist; feeds the factory build prompt | — |
+| `guide/guide-hub-build-prompt-v1.md` | v1 | build | `/guide` Buyer's Guide hub **+ 4 guides** (how-to-choose-shisha-charcoal-factory, coconut-vs-bamboo-vs-wood-charcoal, how-to-start-your-own-brand, private-label-options); reconciles the GradePage guide slug; reuses `grades`/`editorial` facts; self-heals the muted `/guide*` links sitewide | packaging hub v6 + logistics hub v1 + factory hub v1 (pillar-hub pattern) |
+| `guide/guide-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Verifies coconut-vs-bamboo-vs-wood comparison data + supplier-vetting/private-label norms + SERP teardown; routes owner/site facts to a checklist; feeds the guide build prompt | — |
 
 **Pending (will be added here):** `/logistics/UN-1361` and `/logistics/import-to-usa` (await `logistics-research-findings.md`), `/logistics/rules`, `/logistics/documents`. Each will declare its required parents in its own header using repo paths.
 
@@ -60,6 +65,7 @@ docs/build-prompts/
 9. **`/logistics` hub.**
 10+. **Logistics children** as their prompts land.
 11. **`/factory` pillar** — hub + 4 children (single prompt); add the 5 routes to `LIVE_ROUTES` to self-heal the gated/muted `/factory*` links across home, glossary, products, and grade pages.
+12. **`/guide` pillar** — hub + 4 guides (single prompt); fully unblocked (cross-links existing pillars); add the 5 routes to `LIVE_ROUTES` and reconcile the GradePage guide slug.
 Cross-site touches (`/samples` packaging accommodation, homepage OEM → white-label link) whenever those pages are next edited; guide-pillar redirects when that pillar is built.
 
 ---
