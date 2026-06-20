@@ -1,0 +1,4 @@
+# Treat PDFs as binary so Git never applies end-of-line conversion.
+# These are document assets, not text; LF->CRLF normalization would shift
+# the byte offsets in the PDF xref table and make the files unreadable.
+*.pdf binary

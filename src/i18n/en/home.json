@@ -116,7 +116,7 @@
     "caption": "Factory targets per grade. Lab certificate of analysis (COA) issued per shipment.",
     "lastVerifiedTemplate": "Last verified: {{specsLastVerified}}",
     "coaLinkLabel": "See the certificate of analysis",
-    "coaLinkHref": "/quality/coa-sample.pdf",
+    "coaLinkHref": "/documents/coa-sample.pdf",
     "gradePickerLegend": "Choose the grade you want a price for",
     "gradePickerHelp": "Pick a grade — the CTA below pre-fills the WhatsApp message accordingly.",
     "ctaLabelTemplate": "Get price for {{grade}}",
