@@ -72,6 +72,7 @@ export const LIVE_ROUTES: ReadonlySet<string> = new Set([
   '/guide',
   '/guide/coconut-vs-bamboo-vs-wood-charcoal',
   '/guide/how-to-choose-shisha-charcoal-factory',
+  '/guide/how-to-order-shisha-charcoal',
   '/legal/privacy-policy',
   '/legal/terms',
   '/legal/cookies',
@@ -126,6 +127,7 @@ export const footerOperationsNav: readonly NavItem[] = [
   make('/samples', en.footer.links.samples),
   make('/quality', en.footer.links.quality),
   make('/guide', en.footer.links.guide),
+  make('/guide/how-to-order-shisha-charcoal', en.footer.links.howToOrder),
   make('/quality/certifications', en.footer.links.certificates),
 ];
 

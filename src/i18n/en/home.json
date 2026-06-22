@@ -3,6 +3,19 @@
     "titleTemplate": "{{brand}} — Coconut Shisha Charcoal Factory in {{city}}, Indonesia",
     "descriptionTemplate": "Wholesale coconut shell shisha charcoal briquettes from {{port}}, {{country}}. {{iso9001Short}} certified, IMDG {{unNumber}} compliant. MOQ {{moqLabel}}, lead time {{leadTimeLabel}}. Request free samples or message us on WhatsApp."
   },
+  "howOrdering": {
+    "eyebrow": "Inquiry to delivery",
+    "heading": "How ordering works",
+    "intro": "From first message to a delivered container — sampled, specified, and verified at every step.",
+    "steps": [
+      { "title": "Inquire", "body": "Send your grade, quantity, and destination port." },
+      { "title": "Sample & burn-test", "body": "Verify the burn specs in your own lab before you commit." },
+      { "title": "Produce + per-batch COA", "body": "We manufacture to the agreed spec with a Certificate of Analysis per batch." },
+      { "title": "Ship {{portLabel}}", "body": "Dangerous-goods packed, fully documented, and loaded for your forwarder." }
+    ],
+    "ctaLabel": "See how ordering works",
+    "ctaAria": "Read the full ordering guide"
+  },
   "hero": {
     "eyebrow": "Coconut shell charcoal briquette factory · {{city}}, {{country}} · since {{year}}",
     "h1": "Natural coconut charcoal briquettes for shisha, by the container.",
