@@ -162,7 +162,13 @@
       { "destination": "Hamburg, Germany", "portCode": "DEHAM", "country": "Germany", "minDays": 30, "maxDays": 38 },
       { "destination": "Los Angeles, USA (West Coast)", "portCode": "USLAX", "country": "USA", "minDays": 25, "maxDays": 32 },
       { "destination": "New York / New Jersey, USA (East Coast)", "portCode": "USNYC", "country": "USA", "minDays": 35, "maxDays": 45 },
-      { "destination": "St Petersburg, Russia", "portCode": "RULED", "country": "Russia", "minDays": 38, "maxDays": 48 }
+      { "destination": "St Petersburg, Russia", "portCode": "RULED", "country": "Russia", "minDays": 38, "maxDays": 48 },
+      { "destination": "London Gateway, United Kingdom", "portCode": "GBLGP", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
+      { "destination": "Southampton, United Kingdom", "portCode": "GBSOU", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
+      { "destination": "Bremerhaven, Germany", "portCode": "DEBRV", "country": "Germany", "minDays": 30, "maxDays": 38 },
+      { "destination": "Dammam, Saudi Arabia", "portCode": "SADMM", "country": "Saudi Arabia", "minDays": 22, "maxDays": 30 },
+      { "destination": "Novorossiysk, Russia", "portCode": "RUNVS", "country": "Russia", "minDays": 30, "maxDays": 40 },
+      { "destination": "Vladivostok, Russia", "portCode": "RUVVO", "country": "Russia", "minDays": 15, "maxDays": 22 }
     ],
     "containerCapacity": {
       "ft20": { "fullKg": 18000, "bulkKg": null, "palletizedKg": 16000 },
@@ -354,7 +360,7 @@
 
   "payment": {
     "mode": "public",
-    "terms": ["T/T 30/70 (30% deposit, 70% against B/L copy)", "L/C at sight"],
+    "terms": ["T/T 50/50 (50% deposit, 50% balance 3 days before loading)", "L/C at sight"],
     "currencies": ["USD"],
     "bankCountry": "Indonesia",
     "acceptsCrypto": false
@@ -538,7 +544,7 @@
     "transshipmentVia": ["Singapore", "Pasir Gudang"],
     "containers": { "hq40Available": true, "perShapeYieldNote": "" },
     "lcl": { "available": null, "marketsServed": [], "minTons": "" },
-    "incoterms": ["EXW", "FOB", "CFR"],
+    "incoterms": ["EXW", "FOB", "CFR", "CIF"],
     "payment": { "methods": [], "currencies": [], "downPaymentPct": "", "balanceTrigger": "" },
 
     "dg": {
@@ -589,7 +595,7 @@
       "lastVerified": "2026-06-15"
     },
 
-    "transitTimesLastUpdated": "2026-06-15",
+    "transitTimesLastUpdated": "2026-06-22",
     "customsClearanceByBuyer": true,
     "brokerReferralAvailable": null,
     "leadTimes": { "production20ft": "", "production40ft": "" },
@@ -617,7 +623,7 @@
 
     "insurance": {
       "arrangedBy": "buyer",
-      "basis": "Buyer-arranged — the Incoterms offered (EXW / FOB / CFR) include no seller-arranged cover; the factory does not insure the cargo.",
+      "basis": "Buyer-arranged by default — under EXW / FOB / CFR the factory arranges no cover and the buyer insures the cargo. Marine insurance can be arranged by the factory on request under CIF (seller-arranged cover to the destination port); inherent-vice perils stay excluded under any term.",
       "coverage": ["wetting / water ingress", "theft and pilferage", "general average", "vessel casualty", "external fire"],
       "exclusions": ["self-heating / spontaneous combustion (inherent vice)"],
       "coverageNote": "",
@@ -655,45 +661,43 @@
       "lanes": []
     },
 
-    "usaImport": {
-      "htsCode": "",
-      "htsSourceUrl": "",
-      "htsCandidates": [
-        { "code": "4402.20.00.00", "sourceUrl": "https://hts.usitc.gov", "note": "\"Of shell or nut\" — most precise for coconut shell charcoal; base duty Free." },
-        { "code": "4402.90.01.00", "sourceUrl": "https://hts.usitc.gov", "note": "Residual \"Other\"; base duty Free. Legacy CBP ruling N306942 (2014) cited 4402.90.0000 before the post-2022 renumbering." }
-      ],
-      "htsNotes": "Both candidates carry a Free base (MFN) duty, so the exact 10-digit code does not change the rate; a CBP binding-ruling request would settle it. Confirm classification with your customs broker.",
-      "dutyLayers": [
-        { "id": "mfn", "label": "Base MFN duty (heading 4402)", "rate": "Free", "basis": "Most-favored-nation; applies to all candidates", "sourceUrl": "https://hts.usitc.gov", "asOf": "2026-06-15", "legalStatus": "" },
-        { "id": "section122", "label": "Section 122 balance-of-payments surcharge", "rate": "10%", "basis": "Flat global surcharge (Trade Act 1974, Proclamation 11012), assessed in addition to MFN", "sourceUrl": "https://www.congress.gov/crs-product/LSB11398", "asOf": "2026-06-15", "legalStatus": "Struck by the Court of International Trade on 7 May 2026 (party-specific; on appeal to the Federal Circuit) — collection continues for non-plaintiff importers; statutory sunset around 24 July 2026. Most sources report 10%; confirm at booking." },
-        { "id": "mpf", "label": "Merchandise Processing Fee (MPF)", "rate": "0.3464%", "basis": "Formal entry; minimum $33.58, maximum $651.50 per entry (FY2026)", "sourceUrl": "https://www.ecfr.gov", "asOf": "2025-10-01", "legalStatus": "" },
-        { "id": "hmf", "label": "Harbor Maintenance Fee (HMF)", "rate": "0.125%", "basis": "Vessel imports only; assessed on cargo value", "sourceUrl": "https://www.cbp.gov", "asOf": "2026-06-15", "legalStatus": "" }
-      ],
-      "dutyHistory": "The MFN base is Free. The reciprocal layer has moved fast: +32% (IEEPA, EO 14257, April 2025) → about 19% (US–Indonesia agreement, February 2026) → the IEEPA basis was voided by the Supreme Court on 20 February 2026 and collection halted from about 24 February 2026 → replaced by a 10% Section 122 surcharge (effective 24 February 2026), itself struck by the CIT on 7 May 2026 (party-specific, on appeal) and set to sunset around 24 July 2026. The effective rate is roughly 10% ad valorem today, heavily caveated; a Section 301 investigation opened 11 March 2026 may succeed it.",
-      "adcvd": "No anti-dumping or countervailing-duty order was found for Chapter 44 charcoal from Indonesia in the ITA database; confirm with your customs broker.",
-      "entryNotes": {
-        "isf": "The Importer Security Filing (ISF, \"10+2\") must be transmitted at least 24 hours before the cargo is laden aboard the vessel at the origin port. The importer files ten data elements: seller; buyer; importer-of-record number; consignee number; manufacturer or supplier; ship-to party; country of origin; HTSUS number; container stuffing location; and consolidator.",
-        "bond": "A continuous or single-entry customs bond is required and must include ISF provisions; ISF penalties run to $5,000 per violation, up to $10,000 per filing.",
-        "entrySummary": "Entry is finalized on CBP Form 7501; the data is reusable between the ISF and the 7501."
-      },
-      "entrySourceUrl": "https://www.cbp.gov",
-      "usPortsServed": [],
-      "fda": {
-        "deemingApplies": true,
-        "deemingSourceUrl": "https://www.federalregister.gov",
-        "deemingRule": "FDA Deeming Rule, 81 FR 28974 (10 May 2016; effective 8 August 2016).",
-        "scope": "Hookah charcoal is regulated as a component or part of a tobacco product when it maintains combustion of waterpipe tobacco (81 FR 28974 at 29019), regardless of the material it is made from.",
-        "requirements": "Establishment registration, product listing, and a premarket tobacco product application (PMTA) before lawful US introduction — hookah charcoal is a new tobacco product, not grandfathered before 15 February 2007.",
-        "pmtaStatus": "PMTA required before lawful US introduction.",
-        "stnNote": "",
-        "enforcementDiscretionStatus": "The FDA has not adopted a broad enforcement-discretion policy for hookah charcoal; a pending application is not a safe harbor, the posture is not codified, and it can change without notice.",
-        "enforcementSourceUrl": "https://www.fda.gov",
-        "importAlert": "Import Alert 98-06 (detention without physical examination of new tobacco products without marketing authorization); CBP may detain or refuse entry.",
-        "mislabeling": "Labeling the product as BBQ or general-purpose charcoal does not change FDA jurisdiction; misbranded or adulterated tobacco products are subject to detention or refusal, and misdeclaration is separately actionable.",
-        "pending": "",
+    "imports": {
+      "usa": {
+        "country": "USA",
+        "htsCandidates": [
+          { "code": "4402.20.00.00", "sourceUrl": "https://hts.usitc.gov", "note": "\"Of shell or nut\" — most precise for coconut shell charcoal; base duty Free." },
+          { "code": "4402.90.01.00", "sourceUrl": "https://hts.usitc.gov", "note": "Residual \"Other\"; base duty Free. Legacy CBP ruling N306942 (2014) cited 4402.90.0000 before the post-2022 renumbering." }
+        ],
+        "htsNotes": "Both candidates carry a Free base (MFN) duty, so the exact 10-digit code does not change the rate; a CBP binding-ruling request would settle it. Confirm classification with your customs broker.",
+        "dutyLayers": [
+          { "id": "mfn", "label": "Base MFN duty (heading 4402)", "rate": "Free", "basis": "Most-favored-nation; applies to all candidates", "sourceUrl": "https://hts.usitc.gov", "asOf": "2026-06-15", "legalStatus": "" },
+          { "id": "section122", "label": "Section 122 balance-of-payments surcharge", "rate": "10%", "basis": "Flat global surcharge (Trade Act 1974, Proclamation 11012), assessed in addition to MFN", "sourceUrl": "https://www.congress.gov/crs-product/LSB11398", "asOf": "2026-06-15", "legalStatus": "Struck by the Court of International Trade on 7 May 2026 (party-specific; on appeal to the Federal Circuit) — collection continues for non-plaintiff importers; statutory sunset around 24 July 2026. Most sources report 10%; confirm at booking." },
+          { "id": "mpf", "label": "Merchandise Processing Fee (MPF)", "rate": "0.3464%", "basis": "Formal entry; minimum $33.58, maximum $651.50 per entry (FY2026)", "sourceUrl": "https://www.ecfr.gov", "asOf": "2025-10-01", "legalStatus": "" },
+          { "id": "hmf", "label": "Harbor Maintenance Fee (HMF)", "rate": "0.125%", "basis": "Vessel imports only; assessed on cargo value", "sourceUrl": "https://www.cbp.gov", "asOf": "2026-06-15", "legalStatus": "" }
+        ],
+        "vat": null,
+        "preference": null,
+        "dutyHistory": "The MFN base is Free. The reciprocal layer has moved fast: +32% (IEEPA, EO 14257, April 2025) → about 19% (US–Indonesia agreement, February 2026) → the IEEPA basis was voided by the Supreme Court on 20 February 2026 and collection halted from about 24 February 2026 → replaced by a 10% Section 122 surcharge (effective 24 February 2026), itself struck by the CIT on 7 May 2026 (party-specific, on appeal) and set to sunset around 24 July 2026. The effective rate is roughly 10% ad valorem today, heavily caveated; a Section 301 investigation opened 11 March 2026 may succeed it.",
+        "adcvd": "No anti-dumping or countervailing-duty order was found for Chapter 44 charcoal from Indonesia in the ITA database; confirm with your customs broker.",
+        "entryNotes": {
+          "isf": "The Importer Security Filing (ISF, \"10+2\") must be transmitted at least 24 hours before the cargo is laden aboard the vessel at the origin port. The importer files ten data elements: seller; buyer; importer-of-record number; consignee number; manufacturer or supplier; ship-to party; country of origin; HTSUS number; container stuffing location; and consolidator.",
+          "bond": "A continuous or single-entry customs bond is required and must include ISF provisions; ISF penalties run to $5,000 per violation, up to $10,000 per filing.",
+          "entrySummary": "Entry is finalized on CBP Form 7501; the data is reusable between the ISF and the 7501."
+        },
+        "entrySourceUrl": "https://www.cbp.gov",
+        "countryAgency": {
+          "items": [
+            { "label": "Deeming Rule", "value": "FDA Deeming Rule, 81 FR 28974 (10 May 2016; effective 8 August 2016).", "sourceUrl": "" },
+            { "label": "Scope", "value": "Hookah charcoal is regulated as a component or part of a tobacco product when it maintains combustion of waterpipe tobacco (81 FR 28974 at 29019), regardless of the material it is made from.", "sourceUrl": "" },
+            { "label": "Requirements", "value": "Establishment registration, product listing, and a premarket tobacco product application (PMTA) before lawful US introduction — hookah charcoal is a new tobacco product, not grandfathered before 15 February 2007.", "sourceUrl": "" },
+            { "label": "Enforcement discretion", "value": "The FDA has not adopted a broad enforcement-discretion policy for hookah charcoal; a pending application is not a safe harbor, the posture is not codified, and it can change without notice.", "sourceUrl": "" },
+            { "label": "Import enforcement", "value": "Import Alert 98-06 (detention without physical examination of new tobacco products without marketing authorization); CBP may detain or refuse entry.", "sourceUrl": "" },
+            { "label": "Do not mislabel", "value": "Labeling the product as BBQ or general-purpose charcoal does not change FDA jurisdiction; misbranded or adulterated tobacco products are subject to detention or refusal, and misdeclaration is separately actionable.", "sourceUrl": "" },
+            { "label": "Practical steps", "value": "Work with US counsel and a customs broker experienced in tobacco-product entries before you ship; confirm registration, listing, and marketing-authorization status for your specific product.", "sourceUrl": "" }
+          ]
+        },
         "lastVerified": "2026-06-15"
-      },
-      "lastVerified": "2026-06-15"
+      }
     },
 
     "editorial": { "datePublished": "2026-06-16", "dateModified": "2026-06-16" }
@@ -753,6 +757,16 @@
     "description": "Three-minute walkthrough of the Mulia Charcoal coconut shell briquetting factory in Semarang, Central Java — carbonization ovens, briquetting lines, drying tunnel, QC station and packing.",
     "durationISO": "PT3M",
     "uploadDate": "2026-05-26"
+  },
+
+  "guide": {
+    "editorial": {
+      "hub": { "datePublished": "2026-06-20", "dateModified": "2026-06-20" },
+      "coconutVsBambooVsWood": { "datePublished": "2026-06-20", "dateModified": "2026-06-20" },
+      "howToChooseFactory": { "datePublished": "2026-06-20", "dateModified": "2026-06-20" },
+      "howToStartBrand": { "datePublished": "", "dateModified": "" },
+      "privateLabelOptions": { "datePublished": "", "dateModified": "" }
+    }
   },
 
   "governance": {

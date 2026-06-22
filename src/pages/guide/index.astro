@@ -1,0 +1,290 @@
+---
+/**
+ * /guide — the Buyer's-Guide pillar hub (top-of-funnel educational cocoon).
+ *
+ *   - Text-led hero (definition-form lead, parent entity in the first 100
+ *     words), full E-E-A-T ArticleMeta block, zero-JS TOC, "how to use this
+ *     guide" intro with the MOQ in prose (NOT in FAQ markup) linking /faq.
+ *   - One section per child guide: two LIVE leads (comparison, choose-factory)
+ *     with takeaways + keyword-anchor CTA; two MUTED forward-refs
+ *     (start-brand, private-label) that self-light when built.
+ *   - B3 buyer on-ramp (sample → trial container → repeat-order terms).
+ *   - "Coconut at a glance" KeyFactsBox (ranges from grades.ts).
+ *   - Hub-canonical FAQ (routing Qs), related topics, CTABanner.
+ *   - Schema: CollectionPage + FAQPage (guideHubSchema); hasPart → 2 live
+ *     children only. <Breadcrumbs> emits its own BreadcrumbList.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import TableOfContents from '~/components/content/TableOfContents.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { grades, type Grade } from '~/config/grades';
+import { guideHubSchema } from '~/lib/schema/guideHub';
+
+const t = en.guide.hub;
+const tc = en.guide.common;
+const tokens = companyTokens(company);
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// "Coconut at a glance" ranges — min–max across the three grades (grades.ts).
+const enDash = (lo: number, hi: number) => (lo === hi ? `${lo}` : `${lo}–${hi}`);
+const grp = (n: number) => n.toLocaleString('en-US');
+const minOf = (pick: (g: Grade) => number | undefined) =>
+  Math.min(...grades.map(pick).filter((n): n is number => typeof n === 'number'));
+const maxOf = (pick: (g: Grade) => number | undefined) =>
+  Math.max(...grades.map(pick).filter((n): n is number => typeof n === 'number'));
+
+const ashRange = `${enDash(minOf((g) => g.ash.min), maxOf((g) => g.ash.max))}%`;
+const fcRange = `${enDash(minOf((g) => g.fixedCarbon.min), maxOf((g) => g.fixedCarbon.min))}%`;
+const calLo = minOf((g) => g.calorieValue.min);
+const calHi = maxOf((g) => g.calorieValue.min);
+const calRange = `${calLo === calHi ? grp(calLo) : `${grp(calLo)}–${grp(calHi)}`} kcal/kg`;
+const burnRange = `${enDash(minOf((g) => g.burnTime.min), maxOf((g) => g.burnTime.min))} hours`;
+
+const atGlanceFacts = [
+  { label: t.atGlance.ashLabel, value: ashRange },
+  { label: t.atGlance.fixedCarbonLabel, value: fcRange },
+  { label: t.atGlance.calorificLabel, value: calRange },
+  { label: t.atGlance.burnTimeLabel, value: burnRange },
+];
+
+const heroTrust = [
+  { label: t.heroTrust.moqLabel, value: tokens.moqLabel },
+  { label: t.heroTrust.originLabel, value: `${company.address.city}, ${company.address.country}` },
+  { label: t.heroTrust.portLabel, value: tokens.portLabel },
+  {
+    label: t.heroTrust.certLabel,
+    value: `${company.certifications.iso9001.shortName}${company.certifications.halal?.certified ? ' · Halal' : ''}`,
+  },
+];
+
+const liveChildren = [
+  { ...t.children.compare, href: '/guide/coconut-vs-bamboo-vs-wood-charcoal', id: 'compare' },
+  { ...t.children.chooseFactory, href: '/guide/how-to-choose-shisha-charcoal-factory', id: 'choose-factory' },
+];
+const soonChildren = [
+  { ...t.children.startBrand, href: '/guide/how-to-start-your-own-brand', id: 'start-brand' },
+  { ...t.children.privateLabel, href: '/guide/private-label-options', id: 'private-label' },
+];
+
+const tocItems = [
+  { anchor: 'guides', label: t.children.heading },
+  { anchor: 'how-buyers-start', label: t.b3.heading },
+  { anchor: 'at-a-glance', label: t.atGlance.heading },
+  { anchor: 'faq', label: t.faq.heading },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const readMinutes = readingTime(
+  fill(
+    [t.heroSubtitle, t.intro.lead, t.intro.body1, t.intro.body2, ...faqItems.flatMap((f) => [f.q, f.a])].join(' '),
+    tokens,
+  ),
+);
+
+const schema = guideHubSchema({
+  pageTitle,
+  pageDescription,
+  path: '/guide',
+  children: [
+    { href: '/guide/coconut-vs-bamboo-vs-wood-charcoal', name: t.children.compare.h2 },
+    { href: '/guide/how-to-choose-shisha-charcoal-factory', name: t.children.chooseFactory.h2 },
+  ],
+  faq: faqItems,
+});
+
+const sectionH2 = 'text-2xl font-bold text-neutral-900 md:text-3xl';
+const proseP = 'mt-4 max-w-3xl text-neutral-700 leading-relaxed';
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/guide"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/guide/coconut-vs-bamboo-vs-wood-charcoal', '/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={t.heroSubtitle}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('salesGeneral'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'guide-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaContact,
+      href: '/contact',
+      ariaLabel: t.hero.ctaContactAria,
+      dataSourceComponent: 'guide-hero-inquiry',
+    }}
+  >
+    <dl class="mt-10 grid grid-cols-2 gap-x-6 gap-y-4 sm:grid-cols-4">
+      {heroTrust.map((item) => (
+        <div class="border-s-2 border-brand-accent ps-3">
+          <dt class="text-xs font-medium uppercase tracking-wide text-neutral-600">{item.label}</dt>
+          <dd class="mt-1 text-sm font-semibold text-neutral-900">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
+  </HeroSection>
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: tc.metaBlock.authorRole,
+          reviewedBy: tc.metaBlock.reviewerRole,
+          factCheckedBy: tc.metaBlock.factCheckerRole,
+          lastUpdated: tc.metaBlock.lastUpdatedLabel,
+          readTime: tc.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={company.guide.editorial.hub.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+    <TableOfContents heading={t.toc.heading} items={tocItems} />
+
+    <section aria-labelledby="intro-heading" class="mt-10">
+      <h2 id="intro-heading" class={sectionH2}>{t.intro.heading}</h2>
+      <p class={proseP}>{t.intro.lead}</p>
+      <p class={proseP}>{t.intro.body1}</p>
+      <p class={proseP}>{t.intro.body2}</p>
+      <p class={proseP}>
+        {fill(t.intro.moqNotePre, tokens)}{' '}
+        <MaybeLink href="/faq" class="font-semibold" data-source-component="guide-hub-moq-faq">{t.intro.moqNoteLink}</MaybeLink>{' '}
+        {t.intro.moqNotePost}
+      </p>
+    </section>
+  </div>
+
+  <section id="guides" aria-labelledby="guides-heading" class="scroll-mt-24 border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="guides-heading" class={sectionH2}>{t.children.heading}</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-2">
+        {liveChildren.map((child) => (
+          <article class="rounded-2xl border border-neutral-200 bg-white p-6">
+            <h3 class="text-xl font-semibold text-neutral-900">{child.h2}</h3>
+            <p class="mt-3 text-neutral-700 leading-relaxed">{child.definition}</p>
+            <ul class="mt-4 space-y-2 text-sm text-neutral-700">
+              {child.takeaways.map((point) => (
+                <li class="flex gap-2">
+                  <span class="text-brand-accent" aria-hidden="true">•</span>
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+            <p class="mt-5">
+              <MaybeLink
+                href={child.href}
+                class="font-semibold"
+                data-source-component={`guide-hub-${child.id}`}
+              >{child.linkLabel} <span aria-hidden="true">→</span></MaybeLink>
+            </p>
+          </article>
+        ))}
+        {soonChildren.map((child) => (
+          <article class="rounded-2xl border border-dashed border-neutral-300 bg-white p-6">
+            <h3 class="text-xl font-semibold text-neutral-900">{child.h2}</h3>
+            <p class="mt-3 text-neutral-700 leading-relaxed">{child.definition}</p>
+            <p class="mt-5">
+              <MaybeLink
+                href={child.href}
+                class="font-semibold"
+                mutedClass="font-semibold"
+                data-source-component={`guide-hub-${child.id}`}
+              >{child.comingSoon}</MaybeLink>
+            </p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="how-buyers-start" aria-labelledby="how-buyers-start-heading" class="scroll-mt-24 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="how-buyers-start-heading" class={sectionH2}>{t.b3.heading}</h2>
+      <p class={proseP}>{t.b3.intro}</p>
+      <ol class="mt-8 grid gap-6 md:grid-cols-3">
+        {t.b3.steps.map((step) => (
+          <li class="rounded-2xl border border-neutral-200 p-6">
+            <h3 class="text-base font-semibold text-neutral-900">{step.title}</h3>
+            <p class="mt-2 text-sm text-neutral-700 leading-relaxed">{fill(step.body, tokens)}</p>
+            <p class="mt-4 text-sm">
+              <MaybeLink
+                href={step.href}
+                class="font-semibold"
+                data-source-component={`guide-hub-b3-${step.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+              >{step.linkLabel} <span aria-hidden="true">→</span></MaybeLink>
+            </p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="at-a-glance" aria-labelledby="at-a-glance-heading" class="scroll-mt-24 border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <KeyFactsBox
+        id="at-a-glance-heading"
+        heading={t.atGlance.heading}
+        definition={t.atGlance.definition}
+        facts={atGlanceFacts}
+      />
+      <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <MaybeLink href="/products" class="font-semibold" data-source-component="guide-hub-atglance-products">{t.atGlance.productsLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="guide-hub-atglance-quality">{t.atGlance.qualityLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </div>
+  </section>
+
+  <section aria-labelledby="faq" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="faq" heading={t.faq.heading} items={faqItems} />
+    </div>
+  </section>
+
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="related-heading" class={sectionH2}>{t.related.heading}</h2>
+      <ul role="list" class="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              mutedClass="text-neutral-400"
+              data-source-component={`guide-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >{item.label}</MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

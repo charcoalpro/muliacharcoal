@@ -340,7 +340,7 @@
       },
       {
         "q": "What payment terms do you accept?",
-        "a": "T/T 30/70 (30% deposit, 70% against B/L copy), or L/C at sight. Wire details are released only after KYC. We invoice in USD."
+        "a": "{{paymentTerms}}, or L/C at sight. Wire details are released only after KYC. We invoice in USD."
       },
       {
         "q": "Do you ship paid samples?",

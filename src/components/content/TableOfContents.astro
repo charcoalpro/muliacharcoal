@@ -1,0 +1,44 @@
+---
+/**
+ * TableOfContents — generic zero-JS in-page anchor list.
+ *
+ * A parameterized version of the glossary's ThematicTOC: a semantic
+ * `<nav>` → `<ol>` of plain `<a href="#anchor">` links, no JavaScript, so the
+ * page outline is fully present for keyboard users and AI extractors. The
+ * target sections carry the matching `id` + `scroll-mt-24`.
+ */
+interface TocItem {
+  /** Target section id (without the leading `#`). */
+  anchor: string;
+  label: string;
+}
+
+interface Props {
+  heading: string;
+  items: TocItem[];
+  class?: string;
+}
+
+const { heading, items, class: className } = Astro.props;
+---
+<nav
+  aria-label={heading}
+  class:list={['rounded-2xl border border-neutral-200 bg-neutral-50 p-5 md:p-6', className]}
+>
+  <h2 class="text-base font-semibold text-neutral-900">{heading}</h2>
+  <ol class="mt-3 grid gap-2 sm:grid-cols-2">
+    {items.map((item, i) => (
+      <li class="flex gap-2">
+        <span class="tabular-nums text-neutral-400" aria-hidden="true">
+          {String(i + 1).padStart(2, '0')}
+        </span>
+        <a
+          href={`#${item.anchor}`}
+          class="rounded-sm text-brand-primary hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+        >
+          {item.label}
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>

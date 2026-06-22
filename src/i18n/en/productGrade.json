@@ -311,8 +311,14 @@
   },
 
   "compare": {
-    "body": "Comparing suppliers before you commit a container is the right move. Our supplier-comparison guide lays out the criteria — ash, fixed carbon, documentation, MOQ, and lead time — against named competitors, factually.",
-    "linkLabel": "Compare coconut charcoal suppliers"
+    "body": "Before you commit a container, it pays to know why coconut shell charcoal outperforms bamboo and wood for shisha. Our material guide compares fixed carbon, ash, calorific value, burn time and taste across all three — with sources.",
+    "anchors": [
+      "coconut vs bamboo vs wood charcoal",
+      "how coconut charcoal compares to wood and bamboo",
+      "compare coconut shell charcoal to alternatives",
+      "coconut vs wood charcoal for shisha",
+      "why coconut shell charcoal for hookah"
+    ]
   },
 
   "related": {

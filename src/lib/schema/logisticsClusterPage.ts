@@ -52,6 +52,9 @@ interface BuildArgs {
   techArticle?: TechArticleInput;
   /** Pass to add a supplementary HowTo node (genuine step processes). */
   howTo?: HowToInput;
+  /** Override dateModified (e.g. a per-country `lastVerified`); defaults to
+   *  `logistics.editorial.dateModified` when omitted. */
+  dateModified?: string;
 }
 
 export function logisticsClusterPageSchema({
@@ -62,10 +65,12 @@ export function logisticsClusterPageSchema({
   aboutAnchor,
   techArticle,
   howTo,
+  dateModified,
 }: BuildArgs) {
   const pageUrl = `${siteOrigin}${path}`;
   const faqId = `${pageUrl}#faq`;
   const { editorial } = company.logistics;
+  const modified = dateModified ?? editorial.dateModified;
   const aboutRef = aboutAnchor ? { '@id': `${siteOrigin}/glossary#${aboutAnchor}` } : undefined;
 
   const webPage = webPageNode({
@@ -76,7 +81,7 @@ export function logisticsClusterPageSchema({
     aboutRef,
     authorName: company.governance.author.name,
     datePublished: editorial.datePublished,
-    dateModified: editorial.dateModified,
+    dateModified: modified,
   });
 
   const faqPage = {
@@ -93,7 +98,7 @@ export function logisticsClusterPageSchema({
       description: techArticle.description ?? pageDescription,
       authorName: company.governance.author.name,
       datePublished: editorial.datePublished,
-      dateModified: editorial.dateModified,
+      dateModified: modified,
       aboutRef,
     }));
   }

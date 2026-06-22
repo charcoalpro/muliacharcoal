@@ -1,0 +1,285 @@
+---
+/**
+ * /guide/coconut-vs-bamboo-vs-wood-charcoal — LEAD article (canonical
+ * material comparison the 57 grade SKUs link to).
+ *
+ *   - First-paragraph up-link to /guide; full ArticleMeta E-E-A-T block;
+ *     zero-JS TOC; definition-form intro.
+ *   - CENTERPIECE comparison SpecsTable — RANGES, all three columns. Coconut
+ *     cells are the min–max across grades.ts; bamboo/wood cells carry inline
+ *     footnote markers resolved to text citations below the table (cite-or-
+ *     omit). Burn-temperature row omitted (unverified). Also emitted as
+ *     ItemList in the schema graph.
+ *   - Question-style H2 sections (honest strengths + weaknesses), "why
+ *     coconut wins" (ash/density/taste, NOT calorific — which overlaps),
+ *     Duke/Monzer combustion section (no health claims; the competitor-hosted
+ *     exhaled-CO study is excluded), qualitative sustainability.
+ *   - ≤3 curated outbound authority links (FAO, ASTM, Duke) fire
+ *     outbound_click. Schema: Article + FAQPage + DefinedTerm + ItemList.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import TableOfContents from '~/components/content/TableOfContents.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
+import SpecsTable from '~/components/content/SpecsTable.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { grades, type Grade } from '~/config/grades';
+import { guideArticlePageSchema } from '~/lib/schema/guideArticlePage';
+
+const t = en.guide.compare;
+const tc = en.guide.common;
+const tokens = companyTokens(company);
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// Outbound authority links (curated, ≤3 — guide-research-findings.md Task C).
+const FAO_URL = 'https://www.fao.org/4/X5328e/x5328e05.htm';
+const ASTM_URL = 'https://store.astm.org/d1762-84r21.html';
+const DUKE_URL = 'https://pubmed.ncbi.nlm.nih.gov/26403022/';
+
+// Coconut column = min–max across our three grades (grades.ts), NOT literature.
+const enDash = (lo: number, hi: number) => (lo === hi ? `${lo}` : `${lo}–${hi}`);
+const grp = (n: number) => n.toLocaleString('en-US');
+const minOf = (pick: (g: Grade) => number | undefined) =>
+  Math.min(...grades.map(pick).filter((n): n is number => typeof n === 'number'));
+const maxOf = (pick: (g: Grade) => number | undefined) =>
+  Math.max(...grades.map(pick).filter((n): n is number => typeof n === 'number'));
+
+const coconutCells: Record<string, string> = {
+  fixedCarbon: enDash(minOf((g) => g.fixedCarbon.min), maxOf((g) => g.fixedCarbon.min)),
+  ash: enDash(minOf((g) => g.ash.min), maxOf((g) => g.ash.max)),
+  calorific: `${grp(minOf((g) => g.calorieValue.min))}–${grp(maxOf((g) => g.calorieValue.min))}`,
+  burnTime: `${enDash(minOf((g) => g.burnTime.min), maxOf((g) => g.burnTime.min))} hours`,
+};
+
+type TableRow = { key: string; label: string; coconut?: string; bamboo: string; wood: string };
+const tableRows = (t.table.rows as TableRow[]).map((r) => ({
+  name: r.label,
+  coconut: r.coconut ?? coconutCells[r.key] ?? '—',
+  bamboo: r.bamboo,
+  wood: r.wood,
+}));
+const tableColumns = [
+  { key: 'coconut', label: t.table.columns.coconut },
+  { key: 'bamboo', label: t.table.columns.bamboo },
+  { key: 'wood', label: t.table.columns.wood },
+];
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const tocItems = [
+  { anchor: 'comparison-table', label: t.table.heading },
+  { anchor: 'coconut', label: t.sections.coconut.h2 },
+  { anchor: 'bamboo', label: t.sections.bamboo.h2 },
+  { anchor: 'wood', label: t.sections.wood.h2 },
+  { anchor: 'why-coconut', label: t.sections.whyCoconut.h2 },
+  { anchor: 'combustion', label: t.sections.combustion.h2 },
+  { anchor: 'sustainability', label: t.sections.sustainability.h2 },
+  { anchor: 'faq', label: t.faq.heading },
+];
+
+const readMinutes = readingTime(
+  fill(
+    [
+      t.heroSubtitle,
+      t.intro.p1,
+      t.intro.p2,
+      ...Object.values(t.sections).flatMap((s: any) => [s.h2, s.body, s.body1, s.body2].filter(Boolean)),
+      ...faqItems.flatMap((f) => [f.q, f.a]),
+    ].join(' '),
+    tokens,
+  ),
+);
+
+const schema = guideArticlePageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/guide/coconut-vs-bamboo-vs-wood-charcoal',
+  editorialKey: 'coconutVsBambooVsWood',
+  headline: t.h1,
+  faq: faqItems,
+  about: { name: 'Coconut shell charcoal', sameAs: 'https://en.wikipedia.org/wiki/Charcoal' },
+  mentions: [
+    { name: 'Bamboo charcoal', sameAs: 'https://en.wikipedia.org/wiki/Bamboo_charcoal' },
+    { name: 'Hardwood lump charcoal' },
+  ],
+  definedTerms: [
+    { anchor: 'fixed-carbon', name: 'Fixed carbon' },
+    { anchor: 'ash-content', name: 'Ash content' },
+    { anchor: 'calorific-value', name: 'Calorific value', sameAs: 'https://en.wikipedia.org/wiki/Heat_of_combustion' },
+    { anchor: 'volatile-matter', name: 'Volatile matter' },
+  ],
+  itemList: {
+    id: 'comparison',
+    name: t.table.heading,
+    items: ['Coconut shell charcoal', 'Bamboo charcoal', 'Hardwood lump charcoal'],
+  },
+});
+
+const sectionH2 = 'text-2xl font-bold text-neutral-900 md:text-3xl';
+const proseP = 'mt-4 text-neutral-700 leading-relaxed';
+const sectionCls = 'scroll-mt-24 border-t border-neutral-200 pt-10';
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/guide/coconut-vs-bamboo-vs-wood-charcoal"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/products', '/samples']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.guide.hub.breadcrumb, href: '/guide' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={t.heroSubtitle}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('salesGeneral'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'guide-compare-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaContact,
+      href: '/contact',
+      ariaLabel: t.hero.ctaContactAria,
+      dataSourceComponent: 'guide-compare-hero-inquiry',
+    }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: tc.metaBlock.authorRole,
+          reviewedBy: tc.metaBlock.reviewerRole,
+          factCheckedBy: tc.metaBlock.factCheckerRole,
+          lastUpdated: tc.metaBlock.lastUpdatedLabel,
+          readTime: tc.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={company.guide.editorial.coconutVsBambooVsWood.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
+    <p class="text-sm text-neutral-600">
+      {t.intro.upLinkPre}{' '}
+      <MaybeLink href="/guide" class="font-semibold" data-source-component="guide-compare-up-hub">{t.intro.upLinkLabel}</MaybeLink>{t.intro.upLinkPost}
+    </p>
+    <p class={proseP}>{t.intro.p1}</p>
+    <p class={proseP}>{t.intro.p2}</p>
+
+    <TableOfContents class="mt-10" heading={t.toc.heading} items={tocItems} />
+
+    <Figure class="mt-10" alt={t.diagram.alt} caption={t.diagram.caption} ratio="16/9" />
+
+    <section id="comparison-table" aria-labelledby="comparison-table-heading" class="mt-12 scroll-mt-24">
+      <h2 id="comparison-table-heading" class={sectionH2}>{t.table.heading}</h2>
+      <div class="mt-6">
+        <SpecsTable
+          columns={tableColumns}
+          rows={tableRows}
+          caption={t.table.caption}
+          propertyHeader={t.table.propertyHeader}
+          cardEyebrow={t.table.columns.coconut}
+        />
+      </div>
+      <div class="mt-6 text-sm text-neutral-600">
+        <h3 class="font-semibold text-neutral-800">{t.table.footnotesHeading}</h3>
+        <ul class="mt-2 space-y-1">
+          {t.table.footnotes.map((fn) => (
+            <li><span class="font-semibold">{fn.marker}</span> {fn.text}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="mt-6 text-sm">
+        <h3 class="font-semibold text-neutral-800">{t.outbound.heading}</h3>
+        <ul class="mt-2 space-y-1">
+          <li><ExternalLink href={FAO_URL} class="font-semibold" data-event="outbound_click" data-source-component="guide-compare-fao">{t.outbound.faoLabel}</ExternalLink></li>
+          <li><ExternalLink href={ASTM_URL} class="font-semibold" data-event="outbound_click" data-source-component="guide-compare-astm">{t.outbound.astmLabel}</ExternalLink></li>
+          <li><ExternalLink href={DUKE_URL} class="font-semibold" data-event="outbound_click" data-source-component="guide-compare-duke">{t.outbound.dukeLabel}</ExternalLink></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="coconut" aria-labelledby="coconut-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="coconut-heading" class={sectionH2}>{t.sections.coconut.h2}</h2>
+      <p class={proseP}>{t.sections.coconut.body}</p>
+    </section>
+
+    <section id="bamboo" aria-labelledby="bamboo-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="bamboo-heading" class={sectionH2}>{t.sections.bamboo.h2}</h2>
+      <p class={proseP}>{t.sections.bamboo.body}</p>
+    </section>
+
+    <section id="wood" aria-labelledby="wood-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="wood-heading" class={sectionH2}>{t.sections.wood.h2}</h2>
+      <p class={proseP}>{t.sections.wood.body}</p>
+    </section>
+
+    <section id="why-coconut" aria-labelledby="why-coconut-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="why-coconut-heading" class={sectionH2}>{t.sections.whyCoconut.h2}</h2>
+      <p class={proseP}>{t.sections.whyCoconut.body1}</p>
+      <p class={proseP}>{t.sections.whyCoconut.body2}</p>
+      <p class="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <MaybeLink href="/products" class="font-semibold" data-source-component="guide-compare-products">{t.sections.whyCoconut.productsLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="guide-compare-specs">{t.sections.whyCoconut.specsLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    <section id="combustion" aria-labelledby="combustion-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="combustion-heading" class={sectionH2}>{t.sections.combustion.h2}</h2>
+      <p class={proseP}>{t.sections.combustion.body1}</p>
+      <p class={proseP}>{t.sections.combustion.body2}</p>
+      <p class="mt-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 text-sm font-medium text-neutral-800">{t.sections.combustion.note}</p>
+    </section>
+
+    <section id="sustainability" aria-labelledby="sustainability-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="sustainability-heading" class={sectionH2}>{t.sections.sustainability.h2}</h2>
+      <p class={proseP}>{t.sections.sustainability.body}</p>
+      <p class="mt-4 text-sm">
+        <MaybeLink href="/factory/raw-materials" class="font-semibold" data-source-component="guide-compare-raw-materials">{t.sections.sustainability.rawMaterialsLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    <section aria-labelledby="faq" class={`mt-12 ${sectionCls}`}>
+      <FAQSection id="faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="related-heading" class="mt-12 scroll-mt-24 border-t border-neutral-200 pt-8">
+      <h2 id="related-heading" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul role="list" class="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              mutedClass="text-neutral-400"
+              data-source-component={`guide-compare-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >{item.label}</MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

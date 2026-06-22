@@ -1,0 +1,41 @@
+{
+  "leadTime": {
+    "h2": "Production and transit lead time",
+    "sentenceTemplate": "Production takes about {{leadTimeLabel}}; sea transit from {{portWithCode}} to {{destPorts}} runs about {{transitDays}} days, for an indicative {{totalDays}} days from order to arrival.",
+    "dgNote": "Class 4.2 dangerous-goods bookings need extra lead time, so book early. The SP 978 weathering window (at least {{sp978Weathering}} days) is part of our production and packing schedule, not added on top of it when the order is planned ahead.",
+    "indicativeNote": "Indicative only — subject to vessel schedule and booking confirmation, and never a guaranteed arrival date."
+  },
+  "tradeTerm": {
+    "label": "Trade term"
+  },
+  "responsibility": {
+    "h2": "Who handles what",
+    "intro": "The division of labour for a {{moqLabel}} shipment. We export and document; you and your customs broker clear and deliver at destination.",
+    "factoryHeader": "The factory handles",
+    "buyerHeader": "You and your customs broker handle",
+    "factoryItems": [
+      "Production and per-batch quality control, each batch with a Certificate of Analysis",
+      "Dangerous-goods-compliant packing, UN 1361 marking, and the safety data sheet (SDS)",
+      "Export documentation — commercial invoice, packing list, bill of lading, certificate of origin, dangerous-goods declaration, and the SP 978 weathering report",
+      "Delivery to {{portFullName}} ({{port}}) under FOB, plus booking support"
+    ],
+    "buyerItems": [
+      "Ocean freight booking under FOB — or we quote CIF/CFR to your port on request",
+      "Destination customs declaration and clearance",
+      "Import duty, VAT or equivalent taxes, and destination port charges",
+      "{{destLine}}",
+      "Final inland delivery to your warehouse"
+    ]
+  },
+  "vat": {
+    "h3": "Import VAT",
+    "recoverableLabel": "Recoverability",
+    "asOfLabel": "As of",
+    "sourceLabel": "Source"
+  },
+  "preference": {
+    "h3": "Indonesia-origin duty preference",
+    "originDocLabel": "Origin document",
+    "sourceLabel": "Source"
+  }
+}

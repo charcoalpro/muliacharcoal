@@ -59,6 +59,11 @@ const weightG = size.pcsPerKg ? Math.round(1000 / size.pcsPerKg) : undefined;
 
 const tokens = gradeTokens(shape, size, grade, productName);
 
+// Rotate the material-comparison anchor deterministically by SKU slug so the
+// 57 grade pages don't share one exact-match anchor (§A anchor strategy).
+const compareAnchor =
+  t.compare.anchors[[...slug].reduce((sum, ch) => sum + ch.charCodeAt(0), 0) % t.compare.anchors.length];
+
 const pageTitle = fill(t.meta.titleTemplate, tokens);
 const pageDescription = fill(gt.metaDescriptionTemplate, tokens);
 
@@ -391,7 +396,7 @@ const linkP = 'mt-4 text-sm';
       <h2 id="compare-heading" class={sectionH2}>{t.sections.compare}</h2>
       <p class={proseP}>{t.compare.body}</p>
       <p class={linkP}>
-        <MaybeLink href="/guide/coconut-charcoal-suppliers-compared" class="font-semibold" mutedClass="font-semibold" data-source-component="grade-compare">{t.compare.linkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        <MaybeLink href="/guide/coconut-vs-bamboo-vs-wood-charcoal" class="font-semibold" mutedClass="font-semibold" data-source-component="grade-compare">{compareAnchor} <span aria-hidden="true">→</span></MaybeLink>
       </p>
     </section>
 
