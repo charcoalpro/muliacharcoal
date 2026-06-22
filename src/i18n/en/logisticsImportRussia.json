@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "titleTemplate": "Import Coconut Charcoal to Russia: Duty, VAT, Rules",
+    "descriptionTemplate": "Importing UN 1361 coconut charcoal to Russia from {{port}}: TN VED code, 5% EAEU duty, 22% VAT, and the carrier and payment feasibility you must confirm first."
+  },
+  "breadcrumb": "Import to Russia",
+  "eyebrow": "Logistics · Russia import",
+  "h1": "Importing coconut charcoal to Russia",
+  "heroSubtitle": "The Russia import mechanics for UN 1361 coconut charcoal from {{port}}: how it is classified, the 5% EAEU duty and 22% VAT, the entry process, and the carrier and payment feasibility you must confirm before committing.",
+  "hero": {
+    "ctaQuote": "Ask about Russia import",
+    "ctaQuoteAria": "Ask about Russia import on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about Russia import"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar and covers the customs mechanics of importing coconut charcoal to Russia; the commercial case for the market lives on the market page. Read the feasibility caveat below first — the Russia lane is materially constrained, not routine, and carrier acceptance and a sanctions-clear payment channel must be confirmed before you commit.",
+    "hubLinkLabel": "Logistics overview",
+    "marketsLinkLabel": "Russia market page"
+  },
+  "feasibilityCaveat": {
+    "heading": "Confirm feasibility before you commit",
+    "body": "The Russia lane is constrained, not routine. Major Western container lines (Maersk, MSC, CMA CGM, Hapag-Lloyd, ONE) suspended new Russia bookings on 1 March 2022, so cargo now moves on regional, neutral and Asian carriers through transshipment hubs — and DG Class 4.2 acceptance to Russian ports is carrier-specific and unverified. Payment is constrained too: major Russian banks are off SWIFT, settlement runs through non-sanctioned or intermediary banks in local currency, and the EU 20th sanctions package (in force 24 April 2026) for the first time lists an Indonesian port. Before quoting or committing, talk to us so we can confirm a DG-accepting carrier and a sanctions-clear payment route for your shipment. Vladivostok (RUVVO) is the most practical routing."
+  },
+  "keyFacts": {
+    "heading": "Russia import at a glance",
+    "definition": "Classification, headline duty, the feasibility gate, and who clears the cargo.",
+    "htsLabel": "TN VED classification",
+    "htsValue": "4402 20 000 0 (\"of shells or nuts\"); 4402 90 000 0 in practice",
+    "dutyLabel": "Headline duty",
+    "dutyValue": "5% EAEU customs duty (no Indonesia preference)",
+    "docsLabel": "Entry documents",
+    "docsValue": "Electronic declaration, refusal letter, phytosanitary certificate",
+    "customsLabel": "Customs clearance",
+    "customsValue": "Buyer's licensed customs broker",
+    "agencyLabel": "Feasibility",
+    "agencyValue": "Carrier DG acceptance and a sanctions-clear payment channel must be confirmed first"
+  },
+  "hts": {
+    "h2": "TN VED classification",
+    "body": "Coconut-shell charcoal falls under EAEU heading 4402. The precise subheading is 4402 20 000 0 (\"of shells or nuts\"); some Russian brokers declare tapioca-bound shisha briquettes under the residual 4402 90 000 0 in practice. Both carry the same 5% base duty, so the choice does not change the rate — but a clean botanical-origin description protects you from reclassification. Confirm classification with your Russian customs broker.",
+    "candidatesIntro": "Candidate codes:",
+    "notesLabel": "Note"
+  },
+  "duty": {
+    "h2": "Duties & fees",
+    "body": "Russian duty on heading 4402 is a 5% EAEU customs duty plus the customs clearance fee, then 22% import VAT on top. Read it as a dated stack: the duty is real (Indonesia earns no preference), and the VAT rate rose to 22% on 1 January 2026.",
+    "layerHeader": "Layer",
+    "rateHeader": "Rate",
+    "basisHeader": "Basis",
+    "asOfHeader": "As of",
+    "statusHeader": "Legal status",
+    "sourceLabel": "Source",
+    "historyHeading": "How the duty position moved",
+    "adcvdHeading": "Anti-dumping / countervailing"
+  },
+  "landed": {
+    "h2": "Landed-cost worked example",
+    "body": "Landed cost is the sum of the goods, the freight, and the import charges. The structure below holds for any lane; the duty and VAT components are public verified figures, while the FOB and freight are illustrative and quoted at booking.",
+    "fobLabel": "FOB goods value",
+    "fobValue": "Illustrative only — your actual FOB applies",
+    "freightLabel": "Ocean freight + DG surcharges",
+    "freightValue": "Quoted on request (indicative)",
+    "dutyLabel": "Duties, VAT & fees",
+    "dutyValue": "From the duty stack above (5% duty + 22% VAT + customs clearance fee)",
+    "totalLabel": "Landed cost",
+    "totalValue": "FOB + freight + duties, VAT & fees",
+    "note": "No charcoal per-ton price is published. The formula is shown so you can plug in your own figures; we quote the live numbers at booking. Customs value is assessed on a CIF basis to the Russian border.",
+    "rulesLinkLabel": "What your incoterm covers (FOB and the freight split)"
+  },
+  "entry": {
+    "h2": "The entry process",
+    "body": "Russian entry for a UN 1361 container is handled by the buyer's customs broker, who files the electronic declaration to the Federal Customs Service with data we supply. The buyer-side documentation — foreign-trade contract, bank UIN, refusal letter, and notarized Russian translations — is the importer's to prepare.",
+    "stepsIntro": "Step by step:",
+    "steps": [
+      {
+        "name": "Electronic customs declaration (ED-2 / ДТ)",
+        "field": "declaration"
+      }
+    ],
+    "documentsLinkLabel": "The export documents we supply"
+  },
+  "dgHandling": {
+    "h2": "Dangerous-goods handling at Russian ports",
+    "body": "The cargo arrives as declared UN 1361, Class {{unClass}} dangerous goods, and is handled accordingly at the Russian port. Carrier acceptance of Class {{unClass}} to Russian ports is not guaranteed — see the feasibility caveat above. The classification and the prevention controls are covered on the dangerous-goods pages.",
+    "un1361LinkLabel": "What UN 1361 is",
+    "regulationLinkLabel": "The 2026 rules",
+    "cargoLinkLabel": "Insured arrival & cargo protection"
+  },
+  "countryAgency": {
+    "h2": "Russian conformity: EAC, GOST, and phytosanitary control",
+    "intro": "This is regulatory information, not legal advice — see the disclaimer below.",
+    "disclaimer": {
+      "heading": "Regulatory information, not legal advice",
+      "body": "This page summarizes Russian and EAEU import requirements for general information only and is not legal advice. Customs classification, certification, sanctions, and carrier policy change without notice and enforcement is fact-specific. Confirm your obligations — including EAC/refusal-letter status, Rosselkhoznadzor phytosanitary requirements, carrier DG acceptance, and a compliant payment channel — with a licensed Russian customs broker and qualified counsel before importing."
+    }
+  },
+  "responsibilityDestLine": "EAC conformity — obtaining the refusal letter (отказное письмо) confirming no mandatory certification, the Rosselkhoznadzor phytosanitary clearance, and confirming carrier DG acceptance and a sanctions-clear payment channel",
+  "ports": {
+    "h2": "Russian ports & routing",
+    "body": "Indicative ocean transit from {{portWithCode}} to the main Russian gateways:",
+    "sentenceTemplate": "{{destPort}} ({{unlocode}}): about {{min}}–{{max}} days.",
+    "empty": "Russia transit times available on request."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What duty applies to coconut charcoal in Russia?",
+        "a": "The EAEU Common Customs Tariff duty on heading 4402 is 5% of the customs value (CIF to the Russian border). Indonesia earns no preference — it was removed from the EAEU beneficiary list on 12 October 2021. The Indonesia–EAEU FTA signed in December 2025 promises 0% but is still pending ratification, so plan on 5% until it enters into force. Confirm the live line item with your broker."
+      },
+      {
+        "q": "Is Russian import VAT on charcoal recoverable?",
+        "a": "Russian import VAT (НДС) rose to 22% on 1 January 2026 (Federal Law 425-FZ) and is charged on the customs value plus duty. A registered Russian VAT payer can deduct it as input VAT within three years against the customs declaration and proof of payment. Charcoal does not qualify for the reduced 10% rate."
+      },
+      {
+        "q": "Can I import coconut charcoal to Russia in 2026?",
+        "a": "It is possible but constrained, not routine. Western container lines suspended Russia bookings on 1 March 2022, so cargo moves via regional, neutral and Asian carriers — and DG Class 4.2 acceptance to Russian ports is carrier-specific and unverified. Payment is also constrained: major Russian banks are off SWIFT and the EU 20th sanctions package now lists an Indonesian port. Contact us to confirm a DG-accepting carrier and a sanctions-clear payment route before you commit. EAC certification is generally not mandatory — customs usually expects a refusal letter (отказное письмо) instead — and Rosselkhoznadzor requires a phytosanitary certificate."
+      },
+      {
+        "q": "How long does shipping from Indonesia to Russia take?",
+        "a": "From {{port}} the transit depends on the gateway — see the list above. Vladivostok is the fastest and most practical routing for Indonesian-origin cargo; St Petersburg and Novorossiysk are longer European-side options. These are indicative sea-transit ranges only, subject to vessel schedule and carrier confirmation, and assume a DG-accepting carrier is in place."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      {
+        "href": "/logistics",
+        "label": "Logistics overview"
+      },
+      {
+        "href": "/logistics/documents",
+        "label": "Export documents"
+      },
+      {
+        "href": "/logistics/un-1361",
+        "label": "UN 1361 dangerous goods"
+      },
+      {
+        "href": "/logistics/charcoal-dg-regulation",
+        "label": "2026 charcoal shipping rules"
+      },
+      {
+        "href": "/logistics/cargo-protection-and-insurance",
+        "label": "Cargo protection & insurance"
+      },
+      {
+        "href": "/logistics/rules",
+        "label": "Incoterms & rules"
+      },
+      {
+        "href": "/markets/russia",
+        "label": "Russia market page"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact us"
+      }
+    ]
+  }
+}

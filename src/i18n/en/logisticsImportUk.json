@@ -1,0 +1,167 @@
+{
+  "meta": {
+    "titleTemplate": "Import Coconut Charcoal to the UK: Duty, VAT, Rules",
+    "descriptionTemplate": "Importing UN 1361 coconut charcoal to the UK from {{port}}: HS 4402.20, 0% duty, 20% VAT with PVA, the CDS entry process, and the FLEGT/REACH position."
+  },
+  "breadcrumb": "Import to the UK",
+  "eyebrow": "Logistics · UK import",
+  "h1": "Importing coconut charcoal to the United Kingdom",
+  "heroSubtitle": "The UK import mechanics for UN 1361 coconut charcoal from {{port}}: how it is classified, the duty and VAT, the CDS entry process, and where UK REACH and FLEGT timber rules stand.",
+  "hero": {
+    "ctaQuote": "Ask about UK import",
+    "ctaQuoteAria": "Ask about UK import on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about UK import"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar and covers the UK customs mechanics for a container of coconut charcoal. It is the import-procedure guide; the commercial case for the UK market lives on the market page.",
+    "hubLinkLabel": "Logistics overview",
+    "marketsLinkLabel": "UK market page"
+  },
+  "keyFacts": {
+    "heading": "UK import at a glance",
+    "definition": "Classification, headline duty, and who clears the cargo.",
+    "htsLabel": "Commodity code",
+    "htsValue": "4402 20 00 00 (\"of shells or nuts\") — 0% base duty",
+    "dutyLabel": "Headline duty",
+    "dutyValue": "0% (UKGT MFN / DCTS) + 20% import VAT, recoverable",
+    "docsLabel": "Entry documents",
+    "docsValue": "GB EORI, CDS declaration, S&S (ENS) filing, GMR where GVMS applies",
+    "customsLabel": "Customs clearance",
+    "customsValue": "Buyer's licensed customs broker",
+    "agencyLabel": "Regulator",
+    "agencyValue": "HMRC (customs/VAT); 4402 charcoal not clearly in UKTR/FLEGT scope — confirm with OPSS"
+  },
+  "hts": {
+    "h2": "Commodity-code classification",
+    "body": "Coconut-shell charcoal falls under UK heading 4402. The correct, most specific code is 4402 20 00 00 (\"of shells or nuts\"); 4402 90 00 00 (\"other\") is the residual timber code and is wrong for this product. Both carry a 0% base rate, so the choice does not change the duty — but declaring 4402.20 signals an agricultural byproduct rather than timber and lowers the chance of a CDS risk-engine hold. Confirm the live line with your customs broker.",
+    "candidatesIntro": "Candidate codes:",
+    "notesLabel": "Note"
+  },
+  "duty": {
+    "h2": "Duty & import VAT",
+    "body": "UK duty on heading 4402 is a short, stable stack: a 0% customs duty layer plus 20% import VAT. Read it as a dated stack with its legal-status flag, and verify the live tariff line at booking.",
+    "layerHeader": "Layer",
+    "rateHeader": "Rate",
+    "basisHeader": "Basis",
+    "asOfHeader": "As of",
+    "statusHeader": "Legal status",
+    "sourceLabel": "Source",
+    "historyHeading": "How the duty position sits",
+    "adcvdHeading": "Anti-dumping / countervailing"
+  },
+  "landed": {
+    "h2": "Landed-cost worked example",
+    "body": "Landed cost is the sum of the goods, the freight, and the import charges. The structure below holds for any lane; the duty and VAT components are public verified figures, while the FOB and freight are illustrative and quoted at booking.",
+    "fobLabel": "FOB goods value",
+    "fobValue": "Illustrative only — your actual FOB applies",
+    "freightLabel": "Ocean freight + DG surcharges",
+    "freightValue": "Quoted on request (indicative)",
+    "dutyLabel": "Duty & import VAT",
+    "dutyValue": "From the stack above (0% duty + 20% import VAT, recoverable via PVA)",
+    "totalLabel": "Landed cost",
+    "totalValue": "FOB + freight + duty & VAT",
+    "note": "No charcoal per-ton price is published. The formula is shown so you can plug in your own figures; we quote the live numbers at booking.",
+    "rulesLinkLabel": "What your incoterm covers (FOB and the freight split)"
+  },
+  "entry": {
+    "h2": "The entry process",
+    "body": "UK entry for a UN 1361 container follows the standard HMRC sequence, handled by the buyer's customs broker with data we supply.",
+    "stepsIntro": "Step by step:",
+    "steps": [
+      {
+        "name": "Safety & Security (ENS) filing",
+        "field": "ens"
+      },
+      {
+        "name": "CDS import declaration",
+        "field": "declaration"
+      },
+      {
+        "name": "GVMS movement reference",
+        "field": "gvms"
+      }
+    ],
+    "documentsLinkLabel": "The export documents we supply"
+  },
+  "dgHandling": {
+    "h2": "Dangerous-goods handling at UK ports",
+    "body": "The cargo arrives as declared UN 1361, Class {{unClass}} dangerous goods, and is handled accordingly at the UK port. The classification and the prevention controls are covered on the dangerous-goods pages.",
+    "un1361LinkLabel": "What UN 1361 is",
+    "regulationLinkLabel": "The 2026 rules",
+    "cargoLinkLabel": "Insured arrival & cargo protection"
+  },
+  "countryAgency": {
+    "h2": "UK regulation: REACH, FLEGT timber, and phytosanitary",
+    "intro": "This is regulatory information, not legal advice — see the disclaimer below.",
+    "disclaimer": {
+      "heading": "Regulatory information, not legal advice",
+      "body": "This page summarizes UK import, REACH, timber (UKTR/FLEGT) and phytosanitary requirements for general information only and is not legal advice. Rules and OPSS/APHA enforcement positions change without notice and are fact-specific. Confirm your obligations with a licensed UK customs broker and, where timber scope is in question, with the OPSS before importing."
+    }
+  },
+  "responsibilityDestLine": "Confirming the UK conformity position — UK REACH reliance on the SDS, and confirming with the OPSS that 4402 coconut-shell charcoal is out of UKTR/FLEGT scope before relying on the exemption",
+  "ports": {
+    "h2": "UK ports & routing",
+    "body": "Indicative ocean transit from {{portWithCode}} to the main UK gateways:",
+    "sentenceTemplate": "{{destPort}} ({{unlocode}}): about {{min}}–{{max}} days.",
+    "empty": "UK transit times available on request."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What duty applies to coconut charcoal in the UK?",
+        "a": "The UKGT MFN rate for heading 4402 is 0%. Indonesia is also a DCTS Standard-Preferences country, but since the base rate is already 0% that adds no further benefit and no preference document is needed. Charcoal is not in Indonesia's graduated chapters, and Indonesia's full DCTS graduation from 1 January 2027 leaves the duty at 0%. Verify the live tariff line with your broker at booking."
+      },
+      {
+        "q": "Is UK import VAT recoverable?",
+        "a": "Yes. Import VAT is 20% on the customs value plus duty plus freight, insurance and incidental UK charges. A VAT-registered importer can use Postponed VAT Accounting (PVA) to account for it on the VAT return rather than paying at the border, and recover it as input tax. The reduced 5% fuel rate is for sub-1-tonne domestic supply and does not apply to a commercial container."
+      },
+      {
+        "q": "Do UK timber or FLEGT rules apply to coconut charcoal?",
+        "a": "Probably not. The OPSS UKTR enforcement report checks 4401/4407/4409/4412 timber codes, not 4402 charcoal, and coconut-shell charcoal is an agricultural byproduct of the coconut palm, not timber. Indonesia is the only country with a UK FLEGT VPA, so genuinely in-scope timber would need a FLEGT licence — but carbonised coconut charcoal is not clearly in scope. Confirm with the OPSS before relying on the exemption. UK REACH applies via the SDS we provide."
+      },
+      {
+        "q": "How long does shipping from Indonesia to the UK take?",
+        "a": "We model the lane ex-{{portWithCode}} to the main UK gateways — Felixstowe, London Gateway and Southampton — at roughly the transit shown in the list above. Other UK ports are available; confirm routing and the sailing schedule with the carrier at booking. Class 4.2 dangerous-goods bookings need extra lead time, so book early."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      {
+        "href": "/logistics",
+        "label": "Logistics overview"
+      },
+      {
+        "href": "/logistics/documents",
+        "label": "Export documents"
+      },
+      {
+        "href": "/logistics/un-1361",
+        "label": "UN 1361 dangerous goods"
+      },
+      {
+        "href": "/logistics/charcoal-dg-regulation",
+        "label": "2026 charcoal shipping rules"
+      },
+      {
+        "href": "/logistics/cargo-protection-and-insurance",
+        "label": "Cargo protection & insurance"
+      },
+      {
+        "href": "/logistics/rules",
+        "label": "Incoterms & rules"
+      },
+      {
+        "href": "/markets/uk",
+        "label": "UK market page"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact us"
+      }
+    ]
+  }
+}

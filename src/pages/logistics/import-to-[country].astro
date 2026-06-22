@@ -63,9 +63,17 @@ const path = `/logistics/import-to-${slug}`;
 // data-source-component prefix; `importusa` keeps the USA page byte-stable.
 const prefix = `import${key}`;
 
-// Per-country i18n namespace (same shape across all countries).
-const i18nKey = `logisticsImport${key[0].toUpperCase()}${key.slice(1)}`;
-const t = (en as Record<string, unknown>)[i18nKey] as typeof en.logisticsImportUsa;
+// Per-country i18n namespace (typed map → TypeScript verifies every country's
+// namespace carries the full shape; a missing key is a build error, not a
+// silent undefined render). Adding a country = one line here + the JSON files.
+const I18N = {
+  usa: en.logisticsImportUsa,
+  uk: en.logisticsImportUk,
+  germany: en.logisticsImportGermany,
+  saudiArabia: en.logisticsImportSaudiArabia,
+  russia: en.logisticsImportRussia,
+};
+const t = I18N[key];
 const ti = en.logisticsImportCommon;
 const tc = en.logisticsCommon;
 
@@ -99,6 +107,11 @@ const allTokens = {
 const offersCif = company.logistics.incoterms.includes('CIF');
 const pol = company.commercial.portOfLoading;
 const tradeTermValue = `FOB ${pol.fullName} (${pol.name})${offersCif ? ' · CIF/CFR on request' : ''}`;
+
+// Optional standalone feasibility caveat (Russia: carrier/banking constraints
+// → route to /contact before committing). Present only where the namespace
+// declares it, so it renders nowhere else.
+const feasibility = (t as { feasibilityCaveat?: { heading: string; body: string } }).feasibilityCaveat;
 
 const keyFacts = [
   { label: t.keyFacts.htsLabel, value: t.keyFacts.htsValue },
@@ -189,6 +202,14 @@ const readMinutes = readingTime(proseForReadTime);
       <span class="mx-1 text-neutral-300" aria-hidden="true">·</span>
       <MaybeLink href={`/markets/${slug}`} class="font-semibold" data-source-component={`${prefix}-markets`}>{t.intro.marketsLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
     </p>
+
+    {feasibility && (
+      <aside class="mt-6 rounded-xl border-2 border-amber-400 bg-amber-50 p-5" role="note" aria-labelledby="feasibility-h">
+        <h2 id="feasibility-h" class="text-base font-bold text-amber-900">{feasibility.heading}</h2>
+        <p class="mt-2 text-sm leading-relaxed text-amber-900">{feasibility.body}</p>
+        <p class="mt-3 text-sm"><MaybeLink href="/contact" class="font-semibold text-amber-900 underline" data-source-component={`${prefix}-feasibility-contact`}>{t.hero.ctaContact} <span aria-hidden="true">→</span></MaybeLink></p>
+      </aside>
+    )}
 
     <KeyFactsBox class="mt-8" id={`${prefix}-at-a-glance`} heading={t.keyFacts.heading} definition={t.keyFacts.definition} facts={keyFacts} />
 

@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "titleTemplate": "Import Coconut Charcoal to Germany: Duty, VAT, EUDR",
+    "descriptionTemplate": "Importing UN 1361 coconut charcoal to Germany from {{port}}: 4402.20 classification, 0% duty, 19% import VAT, ICS2/ATLAS entry, and EUDR."
+  },
+  "breadcrumb": "Import to Germany",
+  "eyebrow": "Logistics · Germany import",
+  "h1": "Importing coconut charcoal to Germany",
+  "heroSubtitle": "The German (EU) import mechanics for UN 1361 coconut charcoal from {{port}}: how it is classified, the duty and import VAT, the ICS2/ATLAS entry process, and the EUDR position on charcoal.",
+  "hero": {
+    "ctaQuote": "Ask about Germany import",
+    "ctaQuoteAria": "Ask about Germany import on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about Germany import"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar and covers the customs mechanics of importing into Germany and the wider EU customs territory. The commercial case for the German market lives on the market page.",
+    "hubLinkLabel": "Logistics overview",
+    "marketsLinkLabel": "Germany market page"
+  },
+  "keyFacts": {
+    "heading": "Germany import at a glance",
+    "definition": "Classification, headline duty, import VAT, and who clears the cargo.",
+    "htsLabel": "Commodity code",
+    "htsValue": "4402 20 00 00 (\"of shells or nuts\") under heading 4402",
+    "dutyLabel": "Headline duty",
+    "dutyValue": "0% (Free) MFN; no usable Indonesia preference",
+    "docsLabel": "Entry documents",
+    "docsValue": "ICS2 ENS, ATLAS declaration, EORI, REACH proof",
+    "customsLabel": "Customs clearance",
+    "customsValue": "Buyer's licensed customs broker",
+    "agencyLabel": "EUDR",
+    "agencyValue": "4402 charcoal is in scope; the EU importer files a Due Diligence Statement"
+  },
+  "hts": {
+    "h2": "Commodity-code classification",
+    "body": "Coconut shell charcoal falls under EU heading 4402. The correct, most specific code is 4402 20 00 00 (\"of shells or nuts\"); the residual 4402 90 (\"other\") is a documentary-mismatch risk in the automated ATLAS system. Both carry a Free base duty, so the code does not change the rate — but it must be declared identically on every document. Confirm the exact 11-digit ATLAS code with your customs broker.",
+    "candidatesIntro": "Candidate codes:",
+    "notesLabel": "Note"
+  },
+  "duty": {
+    "h2": "Duties & import VAT",
+    "body": "EU customs duty on heading 4402 is a single layer — 0% (Free) MFN, the same for all origins — on top of which German import VAT (Einfuhrumsatzsteuer) is charged. Read the duty as a dated layer with its legal status, and the VAT as a separate recoverable line.",
+    "layerHeader": "Layer",
+    "rateHeader": "Rate",
+    "basisHeader": "Basis",
+    "asOfHeader": "As of",
+    "statusHeader": "Legal status",
+    "sourceLabel": "Source",
+    "historyHeading": "How the preference position moved",
+    "adcvdHeading": "Anti-dumping / countervailing"
+  },
+  "landed": {
+    "h2": "Landed-cost worked example",
+    "body": "Landed cost is the sum of the goods, the freight, and the import charges. The structure below holds for any lane; the duty and VAT components are public verified figures, while the FOB and freight are illustrative and quoted at booking.",
+    "fobLabel": "FOB goods value",
+    "fobValue": "Illustrative only — your actual FOB applies",
+    "freightLabel": "Ocean freight + DG surcharges",
+    "freightValue": "Quoted on request (indicative)",
+    "dutyLabel": "Duties & import VAT",
+    "dutyValue": "0% duty + 19% Einfuhrumsatzsteuer (recoverable if VAT-registered)",
+    "totalLabel": "Landed cost",
+    "totalValue": "FOB + freight + duties & import VAT",
+    "note": "No charcoal per-ton price is published. The formula is shown so you can plug in your own figures; we quote the live numbers at booking. Import VAT is a cash-flow event, not a permanent cost, for a VAT-registered importer.",
+    "rulesLinkLabel": "What your incoterm covers (FOB and the freight split)"
+  },
+  "entry": {
+    "h2": "The entry process",
+    "body": "EU entry for a UN 1361 container follows the standard pre-arrival-then-declaration sequence, handled by the buyer's customs broker with data we supply.",
+    "stepsIntro": "Step by step:",
+    "steps": [
+      {
+        "name": "ICS2 security filing (ENS)",
+        "field": "ics2"
+      },
+      {
+        "name": "ATLAS import declaration",
+        "field": "atlas"
+      }
+    ],
+    "documentsLinkLabel": "The export documents we supply"
+  },
+  "dgHandling": {
+    "h2": "Dangerous-goods handling at German ports",
+    "body": "The cargo arrives as declared UN 1361, Class {{unClass}} dangerous goods, and is handled accordingly at Hamburg and Bremerhaven. The classification and the prevention controls are covered on the dangerous-goods pages.",
+    "un1361LinkLabel": "What UN 1361 is",
+    "regulationLinkLabel": "The 2026 rules",
+    "cargoLinkLabel": "Insured arrival & cargo protection"
+  },
+  "countryAgency": {
+    "h2": "EUDR: charcoal is in scope of the EU Deforestation Regulation",
+    "intro": "This is regulatory information, not legal advice — see the disclaimer below.",
+    "disclaimer": {
+      "heading": "Regulatory information, not legal advice",
+      "body": "This page summarizes German and EU import requirements — TARIC classification, Einfuhrumsatzsteuer, ICS2/ATLAS entry, EUDR and EU REACH — for general information only and is not legal advice. EU regulation changes without notice and enforcement is fact-specific. Confirm your obligations with a licensed German customs broker and qualified counsel before importing."
+    }
+  },
+  "responsibilityDestLine": "EUDR due diligence — filing the Due Diligence Statement (DDS) via TRACES — and EU REACH registration or Only-Representative cover for placing the charcoal on the EU market",
+  "ports": {
+    "h2": "German ports & routing",
+    "body": "Indicative ocean transit from {{portWithCode}} to the main German gateways:",
+    "sentenceTemplate": "{{destPort}} ({{unlocode}}): about {{min}}–{{max}} days.",
+    "empty": "German transit times available on request."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What duty applies when importing coconut charcoal to Germany?",
+        "a": "The EU third-country (MFN) duty on heading 4402 is 0% (Free), assessed on the customs (CIF) value. Indonesia's loss of GSP preference does not change this — MFN is already 0%. Confirm the live TARIC line and your 11-digit ATLAS code with your broker at booking."
+      },
+      {
+        "q": "Is German import VAT on charcoal recoverable?",
+        "a": "German import VAT (Einfuhrumsatzsteuer) is 19%, charged on the customs value plus duty plus domestic charges. Charcoal does not qualify for the reduced 7% rate. It is fully recoverable as input tax by a VAT-registered importer with an EU/German EORI; deferment (Aufschubkonto) and input-VAT deduction apply, so it is a cash-flow event, not a permanent cost."
+      },
+      {
+        "q": "Does EUDR apply to coconut charcoal, who files, and when?",
+        "a": "Yes. Heading 4402 charcoal is listed in Annex I of the EU Deforestation Regulation, with no carve-out for coconut shell. The EU importer (the first operator placing it on the market) files a Due Diligence Statement via TRACES, showing plot geolocation, deforestation-free status and legality. Application is 30 December 2026 for large/medium operators and 30 June 2027 for micro/small. We are working toward supplying the geolocation and legality evidence your DDS needs. EU REACH registration or Only-Representative cover is also required above one tonne per year — this is general information, confirm with counsel."
+      },
+      {
+        "q": "How long does shipping from Indonesia to Germany take?",
+        "a": "We model the lane ex-{{portWithCode}} to the main German gateways — Hamburg and Bremerhaven — at roughly 30–38 days of sea transit; see the transit list above for the per-port range. Other German ports are available; confirm routing and the vessel schedule with the carrier at booking."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      {
+        "href": "/logistics",
+        "label": "Logistics overview"
+      },
+      {
+        "href": "/logistics/documents",
+        "label": "Export documents"
+      },
+      {
+        "href": "/logistics/un-1361",
+        "label": "UN 1361 dangerous goods"
+      },
+      {
+        "href": "/logistics/charcoal-dg-regulation",
+        "label": "2026 charcoal shipping rules"
+      },
+      {
+        "href": "/logistics/cargo-protection-and-insurance",
+        "label": "Cargo protection & insurance"
+      },
+      {
+        "href": "/logistics/rules",
+        "label": "Incoterms & rules"
+      },
+      {
+        "href": "/markets/germany",
+        "label": "Germany market page"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact us"
+      }
+    ]
+  }
+}

@@ -189,7 +189,7 @@
       },
       {
         "q": "What incoterms do you offer?",
-        "a": "We offer {{incotermsList}}; our default basis is {{incotermDefault}} {{port}}. Under all three the buyer arranges marine insurance — we do not offer CIF."
+        "a": "We offer {{incotermsList}}; our default basis is {{incotermDefault}} {{port}}. Under EXW, FOB and CFR the buyer arranges marine insurance; CIF (seller-arranged cover to the destination port) is available on request."
       },
       {
         "q": "Who handles customs clearance?",
@@ -212,6 +212,10 @@
       { "href": "/logistics/charcoal-shipping-lines", "label": "Carriers that ship charcoal" },
       { "href": "/logistics/cargo-protection-and-insurance", "label": "Cargo protection & insurance" },
       { "href": "/logistics/import-to-usa", "label": "Import to the USA" },
+      { "href": "/logistics/import-to-uk", "label": "Import to the UK" },
+      { "href": "/logistics/import-to-germany", "label": "Import to Germany" },
+      { "href": "/logistics/import-to-saudi-arabia", "label": "Import to Saudi Arabia" },
+      { "href": "/logistics/import-to-russia", "label": "Import to Russia" },
       { "href": "/packaging", "label": "Packaging & OEM" },
       { "href": "/quality/certifications", "label": "Certifications" },
       { "href": "/guide/how-to-choose-shisha-charcoal-factory", "label": "How to choose a shisha charcoal factory" },
