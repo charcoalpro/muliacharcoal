@@ -20,9 +20,16 @@ docs/build-prompts/
 │   ├── packaging-additional-packaging-build-prompt-v2.md
 │   ├── packaging-cluster-consolidated-revisions.md
 │   └── packaging-cluster-golive-checklist-v2.md
-└── logistics/
-    ├── logistics-hub-build-prompt-v1.md
-    └── logistics-research-prompt-v1.md
+├── logistics/
+│   ├── logistics-hub-build-prompt-v1.md
+│   ├── logistics-research-prompt-v1.md
+│   ├── logistics-import-research-prompt-v1.md
+│   └── logistics-import-cluster-build-prompt-v1.md
+└── guide/
+    ├── guide-hub-build-prompt-v1.md
+    ├── guide-research-prompt-v1.md
+    ├── guide-coconut-vs-bamboo-vs-wood-build-prompt-v1.md
+    └── guide-how-to-choose-factory-build-prompt-v1.md
 ```
 
 ---
@@ -41,8 +48,15 @@ docs/build-prompts/
 | `packaging/packaging-cluster-golive-checklist-v2.md` | v2 | checklist (owner-facing) | Data/asset gathering for the whole cluster; paste into a session only when populating `company.ts` | — |
 | `logistics/logistics-hub-build-prompt-v1.md` | v1 | build | `/logistics` hub; creates the `company.ts` `logistics` contract incl. `transitTimes[]` | packaging hub v6 (conventions + components) |
 | `logistics/logistics-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Gathers verified UN-1361/DG + USA-import facts; output feeds the two pending child prompts | — |
+| `logistics/logistics-import-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Verified import-mechanics (HS, duty, VAT, entry filing, country-agency incl. EUDR/SABER/EAC, ports) for UK · Germany · Saudi Arabia · Russia; output (`logistics-import-research-findings.md`) feeds the cluster build | — |
+| `logistics/logistics-import-cluster-build-prompt-v1.md` | v1 | build (delta) | `/logistics/import-to-{uk,germany,saudi-arabia,russia}`; generalizes the `import-to-usa` template into a reusable route + per-country config (adds `vat`, generic `countryAgency`, `preference`); Russia feasibility caveat | logistics hub v1 + `import-to-usa.astro` (live template) + `logistics-import-research-findings.md` |
+| `guide/guide-hub-build-prompt-v1.md` | v1 | build | `/guide` Buyer's-Guide hub; creates the `company.ts` `guide` object; fixes the grade-page guide slug-fork; adds `/guide` to header nav + `LIVE_ROUTES` | packaging hub v6 + logistics hub v1 (conventions) |
+| `guide/guide-research-prompt-v1.md` | v1 | research (chat, NOT Claude Code) | Verified material-comparison (coconut vs bamboo vs wood) + supplier-selection facts; output (`guide-research-findings.md`) feeds the two lead child prompts | — |
+| `guide/guide-coconut-vs-bamboo-vs-wood-build-prompt-v1.md` | v1 | build (delta) | `/guide/coconut-vs-bamboo-vs-wood-charcoal` (LEAD; canonical material comparison the 57 SKUs link to) | guide hub v1 + `guide-research-findings.md` (Task A) |
+| `guide/guide-how-to-choose-factory-build-prompt-v1.md` | v1 | build (delta) | `/guide/how-to-choose-shisha-charcoal-factory` (LEAD; absorbs the "suppliers compared" intent) | guide hub v1 + `guide-research-findings.md` (Task B) |
+| `guide/guide-how-to-order-build-prompt-v1.md` | v1 | build (delta) | `/guide/how-to-order-shisha-charcoal` (5th guide child; the inquiry→delivery ordering walkthrough). Also wires: homepage "how ordering works" band, `GradePage` SKU link, `footerOperationsNav`, a `noindex,follow` `SEO`/`BaseLayout` variant + new `substanceFloor()` util, and the hub 5th-child integration. **No FAQPage** (links `/faq`) | guide hub v1 (built same pass) |
 
-**Pending (will be added here):** `/logistics/UN-1361` and `/logistics/import-to-usa` (await `logistics-research-findings.md`), `/logistics/rules`, `/logistics/documents`. Each will declare its required parents in its own header using repo paths.
+**Pending (will be added here):** `/logistics/UN-1361` and `/logistics/import-to-usa` (await `logistics-research-findings.md`), `/logistics/rules`, `/logistics/documents`; guide children `/guide/how-to-start-your-own-brand` and `/guide/private-label-options` (top-funnel narrative; operational depth defers to `/packaging/white-label`); `/author` profile page (E-E-A-T `Person` entity; byline target for guide + blog). Each will declare its required parents in its own header using repo paths.
 
 ---
 
@@ -53,8 +67,16 @@ docs/build-prompts/
 3–7. **Packaging cluster pages** — any order (forward-references are tracked per prompt).
 8. **Consistency pass** — revisions §5 checkpoints across all built pages.
 9. **`/logistics` hub.**
-10+. **Logistics children** as their prompts land.
-Cross-site touches (`/samples` packaging accommodation, homepage OEM → white-label link) whenever those pages are next edited; guide-pillar redirects when that pillar is built.
+10. **Logistics children** as their prompts land.
+11. **`/guide` research** (separate chat) → `guide-research-findings.md`.
+12. **`/guide` hub** — incl. the grade-page slug-fork (`coconut-charcoal-suppliers-compared` → `coconut-vs-bamboo-vs-wood-charcoal`), `/guide` into header nav + `LIVE_ROUTES`.
+12b. **`/guide/how-to-order-shisha-charcoal`** — built in the **same pass as the hub** (owner decision); the hub gains a 5th child card + `hasPart`. Also lands the homepage band, the SKU `MaybeLink`, the footer link, and the `substanceFloor()` + `noindex,follow` infra.
+13–14. **Lead guide articles** — `coconut-vs-bamboo-vs-wood-charcoal`, then `how-to-choose-shisha-charcoal-factory` (each self-lights its muted referrers on add).
+15. **`/author` profile** (E-E-A-T) — prerequisite for further guide/blog bylines.
+16. **Remaining guide children** (`how-to-start-your-own-brand`, `private-label-options`).
+17. **Import-cluster research** (separate chat) → `logistics-import-research-findings.md`.
+18. **Import cluster** — `/logistics/import-to-{uk,germany,saudi-arabia,russia}`: refactor `import-to-usa` into a reusable template (behavior-preserving), add per-country config + the four routes to `LIVE_ROUTES`, update the hub to list all five. Pair each 1:1 with its `/markets/{country}` lander when the Markets pillar ships.
+Cross-site touches (`/samples` packaging accommodation, homepage OEM → white-label link) whenever those pages are next edited. The guide-pillar redirect/slug reconciliation is handled in step 12 (no separate `coconut-charcoal-suppliers-compared` page is created).
 
 ---
 
