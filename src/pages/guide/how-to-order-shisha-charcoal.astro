@@ -1,0 +1,262 @@
+---
+/**
+ * /guide/how-to-order-shisha-charcoal — the inquiry-to-delivery ordering guide.
+ *
+ *   - Text-led hero, first-paragraph up-link to /guide, E-E-A-T ArticleMeta,
+ *     an extractable answer-capsule, the 13-step ordering backbone (each step a
+ *     declarative lead + unique prose + a routed MaybeLink), the OEM/private-
+ *     label branch under step 4 (custom-packaging MOQ honesty-gated), the
+ *     per-country import links under step 12 (USA live, others self-light),
+ *     a /faq cross-link block (NO FAQPage here), related topics, CTABanner.
+ *   - Schema: WebPage + TechArticle + HowTo (guideClusterPageSchema). No
+ *     FAQPage — ordering Q/As are canonical on /faq.
+ *   - Substance floor: the assembled body prose is gated; a thin page would
+ *     emit noindex,follow + a build warning. Facts from ~/config/company.ts.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { substanceFloor } from '~/lib/seo/substanceFloor';
+import { guideClusterPageSchema } from '~/lib/schema/guideClusterPage';
+
+const PATH = '/guide/how-to-order-shisha-charcoal';
+const t = en.guide.howToOrder;
+const tc = en.guide.common;
+const tokens = companyTokens(company);
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// Per-step primary route (null = no single link; step 9 inspection, step 12
+// countries render specially). OEM branch attaches to step index 3 (the PI).
+const stepHrefs: (string | null)[] = [
+  '/products',
+  '/samples',
+  '/quality/specifications-explained',
+  '/logistics/rules',
+  '/factory/capacity',
+  '/factory/virtual-tour',
+  '/quality/testing-methods',
+  '/logistics/un-1361',
+  null,
+  '/logistics',
+  '/logistics/documents',
+  null,
+  '/contact',
+];
+
+// OEM custom-packaging MOQ — honesty-gated (renders only when configured).
+const oemMoq = company.packaging.customPrint.moqUnits;
+const showOemMoq = hasFact(oemMoq);
+
+// Per-country import links (step 12). USA is live; the rest self-light.
+const countryHref: Record<string, string> = {
+  usa: '/logistics/import-to-usa',
+  uk: '/logistics/import-to-uk',
+  germany: '/logistics/import-to-germany',
+  saudiArabia: '/logistics/import-to-saudi-arabia',
+  russia: '/logistics/import-to-russia',
+};
+
+// Substance floor over the assembled body prose (same input as read-time).
+const bodyProse = fill(
+  [
+    t.heroSubtitle,
+    t.capsule.body,
+    ...t.steps.map((s) => s.body),
+    t.oem.body,
+    t.faqBlock.body,
+  ].join(' '),
+  tokens,
+);
+const { robots } = substanceFloor({ path: PATH, prose: bodyProse });
+const readMinutes = readingTime(bodyProse);
+
+const schema = guideClusterPageSchema({
+  pageTitle,
+  pageDescription,
+  path: PATH,
+  pageKey: 'howToOrder',
+  techArticle: { headline: t.h1 },
+  howTo: {
+    name: t.h1,
+    description: fill(t.capsule.body, tokens),
+    steps: t.steps.map((s) => ({ name: s.title, text: fill(s.body, tokens) })),
+  },
+});
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path={PATH}
+  type="article"
+  robots={robots}
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/contact', '/samples']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.guide.hub.breadcrumb, href: '/guide' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={t.heroSubtitle}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'how_to_order',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaContact,
+      href: '/contact',
+      ariaLabel: t.hero.ctaContactAria,
+      dataSourceComponent: 'how_to_order',
+    }}
+  />
+
+  {/* E-E-A-T / freshness block. */}
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: tc.metaBlock.authorRole,
+          reviewedBy: tc.metaBlock.reviewerRole,
+          factCheckedBy: tc.metaBlock.factCheckerRole,
+          lastUpdated: tc.metaBlock.lastUpdatedLabel,
+          readTime: tc.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={company.guide.editorial.howToOrder.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  {/* First-paragraph up-link to the pillar (cocoon rule) + answer capsule. */}
+  <section aria-labelledby="capsule-heading" class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <p class="text-sm text-neutral-600">
+        {t.upLink.prefix}{' '}
+        <MaybeLink href="/guide" class="font-semibold" data-source-component="how-to-order-uplink">{t.upLink.linkLabel}</MaybeLink>{t.upLink.suffix}
+      </p>
+      <h2 id="capsule-heading" class="mt-6 text-2xl font-bold text-neutral-900 md:text-3xl">{t.capsule.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.capsule.body, tokens)}</p>
+    </div>
+  </section>
+
+  {/* The 13-step ordering backbone. */}
+  <section aria-labelledby="steps-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <h2 id="steps-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.stepsHeading}</h2>
+      <ol class="mt-8 space-y-8" role="list">
+        {t.steps.map((step, i) => (
+          <li id={`step-${i + 1}`} class="scroll-mt-24 border-s-2 border-brand-accent ps-5">
+            <h3 class="text-lg font-semibold text-neutral-900">
+              <span class="text-brand-accent-strong">{i + 1}.</span> {fill(step.title, tokens)}
+            </h3>
+            <p class="mt-2 max-w-prose text-base leading-relaxed text-neutral-700">{fill(step.body, tokens)}</p>
+
+            {/* OEM / private-label branch under step 4 (the PI). */}
+            {i === 3 && (
+              <div class="mt-4 rounded-xl border border-brand-primary/20 bg-brand-primary/5 p-5">
+                <p class="text-sm font-semibold uppercase tracking-wide text-brand-primary">{t.oem.title}</p>
+                <p class="mt-2 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.oem.body, tokens)}</p>
+                <ul class="mt-3 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+                  {showOemMoq && (
+                    <li class="flex gap-2">
+                      <span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span>
+                      <span>{fill(t.oem.moqLineTemplate, { ...tokens, oemMoq })}</span>
+                    </li>
+                  )}
+                  <li class="flex gap-2">
+                    <span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span>
+                    <span>{t.oem.leadLine}</span>
+                  </li>
+                </ul>
+                <p class="mt-4 text-sm">
+                  <MaybeLink href="/packaging/white-label" class="font-semibold" data-source-component="how-to-order-oem">
+                    {t.oem.linkLabel} <span aria-hidden="true">→</span>
+                  </MaybeLink>
+                </p>
+              </div>
+            )}
+
+            {/* Step 12 — per-country import links. */}
+            {i === 11 && (
+              <>
+                <p class="mt-3 text-sm font-medium text-neutral-700">{t.countries.intro}</p>
+                <ul class="mt-2 flex flex-wrap gap-x-4 gap-y-2 text-sm" role="list">
+                  {t.countries.items.map((c) => (
+                    <li>
+                      <MaybeLink href={countryHref[c.key]} class="font-semibold" mutedClass="font-semibold text-neutral-500" data-source-component={`how-to-order-import-${c.key}`}>
+                        {c.label} <span aria-hidden="true">→</span>
+                      </MaybeLink>
+                    </li>
+                  ))}
+                </ul>
+                <p class="mt-2 text-sm text-neutral-500">{t.countries.note}</p>
+              </>
+            )}
+
+            {/* Primary step link (steps with a single canonical route). */}
+            {step.linkLabel && stepHrefs[i] && (
+              <p class="mt-3 text-sm">
+                <MaybeLink href={stepHrefs[i] as string} class="font-semibold" data-source-component={`how-to-order-step-${i + 1}`}>
+                  {step.linkLabel} <span aria-hidden="true">→</span>
+                </MaybeLink>
+              </p>
+            )}
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  {/* Ordering FAQ lives on /faq — cross-link only, NO FAQPage here. */}
+  <section aria-labelledby="ordering-faq-heading" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="ordering-faq-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.faqBlock.heading}</h2>
+      <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">{t.faqBlock.body}</p>
+      <p class="mt-4 text-sm">
+        <MaybeLink href={t.faqBlock.linkHref} class="font-semibold" data-source-component="how-to-order-faq">
+          {t.faqBlock.linkLabel} <span aria-hidden="true">→</span>
+        </MaybeLink>
+      </p>
+    </div>
+  </section>
+
+  {/* Related topics. */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium text-neutral-500"
+              data-source-component={`how-to-order-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

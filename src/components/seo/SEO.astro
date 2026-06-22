@@ -23,6 +23,13 @@ interface Props {
   type?: 'website' | 'article' | 'product';
   locale?: Locale;
   noIndex?: boolean;
+  /**
+   * Robots directive override. Defaults to deriving from `noIndex`
+   * (`noindex, nofollow` for 404 / dev). Pass `'noindex-follow'` for a
+   * thin-content page (substance floor) that should be de-indexed but still
+   * pass internal-link equity onward.
+   */
+  robots?: 'index' | 'noindex' | 'noindex-follow';
 }
 
 const {
@@ -33,7 +40,13 @@ const {
   type = 'website',
   locale = DEFAULT_LOCALE,
   noIndex = false,
+  robots,
 } = Astro.props;
+
+// Effective robots directive — explicit `robots` wins; otherwise derive from
+// `noIndex` so existing callers (404, dev) keep their `noindex, nofollow`.
+const robotsDirective = robots ?? (noIndex ? 'noindex' : 'index');
+const isIndexable = robotsDirective === 'index';
 
 const siteBase = (Astro.site?.toString() ?? company.siteUrl).replace(/\/$/, '');
 
@@ -54,10 +67,12 @@ const ogLocale = localeOgMap[locale];
 <meta name="description" content={description} />
 {/* Canonical + hreflang only matter for indexable URLs — a noindex page
     (404, dev) should not advertise itself as a canonical target. */}
-{!noIndex && <link rel="canonical" href={canonical} />}
-{noIndex
-  ? <meta name="robots" content="noindex, nofollow" />
-  : <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+{isIndexable && <link rel="canonical" href={canonical} />}
+{robotsDirective === 'index'
+  ? <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  : robotsDirective === 'noindex-follow'
+    ? <meta name="robots" content="noindex, follow" />
+    : <meta name="robots" content="noindex, nofollow" />
 }
 
 <meta property="og:title" content={fullTitle} />
@@ -75,7 +90,7 @@ const ogLocale = localeOgMap[locale];
 <meta name="twitter:image" content={ogImage} />
 <meta name="twitter:image:alt" content={fullTitle} />
 
-{!noIndex && (
+{isIndexable && (
   <Fragment>
     {ACTIVE_LOCALES.map((code) => (
       <link

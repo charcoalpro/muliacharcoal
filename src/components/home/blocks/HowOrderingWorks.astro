@@ -1,0 +1,44 @@
+---
+/**
+ * HowOrderingWorks — homepage "how ordering works" band.
+ *
+ * A compact four-step process strip (Inquire → Sample & burn-test → Produce +
+ * per-batch COA → Ship FOB) sitting between TrustStrip and Products. Routes to
+ * the full ordering guide. Zero JS, logical properties, 44px CTA touch target.
+ * All facts via companyTokens(); copy from i18n (`home.howOrdering`).
+ */
+import en from '~/i18n/en';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+
+const t = en.home.howOrdering;
+const tokens = companyTokens(company);
+const steps = t.steps.map((s) => ({ title: fill(s.title, tokens), body: fill(s.body, tokens) }));
+---
+<section aria-labelledby="home-howordering-heading" class="border-b border-neutral-200 bg-white">
+  <div class="mx-auto max-w-7xl px-4 py-12 md:px-8 md:py-16">
+    <p class="text-sm font-medium uppercase tracking-wide text-brand-accent-strong">{t.eyebrow}</p>
+    <h2 id="home-howordering-heading" class="mt-2 text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
+    <p class="mt-3 max-w-2xl text-base text-neutral-600">{t.intro}</p>
+    <ol class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4" role="list">
+      {steps.map((step, i) => (
+        <li class="rounded-2xl border border-neutral-200 p-5">
+          <span class="text-sm font-semibold text-brand-accent-strong">{i + 1}</span>
+          <h3 class="mt-1 text-base font-semibold text-neutral-900">{step.title}</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-neutral-600">{step.body}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-8">
+      <MaybeLink
+        href="/guide/how-to-order-shisha-charcoal"
+        class="inline-flex min-h-11 items-center font-semibold text-brand-primary"
+        aria-label={t.ctaAria}
+        data-source-component="home-how-ordering"
+      >
+        {t.ctaLabel} <span aria-hidden="true" class="ms-1">→</span>
+      </MaybeLink>
+    </p>
+  </div>
+</section>

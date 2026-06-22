@@ -614,6 +614,7 @@ export interface GuideConfig {
     howToChooseFactory: { datePublished: string; dateModified: string };
     howToStartBrand: { datePublished: string; dateModified: string };
     privateLabelOptions: { datePublished: string; dateModified: string };
+    howToOrder: { datePublished: string; dateModified: string };
   };
 }
 
