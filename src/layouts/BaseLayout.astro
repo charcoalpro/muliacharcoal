@@ -33,6 +33,9 @@ interface Props {
   image?: ImageMetadata | string;
   type?: 'website' | 'article' | 'product';
   noIndex?: boolean;
+  /** Robots directive override forwarded to <SEO>. Use `'noindex-follow'`
+   *  for a thin-content page (substance floor); defaults to deriving from noIndex. */
+  robots?: 'index' | 'noindex' | 'noindex-follow';
   /** Page locale. Drives <html lang>, <html dir>, and og:locale. Defaults to DEFAULT_LOCALE. */
   lang?: Locale;
   includeOrgSchema?: boolean;
@@ -51,6 +54,7 @@ const {
   image,
   type = 'website',
   noIndex = false,
+  robots,
   lang = DEFAULT_LOCALE,
   includeOrgSchema = false,
   preload = [],
@@ -97,6 +101,7 @@ const dir = localeDir(lang);
       type={type}
       locale={lang}
       noIndex={noIndex}
+      robots={robots}
     />
     {includeOrgSchema && <OrganizationSchema />}
     {schema && <JsonLd data={schema} />}

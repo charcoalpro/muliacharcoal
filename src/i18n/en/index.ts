@@ -51,6 +51,7 @@ import factoryVirtualTour from './factoryVirtualTour.json';
 import productGrade from './productGrade.json';
 import productCategory from './productCategory.json';
 import productMarket from './productMarket.json';
+import guide from './guide.json';
 
 const en = {
   ...common,
@@ -92,6 +93,7 @@ const en = {
   productGrade,
   productCategory,
   productMarket,
+  guide,
 };
 
 export default en;

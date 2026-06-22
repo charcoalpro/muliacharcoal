@@ -269,7 +269,8 @@
     "depositSecurity": "A fair worry on a first overseas order — so the deal is structured to de-risk it: production starts only once your deposit is in, the balance falls due around loading (per the terms above), every container's loading is surveyed by {{auditors}}, and we accept an irrevocable L/C at sight for buyers who prefer bank-guaranteed payment over T/T.",
     "sampleBridge": "The sample is not a dead end: once you approve it, its cost (where a sample fee applies) is credited against your first order, and approval is the step that unlocks the proforma invoice.",
     "leadCapacity": "This SKU presses on our standard line; monthly capacity is {{capacityMonth}} tons and repeat-brand lead time is {{repeatBrandLeadTime}} days.",
-    "linkCapacity": "Factory capacity & lead time"
+    "linkCapacity": "Factory capacity & lead time",
+    "linkOrdering": "How to order: the full process"
   },
 
   "samples": {

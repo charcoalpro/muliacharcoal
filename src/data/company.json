@@ -755,6 +755,17 @@
     "uploadDate": "2026-05-26"
   },
 
+  "guide": {
+    "editorial": {
+      "hub":                   { "datePublished": "2026-06-22", "dateModified": "2026-06-22" },
+      "coconutVsBambooVsWood": { "datePublished": "", "dateModified": "" },
+      "howToChooseFactory":    { "datePublished": "", "dateModified": "" },
+      "howToStartBrand":       { "datePublished": "", "dateModified": "" },
+      "privateLabelOptions":   { "datePublished": "", "dateModified": "" },
+      "howToOrder":            { "datePublished": "2026-06-22", "dateModified": "2026-06-22" }
+    }
+  },
+
   "governance": {
     "author": {
       "name": "Mohamad Sinno",

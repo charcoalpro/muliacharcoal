@@ -1,0 +1,267 @@
+{
+  "common": {
+    "metaBlock": {
+      "authorRole": "Written by",
+      "reviewerRole": "Reviewed by",
+      "factCheckerRole": "Fact-checked by",
+      "lastUpdatedLabel": "Last updated",
+      "readTimeLabel": "Reading time",
+      "readTimeValueTemplate": "{{minutes}} min"
+    }
+  },
+  "hub": {
+    "meta": {
+      "titleTemplate": "Shisha Charcoal Buyer's Guide: Sourcing & Selection",
+      "descriptionTemplate": "How to choose, source, and order coconut shisha charcoal wholesale from Indonesia — material comparison, factory selection, ordering, and private-label. MOQ {{moqLabel}}, {{portLabel}}."
+    },
+    "breadcrumb": "Buyer's Guide",
+    "eyebrow": "Buyer's Guide",
+    "h1": "Coconut Shisha Charcoal Buyer's Guide",
+    "heroSubtitle": "A factory-direct guide to choosing, sourcing, and ordering coconut shell shisha charcoal by the container — from material selection to a sample-verified first order.",
+    "hero": {
+      "ctaQuote": "Request a quote",
+      "ctaQuoteAria": "Request a wholesale quote on WhatsApp (opens in new tab)",
+      "ctaContact": "Contact the export desk",
+      "ctaContactAria": "Go to the contact page"
+    },
+    "intro": {
+      "p1": "Coconut shell charcoal is a natural charcoal made by carbonizing coconut shells, then pressing the milled powder with a starch binder into uniform briquettes for shisha and hookah use. This guide explains how international buyers evaluate it, choose a factory, and place a first wholesale order with confidence.",
+      "p2": "The buyer's journey runs in three stages: choose the material (coconut vs. bamboo vs. wood), choose and verify a supplier, then place and receive a sample-tested container order. Each section below links down to the operational pages that document and prove every claim.",
+      "p3": "Every figure on this site traces to a single source of company facts. The minimum order is {{moqLabel}}, loaded {{portLabel}}, with production in {{leadTimeLabel}} and a per-batch Certificate of Analysis on every order."
+    },
+    "atAGlance": {
+      "heading": "Coconut charcoal at a glance",
+      "definition": "The headline specifications and trade terms a wholesale buyer needs before requesting a quote. Grade figures are read from the published specification ladder; each links to the page that documents it in full.",
+      "gradeValueTemplate": "{{fixedCarbon}} fixed carbon · {{ash}} ash",
+      "moqLabel": "Minimum order",
+      "portLabel": "Port of loading",
+      "leadLabel": "Production lead time",
+      "certLabel": "Certifications"
+    },
+    "childrenHeading": "The buyer's journey",
+    "children": {
+      "coconutVsBamboo": {
+        "h2": "Coconut vs. bamboo vs. wood charcoal",
+        "definition": "A numeric comparison of the three shisha-charcoal base materials by fixed carbon, ash, calorific value, and burn time — and why coconut shell leads on clean, long burns.",
+        "takeaways": [
+          "Coconut shell charcoal typically holds the highest fixed carbon and the lowest ash of the three.",
+          "A longer, more even burn time means fewer coal changes per session.",
+          "Material choice sets the ceiling on burn quality before any factory is chosen."
+        ],
+        "linkLabel": "Read the material comparison"
+      },
+      "chooseFactory": {
+        "h2": "How to choose a shisha charcoal factory",
+        "definition": "An enumerated checklist for vetting a coconut-charcoal supplier — specifications, third-party testing, dangerous-goods compliance, capacity, and samples — each with how to verify it.",
+        "takeaways": [
+          "Ask for results against named test methods, not adjectives.",
+          "Require a third-party Certificate of Analysis, not only self-reported figures.",
+          "Confirm UN 1361 Class 4.2 dangerous-goods compliance before booking."
+        ],
+        "linkLabel": "Read the factory-selection guide"
+      },
+      "howToOrder": {
+        "h2": "How to order coconut charcoal wholesale",
+        "definition": "The end-to-end ordering process from first inquiry to a delivered container — inquiry, samples, specification agreement, deposit, production, per-batch QC, dangerous-goods packing, shipping, and after-sales.",
+        "takeaways": [
+          "Samples and a burn-test come before any container commitment.",
+          "A per-batch Certificate of Analysis verifies every production run.",
+          "The default trade term is {{portLabel}}, with the full export document set included."
+        ],
+        "linkLabel": "Read the ordering guide"
+      },
+      "startBrand": {
+        "h2": "How to start your own shisha charcoal brand",
+        "definition": "What it takes to launch a private coconut-charcoal brand — from the first container to artwork, packaging, and reorders — and where the operational depth lives.",
+        "takeaways": [
+          "A single container is enough to launch a private-label brand.",
+          "Artwork, packaging, and compliance marks are produced at the factory.",
+          "Reorders reuse your approved artwork held on file."
+        ],
+        "linkLabel": "Read the brand-building guide"
+      },
+      "privateLabel": {
+        "h2": "Private-label options",
+        "definition": "The private-label and OEM choices available on coconut shisha charcoal — branded inner boxes, master cartons, and printed plastics — and how proofing and minimums work.",
+        "takeaways": [
+          "Brandable surfaces include the inner box, master box, and inner plastic.",
+          "Digital and physical proofs precede production.",
+          "Custom packaging carries its own minimum and added lead time."
+        ],
+        "linkLabel": "See private-label options"
+      }
+    },
+    "faq": {
+      "heading": "Buyer's guide — common questions",
+      "items": [
+        {
+          "q": "What charcoal is best for shisha?",
+          "a": "Coconut shell charcoal is generally considered best for shisha: it offers high fixed carbon, low ash, a long and even burn, and no chemical odor. See the material comparison for the numbers behind each base material."
+        },
+        {
+          "q": "How do I choose a coconut charcoal supplier?",
+          "a": "Evaluate a supplier on documented specifications, a third-party Certificate of Analysis, UN 1361 dangerous-goods compliance, production capacity, and samples you can burn-test. The factory-selection guide gives the full checklist."
+        },
+        {
+          "q": "Can I sell coconut charcoal under my own brand?",
+          "a": "Yes. A single {{moqLabel}} container is enough to launch a private-label brand, with branded inner boxes, master cartons, and printed plastics produced at the factory. See the private-label options."
+        },
+        {
+          "q": "What is the minimum order to get started?",
+          "a": "The minimum order is {{moqLabel}}, loaded {{portLabel}}. Free samples ship first so you can verify the burn specifications in your own lab before committing to a container."
+        }
+      ]
+    },
+    "related": {
+      "heading": "Related topics",
+      "items": [
+        { "href": "/products", "label": "Products & grades" },
+        { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+        { "href": "/quality/certifications", "label": "Certifications" },
+        { "href": "/packaging/white-label", "label": "White-label packaging" },
+        { "href": "/factory/raw-materials", "label": "Raw materials" },
+        { "href": "/factory/production-process", "label": "Production process" },
+        { "href": "/logistics", "label": "Logistics & shipping" },
+        { "href": "/samples", "label": "Request samples" },
+        { "href": "/faq", "label": "Buyer FAQ" },
+        { "href": "/glossary", "label": "Glossary" },
+        { "href": "/contact", "label": "Contact" }
+      ]
+    }
+  },
+  "howToOrder": {
+    "meta": {
+      "titleTemplate": "How to Order Coconut Charcoal Wholesale from Indonesia",
+      "descriptionTemplate": "The inquiry-to-delivery process for ordering coconut shisha charcoal wholesale: samples first, spec agreement, per-batch COA, UN 1361 packing. {{portLabel}}, MOQ {{moqLabel}}."
+    },
+    "breadcrumb": "How to Order",
+    "eyebrow": "Buyer's Guide",
+    "h1": "How to Order Coconut Charcoal Wholesale from Indonesia",
+    "heroSubtitle": "The complete path a first-time buyer takes to import coconut shell shisha charcoal by the container — what happens at each step, who does what, and how each stage is verified.",
+    "hero": {
+      "ctaQuote": "Request a quote",
+      "ctaQuoteAria": "Request a wholesale quote on WhatsApp (opens in new tab)",
+      "ctaContact": "Contact the export desk",
+      "ctaContactAria": "Go to the contact page"
+    },
+    "upLink": {
+      "prefix": "This is part of our",
+      "linkLabel": "Buyer's Guide",
+      "suffix": ", which also covers choosing a material and vetting a factory."
+    },
+    "capsule": {
+      "heading": "The ordering process in brief",
+      "body": "Ordering coconut shisha charcoal from Indonesia runs from inquiry to a delivered container in a fixed sequence: you inquire, burn-test free samples, agree the specification, then confirm with a deposit. We produce to that spec with a per-batch Certificate of Analysis, pack to UN 1361 dangerous-goods rules, and ship {{portLabel}} with the full export document set. The minimum order is {{moqLabel}}."
+    },
+    "stepsHeading": "The ordering process, step by step",
+    "steps": [
+      {
+        "title": "Inquiry",
+        "body": "Start with a message on WhatsApp or the inquiry form. Send your grade(s), quantity in containers or tonnes, destination port, and whether you want our stock brand or your own private label — that is everything we need to prepare a quote.",
+        "linkLabel": "Browse products & grades"
+      },
+      {
+        "title": "Samples & evaluation",
+        "body": "Request samples and burn-test them before any container commitment. Each lab-grade sample ships with its Certificate of Analysis so you can verify the burn specifications independently — with this factory, verification comes first.",
+        "linkLabel": "Request samples"
+      },
+      {
+        "title": "Specification agreement",
+        "body": "Pin the specification before production starts. We agree shape and size, ash %, moisture %, burn time, and size tolerance in writing, and this becomes the QC baseline your per-batch COA is later measured against.",
+        "linkLabel": "Specifications explained"
+      },
+      {
+        "title": "Quotation & Proforma Invoice (PI)",
+        "body": "With the spec locked, we issue a Proforma Invoice. The default trade term is {{portLabel}}, with CFR or CIF to your port available on request; the PI states an indicative lead time and the payment terms, where a deposit secures your production slot and the balance is confirmed on the invoice.",
+        "linkLabel": "Trade rules & Incoterms"
+      },
+      {
+        "title": "Production",
+        "body": "Your order is manufactured to the agreed specification and packaging. Standard production runs in {{leadTimeLabel}}; a first order or new-brand run allows up to {{newBrandLeadTime}} days.",
+        "linkLabel": "Capacity & lead time"
+      },
+      {
+        "title": "Order confirmation & deposit",
+        "body": "Confirm the order with a deposit and your production slot is reserved, with balance terms set on your PI. This is the point first-time buyers worry about, so it is deliberately de-risked: your samples are already evaluated, a factory audit and virtual tour are available on request, and references can be provided — no escrow is claimed, because none is offered.",
+        "linkLabel": "Take the virtual tour"
+      },
+      {
+        "title": "Per-batch QC & Certificate of Analysis (COA)",
+        "body": "A Certificate of Analysis is issued for every production batch, tested against the specification agreed in step 3. The COA is your proof of consistency from one container to the next — it is issued per batch, not once per supplier.",
+        "linkLabel": "Testing methods"
+      },
+      {
+        "title": "DG-compliant packing, marking & documents",
+        "body": "Coconut charcoal ships as a dangerous good, so packing follows UN 1361 Class 4.2 with SP 978 weathering, correct marking, and a Safety Data Sheet. The full export document set is assembled in parallel with packing.",
+        "linkLabel": "UN 1361 explained"
+      },
+      {
+        "title": "Optional buyer pre-shipment inspection",
+        "body": "You may appoint an independent inspector — SGS, Intertek, or your own agent — to check the cargo before shipment. Pre-shipment inspection is welcomed as a trust signal, never treated as a hurdle.",
+        "linkLabel": ""
+      },
+      {
+        "title": "Booking & shipping",
+        "body": "Under {{portLabel}} your forwarder books the vessel and we hand the cargo over at the port; CFR or CIF quotes are available on request if you prefer us to arrange freight. Loading is surveyed and the container sealed for departure.",
+        "linkLabel": "Logistics overview"
+      },
+      {
+        "title": "Documents handover",
+        "body": "Once the vessel departs, the full document set is released — Bill of Lading, commercial invoice, packing list, certificate of origin, DG declaration, and SP 978 weathering report — together with the vessel and container details your forwarder needs to track the shipment. Under FOB the factory provides the data that enables tracking; it does not itself track the container.",
+        "linkLabel": "Export documents"
+      },
+      {
+        "title": "Arrival & destination clearance",
+        "body": "Arrival and customs clearance are handled by you or your broker, and the mechanics differ by destination. Use the country guide that matches your market:",
+        "linkLabel": ""
+      },
+      {
+        "title": "After-sales, reorder & claims",
+        "body": "After delivery, reorders are faster — repeat-brand lead time runs to {{repeatBrandLeadTime}} days because your specification and artwork are already on file. Any claim is handled directly with our export desk.",
+        "linkLabel": "Contact the export desk"
+      }
+    ],
+    "oem": {
+      "title": "OEM / private-label branch",
+      "body": "Ordering under your own brand adds an artwork stage to step 4: you send an artwork brief, we run a proof-and-approval loop, then produce. Custom packaging carries its own minimum order and a longer lead time than a stock-brand order.",
+      "moqLineTemplate": "Custom-packaging minimum: {{oemMoq}}.",
+      "leadLine": "Allow extra production time for a first custom-packaging run.",
+      "linkLabel": "Private-label packaging"
+    },
+    "countries": {
+      "heading": "Destination import guides",
+      "intro": "Country-specific import mechanics — duties, taxes, and entry filing:",
+      "items": [
+        { "key": "usa", "label": "Import to the USA" },
+        { "key": "uk", "label": "Import to the UK" },
+        { "key": "germany", "label": "Import to Germany" },
+        { "key": "saudiArabia", "label": "Import to Saudi Arabia" },
+        { "key": "russia", "label": "Import to Russia" }
+      ],
+      "note": "More destination guides are added as they publish."
+    },
+    "faqBlock": {
+      "heading": "Common ordering questions",
+      "body": "Minimum order, payment terms, production capacity, and lead-time questions are answered in full on our buyer FAQ.",
+      "linkLabel": "Read the buyer FAQ",
+      "linkHref": "/faq"
+    },
+    "related": {
+      "heading": "Related topics",
+      "items": [
+        { "href": "/guide", "label": "Buyer's Guide" },
+        { "href": "/products", "label": "Products & grades" },
+        { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+        { "href": "/quality/testing-methods", "label": "Testing methods" },
+        { "href": "/packaging/white-label", "label": "White-label packaging" },
+        { "href": "/logistics", "label": "Logistics & shipping" },
+        { "href": "/logistics/documents", "label": "Export documents" },
+        { "href": "/logistics/un-1361", "label": "UN 1361 dangerous goods" },
+        { "href": "/factory/virtual-tour", "label": "Virtual factory tour" },
+        { "href": "/samples", "label": "Request samples" },
+        { "href": "/faq", "label": "Buyer FAQ" },
+        { "href": "/contact", "label": "Contact" }
+      ]
+    }
+  }
+}

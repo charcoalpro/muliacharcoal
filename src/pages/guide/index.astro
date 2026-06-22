@@ -1,0 +1,243 @@
+---
+/**
+ * /guide — the Buyer's-Guide pillar hub.
+ *
+ *   - Text-led hero, full E-E-A-T block (ArticleMeta), "Coconut charcoal at a
+ *     glance" KeyFactsBox (grade figures read from grades.ts), a definition-form
+ *     parent-entity intro, five short child-entity sections (each links down via
+ *     MaybeLink — muted until its route ships, self-lighting), hub-canonical FAQ,
+ *     related topics, CTABanner.
+ *   - Schema: CollectionPage + FAQPage only (guideHubSchema). hasPart carries
+ *     LIVE children only, so the graph never declares a part that 404s. No
+ *     DefinedTerm here — those stay canonical on the child articles / glossary.
+ *   - Every fact from ~/config/company.ts via companyTokens()/grades.ts; missing
+ *     facts degrade (KeyFactsBox rows drop, links mute). Zero client JS.
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor } from '~/config/company';
+import { grades } from '~/config/grades';
+import { isLive } from '~/config/nav';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { guideHubSchema } from '~/lib/schema/guideHub';
+
+const t = en.guide.hub;
+const tc = en.guide.common;
+const tokens = companyTokens(company);
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// --- "Coconut charcoal at a glance" — grade figures from grades.ts. ---
+const atGlanceFacts = [
+  ...grades.map((g) => ({
+    label: g.name,
+    value: fill(t.atAGlance.gradeValueTemplate, {
+      fixedCarbon: g.fixedCarbon.display,
+      ash: g.ash.display,
+    }),
+  })),
+  { label: t.atAGlance.moqLabel, value: tokens.moqLabel },
+  { label: t.atAGlance.portLabel, value: tokens.portLabel },
+  { label: t.atAGlance.leadLabel, value: tokens.leadTimeLabel },
+  {
+    label: t.atAGlance.certLabel,
+    value: [tokens.isoStandard, company.certifications.halal?.certified ? 'Halal' : '']
+      .filter(Boolean)
+      .join(' · '),
+  },
+];
+
+// --- Five child-entity sections (the buyer's journey). MaybeLink mutes any
+//     child whose route is not yet in LIVE_ROUTES; it self-lights on add. ---
+const childItems = [
+  { key: 'coconutVsBamboo', href: '/guide/coconut-vs-bamboo-vs-wood-charcoal' },
+  { key: 'chooseFactory', href: '/guide/how-to-choose-shisha-charcoal-factory' },
+  { key: 'howToOrder', href: '/guide/how-to-order-shisha-charcoal' },
+  { key: 'startBrand', href: '/guide/how-to-start-your-own-brand' },
+  { key: 'privateLabel', href: '/guide/private-label-options' },
+] as const;
+
+const children = childItems.map((c) => ({
+  id: c.href.split('/').pop()!,
+  href: c.href,
+  copy: t.children[c.key],
+}));
+
+// Schema hasPart = LIVE children only (no 404 parts; self-heals on add).
+const liveChildren = childItems
+  .filter((c) => isLive(c.href))
+  .map((c) => ({ href: c.href, name: t.children[c.key].h2 }));
+
+// --- FAQ (hub-canonical; schema lives in the page @graph below). ---
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const schema = guideHubSchema({
+  pageTitle,
+  pageDescription,
+  path: '/guide',
+  children: liveChildren,
+  faq: faqItems,
+});
+
+// --- Indicative reading time (~200 wpm over the page prose). ---
+const proseForReadTime = fill(
+  [
+    t.heroSubtitle,
+    t.intro.p1,
+    t.intro.p2,
+    t.intro.p3,
+    t.atAGlance.definition,
+    ...children.flatMap((c) => [c.copy.definition, ...c.copy.takeaways]),
+    ...t.faq.items.flatMap((f) => [f.q, f.a]),
+  ].join(' '),
+  tokens,
+);
+const readMinutes = readingTime(proseForReadTime);
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/guide"
+  type="website"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/products', '/contact']}
+>
+  <div class="mx-auto max-w-5xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={t.heroSubtitle}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('quoteSpecs'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'guide-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaContact,
+      href: '/contact',
+      ariaLabel: t.hero.ctaContactAria,
+      dataSourceComponent: 'guide-hero-contact',
+    }}
+  />
+
+  {/* E-E-A-T / freshness block. */}
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: tc.metaBlock.authorRole,
+          reviewedBy: tc.metaBlock.reviewerRole,
+          factCheckedBy: tc.metaBlock.factCheckerRole,
+          lastUpdated: tc.metaBlock.lastUpdatedLabel,
+          readTime: tc.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={company.guide.editorial.hub.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  {/* Intro / parent entity (definition-form). */}
+  <section aria-label={t.h1} class="bg-white">
+    <div class="mx-auto max-w-5xl space-y-4 px-4 py-12 md:px-8">
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p1, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p2, tokens)}</p>
+      <p class="max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.intro.p3, tokens)}</p>
+    </div>
+  </section>
+
+  {/* KeyFactsBox — "Coconut charcoal at a glance". */}
+  <div class="bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+      <KeyFactsBox
+        id="coconut-charcoal-at-a-glance"
+        heading={t.atAGlance.heading}
+        definition={t.atAGlance.definition}
+        facts={atGlanceFacts}
+      />
+    </div>
+  </div>
+
+  {/* Five child-entity sections — the buyer's journey. */}
+  <section aria-labelledby="journey-heading" class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 pt-12 md:px-8">
+      <h2 id="journey-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.childrenHeading}</h2>
+    </div>
+  </section>
+  {children.map((child, i) => (
+    <section
+      id={child.id}
+      aria-labelledby={`${child.id}-heading`}
+      class:list={['scroll-mt-24', i % 2 === 0 ? 'bg-white' : 'bg-neutral-50']}
+    >
+      <div class="mx-auto max-w-5xl px-4 py-10 md:px-8">
+        <h3 id={`${child.id}-heading`} class="text-xl font-bold text-neutral-900 md:text-2xl">
+          {fill(child.copy.h2, tokens)}
+        </h3>
+        <p class="mt-4 max-w-prose text-base leading-relaxed text-neutral-700">
+          {fill(child.copy.definition, tokens)}
+        </p>
+        <ul class="mt-4 max-w-prose space-y-1.5 text-base text-neutral-700" role="list">
+          {child.copy.takeaways.map((item) => (
+            <li class="flex gap-2">
+              <span aria-hidden="true" class="mt-0.5 text-brand-accent">•</span>
+              <span>{fill(item, tokens)}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="mt-6 text-sm">
+          <MaybeLink href={child.href} class="font-semibold" mutedClass="font-semibold text-neutral-500" data-source-component={`guide-hub-${child.id}`}>
+            {child.copy.linkLabel} <span aria-hidden="true">→</span>
+          </MaybeLink>
+        </p>
+      </div>
+    </section>
+  ))}
+
+  {/* Hub-canonical FAQ — schema is in the page @graph, so no second FAQPage. */}
+  <section aria-labelledby="guide-faq" class="border-t border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8 md:py-16">
+      <FAQSection id="guide-faq" heading={t.faq.heading} items={faqItems} />
+    </div>
+  </section>
+
+  {/* Related topics. */}
+  <section aria-labelledby="related-heading" class="border-t border-neutral-200 bg-white">
+    <div class="mx-auto max-w-5xl px-4 py-12 md:px-8">
+      <h2 id="related-heading" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.related.heading}</h2>
+      <ul class="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              class="block rounded-lg border border-neutral-200 bg-white px-4 py-3 text-sm font-medium"
+              mutedClass="block rounded-lg border border-dashed border-neutral-300 bg-white px-4 py-3 text-sm font-medium text-neutral-500"
+              data-source-component={`guide-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >
+              {item.label} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

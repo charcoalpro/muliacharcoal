@@ -312,7 +312,7 @@ export interface LogisticsConfig {
   /** hq40Available + per-shape note; tonnage derives from commercial.containerCapacity. */
   containers: { hq40Available: boolean | null; perShapeYieldNote: string };
   lcl: { available: boolean | null; marketsServed: string[]; minTons: string | number };
-  /** Incoterms offered; default reads commercial.portOfLoading.incoterm. No CIF (v3.3). */
+  /** Incoterms offered; default reads commercial.portOfLoading.incoterm. CFR/CIF available on request. */
   incoterms: string[];
   /** Reserved structured breakdown; pages render commercial.paymentTerms prose. */
   payment: { methods: string[]; currencies: string[]; downPaymentPct: string | number; balanceTrigger: string };
@@ -379,7 +379,7 @@ export interface LogisticsConfig {
 
   // — cargo protection & insurance (new node) —
   insurance: {
-    arrangedBy: string; // 'buyer' — EXW/FOB/CFR include no seller cover; no CIF
+    arrangedBy: string; // 'buyer' by default — seller-arranged marine cover available on request under CIF
     basis: string;
     coverage: string[]; // external perils ONLY
     exclusions: string[]; // includes self-heating / inherent vice — NEVER claim it is covered
@@ -592,11 +592,32 @@ export interface FactoryConfig {
   ramadanLeadNote: string;
 }
 
-const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality' | 'samples' | 'factory'> & {
+// =======================================================================
+// Buyer's-Guide pillar contract (/guide hub + cluster children).
+//
+// The guide pillar spans multiple pages, so editorial dates nest PER PAGE
+// (vs the flat per-pillar `editorial` elsewhere). Author / reviewer /
+// fact-checker NAMES live in `governance.*` (the sitewide E-E-A-T source),
+// never here — dates only. Empty date strings degrade via hasFact() until
+// the child page ships.
+// =======================================================================
+export interface GuideConfig {
+  editorial: {
+    hub: { datePublished: string; dateModified: string };
+    coconutVsBambooVsWood: { datePublished: string; dateModified: string };
+    howToChooseFactory: { datePublished: string; dateModified: string };
+    howToStartBrand: { datePublished: string; dateModified: string };
+    privateLabelOptions: { datePublished: string; dateModified: string };
+    howToOrder: { datePublished: string; dateModified: string };
+  };
+}
+
+const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality' | 'samples' | 'factory' | 'guide'> & {
   packaging: PackagingConfig;
   logistics: LogisticsConfig;
   quality: QualityConfig;
   factory: FactoryConfig;
+  guide: GuideConfig;
   social: Record<keyof typeof rawCompanyData.social, string | null>;
   production: typeof rawCompanyData.production & {
     carbonizationPlant: { city: string; region: string } | null;

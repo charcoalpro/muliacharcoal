@@ -44,6 +44,8 @@ export const LIVE_ROUTES: ReadonlySet<string> = new Set([
   '/contact',
   '/faq',
   '/glossary',
+  '/guide',
+  '/guide/how-to-order-shisha-charcoal',
   '/products',
   '/samples',
   '/packaging',
@@ -102,6 +104,7 @@ export const headerNav: readonly NavItem[] = [
   make('/about', en.nav.about),
   make('/contact', en.nav.contact),
   make('/products', en.nav.products),
+  make('/guide', en.nav.guide),
 ];
 
 /** Footer "Company" column. */
@@ -110,6 +113,7 @@ export const footerCompanyNav: readonly NavItem[] = [
   make('/contact', en.footer.links.contact),
   make('/faq', en.footer.links.faq),
   make('/glossary', en.footer.links.glossary),
+  make('/guide', en.footer.links.guide),
   make('/careers', en.footer.links.careers),
 ];
 
@@ -120,6 +124,7 @@ export const footerOperationsNav: readonly NavItem[] = [
   make('/logistics', en.footer.links.logistics),
   make('/factory', en.footer.links.factory),
   make('/samples', en.footer.links.samples),
+  make('/guide/how-to-order-shisha-charcoal', en.footer.links.howToOrder),
   make('/quality', en.footer.links.quality),
   make('/quality/certifications', en.footer.links.certificates),
 ];
