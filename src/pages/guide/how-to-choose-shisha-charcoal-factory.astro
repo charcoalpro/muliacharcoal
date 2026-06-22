@@ -1,0 +1,293 @@
+---
+/**
+ * /guide/how-to-choose-shisha-charcoal-factory — LEAD article (supplier
+ * selection; absorbs the old "suppliers-compared" intent). Informational,
+ * NOT transactional (§K) — routes buy-now intent to /products + /markets.
+ *
+ *   - First-paragraph up-link to /guide; ArticleMeta E-E-A-T; zero-JS TOC.
+ *   - B2 commercial-terms KeyFactsBox (config-backed rows only; no price /
+ *     band / banking).
+ *   - CENTERPIECE criteria checklist (name + definition + how-to-verify +
+ *     proof-pillar link), also emitted as ItemList.
+ *   - B1 "how we meet each criterion" — every line a config fact or pillar
+ *     link, gated on hasFact() so absent differentiators are omitted, never
+ *     prose-filled. DG "ahead of mandate" uses dg.voluntaryFrom.
+ *   - EU / REACH & CLP sub-section (buyer guidance, buyer-confirm flagged;
+ *     OR support NOT claimed — no config backing).
+ *   - Questions-to-ask + red-flags (UN 3088 mis-declaration flagged).
+ *   - ≤3 curated outbound links (CINS, ASTM, ECHA) fire outbound_click.
+ *   - Schema: Article + FAQPage + DefinedTerm + ItemList. HowTo omitted
+ *     (a criteria checklist is not an ordered procedure → valid-or-omit).
+ */
+import BaseLayout from '~/layouts/BaseLayout.astro';
+import { readingTime } from '~/lib/readingTime';
+import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
+import HeroSection from '~/components/content/HeroSection.astro';
+import ArticleMeta from '~/components/content/ArticleMeta.astro';
+import TableOfContents from '~/components/content/TableOfContents.astro';
+import MaybeLink from '~/components/content/MaybeLink.astro';
+import ExternalLink from '~/components/content/ExternalLink.astro';
+import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import Figure from '~/components/packaging/Figure.astro';
+import FAQSection from '~/components/content/FAQSection.astro';
+import CTABanner from '~/components/cta/CTABanner.astro';
+import en from '~/i18n/en';
+import { company, waLinkFor, hasFact } from '~/config/company';
+import { fill, companyTokens, qualityTokens, logisticsTokens } from '~/lib/interpolate';
+import { guideArticlePageSchema } from '~/lib/schema/guideArticlePage';
+
+const t = en.guide.chooseFactory;
+const tc = en.guide.common;
+const tokens = { ...companyTokens(company), ...qualityTokens(company), ...logisticsTokens(company) };
+
+const pageTitle = fill(t.meta.titleTemplate, tokens);
+const pageDescription = fill(t.meta.descriptionTemplate, tokens);
+
+// Outbound authority links (curated, ≤3 — guide-research-findings.md Task C).
+const CINS_URL = 'https://www.cinsnet.com/wp-content/uploads/2024/09/CINS-Charcoal-Guidance-Final-Version-September-2024.pdf';
+const ASTM_URL = 'https://store.astm.org/d1762-84r21.html';
+const ECHA_URL = 'https://echa.europa.eu/substance-information/-/substanceinfo/100.036.697';
+
+// B2 commercial-terms box — config-backed; empty values drop automatically.
+const b2Facts = [
+  { label: t.b2.moqLabel, value: tokens.moqLabel },
+  { label: t.b2.paymentLabel, value: tokens.paymentTerms },
+  { label: t.b2.leadTimeLabel, value: tokens.leadTimeLabel },
+  { label: t.b2.incotermsLabel, value: tokens.incotermsList },
+  { label: t.b2.portLabel, value: tokens.portLabel },
+];
+
+// B1 differentiators — each line gated on a real config fact; absent → omitted.
+const dg = company.logistics.dg;
+const b1Items: Array<{ text: string; href: string; linkLabel: string }> = [];
+if (hasFact(company.quality.testing.thirdPartyLabs))
+  b1Items.push({ ...t.b1.thirdPartyLab, text: fill(t.b1.thirdPartyLab.text, tokens) });
+if (hasFact(dg.voluntaryFrom)) b1Items.push({ ...t.b1.dg, text: t.b1.dg.text });
+if (hasFact(company.certifications.iso9001)) b1Items.push({ ...t.b1.iso, text: fill(t.b1.iso.text, tokens) });
+if (company.certifications.halal?.certified && hasFact(tokens.halalBody))
+  b1Items.push({ ...t.b1.halal, text: fill(t.b1.halal.text, tokens) });
+if (hasFact(company.production.capacityTonsPerMonth))
+  b1Items.push({ ...t.b1.capacity, text: fill(t.b1.capacity.text, tokens) });
+if (hasFact(dg.carriersAudited)) b1Items.push({ ...t.b1.carriers, text: fill(t.b1.carriers.text, tokens) });
+b1Items.push({ ...t.b1.samples, text: t.b1.samples.text });
+
+const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
+
+const tocItems = [
+  { anchor: 'commercial-terms', label: t.b2.heading },
+  { anchor: 'checklist', label: t.criteria.heading },
+  { anchor: 'how-we-meet', label: t.b1.heading },
+  { anchor: 'eu-reach', label: t.eu.heading },
+  { anchor: 'questions', label: t.questionsToAsk.heading },
+  { anchor: 'red-flags', label: t.redFlags.heading },
+  { anchor: 'faq', label: t.faq.heading },
+];
+
+const readMinutes = readingTime(
+  fill(
+    [
+      t.heroSubtitle,
+      t.intro.p1,
+      ...t.criteria.items.flatMap((c) => [c.name, c.definition, c.verify]),
+      t.eu.body1,
+      t.eu.body2,
+      ...faqItems.flatMap((f) => [f.q, f.a]),
+    ].join(' '),
+    tokens,
+  ),
+);
+
+const schema = guideArticlePageSchema({
+  pageTitle,
+  pageDescription,
+  path: '/guide/how-to-choose-shisha-charcoal-factory',
+  editorialKey: 'howToChooseFactory',
+  headline: t.h1,
+  faq: faqItems,
+  about: { name: 'Coconut shell charcoal', sameAs: 'https://en.wikipedia.org/wiki/Charcoal' },
+  mentions: [{ name: 'Dangerous goods', sameAs: 'https://en.wikipedia.org/wiki/Dangerous_goods' }],
+  definedTerms: [
+    { anchor: 'un-1361', name: 'UN 1361' },
+    { anchor: 'self-heating-test-n4', name: 'Self-Heating Test (UN N.4)' },
+    { anchor: 'sp-978', name: 'SP 978' },
+  ],
+  itemList: {
+    id: 'checklist',
+    name: t.criteria.heading,
+    items: t.criteria.items.map((c) => c.name),
+  },
+});
+
+const sectionH2 = 'text-2xl font-bold text-neutral-900 md:text-3xl';
+const proseP = 'mt-4 text-neutral-700 leading-relaxed';
+const sectionCls = 'scroll-mt-24 border-t border-neutral-200 pt-10';
+---
+<BaseLayout
+  title={pageTitle}
+  description={pageDescription}
+  path="/guide/how-to-choose-shisha-charcoal-factory"
+  type="article"
+  includeOrgSchema={false}
+  schema={schema}
+  prefetch={['/quality/certifications', '/contact']}
+>
+  <div class="mx-auto max-w-3xl px-4 pt-6 md:px-8">
+    <Breadcrumbs items={[{ label: en.guide.hub.breadcrumb, href: '/guide' }, { label: t.breadcrumb }]} />
+  </div>
+
+  <HeroSection
+    eyebrow={t.eyebrow}
+    title={t.h1}
+    subtitle={t.heroSubtitle}
+    primaryCta={{
+      label: t.hero.ctaQuote,
+      href: waLinkFor('salesGeneral'),
+      ariaLabel: t.hero.ctaQuoteAria,
+      target: '_blank',
+      rel: 'noopener',
+      dataEvent: 'whatsapp_click',
+      dataSourceComponent: 'guide-choose-hero-quote',
+    }}
+    secondaryCta={{
+      label: t.hero.ctaContact,
+      href: '/contact',
+      ariaLabel: t.hero.ctaContactAria,
+      dataSourceComponent: 'guide-choose-hero-inquiry',
+    }}
+  />
+
+  <div class="border-y border-neutral-200 bg-neutral-50">
+    <div class="mx-auto max-w-3xl px-4 py-6 md:px-8">
+      <ArticleMeta
+        labels={{
+          authoredBy: tc.metaBlock.authorRole,
+          reviewedBy: tc.metaBlock.reviewerRole,
+          factCheckedBy: tc.metaBlock.factCheckerRole,
+          lastUpdated: tc.metaBlock.lastUpdatedLabel,
+          readTime: tc.metaBlock.readTimeLabel,
+        }}
+        lastUpdated={company.guide.editorial.howToChooseFactory.dateModified}
+        readTimeValue={fill(tc.metaBlock.readTimeValueTemplate, { minutes: readMinutes })}
+      />
+    </div>
+  </div>
+
+  <article class="mx-auto max-w-3xl px-4 py-12 md:px-8 md:py-16">
+    <p class="text-sm text-neutral-600">
+      {t.intro.upLinkPre}{' '}
+      <MaybeLink href="/guide" class="font-semibold" data-source-component="guide-choose-up-hub">{t.intro.upLinkLabel}</MaybeLink>{t.intro.upLinkPost}
+    </p>
+    <p class={proseP}>{t.intro.p1}</p>
+
+    <TableOfContents class="mt-10" heading={t.toc.heading} items={tocItems} />
+
+    <Figure class="mt-10" alt={t.leadImage.alt} caption={t.leadImage.caption} ratio="16/9" />
+
+    <section id="commercial-terms" aria-labelledby="commercial-terms-heading" class="mt-12 scroll-mt-24">
+      <KeyFactsBox
+        id="commercial-terms-heading"
+        heading={t.b2.heading}
+        definition={t.b2.definition}
+        facts={b2Facts}
+      />
+      <p class="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        <MaybeLink href="/logistics/rules" class="font-semibold" data-source-component="guide-choose-b2-rules">{t.b2.rulesLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+        <MaybeLink href="/faq" class="font-semibold" data-source-component="guide-choose-b2-faq">{t.b2.faqLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
+      </p>
+    </section>
+
+    <section id="checklist" aria-labelledby="checklist-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="checklist-heading" class={sectionH2}>{t.criteria.heading}</h2>
+      <p class={proseP}>{t.criteria.intro}</p>
+      <ol class="mt-8 space-y-6">
+        {t.criteria.items.map((c, i) => (
+          <li class="rounded-2xl border border-neutral-200 p-6">
+            <h3 class="text-lg font-semibold text-neutral-900">
+              <span class="text-brand-accent tabular-nums" aria-hidden="true">{String(i + 1).padStart(2, '0')}.</span> {c.name}
+            </h3>
+            <p class="mt-2 text-neutral-700 leading-relaxed">{c.definition}</p>
+            <p class="mt-3 text-sm text-neutral-700 leading-relaxed">
+              <span class="font-semibold text-neutral-900">{t.criteria.verifyLabel}:</span> {c.verify}
+            </p>
+            <p class="mt-3 text-sm">
+              <MaybeLink href={c.href} class="font-semibold" data-source-component={`guide-choose-criterion-${c.id}`}>{c.linkLabel} <span aria-hidden="true">→</span></MaybeLink>
+            </p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="how-we-meet" aria-labelledby="how-we-meet-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="how-we-meet-heading" class={sectionH2}>{t.b1.heading}</h2>
+      <p class={proseP}>{t.b1.intro}</p>
+      <ul class="mt-6 space-y-4">
+        {b1Items.map((item) => (
+          <li class="border-s-2 border-brand-accent ps-4">
+            <p class="text-neutral-700 leading-relaxed">{item.text}</p>
+            <p class="mt-1 text-sm">
+              <MaybeLink href={item.href} class="font-semibold" data-source-component={`guide-choose-proof-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}>{item.linkLabel} <span aria-hidden="true">→</span></MaybeLink>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="eu-reach" aria-labelledby="eu-reach-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="eu-reach-heading" class={sectionH2}>{t.eu.heading}</h2>
+      <p class={proseP}>{t.eu.body1}</p>
+      <p class={proseP}>{t.eu.body2}</p>
+      <p class="mt-4 rounded-2xl border border-neutral-200 bg-neutral-50 p-4 text-sm text-neutral-800">{t.eu.buyerConfirm}</p>
+      <p class="mt-4 text-sm">
+        <ExternalLink href={ECHA_URL} class="font-semibold" data-event="outbound_click" data-source-component="guide-choose-echa">{t.eu.echaLinkLabel}</ExternalLink>
+      </p>
+    </section>
+
+    <section id="questions" aria-labelledby="questions-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="questions-heading" class={sectionH2}>{t.questionsToAsk.heading}</h2>
+      <ul class="mt-4 space-y-2 text-neutral-700">
+        {t.questionsToAsk.items.map((q) => (
+          <li class="flex gap-2"><span class="text-brand-accent" aria-hidden="true">•</span><span>{q}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section id="red-flags" aria-labelledby="red-flags-heading" class={`mt-12 ${sectionCls}`}>
+      <h2 id="red-flags-heading" class={sectionH2}>{t.redFlags.heading}</h2>
+      <p class={proseP}>{t.redFlags.intro}</p>
+      <ul class="mt-4 space-y-2 text-neutral-700">
+        {t.redFlags.items.map((flag) => (
+          <li class="flex gap-2"><span class="text-red-600" aria-hidden="true">⚠</span><span>{flag}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section aria-labelledby="faq" class={`mt-12 ${sectionCls}`}>
+      <FAQSection id="faq" heading={t.faq.heading} items={faqItems} />
+    </section>
+
+    <section aria-labelledby="sources-heading" class="mt-12 scroll-mt-24 border-t border-neutral-200 pt-8">
+      <h2 id="sources-heading" class="text-xl font-bold text-neutral-900">{t.outbound.heading}</h2>
+      <ul class="mt-4 space-y-2 text-sm">
+        <li><ExternalLink href={CINS_URL} class="font-semibold" data-event="outbound_click" data-source-component="guide-choose-cins">{t.outbound.cinsLabel}</ExternalLink></li>
+        <li><ExternalLink href={ASTM_URL} class="font-semibold" data-event="outbound_click" data-source-component="guide-choose-astm">{t.outbound.astmLabel}</ExternalLink></li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="related-heading" class="mt-12 scroll-mt-24 border-t border-neutral-200 pt-8">
+      <h2 id="related-heading" class="text-xl font-bold text-neutral-900">{t.related.heading}</h2>
+      <ul role="list" class="mt-4 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+        {t.related.items.map((item) => (
+          <li>
+            <MaybeLink
+              href={item.href}
+              mutedClass="text-neutral-400"
+              data-source-component={`guide-choose-related-${item.href.replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '')}`}
+            >{item.label}</MaybeLink>
+          </li>
+        ))}
+      </ul>
+    </section>
+  </article>
+
+  <CTABanner whatsappMessage={company.whatsapp.presetMessages.salesGeneral} />
+</BaseLayout>

@@ -1,0 +1,459 @@
+{
+  "common": {
+    "metaBlock": {
+      "authorRole": "Authored by",
+      "reviewerRole": "Reviewed by",
+      "factCheckerRole": "Fact-checked by",
+      "lastUpdatedLabel": "Last updated",
+      "readTimeLabel": "Reading time",
+      "readTimeValueTemplate": "{{minutes}} min read"
+    }
+  },
+
+  "hub": {
+    "meta": {
+      "titleTemplate": "Shisha Charcoal Buyer's Guide: Sourcing & Selection",
+      "descriptionTemplate": "Choose the right shisha charcoal material and a verified factory. Coconut vs bamboo vs wood, supplier due-diligence, specs and samples. {{moqTons}} t MOQ."
+    },
+    "breadcrumb": "Buyer's Guide",
+    "eyebrow": "Buyer's Guide",
+    "h1": "Shisha Charcoal Buyer's Guide: Sourcing & Selection",
+    "heroSubtitle": "A shisha charcoal buyer's guide is a sourcing reference for wholesale importers: it explains which raw material burns best, how to vet a factory, and what specifications and documents to demand before you commit a container. This hub links the depth — material comparison, supplier checklist, quality proof and logistics — in the order a serious buyer works through them.",
+    "hero": {
+      "ctaQuote": "Request specifications & a sample",
+      "ctaQuoteAria": "Request full specifications and a sample by WhatsApp",
+      "ctaContact": "Send an inquiry",
+      "ctaContactAria": "Send a wholesale inquiry about coconut shisha charcoal"
+    },
+    "heroTrust": {
+      "moqLabel": "Minimum order",
+      "originLabel": "Factory",
+      "portLabel": "Port of loading",
+      "certLabel": "Certification"
+    },
+    "toc": { "heading": "On this page" },
+    "intro": {
+      "heading": "How to use this guide",
+      "lead": "Sourcing shisha charcoal well comes down to two decisions: the right material and the right factory. Get both right and every downstream variable — burn time, ash, documentation, repeat-order consistency — falls into place.",
+      "body1": "Coconut shell charcoal is the dominant raw material in modern shisha because it is low in ash, dense, and burns long and neutral. The first guide below shows exactly how it compares to bamboo and wood, with sourced figures.",
+      "body2": "Choosing a supplier is the second decision. The factory-selection checklist turns \"is this a serious factory?\" into verifiable criteria — third-party lab COAs, dangerous-goods compliance, capacity and samples — each pointing to the proof.",
+      "moqNotePre": "Wholesale here means container loads: our minimum order is {{moqLabel}}. See the",
+      "moqNoteLink": "wholesale buyer FAQ",
+      "moqNotePost": "for payment terms, lead time and Incoterms."
+    },
+    "children": {
+      "heading": "The guides",
+      "compare": {
+        "h2": "Coconut vs bamboo vs wood charcoal",
+        "definition": "Coconut shell charcoal is the benchmark raw material for shisha — but bamboo and hardwood lump charcoal are common alternatives. This guide compares all three on fixed carbon, ash, calorific value, burn time, taste and sustainability, with sources.",
+        "takeaways": [
+          "Coconut and well-carbonized bamboo overlap on fixed carbon and calorific value — so the decision rests on ash, density and taste, not raw energy.",
+          "Hardwood lump charcoal is irregular, lights fast and burns less evenly; it is rarely used for modern shisha.",
+          "Avoid quick-light / chemically treated coals: a peer-reviewed study measured roughly twice the carbon monoxide of natural charcoal."
+        ],
+        "linkLabel": "Compare coconut, bamboo and wood charcoal"
+      },
+      "chooseFactory": {
+        "h2": "How to choose a shisha charcoal factory",
+        "definition": "Choosing a shisha charcoal factory means verifying specifications, certifications, dangerous-goods compliance, capacity and samples before you commit — not taking a quote at face value. This checklist makes each criterion concrete.",
+        "takeaways": [
+          "Insist on a third-party lab COA (SGS / Intertek) per batch — ISO 9001 certifies the management system, not the product.",
+          "Since IMDG Amendment 42-24 / SP 978, charcoal must ship as declared UN 1361, Class 4.2 — the self-heating test no longer exempts it.",
+          "Match MOQ, Incoterms and lead time to container norms, and test a sample before the first order."
+        ],
+        "linkLabel": "Read the factory-selection checklist"
+      },
+      "startBrand": {
+        "h2": "How to start your own shisha charcoal brand",
+        "definition": "Building a private-label shisha charcoal brand covers artwork, packaging, MOQ and the trial-to-repeat-order path.",
+        "comingSoon": "Coming soon"
+      },
+      "privateLabel": {
+        "h2": "Private-label & OEM options",
+        "definition": "Private-label options span neutral cartons, custom-printed inner boxes and full OEM packaging. Meanwhile, see our white-label packaging page.",
+        "comingSoon": "Coming soon"
+      }
+    },
+    "b3": {
+      "heading": "How buyers start with us",
+      "intro": "Most first orders follow the same low-risk path — test before you scale.",
+      "steps": [
+        { "title": "1. Order a sample", "body": "Verify ash, burn and density in your own lab or lounge before committing. Samples ship by courier.", "href": "/samples", "linkLabel": "Request a sample" },
+        { "title": "2. Trial container", "body": "Place a first container order to validate consistency, documentation and lead time end to end.", "href": "/logistics/rules", "linkLabel": "See shipping rules & Incoterms" },
+        { "title": "3. Repeat-order terms", "body": "Settle on grade, packaging and a reorder cadence; repeat orders run on a shorter lead time.", "href": "/faq", "linkLabel": "Payment terms & lead time" }
+      ]
+    },
+    "atGlance": {
+      "heading": "Coconut shell charcoal at a glance",
+      "definition": "Indicative ranges across our three grades. Per-grade specifications and the full proximate analysis live on the product and quality pages.",
+      "ashLabel": "Ash content",
+      "fixedCarbonLabel": "Fixed carbon",
+      "calorificLabel": "Calorific value",
+      "burnTimeLabel": "Burn time",
+      "productsLinkLabel": "See the product range",
+      "qualityLinkLabel": "How specifications are defined"
+    },
+    "faq": {
+      "heading": "Buyer's guide — frequently asked questions",
+      "items": [
+        {
+          "q": "What charcoal is best for shisha?",
+          "a": "Coconut shell charcoal is the standard for modern shisha: it is low in ash, dense, and burns long and neutral, and it avoids the accelerant residues of quick-light coals. Bamboo and hardwood charcoal are alternatives, but coconut leads on ash, density and taste. See our coconut vs bamboo vs wood comparison for the sourced detail."
+        },
+        {
+          "q": "How do I choose a shisha charcoal supplier?",
+          "a": "Verify the things a quote does not show: a third-party laboratory COA per batch, dangerous-goods (UN 1361) compliance, real production capacity, and a sample you can test. ISO 9001 certifies the management system, not the product, so treat a per-batch COA as the separate product evidence. Our factory-selection checklist walks through each criterion."
+        },
+        {
+          "q": "Can I sell coconut charcoal under my own brand?",
+          "a": "Yes — private-label (white-label) supply lets you sell coconut shisha charcoal under your own brand with custom packaging from a single container. See our white-label packaging page for artwork, MOQ and finishing options."
+        }
+      ]
+    },
+    "related": {
+      "heading": "Related topics",
+      "items": [
+        { "href": "/guide/coconut-vs-bamboo-vs-wood-charcoal", "label": "Coconut vs bamboo vs wood charcoal" },
+        { "href": "/guide/how-to-choose-shisha-charcoal-factory", "label": "How to choose a shisha charcoal factory" },
+        { "href": "/guide/how-to-start-your-own-brand", "label": "How to start your own brand" },
+        { "href": "/guide/private-label-options", "label": "Private-label options" },
+        { "href": "/products", "label": "The coconut charcoal product range" },
+        { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+        { "href": "/quality/certifications", "label": "Certifications & test reports" },
+        { "href": "/packaging/white-label", "label": "White-label & private-label packaging" },
+        { "href": "/factory/raw-materials", "label": "Coconut shell raw materials" },
+        { "href": "/factory/production-process", "label": "How coconut charcoal is made" },
+        { "href": "/logistics", "label": "Shipping & logistics" },
+        { "href": "/samples", "label": "Request a sample" },
+        { "href": "/faq", "label": "Wholesale buyer FAQ" },
+        { "href": "/glossary", "label": "Charcoal glossary" },
+        { "href": "/contact", "label": "Contact the export desk" }
+      ]
+    }
+  },
+
+  "compare": {
+    "meta": {
+      "titleTemplate": "Coconut vs Bamboo vs Wood Charcoal for Shisha (2026)",
+      "descriptionTemplate": "Coconut shell vs bamboo vs hardwood lump charcoal for shisha: fixed carbon, ash, burn time, taste and sustainability. Why coconut wins."
+    },
+    "breadcrumb": "Coconut vs Bamboo vs Wood",
+    "eyebrow": "Material comparison",
+    "h1": "Coconut vs Bamboo vs Wood Charcoal for Shisha",
+    "heroSubtitle": "Coconut shell, bamboo and hardwood lump charcoal are the three raw materials used for shisha coals. This guide compares them on the numbers that matter — fixed carbon, ash, calorific value, burn time, taste and sustainability — and explains why coconut shell charcoal is the modern standard.",
+    "hero": {
+      "ctaQuote": "Request specifications & a sample",
+      "ctaQuoteAria": "Request full coconut charcoal specifications and a sample by WhatsApp",
+      "ctaContact": "Send an inquiry",
+      "ctaContactAria": "Send a wholesale inquiry about coconut shisha charcoal"
+    },
+    "toc": { "heading": "On this page" },
+    "intro": {
+      "upLinkPre": "This material comparison is part of our",
+      "upLinkLabel": "shisha charcoal buyer's guide",
+      "upLinkPost": ".",
+      "p1": "Coconut shell charcoal is charcoal made by carbonizing coconut shells — a hard, dense feedstock that yields low-ash, long-burning briquettes. Bamboo charcoal is made from carbonized bamboo culms; hardwood lump charcoal is irregular charcoal made directly from wood. All three can be turned into shisha coals, but they differ sharply once you look at the numbers.",
+      "p2": "The figures below are reported as ranges, because charcoal composition varies with feedstock and carbonization temperature. Our coconut column is the range across our own three grades; the bamboo and hardwood figures are drawn from published sources, cited beneath the table."
+    },
+    "diagram": {
+      "alt": "Comparison of coconut shell, bamboo and hardwood lump charcoal for shisha — fixed carbon, ash, burn time and taste",
+      "caption": "How coconut shell charcoal compares with bamboo and hardwood lump charcoal across the properties that matter for shisha."
+    },
+    "table": {
+      "heading": "Coconut vs bamboo vs wood charcoal, compared",
+      "caption": "Indicative ranges. Coconut figures are the range across our three grades; bamboo and hardwood figures are from the cited sources and are temperature-dependent.",
+      "propertyHeader": "Property",
+      "columns": { "coconut": "Coconut shell", "bamboo": "Bamboo", "wood": "Hardwood lump" },
+      "rows": [
+        { "key": "fixedCarbon", "label": "Fixed carbon (%)", "bamboo": "10–18 (low-temp) / ~66–67 at 750 °C ᵃ", "wood": "~65–70 at 500 °C, up to ~85 ᵇ" },
+        { "key": "ash", "label": "Ash (%)", "bamboo": "1.1–2.7 ᵃ", "wood": "~0.4–4.2 (typ. ~3–5) ᵇ" },
+        { "key": "calorific", "label": "Calorific value (kcal/kg)", "bamboo": "~5,830–6,980 ᵃ", "wood": ">~5,975 ᵇ" },
+        { "key": "burnTime", "label": "Burn time", "bamboo": "Long, density-linked ᵃ", "wood": "Shorter, less even ᵃ" },
+        { "key": "density", "label": "Density / hardness", "coconut": "High (dense, hard) ᵃ", "bamboo": "Culm-dependent ᵃ", "wood": "Variable ᵇ" },
+        { "key": "taste", "label": "Odor / taste", "coconut": "Neutral (low volatile matter)", "bamboo": "Clean, low-smoke ᵃ", "wood": "Smokier if under-carbonized ᵃ" },
+        { "key": "sustainability", "label": "Feedstock / sustainability", "coconut": "Agricultural by-product", "bamboo": "Fast-renewing ᵃ", "wood": "Forest-degradation linked ᶜ" }
+      ],
+      "footnotesHeading": "Table sources",
+      "footnotes": [
+        { "marker": "ᵃ", "text": "Bamboo figures: Jarawi & Jusoh (2023), BioResources 18(3), and Indonesian-bamboo carbonization studies. Values are temperature-dependent (10–18% fixed carbon at low temperature vs ~66–67% at 750 °C)." },
+        { "marker": "ᵇ", "text": "Hardwood figures: FAO industrial wood-charcoal carbonisation (composition ranges)." },
+        { "marker": "ᶜ", "text": "Sustainability: Nature Communications (2025) wood-charcoal synthesis and Bailis et al. (2015) on woodfuel emissions." }
+      ]
+    },
+    "sections": {
+      "coconut": {
+        "h2": "How much ash does coconut charcoal leave?",
+        "body": "Well-carbonized coconut shell charcoal is low in ash — roughly 1–4% as a material, and 1.6–2.8% across our grades. Low ash matters because ash is inert, non-combustible residue: it lowers effective calorific value, leaves more mess in the bowl, and can insulate the coal and disrupt heat transfer. Coconut's other strengths are high density and hardness, which give a long, even burn. Its weaknesses are cost and the need for proper carbonization — under-carbonized coconut charcoal loses much of its advantage."
+      },
+      "bamboo": {
+        "h2": "Is bamboo charcoal as good as coconut for shisha?",
+        "body": "Bamboo charcoal carbonized at high temperature is competitive on fixed carbon (~66–67% at 750 °C) and calorific value (24.4–29.2 MJ/kg), and it burns clean with low smoke. But its quality is highly temperature-dependent — low-temperature bamboo charcoal can fall to 10–18% fixed carbon — and bamboo tends to carry higher ash than wood at the same temperature. Bamboo's real edge is sustainability: it is fast-renewing."
+      },
+      "wood": {
+        "h2": "Does coconut burn longer than wood charcoal?",
+        "body": "Hardwood lump charcoal can reach high fixed carbon (commonly 50–95%) but is irregular in size and density: it lights faster, burns less evenly, and produces more smoke or odor when under-carbonized. Coconut shell briquettes, by contrast, are pressed to a controlled density and shape for a reproducible, longer, more even burn — which is why lump charcoal is rarely used for modern shisha."
+      },
+      "whyCoconut": {
+        "h2": "Why coconut shell charcoal wins for shisha",
+        "body1": "It is worth being precise about why. On fixed carbon and calorific value, coconut and well-carbonized bamboo overlap heavily — so the case for coconut does not rest on raw energy content.",
+        "body2": "Coconut wins on three things instead: low ash (less residue, cleaner heat transfer), high density and hardness (a long, even burn), and a neutral taste (low volatile matter, no resinous or woody notes when fully carbonized). Those are the properties our grades are built around.",
+        "productsLinkLabel": "See the coconut charcoal product range",
+        "specsLinkLabel": "How specifications are defined"
+      },
+      "combustion": {
+        "h2": "Combustion and safety: what to avoid",
+        "body1": "The biggest safety variable is not the raw material — it is whether the coal is chemically treated. A peer-reviewed Duke University study (Monzer et al., 2015) measured mean carbon monoxide over 90 minutes at 3,728 ± 2,028 ppm for quick-light charcoal versus 1,730 ± 501 ppm for natural charcoal (p = 0.016).",
+        "body2": "Quick-light coals are impregnated with accelerants for instant ignition; natural starch binders (tapioca, cassava, corn) are food-grade and are not the risk — the accelerants are. All charcoal produces carbon monoxide through incomplete combustion, so lounges need ventilation. These are combustion measurements, not health claims.",
+        "note": "Buy natural, fully carbonized coconut charcoal; avoid quick-light or chemically treated coals."
+      },
+      "sustainability": {
+        "h2": "Which material is most sustainable?",
+        "body": "Coconut shell charcoal valorizes an agricultural by-product — shells that would otherwise be waste. Hardwood lump charcoal is linked to forest degradation: a 2025 Nature Communications synthesis ties woodfuel to roughly 1–2 billion tonnes of greenhouse-gas emissions a year (about 2% of the global total). Bamboo sits in between as a fast-renewing crop. We do not claim a coconut-specific cradle-to-gate footprint, because no primary figure exists; the argument is qualitative.",
+        "rawMaterialsLinkLabel": "Our coconut shell raw materials"
+      }
+    },
+    "faq": {
+      "heading": "Coconut vs bamboo vs wood — FAQ",
+      "items": [
+        {
+          "q": "How much ash does coconut shisha charcoal leave?",
+          "a": "Well-carbonized coconut shell charcoal is low in ash — about 1–4% as a material, and 1.6–2.8% across our grades. Lower ash means less residue, cleaner heat transfer to the bowl, and a higher effective calorific value."
+        },
+        {
+          "q": "Does coconut charcoal burn longer than wood charcoal?",
+          "a": "Generally yes for shisha use. Coconut shell briquettes are pressed to a controlled, high density, giving a long, even burn, whereas hardwood lump charcoal is irregular, lights faster and burns less evenly. Burn performance tracks density and fixed carbon rather than raw calorific value."
+        },
+        {
+          "q": "Is bamboo charcoal higher in calorific value than coconut?",
+          "a": "No — they overlap. High-temperature bamboo charcoal runs about 24.4–29.2 MJ/kg and coconut shell charcoal about 28–32 MJ/kg, so the two are comparable. The decisive differences for shisha are ash, density and taste, not calorific value."
+        }
+      ]
+    },
+    "related": {
+      "heading": "Related topics",
+      "items": [
+        { "href": "/guide", "label": "Shisha charcoal buyer's guide" },
+        { "href": "/guide/how-to-choose-shisha-charcoal-factory", "label": "How to choose a shisha charcoal factory" },
+        { "href": "/products", "label": "The coconut charcoal product range" },
+        { "href": "/quality/specifications-explained", "label": "Specifications explained" },
+        { "href": "/factory/raw-materials", "label": "Coconut shell raw materials" },
+        { "href": "/samples", "label": "Request a sample to test" }
+      ]
+    },
+    "outbound": {
+      "heading": "Authoritative sources",
+      "faoLabel": "FAO — charcoal carbonisation & composition",
+      "astmLabel": "ASTM D1762-84(2021) — chemical analysis of charcoal",
+      "dukeLabel": "Duke / PubMed — charcoal type & carbon monoxide (Monzer et al., 2015)"
+    }
+  },
+
+  "chooseFactory": {
+    "meta": {
+      "titleTemplate": "How to Choose a Shisha Charcoal Factory: 2026 Checklist",
+      "descriptionTemplate": "How to vet a shisha charcoal supplier: specs, third-party COA, DG/UN 1361 compliance, capacity, samples and red flags. A buyer's checklist."
+    },
+    "breadcrumb": "How to Choose a Factory",
+    "eyebrow": "Supplier selection",
+    "h1": "How to Choose a Shisha Charcoal Factory",
+    "heroSubtitle": "Choosing a shisha charcoal factory means verifying — before you commit a container — that the supplier can prove its specifications, ship compliantly, and repeat the result. This checklist turns that into concrete, verifiable criteria, with the proof for each.",
+    "hero": {
+      "ctaQuote": "Request specifications & a sample",
+      "ctaQuoteAria": "Request full specifications and a sample by WhatsApp",
+      "ctaContact": "Send an inquiry",
+      "ctaContactAria": "Send a wholesale inquiry to our export desk"
+    },
+    "toc": { "heading": "On this page" },
+    "intro": {
+      "upLinkPre": "This factory-selection checklist is part of our",
+      "upLinkLabel": "shisha charcoal buyer's guide",
+      "upLinkPost": ".",
+      "p1": "Choosing a shisha charcoal supplier is a due-diligence exercise: a quote tells you a price, not whether the factory can prove its specifications, ship its cargo legally, and reproduce the result order after order. The criteria below are what a professional buyer verifies — each with the document or page that proves it."
+    },
+    "leadImage": {
+      "alt": "Coconut shell charcoal factory floor — carbonization ovens and briquetting lines",
+      "caption": "What to verify before you commit a container: specifications, certifications, dangerous-goods compliance, capacity and samples."
+    },
+    "b2": {
+      "heading": "Commercial terms at a glance",
+      "definition": "The container-level terms a serious factory states up front. Values are our own; any term we did not publish simply would not appear.",
+      "moqLabel": "Minimum order",
+      "paymentLabel": "Payment terms",
+      "leadTimeLabel": "Lead time (PO → vessel)",
+      "incotermsLabel": "Incoterms offered",
+      "portLabel": "Port of loading",
+      "rulesLinkLabel": "Shipping rules & Incoterms",
+      "faqLinkLabel": "Payment & lead-time FAQ"
+    },
+    "criteria": {
+      "heading": "The factory-selection checklist",
+      "intro": "Seven criteria — each with how to verify it and where the proof lives.",
+      "verifyLabel": "How to verify",
+      "items": [
+        {
+          "id": "specs",
+          "name": "Specifications & test methods",
+          "definition": "Proximate analysis (moisture, volatile matter, ash, fixed carbon) and calorific value, run to a named method.",
+          "verify": "Ask which method: ASTM D1762-84(2021) is charcoal-specific, or the ISO 18122 (ash), 18123 (volatile matter), 18134-1 (moisture) and 18125 (calorific value) solid-biofuel series. Fixed carbon is always calculated by difference. Coal and coke standards (ISO 1171, ASTM D3172/D3175) are the wrong material class.",
+          "href": "/quality/specifications-explained",
+          "linkLabel": "How specifications are defined"
+        },
+        {
+          "id": "coa",
+          "name": "Third-party COA & certifications",
+          "definition": "Independent, per-batch confirmation of the numbers — not self-reported.",
+          "verify": "Require a Certificate of Analysis from an independent lab (e.g. SGS / Intertek) per batch. ISO 9001 certifies the management system, not the product, so treat the COA as separate product evidence. For Muslim-majority markets, halal certification (in Indonesia: BPJPH issues the certificate under Law 33/2014; LPPOM MUI audits) is a high-value trust signal.",
+          "href": "/quality/certifications",
+          "linkLabel": "Certifications & test reports"
+        },
+        {
+          "id": "dg",
+          "name": "Dangerous-goods (UN 1361) compliance",
+          "definition": "Charcoal is a self-heating dangerous good and must ship as one.",
+          "verify": "Since IMDG Amendment 42-24 and Special Provision 978, the old exemption is gone: charcoal must be declared UN 1361, Class 4.2, and the self-heating test (UN N.4) no longer exempts it. A compliant supplier provides a DG declaration, an SHT / UN N.4 report from a recognized lab, Class 4.2 labels, and P002 packaging (Packing Group III: ≤40 °C at packing, ≥30 cm headspace, prior weathering).",
+          "href": "/logistics/un-1361",
+          "linkLabel": "UN 1361 dangerous-goods classification"
+        },
+        {
+          "id": "capacity",
+          "name": "Capacity & lead time",
+          "definition": "Enough monthly output and consistent lead times to support reorders.",
+          "verify": "Ask for tonnes per month, the number of production lines, and the lead time at your volume — and whether it holds through seasonal peaks.",
+          "href": "/factory/capacity",
+          "linkLabel": "Production capacity"
+        },
+        {
+          "id": "samples",
+          "name": "Samples & QC",
+          "definition": "A documented sampling protocol and pre-shipment inspection.",
+          "verify": "Order a sample and test it; confirm there is a written QC and sampling protocol and a pre-shipment inspection on every container.",
+          "href": "/samples",
+          "linkLabel": "Request a sample"
+        },
+        {
+          "id": "terms",
+          "name": "MOQ, Incoterms & payment",
+          "definition": "Commercial terms that match container norms.",
+          "verify": "Confirm MOQ, Incoterms (FOB / CFR / EXW) and payment terms in writing before you order; an MOQ far outside container norms is a warning sign.",
+          "href": "/logistics/rules",
+          "linkLabel": "Shipping rules & Incoterms"
+        },
+        {
+          "id": "branding",
+          "name": "Branding / OEM",
+          "definition": "The ability to supply under your own label if you need it.",
+          "verify": "If you plan to sell under your own brand, confirm white-label artwork, MOQ and finishing capability up front.",
+          "href": "/packaging/white-label",
+          "linkLabel": "White-label & private-label packaging"
+        }
+      ]
+    },
+    "b1": {
+      "heading": "How we meet each criterion",
+      "intro": "Here is how our factory answers the checklist above — each point backed by a document or a page, not a claim.",
+      "thirdPartyLab": {
+        "text": "Every container ships with a third-party laboratory report ({{thirdPartyLabsList}}) alongside our Certificate of Analysis.",
+        "href": "/quality/certifications",
+        "linkLabel": "Our certifications & test reports"
+      },
+      "dg": {
+        "text": "We declare and ship as UN 1361, Class 4.2, and adopted SP 978 compliance voluntarily — ahead of the IMDG Amendment 42-24 mandate.",
+        "href": "/logistics/un-1361",
+        "linkLabel": "Our UN 1361 compliance"
+      },
+      "iso": {
+        "text": "Our quality management system is {{isoStandard}} certified.",
+        "href": "/quality/certifications",
+        "linkLabel": "ISO 9001 certificate"
+      },
+      "halal": {
+        "text": "We hold halal certification ({{halalBody}}) for Muslim-majority markets.",
+        "href": "/quality/certifications",
+        "linkLabel": "Halal certification"
+      },
+      "capacity": {
+        "text": "Capacity is {{capacityMonth}} tonnes per month across {{productionLines}} production lines, on a {{leadTimeLabel}} lead time.",
+        "href": "/factory/capacity",
+        "linkLabel": "Our production capacity"
+      },
+      "carriers": {
+        "text": "We ship UN 1361 with audited carriers: {{carriersAudited}}.",
+        "href": "/logistics",
+        "linkLabel": "Shipping & logistics"
+      },
+      "samples": {
+        "text": "Order a sample to verify ash, density and burn before you commit to a container.",
+        "href": "/samples",
+        "linkLabel": "Request a sample"
+      }
+    },
+    "eu": {
+      "heading": "EU buyers: REACH & CLP in brief",
+      "body1": "This is buyer guidance, not legal advice. Charcoal is not REACH-exempt (substance identity EC 240-383-3 / CAS 16291-96-6); it is not classed as \"natural\", coal or coke. The EU importer — not the non-EU factory — bears REACH registration once it imports one tonne or more per year in aggregate.",
+      "body2": "A non-EU manufacturer may appoint an EEA-established Only Representative (OR) so the importer becomes a downstream user. Under CLP, charcoal has no harmonised classification and is self-classified — commonly as a self-heating solid (Self-heat. 1, H251) and often also Flam. Sol. 2, H228 — with a classification and labelling notification due within one month of placing it on the market.",
+      "buyerConfirm": "Confirm your exact obligations with your EU importer or a regulatory consultant — they depend on your import volume and legal-entity structure. We support EU buyers with full SDS and COA documentation.",
+      "echaLinkLabel": "ECHA — charcoal substance information"
+    },
+    "questionsToAsk": {
+      "heading": "Questions to ask a supplier",
+      "items": [
+        "Can you provide a third-party lab COA (SGS / Intertek) for this batch?",
+        "What test methods do you run — ASTM D1762 or the ISO 18xxx series?",
+        "Can you provide a DG declaration and an SHT / UN N.4 report for UN 1361?",
+        "What is your monthly capacity and lead time at my volume?",
+        "Can I order a sample before the first container?",
+        "Do you offer white-label packaging, and at what MOQ?"
+      ]
+    },
+    "redFlags": {
+      "heading": "Red flags & due diligence",
+      "intro": "Dig deeper — or walk away — if you see any of these.",
+      "items": [
+        "Refusal to provide a DG declaration or SHT report.",
+        "Charcoal declared as \"non-DG\" or mis-declared as UN 3088 — it must be UN 1361.",
+        "Only self-reported lab data, with no independent COA.",
+        "No consistent batch-to-batch COAs.",
+        "An MOQ far outside container norms.",
+        "Business registration (Indonesian NIB) that cannot be verified."
+      ]
+    },
+    "faq": {
+      "heading": "Choosing a factory — FAQ",
+      "items": [
+        {
+          "q": "Is shisha charcoal a dangerous good to ship?",
+          "a": "Yes. Coconut, bamboo and wood charcoal all ship as UN 1361, Class 4.2 (substances liable to spontaneous combustion). Since IMDG Amendment 42-24 and Special Provision 978, charcoal must be declared and carried as dangerous goods; the self-heating test no longer exempts it. Expect a DG declaration, an SHT report, Class 4.2 labels and P002 packaging."
+        },
+        {
+          "q": "What test methods prove charcoal specifications?",
+          "a": "Ask for proximate analysis to a named method: ASTM D1762-84(2021) is the charcoal-specific standard, or the ISO 18122 (ash), 18123 (volatile matter), 18134-1 (moisture) and 18125 (calorific value) series for solid biofuels. Fixed carbon is always calculated by difference. Coal and coke standards are the wrong material class."
+        },
+        {
+          "q": "Does ISO 9001 prove product quality?",
+          "a": "No. ISO 9001 certifies a quality management system — consistent, documented processes — not the specifications of the charcoal itself. Treat it as evidence of process discipline, and require a separate per-batch Certificate of Analysis as the product evidence."
+        }
+      ]
+    },
+    "related": {
+      "heading": "Related topics",
+      "items": [
+        { "href": "/guide", "label": "Shisha charcoal buyer's guide" },
+        { "href": "/guide/coconut-vs-bamboo-vs-wood-charcoal", "label": "Coconut vs bamboo vs wood charcoal" },
+        { "href": "/quality/certifications", "label": "Certifications & test reports" },
+        { "href": "/quality/testing-methods", "label": "Testing methods" },
+        { "href": "/factory/capacity", "label": "Production capacity" },
+        { "href": "/logistics/un-1361", "label": "UN 1361 dangerous-goods classification" },
+        { "href": "/samples", "label": "Request a sample" },
+        { "href": "/packaging/white-label", "label": "White-label & private-label packaging" },
+        { "href": "/about", "label": "About our factory" },
+        { "href": "/contact", "label": "Contact the export desk" }
+      ]
+    },
+    "outbound": {
+      "heading": "Authoritative sources",
+      "cinsLabel": "CINS / IG P&I — Safe Carriage of Charcoal in Containers (UN 1361 / SP 978)",
+      "astmLabel": "ASTM D1762-84(2021) — chemical analysis of charcoal",
+      "echaLabel": "ECHA — charcoal substance information (REACH / CLP)"
+    }
+  }
+}

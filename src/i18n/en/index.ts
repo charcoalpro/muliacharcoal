@@ -20,6 +20,7 @@ import home from './home.json';
 import careers from './careers.json';
 import glossary from './glossary.json';
 import faq from './faq.json';
+import guide from './guide.json';
 import products from './products.json';
 import samples from './samples.json';
 import packaging from './packaging.json';
@@ -37,6 +38,7 @@ import logisticsDgRegulation from './logisticsDgRegulation.json';
 import logisticsShippingLines from './logisticsShippingLines.json';
 import logisticsCargoProtection from './logisticsCargoProtection.json';
 import logisticsImportUsa from './logisticsImportUsa.json';
+import logisticsImportCommon from './logisticsImportCommon.json';
 import quality from './quality.json';
 import qualityCommon from './qualityCommon.json';
 import qualitySpecs from './qualitySpecs.json';
@@ -61,6 +63,7 @@ const en = {
   careers,
   glossary,
   faq,
+  guide,
   products,
   samples,
   packaging,
@@ -78,6 +81,7 @@ const en = {
   logisticsShippingLines,
   logisticsCargoProtection,
   logisticsImportUsa,
+  logisticsImportCommon,
   quality,
   qualityCommon,
   qualitySpecs,

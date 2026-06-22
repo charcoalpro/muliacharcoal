@@ -29,8 +29,8 @@
     "docsValue": "ISF 10+2, customs bond, CBP Form 7501",
     "customsLabel": "Customs clearance",
     "customsValue": "Buyer's licensed customs broker",
-    "fdaLabel": "FDA",
-    "fdaValue": "Hookah charcoal is a regulated tobacco-product component"
+    "agencyLabel": "FDA",
+    "agencyValue": "Hookah charcoal is a regulated tobacco-product component"
   },
   "hts": {
     "h2": "HTS classification",
@@ -82,18 +82,15 @@
     "regulationLinkLabel": "The 2026 rules",
     "cargoLinkLabel": "Insured arrival & cargo protection"
   },
-  "fda": {
+  "countryAgency": {
     "h2": "FDA: hookah charcoal as a tobacco-product component",
     "intro": "This is regulatory information, not legal advice — see the disclaimer below.",
-    "deemingLabel": "Deeming Rule",
-    "scopeLabel": "Scope",
-    "requirementsLabel": "Requirements",
-    "enforcementLabel": "Enforcement discretion",
-    "importAlertLabel": "Import enforcement",
-    "mislabelLabel": "Do not mislabel",
-    "practicalLabel": "Practical steps",
-    "practicalBody": "Work with US counsel and a customs broker experienced in tobacco-product entries before you ship; confirm registration, listing, and marketing-authorization status for your specific product."
+    "disclaimer": {
+      "heading": "Regulatory information, not legal advice",
+      "body": "This page summarizes US import and FDA requirements for general information only and is not legal advice. Tobacco-product regulation changes without notice and enforcement is fact-specific. Confirm your obligations with a licensed US customs broker and qualified counsel before importing."
+    }
   },
+  "responsibilityDestLine": "FDA tobacco-product compliance — establishment registration, product listing, and PMTA status — and clearing any Import Alert 98-06 hold",
   "ports": {
     "h2": "US ports & routing",
     "body": "Indicative ocean transit from {{portWithCode}} to the main US gateways:",

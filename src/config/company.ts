@@ -303,6 +303,45 @@ export interface PackagingConfig {
 // `*.sourceUrl` + a `lastVerified` date. Empty string / null / [] →
 // graceful degrade via hasFact() (row drops, "—", "on request").
 // =======================================================================
+/** Published import-to-{country} pages. Keys are the dynamic-route slugs in
+ *  camelCase (slug `import-to-saudi-arabia` → `saudiArabia`). Adding a country
+ *  later is data-only: one object in `logistics.imports` + one i18n namespace,
+ *  no new page code (the route is `import-to-[country].astro`). */
+export type ImportCountryKey = 'usa' | 'uk' | 'germany' | 'saudiArabia' | 'russia';
+
+/** One country's import mechanics. Every regulatory cell carries a sourceUrl +
+ *  asOf and degrades via hasFact(); `vat` / `preference` are null on pages that
+ *  lack them (USA). The USA `fda` block generalises to `countryAgency` — item
+ *  label+value are regulatory data (with provenance); the section heading,
+ *  intro and disclaimer are prose in the per-country i18n namespace. */
+export interface ImportCountry {
+  /** Exact `commercial.transitTimes[].country` string — drives the Ports filter. */
+  country: string;
+  htsCandidates: Array<{ code: string; sourceUrl: string; note: string }>;
+  htsNotes: string;
+  dutyLayers: Array<{
+    id: string;
+    label: string;
+    rate: string;
+    basis: string;
+    sourceUrl: string;
+    asOf: string;
+    legalStatus?: string;
+  }>;
+  /** Import VAT / equivalent — the dated layer the USA page lacks. null → omits. */
+  vat: { name: string; ratePct: string; recoverableNote: string; asOf: string; sourceUrl: string } | null;
+  /** Indonesia-origin preference note (DCTS / GSP / EAEU / GCC). null → omits. */
+  preference: { note: string; originDoc: string; sourceUrl: string } | null;
+  dutyHistory: string;
+  adcvd: string;
+  /** Entry/clearance steps keyed by the i18n `entry.steps[].field`. */
+  entryNotes: Record<string, string>;
+  entrySourceUrl: string;
+  /** Generalised country-agency section (USA FDA → generic). */
+  countryAgency: { items: Array<{ label: string; value: string; sourceUrl: string }> };
+  lastVerified: string;
+}
+
 export interface LogisticsConfig {
   // — operational (port/transit/containers reuse commercial.*) —
   truckingFactoryToPortHours: string | number;
@@ -415,43 +454,11 @@ export interface LogisticsConfig {
     }>;
   };
 
-  // — import-to-usa (every regulatory fact needs sourceUrl + lastVerified) —
-  usaImport: {
-    htsCode: string;
-    htsSourceUrl: string;
-    htsCandidates: Array<{ code: string; sourceUrl: string; note: string }>;
-    htsNotes: string;
-    dutyLayers: Array<{
-      id: string;
-      label: string;
-      rate: string;
-      basis: string;
-      sourceUrl: string;
-      asOf: string;
-      legalStatus?: string;
-    }>;
-    dutyHistory: string;
-    adcvd: string;
-    entryNotes: { isf: string; bond: string; entrySummary: string };
-    entrySourceUrl: string;
-    usPortsServed: string[];
-    fda: {
-      deemingApplies: boolean | null;
-      deemingSourceUrl: string;
-      deemingRule: string;
-      scope: string;
-      requirements: string;
-      pmtaStatus: string;
-      stnNote: string;
-      enforcementDiscretionStatus: string;
-      enforcementSourceUrl: string;
-      importAlert: string;
-      mislabeling: string;
-      pending: string;
-      lastVerified: string;
-    };
-    lastVerified: string;
-  };
+  // — per-country import pages (every regulatory fact needs sourceUrl +
+  //   lastVerified). USA migrated in from the former `usaImport`; UK / Germany
+  //   / Saudi Arabia / Russia added by the import cocoon. Rendered by the
+  //   dynamic route `src/pages/logistics/import-to-[country].astro`. —
+  imports: Partial<Record<ImportCountryKey, ImportCountry>>;
 
   /** Dates only — author/reviewer names come from governance.*. */
   editorial: { datePublished: string; dateModified: string };
@@ -592,11 +599,30 @@ export interface FactoryConfig {
   ramadanLeadNote: string;
 }
 
-const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality' | 'samples' | 'factory'> & {
+// =======================================================================
+// Buyer's Guide pillar contract (/guide hub + lead articles).
+//
+// Editorial DATES only — author/reviewer names come from governance.*.
+// Cross-material / regulatory facts are EXTERNAL (guide-research-findings.md,
+// cite-or-omit); coconut spec figures come from grades.ts. No literal spec
+// numbers live here.
+// =======================================================================
+export interface GuideConfig {
+  editorial: {
+    hub: { datePublished: string; dateModified: string };
+    coconutVsBambooVsWood: { datePublished: string; dateModified: string };
+    howToChooseFactory: { datePublished: string; dateModified: string };
+    howToStartBrand: { datePublished: string; dateModified: string };
+    privateLabelOptions: { datePublished: string; dateModified: string };
+  };
+}
+
+const companyData = rawCompanyData as Omit<typeof rawCompanyData, 'packaging' | 'logistics' | 'quality' | 'samples' | 'factory' | 'guide'> & {
   packaging: PackagingConfig;
   logistics: LogisticsConfig;
   quality: QualityConfig;
   factory: FactoryConfig;
+  guide: GuideConfig;
   social: Record<keyof typeof rawCompanyData.social, string | null>;
   production: typeof rawCompanyData.production & {
     carbonizationPlant: { city: string; region: string } | null;
