@@ -157,18 +157,18 @@
     "countriesExportedCount": 35,
     "lcMinContainers": 1,
     "transitTimes": [
-      { "destination": "Jeddah, Saudi Arabia", "portCode": "SAJED", "country": "Saudi Arabia", "minDays": 18, "maxDays": 25 },
-      { "destination": "Felixstowe, United Kingdom", "portCode": "GBFXT", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
-      { "destination": "Hamburg, Germany", "portCode": "DEHAM", "country": "Germany", "minDays": 30, "maxDays": 38 },
+      { "destination": "Jeddah, Saudi Arabia", "portCode": "SAJED", "country": "Saudi Arabia", "minDays": 25, "maxDays": 35 },
+      { "destination": "Felixstowe, United Kingdom", "portCode": "GBFXT", "country": "United Kingdom", "minDays": 30, "maxDays": 42 },
+      { "destination": "Hamburg, Germany", "portCode": "DEHAM", "country": "Germany", "minDays": 32, "maxDays": 45 },
       { "destination": "Los Angeles, USA (West Coast)", "portCode": "USLAX", "country": "USA", "minDays": 25, "maxDays": 32 },
       { "destination": "New York / New Jersey, USA (East Coast)", "portCode": "USNYC", "country": "USA", "minDays": 35, "maxDays": 45 },
-      { "destination": "St Petersburg, Russia", "portCode": "RULED", "country": "Russia", "minDays": 38, "maxDays": 48 },
-      { "destination": "London Gateway, United Kingdom", "portCode": "GBLGP", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
-      { "destination": "Southampton, United Kingdom", "portCode": "GBSOU", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
-      { "destination": "Bremerhaven, Germany", "portCode": "DEBRV", "country": "Germany", "minDays": 30, "maxDays": 38 },
-      { "destination": "Dammam, Saudi Arabia", "portCode": "SADMM", "country": "Saudi Arabia", "minDays": 22, "maxDays": 30 },
-      { "destination": "Novorossiysk, Russia", "portCode": "RUNVS", "country": "Russia", "minDays": 30, "maxDays": 40 },
-      { "destination": "Vladivostok, Russia", "portCode": "RUVVO", "country": "Russia", "minDays": 15, "maxDays": 22 }
+      { "destination": "St Petersburg, Russia", "portCode": "RULED", "country": "Russia", "minDays": 40, "maxDays": 60 },
+      { "destination": "London Gateway, United Kingdom", "portCode": "GBLGP", "country": "United Kingdom", "minDays": 30, "maxDays": 42 },
+      { "destination": "Southampton, United Kingdom", "portCode": "GBSOU", "country": "United Kingdom", "minDays": 30, "maxDays": 42 },
+      { "destination": "Bremerhaven, Germany", "portCode": "DEBRV", "country": "Germany", "minDays": 32, "maxDays": 45 },
+      { "destination": "Dammam, Saudi Arabia", "portCode": "SADMM", "country": "Saudi Arabia", "minDays": 28, "maxDays": 40 },
+      { "destination": "Novorossiysk, Russia", "portCode": "RUNVS", "country": "Russia", "minDays": 35, "maxDays": 55 },
+      { "destination": "Vladivostok, Russia", "portCode": "RUVVO", "country": "Russia", "minDays": 18, "maxDays": 30 }
     ],
     "containerCapacity": {
       "ft20": { "fullKg": 18000, "bulkKg": null, "palletizedKg": 16000 },
