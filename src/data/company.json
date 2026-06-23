@@ -157,18 +157,18 @@
     "countriesExportedCount": 35,
     "lcMinContainers": 1,
     "transitTimes": [
-      { "destination": "Jeddah, Saudi Arabia", "portCode": "SAJED", "country": "Saudi Arabia", "minDays": 18, "maxDays": 25 },
-      { "destination": "Felixstowe, United Kingdom", "portCode": "GBFXT", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
-      { "destination": "Hamburg, Germany", "portCode": "DEHAM", "country": "Germany", "minDays": 30, "maxDays": 38 },
+      { "destination": "Jeddah, Saudi Arabia", "portCode": "SAJED", "country": "Saudi Arabia", "minDays": 25, "maxDays": 35 },
+      { "destination": "Felixstowe, United Kingdom", "portCode": "GBFXT", "country": "United Kingdom", "minDays": 30, "maxDays": 42 },
+      { "destination": "Hamburg, Germany", "portCode": "DEHAM", "country": "Germany", "minDays": 32, "maxDays": 45 },
       { "destination": "Los Angeles, USA (West Coast)", "portCode": "USLAX", "country": "USA", "minDays": 25, "maxDays": 32 },
       { "destination": "New York / New Jersey, USA (East Coast)", "portCode": "USNYC", "country": "USA", "minDays": 35, "maxDays": 45 },
-      { "destination": "St Petersburg, Russia", "portCode": "RULED", "country": "Russia", "minDays": 38, "maxDays": 48 },
-      { "destination": "London Gateway, United Kingdom", "portCode": "GBLGP", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
-      { "destination": "Southampton, United Kingdom", "portCode": "GBSOU", "country": "United Kingdom", "minDays": 30, "maxDays": 38 },
-      { "destination": "Bremerhaven, Germany", "portCode": "DEBRV", "country": "Germany", "minDays": 30, "maxDays": 38 },
-      { "destination": "Dammam, Saudi Arabia", "portCode": "SADMM", "country": "Saudi Arabia", "minDays": 22, "maxDays": 30 },
-      { "destination": "Novorossiysk, Russia", "portCode": "RUNVS", "country": "Russia", "minDays": 30, "maxDays": 40 },
-      { "destination": "Vladivostok, Russia", "portCode": "RUVVO", "country": "Russia", "minDays": 15, "maxDays": 22 }
+      { "destination": "St Petersburg, Russia", "portCode": "RULED", "country": "Russia", "minDays": 40, "maxDays": 60 },
+      { "destination": "London Gateway, United Kingdom", "portCode": "GBLGP", "country": "United Kingdom", "minDays": 30, "maxDays": 42 },
+      { "destination": "Southampton, United Kingdom", "portCode": "GBSOU", "country": "United Kingdom", "minDays": 30, "maxDays": 42 },
+      { "destination": "Bremerhaven, Germany", "portCode": "DEBRV", "country": "Germany", "minDays": 32, "maxDays": 45 },
+      { "destination": "Dammam, Saudi Arabia", "portCode": "SADMM", "country": "Saudi Arabia", "minDays": 28, "maxDays": 40 },
+      { "destination": "Novorossiysk, Russia", "portCode": "RUNVS", "country": "Russia", "minDays": 35, "maxDays": 55 },
+      { "destination": "Vladivostok, Russia", "portCode": "RUVVO", "country": "Russia", "minDays": 18, "maxDays": 30 }
     ],
     "containerCapacity": {
       "ft20": { "fullKg": 18000, "bulkKg": null, "palletizedKg": 16000 },
@@ -829,8 +829,8 @@
             },
             {
               "label": "EU REACH + CLP",
-              "value": "Charcoal is a registrable substance under EU REACH; an importer placing more than one tonne per year on the EU market must hold a REACH registration or be covered by the exporter's appointed Only Representative (OR), and CLP classification/labelling applies. Verify the registration or OR Letter-of-Access position before the vessel arrives.",
-              "sourceUrl": "https://www.trade.gov/eu-reach"
+              "value": "Charcoal is a registrable substance under EU REACH (not an SDS-only product): an EU importer placing more than one tonne per year on the market must either hold its own registration or be covered by the non-EU manufacturer's appointed Only Representative (OR) holding a Letter of Access to the existing joint registration, whose lead registrant is COALSTER GmbH. Two substance identities are in play — generic \"Charcoal\" (EC 240-383-3, CAS 16291-96-6) and the coconut-shell-specific \"Charcoal coconut shell\" (EC 271-974-4, CAS 68647-86-9); confirm with the lead registrant / OR which one your tapioca-bound composition registers under. CLP self-heating-substance classification and labelling apply (UN 1361, Class 4.2).",
+              "sourceUrl": "https://echa.europa.eu/substance-information/-/substanceinfo/100.036.697"
             },
             {
               "label": "EUTR (predecessor)",
@@ -839,7 +839,7 @@
             }
           ]
         },
-        "lastVerified": "2026-06-21"
+        "lastVerified": "2026-06-23"
       },
       "saudiArabia": {
         "country": "Saudi Arabia",
@@ -936,8 +936,8 @@
         "htsCandidates": [
           {
             "code": "4402 20 000 0",
-            "sourceUrl": "https://www.alta.ru/tnved/code/4402900000/",
-            "note": "ТН ВЭД ЕАЭС \"Of shells or nuts\" (из скорлупы или орехов) — the precise subheading for coconut-shell charcoal; carries the 5% EAEU base duty. Russian broker databases show coconut hookah-charcoal briquettes declared here."
+            "sourceUrl": "https://ifcg.ru/kb/tnved/4402200000",
+            "note": "ТН ВЭД ЕАЭС \"Of shells or nuts\" (из скорлупы или орехов) — the precise subheading for coconut-shell charcoal; carries the 5% EAEU base duty. Confirmed as the accepted line against filed Russian import declarations (IFCG records) for agglomerated coconut hookah-charcoal briquettes; declare here rather than the residual 4402 90 000 0."
           },
           {
             "code": "4402 90 000 0",
@@ -960,16 +960,16 @@
             "id": "fee",
             "label": "Customs clearance fee (таможенный сбор)",
             "rate": "Tiered by customs value",
-            "basis": "Federal fee for customs operations, scaled by declared customs value (Government Resolution 1638, indexed upward for 2026)",
-            "sourceUrl": "https://eec.eaeunion.org/comission/department/dotp/tariff_preferences.php",
-            "asOf": "2026-06-21",
-            "legalStatus": "Confirmed in principle; the exact bracket amount is UNVERIFIED here — confirm the FCS schedule with your broker."
+            "basis": "Federal fee for customs operations, scaled by declared customs value, per Government Resolution No. 1638 of 23 Oct 2025 (effective 1 Jan 2026). Import brackets: ≤200,000 RUB = 1,231 RUB; 200,000–450,000 = 2,462; 450,000–1,200,000 = 4,924; 1,200,000–2,700,000 = 13,541; top bracket >10,000,000 = 73,860 (upper threshold raised from 7M to 10M RUB).",
+            "sourceUrl": "http://government.ru/docs/",
+            "asOf": "2026-01-01",
+            "legalStatus": "Confirmed per Government Resolution No. 1638 of 23 Oct 2025; the intermediate 2.7M–10M RUB brackets are not itemised here — confirm the exact bracket for your declared value with your broker."
           }
         ],
         "vat": {
           "name": "Import VAT (НДС)",
           "ratePct": "22%",
-          "recoverableNote": "Charged on the customs value plus duty. Registered Russian VAT payers can deduct import VAT (Arts. 171–172 of the Tax Code, within three years, against the customs declaration and proof of payment). Charcoal does not qualify for the reduced 10% rate.",
+          "recoverableNote": "Raised from 20% to 22% effective 1 January 2026 by Federal Law No. 425-FZ of 28 Nov 2025. Charged on the customs value plus duty. Registered Russian VAT payers can deduct import VAT (Arts. 171–172 of the Tax Code, within three years, against the customs declaration and proof of payment). Charcoal does not qualify for the reduced 10% rate.",
           "asOf": "2026-01-01",
           "sourceUrl": "https://www.consultant.ru/legalnews/30257/"
         },
@@ -1018,7 +1018,7 @@
             }
           ]
         },
-        "lastVerified": "2026-06-21"
+        "lastVerified": "2026-06-23"
       }
     },
 
