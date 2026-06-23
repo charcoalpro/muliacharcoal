@@ -21,11 +21,13 @@ import { pillarCrumb } from '~/lib/breadcrumb';
 import { company, waLinkFor, hasFact } from '~/config/company';
 import { fill, companyTokens, logisticsTokens } from '~/lib/interpolate';
 import { logisticsClusterPageSchema } from '~/lib/schema/logisticsClusterPage';
+import { importCountryLinks } from '~/lib/importCountries';
 
 const t = en.logisticsUn1361;
 const tc = en.logisticsCommon;
 const L = company.logistics;
 const tokens = { ...companyTokens(company), ...logisticsTokens(company) };
+const importGuides = importCountryLinks();
 
 const pageTitle = fill(t.meta.titleTemplate, tokens);
 const pageDescription = fill(t.meta.descriptionTemplate, tokens);
@@ -168,6 +170,20 @@ const readMinutes = readingTime(proseForReadTime);
       <p class="mt-6 max-w-prose text-base leading-relaxed text-neutral-700">{fill(t.markings.body, tokens)}{' '}
         <MaybeLink href="/packaging" class="font-semibold" data-source-component="un1361-markings-packaging">{t.markings.packagingLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
       </p>
+    </section>
+
+    <section id="country-entry" aria-labelledby="country-entry-h" class="mt-12 scroll-mt-24">
+      <h2 id="country-entry-h" class="text-2xl font-bold text-neutral-900">{t.countryEntry.h2}</h2>
+      <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.countryEntry.body}</p>
+      <ul class="mt-4 grid grid-cols-1 gap-1.5 sm:grid-cols-2" role="list">
+        {importGuides.map((g) => (
+          <li>
+            <MaybeLink href={g.href} class="font-semibold" data-source-component={`un1361-country-${g.slug}`}>
+              {fill(t.countryEntry.itemTemplate, { country: g.country })} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
     </section>
 
     <section aria-labelledby="un1361-faq" class="mt-14">

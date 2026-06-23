@@ -36,8 +36,8 @@
   },
   "incoterms": {
     "h2": "Incoterms we offer",
-    "body": "Our default sales basis is {{incotermDefault}} {{port}}: we cover origin trucking, export clearance, terminal handling, and vanning, and risk transfers when the cargo crosses the ship's rail. We also quote {{incotermsList}}. Under every basis we offer, the buyer arranges marine insurance — we do not offer CIF.",
-    "cifNote": "Because insurance is buyer-arranged under each incoterm we offer, cover and exclusions are the buyer's to confirm.",
+    "body": "Our default sales basis is {{incotermDefault}} {{port}}: we cover origin trucking, export clearance, terminal handling, and vanning, and risk transfers when the cargo crosses the ship's rail. We also quote {{incotermsList}}. Under EXW, FOB and CFR the buyer arranges marine insurance; CIF, which adds seller-arranged marine cover to the destination port, is available on request.",
+    "cifNote": "Under EXW, FOB and CFR insurance is buyer-arranged, so cover and exclusions are the buyer's to confirm; under CIF the factory arranges marine cover on request. Inherent-vice perils (self-heating) stay excluded under any term.",
     "cifLinkLabel": "Cargo protection & insurance",
     "fobGlossaryLabel": "What FOB includes"
   },

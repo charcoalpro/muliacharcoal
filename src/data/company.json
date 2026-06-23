@@ -697,6 +697,328 @@
           ]
         },
         "lastVerified": "2026-06-15"
+      },
+      "uk": {
+        "country": "United Kingdom",
+        "htsCandidates": [
+          {
+            "code": "4402 20 00 00",
+            "sourceUrl": "https://www.trade-tariff.service.gov.uk/",
+            "note": "\"Of shells or nuts\" — the correct, most specific UK commodity code for coconut-shell charcoal briquettes (GRI 3(a)); base MFN duty 0%. Declare this, not 4402.90."
+          },
+          {
+            "code": "4402 90 00 00",
+            "sourceUrl": "https://www.gov.uk/guidance/classifying-wood",
+            "note": "Residual \"Other\" — wrong for coconut-shell charcoal. Declaring under this code mis-signals a generic timber-derived product and raises the CDS risk-engine likelihood of a documentary (Route 1) or physical (Route 2) check; misdeclaration is actionable even where the duty outcome is identical."
+          }
+        ],
+        "htsNotes": "Heading 4402 covers \"wood charcoal (including shell or nut charcoal), whether or not agglomerated\"; the natural starch binder does not change the classification. Subheading 4402.20 (\"of shells or nuts\") is more specific than 4402.90 (\"other\") under GRI 3(a), so 4402 20 00 00 is the defensible code. Both carry a 0% base rate, so the choice does not change the duty — but declaring 4402.20 signals an agricultural byproduct rather than timber and reduces the chance of a customs hold. Confirm the live line on the UK Integrated Online Tariff with your customs broker each shipment.",
+        "dutyLayers": [
+          {
+            "id": "mfn",
+            "label": "Customs duty (UKGT MFN / DCTS)",
+            "rate": "0%",
+            "basis": "UK Global Tariff third-country rate for heading 4402, charged on the customs (CIF) value",
+            "sourceUrl": "https://www.trade-tariff.service.gov.uk/",
+            "asOf": "2026-06-21",
+            "legalStatus": "Confirmed for UKGT 2026; verify the live line on the tariff tool each shipment."
+          }
+        ],
+        "vat": {
+          "name": "Import VAT",
+          "ratePct": "20%",
+          "recoverableNote": "Standard rate, charged on the customs value plus duty plus freight/insurance and incidental UK port charges to the point of delivery. VAT-registered importers can use Postponed VAT Accounting (PVA) to account for import VAT on the VAT return rather than paying it at the border, then recover it as input tax under normal rules. The reduced 5% fuel-and-power rate is for sub-1-tonne domestic supply and does not apply to a commercial container.",
+          "asOf": "2026",
+          "sourceUrl": "https://www.gov.uk/guidance/tariffs-on-goods-imported-into-the-uk"
+        },
+        "preference": {
+          "note": "Indonesia is eligible under the Developing Countries Trading Scheme (DCTS) \"Standard Preferences\" tier, but because the UKGT MFN rate for 4402 is already 0%, DCTS confers no additional duty benefit for this code. Charcoal is not among Indonesia's graduated chapters (oil-based products, footwear, musical instruments), so the 2026–2028 goods graduation does not affect it. Indonesia is scheduled to graduate out of the DCTS entirely from 1 January 2027 — but with MFN at 0%, the practical duty outcome is unchanged. No usable duty preference applies and none is needed.",
+          "originDoc": "DCTS origin declaration on the commercial invoice (the old GSP Form A is no longer accepted). Optional here because MFN duty is already 0%.",
+          "sourceUrl": "https://www.gov.uk/guidance/preference-tiers-under-the-developing-countries-trading-scheme"
+        },
+        "dutyHistory": "The UKGT MFN rate for heading 4402 has been 0% (free) for charcoal from most origins, and Indonesia's DCTS Standard-Preferences status adds no further benefit because the base is already free. The DCTS goods-graduation notice (1 Jan 2026 to 31 Dec 2028) does not list charcoal among Indonesia's graduated chapters, and Indonesia's full DCTS graduation from 1 January 2027 leaves the duty outcome unchanged at 0%.",
+        "adcvd": "No anti-dumping or countervailing-duty order was found for Chapter 44 charcoal of Indonesian origin; confirm with your customs broker.",
+        "entryNotes": {
+          "ens": "A Safety & Security declaration (ENS / S&S GB) is required for goods arriving into Great Britain. The carrier/operator is responsible for the S&S filing; it is not the exporter's task. The factory supplies the underlying cargo data.",
+          "declaration": "The import declaration is filed through HMRC's Customs Declaration Service (CDS) by the buyer's customs broker, using a valid GB EORI number, the 4402 20 00 00 commodity code, and a direct-representation letter of authority. Most importers use Postponed VAT Accounting on the declaration.",
+          "gvms": "Where the cargo moves through a port operating the Goods Vehicle Movement Service, a Goods Movement Reference (GMR) is generated to link the declaration to the physical movement. Container dwell time for UN 1361 Class 4.2 cargo is tightly limited, so the declaration must be ready on arrival to avoid demurrage."
+        },
+        "entrySourceUrl": "https://www.gov.uk/government/collections/customs-declaration-service",
+        "countryAgency": {
+          "items": [
+            {
+              "label": "UK REACH",
+              "value": "UK REACH applies to substances and articles. No charcoal-specific UK REACH restriction was identified; rely on the safety data sheet (SDS) the factory provides. General product-safety rules apply at retail.",
+              "sourceUrl": "https://www.gov.uk/guidance/regulations-timber-and-flegt-licences"
+            },
+            {
+              "label": "UK Timber Regulation (UKTR) / FLEGT",
+              "value": "The OPSS UKTR enforcement report (2022–2025) lists the HS codes actually checked (4401, 4407, 4409, 4412) and does not list 4402 charcoal; the wood-fuel workstream covers firewood, logs, chips, pellets and briquettes (4401-type), not carbonised charcoal. Coconut-shell charcoal is an agricultural byproduct of Cocos nucifera, not timber, so it is not clearly in UKTR/FLEGT scope. Indonesia is the only country with a FLEGT VPA with the UK, so genuinely in-scope timber would need a FLEGT licence — confirm with OPSS that 4402 coconut-shell charcoal is out of scope before relying on the exemption.",
+              "sourceUrl": "https://www.gov.uk/government/publications/timber-regulations-reports/uktr-report-2022-to-2025"
+            },
+            {
+              "label": "Phytosanitary (APHA / BTOM)",
+              "value": "Fully carbonised charcoal is generally treated as exempt from APHA phytosanitary certification, with the 901Y exemption document code used in the CDS declaration; this is subject to local Border Control Post interpretation of \"wood products.\" Describe the goods on the invoice as fully carbonised, agglomerated charcoal to avoid a misclassification as a regulated wood product. Wood pallets and dunnage must be ISPM-15 compliant (heat-treated or fumigated and stamped).",
+              "sourceUrl": "https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain"
+            }
+          ]
+        },
+        "lastVerified": "2026-06-21"
+      },
+      "germany": {
+        "country": "Germany",
+        "htsCandidates": [
+          {
+            "code": "4402 20 00 00",
+            "sourceUrl": "https://taxation-customs.ec.europa.eu/customs/common-customs-tariff-cct/tariff-classification-goods/eu-customs-tariff-taric_en",
+            "note": "EU Combined Nomenclature / TARIC \"Of shells or nuts\" — the most specific subheading for carbonized coconut-shell charcoal. German ATLAS import declarations use the 11-digit code, the first 8 of which are this CN. Base (erga omnes) duty Free."
+          },
+          {
+            "code": "4402 90 00 00",
+            "sourceUrl": "https://taxation-customs.ec.europa.eu/customs/common-customs-tariff-cct/tariff-classification-goods/eu-customs-tariff-taric_en",
+            "note": "Residual \"Other\". Some Indonesian exporters historically declared coconut-shell charcoal here, but in the EU it mis-signals a generic wood-derived product and creates an ATLAS documentary-mismatch risk; General Rule of Interpretation 3(a) gives precedence to the more specific 4402.20. Same Free duty, so the rate does not change."
+          }
+        ],
+        "htsNotes": "Declare 4402 20 00 00 (\"of shells or nuts\") + UN 1361 Class 4.2 identically on every document — commercial invoice, packing list, bill of lading, and certificate of origin. Persistent use of the residual 4402.90 can trigger the German ATLAS risk-profiling algorithm and a manifest-correction fee even though the duty is identical. Do not declare as 3802 (activated carbon) or 4401 (fuel wood). Confirm the exact 11-digit ATLAS code with your customs broker.",
+        "dutyLayers": [
+          {
+            "id": "mfn",
+            "label": "Customs duty (erga omnes / third-country MFN)",
+            "rate": "0% (Free)",
+            "basis": "EU Common Customs Tariff for heading 4402, all origins; assessed on the customs (CIF) value",
+            "sourceUrl": "https://taxation-customs.ec.europa.eu/customs/common-customs-tariff-cct/tariff-classification-goods/eu-customs-tariff-taric_en",
+            "asOf": "2026-06-21",
+            "legalStatus": "Confirmed. MFN is already 0%, so Indonesia's loss of GSP preference does not raise the duty."
+          }
+        ],
+        "vat": {
+          "name": "Einfuhrumsatzsteuer (German import VAT)",
+          "ratePct": "19%",
+          "recoverableNote": "Charged on the customs value plus duty plus domestic charges to the first destination. Charcoal does not qualify for the reduced 7% rate. Fully recoverable as input tax by a VAT-registered importer; import-VAT deferment (Aufschubkonto) and input-VAT deduction are available, recovered via the German VAT return.",
+          "asOf": "2026",
+          "sourceUrl": "https://taxation-customs.ec.europa.eu/customs/common-customs-tariff-cct/tariff-classification-goods/eu-customs-tariff-taric_en"
+        },
+        "preference": {
+          "note": "No usable duty benefit. EU MFN for 4402 is already 0%, so preference status is immaterial to duty. Indonesia's wood/wooden-articles section (S9a) graduated out of EU GSP on 1 January 2020, GSP preferences for the section were further suspended for 2026–2028, and Indonesia loses GSP beneficiary status entirely from 2027. Practically, this shifts the ATLAS entry from a preferential regime to a standard MFN regime but does not increase the tax burden.",
+          "originDoc": "Standard certificate of origin for trade statistics and surveillance; a REX origin statement would only matter if a preference were claimed (none avails here, so it is optional for duty).",
+          "sourceUrl": "https://trade.ec.europa.eu/access-to-markets/en/content/generalised-scheme-preferences-gsp"
+        },
+        "dutyHistory": "Before 2026, importers could rely on a Form A or REX statement to claim GSP duty-free access for Indonesian charcoal; from 2026 that preference is suspended (Commission Implementing Regulation (EU) 2025/1909) and Indonesia loses GSP status from 2027. Because the underlying MFN rate is 0%, the change alters the declaration method, not the amount of duty paid.",
+        "adcvd": "No anti-dumping or countervailing-duty measure was found for heading 4402 charcoal from Indonesia in the EU's trade-defence records; confirm with your customs broker.",
+        "entryNotes": {
+          "ics2": "A pre-arrival Entry Summary Declaration (ENS) is mandatory under ICS2 Release 3, which is live for maritime cargo entering the EU. The vessel-operating carrier files the master-level ENS and the forwarder/NVOCC files the house-level ENS (plain-language goods description, HS6 minimum, consignee EORI). \"No MRN, no load\" is enforced; ICS1 was fully phased out on 1 September 2025. The filing is the carrier's and forwarder's responsibility — the Indonesian factory supplies the export data they need.",
+          "atlas": "The import declaration is filed through the German ATLAS system by the buyer's customs broker under a customs power of attorney, using the 11-digit commodity code and the customs (CIF) value. The buyer needs a valid EU/German EORI; clearance cannot legally proceed without it. German terminals grant Class 4.2 cargo very short free time, so the broker should have the ATLAS entry ready against the arrival notice to avoid demurrage."
+        },
+        "entrySourceUrl": "https://www.cargowise.com/news/ics2-release-3-how-to-prepare-for-key-compliance-changes/",
+        "countryAgency": {
+          "items": [
+            {
+              "label": "EUDR — scope",
+              "value": "Heading 4402 wood charcoal (including shell or nut charcoal) is listed in Annex I of the EU Deforestation Regulation (Reg. (EU) 2023/1115), with no carve-out for coconut-shell charcoal, so EUDR applies.",
+              "sourceUrl": "https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en"
+            },
+            {
+              "label": "EUDR — when it applies",
+              "value": "Reg. (EU) 2025/2650 postponed application to 30 December 2026 for large and medium operators and 30 June 2027 for micro and small operators.",
+              "sourceUrl": "https://trade.ec.europa.eu/access-to-markets/en/news/delay-until-december-2026-and-other-developments-implementation-eudr-regulation"
+            },
+            {
+              "label": "EUDR — who files",
+              "value": "The EU importer (the first operator placing the product on the EU market) must submit a Due Diligence Statement (DDS) via the EU Information System (TRACES), demonstrating plot geolocation, deforestation-free status (land not deforested after 31 December 2020) and legality. The factory is working toward supplying the geolocation, legality and traceability evidence the buyer needs to file that DDS.",
+              "sourceUrl": "https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en"
+            },
+            {
+              "label": "EU REACH + CLP",
+              "value": "Charcoal is a registrable substance under EU REACH; an importer placing more than one tonne per year on the EU market must hold a REACH registration or be covered by the exporter's appointed Only Representative (OR), and CLP classification/labelling applies. Verify the registration or OR Letter-of-Access position before the vessel arrives.",
+              "sourceUrl": "https://www.trade.gov/eu-reach"
+            },
+            {
+              "label": "EUTR (predecessor)",
+              "value": "The EU Timber Regulation continues transitionally for certain timber harvested before 29 June 2023 but is superseded by EUDR; coconut shell is an agricultural byproduct rather than timber.",
+              "sourceUrl": "https://environment.ec.europa.eu/topics/forests/deforestation/regulation-deforestation-free-products_en"
+            }
+          ]
+        },
+        "lastVerified": "2026-06-21"
+      },
+      "saudiArabia": {
+        "country": "Saudi Arabia",
+        "htsCandidates": [
+          {
+            "code": "4402.20",
+            "sourceUrl": "https://zatca.gov.sa/en/eServices/Pages/eServices_220.aspx",
+            "note": "HS6 \"Of shells or nuts\" — the correct, most specific heading for coconut-shell charcoal under WCO GRI 3(a); GCC Common External Tariff duty 5% on CIF."
+          },
+          {
+            "code": "4402.20.00.00.00",
+            "sourceUrl": "https://zatca.gov.sa/en/RulesRegulations/Taxes/Pages/Integrated-Tarrifs.aspx",
+            "note": "Full 12-digit GCC Integrated Customs Tariff extension (effective 1 Jan 2025) commonly cited for this product — UNVERIFIED against the live ZATCA tariff tool; confirm the exact 12-digit line with your broker before filing."
+          },
+          {
+            "code": "4402.90",
+            "sourceUrl": "https://zatca.gov.sa/en/eServices/Pages/eServices_220.aspx",
+            "note": "Residual \"Other\" — WRONG for coconut-shell charcoal. Declaring 4402.90 while the broker files 4402.20 creates a FASAH document mismatch that routes the dossier to the Red Lane for inspection. Do not use."
+          }
+        ],
+        "htsNotes": "Declare HS6 4402.20 (full 12-digit 4402.20.00.00.00) uniformly on the commercial invoice, packing list, certificate of origin and bill of lading. The 12-digit national extension is UNVERIFIED here — confirm the exact line on ZATCA's Integrated Customs Tariff tool with your licensed Saudi customs broker; a code mismatch between origin documents and the FASAH declaration is the single most common cause of Red-Lane inspection, demurrage and penalties.",
+        "dutyLayers": [
+          {
+            "id": "cet",
+            "label": "Customs duty (GCC Common External Tariff)",
+            "rate": "5%",
+            "basis": "Ad valorem on CIF value; GCC CET for goods from outside the GCC",
+            "sourceUrl": "https://www.trade.gov/country-commercial-guides/saudi-arabia-import-tariffs",
+            "asOf": "2026-06-21",
+            "legalStatus": "Confirmed baseline (GCC CET 2025). Final rate is subject to a real-time 12-digit ZATCA tariff lookup at entry; ZATCA amended select lines to 10–20% in late 2025/early 2026, but charcoal is not among the protected categories. Verify the line item at booking."
+          },
+          {
+            "id": "zatcaServiceFee",
+            "label": "ZATCA import service fee",
+            "rate": "0.15%",
+            "basis": "Ad valorem on CIF value; minimum SAR 15, maximum SAR 500 per declaration",
+            "sourceUrl": "https://www.pwc.com/m1/en/services/tax/middle-east-tax-news-alerts/2024/saudi-arabia-new-customs-services-fee-structure.html",
+            "asOf": "2024-10-01",
+            "legalStatus": "Confirmed. Introduced October 2024, replacing the prior flat X-ray, information-exchange and processing fees."
+          }
+        ],
+        "vat": {
+          "name": "Value Added Tax (ZATCA)",
+          "ratePct": "15%",
+          "recoverableNote": "Levied on the fully landed value (CIF + customs duty + ZATCA fees + port/local charges), not just the invoice value. Recoverable as input VAT by a VAT-registered Saudi importer holding a valid Commercial Registration and VAT certificate.",
+          "asOf": "2026-06-21",
+          "sourceUrl": "https://www.trade.gov/country-commercial-guides/saudi-arabia-import-tariffs"
+        },
+        "preference": {
+          "note": "No GCC or Saudi tariff preference exists for goods originating in Indonesia — GCC preferences are intra-GCC and specific-FTA only. The full 5% GCC CET applies and no preference document reduces it. A chamber-attested certificate of origin is still required for clearance, to prove national origin, not to claim a lower duty.",
+          "originDoc": "Certificate of origin attested by the Indonesian Chamber of Commerce (KADIN) / Ministry of Trade",
+          "sourceUrl": "https://www.trade.gov/country-commercial-guides/saudi-arabia-import-tariffs"
+        },
+        "dutyHistory": "Saudi Arabia moved from an 8-digit to a 12-digit GCC Integrated Customs Tariff on 1 January 2025, expanding the schedule from roughly 7,800 to over 13,400 lines; legacy 6- and 8-digit codes are now rejected by FASAH. ZATCA amended select tariff lines to WTO-bound ceilings of 10–20% in late 2025/early 2026 for industrial-protection categories, but charcoal under 4402 is not among them and the 5% baseline continues to apply.",
+        "adcvd": "No anti-dumping or countervailing-duty order was found for Indonesian charcoal under heading 4402 entering Saudi Arabia or the GCC; confirm with your customs broker.",
+        "entryNotes": {
+          "fasah": "Customs clearance runs through FASAH, the national single-window platform. The Saudi importer authorizes a licensed customs broker on FASAH, who files the customs declaration (Bayan) electronically. Duties, VAT and the ZATCA service fee are assessed and paid pre-clearance; the importer must hold a valid Commercial Registration and VAT certificate.",
+          "saber": "A SABER Shipment Certificate of Conformity (SCoC) is mandatory and must exist in the system before the FASAH declaration is filed. SABER is auto-linked to FASAH by API; ZATCA no longer accepts post-arrival SCoCs or manual letters of undertaking, so a missing SCoC means the cargo is refused or forced to re-export. Secure the SCoC before the vessel departs Semarang."
+        },
+        "entrySourceUrl": "https://www.intertek.com/government/product-conformity/saudi-arabia/",
+        "countryAgency": {
+          "items": [
+            {
+              "label": "SABER / SASO",
+              "value": "Every shipment requires a SABER Shipment Certificate of Conformity (SCoC) to clear customs; shipments without one are refused or re-exported. The Saudi importer registers the product and obtains the certificate on the SABER platform.",
+              "sourceUrl": "https://www.intertek.com/government/product-conformity/saudi-arabia/"
+            },
+            {
+              "label": "Regulated vs non-regulated",
+              "value": "Commercial SABER databases treat coconut-shell charcoal as a non-regulated product, needing only a Self-Declaration of Conformity plus the per-shipment SCoC rather than a third-party Product CoC under a named SASO Technical Regulation. Whether HS 4402.20 is classed regulated or non-regulated in SABER is UNVERIFIED for this code — confirm in SABER with an accredited conformity body before shipping.",
+              "sourceUrl": "https://www.graniteriverlabs.com/en-us/technical-blog/saudi-arabia-scoc-certification"
+            },
+            {
+              "label": "SFDA",
+              "value": "Shisha charcoal is a heat source, not tobacco, so it falls outside SFDA jurisdiction under the Anti-Smoking Law, which covers tobacco and waterpipe tobacco molasses (mu'assel). No SFDA tobacco registration applies to the charcoal.",
+              "sourceUrl": "https://www.tobaccocontrollaws.org/legislation/saudi-arabia"
+            },
+            {
+              "label": "Excise / selective tax",
+              "value": "Saudi selective (excise) tax applies to tobacco, soft drinks and energy/sweetened drinks — not charcoal. No excise is levied on coconut-shell charcoal.",
+              "sourceUrl": "https://www.trade.gov/country-commercial-guides/saudi-arabia-import-tariffs"
+            },
+            {
+              "label": "Arabic labelling",
+              "value": "Arabic-language labelling requirements apply to goods placed on the Saudi market; confirm the exact label content with your importer and conformity body.",
+              "sourceUrl": "https://www.intertek.com/government/product-conformity/saudi-arabia/"
+            }
+          ]
+        },
+        "lastVerified": "2026-06-21"
+      },
+      "russia": {
+        "country": "Russia",
+        "htsCandidates": [
+          {
+            "code": "4402 20 000 0",
+            "sourceUrl": "https://www.alta.ru/tnved/code/4402900000/",
+            "note": "ТН ВЭД ЕАЭС \"Of shells or nuts\" (из скорлупы или орехов) — the precise subheading for coconut-shell charcoal; carries the 5% EAEU base duty. Russian broker databases show coconut hookah-charcoal briquettes declared here."
+          },
+          {
+            "code": "4402 90 000 0",
+            "sourceUrl": "https://www.alta.ru/tnved/code/4402900000/",
+            "note": "Residual \"Other\" (прочий). Some Russian brokers declare tapioca-bound shisha briquettes here in practice (5% base duty confirmed on this line); General Rule of Interpretation 3(a) still favours the more specific 4402 20 \"of shells or nuts\". Confirm the line item with your broker before filing."
+          }
+        ],
+        "htsNotes": "Both 4402 subheadings carry the same 5% EAEU base duty, so the choice does not change the rate — but it does change the audit trail. Declare the botanical origin (Cocos nucifera) and the tapioca-starch binder (max 5%, no chemical accelerants) on the invoice: the Federal Customs Service (FTS) runs an automated risk system that can reclassify ambiguous or chemically adulterated charcoal into Chapter 38 (chemical products) or flag it as bamboo (4402 10), triggering sampling, delay, and misdeclaration penalties. Confirm classification with your Russian customs broker.",
+        "dutyLayers": [
+          {
+            "id": "mfn",
+            "label": "Import customs duty (EAEU CCT, MFN)",
+            "rate": "5%",
+            "basis": "Common Customs Tariff of the EAEU (ЕТТ), applied to the customs value (CIF to the Russian border)",
+            "sourceUrl": "https://www.alta.ru/tnved/code/4402900000/",
+            "asOf": "2026-06-21",
+            "legalStatus": "Confirmed for 4402 90; re-confirm the 4402 20 line item on alta.ru / the FCS tariff each shipment. Indonesia earns no preference (removed from the EAEU beneficiary list on 12 October 2021)."
+          },
+          {
+            "id": "fee",
+            "label": "Customs clearance fee (таможенный сбор)",
+            "rate": "Tiered by customs value",
+            "basis": "Federal fee for customs operations, scaled by declared customs value (Government Resolution 1638, indexed upward for 2026)",
+            "sourceUrl": "https://eec.eaeunion.org/comission/department/dotp/tariff_preferences.php",
+            "asOf": "2026-06-21",
+            "legalStatus": "Confirmed in principle; the exact bracket amount is UNVERIFIED here — confirm the FCS schedule with your broker."
+          }
+        ],
+        "vat": {
+          "name": "Import VAT (НДС)",
+          "ratePct": "22%",
+          "recoverableNote": "Charged on the customs value plus duty. Registered Russian VAT payers can deduct import VAT (Arts. 171–172 of the Tax Code, within three years, against the customs declaration and proof of payment). Charcoal does not qualify for the reduced 10% rate.",
+          "asOf": "2026-01-01",
+          "sourceUrl": "https://www.consultant.ru/legalnews/30257/"
+        },
+        "preference": {
+          "note": "No usable duty preference. Indonesia was removed from the EAEU unified system of tariff preferences (developing-country beneficiary list) effective 12 October 2021, so the full 5% MFN duty applies. The Indonesia–EAEU Free Trade Agreement was signed in December 2025 and promises 0% on most lines including charcoal, but it remains pending parliamentary ratification across the member states — the 0% rate is NOT yet in force, so plan on the 5% baseline until the Eurasian Economic Commission publishes the entry-into-force date.",
+          "originDoc": "Certificate of Origin (Form A still issued by Indonesia to support any future preference; does not reduce duty today)",
+          "sourceUrl": "https://eec.eaeunion.org/comission/department/dotp/tariff_preferences.php"
+        },
+        "dutyHistory": "Indonesia previously received the EAEU developing-country preference (a 25% reduction, i.e. 75% of the base rate) but was removed from the beneficiary list on 12 October 2021 (EEC Council Decision No. 17 of 5 March 2021), which cut the list from 103 to 29 countries — so the full 5% MFN rate has applied since. The signed-but-unratified Indonesia–EAEU FTA (December 2025) is the next possible change; until it enters into force, the rate stays at 5%.",
+        "adcvd": "No anti-dumping or countervailing-duty measure was found for Chapter 44 charcoal from Indonesia in the EAEU/Russian databases; confirm with your customs broker.",
+        "entryNotes": {
+          "declaration": "An electronic customs declaration (ED-2 / ДТ) is filed with the Federal Customs Service (ФТС / FCS) under the EAEU Customs Code by the Russian importer or their licensed customs broker. The filing requires a registered foreign-trade contract (with a bank-issued Unique Contract Number / UIN where the contract value exceeds 3 million RUB for currency control), a customs broker power of attorney, and notarized Russian translations of the foreign documents (commercial invoice, MSDS, certificates). Customs value is assessed on a CIF basis to the Russian border; an under-statistical declared value can trigger a valuation query and a security deposit, so keep a full audit trail (export declaration, wire confirmation, freight invoice)."
+        },
+        "entrySourceUrl": "https://eec.eaeunion.org/upload/medialibrary/9dd/Customs-Code-of-the-EAEU.pdf",
+        "countryAgency": {
+          "items": [
+            {
+              "label": "EAC certification",
+              "value": "Charcoal (including coconut-shell charcoal fuel) is generally NOT subject to mandatory EAC certification or declaration under EAEU technical regulations. Importers typically obtain a refusal/negative letter (отказное письмо) from an accredited body confirming no certificate is required, which customs expects at clearance.",
+              "sourceUrl": "https://www.rustandard.com/en/gost-r-certificate/mandatory-certification/declaration-of-conformity.html"
+            },
+            {
+              "label": "GOST",
+              "value": "GOST 7657-84 (\"Уголь древесный. Технические условия\") exists for wood charcoal but compliance is voluntary, not a mandatory import gate.",
+              "sourceUrl": ""
+            },
+            {
+              "label": "TR TS 021/2011",
+              "value": "Some Russian certification agencies argue a food-safety declaration under TR TS 021/2011 may apply IF charcoal is sold for food/grill cooking — shisha charcoal is a heat-source fuel, so this is generally not applicable. The commercial sources conflict; UNVERIFIED — confirm with an accredited certification body.",
+              "sourceUrl": ""
+            },
+            {
+              "label": "Phytosanitary control",
+              "value": "Rosselkhoznadzor treats wood/shell charcoal as a plant-origin commodity subject to phytosanitary control: a Phytosanitary Certificate from the Indonesian NPPO is required, with pre-arrival notification and possible physical sampling at the border (importer's cost).",
+              "sourceUrl": "https://vinculum.ru/en/sertifikatsiya/fitosanitarnye-trebovaniya/perechen-produktsii-podlezhashchej-fitosanitarnomu-kontrolyu"
+            },
+            {
+              "label": "Carrier acceptance",
+              "value": "Major Western container lines (Maersk, MSC, CMA CGM, Hapag-Lloyd, ONE) suspended new Russia bookings effective 1 March 2022. Cargo now moves via regional, neutral and Asian carriers through transshipment hubs; Vladivostok (RUVVO) is the most practical routing for Indonesian-origin cargo. DG Class 4.2 acceptance to Russian ports is carrier-specific and UNVERIFIED — confirm a DG-accepting carrier before committing.",
+              "sourceUrl": "https://gcaptain.com/worlds-largest-shipping-lines-suspend-shipping-to-russia/"
+            },
+            {
+              "label": "Banking & payment",
+              "value": "Major Russian banks have been cut from SWIFT since March 2022; payment requires non-sanctioned banks, local-currency settlement (RUB / IDR / CNY), intermediary banks (China / UAE / Central Asia) or alternative messaging (SPFS / CIPS). The EU 20th sanctions package (in force 24 April 2026) added an Indonesian port (Karimun Oil Terminal) to its restricted list, signalling sanctions reach into Indonesia–Russia logistics — confirm a sanctions-clear payment channel before quoting.",
+              "sourceUrl": ""
+            }
+          ]
+        },
+        "lastVerified": "2026-06-21"
       }
     },
 

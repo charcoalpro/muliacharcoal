@@ -1,0 +1,163 @@
+{
+  "meta": {
+    "titleTemplate": "Import Coconut Charcoal to Saudi Arabia: Duty, VAT",
+    "descriptionTemplate": "Importing UN 1361 coconut charcoal to Saudi Arabia from {{port}}: HS 4402.20, the 5% GCC duty, 15% VAT, SABER SCoC, and FASAH clearance."
+  },
+  "breadcrumb": "Import to Saudi Arabia",
+  "eyebrow": "Logistics · Saudi Arabia import",
+  "h1": "Importing coconut charcoal to Saudi Arabia",
+  "heroSubtitle": "The Saudi import mechanics for UN 1361 coconut charcoal from {{port}}: how it is classified, the GCC duty and VAT, the FASAH and SABER entry process, and the SASO conformity position on charcoal.",
+  "hero": {
+    "ctaQuote": "Ask about Saudi import",
+    "ctaQuoteAria": "Ask about Saudi import on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about Saudi import"
+  },
+  "intro": {
+    "p1": "This page sits under the {{brand}} Logistics pillar and covers the Saudi customs mechanics for coconut-shell charcoal. It is the import-by-country guide; the commercial case for the Saudi market lives on the market page.",
+    "hubLinkLabel": "Logistics overview",
+    "marketsLinkLabel": "Saudi Arabia market page"
+  },
+  "keyFacts": {
+    "heading": "Saudi import at a glance",
+    "definition": "Classification, headline duty and VAT, and who clears the cargo.",
+    "htsLabel": "HS classification",
+    "htsValue": "4402.20 \"of shells or nuts\" (12-digit 4402.20.00.00.00, confirm with broker)",
+    "dutyLabel": "Headline duty",
+    "dutyValue": "5% GCC Common External Tariff on CIF, plus 15% VAT",
+    "docsLabel": "Entry documents",
+    "docsValue": "SABER SCoC, FASAH declaration (Bayan), certificate of origin",
+    "customsLabel": "Customs clearance",
+    "customsValue": "Buyer's licensed customs broker",
+    "agencyLabel": "SASO / SABER",
+    "agencyValue": "A SABER Shipment Certificate of Conformity is mandatory to clear customs"
+  },
+  "hts": {
+    "h2": "HS classification",
+    "body": "Coconut-shell charcoal classifies under heading 4402, subheading 4402.20 (\"of shells or nuts\") — the most specific description under WCO General Rule 3(a). Saudi Arabia uses a 12-digit GCC Integrated Customs Tariff (effective 1 January 2025), commonly cited as 4402.20.00.00.00 for this product; that 12-digit extension is unverified here, so confirm the exact line with your customs broker. Do not declare 4402.90 (\"Other\") — a code mismatch between your documents and the FASAH declaration routes the cargo to the Red Lane.",
+    "candidatesIntro": "Candidate codes:",
+    "notesLabel": "Note"
+  },
+  "duty": {
+    "h2": "Duties & fees",
+    "body": "Saudi duty on heading 4402 is the 5% GCC Common External Tariff on CIF value, with a small ZATCA import service fee on top, then 15% VAT on the fully landed value. Read it as a dated stack; the final duty line is subject to a real-time 12-digit ZATCA lookup at entry.",
+    "layerHeader": "Layer",
+    "rateHeader": "Rate",
+    "basisHeader": "Basis",
+    "asOfHeader": "As of",
+    "statusHeader": "Legal status",
+    "sourceLabel": "Source",
+    "historyHeading": "How the Saudi tariff moved",
+    "adcvdHeading": "Anti-dumping / countervailing"
+  },
+  "landed": {
+    "h2": "Landed-cost worked example",
+    "body": "Landed cost is the sum of the goods, the freight, and the import charges. The structure below holds for any lane; the duty and VAT components are public verified figures, while the FOB and freight are illustrative and quoted at booking.",
+    "fobLabel": "FOB goods value",
+    "fobValue": "Illustrative only — your actual FOB applies",
+    "freightLabel": "Ocean freight + DG surcharges",
+    "freightValue": "Quoted on request (indicative)",
+    "dutyLabel": "Duties, fees & VAT",
+    "dutyValue": "From the stack above (5% GCC duty + 0.15% ZATCA fee + 15% VAT), plus port THC and its 25% DG surcharge",
+    "totalLabel": "Landed cost",
+    "totalValue": "FOB + freight + duties, fees & VAT",
+    "note": "No charcoal per-ton price is published. The formula is shown so you can plug in your own figures; we quote the live numbers at booking. Port terminal handling and its mandatory 25% dangerous-cargo surcharge are billed by the Saudi terminal, not by us.",
+    "rulesLinkLabel": "What your incoterm covers (FOB and the freight split)"
+  },
+  "entry": {
+    "h2": "The entry process",
+    "body": "Saudi entry for a UN 1361 container runs through the FASAH single window and the SABER conformity platform, handled by the buyer's licensed customs broker with data we supply.",
+    "stepsIntro": "Step by step:",
+    "steps": [
+      {
+        "name": "SABER Shipment Certificate of Conformity",
+        "field": "saber"
+      },
+      {
+        "name": "FASAH declaration (Bayan)",
+        "field": "fasah"
+      }
+    ],
+    "documentsLinkLabel": "The export documents we supply"
+  },
+  "dgHandling": {
+    "h2": "Dangerous-goods handling at Saudi ports",
+    "body": "The cargo arrives as declared UN 1361, Class {{unClass}} dangerous goods, and is handled accordingly at Jeddah Islamic Port or King Abdulaziz Port (Dammam). The Saudi terminal applies a mandatory 25% dangerous-cargo surcharge on top of the base terminal handling charge. The classification and the prevention controls are covered on the dangerous-goods pages.",
+    "un1361LinkLabel": "What UN 1361 is",
+    "regulationLinkLabel": "The 2026 rules",
+    "cargoLinkLabel": "Insured arrival & cargo protection"
+  },
+  "countryAgency": {
+    "h2": "SASO / SABER: conformity certification for clearance",
+    "intro": "This is regulatory information, not legal advice — see the disclaimer below.",
+    "disclaimer": {
+      "heading": "Regulatory information, not legal advice",
+      "body": "This page summarizes Saudi import, SABER/SASO conformity and ZATCA requirements for general information only and is not legal advice. The GCC tariff schedule, SABER product status and ZATCA rules change without notice and enforcement is fact-specific. Confirm your obligations with a licensed Saudi customs broker, your SABER conformity body, and qualified counsel before importing."
+    }
+  },
+  "responsibilityDestLine": "SABER conformity — registering the product and obtaining the per-shipment Shipment Certificate of Conformity (SCoC) on the SABER platform before the FASAH declaration is filed",
+  "ports": {
+    "h2": "Saudi ports & routing",
+    "body": "Indicative ocean transit from {{portWithCode}} to the main Saudi gateways:",
+    "sentenceTemplate": "{{destPort}} ({{unlocode}}): about {{min}}–{{max}} days.",
+    "empty": "Saudi transit times available on request."
+  },
+  "faq": {
+    "heading": "Frequently asked questions",
+    "items": [
+      {
+        "q": "What duty and VAT apply when importing charcoal to Saudi Arabia?",
+        "a": "The GCC Common External Tariff is 5% ad valorem on the CIF value, plus a 0.15% ZATCA import service fee (capped at SAR 500). Import VAT is 15%, charged on the fully landed value (CIF + duty + fees + port charges) and recoverable as input VAT by a VAT-registered importer. Confirm the live 12-digit duty line with your broker at booking."
+      },
+      {
+        "q": "Is Saudi import VAT recoverable?",
+        "a": "Yes. The 15% import VAT is recoverable as input VAT by a Saudi importer holding a valid Commercial Registration and VAT certificate, reclaimed through the ZATCA VAT return. The 5% customs duty, by contrast, is a real cost — there is no Indonesia-origin preference that reduces it."
+      },
+      {
+        "q": "Do I need SABER certification, and does the SFDA regulate shisha charcoal?",
+        "a": "Yes to SABER: every shipment needs a SABER Shipment Certificate of Conformity (SCoC) in the system before the FASAH declaration is filed, or the cargo is refused or re-exported. Commercial databases treat coconut-shell charcoal as non-regulated (Self-Declaration plus the per-shipment SCoC), but confirm the status of HS 4402.20 in SABER. The SFDA does not regulate shisha charcoal — it is a heat source, not tobacco — and no Saudi excise applies to charcoal."
+      },
+      {
+        "q": "How long does shipping from Indonesia to Saudi Arabia take?",
+        "a": "Indicative sea transit from {{portWithCode}} runs about 18–25 days to Jeddah Islamic Port (SAJED) and about 22–30 days to King Abdulaziz Port, Dammam (SADMM) — see the transit list above. Class 4.2 dangerous-goods bookings need extra lead time, so book early; times are indicative and subject to vessel schedule."
+      }
+    ]
+  },
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      {
+        "href": "/logistics",
+        "label": "Logistics overview"
+      },
+      {
+        "href": "/logistics/documents",
+        "label": "Export documents"
+      },
+      {
+        "href": "/logistics/un-1361",
+        "label": "UN 1361 dangerous goods"
+      },
+      {
+        "href": "/logistics/charcoal-dg-regulation",
+        "label": "2026 charcoal shipping rules"
+      },
+      {
+        "href": "/logistics/cargo-protection-and-insurance",
+        "label": "Cargo protection & insurance"
+      },
+      {
+        "href": "/logistics/rules",
+        "label": "Incoterms & rules"
+      },
+      {
+        "href": "/markets/saudi-arabia",
+        "label": "Saudi Arabia market page"
+      },
+      {
+        "href": "/contact",
+        "label": "Contact us"
+      }
+    ]
+  }
+}

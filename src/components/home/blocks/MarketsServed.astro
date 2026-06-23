@@ -1,0 +1,50 @@
+---
+/**
+ * Homepage "Markets we serve" block.
+ *
+ * Links the published country import guides (Logistics cocoon) from the
+ * site's highest-prominence page. Data-driven from `company.logistics.imports`
+ * via `importCountryLinks()`, so it self-extends as countries are added.
+ * Country names are facts; the surrounding copy is i18n (`en.home.marketsServed`).
+ */
+import en from '~/i18n/en';
+import { company } from '~/config/company';
+import { fill, companyTokens } from '~/lib/interpolate';
+import { importCountryLinks } from '~/lib/importCountries';
+
+const t = en.home.marketsServed;
+const tokens = companyTokens(company);
+const guides = importCountryLinks();
+---
+<section aria-labelledby="home-markets-title" class="bg-neutral-50">
+  <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
+    <p class="text-sm font-semibold uppercase tracking-wide text-brand-primary">{t.eyebrow}</p>
+    <h2 id="home-markets-title" class="mt-2 max-w-3xl text-2xl font-bold text-neutral-900 md:text-3xl">{t.h2}</h2>
+    <p class="mt-4 max-w-3xl text-base leading-relaxed text-neutral-700">{fill(t.intro, tokens)}</p>
+
+    <ul class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3" role="list">
+      {guides.map((g) => (
+        <li>
+          <a
+            href={g.href}
+            class="flex min-h-11 items-center justify-between gap-3 rounded-2xl border border-neutral-200 bg-white px-5 py-4 text-base font-medium text-neutral-900 transition-colors hover:border-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+            data-source-component={`home-markets-${g.slug}`}
+          >
+            <span>{fill(t.cardTemplate, { country: g.country })}</span>
+            <span aria-hidden="true" class="text-brand-primary">→</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    <p class="mt-6 text-sm">
+      <a
+        href="/logistics/import-guides"
+        class="font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
+        data-source-component="home-markets-all"
+      >
+        {t.allLinkLabel} <span aria-hidden="true">→</span>
+      </a>
+    </p>
+  </div>
+</section>

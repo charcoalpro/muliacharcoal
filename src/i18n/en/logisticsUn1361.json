@@ -76,6 +76,11 @@
     "body": "Every export carton and container carries the {{unNumber}}, Class {{unClass}} dangerous-goods markings and placards.",
     "packagingLinkLabel": "Dangerous-goods markings on the packaging"
   },
+  "countryEntry": {
+    "h2": "Entry formalities by destination",
+    "body": "UN 1361 sets how the cargo is classified and declared for the sea voyage; the customs duty, taxes and entry steps then depend on where it lands. These guides cover the import mechanics market by market.",
+    "itemTemplate": "{{country}} entry requirements"
+  },
   "media": {
     "alt": "Sealed shipping container bearing a Class {{unClass}} dangerous-goods placard for UN 1361 coconut charcoal",
     "caption": "A sealed UN 1361 container with Class {{unClass}} placards."

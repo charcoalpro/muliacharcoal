@@ -8,6 +8,7 @@ import Specifications from '~/components/home/blocks/Specifications.astro';
 import AboutUs from '~/components/home/blocks/About.astro';
 import OEMPackaging from '~/components/home/blocks/OemPackaging.astro';
 import Gallery from '~/components/home/blocks/Gallery.astro';
+import MarketsServed from '~/components/home/blocks/MarketsServed.astro';
 import Contact from '~/components/home/blocks/Contact.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
 import HomeFinalCta from '~/components/home/blocks/HomeFinalCta.astro';
@@ -45,6 +46,7 @@ const faqItems = en.home.faq.items.map((item) => ({
   <AboutUs />
   <OEMPackaging />
   <Gallery />
+  <MarketsServed />
   <Contact />
   <section aria-labelledby="home-faq-title" class="bg-white">
     <div class="mx-auto max-w-7xl px-4 py-16 md:px-8 md:py-20">
@@ -56,6 +58,15 @@ const faqItems = en.home.faq.items.map((item) => ({
           data-source-component="home-faq-teaser"
         >
           {en.home.faqTeaser.label} <span aria-hidden="true">→</span>
+        </a>
+      </p>
+      <p class="mx-auto mt-3 max-w-3xl text-sm">
+        <a
+          href={en.home.guideTeaser.href}
+          class="font-semibold text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+          data-source-component="home-guide-teaser"
+        >
+          {en.home.guideTeaser.label} <span aria-hidden="true">→</span>
         </a>
       </p>
     </div>

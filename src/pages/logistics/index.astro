@@ -103,6 +103,7 @@ const childOrder = [
   'shippingLines',
   'cargoProtection',
   'importUsa',
+  'importGuides',
 ] as const;
 const childHref: Record<(typeof childOrder)[number], string> = {
   rules: '/logistics/rules',
@@ -112,6 +113,7 @@ const childHref: Record<(typeof childOrder)[number], string> = {
   shippingLines: '/logistics/charcoal-shipping-lines',
   cargoProtection: '/logistics/cargo-protection-and-insurance',
   importUsa: '/logistics/import-to-usa',
+  importGuides: '/logistics/import-guides',
 };
 const children = childOrder.map((key) => ({
   id: childHref[key].split('/').pop()!,

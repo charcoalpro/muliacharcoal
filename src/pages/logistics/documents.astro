@@ -21,12 +21,14 @@ import { pillarCrumb } from '~/lib/breadcrumb';
 import { company, waLinkFor, hasFact } from '~/config/company';
 import { fill, companyTokens, logisticsTokens } from '~/lib/interpolate';
 import { logisticsClusterPageSchema } from '~/lib/schema/logisticsClusterPage';
+import { importCountryLinks } from '~/lib/importCountries';
 
 const t = en.logisticsDocuments;
 const tc = en.logisticsCommon;
 const L = company.logistics;
 const tokens = { ...companyTokens(company), ...logisticsTokens(company) };
 const anchors: Record<string, { anchor: string; label: string }> = t.glossaryAnchors;
+const importGuides = importCountryLinks();
 
 const pageTitle = fill(t.meta.titleTemplate, tokens);
 const pageDescription = fill(t.meta.descriptionTemplate, tokens);
@@ -156,10 +158,18 @@ const readMinutes = readingTime(proseForReadTime);
     <section id="country-requirements" aria-labelledby="country-heading" class="mt-14 scroll-mt-24">
       <h2 id="country-heading" class="text-2xl font-bold text-neutral-900">{t.countryReq.h2}</h2>
       <p class="mt-3 max-w-prose text-base leading-relaxed text-neutral-700">{t.countryReq.body}</p>
+      <p class="mt-4 text-base font-medium text-neutral-800">{t.countryReq.guidesIntro}</p>
+      <ul class="mt-2 grid grid-cols-1 gap-1.5 sm:grid-cols-2" role="list">
+        {importGuides.map((g) => (
+          <li>
+            <MaybeLink href={g.href} class="font-semibold" data-source-component={`documents-country-${g.slug}`}>
+              {fill(t.countryReq.guideItemTemplate, { country: g.country })} <span aria-hidden="true">→</span>
+            </MaybeLink>
+          </li>
+        ))}
+      </ul>
       <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
         <MaybeLink href="/logistics/rules" class="font-semibold" data-source-component="documents-country-rules">{t.countryReq.rulesLinkLabel}</MaybeLink>
-        <span aria-hidden="true" class="text-neutral-300">·</span>
-        <MaybeLink href="/logistics/import-to-usa" class="font-semibold" data-source-component="documents-country-import">{t.countryReq.importLinkLabel}</MaybeLink>
         <span aria-hidden="true" class="text-neutral-300">·</span>
         <MaybeLink href="/logistics/un-1361" class="font-semibold" data-source-component="documents-country-un1361">{t.countryReq.un1361LinkLabel}</MaybeLink>
       </p>

@@ -273,6 +273,13 @@
     "lightboxCloseLabel": "Close image",
     "videoBadge": "Video"
   },
+  "marketsServed": {
+    "eyebrow": "Markets we serve",
+    "h2": "Importing coconut charcoal to your market.",
+    "intro": "We ship UN 1361 coconut charcoal to wholesale buyers across the EU, GCC, North America and the CIS. Each country guide covers the HS code, the duty and tax stack, customs clearance, and the documents we supply.",
+    "cardTemplate": "Importing to {{country}}",
+    "allLinkLabel": "All country import guides"
+  },
   "contact": {
     "eyebrow": "Talk to us",
     "h2": "Talk to us about your container.",
@@ -331,6 +338,10 @@
   "faqTeaser": {
     "label": "See the full buyer FAQ",
     "href": "/faq"
+  },
+  "guideTeaser": {
+    "label": "New to importing? Read how to choose a shisha charcoal factory",
+    "href": "/guide/how-to-choose-shisha-charcoal-factory"
   },
   "faq": {
     "heading": "Buyer FAQ",

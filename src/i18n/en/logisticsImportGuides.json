@@ -1,0 +1,35 @@
+{
+  "breadcrumb": "Import guides",
+  "eyebrow": "Logistics",
+  "meta": {
+    "titleTemplate": "Coconut Charcoal Import Guides by Country | {{brand}}",
+    "descriptionTemplate": "Import guides for UN 1361 coconut charcoal from {{port}}: HS code, duty, VAT, customs clearance and documents — USA, UK, Germany, Saudi Arabia & Russia."
+  },
+  "h1": "Coconut charcoal import guides by country",
+  "heroSubtitle": "What it takes to clear a {{moqLabel}} container of UN 1361 coconut charcoal into each major market — the HS classification, the current duty and tax stack, the entry process, and the documents your customs broker needs.",
+  "hero": {
+    "ctaQuote": "Ask about your market",
+    "ctaQuoteAria": "Ask about importing to your market on WhatsApp",
+    "ctaContact": "Send an inquiry",
+    "ctaContactAria": "Send an inquiry about importing coconut charcoal"
+  },
+  "intro": {
+    "p1": "These guides sit under the {{brand}} Logistics pillar. Each one covers the import mechanics for one destination market — HS classification, the duty and tax stack, customs clearance, and the document pack we supply.",
+    "hubLinkLabel": "Logistics overview"
+  },
+  "listHeading": "Choose your destination market",
+  "listIntro": "We ship UN 1361 coconut charcoal worldwide. These guides cover the markets buyers ask about most; tell us your destination if it is not listed and we will confirm the import requirements.",
+  "cardTitleTemplate": "Importing to {{country}}",
+  "cardBlurbTemplate": "HS code, the duty and tax stack, customs clearance and the document pack for {{country}}.",
+  "cardCta": "Read the guide",
+  "related": {
+    "heading": "Related topics",
+    "items": [
+      { "href": "/logistics", "label": "Logistics overview" },
+      { "href": "/logistics/documents", "label": "Export documents we issue" },
+      { "href": "/logistics/rules", "label": "Shipping rules & incoterms" },
+      { "href": "/logistics/un-1361", "label": "UN 1361 dangerous goods" },
+      { "href": "/contact", "label": "Contact us" }
+    ]
+  }
+}
