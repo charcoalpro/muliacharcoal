@@ -37,5 +37,11 @@
     "h3": "Indonesia-origin duty preference",
     "originDocLabel": "Origin document",
     "sourceLabel": "Source"
+  },
+  "otherGuides": {
+    "heading": "Import guides for other markets",
+    "intro": "Shipping the same coconut charcoal to more than one country? Duty, tax and clearance differ by destination — here are our other market guides.",
+    "itemTemplate": "{{country}} import guide",
+    "hubLinkLabel": "All country import guides"
   }
 }

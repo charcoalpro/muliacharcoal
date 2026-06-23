@@ -66,8 +66,9 @@
   "countryReq": {
     "h2": "Documents your destination requires",
     "body": "Destination requirements vary: GCC and African markets often add chamber-of-commerce and consular legalization; the EU and Australia require a phytosanitary certificate. US entries need ISF data from us up front.",
+    "guidesIntro": "Country-specific import guides:",
+    "guideItemTemplate": "{{country}} customs documents",
     "rulesLinkLabel": "How the incoterm sets the document split",
-    "importLinkLabel": "US import document pack",
     "un1361LinkLabel": "The DG paperwork context"
   },
   "faq": {

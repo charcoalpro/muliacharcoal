@@ -123,6 +123,16 @@
         "Hookah charcoal is FDA-regulated as a tobacco-product component — read before you ship."
       ],
       "linkLabel": "Import charcoal to the USA"
+    },
+    "importGuides": {
+      "h2": "Importing charcoal by country",
+      "definition": "Country-by-country import mechanics for HS {{hsCode6}} coconut charcoal: HS classification, the duty and tax stack, customs clearance, and the documents each destination requires.",
+      "facts": [
+        "Guides for the USA, UK, Germany, Saudi Arabia and Russia — with more markets added as buyers ask.",
+        "Each guide is dated and source-linked to the destination's official tariff and customs references.",
+        "Duty, VAT and entry steps differ by market; the guides set out what your customs broker will need."
+      ],
+      "linkLabel": "Browse import guides by country"
     }
   },
 

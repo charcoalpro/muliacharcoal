@@ -43,6 +43,7 @@ import logisticsImportUk from './logisticsImportUk.json';
 import logisticsImportGermany from './logisticsImportGermany.json';
 import logisticsImportSaudiArabia from './logisticsImportSaudiArabia.json';
 import logisticsImportRussia from './logisticsImportRussia.json';
+import logisticsImportGuides from './logisticsImportGuides.json';
 import quality from './quality.json';
 import qualityCommon from './qualityCommon.json';
 import qualitySpecs from './qualitySpecs.json';
@@ -90,6 +91,7 @@ const en = {
   logisticsImportGermany,
   logisticsImportSaudiArabia,
   logisticsImportRussia,
+  logisticsImportGuides,
   quality,
   qualityCommon,
   qualitySpecs,

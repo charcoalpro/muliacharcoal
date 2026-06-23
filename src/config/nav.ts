@@ -59,6 +59,7 @@ export const LIVE_ROUTES: ReadonlySet<string> = new Set([
   '/logistics/charcoal-dg-regulation',
   '/logistics/charcoal-shipping-lines',
   '/logistics/cargo-protection-and-insurance',
+  '/logistics/import-guides',
   '/logistics/import-to-usa',
   '/logistics/import-to-uk',
   '/logistics/import-to-germany',
