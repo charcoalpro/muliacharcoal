@@ -485,11 +485,17 @@ export interface LogisticsConfig {
 // three product grades by ash band) — NEVER framed as an external/ISO
 // standard. `factoryBand` MUST agree with specs.ashContentPct.typical.
 //
-// Standards in `testing.*` that appear in prose are verified current
-// (ISO 1171:2024, ASTM D1762-84(2021)); `calorificMethod` carries no year
-// and `moistureMethod` is empty → both render generically (the factory's
-// stated editions were superseded / part unconfirmed). thirdPartyLabs set
-// → independent-testing framing is allowed; empty → in-house QC only.
+// Standards in `testing.*` are CHARCOAL-CORRECT and verified current against
+// the issuing catalogs (iso.org / store.astm.org): ash + proximate analysis
+// by ASTM D1762-84(2021) "Chemical Analysis of Wood Charcoal" (charcoal-
+// specific — determines ash, volatile matter and moisture in one method, so
+// `ashMethod` equals `proximateMethod` by design), calorific by ISO 18125:2017
+// "Solid biofuels — Determination of calorific value" (bomb calorimeter). The
+// former coal/coke values (ISO 1171 ash, ISO 1928 calorific) were the WRONG
+// material class — solid mineral fuel, not biomass — do NOT reintroduce.
+// `moistureMethod` is empty → renders generically (oven-dry method, no
+// designation). thirdPartyLabs set → independent-testing framing is allowed;
+// empty → in-house QC only.
 // =======================================================================
 export interface QualityConfig {
   /** Factory-wide spec RANGES — authoritative for the quality pillar.

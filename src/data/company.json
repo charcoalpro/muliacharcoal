@@ -666,7 +666,7 @@
         "country": "USA",
         "htsCandidates": [
           { "code": "4402.20.00.00", "sourceUrl": "https://hts.usitc.gov", "note": "\"Of shell or nut\" — most precise for coconut shell charcoal; base duty Free." },
-          { "code": "4402.90.01.00", "sourceUrl": "https://hts.usitc.gov", "note": "Residual \"Other\"; base duty Free. Legacy CBP ruling N306942 (2014) cited 4402.90.0000 before the post-2022 renumbering." }
+          { "code": "4402.90.01.00", "sourceUrl": "https://hts.usitc.gov", "note": "Residual \"Other\"; base duty Free. Legacy CBP ruling N306942 (2019) cited 4402.90.0000 before the post-2022 renumbering." }
         ],
         "htsNotes": "Both candidates carry a Free base (MFN) duty, so the exact 10-digit code does not change the rate; a CBP binding-ruling request would settle it. Confirm classification with your customs broker.",
         "dutyLayers": [
@@ -1048,8 +1048,8 @@
       "factoryBand": "Platinum"
     },
     "testing": {
-      "ashMethod": "ISO 1171:2024",
-      "calorificMethod": "ISO 1928",
+      "ashMethod": "ASTM D1762-84(2021)",
+      "calorificMethod": "ISO 18125:2017",
       "moistureMethod": "",
       "proximateMethod": "ASTM D1762-84(2021)",
       "inHouseLab": true,

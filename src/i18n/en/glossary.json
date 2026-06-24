@@ -134,7 +134,7 @@
       "slug": "ash-content",
       "term": "Ash content",
       "cluster": "specs",
-      "definitionTemplate": "Ash content is the non-combustible mineral residue remaining after complete combustion of a fuel, expressed as a percentage by mass. Lower ash means a cleaner burn, less debris in the bowl, and reduced odour. Our published grades range from {{platinumAsh}} (Platinum) to {{premiumAsh}} (Premium); measurement follows ISO 1171.",
+      "definitionTemplate": "Ash content is the non-combustible mineral residue remaining after complete combustion of a fuel, expressed as a percentage by mass. Lower ash means a cleaner burn, less debris in the bowl, and reduced odour. Our published grades range from {{platinumAsh}} (Platinum) to {{premiumAsh}} (Premium); measurement follows {{ashMethod}}.",
       "see": { "href": "/quality/specifications-explained", "label": "Ash content per grade and how we measure it" }
     },
     {
@@ -148,20 +148,20 @@
       "slug": "calorific-value",
       "term": "Calorific value",
       "cluster": "specs",
-      "definitionTemplate": "Calorific value (also called heating value) is the energy released per unit mass of fuel during complete combustion, reported in kcal/kg or MJ/kg. Our briquettes are tested per ISO 1928 with a bomb calorimeter; Platinum measures {{platinumCalorific}} and Premium {{premiumCalorific}}.",
-      "see": { "href": "/quality/testing-methods", "label": "Calorific value measurement (ISO 1928)" }
+      "definitionTemplate": "Calorific value (also called heating value) is the energy released per unit mass of fuel during complete combustion, reported in kcal/kg or MJ/kg. Our briquettes are tested per {{calorificMethod}} with a bomb calorimeter; Platinum measures {{platinumCalorific}} and Premium {{premiumCalorific}}.",
+      "see": { "href": "/quality/testing-methods", "label": "Calorific value measurement ({{calorificMethod}})" }
     },
     {
       "slug": "moisture",
       "term": "Moisture",
       "cluster": "specs",
-      "definitionTemplate": "Moisture is the mass percentage of water in the briquette as delivered, measured per ISO 589 by drying a sample to constant mass at 105 °C. All our grades cap moisture at ≤ 6% — higher moisture suppresses ignition, releases steam in the bowl, and adds dead weight to the freight invoice."
+      "definitionTemplate": "Moisture is the mass percentage of water in the briquette as delivered, measured by drying a sample to constant mass at 105 °C. All our grades cap moisture at ≤ 6% — higher moisture suppresses ignition, releases steam in the bowl, and adds dead weight to the freight invoice."
     },
     {
       "slug": "volatile-matter",
       "term": "Volatile matter",
       "cluster": "specs",
-      "definitionTemplate": "Volatile matter is the percentage of combustible gases and tars driven off when the briquette is heated in the absence of air, measured per ISO 562. In coconut-shell briquettes, low volatile matter is the property responsible for the characteristic odourless, smokeless burn — fully carbonized briquettes typically run under 15% volatile matter."
+      "definitionTemplate": "Volatile matter is the percentage of combustible gases and tars driven off when the briquette is heated in the absence of air, measured per {{proximateMethod}}. In coconut-shell briquettes, low volatile matter is the property responsible for the characteristic odourless, smokeless burn — fully carbonized briquettes typically run under 15% volatile matter."
     },
     {
       "slug": "carbonization-level",
@@ -186,7 +186,7 @@
       "slug": "iso-and-astm-test-methods",
       "term": "ISO and ASTM test methods",
       "cluster": "specs",
-      "definitionTemplate": "ISO and ASTM test methods are the international laboratory standards governing how each charcoal property is measured. The methods our COA references: ISO 1171 (ash), ISO 1928 (calorific value), ISO 589 (moisture), ISO 562 (volatile matter), and the ASTM D3174 / D3172 / D3173 series (US-equivalent methods for ash, proximate analysis, and moisture). Quoting a result without naming its method is meaningless — every value on our certificate of analysis is tagged with the standard it was measured against.",
+      "definitionTemplate": "ISO and ASTM test methods are the international laboratory standards governing how each charcoal property is measured. Coconut-shell charcoal is a solid biofuel, so it is tested to biomass and charcoal methods rather than the coal and coke standards used for mineral fuels. The methods our COA references: {{ashMethod}} (ash), {{calorificMethod}} (calorific value), and {{proximateMethod}} for proximate analysis — fixed carbon and volatile matter; moisture is determined by the oven-dry method. Quoting a result without naming its method is meaningless — every value on our certificate of analysis is tagged with the standard it was measured against.",
       "see": { "href": "/quality/testing-methods", "label": "Standards referenced in our COA" }
     },
 
@@ -539,7 +539,7 @@
       "term": "EUDR",
       "termCode": "EU 2023/1115",
       "cluster": "markets",
-      "definitionTemplate": "EUDR (EU Regulation 2023/1115 — Deforestation Regulation) is the EU rule that prohibits placement on the EU market of seven commodity groups — including \"wood\" and \"charcoal\" under HS 4402 — unless the operator can prove the product is deforestation-free, legally produced, and traceable to plot-level geolocation of origin. Effective for large operators from 30 December 2025.",
+      "definitionTemplate": "EUDR (EU Regulation 2023/1115 — Deforestation Regulation) is the EU rule that prohibits placement on the EU market of seven commodity groups — including \"wood\" and \"charcoal\" under HS 4402 — unless the operator can prove the product is deforestation-free, legally produced, and traceable to plot-level geolocation of origin. Application begins 30 December 2026 for large and medium operators, and 30 June 2027 for micro and small operators.",
       "see": { "href": "/markets/germany", "label": "EUDR compliance for our shipments" }
     },
     {
