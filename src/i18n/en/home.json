@@ -36,7 +36,7 @@
       },
       "shipping": {
         "labelTemplate": "Loading partners: {{shippingLines}}",
-        "definition": "We are approved to book FCL containers directly with Maersk, MSC and CMA CGM out of {{port}}. Bookings file IMDG {{unNumber}} Class {{unClass}} declarations and ship with the Self-Heating Test report.",
+        "definition": "We are approved to book FCL containers directly with {{shippingLinesProse}} out of {{port}}. Bookings file IMDG {{unNumber}} Class {{unClass}} declarations and ship with the Self-Heating Test report.",
         "learnMore": "Logistics overview"
       },
       "languages": {
@@ -343,7 +343,7 @@
       },
       {
         "q": "Which shipping lines do you load with?",
-        "a": "Maersk, MSC and CMA CGM out of {{port}}. We file IMDG {{unNumber}} Class {{unClass}} declarations and provide the Self-Heating Test report with every booking."
+        "a": "{{shippingLinesProse}} out of {{port}}. We file IMDG {{unNumber}} Class {{unClass}} declarations and provide the Self-Heating Test report with every booking."
       },
       {
         "q": "Can you private-label our brand?",

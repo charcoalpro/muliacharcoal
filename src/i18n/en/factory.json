@@ -5,7 +5,7 @@
   },
   "breadcrumb": "Factory",
   "eyebrow": "Factory",
-  "h1": "Our Coconut Shisha Charcoal Factory in Semarang",
+  "h1": "Our Coconut Shisha Charcoal Factory in {{city}}",
   "heroSubtitle": "{{legalName}} is the manufacturer of {{brand}} coconut shisha charcoal — a {{facilityAreaGrouped}} m² factory in {{city}}, {{region}}, producing {{capacityMonth}} tons a month across {{productionLines}} lines. We are the factory, not a trading intermediary.",
   "hero": {
     "ctaQuote": "Request a wholesale quote",

@@ -85,7 +85,7 @@
     "items": [
       {
         "q": "What is a good ash content for shisha charcoal?",
-        "a": "Lower ash is better, because ash does not burn. {{brand}} grades its coconut shell charcoal in three ash tiers: Platinum (1.6–1.9%), Super Premium (1.9–2.3%), and Premium (2.3–2.5+%). Our flagship grade sits in the Platinum band with a typical ash content of {{ashTypical}}%. This three-tier framework — the factory's own rubric, not an industry standard — is the clearest way to judge \"good\"."
+        "a": "Lower ash is better, because ash does not burn. {{brand}} grades its coconut shell charcoal in three ash tiers: Platinum ({{platinumBandRange}}%), Super Premium ({{superPremiumBandRange}}%), and Premium ({{premiumBandRange}}%). Our flagship grade sits in the Platinum band with a typical ash content of {{ashTypical}}%. This three-tier framework — the factory's own rubric, not an industry standard — is the clearest way to judge \"good\"."
       },
       {
         "q": "What does low ash mean?",
