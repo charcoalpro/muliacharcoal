@@ -215,7 +215,7 @@
         {
           "id": "verify-legitimacy",
           "q": "How do I verify you're a legitimate, registered company?",
-          "a": "{{legalName}} is registered in Indonesia under NIB {{nib}} and NPWP (Tax ID) {{taxId}} — both numbers are independently verifiable through the OSS (Online Single Submission) and Direktorat Jenderal Pajak portals. We have operated since {{year}} and hold {{isoStandard}}, audited by {{auditors}}; the legal name on every Proforma Invoice and Bill of Lading matches our registration. Our director Wilson Gosalim is reachable directly on WhatsApp for any KYC verification step your import bank requires."
+          "a": "{{legalName}} is registered in Indonesia under NIB {{nib}} and NPWP (Tax ID) {{taxId}} — both numbers are independently verifiable through the OSS (Online Single Submission) and Direktorat Jenderal Pajak portals. We have operated since {{year}} and hold {{isoStandard}}, audited by {{auditors}}; the legal name on every Proforma Invoice and Bill of Lading matches our registration. Our director {{owner}} is reachable directly on WhatsApp for any KYC verification step your import bank requires."
         }
       ]
     }

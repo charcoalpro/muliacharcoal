@@ -172,7 +172,7 @@
     "videoAltTemplate": "Video message from {{owner}}, owner and director of {{legalName}}",
     "videoLabel": "YouTube video — coming soon",
     "transcriptHeading": "Transcript / summary",
-    "transcriptPlaceholder": "Hello — my name is Wilson Gosalim. Thank you for visiting our website. The full transcript of the factory introduction video will be published here once the recording is complete. In the meantime, you are welcome to schedule a live WhatsApp video tour of the factory or visit us in person in Semarang. Every container we ship carries the same compliance documentation: ISO 9001 audit, IMDG UN 1361 paperwork, an independent Self-Heating Test, and a Preferential Certificate of Origin. We look forward to working with you.",
+    "transcriptPlaceholder": "Hello — my name is {{owner}}. Thank you for visiting our website. The full transcript of the factory introduction video will be published here once the recording is complete. In the meantime, you are welcome to schedule a live WhatsApp video tour of the factory or visit us in person in Semarang. Every container we ship carries the same compliance documentation: ISO 9001 audit, IMDG UN 1361 paperwork, an independent Self-Heating Test, and a Preferential Certificate of Origin. We look forward to working with you.",
     "readMore": "Read more",
     "readLess": "Show less"
   },
