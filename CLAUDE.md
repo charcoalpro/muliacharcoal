@@ -249,7 +249,7 @@ Every event below must fire on both Google Analytics 4 and Meta Pixel.
 - `phone_click` — fired on any `tel:` link click; parameters: `source_page` (URL path), `source_component`
 - `email_click` — fired on any `mailto:` link click; parameters: `source_page` (URL path), `source_component`
 - `inquiry_submit` — fired on successful inquiry form submission; parameters: `product_category`, `estimated_quantity_tons` (number — tonnage parsed from the volume option; omitted for non-numeric options like "Monthly contract"), `destination_country`
-- `sample_request` — fired on sample form submission; parameters: `product_sku`, `destination_country`
+- `sample_request` — fired on a sample request (the WhatsApp/email deep-link sample CTAs, e.g. `SampleCtaPair`, grade-page sample buttons); parameters: `product_sku`; `destination_country` is **optional**. Sample CTAs are one-click `wa.me`/`mailto:` deep links with no country field, so the destination is not known client-side at click time — it is captured in the buyer's first WhatsApp/email reply. Send `destination_country` only where a flow genuinely collects it; otherwise omit it (do **not** infer it from IP or send a placeholder). This is a deliberate honesty-gate, not a missing param — do not "fix" it by adding a guessed value.
 - `scroll_75` — fired once per page when user scrolls past 75% (engagement signal)
 - `engaged_time` — fired once per page after 60 seconds of active time
 - `language_switch` — fired when user changes language; parameters: `from_language`, `to_language`
