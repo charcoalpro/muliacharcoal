@@ -29,6 +29,7 @@ import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
@@ -133,6 +134,7 @@ const proseForReadTime = fill(
     t.customization.body,
     t.countriesServed.definition,
     t.countriesServed.antiFraudNote,
+    ...t.devilsAdvocate.paragraphs,
     ...t.faq.items.flatMap((q) => [q.q, q.a]),
   ].join(' '),
   tokens,
@@ -332,6 +334,17 @@ const readMinutes = readingTime(proseForReadTime);
       <p class="mt-6 max-w-prose text-sm leading-relaxed text-neutral-600">{fill(t.countriesServed.antiFraudNote, tokens)}</p>
     </div>
   </section>
+
+  {/* Devil's Advocate — the case for buying through a trader, rebutted. */}
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 pb-12 md:px-8">
+      <DevilsAdvocate
+        id="devils-advocate"
+        heading={t.devilsAdvocate.h2}
+        paragraphs={t.devilsAdvocate.paragraphs.map((p) => fill(p, tokens))}
+      />
+    </div>
+  </div>
 
   {/* #gallery — factory PhotoGrid (placeholders until real photos land). */}
   <section id="gallery" aria-labelledby="gallery-heading" class="scroll-mt-24 bg-neutral-50">

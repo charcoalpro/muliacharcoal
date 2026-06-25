@@ -73,6 +73,14 @@
     "h2": "Develop-to-spec & R&D",
     "body": "Have a target ash, density, or burn profile? We can develop a recipe toward your spec and confirm it by sample before a production run — useful for private-label brands with a defined performance target."
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "Isn't a Trader With Many Suppliers More Flexible Than One Factory?",
+    "paragraphs": [
+      "The strongest counterargument is real: a trading house that aggregates output from several workshops can quote almost any shape, grade, or volume on short notice, and can swap suppliers if one stumbles. A single factory's catalog and monthly ceiling are, by definition, finite.",
+      "That flexibility has a cost the buyer inherits: with multiple unnamed workshops feeding one shipment, ash, density, and burn time can drift from carton to carton, and there is no single party who can trace a complaint to the run that caused it. Our model trades breadth for traceability. Every briquette is carbonized in our own {{ovenType}} ovens, milled and pressed on our own lines, and cleared through one {{qcStepCount}}-stage in-process framework with a reference sample retained from every batch — so a query months later maps to an exact production run. On volume, one 18-ton container is a small fraction of monthly output, so \"one factory\" is not the bottleneck the trader model implies. For a buyer building a brand on repeat-order consistency, a documented single chain beats a flexible but unattributable one."
+    ]
+  },
   "faq": {
     "heading": "Frequently asked questions",
     "items": [

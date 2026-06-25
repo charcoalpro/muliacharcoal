@@ -24,6 +24,7 @@ import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import ExternalLink from '~/components/content/ExternalLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
@@ -145,6 +146,7 @@ const proseForReadTime = fill(
     t.timeline.body,
     t.dgOverview.body1,
     t.dgOverview.body2,
+    ...t.devilsAdvocate.paragraphs,
     ...t.faq.items.flatMap((f) => [f.q, f.a]),
   ].join(' '),
   tokens,
@@ -374,6 +376,17 @@ const mediaPhotos = t.media.photos.map((p) => ({
       </p>
     </div>
   </section>
+
+  {/* Devil's Advocate — counters the page's implicit "no compliant non-DG route" thesis. */}
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 pb-12 md:px-8">
+      <DevilsAdvocate
+        id="devils-advocate"
+        heading={t.devilsAdvocate.h2}
+        paragraphs={t.devilsAdvocate.paragraphs.map((p) => fill(p, tokens))}
+      />
+    </div>
+  </div>
 
   {/* Hub-canonical FAQ — schema is in the page @graph, so no second FAQPage. */}
   <section aria-labelledby="logistics-faq" class="border-t border-neutral-200 bg-neutral-50">

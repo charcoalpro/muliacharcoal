@@ -13,6 +13,7 @@ import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import Figure from '~/components/packaging/Figure.astro';
@@ -65,7 +66,7 @@ const schema = logisticsClusterPageSchema({
 });
 
 const proseForReadTime = fill(
-  [t.heroSubtitle, t.intro.p1, t.whatIs.body, t.selfHeating.body1, t.selfHeating.body2, t.sht.body, t.whyRefuse.body, ...t.faq.items.flatMap((f) => [f.q, f.a])].join(' '),
+  [t.heroSubtitle, t.intro.p1, t.whatIs.body, t.selfHeating.body1, t.selfHeating.body2, t.sht.body, t.whyRefuse.body, ...t.devilsAdvocate.paragraphs, ...t.faq.items.flatMap((f) => [f.q, f.a])].join(' '),
   tokens,
 );
 const readMinutes = readingTime(proseForReadTime);
@@ -171,6 +172,8 @@ const readMinutes = readingTime(proseForReadTime);
         <MaybeLink href="/packaging" class="font-semibold" data-source-component="un1361-markings-packaging">{t.markings.packagingLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
       </p>
     </section>
+
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs.map((p) => fill(p, tokens))} />
 
     <section id="country-entry" aria-labelledby="country-entry-h" class="mt-12 scroll-mt-24">
       <h2 id="country-entry-h" class="text-2xl font-bold text-neutral-900">{t.countryEntry.h2}</h2>

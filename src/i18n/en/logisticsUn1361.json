@@ -72,6 +72,14 @@
     "body": "Because it is Class {{unClass}} self-heating cargo, charcoal needs a carrier that accepts declared dangerous goods and the factory audits that go with it. Some major lines have stepped back from charcoal, which is why we book with carriers that do.",
     "shippingLinesLinkLabel": "Carriers that ship charcoal"
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "Can I just ship charcoal as non-dangerous goods and save the surcharge?",
+    "paragraphs": [
+      "The honest counter-argument is commercial: declaring UN 1361 adds dangerous-goods surcharges and narrows the carrier list, so a buyer naturally asks whether a non-DG booking is possible. It is a fair question — before 2026, a passing Self-Heating Test could test the cargo out of dangerous-goods carriage, and some suppliers still quote freight on that basis.",
+      "That route no longer exists. Since {{dgMandatoryDate}}, {{dgAmendment}} removed the test-out for UN 1361: a passing SHT is now supporting evidence, not an exemption. A non-DG quote today is a misdeclaration, and the exposure lands on the importer — carrier blacklisting, port-state detention, and, because self-heating fire is inherent vice, no marine-cargo cover if the container ignites. Packing Group {{packingGroup}} is the lowest severity in Class {{unClass}}, and the SP 978 controls keep incidents rare, so the compliant path costs a surcharge, not your cargo. We ship declared, every time."
+    ]
+  },
   "markings": {
     "body": "Every export carton and container carries the {{unNumber}}, Class {{unClass}} dangerous-goods markings and placards.",
     "packagingLinkLabel": "Dangerous-goods markings on the packaging"

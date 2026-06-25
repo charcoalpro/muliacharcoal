@@ -58,6 +58,14 @@
     "qualityBody": "Lower ash and a neutral taste are quality outcomes we measure and document.",
     "qualityLinkLabel": "Our specifications & ash content"
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "A View from the Other Side: Is Coconut Shell Automatically the Better Charcoal?",
+    "paragraphs": [
+      "The honest counter-argument from experienced buyers is this: feedstock alone does not make a good coal — carbonization, binder, milling, and pressing do. A poorly carbonized coconut-shell coal with too much binder can ash heavier and taste worse than a well-made wood briquette. So \"it's coconut shell\" is not, by itself, a quality guarantee. A second, fair objection is commercial: coconut-shell supply and price track the coconut-food and copra industry, so a buyer standardizing on it is exposed to that single feedstock's seasonality.",
+      "Both points are valid — and this is exactly why the raw material is only half of our answer. We do not buy ready-made char on the spot market and hope; we run our own carbonization plant in {{carbonizationCity}}, {{carbonizationRegion}}, so the char that feeds every briquette is made to our standard, not to whatever the market offered that week. The downstream steps that the objection rightly cares about are controlled in-house too: milling and sieving to a uniform particle size, a food-grade tapioca-starch binder with no chemical accelerants, high-pressure pressing, and a burn/ash test on every batch with a retained reference sample. On the supply-risk point, our sourcing is not a single grove but {{sourcingVillages}} villages across {{sourcingRegion}}, drawing on around {{palmTreesGrouped}} palms — a diversified base, not one harvest. In short: the buyer is right that feedstock isn't destiny. The reason our coconut shell delivers low, silver-white ash and a neutral taste is that we own the steps after the shell, not just the shell."
+    ]
+  },
   "labor": {
     "h2": "Labor & environmental standards"
   },

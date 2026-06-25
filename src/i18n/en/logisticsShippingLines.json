@@ -67,6 +67,14 @@
       }
     ]
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "A View from the Other Side: Why Some Buyers Route Their Own Charcoal",
+    "paragraphs": [
+      "The strongest argument against letting the factory book the carrier is control. A large importer with its own freight contracts, NVOCC relationships, and a DG-experienced forwarder can often secure better ocean rates and a fixed sailing schedule than a single shipper can, and may not want its routing tied to whichever line the factory has booked.",
+      "That argument holds — and this page does not dispute it. Under EXW or FOB you are free to nominate your own forwarder, and we hand over a fully declared, document-complete UN 1361 container ready to load. What does not change is the compliance floor underneath the freight: the cargo is still declared Class 4.2 self-heating dangerous goods, still needs a line set up to accept it under SP 978, and — for the carriers that require it — still needs a factory that has passed the dangerous-goods or fire-safety audit. Whether your forwarder books MSC, Maersk, or CMA CGM, or we do, that audit and that declaration are what get the box loaded. So the choice is genuinely yours on the freight; it is not a choice on the compliance."
+    ]
+  },
   "related": {
     "heading": "Related topics",
     "items": [

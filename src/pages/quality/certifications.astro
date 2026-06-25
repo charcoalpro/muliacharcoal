@@ -17,6 +17,7 @@ import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import ExternalLink from '~/components/content/ExternalLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import en from '~/i18n/en';
@@ -75,6 +76,7 @@ const proseForReadTime = fill(
     t.heroSubtitle,
     t.held.intro, t.held.iso9001.desc, t.held.halal.desc,
     t.reports.intro, t.reports.coa.definition, t.reports.thirdParty.body, t.reports.sht.body,
+    ...t.devilsAdvocate.paragraphs,
     ...faqRaw.flatMap((f) => [f.q, f.a]),
   ].join(' '),
   tokens,
@@ -220,6 +222,8 @@ const readMinutes = readingTime(proseForReadTime);
         )}
       </div>
     </section>
+
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs} />
 
     <section aria-labelledby="certs-faq" class="mt-14">
       <FAQSection id="certs-faq" heading={t.faq.heading} items={faqItems} />

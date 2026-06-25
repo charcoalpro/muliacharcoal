@@ -24,6 +24,7 @@ import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import en from '~/i18n/en';
 import { company, waLinkFor } from '~/config/company';
 import { fill, companyTokens } from '~/lib/interpolate';
@@ -80,6 +81,7 @@ const soonChildren = [
 ];
 
 const tocItems = [
+  { anchor: 'devils-advocate', label: t.devilsAdvocate.tocLabel },
   { anchor: 'guides', label: t.children.heading },
   { anchor: 'how-buyers-start', label: t.b3.heading },
   { anchor: 'at-a-glance', label: t.atGlance.heading },
@@ -90,7 +92,7 @@ const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(i
 
 const readMinutes = readingTime(
   fill(
-    [t.heroSubtitle, t.intro.lead, t.intro.body1, t.intro.body2, ...faqItems.flatMap((f) => [f.q, f.a])].join(' '),
+    [t.heroSubtitle, t.intro.lead, t.intro.body1, t.intro.body2, ...t.devilsAdvocate.paragraphs, ...faqItems.flatMap((f) => [f.q, f.a])].join(' '),
     tokens,
   ),
 );
@@ -183,6 +185,8 @@ const proseP = 'mt-4 max-w-3xl text-neutral-700 leading-relaxed';
         {t.intro.moqNotePost}
       </p>
     </section>
+
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs} />
   </div>
 
   <section id="guides" aria-labelledby="guides-heading" class="scroll-mt-24 border-t border-neutral-200 bg-neutral-50">

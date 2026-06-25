@@ -23,6 +23,7 @@ import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import TextLink from '~/components/content/TextLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
@@ -119,6 +120,7 @@ const proseForReadTime = fill(
     t.retail.p1, t.retail.p2,
     t.packed.p1,
     t.neutralVsBranded.p1, t.neutralVsBranded.p2,
+    ...t.devilsAdvocate.paragraphs,
     ...t.faq.items.flatMap((f) => [f.q, f.a]),
   ].join(' '),
   tokens,
@@ -326,6 +328,13 @@ const photos = (list: Array<{ alt: string; caption: string }>) =>
       <PhotoGrid class="mt-8" columns={2} photos={photos(t.neutralVsBranded.photos)} />
     </div>
   </section>
+
+  {/* Devil's Advocate — counter-argument to the spend-on-the-box thesis. */}
+  <div class="bg-neutral-50">
+    <div class="mx-auto max-w-5xl px-4 pb-12 md:px-8">
+      <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs} />
+    </div>
+  </div>
 
   {video && video.youtubeId && (
     <section aria-label={t.h1} class="bg-neutral-50">

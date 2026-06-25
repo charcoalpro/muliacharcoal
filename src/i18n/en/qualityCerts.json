@@ -70,6 +70,15 @@
       "dgLinkLabel": "UN 1361 dangerous-goods classification"
     }
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "Doesn't \"ISO 9001 certified\" really certify nothing about the charcoal?",
+    "paragraphs": [
+      "A buyer could reasonably argue this page over-complicates things: an ISO 9001 certificate from a recognized auditor is the hard, third-party credential, while a Certificate of Analysis is a document the factory writes about itself — anyone can type numbers onto a letterhead. So the held certification is what counts, and splitting it from \"per-order reports\" just dresses up the supplier's own claims as if they were independent. The objection is genuinely valid in one direction: a COA, on its own, is the producer's own figures, and a held ISO badge really is audited by an outside body. A buyer who trusts a self-issued COA as if it were independent verification is making a mistake.",
+      "It holds against any supplier whose \"third-party\" proof turns out to be the factory testing itself and calling the result independent — or who issues a COA but has no outside lab anywhere in the chain. Against that seller, the per-order column really is just self-assertion, and the held ISO badge is the only outside check.",
+      "This factory does not rest the batch on its own COA. The per-order column contains an independent link the objection assumes is missing: a third-party laboratory — Carsurin, Beckjorindo, or SGS — tests ash content, moisture, fixed carbon, and volatile matter on every container and issues its own report, so the verification does not rest on the factory's word alone. The COA is the factory's measured statement for the batch; the third-party lab report is the outside check on those same parameters, shipping alongside it. Meanwhile the held column is kept honest in the other direction: ISO 9001:2015 is listed as covering the quality management system and audited by Carsurin and Beckjorindo — never presented as if it graded the charcoal. The distinction the objection calls over-complication is exactly what lets the buyer see that the independent verification lives in the per-order column, not in the wall badge — and that both exist rather than one standing in for the other. The split isn't dressing; it's what stops the ISO badge and the COA from each being asked to prove what only the other can."
+    ]
+  },
   "faq": {
     "heading": "Certifications & reports — frequently asked questions",
     "items": [

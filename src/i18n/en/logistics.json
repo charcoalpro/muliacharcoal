@@ -162,6 +162,16 @@
     "markingsLinkLabel": "Dangerous-goods markings on the box"
   },
 
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "A View from the Other Side: Is There Really No Compliant Non-DG Route?",
+    "paragraphs": [
+      "The strongest opposing view comes from the buyer's own inbox: rival suppliers routinely quote coconut charcoal as ordinary, non-dangerous cargo and ship it that way, often at materially lower freight. Their pitch is simple — \"we've moved it as general cargo for years and never had a problem, so the DG paperwork is just cost you don't need.\" For a buyer comparing two quotes side by side, the cheaper non-DG line looks like the rational choice, and the claim that DG is mandatory can sound like a vendor talking up its own surcharges.",
+      "Where the objection genuinely holds: before IMDG Amendment 42-24, parts of this trade did move under the old self-heating-test exemptions (Special Provisions 925 and 223), so \"we've always shipped it as general cargo\" was, historically, sometimes true. And incidents are rare, so a non-DG container often does arrive without event — which is exactly why the shortcut persists.",
+      "Where it fails, on this site's own facts: those exemptions were withdrawn when Amendment 42-24 became mandatory on {{dgMandatoryDate}}, and Special Provision 978 replaced them. The classification did not change — coconut charcoal is {{imdgLabel}}, Packing Group {{packingGroup}}, and Class {{unClass}} cargo can self-heat. A non-DG quote today is not a cheaper version of the same shipment; it is an undeclared one. The cost it removes is the carrier's liability cover and the buyer's legal protection: self-heating fire is inherent vice and is not insurable, so on a misdeclared container the buyer carries that loss alone — the saved freight is the price of the exposure. The audited DG route exists precisely so the rare event is prevented (weathering, ≤ {{sp978PackTemp}} °C packing, {{sp978Headspace}} cm headspace) rather than argued over after a claim is denied."
+    ]
+  },
+
   "outbound": {
     "intro": "Authoritative references:",
     "imoLabel": "IMO IMDG Code overview",

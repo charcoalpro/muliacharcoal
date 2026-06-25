@@ -80,6 +80,14 @@
     "procedureLinkIntro": "For the procedures that produce each figure, see",
     "procedureLinkLabel": "the testing methods behind the values"
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "Don't spec sheets lie? Why trust these numbers?",
+    "paragraphs": [
+      "It's a fair objection: any factory can type \"1.8% ash\" into a PDF, and a clean lab figure on paper does not guarantee a clean session in your customers' bowls. Experienced buyers are right to distrust an unverified spec sheet.",
+      "Two things separate a real number from a marketing one. First, every figure on this page is published as a typical value plus a target bound, not a single flattering headline — and each target is stated as an aim, not a warranty. A factory gaming its specs quotes one perfect number; an honest one shows its range. Second, these are specs you can confirm without taking our word for it. Ash, moisture, volatile matter, and calorific value are all determined by defined test methods you can have re-run independently, and burn time and ash color are deliberately filed as observed indicators, not lab claims — we tell you which numbers are lab-grade and which are not. The decisive answer to \"does the paper match the coal?\" is a sample: request one, run your own bowl test, and check the Certificate of Analysis that ships with your batch line-by-line against the targets above. The spec sheet is the claim; the sample and the COA are how you verify it."
+    ]
+  },
   "faq": {
     "heading": "Specifications — frequently asked questions",
     "items": [

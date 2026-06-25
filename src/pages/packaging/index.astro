@@ -29,6 +29,7 @@ import SpecsTable from '~/components/content/SpecsTable.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import ExternalLink from '~/components/content/ExternalLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
@@ -132,6 +133,9 @@ const priceCaveat = hasFact(pk.pricing.pricesLastUpdated)
 // --- FAQ (hub-canonical set; schema lives in the page @graph below). ---
 const faqItems = t.faq.items.map((item) => ({ q: fill(item.q, tokens), a: fill(item.a, tokens) }));
 
+// --- Devil's Advocate counter-view (audit rule 7) — fill() per paragraph. ---
+const devilsAdvocateParagraphs = t.devilsAdvocate.paragraphs.map((p) => fill(p, tokens));
+
 // --- DefinedTerm set → /glossary anchors (overlay §3a). ---
 const terms: TermRef[] = [
   { anchor: 'master-box', name: 'master box', alternateName: ['master carton'] },
@@ -173,6 +177,7 @@ const proseForReadTime = fill(
     t.branding.neutral.body,
     t.branding.whiteLabel.body,
     t.branding.proofSample.body,
+    ...t.devilsAdvocate.paragraphs,
     t.compliance.mandatory.body1,
     t.compliance.mandatory.body2,
     t.compliance.retail.body,
@@ -411,6 +416,19 @@ const readMinutes = readingTime(proseForReadTime);
       </div>
     </div>
   </section>
+
+  {/* Devil's Advocate — strongest counter-view to the neutral-vs-branded
+      thesis, placed directly after the Branding section it rebuts (audit
+      rule 7). Content is i18n-only; component holds no facts. */}
+  <div class="bg-white">
+    <div class="mx-auto max-w-5xl px-4 md:px-8">
+      <DevilsAdvocate
+        id="devils-advocate"
+        heading={t.devilsAdvocate.h2}
+        paragraphs={devilsAdvocateParagraphs}
+      />
+    </div>
+  </div>
 
   {/* Compliance, shipping & retail markings (v6 §4.9). */}
   <section id="compliance" aria-labelledby="compliance-heading" class="scroll-mt-24 bg-white">
