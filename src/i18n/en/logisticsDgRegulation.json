@@ -1,11 +1,11 @@
 {
   "meta": {
-    "titleTemplate": "Charcoal Shipping Rules {{dgMandatoryYear}}: IMDG 42-24 & SP 978",
+    "titleTemplate": "Charcoal Dangerous Goods {{dgMandatoryYear}}: IMDG 42-24 & SP 978",
     "descriptionTemplate": "What changed for shipping coconut charcoal in {{dgMandatoryYear}}: IMDG Amendment 42-24 withdrew the test-out, introduced SP 978, and made declared dangerous goods mandatory."
   },
   "breadcrumb": "2026 shipping rules",
   "eyebrow": "Logistics · Regulation",
-  "h1": "Charcoal shipping rules in {{dgMandatoryYear}}: IMDG 42-24 & SP 978",
+  "h1": "Charcoal dangerous-goods rules in {{dgMandatoryYear}}: IMDG 42-24 & SP 978",
   "heroSubtitle": "On {{dgMandatoryDate}}, IMDG Amendment 42-24 changed how coconut charcoal ships by sea. The self-heating test-out is gone; declared dangerous goods is now the only lawful route.",
   "hero": {
     "ctaQuote": "Ask a compliance question",

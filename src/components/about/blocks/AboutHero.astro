@@ -54,7 +54,7 @@ if (hasShippingLines) {
 }
 ---
 <HeroSection
-  title={t.hero.title}
+  title={fill(t.hero.title, { brand: co.brand })}
   subtitle={fill(t.hero.subtitleTemplate, { legalName: co.legalName })}
   variant="dark"
   align="start"

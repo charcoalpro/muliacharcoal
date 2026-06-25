@@ -110,7 +110,8 @@ const shippingBody = hasShippingLines
   : fill(t.shipping.bodyNoLines, { portLabel: portOfLoadingLabel() });
 ---
 <Section>
-  <div class="grid gap-8 lg:grid-cols-2">
+  <h2 id="company-overview" class="text-2xl font-bold text-neutral-900 md:text-3xl">{t.heading}</h2>
+  <div class="mt-8 grid gap-8 lg:grid-cols-2">
     <ImagePlaceholder
       label={t.imageAlt}
       caption={t.imageCaption}
