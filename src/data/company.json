@@ -1063,7 +1063,7 @@
       { "id": "sht", "name": "Self-Heating Test (SHT) report", "issuer": "", "perOrder": true }
     ],
     "testingVideo": {
-      "youtubeId": "dummyVideoID",
+      "youtubeId": "",
       "name": "Mulia Charcoal burn and ash test",
       "description": "A short demonstration of a Mulia Charcoal coal through a full burn — lighting, the working session, and the silver-white, low-residue ash it leaves.",
       "durationISO": "",

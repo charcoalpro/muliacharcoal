@@ -119,7 +119,7 @@
       },
       {
         "q": "How long does shipping from Indonesia to Germany take?",
-        "a": "We model the lane ex-{{portWithCode}} to the main German gateways — Hamburg and Bremerhaven — at roughly 30–38 days of sea transit; see the transit list above for the per-port range. Other German ports are available; confirm routing and the vessel schedule with the carrier at booking."
+        "a": "We model the lane ex-{{portWithCode}} to the main German gateways — Hamburg and Bremerhaven — at roughly 32–45 days of sea transit; see the transit list above for the per-port range. Other German ports are available; confirm routing and the vessel schedule with the carrier at booking."
       }
     ]
   },

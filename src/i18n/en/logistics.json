@@ -68,7 +68,7 @@
       "h2": "Export documents",
       "definition": "The paper that travels with your container. We issue {{documentsStandardCount}} standard documents with every shipment and {{documentsAdditionalCount}} more on request.",
       "facts": [
-        "Standard pack includes the commercial invoice, packing list, bill of lading, COO, MSDS, DGD and vanning certificate.",
+        "Standard pack includes the commercial invoice, packing list, bill of lading, COO, MSDS, DGD, vanning certificate and export declaration (PEB).",
         "SHT and COA reports are available on request as paid add-ons.",
         "Originals follow by courier; scans are sent first so your broker can pre-clear."
       ],
@@ -99,7 +99,7 @@
       "definition": "Not every line carries Class {{unClass}} charcoal. We book directly with carriers that accept declared UN 1361 dangerous goods and hold the factory audits they require.",
       "facts": [
         "Carriers we book directly: {{carriersAudited}}.",
-        "Several major lines have declined charcoal bookings — we name them so you can plan.",
+        "Some major lines have stepped back from charcoal, so we book only with carriers that accept declared UN 1361.",
         "You may use your own forwarder under EXW or {{incotermDefault}}."
       ],
       "linkLabel": "Which carriers accept charcoal"
