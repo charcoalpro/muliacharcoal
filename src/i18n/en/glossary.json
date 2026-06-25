@@ -450,7 +450,7 @@
       "slug": "phytosanitary",
       "term": "Phytosanitary certificate",
       "cluster": "docs",
-      "definitionTemplate": "A phytosanitary certificate is the document issued by the exporting country's plant-health authority (Indonesia: Badan Karantina Pertanian) attesting that the consignment is free of pests and complies with the importing country's phytosanitary regulations. Coconut shell charcoal is fully carbonized so the risk is minimal, but a phytosanitary certificate is mandatory for entry into the EU, Australia, and several Middle Eastern markets.",
+      "definitionTemplate": "A phytosanitary certificate is the document issued by the exporting country's plant-health authority (Indonesia: Badan Karantina Pertanian) attesting that the consignment is free of pests and complies with the importing country's phytosanitary regulations. Coconut shell charcoal is fully carbonized so the pest risk is minimal: the EU does not require a phytosanitary certificate for fully carbonized charcoal (HS 4402 is outside its regulated-commodity list), while Australia regulates charcoal under BICON and some Middle Eastern markets may request one — confirm the requirement per destination.",
       "see": { "href": "/logistics/documents", "label": "Phytosanitary certificate process" }
     },
     {
@@ -524,7 +524,7 @@
       "term": "REACH (EU)",
       "termCode": "EC 1907/2006",
       "cluster": "markets",
-      "definitionTemplate": "REACH (EC Regulation 1907/2006 — Registration, Evaluation, Authorisation and Restriction of Chemicals) is the EU chemicals regulation under which any substance manufactured in or imported into the EU above one tonne per year must be registered with the European Chemicals Agency. Coconut shell charcoal is exempt from registration as a \"naturally occurring substance\" under REACH Annex V, but the safety data sheet (SDS) requirements still apply.",
+      "definitionTemplate": "REACH (EC Regulation 1907/2006 — Registration, Evaluation, Authorisation and Restriction of Chemicals) is the EU chemicals regulation under which any substance manufactured in or imported into the EU above one tonne per year must be registered with the European Chemicals Agency. Coconut shell charcoal is NOT exempt under REACH Annex V (ECHA treats charcoal from thermal decomposition as not naturally occurring), so above one tonne per year it is a registrable substance: the EU importer registers it, or relies on the manufacturer's appointed EU Only Representative holding a Letter of Access to the joint registration. The safety data sheet (SDS) is required either way.",
       "see": { "href": "/markets/germany", "label": "EU market requirements" }
     },
     {
@@ -584,7 +584,7 @@
       "term": "FDA Deeming Rule (USA)",
       "termCode": "21 CFR 1100",
       "cluster": "markets",
-      "definitionTemplate": "The FDA Deeming Rule (21 CFR Part 1100, finalized 2016) extended FDA regulatory authority to \"all tobacco products\" including hookah and shisha tobacco and accessories. Charcoal itself is not a tobacco product and is not directly regulated, but the rule's adjacency means US importers commonly ask for our HS code, COA, and Lacey Act documentation up-front.",
+      "definitionTemplate": "The FDA Deeming Rule (21 CFR Part 1100, finalized 2016) extended FDA regulatory authority to \"all tobacco products\" including hookah and shisha tobacco and accessories. Charcoal is not itself made from tobacco, so it is not a \"covered tobacco product,\" but hookah charcoal that maintains combustion of waterpipe tobacco is regulated as a \"component or part\" of a tobacco product (81 FR 28974), bringing FDA registration, listing, and premarket (PMTA) obligations onto the US importer. US importers commonly ask for our HS code, COA, and Lacey Act documentation up-front.",
       "see": { "href": "/markets/usa", "label": "USA market requirements" }
     },
 

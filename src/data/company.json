@@ -555,8 +555,8 @@
       "shtProvided": true,
       "dgFreightNote": "",
       "compliantSince": "",
-      "carriersAudited": ["MSC", "Maersk", "CMA CGM", "Emirates", "Asyad"],
-      "carriersNotAccepting": ["Hapag-Lloyd", "ONE", "Cosco", "ZIM"],
+      "carriersAudited": ["MSC", "Maersk", "CMA CGM"],
+      "carriersNotAccepting": [],
       "amendment": "IMDG Amendment 42-24 (Res. MSC.556(108))",
       "voluntaryFrom": "2025-01-01",
       "mandatoryFrom": "2026-01-01",
@@ -727,7 +727,7 @@
         "vat": {
           "name": "Import VAT",
           "ratePct": "20%",
-          "recoverableNote": "Standard rate, charged on the customs value plus duty plus freight/insurance and incidental UK port charges to the point of delivery. VAT-registered importers can use Postponed VAT Accounting (PVA) to account for import VAT on the VAT return rather than paying it at the border, then recover it as input tax under normal rules. The reduced 5% fuel-and-power rate is for sub-1-tonne domestic supply and does not apply to a commercial container.",
+          "recoverableNote": "Standard rate, charged on the customs value plus duty plus freight/insurance and incidental UK port charges to the point of delivery. VAT-registered importers can use Postponed VAT Accounting (PVA) to account for import VAT on the VAT return rather than paying it at the border, then recover it as input tax under normal rules. The reduced 5% fuel-and-power rate does not apply: it is a UK domestic onward-supply rate for fuel held out solely for sale as fuel to a customer who will not resell it, so a wholesale import for resale is standard-rated regardless of quantity.",
           "asOf": "2026",
           "sourceUrl": "https://www.gov.uk/guidance/tariffs-on-goods-imported-into-the-uk"
         },
@@ -758,7 +758,7 @@
             },
             {
               "label": "Phytosanitary (APHA / BTOM)",
-              "value": "Fully carbonised charcoal is generally treated as exempt from APHA phytosanitary certification, with the 901Y exemption document code used in the CDS declaration; this is subject to local Border Control Post interpretation of \"wood products.\" Describe the goods on the invoice as fully carbonised, agglomerated charcoal to avoid a misclassification as a regulated wood product. Wood pallets and dunnage must be ISPM-15 compliant (heat-treated or fumigated and stamped).",
+              "value": "Fully carbonised charcoal is generally outside the plant-health regulated-commodity scope, so no APHA phytosanitary certificate or IPAFFS pre-notification is normally required — confirm the commodity status via Defra's plant-health import-rules service, as this is subject to local Border Control Post interpretation of \"wood products.\" Describe the goods on the invoice as fully carbonised, agglomerated charcoal to avoid a misclassification as a regulated wood product. Wood pallets and dunnage must be ISPM-15 compliant (heat-treated or fumigated and stamped).",
               "sourceUrl": "https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain"
             }
           ]

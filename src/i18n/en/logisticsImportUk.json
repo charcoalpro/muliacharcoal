@@ -115,7 +115,7 @@
       },
       {
         "q": "Is UK import VAT recoverable?",
-        "a": "Yes. Import VAT is 20% on the customs value plus duty plus freight, insurance and incidental UK charges. A VAT-registered importer can use Postponed VAT Accounting (PVA) to account for it on the VAT return rather than paying at the border, and recover it as input tax. The reduced 5% fuel rate is for sub-1-tonne domestic supply and does not apply to a commercial container."
+        "a": "Yes. Import VAT is 20% on the customs value plus duty plus freight, insurance and incidental UK charges. A VAT-registered importer can use Postponed VAT Accounting (PVA) to account for it on the VAT return rather than paying at the border, and recover it as input tax. The reduced 5% fuel rate does not apply: it is a UK domestic onward-supply rate for fuel held out solely for sale as fuel to a customer who will not resell it, so a wholesale import for resale is standard-rated and import VAT is 20% regardless of quantity."
       },
       {
         "q": "Do UK timber or FLEGT rules apply to coconut charcoal?",
