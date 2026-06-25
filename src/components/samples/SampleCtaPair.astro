@@ -18,6 +18,12 @@
  * delegated listener in Analytics.astro reads these `data-*` attributes;
  * this component fires nothing itself (zero JS).
  *
+ * `destination_country` is intentionally NOT sent: these are one-click deep
+ * links with no country field, so the destination is unknown at click time
+ * (the buyer states it in the first reply). Per CLAUDE.md § Conversion
+ * Tracking it is optional on `sample_request` — omit it here rather than
+ * infer or send a placeholder.
+ *
  * All visible strings arrive already-resolved from i18n (facts via tokens).
  * No `aria-label` override: the visible button text IS the accessible name,
  * which keeps WCAG 2.5.3 (Label in Name) satisfied no matter what label a
