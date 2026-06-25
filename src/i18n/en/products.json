@@ -70,7 +70,7 @@
 
   "grades": {
     "h2": "Quality grades compared",
-    "intro": "All three grades are 100% natural coconut shell charcoal — no chemicals, no fillers — produced under {{isoStandard}} and classified for sea transport as IMDG {{unNumber}}. The grades are separated by two things a buyer can measure: ash content and the raw-material selection behind it. The numeric specifications below are factory targets; a per-batch certificate of analysis (COA) issued by {{auditors}} ships with every order.",
+    "intro": "All three grades are 100% natural coconut shell charcoal — no chemicals, no fillers — produced under {{isoStandard}} and classified for sea transport as IMDG {{unNumber}}. The grades are separated by two things a buyer can measure: ash content and the raw-material selection behind it. The numeric specifications below are factory targets; a per-batch certificate of analysis (COA) ships with every order.",
     "propertyHeader": "Specification",
     "cardEyebrow": "Grade",
     "caption": "Factory targets per grade. Independent lab COA issued per shipment; figures confirmed on each batch.",
@@ -116,7 +116,7 @@
     },
     "business": {
       "h3": "Impact on your business",
-      "body": "Consistency is what protects your margin. A coal that burns the same in every box means fewer customer complaints, fewer returns, and a reputation your lounge or retail brand can charge for. Low ash and long burn let you position a premium SKU above the commodity wood-charcoal shelf. And because every batch ships with a {{auditors}} COA, you can answer a distributor's specification question with a document instead of a promise. Compare the coconut-shell advantage against bamboo and wood charcoal in our buyer's guide.",
+      "body": "Consistency is what protects your margin. A coal that burns the same in every box means fewer customer complaints, fewer returns, and a reputation your lounge or retail brand can charge for. Low ash and long burn let you position a premium SKU above the commodity wood-charcoal shelf. And because every batch ships with a certificate of analysis (COA), you can answer a distributor's specification question with a document instead of a promise. Compare the coconut-shell advantage against bamboo and wood charcoal in our buyer's guide.",
       "linkLabel": "Coconut vs bamboo vs wood charcoal, compared"
     }
   },

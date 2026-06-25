@@ -23,11 +23,11 @@
     "waPrefill": "Hello {{brand}} — please share your USD price list, MOQ details, and current lead time for coconut shisha charcoal briquettes."
   },
   "trustStrip": {
-    "aria": "Proof signals from REACH compliance to shipping partners",
+    "aria": "Proof signals from REACH documentation to shipping partners",
     "items": {
       "reach": {
-        "label": "REACH compliant",
-        "definition": "What is REACH? — REACH is the EU's Registration, Evaluation, Authorisation and Restriction of Chemicals regulation; we declare REACH compliance for all coconut-shell binders and starches used in production."
+        "label": "REACH documentation",
+        "definition": "What is REACH? — REACH is the EU's Registration, Evaluation, Authorisation and Restriction of Chemicals regulation. EU registration is the importer's duty; we provide the safety data sheet (SDS) and export documentation your EU importer (or its appointed Only Representative) needs."
       },
       "audits": {
         "labelTemplate": "Audited by {{auditors}}",

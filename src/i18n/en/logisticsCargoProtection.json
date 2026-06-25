@@ -39,7 +39,7 @@
   },
   "condition": {
     "h2": "Cargo condition in transit",
-    "body": "Over four to eight weeks at sea the cargo has to stay dry, intact, and stable. Sealed primary packaging plus container desiccant manage moisture (working with the SP 978 headspace), a thermal blanket buffers temperature swings, boxes are clean and dust-free before loading, and the master-box stacking protects against breakage. The physical specifications live on the packaging page.",
+    "body": "Over four to eight weeks at sea the cargo has to stay dry, intact, and stable. Sealed primary packaging works with the SP 978 container headspace to manage moisture, boxes are clean and dust-free before loading, and the master-box stacking protects against breakage. The physical specifications live on the packaging page.",
     "packagingLinkLabel": "Cargo-protection specs (packaging)"
   },
   "safetyLoop": {
@@ -49,8 +49,8 @@
     "regulationLinkLabel": "How SP 978 prevents it"
   },
   "media": {
-    "alt": "Container desiccant and a thermal liner inside a loaded coconut charcoal container",
-    "caption": "Moisture and thermal protection inside a loaded container."
+    "alt": "Sealed coconut charcoal master boxes stacked inside a loaded container",
+    "caption": "Sealed packaging and master-box stacking inside a loaded container."
   },
   "faq": {
     "heading": "Frequently asked questions",
@@ -65,7 +65,7 @@
       },
       {
         "q": "How is the charcoal protected from moisture and damage in transit?",
-        "a": "Sealed primary packaging plus container desiccant manage moisture, a thermal blanket buffers temperature swings, boxes are clean before loading, and master-box stacking limits breakage. The exact desiccant and liner specifications are on the packaging page."
+        "a": "Sealed primary packaging works with the SP 978 container headspace to manage moisture, boxes are clean before loading, and master-box stacking limits breakage. The packaging specifications are on the packaging page."
       },
       {
         "q": "What happens if the container is damaged?",
