@@ -102,6 +102,7 @@ const addressLines = [
                 <a
                   href={`tel:${company.phone.e164}`}
                   class="text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  data-event="phone_click"
                   data-source-component="contact-direct-phone"
                 >
                   {company.phone.display}
@@ -114,6 +115,7 @@ const addressLines = [
                 <a
                   href={mailto()}
                   class="text-brand-primary underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+                  data-event="email_click"
                   data-source-component="contact-direct-email"
                 >
                   {company.email}

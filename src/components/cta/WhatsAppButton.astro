@@ -43,6 +43,8 @@ interface Props {
   label?: string;
   /** Drives both data-event and default pre-fill. */
   context?: Context;
+  /** Override the analytics `source_component` (else derived from context). */
+  sourceComponent?: string;
   size?: Size;
   appearance?: Appearance;
   /** Legacy alias for `appearance: 'fab'`. */
@@ -56,6 +58,7 @@ const {
   messageContext,
   label,
   context,
+  sourceComponent: sourceComponentProp,
   size: sizeProp,
   appearance: appearanceProp,
   floating = false,
@@ -96,11 +99,16 @@ const size: Size = sizeProp ?? (appearance === 'fab' ? 'md' : appearance === 'in
 // If no explicit context, infer from appearance ('fab' → 'fab', otherwise undefined).
 const resolvedContext: Context | undefined = context ?? (appearance === 'fab' ? 'fab' : undefined);
 
-// Resolve event name. Falls back to the legacy generic event.
-const eventName = resolvedContext
-  ? contextEventMap[resolvedContext]
-  : 'whatsapp_click';
-const sourceComponent = resolvedContext ?? (appearance === 'fab' ? 'fab' : 'inline');
+// Resolve event name. Every WhatsAppButton renders a wa.me href, so the
+// canonical `whatsapp_click` (CLAUDE.md § Conversion Tracking) is always
+// emitted alongside any granular context event — keeping the WhatsApp lead
+// metric complete regardless of placement. Comma-separated names dispatch as
+// multiple events via the sitewide listener in Analytics.astro.
+const baseEvent = resolvedContext ? contextEventMap[resolvedContext] : 'whatsapp_click';
+const eventName = baseEvent.split(',').includes('whatsapp_click')
+  ? baseEvent
+  : `${baseEvent},whatsapp_click`;
+const sourceComponent = sourceComponentProp ?? resolvedContext ?? (appearance === 'fab' ? 'fab' : 'inline');
 
 // Resolve pre-fill text. Priority: explicit message > messageContext interpolation > preset.
 const presetKey = resolvedContext ? contextPresetMap[resolvedContext] : 'salesGeneral';

@@ -48,7 +48,7 @@ const cards = [
               <p class="text-xs font-medium uppercase tracking-wide text-neutral-600">{heading}</p>
               <h3 class="mt-2 text-lg font-semibold text-neutral-900">{person.name}</h3>
               <p class="text-sm text-neutral-600">{person.role}</p>
-              <TextLink href={`tel:${telDigits}`} class="mt-4 text-sm">
+              <TextLink href={`tel:${telDigits}`} class="mt-4 text-sm" data-event="phone_click" data-source-component="contact-card-number">
                 {wa.display}
               </TextLink>
               <div class="mt-auto flex flex-wrap gap-2 pt-4">
@@ -67,6 +67,8 @@ const cards = [
                 </Button>
                 <a
                   href={`tel:${telDigits}`}
+                  data-event="phone_click"
+                  data-source-component="contact-card-call"
                   class="inline-flex items-center justify-center rounded-md border border-neutral-300 px-3 py-2 text-sm font-semibold text-neutral-800 hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
                 >
                   {t.whatsappPrimary.buttonCall}

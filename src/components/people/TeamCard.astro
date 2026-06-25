@@ -91,7 +91,7 @@ const isSales = variant === 'sales';
         <div class="flex flex-wrap gap-x-2">
           <dt class="font-medium text-neutral-700">{tSales.emailLabel}:</dt>
           <dd>
-            <TextLink href={mailHref} class="break-all">{member.email}</TextLink>
+            <TextLink href={mailHref} class="break-all" data-event="email_click" data-source-component="team-card-email">{member.email}</TextLink>
           </dd>
         </div>
       )}
@@ -103,7 +103,7 @@ const isSales = variant === 'sales';
           <div class="flex flex-wrap gap-x-2">
             <dt class="font-medium text-neutral-700">{tAbout.email}:</dt>
             <dd>
-              <TextLink href={`mailto:${member.email}`} class="break-all">
+              <TextLink href={`mailto:${member.email}`} class="break-all" data-event="email_click" data-source-component="team-card-email">
                 {member.email}
               </TextLink>
             </dd>
@@ -113,7 +113,7 @@ const isSales = variant === 'sales';
           <div class="flex flex-wrap gap-x-2">
             <dt class="font-medium text-neutral-700">{tAbout.phone}:</dt>
             <dd>
-              <TextLink href={`tel:${member.phone.e164}`}>
+              <TextLink href={`tel:${member.phone.e164}`} data-event="phone_click" data-source-component="team-card-phone">
                 {member.phone.display}
               </TextLink>
             </dd>
