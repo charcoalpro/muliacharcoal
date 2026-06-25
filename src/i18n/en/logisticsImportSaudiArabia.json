@@ -22,7 +22,7 @@
     "heading": "Saudi import at a glance",
     "definition": "Classification, headline duty and VAT, and who clears the cargo.",
     "htsLabel": "HS classification",
-    "htsValue": "4402.20 \"of shells or nuts\" (12-digit 4402.20.00.00.00, confirm with broker)",
+    "htsValue": "4402.20 \"of shells or nuts\" (12-digit national extension; confirm exact suffix with broker)",
     "dutyLabel": "Headline duty",
     "dutyValue": "5% GCC Common External Tariff on CIF, plus 15% VAT",
     "docsLabel": "Entry documents",

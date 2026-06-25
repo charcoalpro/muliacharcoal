@@ -193,7 +193,7 @@
         {
           "id": "certifications",
           "q": "What certifications do you hold?",
-          "a": "We hold {{isoStandard}} (quality management, audited by {{auditors}}), IMDG Code compliance for {{unNumber}} Class {{unClass}} ({{imdgClassDescription}}), Self-Heating Test certification per UN N.4 protocol, and Preferential Certificate of Origin issued through the Indonesian Ministry of Trade. Certificate scans are released to confirmed buyers under NDA; specs were last verified {{specsLastVerified}}."
+          "a": "We hold {{isoStandard}} (quality management, audited by {{auditors}}), IMDG Code compliance for {{unNumber}} Class {{unClass}} ({{imdgClassDescription}}), Self-Heating Test certification per UN N.4 protocol, and a Certificate of Origin (preferential or non-preferential, as the destination scheme allows) issued through the Indonesian Ministry of Trade. Certificate scans are released to confirmed buyers under NDA; specs were last verified {{specsLastVerified}}."
         }
       ]
     },
