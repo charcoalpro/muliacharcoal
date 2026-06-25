@@ -80,6 +80,7 @@
     "burnTest": "Burn test — performance over time",
     "dropTest": "Drop test — transit durability",
     "howToLight": "How to light & use",
+    "storage": "Storage & shelf life",
     "availableGrades": "Available grades for this size",
     "packaging": "Packaging",
     "pricing": "Pricing & volume discounts",
@@ -174,6 +175,10 @@
   "howToLight": {
     "body": "Coconut shell charcoal does not light from a flame the way quick-light coals do — and that is the point: there is no accelerant to taste. Place the briquette on an electric coil burner or a single-coil lighter for 4–6 minutes, turning once, until every face has ashed over to grey with no black spots. Only then seat it on the foil or heat-management device. On a bowl, rotate the coals every 15–20 minutes to keep the heat even and the session consistent.",
     "linkLabel": "Specifications explained, term by term"
+  },
+
+  "storage": {
+    "body": "Store the briquettes in their sealed inner packaging in a cool, dry place, away from direct moisture, water, and strong odors. Kept sealed and dry, the product holds its low-moisture, low-ash specification for at least {{shelfLifeMonths}} months from the production date printed on each master carton. Re-seal any opened inner box or plastic before storing — coconut shell charcoal is mildly hygroscopic, and absorbed moisture raises ash, increases smoke, and shortens burn time."
   },
 
   "midCta": {

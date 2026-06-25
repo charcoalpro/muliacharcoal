@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import rehypeSlug from 'rehype-slug';
 import { company } from './src/config/company';
 import { companyTokens, fill } from './src/lib/interpolate';
 
@@ -58,6 +59,12 @@ export default defineConfig({
   ],
   markdown: {
     remarkPlugins: [remarkCompanyTokens],
+    // rehype-slug gives every rendered Markdown/MDX heading a deterministic,
+    // stable `id` (slug of its text) so content headings are anchor-linkable
+    // and citable by AI engines. Note: this only touches Markdown/MDX bodies
+    // (legal pages, articles, MDX product copy) — headings authored directly
+    // in `.astro` templates still need explicit `id`s.
+    rehypePlugins: [rehypeSlug],
   },
   // Image pipeline. Sharp (already a dependency) emits AVIF + WebP + JPG
   // derivatives at the widths components request. Source files live under

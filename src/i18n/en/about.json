@@ -1,11 +1,11 @@
 {
   "meta": {
-    "titleTemplate": "About {{legalName}} — coconut shisha charcoal factory",
+    "titleTemplate": "About {{brand}} — Coconut Shisha Charcoal Factory",
     "descriptionTemplate": "About {{legalName}}: legal registration, factory team, production capacity, certifications, banking and supply chain. Wholesale shisha charcoal from {{port}}, {{country}}."
   },
   "breadcrumb": "About",
   "hero": {
-    "title": "About our charcoal factory",
+    "title": "About {{brand}} — our coconut shisha charcoal factory",
     "subtitleTemplate": "About {{legalName}} — company, team, history and legal information.",
     "pillSinceTemplate": "Manufacturing only shisha charcoal since {{year}}",
     "pillIsoTemplate": "ISO 9001:2015 certified, audited by {{auditors}}",
@@ -14,6 +14,7 @@
     "pillShippingTemplate": "Approved direct shipping with {{lines}}"
   },
   "block2": {
+    "heading": "Company overview",
     "imageAlt": "Factory workers at the Semarang briquetting facility",
     "imageCaption": "Photo: factory team on the production floor (placeholder).",
     "whoWeAre": {
