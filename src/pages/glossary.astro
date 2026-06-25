@@ -38,6 +38,12 @@ const tokens = {
   ...companyTokens(company),
   termCount: t.terms.length,
   paymentTerms: company.commercial.paymentTerms,
+  // Lab test-method designations — single-sourced from company.quality.testing
+  // (same SSoT rule). An empty string renders the definition without naming a
+  // standard (e.g. moisture), so a definition never prints a stray "{{token}}".
+  ashMethod: company.quality.testing.ashMethod,
+  calorificMethod: company.quality.testing.calorificMethod,
+  proximateMethod: company.quality.testing.proximateMethod,
   // Grade-derived spec strings — sourced from grades.ts (SSoT); never
   // hardcoded in i18n bodies.
   premiumAsh: premium.ash.display,
@@ -72,7 +78,11 @@ const resolvedTerms: Array<ResolvedTerm & { cluster: string; see?: { href: strin
   alternateNames: term.alternateNames,
   cluster: term.cluster,
   definition: fill(term.definitionTemplate, tokens),
-  see: term.see,
+  // `see.label` may carry a fact token (e.g. the calorific method), so it
+  // is interpolated too; `href` is a static route and passes through.
+  see: term.see
+    ? { href: term.see.href, label: fill(term.see.label, tokens) }
+    : undefined,
 }));
 
 const termsByCluster = new Map<string, typeof resolvedTerms>();

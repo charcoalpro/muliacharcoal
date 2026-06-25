@@ -98,7 +98,7 @@
   },
   "compliance": {
     "h2": "Compliance & markings",
-    "p1": "Every export master box — neutral or branded — is printed with the {{unNumber}} marking and Class {{unClass}} dangerous-goods labels ({{imdgLabel}}), country of origin (Made in Indonesia), net weight, and a batch/lot code. Carriers check these markings before accepting the booking; missing marks strand cargo at the port.",
+    "p1": "Every export master box — neutral or branded — is printed with the {{unNumber}} marking and Class {{unClass}} dangerous-goods labels ({{imdgLabel}}), country of origin (Made in {{country}}), net weight, and a batch/lot code. Carriers check these markings before accepting the booking; missing marks strand cargo at the port.",
     "unLinkLabel": "UN Transport of Dangerous Goods (UNECE)",
     "un1361LinkLabel": "UN 1361 shipping rules",
     "documentsLinkLabel": "Export documents",
@@ -150,7 +150,7 @@
       },
       {
         "q": "What markings are printed on the master box?",
-        "a": "Every export box carries the {{unNumber}} marking with Class {{unClass}} dangerous-goods labels, country of origin (Made in Indonesia), net weight, and a batch/lot code. These are mandatory on neutral and branded cartons alike — carriers verify them before accepting the booking."
+        "a": "Every export box carries the {{unNumber}} marking with Class {{unClass}} dangerous-goods labels, country of origin (Made in {{country}}), net weight, and a batch/lot code. These are mandatory on neutral and branded cartons alike — carriers verify them before accepting the booking."
       },
       {
         "q": "Can I order a custom master-box size, or request a sample?",

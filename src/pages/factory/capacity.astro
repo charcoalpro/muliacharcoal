@@ -126,7 +126,7 @@ const readMinutes = readingTime(proseForReadTime);
       <MaybeLink href="/factory" class="font-semibold" data-source-component="capacity-up-hub">{t.intro.hubLinkLabel} <span aria-hidden="true">→</span></MaybeLink>.
     </p>
 
-    <Figure class="mt-8" alt={fill(t.figure.alt, tokens)} caption={t.figure.caption} />
+    <Figure class="mt-8" alt={fill(t.figure.alt, tokens)} caption={fill(t.figure.caption, tokens)} />
 
     <KeyFactsBox class="mt-8" id="capacity-at-a-glance" heading={t.atAGlance.heading} definition={fill(t.atAGlance.definition, tokens)} facts={atGlanceFacts} />
 

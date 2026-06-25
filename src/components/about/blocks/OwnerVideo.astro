@@ -62,7 +62,7 @@ const videoAlt = fill(t.videoAltTemplate, {
           data-transcript
           class="relative max-h-80 overflow-hidden text-neutral-700 transition-[max-height] duration-300"
         >
-          <p class="leading-relaxed">{t.transcriptPlaceholder}</p>
+          <p class="leading-relaxed">{fill(t.transcriptPlaceholder, { owner: ownerName })}</p>
         </div>
         <div
           data-transcript-fade

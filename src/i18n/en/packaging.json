@@ -219,7 +219,7 @@
     "mandatory": {
       "h3": "Mandatory on every export (neutral or branded)",
       "body1": "Coconut charcoal ships as {{imdgLabel}} cargo. Carriers require the {{unNumber}} marking and Class {{unClass}} dangerous-goods labels on every master carton before they accept the booking — plain kraft and fully branded cartons carry exactly the same markings.",
-      "body2": "Alongside the DG set, every carton is printed with country of origin (Made in Indonesia), net weight, and a batch/lot code for traceability. Wood pallets, when palletization is requested, are ISPM-15 heat-treated and stamped.",
+      "body2": "Alongside the DG set, every carton is printed with country of origin (Made in {{country}}), net weight, and a batch/lot code for traceability. Wood pallets, when palletization is requested, are ISPM-15 heat-treated and stamped.",
       "unLinkLabel": "UN Transport of Dangerous Goods (UNECE)",
       "ispmLinkLabel": "IPPC ISPM-15 standard"
     },

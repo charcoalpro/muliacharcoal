@@ -555,8 +555,8 @@
       "shtProvided": true,
       "dgFreightNote": "",
       "compliantSince": "",
-      "carriersAudited": ["MSC", "Maersk", "CMA CGM", "Emirates", "Asyad"],
-      "carriersNotAccepting": ["Hapag-Lloyd", "ONE", "Cosco", "ZIM"],
+      "carriersAudited": ["MSC", "Maersk", "CMA CGM"],
+      "carriersNotAccepting": [],
       "amendment": "IMDG Amendment 42-24 (Res. MSC.556(108))",
       "voluntaryFrom": "2025-01-01",
       "mandatoryFrom": "2026-01-01",
@@ -666,7 +666,7 @@
         "country": "USA",
         "htsCandidates": [
           { "code": "4402.20.00.00", "sourceUrl": "https://hts.usitc.gov", "note": "\"Of shell or nut\" — most precise for coconut shell charcoal; base duty Free." },
-          { "code": "4402.90.01.00", "sourceUrl": "https://hts.usitc.gov", "note": "Residual \"Other\"; base duty Free. Legacy CBP ruling N306942 (2014) cited 4402.90.0000 before the post-2022 renumbering." }
+          { "code": "4402.90.01.00", "sourceUrl": "https://hts.usitc.gov", "note": "Residual \"Other\"; base duty Free. Legacy CBP ruling N306942 (2019) cited 4402.90.0000 before the post-2022 renumbering." }
         ],
         "htsNotes": "Both candidates carry a Free base (MFN) duty, so the exact 10-digit code does not change the rate; a CBP binding-ruling request would settle it. Confirm classification with your customs broker.",
         "dutyLayers": [
@@ -727,7 +727,7 @@
         "vat": {
           "name": "Import VAT",
           "ratePct": "20%",
-          "recoverableNote": "Standard rate, charged on the customs value plus duty plus freight/insurance and incidental UK port charges to the point of delivery. VAT-registered importers can use Postponed VAT Accounting (PVA) to account for import VAT on the VAT return rather than paying it at the border, then recover it as input tax under normal rules. The reduced 5% fuel-and-power rate is for sub-1-tonne domestic supply and does not apply to a commercial container.",
+          "recoverableNote": "Standard rate, charged on the customs value plus duty plus freight/insurance and incidental UK port charges to the point of delivery. VAT-registered importers can use Postponed VAT Accounting (PVA) to account for import VAT on the VAT return rather than paying it at the border, then recover it as input tax under normal rules. The reduced 5% fuel-and-power rate does not apply: it is a UK domestic onward-supply rate for fuel held out solely for sale as fuel to a customer who will not resell it, so a wholesale import for resale is standard-rated regardless of quantity.",
           "asOf": "2026",
           "sourceUrl": "https://www.gov.uk/guidance/tariffs-on-goods-imported-into-the-uk"
         },
@@ -758,7 +758,7 @@
             },
             {
               "label": "Phytosanitary (APHA / BTOM)",
-              "value": "Fully carbonised charcoal is generally treated as exempt from APHA phytosanitary certification, with the 901Y exemption document code used in the CDS declaration; this is subject to local Border Control Post interpretation of \"wood products.\" Describe the goods on the invoice as fully carbonised, agglomerated charcoal to avoid a misclassification as a regulated wood product. Wood pallets and dunnage must be ISPM-15 compliant (heat-treated or fumigated and stamped).",
+              "value": "Fully carbonised charcoal is generally outside the plant-health regulated-commodity scope, so no APHA phytosanitary certificate or IPAFFS pre-notification is normally required — confirm the commodity status via Defra's plant-health import-rules service, as this is subject to local Border Control Post interpretation of \"wood products.\" Describe the goods on the invoice as fully carbonised, agglomerated charcoal to avoid a misclassification as a regulated wood product. Wood pallets and dunnage must be ISPM-15 compliant (heat-treated or fumigated and stamped).",
               "sourceUrl": "https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain"
             }
           ]
@@ -860,7 +860,7 @@
             "note": "Residual \"Other\" — WRONG for coconut-shell charcoal. Declaring 4402.90 while the broker files 4402.20 creates a FASAH document mismatch that routes the dossier to the Red Lane for inspection. Do not use."
           }
         ],
-        "htsNotes": "Declare HS6 4402.20 (full 12-digit 4402.20.00.00.00) uniformly on the commercial invoice, packing list, certificate of origin and bill of lading. The 12-digit national extension is UNVERIFIED here — confirm the exact line on ZATCA's Integrated Customs Tariff tool with your licensed Saudi customs broker; a code mismatch between origin documents and the FASAH declaration is the single most common cause of Red-Lane inspection, demurrage and penalties.",
+        "htsNotes": "Declare HS6 4402.20 uniformly on the commercial invoice, packing list, certificate of origin and bill of lading. The 12-digit national extension is UNVERIFIED here — confirm the exact line on ZATCA's Integrated Customs Tariff tool with your licensed Saudi customs broker; a code mismatch between origin documents and the FASAH declaration is the single most common cause of Red-Lane inspection, demurrage and penalties.",
         "dutyLayers": [
           {
             "id": "cet",
@@ -975,7 +975,7 @@
         },
         "preference": {
           "note": "No usable duty preference. Indonesia was removed from the EAEU unified system of tariff preferences (developing-country beneficiary list) effective 12 October 2021, so the full 5% MFN duty applies. The Indonesia–EAEU Free Trade Agreement was signed in December 2025 and promises 0% on most lines including charcoal, but it remains pending parliamentary ratification across the member states — the 0% rate is NOT yet in force, so plan on the 5% baseline until the Eurasian Economic Commission publishes the entry-into-force date.",
-          "originDoc": "Certificate of Origin (Form A still issued by Indonesia to support any future preference; does not reduce duty today)",
+          "originDoc": "Certificate of Origin per shipment; GSP Form A does not reduce duty today, and the future Indonesia–EAEU FTA preference will require the FTA's own origin certificate, not Form A",
           "sourceUrl": "https://eec.eaeunion.org/comission/department/dotp/tariff_preferences.php"
         },
         "dutyHistory": "Indonesia previously received the EAEU developing-country preference (a 25% reduction, i.e. 75% of the base rate) but was removed from the beneficiary list on 12 October 2021 (EEC Council Decision No. 17 of 5 March 2021), which cut the list from 103 to 29 countries — so the full 5% MFN rate has applied since. The signed-but-unratified Indonesia–EAEU FTA (December 2025) is the next possible change; until it enters into force, the rate stays at 5%.",
@@ -1048,8 +1048,8 @@
       "factoryBand": "Platinum"
     },
     "testing": {
-      "ashMethod": "ISO 1171:2024",
-      "calorificMethod": "ISO 1928",
+      "ashMethod": "ASTM D1762-84(2021)",
+      "calorificMethod": "ISO 18125:2017",
       "moistureMethod": "",
       "proximateMethod": "ASTM D1762-84(2021)",
       "inHouseLab": true,

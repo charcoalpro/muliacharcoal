@@ -36,11 +36,11 @@
     "waPrefill": "Hello {{brand}} — please share your USD price list, MOQ details, and current lead time for coconut shisha charcoal briquettes."
   },
   "trustStrip": {
-    "aria": "Proof signals from REACH compliance to shipping partners",
+    "aria": "Proof signals from REACH documentation to shipping partners",
     "items": {
       "reach": {
-        "label": "REACH compliant",
-        "definition": "What is REACH? — REACH is the EU's Registration, Evaluation, Authorisation and Restriction of Chemicals regulation; we declare REACH compliance for all coconut-shell binders and starches used in production."
+        "label": "REACH documentation",
+        "definition": "What is REACH? — REACH is the EU's Registration, Evaluation, Authorisation and Restriction of Chemicals regulation. EU registration is the importer's duty; we provide the safety data sheet (SDS) and export documentation your EU importer (or its appointed Only Representative) needs."
       },
       "audits": {
         "labelTemplate": "Audited by {{auditors}}",
@@ -49,7 +49,7 @@
       },
       "shipping": {
         "labelTemplate": "Loading partners: {{shippingLines}}",
-        "definition": "We are approved to book FCL containers directly with Maersk, MSC and CMA CGM out of {{port}}. Bookings file IMDG {{unNumber}} Class {{unClass}} declarations and ship with the Self-Heating Test report.",
+        "definition": "We are approved to book FCL containers directly with {{shippingLinesProse}} out of {{port}}. Bookings file IMDG {{unNumber}} Class {{unClass}} declarations and ship with the Self-Heating Test report.",
         "learnMore": "Logistics overview"
       },
       "languages": {
@@ -356,7 +356,7 @@
       },
       {
         "q": "Which shipping lines do you load with?",
-        "a": "Maersk, MSC and CMA CGM out of {{port}}. We file IMDG {{unNumber}} Class {{unClass}} declarations and provide the Self-Heating Test report with every booking."
+        "a": "{{shippingLinesProse}} out of {{port}}. We file IMDG {{unNumber}} Class {{unClass}} declarations and provide the Self-Heating Test report with every booking."
       },
       {
         "q": "Can you private-label our brand?",

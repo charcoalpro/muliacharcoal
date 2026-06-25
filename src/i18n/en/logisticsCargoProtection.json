@@ -21,7 +21,7 @@
     "heading": "Protection at a glance",
     "definition": "Who insures the cargo, what the cover includes, and what it excludes.",
     "arrangedLabel": "Insurance arranged by",
-    "arrangedValue": "The buyer (EXW / FOB / CFR — no seller cover)",
+    "arrangedValue": "The buyer (EXW / FOB / CFR); the factory under CIF on request",
     "coverageLabel": "Covered (external perils)",
     "excludedLabel": "Excluded",
     "thermalLabel": "Thermal protection",
@@ -33,13 +33,13 @@
     "h2": "Marine cargo insurance",
     "body1": "Honesty first: self-heating fire arising from the cargo's own nature is inherent vice, and standard marine cargo insurance does not cover it. That is not a gap to hide — it is the reason prevention matters. You cannot insure your way out of self-heating; you prevent it with the SP 978 controls and a documented compliance record.",
     "coverageIntro": "What marine cargo insurance does cover — the external perils of the voyage:",
-    "body2": "Insurance is arranged and held by the buyer. The incoterms we offer — EXW, FOB, and CFR — include no seller-arranged cover, so the factory never insures the cargo. Confirm the scope, sum insured, and exclusions in your policy or certificate.",
+    "body2": "Under EXW, FOB, and CFR, insurance is arranged and held by the buyer; under CIF — available on request — the factory arranges marine cover to the destination port. Inherent-vice and self-heating perils stay excluded under any incoterm. Confirm the scope, sum insured, and exclusions in your policy or certificate.",
     "rulesLinkLabel": "How the incoterm sets who insures",
     "regulationLinkLabel": "The SP 978 controls that prevent self-heating"
   },
   "condition": {
     "h2": "Cargo condition in transit",
-    "body": "Over four to eight weeks at sea the cargo has to stay dry, intact, and stable. Sealed primary packaging plus container desiccant manage moisture (working with the SP 978 headspace), a thermal blanket buffers temperature swings, boxes are clean and dust-free before loading, and the master-box stacking protects against breakage. The physical specifications live on the packaging page.",
+    "body": "Over four to eight weeks at sea the cargo has to stay dry, intact, and stable. Sealed primary packaging works with the SP 978 container headspace to manage moisture, boxes are clean and dust-free before loading, and the master-box stacking protects against breakage. The physical specifications live on the packaging page.",
     "packagingLinkLabel": "Cargo-protection specs (packaging)"
   },
   "safetyLoop": {
@@ -49,15 +49,15 @@
     "regulationLinkLabel": "How SP 978 prevents it"
   },
   "media": {
-    "alt": "Container desiccant and a thermal liner inside a loaded coconut charcoal container",
-    "caption": "Moisture and thermal protection inside a loaded container."
+    "alt": "Sealed coconut charcoal master boxes stacked inside a loaded container",
+    "caption": "Sealed packaging and master-box stacking inside a loaded container."
   },
   "faq": {
     "heading": "Frequently asked questions",
     "items": [
       {
         "q": "Is my charcoal shipment insured?",
-        "a": "Marine cargo insurance is arranged and held by the buyer — the incoterms we offer (EXW, FOB, CFR) include no seller-arranged cover. The policy covers the external perils of the voyage; confirm the scope and sum insured with your insurer."
+        "a": "Under EXW, FOB, and CFR the buyer arranges and holds marine cargo insurance; under CIF, available on request, the factory arranges cover to the destination port. The policy covers the external perils of the voyage (inherent-vice and self-heating are always excluded); confirm the scope and sum insured with your insurer."
       },
       {
         "q": "Does the insurance cover self-heating fire?",
@@ -65,7 +65,7 @@
       },
       {
         "q": "How is the charcoal protected from moisture and damage in transit?",
-        "a": "Sealed primary packaging plus container desiccant manage moisture, a thermal blanket buffers temperature swings, boxes are clean before loading, and master-box stacking limits breakage. The exact desiccant and liner specifications are on the packaging page."
+        "a": "Sealed primary packaging works with the SP 978 container headspace to manage moisture, boxes are clean before loading, and master-box stacking limits breakage. The packaging specifications are on the packaging page."
       },
       {
         "q": "What happens if the container is damaged?",

@@ -57,8 +57,12 @@ The site follows a pillar-and-cluster structure. Every new piece of content must
     - Cluster:  
       `/logistics/rules`, 
       `/logistics/documents`, 
-      `/logistics/import-to-{country}` 
-      `/logistics/UN-1361`
+      `/logistics/un-1361`, 
+      `/logistics/charcoal-dg-regulation`, 
+      `/logistics/charcoal-shipping-lines`, 
+      `/logistics/cargo-protection-and-insurance`, 
+      `/logistics/import-guides`, 
+      `/logistics/import-to-{country}` (live: usa, uk, germany, saudi-arabia, russia)
 
 3. **Quality pillar** (`/quality`) 
     - Cluster: 
@@ -76,7 +80,8 @@ The site follows a pillar-and-cluster structure. Every new piece of content must
 
  `/guide/private-label-options`
 5. **Markets pillar** (`/markets`) — country-specific landing pages
-    - Cluster: 
+    - **STATUS: not yet shipped** (absent from `LIVE_ROUTES` as of 2026-06). Market intent is currently served by the product market pages (`/products/shisha-cafee`, `/products/shisha-shop`) and the logistics import guides (`/logistics/import-to-{usa,uk,germany,saudi-arabia,russia}`). Build the cluster below when ready.
+    - Planned cluster: 
       `/markets/usa`, 
       `/markets/uk`, 
       `/markets/saudi-arabia`, 

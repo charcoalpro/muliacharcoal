@@ -4,7 +4,7 @@
     "descriptionTemplate": "{{brand}}'s coconut charcoal production capacity: {{capacity}} tons/day, {{capacityMonth}} tons/month across {{productionLines}} lines and {{ovenCount}} ovens. One 20ft container is ~{{oneContainerPctOfMonthly}}% of output."
   },
   "breadcrumb": "Production capacity",
-  "figure": { "alt": "Briquetting presses and production lines at the {{brand}} factory in {{city}}.", "caption": "Four production lines" },
+  "figure": { "alt": "Briquetting presses and production lines at the {{brand}} factory in {{city}}.", "caption": "{{productionLines}} production lines" },
   "eyebrow": "Factory",
   "h1": "Our Coconut Charcoal Production Capacity",
   "heroSubtitle": "{{capacity}} tons a day, {{capacityMonth}} tons a month, across {{productionLines}} production lines and {{ovenCount}} carbonization ovens — with headroom to scale your program.",

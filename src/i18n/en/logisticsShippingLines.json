@@ -1,12 +1,12 @@
 {
   "meta": {
     "titleTemplate": "Which Shipping Lines Carry Charcoal? | UN 1361 DG",
-    "descriptionTemplate": "Not every carrier ships Class {{unClass}} charcoal. The lines we book directly for declared UN 1361 dangerous goods, the lines that have declined it, and the audit they require."
+    "descriptionTemplate": "Not every carrier ships Class {{unClass}} charcoal. The lines we book directly for declared UN 1361 dangerous goods, and the audit they require."
   },
   "breadcrumb": "Shipping lines",
   "eyebrow": "Logistics · Carriers",
   "h1": "Which shipping lines carry coconut charcoal?",
-  "heroSubtitle": "Coconut charcoal is Class {{unClass}} dangerous goods, and not every carrier will take it. Here are the lines we book directly, the lines that have declined charcoal, and what booking requires.",
+  "heroSubtitle": "Coconut charcoal is Class {{unClass}} dangerous goods, and not every carrier will take it. Here are the lines we book directly and what booking requires.",
   "hero": {
     "ctaQuote": "Ask about current carriers",
     "ctaQuoteAria": "Ask about current carriers on WhatsApp",
@@ -35,7 +35,7 @@
     "un1361LinkLabel": "The Class 4.2 cargo they handle"
   },
   "carriers": {
-    "h2": "Carriers that accept charcoal — and those that have declined",
+    "h2": "Carriers that accept charcoal",
     "acceptIntro": "We book coconut charcoal directly with carriers that accept declared UN 1361 dangerous goods:",
     "acceptEmpty": "Contact us for the current list of carriers.",
     "declineIntro": "Several major lines have declined charcoal bookings. We name them so you can plan your routing:",

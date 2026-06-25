@@ -78,6 +78,13 @@ export function companyTokens(company: Company) {
     .filter(Boolean)
     .join(', and ');
 
+  const owner = company.people.find((p) => p.displayIn.includes('owner'));
+  const shipping = company.commercial.shippingLines;
+  const shippingLinesProse =
+    shipping.length <= 1
+      ? shipping.join('')
+      : `${shipping.slice(0, -1).join(', ')} and ${shipping[shipping.length - 1]}`;
+
   const addressFull = [
     company.address.street,
     company.address.district,
@@ -138,6 +145,9 @@ export function companyTokens(company: Company) {
       : '',
     leadTimeLabel: leadTimeLabel(),
     shippingLines: company.commercial.shippingLines.join(' · '),
+    // Prose-friendly form ("Maersk, MSC and CMA CGM") for running text; the
+    // `·`-joined `shippingLines` above stays for labels/lists.
+    shippingLinesProse,
     salesLanguages: company.commercial.salesLanguages.join(' · '),
     countriesExportedCount: company.commercial.countriesExportedCount,
     // Production
@@ -200,6 +210,9 @@ export function companyTokens(company: Company) {
     arbitrationSeat: company.legal.arbitration.seat,
     // People
     executives: executivesList,
+    // Owner/director name — single source is people.json (displayIn "owner").
+    // Use this token in prose; never hardcode the name in i18n.
+    owner: owner?.name ?? company.legalName,
   };
 }
 
@@ -270,6 +283,8 @@ export function qualityTokens(company: Company) {
   const labs = q.testing.thirdPartyLabs;
   const band = q.ashGradingFramework.factoryBand;
   const bandTier = q.ashGradingFramework.tiers.find((t) => t.grade === band);
+  const tierRange = (grade: string) =>
+    q.ashGradingFramework.tiers.find((t) => t.grade === grade)?.rangePct ?? '';
   const oxfordOr = (xs: string[]) =>
     xs.length <= 1
       ? xs.join('')
@@ -300,6 +315,11 @@ export function qualityTokens(company: Company) {
     // Ash framework placement (self-attributed rubric).
     factoryBand: band,
     factoryBandRange: bandTier ? bandTier.rangePct : '',
+    // Per-tier ash ranges from the rubric, for prose that lists all three
+    // tiers (so the values are never hardcoded in i18n).
+    platinumBandRange: tierRange('Platinum'),
+    superPremiumBandRange: tierRange('Super Premium'),
+    premiumBandRange: tierRange('Premium'),
     // Testing / lab attribution.
     ashMethod: q.testing.ashMethod,
     calorificMethod: q.testing.calorificMethod,

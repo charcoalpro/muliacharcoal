@@ -65,7 +65,7 @@
   },
   "countryReq": {
     "h2": "Documents your destination requires",
-    "body": "Destination requirements vary: GCC and African markets often add chamber-of-commerce and consular legalization; the EU and Australia require a phytosanitary certificate. US entries need ISF data from us up front.",
+    "body": "Destination requirements vary: GCC and African markets often add chamber-of-commerce and consular legalization; Australia regulates charcoal under BICON and some markets request a phytosanitary certificate (the EU does not require one for fully carbonized charcoal). US entries need ISF data from us up front.",
     "guidesIntro": "Country-specific import guides:",
     "guideItemTemplate": "{{country}} customs documents",
     "rulesLinkLabel": "How the incoterm sets the document split",
@@ -84,7 +84,7 @@
       },
       {
         "q": "Which documents does my country require?",
-        "a": "It depends on the destination. GCC and several African markets require chamber-of-commerce and consular legalization on top of the standard pack; the EU and Australia require a phytosanitary certificate; US entries require ISF data from us before the cargo loads. Tell us your destination and we will confirm the exact pack."
+        "a": "It depends on the destination. GCC and several African markets require chamber-of-commerce and consular legalization on top of the standard pack; Australia regulates charcoal under BICON and some markets request a phytosanitary certificate (the EU does not require one for fully carbonized charcoal); US entries require ISF data from us before the cargo loads. Tell us your destination and we will confirm the exact pack."
       }
     ]
   },

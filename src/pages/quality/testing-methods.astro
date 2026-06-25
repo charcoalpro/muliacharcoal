@@ -34,7 +34,9 @@ const tokens = { ...companyTokens(company), ...qualityTokens(company) };
 const pageTitle = fill(t.meta.titleTemplate, tokens);
 const pageDescription = fill(t.meta.descriptionTemplate, tokens);
 
-const methodsList = [T.ashMethod, T.calorificMethod, T.proximateMethod].filter(hasFact).join(', ');
+// De-duplicated: ash and proximate share one method (ASTM D1762 covers both),
+// so the summary lists each distinct standard once.
+const methodsList = [...new Set([T.ashMethod, T.calorificMethod, T.proximateMethod])].filter(hasFact).join(', ');
 
 const keyFacts = [
   { label: t.keyFacts.parametersLabel, value: t.keyFacts.parametersValue },
