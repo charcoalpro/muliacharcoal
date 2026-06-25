@@ -326,7 +326,9 @@
       "message": "Message",
       "messagePlaceholder": "Tell us your target volume, destination port and timeline.",
       "privacyConsentTemplate": "I agree that {{brand}} may contact me about my inquiry and store my details under their privacy policy.",
-      "submit": "Send inquiry"
+      "submit": "Send inquiry",
+      "submitting": "Sending…",
+      "submitError": "Something went wrong. Please try again, or message us on WhatsApp."
     }
   },
   "cta": {
