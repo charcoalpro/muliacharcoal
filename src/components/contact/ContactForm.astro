@@ -1,25 +1,24 @@
 ---
 /**
- * ContactForm — homepage native-POST Web3Forms inquiry form.
+ * ContactForm — homepage Web3Forms inquiry form (progressive enhancement).
  *
- * Submits as a standard `<form action method="POST">` — Web3Forms
- * handles the storage and email; the user is redirected back to
- * `/?contact=sent#contact-success` so the page-level success block
- * (rendered via the `target:` Tailwind modifier) becomes visible.
+ * Renders as a standard `<form action method="POST">` that works with JS
+ * disabled: Web3Forms stores + emails the lead and redirects back to
+ * `/?contact=sent#contact-success`, surfacing the page-level success block
+ * (Tailwind `target:` modifier). So a no-JS submit is never lost.
  *
- * No JS framework, no fetch interception. A small inline script
- * adds two non-essential enhancements:
- *   1. Pre-fills the hidden `intent` input from `?intent=` in the URL
- *      (so links like /#contact?intent=samples flow through to the
- *      submitted record).
- *   2. Fires `contact_form_field_focus` on each focused input via
- *      gtag + fbq, so analytics surfaces which fields buyers engage
- *      with first.
+ * With JS, a small inline script enhances it:
+ *   1. Pre-fills the hidden `intent` input from `?intent=` in the URL.
+ *   2. Disables the native `redirect`, intercepts submit, and POSTs via
+ *      `fetch` — showing the success state IN PLACE (CLAUDE.md UX: no
+ *      thank-you redirect) and firing the `inquiry_submit` conversion
+ *      ONLY on true success (`res.ok && payload.success !== false`), with
+ *      product_category (grade), estimated_quantity_tons (numeric, from
+ *      container choice), and destination_country.
+ *   3. Fires `contact_form_field_focus` on each focused input.
  *
- * Honeypot: a hidden checkbox `botcheck` Web3Forms recognises and
- * silently drops on submit when ticked. The submit button itself
- * carries `data-event="contact_form_submit"` for the sitewide
- * dispatcher.
+ * Honeypot: a hidden checkbox `botcheck` Web3Forms recognises and silently
+ * drops on submit when ticked.
  */
 
 import en from '~/i18n/en';
@@ -51,6 +50,13 @@ const gradeOptions = [
 const privacyConsent = fill(t.fields.privacyConsentTemplate, tokens);
 const submissionSubject = fill(t.submission.subjectTemplate, tokens);
 const submissionFromName = fill(t.submission.fromNameTemplate, tokens);
+const successBody = fill(t.successBody, tokens);
+
+// Numeric tonnage per container choice for the inquiry_submit GA4 param
+// (sourced from containerCapacity, never hardcoded). "2+ containers" /
+// "Not sure yet" have no single tonnage, so the script omits the param.
+const tons20 = Math.round(company.commercial.containerCapacity.ft20.fullKg / 1000);
+const tons40 = Math.round(company.commercial.containerCapacity.ft40.fullKg / 1000);
 ---
 <form
   id={formId}
@@ -220,19 +226,36 @@ const submissionFromName = fill(t.submission.fromNameTemplate, tokens);
 
   <div>
     <button
+      id={`${formId}-submit`}
       type="submit"
-      data-event="contact_form_submit"
-      data-source-component="home-contact-form"
-      class="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2"
+      class="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-brand-primary-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
     >
-      {t.fields.submit}
+      <span data-submit-label>{t.fields.submit}</span>
+      <span data-submitting-label class="hidden">{t.fields.submitting}</span>
     </button>
+    <p
+      id={`${formId}-error`}
+      role="alert"
+      aria-live="assertive"
+      class="mt-3 hidden text-sm text-error"
+    ></p>
   </div>
 </form>
 
+<div
+  id={`${formId}-success`}
+  role="status"
+  aria-live="polite"
+  tabindex="-1"
+  class="mt-4 hidden rounded-xl border border-success bg-success/5 p-6 focus:outline-none"
+>
+  <h3 class="text-lg font-semibold text-neutral-900">{t.successHeading}</h3>
+  <p class="mt-2 text-base text-neutral-700">{successBody}</p>
+</div>
+
 <script
   is:inline
-  define:vars={{ formId }}
+  define:vars={{ formId, tons20, tons40, submitErrorMsg: t.fields.submitError }}
 >
   (function () {
     var form = document.getElementById(formId);
@@ -243,18 +266,84 @@ const submissionFromName = fill(t.submission.fromNameTemplate, tokens);
       var params = new URLSearchParams(location.search);
       var intent = params.get('intent') || '';
       if (intent) {
-        var input = form.querySelector('[data-intent-input]');
-        if (input) input.value = intent;
+        var intentInput = form.querySelector('[data-intent-input]');
+        if (intentInput) intentInput.value = intent;
       }
     } catch (_) {}
 
-    // 2. contact_form_field_focus event on each focused input.
+    // 2. Progressive enhancement: disable the native redirect and submit via
+    //    fetch so success shows IN PLACE (CLAUDE.md UX — no thank-you redirect)
+    //    and the inquiry_submit conversion fires ONLY on true success. With JS
+    //    off this block never runs, the form keeps its `redirect` value, and
+    //    Web3Forms redirects to #contact-success — so the lead is never lost.
+    var redirectInput = form.querySelector('input[name="redirect"]');
+    if (redirectInput) redirectInput.value = 'false';
+
+    var submitBtn = document.getElementById(formId + '-submit');
+    var submitLabel = submitBtn && submitBtn.querySelector('[data-submit-label]');
+    var submittingLabel = submitBtn && submitBtn.querySelector('[data-submitting-label]');
+    var errEl = document.getElementById(formId + '-error');
+    var successEl = document.getElementById(formId + '-success');
+
+    var setSubmitting = function (on) {
+      if (submitBtn) submitBtn.disabled = on;
+      if (submitLabel) submitLabel.classList.toggle('hidden', on);
+      if (submittingLabel) submittingLabel.classList.toggle('hidden', !on);
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (errEl) errEl.classList.add('hidden');
+      if (!form.reportValidity()) return; // native validation messages
+
+      setSubmitting(true);
+      fetch(form.action, { method: 'POST', body: new FormData(form) })
+        .then(function (res) {
+          // fetch does NOT reject on 4xx/5xx — inspect the parsed body.
+          return res.json().catch(function () { return {}; }).then(function (json) {
+            if (!res.ok || (json && json.success === false)) throw new Error('submit_failed');
+            return json;
+          });
+        })
+        .then(function () {
+          if (successEl) {
+            successEl.classList.remove('hidden');
+            try { successEl.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) {}
+            try { successEl.focus(); } catch (_) {}
+          }
+          form.classList.add('hidden');
+
+          // inquiry_submit conversion — fires ONLY here, on true success
+          // (CLAUDE.md § Conversion Tracking). product_category = grade;
+          // estimated_quantity_tons = numeric tons (omitted for 2+/unsure);
+          // destination_country = full country name (kept readable site-wide).
+          var grade = form.elements['grade'] ? form.elements['grade'].value : '';
+          var containers = form.elements['containers'] ? form.elements['containers'].value : '';
+          var country = form.elements['country'] ? form.elements['country'].value : '';
+          var payload = {
+            product_category: grade,
+            destination_country: country,
+            source_component: 'home-contact-form',
+          };
+          var tons = containers === '20ft' ? tons20 : containers === '40ft' ? tons40 : null;
+          if (tons != null) payload.estimated_quantity_tons = tons;
+          try { window.gtag && window.gtag('event', 'inquiry_submit', payload); } catch (_) {}
+          try { window.fbq && window.fbq('trackCustom', 'inquiry_submit', payload); } catch (_) {}
+          try { if (window.dataLayer) window.dataLayer.push(Object.assign({ event: 'inquiry_submit' }, payload)); } catch (_) {}
+        })
+        .catch(function () {
+          setSubmitting(false);
+          if (errEl) { errEl.textContent = submitErrorMsg; errEl.classList.remove('hidden'); }
+        });
+    });
+
+    // 3. contact_form_field_focus event on each focused input.
     form.addEventListener('focusin', function (e) {
-      var t = e.target;
-      if (!t || !t.name) return;
+      var target = e.target;
+      if (!target || !target.name) return;
       // Skip hidden Web3Forms fields and the honeypot.
-      if (t.type === 'hidden' || t.name === 'botcheck' || t.name === 'access_key' || t.name === 'subject' || t.name === 'from_name' || t.name === 'redirect' || t.name === 'intent') return;
-      var payload = { field: t.name, section: 'contact', source: 'home-contact-form', locale: document.documentElement.lang || 'en', viewport: window.innerWidth + 'x' + window.innerHeight, url: location.pathname };
+      if (target.type === 'hidden' || target.name === 'botcheck' || target.name === 'access_key' || target.name === 'subject' || target.name === 'from_name' || target.name === 'redirect' || target.name === 'intent') return;
+      var payload = { field: target.name, section: 'contact', source: 'home-contact-form', locale: document.documentElement.lang || 'en', viewport: window.innerWidth + 'x' + window.innerHeight, url: location.pathname };
       try { window.gtag && window.gtag('event', 'contact_form_field_focus', payload); } catch (_) {}
       try { window.fbq && window.fbq('trackCustom', 'contact_form_field_focus', payload); } catch (_) {}
     }, true);
