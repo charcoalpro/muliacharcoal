@@ -20,13 +20,15 @@ const baseChannels: Array<{
   href: string;
   iconText?: string;
   ctaLabel?: string;
+  event?: string;
+  source?: string;
 }> = [
-  { channel: 'WhatsApp chat', handle: phoneDisplay, href: waLinkFor('salesGeneral'), iconText: '💬' },
-  { channel: 'WhatsApp voice call', handle: phoneDisplay, href: waLinkFor('salesGeneral'), iconText: '📞' },
-  { channel: 'WhatsApp video call', handle: phoneDisplay, href: waLinkFor('videoCallRequest'), iconText: '🎥' },
-  { channel: 'Direct phone call', handle: phoneDisplay, href: `tel:${phoneE164}`, iconText: '☎' },
+  { channel: 'WhatsApp chat', handle: phoneDisplay, href: waLinkFor('salesGeneral'), iconText: '💬', event: 'whatsapp_click', source: 'channel-whatsapp-chat' },
+  { channel: 'WhatsApp voice call', handle: phoneDisplay, href: waLinkFor('salesGeneral'), iconText: '📞', event: 'whatsapp_click', source: 'channel-whatsapp-voice' },
+  { channel: 'WhatsApp video call', handle: phoneDisplay, href: waLinkFor('videoCallRequest'), iconText: '🎥', event: 'whatsapp_click', source: 'channel-whatsapp-video' },
+  { channel: 'Direct phone call', handle: phoneDisplay, href: `tel:${phoneE164}`, iconText: '☎', event: 'phone_click', source: 'channel-phone' },
   { channel: 'SMS', handle: phoneDisplay, href: `sms:${phoneE164}`, iconText: '✉' },
-  { channel: 'Email', handle: company.email, href: mailto('Wholesale inquiry'), iconText: '@' },
+  { channel: 'Email', handle: company.email, href: mailto('Wholesale inquiry'), iconText: '@', event: 'email_click', source: 'channel-email' },
   {
     channel: 'Inquiry form',
     handle: t.channels.anchorButton,
@@ -42,7 +44,7 @@ if (c.zoom?.schedulingUrl) optionalChannels.push({ channel: 'Zoom / Google Meet'
 if (c.wechat?.id) optionalChannels.push({ channel: 'WeChat', handle: c.wechat.id, href: `weixin://dl/chat?${c.wechat.id}`, iconText: '微' });
 if (c.telegram?.url) optionalChannels.push({ channel: 'Telegram', handle: c.telegram.handle, href: c.telegram.url, iconText: 'T' });
 if (c.messenger?.url) optionalChannels.push({ channel: 'Messenger', handle: c.messenger.handle, href: c.messenger.url, iconText: 'M' });
-if (c.botim) optionalChannels.push({ channel: 'Botim', handle: c.botim, href: `tel:${c.botim}`, iconText: 'B' });
+if (c.botim) optionalChannels.push({ channel: 'Botim', handle: c.botim, href: `tel:${c.botim}`, iconText: 'B', event: 'phone_click', source: 'channel-botim' });
 if (c.max) optionalChannels.push({ channel: 'Max', handle: c.max, href: `https://max.ru/${c.max}`, iconText: 'X' });
 if (c.line) optionalChannels.push({ channel: 'Line', handle: c.line, href: `https://line.me/ti/p/~${c.line}`, iconText: 'L' });
 if (c.viber) optionalChannels.push({ channel: 'Viber', handle: c.viber, href: `viber://chat?number=${encodeURIComponent(c.viber)}`, iconText: 'V' });
@@ -64,6 +66,8 @@ const channels = [...baseChannels, ...optionalChannels];
           href={ch.href}
           iconText={ch.iconText}
           ctaLabel={ch.ctaLabel}
+          data-event={ch.event}
+          data-source-component={ch.source}
         />
       </li>
     ))}
