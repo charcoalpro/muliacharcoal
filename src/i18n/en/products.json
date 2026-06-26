@@ -143,7 +143,7 @@
         { "key": "usa", "href": "/markets/usa", "label": "United States", "note": "25–26 mm cubes for lounges and retail; flats and fingers for HMD/kaloud users." },
         { "key": "uk", "href": "/markets/uk", "label": "United Kingdom", "note": "25–26 mm cubes are the retail standard; printed 1 kg inner boxes." },
         { "key": "saudi-arabia", "href": "/markets/saudi-arabia", "label": "Saudi Arabia & GCC", "note": "Larger 26–28 mm cubes for long lounge sessions; hexagonals for retail shelf." },
-        { "key": "germany", "href": "/markets/germany", "label": "Germany & EU", "note": "26–28 mm cubes; REACH-compliant and full export documentation." },
+        { "key": "germany", "href": "/markets/germany", "label": "Germany & EU", "note": "26–28 mm cubes; full export documentation and SDS — EU REACH registration is the importer's duty (or its appointed Only Representative)." },
         { "key": "russia", "href": "/markets/russia", "label": "Russia & CIS", "note": "22–25 mm cubes plus finger and hexagonal formats." }
       ]
     },

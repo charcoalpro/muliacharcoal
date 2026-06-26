@@ -45,7 +45,7 @@ Primary port of loading: {{port}}, {{country}}.
 
 All products are lab-tested and meet the following specifications:
 
-- Ash content: As specified per batch (typically 1.5-3%)
+- Ash content: As specified per batch (typically 1.6-2.8%)
 - Moisture content: Maximum as specified per batch
 - Burning time: As specified per batch
 - Caloric value: As specified per batch
@@ -58,7 +58,7 @@ We offer OEM and white label packaging under your brand. Custom branding require
 
 ## 8. Limitation of Liability
 
-Seller's liability is limited to the invoice value of the goods. Seller is not liable for indirect, consequential, or special damages, including lost profits. Claims must be supported by documentation and submitted within 14 days of goods arrival at destination.
+Seller's liability is limited to the invoice value of the goods. Seller is not liable for indirect, consequential, or special damages, including lost profits. Claims must be supported by documentation and submitted within 30 days of the Bill of Lading (B/L) date.
 
 ## 9. Governing Law & Disputes
 

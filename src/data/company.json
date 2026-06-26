@@ -448,7 +448,7 @@
       "palletType": "",
       "ispm15": true,
       "thermalBlanket": null,
-      "fscPaper": null
+      "fscPaper": true
     },
     "customPrint": {
       "moqUnits": "",
@@ -1027,12 +1027,12 @@
 
   "quality": {
     "specs": {
-      "ashContentPct":        { "typical": "1.6–1.9", "max": "2.0" },
-      "fixedCarbonPct":       { "typical": "75", "min": "72" },
-      "moistureContentPct":   { "typical": "6", "max": "8" },
+      "ashContentPct":        { "typical": "1.6–2.0", "max": "2.8" },
+      "fixedCarbonPct":       { "typical": "82", "min": "75" },
+      "moistureContentPct":   { "typical": "6", "max": "6" },
       "volatileMatterPct":    { "typical": "12", "max": "14" },
-      "calorificValueKcalKg": { "typical": "7500", "min": "7200" },
-      "burnTimeMinutes":      { "typical": "120", "min": "90" },
+      "calorificValueKcalKg": { "typical": "7500", "min": "7000" },
+      "burnTimeMinutes":      { "typical": "150", "min": "120" },
       "density": "",
       "ashColor": "silver-white",
       "additives": "none — no chemical additives or igniting agents",
@@ -1041,9 +1041,9 @@
     "specsLastUpdated": "2026-06-16",
     "ashGradingFramework": {
       "tiers": [
-        { "grade": "Platinum", "rangePct": "1.6–1.9", "note": "Cleanest burn — minimal tray residue and the best airflow; the premium tier for shisha use." },
-        { "grade": "Super Premium", "rangePct": "1.9–2.3", "note": "A clean, reliable burn for everyday shisha service." },
-        { "grade": "Premium", "rangePct": "2.3–2.5+", "note": "Higher residue than the upper tiers; a value option still within common quality bounds." }
+        { "grade": "Platinum", "rangePct": "1.6–2.0", "note": "Cleanest burn — minimal tray residue and the best airflow; the premium tier for shisha use." },
+        { "grade": "Super Premium", "rangePct": "2.0–2.5", "note": "A clean, reliable burn for everyday shisha service." },
+        { "grade": "Premium", "rangePct": "2.5–2.8", "note": "Higher residue than the upper tiers; a value option still within common quality bounds." }
       ],
       "factoryBand": "Platinum"
     },
