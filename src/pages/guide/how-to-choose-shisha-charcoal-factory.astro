@@ -30,6 +30,7 @@ import ExternalLink from '~/components/content/ExternalLink.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import Figure from '~/components/packaging/Figure.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import en from '~/i18n/en';
 import { company, waLinkFor, hasFact } from '~/config/company';
@@ -77,6 +78,7 @@ const tocItems = [
   { anchor: 'commercial-terms', label: t.b2.heading },
   { anchor: 'checklist', label: t.criteria.heading },
   { anchor: 'how-we-meet', label: t.b1.heading },
+  { anchor: 'devils-advocate', label: t.devilsAdvocate.tocLabel },
   { anchor: 'eu-reach', label: t.eu.heading },
   { anchor: 'questions', label: t.questionsToAsk.heading },
   { anchor: 'red-flags', label: t.redFlags.heading },
@@ -89,6 +91,7 @@ const readMinutes = readingTime(
       t.heroSubtitle,
       t.intro.p1,
       ...t.criteria.items.flatMap((c) => [c.name, c.definition, c.verify]),
+      ...t.devilsAdvocate.paragraphs,
       t.eu.body1,
       t.eu.body2,
       ...faqItems.flatMap((f) => [f.q, f.a]),
@@ -231,6 +234,8 @@ const sectionCls = 'scroll-mt-24 border-t border-neutral-200 pt-10';
         ))}
       </ul>
     </section>
+
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs} />
 
     <section id="eu-reach" aria-labelledby="eu-reach-heading" class={`mt-12 ${sectionCls}`}>
       <h2 id="eu-reach-heading" class={sectionH2}>{t.eu.heading}</h2>

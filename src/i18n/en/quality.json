@@ -99,6 +99,15 @@
     "ledgerLinkLabel": "See the full ledger of certifications held and reports provided",
     "sampleLinkLabel": "Request a sample to test the specs yourself"
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "A View from the Other Side: Isn't \"There Is No Single Standard\" Just a Way to Avoid Being Held to One?",
+    "paragraphs": [
+      "A buyer is entitled to be suspicious of any supplier who opens with \"there is no formal standard.\" In practice, that framing is sometimes a shield: with no external authority to enforce a definition, a factory can label anything \"premium,\" quote a flattering ash figure, and never be audited against it. The objection is genuinely valid whenever a quality claim is an adjective — \"clean burn,\" \"low ash,\" \"best grade\" — carrying no number, no test method, and no document a customs broker or QC lab could check.",
+      "It holds against suppliers who blur the line this page itself names — presenting a certification they merely hold (an ISO badge, a Halal mark) as if it certified the batch in the container, or quoting an ash percentage with no method and no third-party report behind it. Against that kind of seller, \"no single standard\" really does mean \"trust me.\"",
+      "This factory answers the objection by attaching a number and a method to every claim. Ash is not described as \"low\" but graded in three named bands by actual percentage — Platinum (1.6–2.0%), Super Premium (2.0–2.5%), Premium (2.5–2.8%) — with the flagship grade at a typical 1.6–2.0% ash, measured by ASTM D1762-84(2021). The rubric is openly disclaimed as the factory's own evaluation, not an ISO or industry standard, so the buyer is never misled about its status. And the numbers are not self-asserted: an independent third-party laboratory (Carsurin, Beckjorindo, or SGS) tests ash, moisture, fixed carbon, and volatile matter on every container; a Certificate of Analysis stating the measured values for that specific batch ships with each shipment; and a sample is available to test the specs before you commit. The held-versus-provided distinction — ISO 9001:2015 and Halal as standing certifications, COA and lab report as per-order proof — is kept explicit precisely because conflating them is the trick the objection warns about. \"No single standard\" is not the absence of accountability here; it is the reason the proof has to ride with the goods rather than hang on a wall."
+    ]
+  },
   "media": {
     "heading": "From the factory and the lab",
     "photos": [

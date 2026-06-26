@@ -144,7 +144,7 @@
         {
           "id": "batch-testing",
           "q": "How is each batch tested?",
-          "a": "Every production batch is tested by {{auditors}} — independent Indonesian laboratories accredited under ISO/IEC 17025. The Certificate of Analysis (COA) reports ash content, fixed carbon, volatile matter, moisture, calorific value, burn time, and the Self-Heating Test (SHT) used for IMDG classification. The COA ships with each container and is also issued with paid samples so you can verify burn specs in your own lab before committing to FCL."
+          "a": "Every container is tested before loading. Our in-house lab runs the full spec panel, and an independent third-party laboratory ({{auditors}}) verifies ash content, moisture, fixed carbon, and volatile matter on every container. We issue a Certificate of Analysis (COA) reporting the measured values — ash, fixed carbon, volatile matter, moisture, calorific value, and burn time — plus the Self-Heating Test (SHT) used for IMDG classification. The COA ships with each container and with paid samples, so you can verify the burn specs in your own lab before committing to FCL."
         },
         {
           "id": "shelf-life",
@@ -154,7 +154,7 @@
         {
           "id": "quality-guarantee",
           "q": "What happens if specs are off-target on arrival?",
-          "a": "Every shipment ships with a batch COA issued by {{auditors}} before the container loads, so spec compliance is verified at the source. If an independent re-analysis at destination shows a material deviation from the COA — for example ash content above the stated ceiling — send the destination lab report on company letterhead within 30 days of B/L date. We replace or credit at the per-ton FOB invoice value of the affected lot; we will not credit ocean freight or destination duties."
+          "a": "Every shipment ships with a batch Certificate of Analysis — backed by an independent third-party laboratory report — before the container loads, so spec compliance is verified at source. If an independent re-analysis at destination shows a material deviation from the COA — for example ash content above the stated ceiling — send the destination lab report on company letterhead within 30 days of B/L date. We replace or credit at the per-ton FOB invoice value of the affected lot; we will not credit ocean freight or destination duties."
         },
         {
           "id": "natural-vs-quicklight",

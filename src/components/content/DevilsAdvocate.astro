@@ -1,0 +1,21 @@
+---
+/**
+ * DevilsAdvocate — the "A View from the Other Side" counter-argument section
+ * (audit framework rule 7). Renders one H2 + N body paragraphs in the same
+ * section styling every cluster/guide page already uses, with an anchor id so
+ * it can join the page TOC. Content (heading + paragraphs) comes from i18n;
+ * the component holds no facts. Place it AFTER the section that proves the
+ * page's main thesis.
+ */
+interface Props {
+  id?: string;
+  heading: string;
+  paragraphs: string[];
+  class?: string;
+}
+const { id = 'devils-advocate', heading, paragraphs, class: className = '' } = Astro.props;
+---
+<section id={id} aria-labelledby={`${id}-heading`} class={`mt-12 scroll-mt-24 border-t border-neutral-200 pt-10 ${className}`}>
+  <h2 id={`${id}-heading`} class="text-2xl font-bold text-neutral-900 md:text-3xl">{heading}</h2>
+  {paragraphs.map((p) => <p class="mt-4 text-neutral-700 leading-relaxed">{p}</p>)}
+</section>

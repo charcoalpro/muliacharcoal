@@ -214,6 +214,14 @@
       "linkLabel": "White-label pricing in depth"
     }
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "A View from the Other Side: Is Shipping Neutral Packaging a False Economy?",
+    "paragraphs": [
+      "The strongest case against neutral packaging is a real one: in shisha retail, the box is the brand. An importer who lands an unbranded container saves on print setup but inherits a commodity product — indistinguishable on a lounge shelf, easy to undercut on price, and impossible to build repeat demand around. By this view, \"neutral to save time and cost\" is a false economy that trades a one-time print fee for a permanent margin ceiling. This holds when your end channel is branded retail — a buyer selling into shops and distributors who never re-boxes the product is right to print from day one.",
+      "Where it does not hold is everywhere else, and the page's own facts carry the rebuttal. Neutral here is not lower-spec: it ships in the same three-layer system — heat-sealed inner plastic, inner box, corrugated master carton — with the same moisture protection and the same mandatory {{unNumber}} / Class {{unClass}} dangerous-goods, country-of-origin, and net-weight markings as a branded carton. The only thing neutral omits is your logo, at no printing surcharge and no minimum beyond the standard {{moqLabel}} MOQ. For cafés, lounges, and bulk buyers who re-box into their own retail packaging, paying for print twice is the false economy. And neutral is not a dead end: because white-label runs from buyer-supplied artwork with a die-line we provide and artwork kept on file, a buyer can validate the product on a neutral first container and switch to fully branded on the repeat order — same factory, same spec, a {{repeatBrandLeadTime}}-day repeat lead time once artwork is approved. The right answer is set by your sales channel, not by a blanket rule that branded always beats neutral."
+    ]
+  },
   "compliance": {
     "h2": "Compliance, shipping & retail markings",
     "mandatory": {

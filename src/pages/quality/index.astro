@@ -24,6 +24,7 @@ import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
 import PhotoGrid from '~/components/packaging/PhotoGrid.astro';
@@ -129,6 +130,7 @@ const proseForReadTime = fill(
     t.specs.intro,
     ...children.flatMap((c) => [c.copy.definition, ...c.copy.facts]),
     t.prove.body1, t.prove.body2,
+    ...t.devilsAdvocate.paragraphs,
     ...t.faq.items.flatMap((f) => [f.q, f.a]),
   ].join(' '),
   tokens,
@@ -376,6 +378,11 @@ const mediaPhotos = t.media.photos.map((p) => ({ alt: fill(p.alt, tokens), capti
       </p>
     </div>
   </section>
+
+  {/* Devil's Advocate — counter-argument to the "no single standard" thesis. */}
+  <div class="mx-auto max-w-5xl px-4 md:px-8">
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs} />
+  </div>
 
   {/* Hub-canonical FAQ — schema is in the page @graph, so no second FAQPage. */}
   <section aria-labelledby="quality-faq" class="border-t border-neutral-200 bg-neutral-50">

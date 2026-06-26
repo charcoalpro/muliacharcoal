@@ -18,6 +18,7 @@ import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import Figure from '~/components/packaging/Figure.astro';
 import SpecsTable from '~/components/content/SpecsTable.astro';
@@ -51,7 +52,7 @@ const schema = factoryClusterPageSchema({
 });
 
 const proseForReadTime = fill(
-  [t.heroSubtitle, t.tldr.body, t.intro.p1, t.sourcing.body, t.verticalIntegration.body, t.sustainability.body, f.sourcingAshNarrative, f.laborStatement, ...t.faq.items.flatMap((q) => [q.q, q.a])].join(' '),
+  [t.heroSubtitle, t.tldr.body, t.intro.p1, t.sourcing.body, t.verticalIntegration.body, t.sustainability.body, f.sourcingAshNarrative, ...t.devilsAdvocate.paragraphs, f.laborStatement, ...t.faq.items.flatMap((q) => [q.q, q.a])].join(' '),
   tokens,
 );
 const readMinutes = readingTime(proseForReadTime);
@@ -148,6 +149,8 @@ const readMinutes = readingTime(proseForReadTime);
         <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="raw-materials-comparison-quality">{t.comparison.qualityLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
       </p>
     </section>
+
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs.map((p) => fill(p, tokens))} />
 
     {hasFact(f.laborStatement) && (
       <section id="labor" aria-labelledby="labor-heading" class="mt-12 scroll-mt-24">

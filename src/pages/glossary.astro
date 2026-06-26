@@ -38,6 +38,10 @@ const tokens = {
   ...companyTokens(company),
   termCount: t.terms.length,
   paymentTerms: company.commercial.paymentTerms,
+  // HS classification — single-sourced from commercial.hsCode (4402.20 primary).
+  hsCode: company.commercial.hsCode ?? '',
+  // Halal certifying body — single-sourced from certifications.halal.
+  halalBody: company.certifications.halal?.body ?? '',
   // Lab test-method designations — single-sourced from company.quality.testing
   // (same SSoT rule). An empty string renders the definition without naming a
   // standard (e.g. moisture), so a definition never prints a stray "{{token}}".

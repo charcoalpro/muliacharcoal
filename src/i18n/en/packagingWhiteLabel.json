@@ -140,6 +140,14 @@
     "p1": "A private label turns a commodity into your brand. Instead of reselling anonymous charcoal, you build brand equity, earn repeat customers who ask for your name, differentiate on packaging and positioning, and control how the product is presented in your market.",
     "p2": "These are durable, qualitative advantages — brand recognition compounds with every container — and they are the reason most serious importers move from neutral to branded once volume is established."
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "Should you just stay with neutral packaging instead?",
+    "paragraphs": [
+      "The honest counter-argument: branding is not free. A private label adds a per-design custom-print minimum on top of the order MOQ, print and finish add-ons on top of the charcoal FOB price, and extra lead time for proofing and sampling — about {{newBrandLeadTime}} days on a first order versus shipping neutral stock you can reorder immediately. For a trader who competes purely on landed price, or who is still testing whether the charcoal sells in their market, neutral packaging is the rational choice, and that view genuinely holds at low volume and on the very first shipment.",
+      "It stops holding once you intend to reorder. The custom-print minimum is framed per printed design — not per container — and a single branded container is fine, with no recurring commitment, so the entry cost is one run, not a standing obligation. Your artwork is exclusive to you and held on file with the plates, so reorders skip design and proofing and ship in about {{repeatBrandLeadTime}} days rather than {{newBrandLeadTime}}. The added cost is the printing add-on, quoted on top of the same charcoal price you would pay neutral — you are not buying a different product, only your name on it. Neutral wins the first test order; branded wins every container after the brand starts pulling repeat demand."
+    ]
+  },
   "howToStart": {
     "h2": "How to start your own brand",
     "intro": "Seven steps from first contact to a branded container:",

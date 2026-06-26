@@ -22,6 +22,7 @@ import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import Figure from '~/components/packaging/Figure.astro';
 import ProcessSteps from '~/components/factory/ProcessSteps.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import en from '~/i18n/en';
 import { pillarCrumb } from '~/lib/breadcrumb';
 import { company, waLinkFor } from '~/config/company';
@@ -73,6 +74,8 @@ const proseForReadTime = fill(
     t.qc.body,
     ...qcSteps.map((s) => s.checks),
     t.developToSpec.body,
+    t.devilsAdvocate.h2,
+    ...t.devilsAdvocate.paragraphs,
     ...t.faq.items.flatMap((q) => [q.q, q.a]),
   ].join(' '),
   tokens,
@@ -178,6 +181,8 @@ const readMinutes = readingTime(proseForReadTime);
         <MaybeLink href="/quality/testing-methods" class="font-semibold" data-source-component="production-process-qc-quality">{t.qc.coaLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
       </p>
     </section>
+
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs.map((p) => fill(p, tokens))} />
 
     {/* Develop-to-spec (gated). */}
     {f.developToSpec && (

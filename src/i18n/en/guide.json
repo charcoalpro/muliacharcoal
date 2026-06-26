@@ -41,6 +41,15 @@
       "moqNoteLink": "wholesale buyer FAQ",
       "moqNotePost": "for payment terms, lead time and Incoterms."
     },
+    "devilsAdvocate": {
+      "tocLabel": "A view from the other side",
+      "h2": "A View from the Other Side: Does the Material Even Matter, or Just the Factory?",
+      "paragraphs": [
+        "A seasoned importer will tell you the material decision is a non-decision: every credible shisha supplier already sells coconut shell charcoal, so comparing coconut against bamboo or wood is academic. By that logic the only variable worth your time is the factory — price, capacity, documentation and consistency — and a buyer's guide that spends a whole sub-guide on raw materials is solving a problem the market already solved.",
+        "For a buyer who has already committed to coconut and is re-sourcing, this is largely correct: the material is fixed, and the entire decision collapses onto the supplier checklist — third-party COA per batch, UN 1361 dangerous-goods compliance, capacity and a tested sample. For that buyer, the factory section is the guide.",
+        "But the claim assumes \"coconut\" is one thing. It is not. The same material spans real ranges — across our three grades alone, ash runs the published band and fixed carbon and calorific value shift grade to grade — and an under-carbonized coconut briquette loses most of its advantage. \"Material\" is not just coconut-vs-bamboo; it is which coconut spec, proven to a named method (ASTM D1762-84(2021)). And the costliest material mistake is not bamboo — it is accepting quick-light or chemically treated coals, which a peer-reviewed study found produce roughly twice the carbon monoxide of natural charcoal. That is a material decision with a safety consequence, and no amount of supplier diligence substitutes for getting it right. So the thesis stands, with a sharpened edge: the material decision is real, but for most buyers it is decided inside the factory question — by reading the COA, not by choosing a feedstock."
+      ]
+    },
     "children": {
       "heading": "The guides",
       "compare": {
@@ -222,6 +231,15 @@
         "rawMaterialsLinkLabel": "Our coconut shell raw materials"
       }
     },
+    "devilsAdvocate": {
+      "tocLabel": "A view from the other side",
+      "h2": "A View from the Other Side: Is Bamboo Charcoal the Smarter Choice?",
+      "paragraphs": [
+        "A buyer optimizing purely for energy and sustainability can make a real case for high-temperature bamboo charcoal. Carbonized at 750 °C, bamboo reaches roughly 66–67% fixed carbon and 24.4–29.2 MJ/kg — overlapping coconut's own range — and burns clean with low smoke. On the green-sourcing axis bamboo has a real argument too: it is a fast-renewing crop, whereas coconut's sustainability case rests on valorizing a by-product — shells that would otherwise be waste — not on renewal speed. And coconut is not free of drawbacks: it costs more, and loses much of its advantage if it is under-carbonized.",
+        "This holds for a specific buyer: one whose spec sheet weights calorific value and renewable-feedstock messaging above all else, and who can source bamboo carbonized consistently at high temperature. For them the gap on raw energy narrows to almost nothing, and bamboo's renewability story is legitimate.",
+        "But the case fails on consistency and on the three properties that actually decide shisha performance. Bamboo's quality is sharply temperature-dependent — drop the carbonization temperature and fixed carbon collapses to 10–18%, and at a given temperature bamboo tends to carry higher ash than wood. Coconut shell briquettes, by contrast, are pressed to a controlled density and shape, delivering low ash (1.6–2.8% across our grades), a long even burn, and a neutral taste from low volatile matter — reproducibly, because the briquette is engineered to a fixed density rather than left to the variability of feedstock and kiln temperature. Energy parity is real; reproducible low-ash, high-density, neutral-tasting coals are what a lounge actually buys, and that is where coconut still wins."
+      ]
+    },
     "faq": {
       "heading": "Coconut vs bamboo vs wood — FAQ",
       "items": [
@@ -235,7 +253,7 @@
         },
         {
           "q": "Is bamboo charcoal higher in calorific value than coconut?",
-          "a": "No — they overlap. High-temperature bamboo charcoal runs about 24.4–29.2 MJ/kg and coconut shell charcoal about 28–32 MJ/kg, so the two are comparable. The decisive differences for shisha are ash, density and taste, not calorific value."
+          "a": "No — they overlap. High-temperature bamboo charcoal runs about 24.4–29.2 MJ/kg and coconut shell charcoal about 29–31 MJ/kg, so the two are comparable. The decisive differences for shisha are ash, density and taste, not calorific value."
         }
       ]
     },
@@ -396,6 +414,14 @@
         "href": "/samples",
         "linkLabel": "Request a sample"
       }
+    },
+    "devilsAdvocate": {
+      "tocLabel": "A view from the other side",
+      "h2": "A View from the Other Side: Is Full Due Diligence Overkill for a First Order?",
+      "paragraphs": [
+        "The strongest argument against this checklist is speed and cost. A buyer placing a single trial container can reasonably say that demanding a third-party COA, a UN N.4 self-heating report, a capacity audit and a signed Incoterms sheet — before a relationship even exists — adds weeks and fees to what is meant to be a low-stakes test. Many small importers do skip most of it, order one container on a photo and a price, and accept the risk. For a one-time buyer who never reorders, that shortcut sometimes works.",
+        "It stops working the moment you intend to reorder or resell under your own name — which is the entire premise of wholesale. The checklist is not a wall in front of the first order; it is sequenced to fit inside it. A sample ships before any container commitment, so you test ash, density and burn for the price of courier — not a container. Dangerous-goods compliance is non-negotiable regardless of order size: since IMDG Amendment 42-24 the self-heating test no longer exempts charcoal, so a supplier who cannot produce a DG declaration cannot legally load your cargo, trial or not. And the proof that costs the buyer the most to gather — DG paperwork, ISO 9001:2015, audited carriers, a per-batch COA — is documentation a serious factory already holds and hands over at no added lead time. Here that compliance was adopted voluntarily a year ahead of the 2026 mandate. The due diligence you skip on order one is the inconsistency you discover on order three, when the brand on the box is yours."
+      ]
     },
     "eu": {
       "heading": "EU buyers: REACH & CLP in brief",

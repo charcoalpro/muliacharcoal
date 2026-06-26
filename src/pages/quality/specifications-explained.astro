@@ -14,6 +14,7 @@ import Breadcrumbs from '~/components/layout/Breadcrumbs.astro';
 import HeroSection from '~/components/content/HeroSection.astro';
 import ArticleMeta from '~/components/content/ArticleMeta.astro';
 import MaybeLink from '~/components/content/MaybeLink.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import KeyFactsBox from '~/components/packaging/KeyFactsBox.astro';
@@ -71,6 +72,7 @@ const proseForReadTime = fill(
     t.heroSubtitle,
     ...tierA.concat(tierB).flatMap((p) => [t.params[p.key].body, t.params[p.key].goodValue]),
     t.readingCoa.body,
+    ...t.devilsAdvocate.paragraphs,
     ...t.faq.items.flatMap((f) => [f.q, f.a]),
   ].join(' '),
   tokens,
@@ -177,6 +179,8 @@ const readMinutes = readingTime(proseForReadTime);
         <MaybeLink href="/quality/testing-methods" class="font-semibold" data-source-component="specs-coa-testing">{t.readingCoa.procedureLinkLabel}</MaybeLink>.
       </p>
     </section>
+
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs} />
 
     <section aria-labelledby="specs-faq" class="mt-14">
       <FAQSection id="specs-faq" heading={t.faq.heading} items={faqItems} />

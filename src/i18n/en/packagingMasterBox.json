@@ -117,6 +117,15 @@
       { "alt": "Neutral plain kraft coconut charcoal master box", "caption": "Neutral carton: plain kraft, compliance markings only." }
     ]
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "A View from the Other Side: Isn't a Neutral, Unbranded Carton a False Economy?",
+    "paragraphs": [
+      "The hardest counter from an experienced importer runs like this: a plain kraft carton is a false economy. Retail buyers and distributors judge a brand partly by how its master cartons present on the warehouse floor, and a brown, label-only box reads as a no-name commodity that weakens shelf and re-order pull. Worse, a vendor who cannot publish an ECT rating, burst figure, or outer dimension is asking you to trust that the box is strong enough — on a Class 4.2 spontaneous-combustion cargo that sits four to eight weeks at sea. \"Confirmed with the quote\" is not a spec.",
+      "Part of this holds. The presentation point is fair for buyers selling into branded retail channels, where the master carton is part of how the brand shows up at the distributor. And the spec-transparency point is fair on its face: at present this page publishes no carton-strength number, because those fields are not yet filled in our source data. A buyer who needs the ECT figure to satisfy their own insurer or carrier is right to ask for it before booking, not after.",
+      "But neutral is neither unprotected nor unmarked. The protective layer is the carton's construction — corrugated kraft, single- or double-wall — which is identical whether the box is printed or plain; branding is print on the outside and changes nothing structural. And a neutral carton is not blank: every export box, neutral or branded alike, still carries the UN 1361 / Class 4.2 dangerous-goods marking, the country of origin, net weight, and a lot code, all of which carriers verify before accepting the booking. The compliance floor is the same. Because branding is decoupled from configuration, neutral versus branded is a free choice rather than a quality tier: a buyer who wants warehouse-floor presence brands the carton, while a buyer who wants the fastest, surcharge-free turnaround takes neutral — or applies printed box labels as a lower-cost branding step on a plain carton. None of these change how the box survives the container. The transparency objection is answered by quoting, not hiding: strength is specified per box size and wall type and confirmed with the order, and a buyer can request the ECT, burst, and dimension figures before booking, then request a physical sample master box through the proof-and-sample flow to verify carton quality first-hand rather than on a published sheet. In short, the presentation argument is a reason some buyers choose branded — which this factory fully supports — not a reason neutral is inferior protection or inferior compliance."
+    ]
+  },
   "faq": {
     "heading": "Master-box FAQ",
     "items": [

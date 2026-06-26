@@ -201,7 +201,7 @@
       "slug": "pieces-per-kg",
       "term": "Pieces per kg",
       "cluster": "products",
-      "definitionTemplate": "Pieces per kg is the count of individual briquettes contained in one kilogram of finished product — a derived figure that depends on edge length, density, and packing. For coconut-shell briquettes at a target density near 1 g/cm³, a 25 mm cube yields roughly 64 pieces per kg; a 22 × 22 × 26 mm cube yields roughly 80 pieces per kg. The exact pieces-per-kg is recorded on the master-box label so customs and retail audits reconcile to weight."
+      "definitionTemplate": "Pieces per kg is the count of individual briquettes contained in one kilogram of finished product — a derived figure that depends on edge length, density, and packing. For coconut-shell briquettes at a target density near 1 g/cm³, a 25 mm cube yields roughly 96 pieces per kg, while a larger 28 mm cube yields roughly 70 pieces per kg. The exact pieces-per-kg is recorded on the master-box label so customs and retail audits reconcile to weight."
     },
     {
       "slug": "hexagonal-briquette",
@@ -468,11 +468,11 @@
       "definitionTemplate": "An HS code (Harmonized System code) is the World Customs Organization classification number that customs authorities worldwide use to identify a traded product and set its import duty. The HS is a six-digit international base shared by more than 200 countries; each destination then extends it nationally — the United States to a ten-digit HTS (Harmonized Tariff Schedule) code, the European Union to a ten-digit TARIC code. Duty rate, free-trade-agreement eligibility, and any import controls are all looked up against this number; the specific code under which coconut-shell charcoal is declared is defined separately."
     },
     {
-      "slug": "hs-code-4402-90",
-      "term": "HS code 4402.90",
-      "termCode": "HS 4402.90",
+      "slug": "hs-code-4402-20",
+      "term": "HS code 4402.20",
+      "termCode": "HS 4402.20",
       "cluster": "docs",
-      "definitionTemplate": "4402.90 is the World Customs Organization Harmonized System code for \"Wood charcoal (including shell or nut charcoal), whether or not agglomerated, other than wood charcoal of bamboo\". It is the code under which coconut-shell charcoal briquettes are declared on every export invoice and import customs entry. Destination duty rates and FTA eligibility are looked up against this code."
+      "definitionTemplate": "{{hsCode}} is the World Customs Organization Harmonized System subheading for wood charcoal \"of shells or nuts\" — the most specific and correct code for coconut-shell charcoal briquettes, and the code we declare on every export invoice and import customs entry. The residual subheading 4402.90 (\"other\") is sometimes declared in practice but mis-signals a generic wood-derived product; under General Rule of Interpretation 3(a) the more specific {{hsCode}} takes precedence, so declaring 4402.90 instead raises the destination customs-inspection risk even where the duty rate is identical. Destination duty rates and FTA eligibility are looked up against this code; confirm the exact national tariff line with your customs broker."
     },
     {
       "slug": "coa-roa",
@@ -515,7 +515,7 @@
       "slug": "halal-mui-bpjph",
       "term": "Halal MUI / BPJPH",
       "cluster": "indonesia",
-      "definitionTemplate": "Halal certification in Indonesia is issued by BPJPH (Badan Penyelenggara Jaminan Produk Halal), the body that took over from MUI's LPPOM under Indonesia's 2014 Halal Product Assurance Law. Coconut shell charcoal contains no animal-derived ingredients, so the certification is typically not requested by buyers, but we will obtain it on a per-order basis where the destination market mandates it.",
+      "definitionTemplate": "Halal certification in Indonesia is issued by BPJPH (Badan Penyelenggara Jaminan Produk Halal), the body that took over from MUI's LPPOM under Indonesia's 2014 Halal Product Assurance Law. Coconut shell charcoal contains no animal-derived ingredients; {{brand}} nonetheless holds Halal certification issued by {{halalBody}}, provided for destination markets that require it.",
       "see": { "href": "/quality/certifications", "label": "Our certifications" }
     },
 

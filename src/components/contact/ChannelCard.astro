@@ -20,9 +20,21 @@ interface Props {
   iconText?: string;
   /** Override the default "Open in {channel}" CTA label. */
   ctaLabel?: string;
+  /** Forwarded as `data-event` for analytics tagging. */
+  'data-event'?: string;
+  /** Forwarded as `data-source-component` for analytics tagging. */
+  'data-source-component'?: string;
 }
 
-const { channel, handle, href, iconText, ctaLabel } = Astro.props;
+const {
+  channel,
+  handle,
+  href,
+  iconText,
+  ctaLabel,
+  'data-event': dataEvent,
+  'data-source-component': dataSourceComponent,
+} = Astro.props;
 
 const isExternal = /^https?:\/\//.test(href);
 const label = ctaLabel ?? fill(en.contact.channels.openIn, { channel });
@@ -42,6 +54,8 @@ const label = ctaLabel ?? fill(en.contact.channels.openIn, { channel });
     href={href}
     target={isExternal ? '_blank' : undefined}
     rel={isExternal ? 'noopener noreferrer' : undefined}
+    data-event={dataEvent}
+    data-source-component={dataSourceComponent}
     class="mt-auto inline-flex items-center justify-center rounded-md border border-neutral-300 px-4 py-2 pt-3 text-sm font-semibold text-neutral-800 transition-colors hover:border-brand-primary hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brand-primary"
   >
     {label}

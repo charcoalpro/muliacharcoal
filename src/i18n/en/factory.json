@@ -128,6 +128,16 @@
     "antiFraudNote": "We are a registered Indonesian manufacturer (NIB {{nib}}, NPWP {{taxId}}). Payments are made only to our registered corporate account, shown on the proforma invoice — never to a personal account.",
     "trackRecordTemplate": "Exporting coconut shisha charcoal since {{year}}."
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "Isn't it safer to buy through a trading company?",
+    "paragraphs": [
+      "It's a fair question. Trading houses exist because they can lower the risk of a first import — and for some buyers, on some deals, that trade-off is real. Here's when it holds, and why buying direct from this factory still removes the risks that matter most.",
+      "A reputable trading company can consolidate several factories' output, carry inventory closer to your market, extend credit terms, and absorb a bad batch without you ever seeing it. For a buyer placing a first, sub-container trial across multiple product types, that convenience can outweigh the margin a middleman takes.",
+      "But that convenience costs you the two things a wholesale charcoal buyer needs most: price transparency and quality control. A trader sets your price on top of ours and rarely names the real factory, so you can't audit who made your coal or hold anyone accountable for a burn or ash failure. Buying direct from {{legalName}} closes that gap: you deal with the registered manufacturer (NIB {{nib}}, NPWP {{taxId}}), pay only into our corporate account shown on the proforma invoice, and can appoint SGS, Intertek, or BV for pre-shipment inspection at our factory before the container ships. At {{capacityMonth}} tons a month, one 20ft container is roughly {{oneContainerPctOfMonthly}}% of our output — so you get a single factory's consistent spec, batch after batch, instead of a trader's blended supply, and you are never deprioritized behind larger orders.",
+      "Where a trader still wins is multi-product consolidation or local stock-and-credit — neither of which a single-product factory offers. If your need is consistent, audit-traceable coconut shisha charcoal at container scale, direct is the lower-risk route."
+    ]
+  },
   "gallery": {
     "heading": "Inside the factory",
     "intro": "Photographs from the production floor — carbonization, milling, pressing, drying, and the QC bench. Professional photography is in progress; placeholders are shown until the shoot lands.",

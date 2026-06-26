@@ -28,6 +28,7 @@ import ExternalLink from '~/components/content/ExternalLink.astro';
 import SpecsTable from '~/components/content/SpecsTable.astro';
 import Figure from '~/components/packaging/Figure.astro';
 import FAQSection from '~/components/content/FAQSection.astro';
+import DevilsAdvocate from '~/components/content/DevilsAdvocate.astro';
 import CTABanner from '~/components/cta/CTABanner.astro';
 import en from '~/i18n/en';
 import { company, waLinkFor } from '~/config/company';
@@ -83,6 +84,7 @@ const tocItems = [
   { anchor: 'bamboo', label: t.sections.bamboo.h2 },
   { anchor: 'wood', label: t.sections.wood.h2 },
   { anchor: 'why-coconut', label: t.sections.whyCoconut.h2 },
+  { anchor: 'devils-advocate', label: t.devilsAdvocate.tocLabel },
   { anchor: 'combustion', label: t.sections.combustion.h2 },
   { anchor: 'sustainability', label: t.sections.sustainability.h2 },
   { anchor: 'faq', label: t.faq.heading },
@@ -95,6 +97,7 @@ const readMinutes = readingTime(
       t.intro.p1,
       t.intro.p2,
       ...Object.values(t.sections).flatMap((s: any) => [s.h2, s.body, s.body1, s.body2].filter(Boolean)),
+      ...t.devilsAdvocate.paragraphs,
       ...faqItems.flatMap((f) => [f.q, f.a]),
     ].join(' '),
     tokens,
@@ -245,6 +248,8 @@ const sectionCls = 'scroll-mt-24 border-t border-neutral-200 pt-10';
         <MaybeLink href="/quality/specifications-explained" class="font-semibold" data-source-component="guide-compare-specs">{t.sections.whyCoconut.specsLinkLabel} <span aria-hidden="true">→</span></MaybeLink>
       </p>
     </section>
+
+    <DevilsAdvocate id="devils-advocate" heading={t.devilsAdvocate.h2} paragraphs={t.devilsAdvocate.paragraphs} />
 
     <section id="combustion" aria-labelledby="combustion-heading" class={`mt-12 ${sectionCls}`}>
       <h2 id="combustion-heading" class={sectionH2}>{t.sections.combustion.h2}</h2>

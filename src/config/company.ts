@@ -351,7 +351,7 @@ export interface LogisticsConfig {
   /** hq40Available + per-shape note; tonnage derives from commercial.containerCapacity. */
   containers: { hq40Available: boolean | null; perShapeYieldNote: string };
   lcl: { available: boolean | null; marketsServed: string[]; minTons: string | number };
-  /** Incoterms offered; default reads commercial.portOfLoading.incoterm. No CIF (v3.3). */
+  /** Incoterms offered; default reads commercial.portOfLoading.incoterm. CIF available on request. */
   incoterms: string[];
   /** Reserved structured breakdown; pages render commercial.paymentTerms prose. */
   payment: { methods: string[]; currencies: string[]; downPaymentPct: string | number; balanceTrigger: string };
@@ -418,7 +418,7 @@ export interface LogisticsConfig {
 
   // — cargo protection & insurance (new node) —
   insurance: {
-    arrangedBy: string; // 'buyer' — EXW/FOB/CFR include no seller cover; no CIF
+    arrangedBy: string; // 'buyer' default — EXW/FOB/CFR include no seller cover; CIF marine cover available on request
     basis: string;
     coverage: string[]; // external perils ONLY
     exclusions: string[]; // includes self-heating / inherent vice — NEVER claim it is covered

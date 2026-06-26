@@ -208,15 +208,24 @@ export function initInquiryForm(form: HTMLFormElement, config: InquirySubmitConf
       // Conversion event. Fire on GA4 + Meta Pixel directly via track()
       // (this site loads gtag.js + fbq, not a GTM container), and also push
       // to dataLayer so any GTM container present still receives it.
-      const eventParams = {
+      // estimated_quantity_tons must be a NUMBER so GA4 can sum/average it
+      // (CLAUDE.md § Conversion Tracking). The volume <select> stores
+      // human-readable labels ("1 × 20ft container (approx. 18 tons)"), so
+      // parse the tonnage out; options with no fixed tonnage ("Monthly
+      // contract", "Trial / sample only") omit the param rather than send a
+      // misleading 0. The readable label still reaches the sales team via the
+      // posted `volume` field in the Web3Forms email.
+      const volumeLabel = field<HTMLSelectElement>('volume')?.value ?? '';
+      const tonsMatch = volumeLabel.match(/(\d+)\s*tons?/i);
+      const eventParams: Record<string, unknown> = {
         product_category: Array.from(
           form.querySelectorAll<HTMLInputElement>('input[name="products[]"]:checked'),
         )
           .map((i) => i.value)
           .join(','),
-        estimated_quantity_tons: field<HTMLSelectElement>('volume')?.value ?? '',
         destination_country: field<HTMLSelectElement>('country')?.value ?? '',
       };
+      if (tonsMatch) eventParams.estimated_quantity_tons = Number(tonsMatch[1]);
       track('inquiry_submit', eventParams);
       const w = window as GtmWindow;
       if (w.dataLayer) {

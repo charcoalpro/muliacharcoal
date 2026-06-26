@@ -99,6 +99,15 @@
       }
     ]
   },
+  "devilsAdvocate": {
+    "tocLabel": "A view from the other side",
+    "h2": "A View from the Other Side: Is a Clean Self-Heating Test Enough to Skip Declared DG?",
+    "paragraphs": [
+      "The honest counterargument runs like this: coconut shell charcoal, properly weathered, is a low-energy fuel that has shipped for decades, and a passing UN N.4 self-heating test demonstrates the specific cargo does not self-heat under the test regime. From that view, full Class 4.2 carriage — with its DG premium, IMO surcharge, DG handling fee, and the payload lost to ≥ 30 cm of headspace and stowage limits — looks like blanket regulation penalizing well-made charcoal for the failures of badly weathered, badly stowed product. A cost-focused importer can reasonably ask why a clean N.4 result no longer buys an exemption.",
+      "Where the objection genuinely holds: the test result is real evidence, and the cost is real — a compliant container does carry less than a brim-full one, and the surcharges are not trivial. We do not dispute either.",
+      "Where it fails, on the facts: since IMDG Amendment 42-24 became mandatory on {{dgMandatoryDate}}, a passing N.4 test is no longer an exemption — it is supporting evidence only. The amendment withdrew Special Provisions 925 and 223 precisely because the test-out had not stopped the fires; the controls exist because contained self-heating fires have happened, with ignition often days after loading, long after any pre-shipment test. The exposure from quoting non-DG does not sit with the supplier who quotes it — it lands on the importer, as carrier blacklisting, port-state detention, and liability if the cargo self-heats. And self-heating fire is inherent vice, which is not insurable, so a cheaper non-DG booking is not a cheaper risk — it is the same risk with the safeguard removed. The headspace and stowage payload the buyer “loses” is the margin that keeps the cargo from igniting. That is why we ship declared, every time."
+    ]
+  },
   "related": {
     "heading": "Related topics",
     "items": [

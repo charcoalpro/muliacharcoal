@@ -44,7 +44,7 @@
       },
       "audits": {
         "labelTemplate": "Audited by {{auditors}}",
-        "definition": "Carsurin and Beckjorindo are independent Indonesian testing laboratories accredited under ISO/IEC 17025. They run our quarterly burn, ash, moisture and fixed-carbon tests and issue the COA we ship with every container.",
+        "definition": "{{auditors}} are independent Indonesian inspection-and-testing laboratories. They test ash, moisture, fixed carbon, and volatile matter on every container, and the Certificate of Analysis (COA) we ship with each shipment reports those measured values so you can verify the burn specs in your own lab.",
         "learnMore": "View certifications"
       },
       "shipping": {
@@ -326,7 +326,9 @@
       "message": "Message",
       "messagePlaceholder": "Tell us your target volume, destination port and timeline.",
       "privacyConsentTemplate": "I agree that {{brand}} may contact me about my inquiry and store my details under their privacy policy.",
-      "submit": "Send inquiry"
+      "submit": "Send inquiry",
+      "submitting": "Sending…",
+      "submitError": "Something went wrong. Please try again, or message us on WhatsApp."
     }
   },
   "cta": {
@@ -352,7 +354,7 @@
       },
       {
         "q": "How long is production lead time?",
-        "a": "{{leadTimeLabel}} from receipt of the 30% T/T deposit. We schedule the booking with the shipping line in parallel so the container is ready on the agreed laycan."
+        "a": "{{leadTimeLabel}} from receipt of the 50% T/T deposit. We schedule the booking with the shipping line in parallel so the container is ready on the agreed laycan."
       },
       {
         "q": "Which shipping lines do you load with?",
